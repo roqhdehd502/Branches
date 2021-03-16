@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import edu.bit.ex.service.LoginService;
+import edu.bit.ex.vo.MemberVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,13 +16,15 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/member/*")
 public class MemberController {
 	/* @Autowired */
-//	private BoardService boardService;
+	private LoginService loginService;
 
 	// 게시글 리스트
 	@GetMapping("/login")
-	public String login(Model model) {
-		log.debug("list");
-		log.info("list..");
+	public String login(MemberVO memberVO, Model model) throws Exception {
+		log.debug("login");
+		log.info("login..");
+		model.addAttribute("loginDummy", loginService.getLogin(memberVO.getBoard_id()));
+
 		return "member/login";
 	}
 }

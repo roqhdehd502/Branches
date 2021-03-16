@@ -22,6 +22,7 @@
   			<div class="container">
 				<div align="center"><img src="<c:url value="/img/branches_text.png"/>" width="200"></div>
 				<h2 align="center">로그인</h2><br>
+				<h2>${loginDummy.board_id}</h2>
 				
 			  	<form action="#">
 					<div class="form-check" align="left">
