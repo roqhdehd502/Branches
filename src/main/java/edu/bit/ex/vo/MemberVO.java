@@ -1,7 +1,11 @@
 package edu.bit.ex.vo;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
+@Setter
+@Getter
 @ToString
 public class MemberVO {
 	private String board_id;
@@ -11,15 +15,7 @@ public class MemberVO {
 	}
 
 	public MemberVO(String board_id) {
-		super();
 		this.board_id = board_id;
 	}
 
-	public String getBoard_id() {
-		return board_id;
-	}
-
-	public void setBoard_id(String board_id) {
-		this.board_id = board_id;
-	}
 }
