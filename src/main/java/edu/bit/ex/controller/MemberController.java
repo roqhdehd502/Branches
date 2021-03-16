@@ -40,7 +40,9 @@ public class MemberController {
 	public String list(Model model) throws Exception {
 		log.debug("list");
 		log.info("list");
+
 		model.addAttribute("list", loginService.getList());
+
 		return "list";
 	}
 }
