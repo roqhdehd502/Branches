@@ -27,4 +27,20 @@ public class MemberController {
 
 		return "member/login";
 	}
+
+	@GetMapping("/test")
+	public String test(Model model) throws Exception {
+		log.debug("test");
+		log.info("test");
+		model.addAttribute("test", loginService.getId());
+		return "test";
+	}
+
+	@GetMapping("/list")
+	public String list(Model model) throws Exception {
+		log.debug("list");
+		log.info("list");
+		model.addAttribute("list", loginService.getList());
+		return "list";
+	}
 }
