@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="edu.bit.ex.mapper.BoardMapper">
+	<!-- 공지사항 게시판 리스트 -->
+	<resultMap id="boardMap" type="edu.bit.ex.vo.BoardVO">
+	    <result property="board_id" column="board_id"/>
+	    <result property="board_name" column="board_name"/>
+	    <result property="board_date" column="board_date"/>
+		<collection property="board_type_number" resultMap="boardTypeMap"></collection>
+	</resultMap>
+	
+	<resultMap id="boardTypeMap" type="edu.bit.ex.vo.BoardTypeVO">
+		<result property="board_type_number" column="board_type_number"/>
+		<result property="board_type_name" column="board_type_name"/>
+	</resultMap>
+	
+	<select id="getNoticeList" resultMap="boardMap">
+		SELECT b.board_id, b.board_name, b.board_date 
+		FROM board b, board_type t 
+		WHERE b.board_type_number = t.board_type_number AND 
+		    t.board_type_name = 'NOTICE'
+	</select>
+</mapper>
