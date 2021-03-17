@@ -158,3 +158,6 @@ Servers/
 /target/ 
 /bin/
 /.settings/
+
+# aplication.properties
+src/main/resources/application.properties
