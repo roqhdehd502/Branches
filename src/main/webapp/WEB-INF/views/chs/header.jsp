@@ -13,9 +13,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
+	<div class="container">
 	<header>
-		<div class="container-fluid" style="padding: 0;">
-		<img align="left" src="<c:url value="/img/branches_text.png"/>" width="200" height="100" style="float: left;">
+		<a href="/member/main"><img align="left" src="<c:url value="/img/branches_text.png"/>" width="200" height="100" style="float: left;"></a>
 		<!-- 검색창 ---------------------------------------->
 		<div class="col" align="center" style="clear: right; top: 40px; width: 500px; margin: auto">
 			<div class="col-lg-12">
@@ -25,7 +25,9 @@
 						<option value="">상품명</option>
 						<option value="">브랜드명</option>
 						<option value="">상품+브랜드</option>
-					</select> <input type="text" name="keyword" value="${pageMaker.cri.keyword}" /> <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+					</select> 
+					<input type="text" name="keyword" value="${pageMaker.cri.keyword}" />
+					<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
 					<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
 					<button class="btn btn-primary btn-sm">Search</button>
 				</form>
@@ -33,20 +35,20 @@
 		</div>
 		<!-- 검색창 -->
 		<!-- 장바구니 아이콘 -->
-		<div align="right" style="float: right; position: relative; right: 10px; top: 5px; margin: auto;">
-			<img src="<c:url value="/img/shopping-cart.png"/>" width="40" height="40">&nbsp;&nbsp;&nbsp;&nbsp;
+		<div align="right" style="float: right; position: relative; right: 20px; top: 5px; margin: auto;">
+			<a href="#"><img src="<c:url value="/img/shopping-cart.png"/>" width="40" height="40"></a>
 		</div>
 		<!-- 장바구니 아이콘 -->
 		<!-- 로그인 버튼 -->
-		<div align="right" style="margin: auto; position: relative; right: 40px; top: 5px;"><button class="btn btn-primary">로그인</button></div>
+		<div align="right"><button class="btn btn-primary" style="margin-right: 45px; margin-top: 5px;">로그인</button></div>
 		<!-- 로그인 버튼 -->
 
 	</div>
 	<div class="container-fluid" style="clear: both; padding: 0;" >
-	<nav class="navbar navbar-expand-md navbar-dark bg-dark" style="font-family: san-serif;">
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark" >
 		<div class="collapse navbar-collapse" id="navbarsExample04">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item dropdown col-md-2"><a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true"
+				<li class="nav-item dropdown col-md"><a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false">Outer </a>
 					<div class="dropdown-menu" aria-labelledby="dropdown04">
 						<a class="dropdown-item" href="#">Coat</a> 
@@ -56,7 +58,7 @@
 						<a class="dropdown-item" href="#">Padding</a>
 					</div></li>
 
-				<li class="nav-item dropdown col-md-2"><a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true"
+				<li class="nav-item dropdown col-md"><a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false">Top</a>
 					<div class="dropdown-menu" aria-labelledby="dropdown04">
 						<a class="dropdown-item" href="#">T-shirt</a> 
@@ -67,7 +69,7 @@
 						<a class="dropdown-item" href="#">Sleeveless</a>
 					</div></li>
 
-				<li class="nav-item dropdown col-md-2"><a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true"
+				<li class="nav-item dropdown col-md"><a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false">Bottom </a>
 					<div class="dropdown-menu" aria-labelledby="dropdown04">
 						<a class="dropdown-item" href="#">Denim</a> 
@@ -79,7 +81,7 @@
 						<a class="dropdown-item" href="#">Skirt</a>
 					</div></li>
 
-				<li class="nav-item dropdown col-md-2"><a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true"
+				<li class="nav-item dropdown col-md"><a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false">Dress </a>
 					<div class="dropdown-menu" aria-labelledby="dropdown04">
 						<a class="dropdown-item" href="#">Mini</a> 
@@ -88,7 +90,7 @@
 						 <a class="dropdown-item" href="#">Overall</a>
 					</div></li>
 
-				<li class="nav-item dropdown col-md-2"><a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true"
+				<li class="nav-item dropdown col-md"><a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false">Bag </a>
 					<div class="dropdown-menu" aria-labelledby="dropdown04">
 						<a class="dropdown-item" href="#">Backpack</a> 
@@ -98,7 +100,7 @@
 						<a class="dropdown-item" href="#">Clutch</a>
 					</div></li>
 
-				<li class="nav-item dropdown col-md-2"><a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true"
+				<li class="nav-item dropdown col-md"><a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false">Shoes </a>
 					<div class="dropdown-menu" aria-labelledby="dropdown04">
 						<a class="dropdown-item" href="#">Shoes</a> 
@@ -125,6 +127,7 @@
 				</form> -->
 			</div>
 		</nav>
+	</header>
 	</div>
 </body>
 </html>

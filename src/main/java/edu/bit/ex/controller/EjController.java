@@ -15,21 +15,20 @@ import lombok.extern.slf4j.Slf4j;
 public class EjController {
 	/* @Autowired */
 
-	// 게시글 리스트
-	@GetMapping("/login2")
-	public String login(Model model) throws Exception {
-		log.debug("login");
-		log.info("login..");
-
-		return "ej/login2";
-	}
-
 	@GetMapping("/prd")
 	public String ProductDetail(Model model) throws Exception {
 		log.debug("product");
 		log.info("product..");
 
 		return "ej/productDetail";
+	}
+
+	@GetMapping("/main")
+	public String Main(Model model) throws Exception {
+		log.debug("product");
+		log.info("product..");
+
+		return "ej/main";
 	}
 
 }
