@@ -91,7 +91,8 @@
 				</div>
 
 				<!-- 상품 상세 이미지 -->
-				<div class="left-container"> <!-- 사진 슬라이딩 처리 -->
+				<div class="left-container">
+					<!-- 사진 슬라이딩 처리 -->
 					<div style="float: left; margin-right: 20px;">
 						<img src="https://image.msscdn.net/images/goods_img/20200820/1557658/1557658_2_500.jpg" />
 					</div>
@@ -99,33 +100,31 @@
 
 				<!--  상품 정보와 옵션 선택 -->
 				<div class="row">
-					<div class="contrainer single-service bordered "  style="height:600px; width:500px; ">
+					<div class="contrainer single-service bordered " style="height: 600px; width: 500px;">
 						<div class="inner">
 							<h4>thisisneverthat</h4>
-							<h4>INTL. Logo Crewneck </h4>
+							<h4>INTL. Logo Crewneck</h4>
 							<h4>44,400원</h4>
 							<hr>
 
 							<!-- 색상 옵션	 -->
 							<div class="form-group">
-								<label for="colorSelect" class="col-sm-2 col-form-label">Color</label>
-									<select class="form-control" id="colorSelect">
-										<option value="">gray</option>
-										<option value="">blcak</option>
-										<option value="">white</option>
-										<option value="">green</option>
-									</select>
+								<label for="colorSelect" class="col-sm-2 col-form-label">Color</label> <select class="form-control" id="colorSelect">
+									<option value="">gray</option>
+									<option value="">blcak</option>
+									<option value="">white</option>
+									<option value="">green</option>
+								</select>
 							</div>
-							
+
 							<!-- 사이즈 옵션 -->
 							<div class="form-group">
-								<label for="sizeSelect" class="col-sm-2 col-form-label">Size</label>
-									<select class="form-control" id="sizeSelect">
-										<option value="">S</option>
-										<option value="">M</option>
-										<option value="">L</option>
-										<option value="">XL</option>
-									</select>
+								<label for="sizeSelect" class="col-sm-2 col-form-label">Size</label> <select class="form-control" id="sizeSelect">
+									<option value="">S</option>
+									<option value="">M</option>
+									<option value="">L</option>
+									<option value="">XL</option>
+								</select>
 							</div>
 							<hr>
 							<!--  구매 버튼 및 찜하기  -->
@@ -139,10 +138,10 @@
 								<div class="icon" style="float: left; padding-left: 20px; padding-top: 10px;">
 									<i class="fa fa-heart-o fa-2x"> 찜하기</i>
 								</div>
-							</div>						
+							</div>
 						</div>
 					</div>
-				</div>			
+				</div>
 			</div>
 
 
@@ -152,10 +151,10 @@
 				<div align="center">
 					<ul class="nav nav-tabs" role="tablist">
 						<!-- 이벤트 클릭 넣어서 누르면 해당 부분으로 이동하게 구현 -->
-						<li class="nav-item col-sm-3" style="margin-right:0px;"><a class="nav-link" data-toggle="tab" href="#Detail">Detail</a></li>
-						<li class="nav-item col-sm-3" style="margin-right:0px;"><a class="nav-link" data-toggle="tab" href="#review">Review</a></li>
-						<li class="nav-item col-sm-3" style="margin-right:0px;"><a class="nav-link" data-toggle="tab" href="#qna">Q & A</a></li>
-						<li class="nav-item col-sm-3" style="margin-right:0px;"><a class="nav-link active" data-toggle="tab" href="#return">Return & Delivery</a></li>
+						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#Detail">Detail</a></li>
+						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#review">Review</a></li>
+						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#qna">Q & A</a></li>
+						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link active" data-toggle="tab" href="#return">Return & Delivery</a></li>
 					</ul>
 				</div>
 				<!-- Tab panes -->
@@ -231,64 +230,68 @@
 									</select>
 								</ul>
 								<!-- 리뷰 틀 -->
-								<table border="1">
-								<div class="postContents container style_est_cont">
-									<div class="profile">
-										<p>
-											<span class="gallery_lv"> <span class="notCrawlText" style="font-weight: bold;">Silver dododndn</span>
-											</span> <span class="date last"> 12시간 전 </span>
+								<div class="card bg-light mb-3" style="max-width: 1000px;">
+									<div class="card-header">
+										<div class="postContents container style_est_cont">
+											<div class="profile">
+												<p>
+													<span class="gallery_lv"> <span class="notCrawlText" style="font-weight: bold;">Silver(등급) dododndn(아이디)</span>
+													</span> <span class="date last"> 12시간 전 </span>
 
-										</p>
-										<!-- url 복사 -->
-										<div class="url-copy-btn plain-btn btn" id="url_copy">
-											<span class="url">URL복사</span> <input type="hidden" name="copyUrl" value="">
-										</div>
-									</div>
-								</div>
-								<!--관련 상품-->
-								<div class="connect_product estimate-item">
-									<div class="connect_review_img">
-										<a href="#"> <img src="" alt=""> <!-- 사진처리 --> <span class="vertical_standard"></span>
-										</a>
-									</div>
-									<div class="connect_review_info">
-										<div>
-											<a class="list_info p_name" href="#"> INTL. Logo Crewneck Grey </a> <a class="item-opt-sort" href="#">해당 상품 후기</a>
-										</div>
-										<p class="txt_option">
-											L 구매 <span class="estimate-profile">남성, 177cm, 67kg</span>
-										</p>
-									</div>
-								</div>
-
-								<div class="pContent">
-									<!-- 요약보기 -->
-									<div class="summary" style="cursor: pointer;">
-										<div class="cArea">
-											<div class="pContent_text">
-												<span>별점</span> <span class="content-review"> 옷이 탄탄해서 체형보정에도 좋을 것같고 오래입을수 있을것같아요 </span>
-											</div>
-											<div class="pContent_Img img3 photoReview">
-												<img class="gallery-images" src=" " alt="디스이즈네버댓(THISISNEVERTHAT) INTL. Logo Crewneck Black 후기">
-												<p>사진</p>
+												</p>
+												<!-- url 복사 -->
+												<div class="url-copy-btn plain-btn btn" id="url_copy">
+													<span class="url">URL복사</span> <input type="hidden" name="copyUrl" value="">
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-								<!--comment-->
+									<div class="card-body">
+										<!--관련 상품-->
+										<div class="connect_product estimate-item">
+											<div class="connect_review_img">
+												<a href="#"> <img src="" alt=""> <!-- 사진처리 --> <span class="vertical_standard"></span>
+												</a>
+											</div>
+											<div class="connect_review_info">
+												<div>
+													<a class="list_info p_name" href="#"> INTL. Logo Crewneck Grey </a> <a class="item-opt-sort" href="#">해당 상품 후기</a>
+												</div>
+												<p class="txt_option">
+													L 구매 <span class="estimate-profile">남성, 177cm, 67kg</span>
+												</p>
+											</div>
+										</div>
 
-								<!--//comment-->
-								</table>
+										<div class="pContent">
+											<!-- 요약보기 -->
+											<div class="summary" style="cursor: pointer;">
+												<div class="cArea">
+													<div class="pContent_text">
+														<span>별점</span> <span class="content-review"> 옷이 탄탄해서 체형보정에도 좋을 것같고 오래입을수 있을것같아요 </span>
+													</div>
+													<div class="pContent_Img img3 photoReview">
+														<img class="gallery-images" src=" " alt="디스이즈네버댓(THISISNEVERTHAT) INTL. Logo Crewneck Black 후기">
+														<p>사진</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!--comment-->
+
+										<!--//comment-->
+
+									</div>
+
+								</div>
 							</div>
-
-
 						</div>
 					</div>
 				</div>
 			</div>
-			</div>
+		</div>
 
-			<!-- Q&A 페이지 tab -->
+		<!-- Q&A 페이지 tab -->
 			<div class="container">
 				<br>
 				<div align="center">
