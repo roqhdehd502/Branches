@@ -11,14 +11,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @AllArgsConstructor
 @Controller
-@RequestMapping("/member/*")
-public class MemberController {
+@RequestMapping("/ksp/*")
+public class KSPController {
 
-	@GetMapping("/main")
-	public String main(Model model) throws Exception {
-		log.debug("main");
-		log.info("main");
-		return "main";
+	@GetMapping("/prdct_list")
+	public String prdct_list(Model model) {
+		return "ksp/prdct_list";
 	}
-
 }
