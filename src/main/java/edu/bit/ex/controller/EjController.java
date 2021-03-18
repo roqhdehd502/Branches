@@ -25,10 +25,18 @@ public class EjController {
 
 	@GetMapping("/main")
 	public String Main(Model model) throws Exception {
-		log.debug("product");
-		log.info("product..");
+		log.debug("main");
+		log.info("main..");
 
 		return "ej/main";
+	}
+
+	@GetMapping("/cart")
+	public String MemberCart(Model model) throws Exception {
+		log.debug("cart");
+		log.info("cart..");
+
+		return "ej/memberCart";
 	}
 
 }
