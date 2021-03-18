@@ -17,7 +17,7 @@ PRDCT_STOCK	NUMBER*/
 @Getter
 @ToString
 public class PrdctDetailVO { // 상품상세정보
-	private String prdct_id; // 상품id fk
+	private String prdct_id; // 상품id
 	private String prdct_color; // 상품색상
 	private String prdct_size; // 상품사이즈
 	private int prdct_stock; // 상품재고량
