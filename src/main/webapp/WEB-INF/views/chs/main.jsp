@@ -6,7 +6,7 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Flat Pro || Buisness HTML template</title>
+<title>Branches</title>
 
 <!-- Required CSS files -->
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
@@ -25,7 +25,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-6 col-sm-3 logo-column">
-					<a href="index.html" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
+					<a href="/member/main" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
 					</a>
 				</div>
 				<div class="col-6 col-sm-9 nav-column clearfix">
@@ -45,7 +45,7 @@
 			</div>
 		</div>
 			<nav id="menu" class="d-none d-lg-block">
-				<ul style="padding: 10px;">
+				<ul style="padding: 10px; background-color: black;">
 					<li class="current-menu-item has-child"><a href="index.html">OUTER</a>
 						<ul class="sub-menu">
 							<li><a href="index.html">Coat</a></li>
@@ -102,26 +102,14 @@
 							<li><a href="index-2.html">Cap</a></li>
 							<li><a href="index-3.html">Acc</a></li>
 						</ul></li>
-					<li><a href="index.html">|</a>
+					<li>
+						<a href="index.html" style="color: white;">|</a>
 					</li>
-					<li class="current-menu-item has-child"><a href="index.html">BRAND</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Nike</a></li>
-							<li><a href="index-2.html">Thisisneverthat</a></li>
-							<li><a href="index-3.html">Covernat</a></li>
-							<li><a href="index-3.html">AnderssonBell</a></li>
-							<li><a href="index-3.html">Vans</a></li>
-						</ul>
+					<li><a href="index.html" style="color: white;">BRAND</a>
 					</li>
-					<li class="current-menu-item has-child"><a href="index.html">MAGAZINE</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">바로가기</a></li>
-						</ul>
+					<li><a href="index.html" style="color: white;">MAGAZINE</a>
 					</li>
-					<li class="current-menu-item has-child"><a href="index.html" style="margin-right: 38px;">NOTICE</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">바로가기</a></li>
-						</ul>
+					<li><a href="index.html" style="margin-right: 38px; color: white;">NOTICE</a>
 					</li>
 				</ul>
 			</nav>
@@ -129,244 +117,319 @@
 	<div class="container">
 		<section>
 			<article>
-				<div id="demo" class="carousel slide" data-ride="carousel">
-					<!-- 밑 사진 갯수 표시 -->
-					<ul class="carousel-indicators">
-						<li data-target="#demo" data-slide-to="0" class="active"></li>
-						<li data-target="#demo" data-slide-to="1"></li>
-						<li data-target="#demo" data-slide-to="2"></li>
-						<li data-target="#demo" data-slide-to="3"></li>
-					</ul>
-
-					<!-- The slideshow -->
-					<div class="carousel-inner">
-						<div class="carousel-item active">
-							<img src="<c:url value="/img/1.jpg"/>" width="100%" height="650px">
+					<div class="hero-slider">
+						<div class="single-slide" style="background-image: url(/img/1.jpg)">
+							<div class="inner">
+								<div class="container">
+									<div class="row justify-content-center">
+										<div class="col-lg-6 text-center">
+											<div class="slide-content">
+												<h2 style="color: white;">Balenciaga</h2>
+												<p style="color: white;">21/22 SS 오직 Branches에서만<br/> [단독] 판매 시작!</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
-						<div class="carousel-item">
-							<img src="<c:url value="/img/2.jpg"/>" width="100%" height="650px">
+						<div class="single-slide" style="background-image: url(/img/2.jpg)">
+							<div class="inner">
+								<div class="container">
+									<div class="row justify-content-center">
+										<div class="col-lg-6 text-center">
+											<div class="slide-content">
+												<h2 style="color: white;">Balenciaga</h2>
+												<p style="color: white;">2021.03.20.00:00</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
-						<div class="carousel-item">
-							<img src="<c:url value="/img/3.jpg"/>" width="100%" height="650px">
+						<div class="single-slide" style="background-image: url(/img/3.jpg)">
+							<div class="inner">
+								<div class="container">
+									<div class="row justify-content-center">
+										<div class="col-lg-6 text-center">
+											<div class="slide-content">
+												<h2 style="color: white;">Balenciaga</h2>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
-						<div class="carousel-item">
-							<img src="<c:url value="/img/4.jpg"/>" width="100%" height="650px">
+						<div class="single-slide" style="background-image: url(/img/4.jpg)">
+							<div class="inner">
+								<div class="container">
+									<div class="row justify-content-center">
+										<div class="col-lg-6 text-center">
+											<div class="slide-content">
+												<h2 style="color: white;">COMMING SOON..</h2>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-
-					<!-- Left and right controls -->
-					<a class="carousel-control-prev" href="#demo" data-slide="prev"> <span class="carousel-control-prev-icon"></span>
-					</a> <a class="carousel-control-next" href="#demo" data-slide="next"> <span class="carousel-control-next-icon"></span>
-					</a>
-				</div>
-			</article>
+				</article>
 			<br />
 			<br />
 			<br />
 			<br />
 			<br />
 			<br />
-			<article>
+			<article><hr>
 				<!-- 상품소개 1 -->
-				<div>
 					<h2 style="text-align: center; font-family: fantasy;">New Arrival</h2>
-					<br />
-					<br /> <span class="col"> <img src="<c:url value="/img/5.jpg"/>" width="242px" height="400px">
-					</span> <span class="col"> <img src="<c:url value="/img/6.jpg"/>" width="242px" height="400px">
-					</span> <span class="col"> <img src="<c:url value="/img/7.jpg"/>" width="242px" height="400px">
-					</span> <span class="col"> <img src="<c:url value="/img/8.jpg"/>" width="242px" height="400px">
-					</span>
-				</div>
-			</article>
+					 <div class="team-area sp">
+							<div class="container">
+								<div class="row">
+									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
+										<div class="inner">
+											<div class="team-img">
+												<img src="/img/5.jpg" alt="Member Photo">
+											</div>
+											<div class="team-content">
+												<h4>Balenciaga</h4>
+												<h5>데님 자켓 & 펜츠 세트</h5>
+												<h5>990,000₩</h5>
+												<h6><del>1,230,000₩</del></h6>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
+										<div class="inner">
+											<div class="team-img">
+												<img src="/img/6.jpg" alt="Member Photo">
+											</div>
+											<div class="team-content">
+												<h4>Balenciaga</h4>
+												<h5>데님 자켓 & 펜츠 세트</h5>
+												<h5>990,000₩</h5>
+												<h6><del>1,230,000₩</del></h6>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
+										<div class="inner">
+											<div class="team-img">
+												<img src="/img/7.jpg" alt="Member Photo">
+											</div>
+											<div class="team-content">
+												<h4>Balenciaga</h4>
+												<h5>데님 자켓 & 펜츠 세트</h5>
+												<h5>990,000₩</h5>
+												<h6><del>1,230,000₩</del></h6>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
+										<div class="inner">
+											<div class="team-img">
+												<img src="/img/8.jpg" alt="Member Photo">
+											</div>
+											<div class="team-content">
+												<h4>Balenciaga</h4>
+												<h5>데님 자켓 & 펜츠 세트</h5>
+												<h5>990,000</h5>
+												<h6><del>1,230,000₩</del></h6>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>				
+			</article><hr>
 			<article>
-				<a class="text-dark" href="#" style="text-decoration: none; float: left;">
-					<p>
-						<strong><h5>&nbsp;&nbsp;&nbsp;Balenciaga</h5></strong>
-					</p>
-					<h6>
-						&nbsp;&nbsp;&nbsp;&nbsp;<strong>[단독]</strong> Denim Jaket & Pants
-					</h6> <br />
-					<h5>
-						&nbsp;&nbsp;&nbsp;470,200&nbsp;&nbsp;&nbsp;&nbsp;<small><strike>537,200</strike></small>
-					</h5>
-				</a> <a class="text-dark" href="#" style="text-decoration: none; float: left; margin-left: 78px;">
-					<p>
-						<strong><h5>Balenciaga</h5></strong>
-					</p>
-					<h6>
-						<strong>[단독]</strong> Denim Jaket & Pants
-					</h6> <br />
-					<h5>
-						&nbsp;&nbsp;&nbsp;&nbsp;470,200&nbsp;&nbsp;&nbsp;&nbsp;<small><strike>537,200</strike></small>
-					</h5>
-				</a> <a class="text-dark" href="#" style="text-decoration: none; float: left; margin-left: 58px;">
-					<p>
-						<strong><h5>&nbsp;&nbsp;&nbsp;&nbsp;Balenciaga</h5></strong>
-					</p>
-					<h6>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>[단독]</strong> Denim Jaket & Denim Pants
-					</h6> <br />
-					<h5>
-						&nbsp;&nbsp;&nbsp;&nbsp;470,200&nbsp;&nbsp;&nbsp;&nbsp;<small><strike>537,200</strike></small>
-					</h5>
-				</a> <a class="text-dark" href="#" style="text-decoration: none; float: left; margin-left: 5px;">
-					<p>
-						<strong><h5>&nbsp;&nbsp;&nbsp;&nbsp;Balenciaga</h5></strong>
-					</p>
-					<h6>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>[단독]</strong> Denim Jaket & Denim Pants
-					</h6> <br />
-					<h5>
-						&nbsp;&nbsp;&nbsp;&nbsp;470,200&nbsp;&nbsp;&nbsp;&nbsp;<small><strike>537,200</strike></small>
-					</h5>
-				</a>
-			</article>
-			<!-- 상품소개 1 end -->
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<!-- 상품소개 2 -->
-			<article>
-				<!-- 상품소개 1 -->
-				<div>
+				<!-- 상품소개 2 -->
 					<h2 style="text-align: center; font-family: fantasy;">Best Pick</h2>
-					<br />
-					<br /> <span class="col"> <img src="<c:url value="/img/5.jpg"/>" width="242px" height="400px">
-					</span> <span class="col"> <img src="<c:url value="/img/6.jpg"/>" width="242px" height="400px">
-					</span> <span class="col"> <img src="<c:url value="/img/7.jpg"/>" width="242px" height="400px">
-					</span> <span class="col"> <img src="<c:url value="/img/8.jpg"/>" width="242px" height="400px">
-					</span>
-				</div>
+					 <div class="team-area sp">
+							<div class="container">
+								<div class="row">
+									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
+										<div class="inner">
+											<div class="team-img">
+												<img src="/img/5.jpg" alt="Member Photo">
+											</div>
+											<div class="team-content">
+												<h4>Balenciaga</h4>
+												<h5>데님 자켓 & 펜츠 세트</h5>
+												<h5>990,000₩</h5>
+												<h6><del>1,230,000₩</del></h6>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
+										<div class="inner">
+											<div class="team-img">
+												<img src="/img/6.jpg" style="height: 428px;" alt="Member Photo">
+											</div>
+											<div class="team-content">
+												<h4>Balenciaga</h4>
+												<h5>데님 자켓 & 펜츠 세트</h5>
+												<h5>990,000</h5>
+												<h6><del>1,230,000₩</del></h6>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
+										<div class="inner">
+											<div class="team-img">
+												<img src="/img/7.jpg" style="height: 428px;" Member Photo">
+											</div>
+											<div class="team-content">
+												<h4>Balenciaga</h4>
+												<h5>데님 자켓 & 펜츠 세트</h5>
+												<h5>990,000₩</h5>
+												<h6><del>1,230,000₩</del></h6>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
+										<div class="inner">
+											<div class="team-img">
+												<img src="/img/8.jpg" alt="Member Photo">
+											</div>
+											<div class="team-content">
+												<h4>Balenciaga</h4>
+												<h5>데님 자켓 & 펜츠 세트</h5>
+												<h5>990,000₩</h5>
+												<h6><del>1,230,000₩</del></h6>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>				
 			</article>
 			<article>
-				<a class="text-dark" href="#" style="text-decoration: none; float: left;">
-					<p>
-						<strong><h5>&nbsp;&nbsp;&nbsp;Balenciaga</h5></strong>
-					</p>
-					<h6>
-						&nbsp;&nbsp;&nbsp;&nbsp;<strong>[단독]</strong> Denim Jaket & Pants
-					</h6> <br />
-					<h5>
-						&nbsp;&nbsp;&nbsp;470,200&nbsp;&nbsp;&nbsp;&nbsp;<small><strike>537,200</strike></small>
-					</h5>
-				</a> <a class="text-dark" href="#" style="text-decoration: none; float: left; margin-left: 78px;">
-					<p>
-						<strong><h5>Balenciaga</h5></strong>
-					</p>
-					<h6>
-						<strong>[단독]</strong> Denim Jaket & Pants
-					</h6> <br />
-					<h5>
-						&nbsp;&nbsp;&nbsp;&nbsp;470,200&nbsp;&nbsp;&nbsp;&nbsp;<small><strike>537,200</strike></small>
-					</h5>
-				</a> <a class="text-dark" href="#" style="text-decoration: none; float: left; margin-left: 58px;">
-					<p>
-						<strong><h5>&nbsp;&nbsp;&nbsp;&nbsp;Balenciaga</h5></strong>
-					</p>
-					<h6>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>[단독]</strong> Denim Jaket & Denim Pants
-					</h6> <br />
-					<h5>
-						&nbsp;&nbsp;&nbsp;&nbsp;470,200&nbsp;&nbsp;&nbsp;&nbsp;<small><strike>537,200</strike></small>
-					</h5>
-				</a> <a class="text-dark" href="#" style="text-decoration: none; float: left; margin-left: 5px;">
-					<p>
-						<strong><h5>&nbsp;&nbsp;&nbsp;&nbsp;Balenciaga</h5></strong>
-					</p>
-					<h6>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>[단독]</strong> Denim Jaket & Denim Pants
-					</h6> <br />
-					<h5>
-						&nbsp;&nbsp;&nbsp;&nbsp;470,200&nbsp;&nbsp;&nbsp;&nbsp;<small><strike>537,200</strike></small>
-					</h5>
-				</a>
+				<!-- 상품소개 2 -->
+					<h2 style="text-align: center; font-family: fantasy;">HOT SALE</h2>
+					 <div class="team-area sp">
+							<div class="container">
+								<div class="row">
+									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
+										<div class="inner">
+											<div class="team-img">
+												<img src="/img/5.jpg" alt="Member Photo">
+											</div>
+											<div class="team-content">
+												<h4>Balenciaga</h4>
+												<h5>데님 자켓 & 펜츠 세트</h5>
+												<h5>990,000₩</h5>
+												<h6><del>1,230,000₩</del></h6>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
+										<div class="inner">
+											<div class="team-img">
+												<img src="/img/6.jpg" style="height: 428px;" alt="Member Photo">
+											</div>
+											<div class="team-content">
+												<h4>Balenciaga</h4>
+												<h5>데님 자켓 & 펜츠 세트</h5>
+												<h5>990,000</h5>
+												<h6><del>1,230,000</del></h6>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
+										<div class="inner">
+											<div class="team-img">
+												<img src="/img/7.jpg" style="height: 428px;" Member Photo">
+											</div>
+											<div class="team-content">
+												<h4>Balenciaga</h4>
+												<h5>데님 자켓 & 펜츠 세트</h5>
+												<h5>990,000₩</h5>
+												<h6><del>1,230,000₩</del></h6>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
+										<div class="inner">
+											<div class="team-img">
+												<img src="/img/8.jpg" alt="Member Photo">
+											</div>
+											<div class="team-content">
+												<h4>Balenciaga</h4>
+												<h5>데님 자켓 & 펜츠 세트</h5>
+												<h5>990,000₩</h5>
+												<h6><del>1,230,000₩</del></h6>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>				
 			</article>
-			<!-- 상품소개 2 end -->
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
 			<h3 style="text-align: center;">나중에 추가사항있으시면 반영해서 넣겠습니다.</h3>
 			<!-- footer -->
 		</section>
-		<article>
-			<nav>
-				<ul class="nav justify-content-center bg-dark" style="font-family: sans-serif;">
-					<li class="nav-item col-md"><a class="nav-link text-white" href="#">회사소개</a></li>
-					<li class="nav-item col-md"><a class="nav-link text-white" href="#">제휴문의</a></li>
-					<li class="nav-item col-md"><a class="nav-link text-white" href="#">이용약관</a></li>
-					<li class="nav-item col-md"><a class="nav-link text-white" href="#">고객센터</a></li>
-					<li class="nav-item col-md"><a class="nav-link text-white" href="#">채용정보</a></li>
-					<li class="nav-item col-md"><a class="nav-link text-white" href="#">개인정보처리</a></li>
-				</ul>
-			</nav>
-		</article>
+		
 		<!-- footer -->
-		<footer>
-			<div class="footer-top">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-6 col-lg-3 footer_widget">
-							<div class="inner">
-								<h4>About</h4>
+			<footer>
+				<div class="footer-top">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-2 footer_widget">
+								<div class="inner">
+									<a href="#"><h5>회사소개</h5></a>
+								</div>
+							</div>
+							<div class="col-md-2 footer_widget">
+								<div class="inner">
+									<a href="#"><h5>제휴문의</h5></a>
+								</div>
+							</div>
+							<div class="col-md-2 footer_widget">
+								<div class="inner">
+									<a href="#"><h5>채용정보</h5></a>
+								</div>
+							</div>
+							<div class="col-md-2 footer_widget">
+								<div class="inner">
+									<a href="#"><h5>고객센터</h5></a>
+								</div>
+							</div>
+							<div class="col-md-2 footer_widget">
+								<div class="inner">
+									<a href="#"><h5>이용약관</h5></a>
+								</div>
+							</div>
+							<div class="col-md-2 footer_widget">
+								<div class="inner">
+									<a href="#"><h5>개인정보처리</h5></a>
+								</div>
 							</div>
 						</div>
-						<div class="col-md-6 col-lg-3 footer_widget">
-							<div class="inner">
-								<h4>Company</h4>
+					</div>
+				</div>
+				<div class="footer-bottom">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="copyright-txt">Copyright© 2021 Branches. All Rights Reserved.</div>
+							</div>
+							<div class="col-lg-6 text-right">
+								<div class="footer-nav">
+									<a href="/member/main">Home</a> <a href="#">Q&A</a> <a href="#">Brand</a> <a href="#">Magazine</a> <a href="#">Blog</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
-							</div>
-						</div>
-						<div class="col-md-6 col-lg-3 footer_widget">
-							<div class="inner">
-								<h4>Recent Posts</h4>
-							</div>
-						</div>
-						<div class="col-md-6 col-lg-3 footer_widget">
-							<div class="inner">
-								<h4>Address</h4>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<hr>
-			<div class="footer-bottom">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="copyright-txt">© 2017 Flat Pro. All Rights Reserved.</div>
-						</div>
-						<div class="col-lg-6 text-right">
-							<div class="footer-nav">
-								<a href="#">Home</a> <a href="#">Portfolio</a> <a href="#">Pages</a> <a href="#">Shortcode</a> <a href="#">Blog</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</footer>
-		<div class="container-fluid">
-			<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 <strong>팩스 :</strong>
-				000-0000-0000 <strong>사업자등록번호 :</strong> 000-00-000000 <strong>통신판매업신고 :</strong> 0000-서울종로-00000
-			</small> <br /> <small style="color: black;"><strong>고객센터</strong> 0000-0000 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) <strong>이메일</strong>
-				customer@29cm.co.kr <strong>대표이사</strong> 000 <strong>개인정보책임자</strong> 000 <strong>호스팅서비스</strong> (주)00000</small>
-		</div>
+			</footer>
+			<div class="container">
+			<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 | <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 | <strong>팩스 :</strong>
+				000-0000-0000 |<strong>사업자등록번호 :</strong> 000-00-000000 | <strong>통신판매업신고 :</strong> 0000-서울종로-00000 | 
+			</small> <br /> <small style="color: black;"><strong>고객센터</strong> 0000-0000 | 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) | <strong>이메일</strong>
+				admin@branches.co.kr | <strong>개인정보책임자</strong> 000 | <strong>호스팅서비스</strong> (주)00000 | </small>
+		</div><br/><br/>
 
 		<!--Required JS files-->
 		<script src="/assets/js/jquery-2.2.4.min.js"></script>
