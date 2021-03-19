@@ -18,28 +18,28 @@ public class HSController {
 	public String main(Model model) throws Exception {
 		log.debug("main");
 		log.info("main");
-		return "main";
+		return "chs/main";
 	}
 
 	@GetMapping("/mypage")
 	public String mypage(Model model) throws Exception {
 		log.debug("mypage");
 		log.info("mypage");
-		return "mypage";
+		return "chs/mypage";
 	}
 
 	@GetMapping("/sellerpage")
 	public String sellerpage(Model model) throws Exception {
 		log.debug("sellerpage");
 		log.info("sellerpage");
-		return "sellerpage";
+		return "chs/sellerpage";
 	}
 
 	@GetMapping("/adminpage")
 	public String adminpage(Model model) throws Exception {
 		log.debug("adminpage");
 		log.info("adminpage");
-		return "adminpage";
+		return "chs/adminpage";
 	}
 
 }
