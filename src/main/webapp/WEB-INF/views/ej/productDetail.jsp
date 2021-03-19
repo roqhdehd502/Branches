@@ -151,15 +151,15 @@
 				<div align="center">
 					<ul class="nav nav-tabs" role="tablist">
 						<!-- 이벤트 클릭 넣어서 누르면 해당 부분으로 이동하게 구현 -->
-						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#Detail">Detail</a></li>
+						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link active" data-toggle="tab" href="#detail">Detail</a></li>
 						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#review">Review</a></li>
 						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#qna">Q & A</a></li>
-						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link active" data-toggle="tab" href="#return">Return & Delivery</a></li>
+						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#return">Return & Delivery</a></li>
 					</ul>
 				</div>
 				<!-- Tab panes -->
 				<div class="tab-content">
-					<div id="Detail" class="container tab-pane active">
+					<div id="detail" class="container tab-pane active">
 						<br>
 						<!-- 상품 상세정보 이미지로 등록 -->
 						<div class="gallery-area spb">
@@ -187,10 +187,10 @@
 				<div align="center">
 					<ul class="nav nav-tabs" role="tablist">
 						<!-- 이벤트 클릭 넣어서 누르면 해당 부분으로 이동하게 구현 -->
-						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#Detail">Detail</a></li>
-						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#review">Review</a></li>
+						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#detail">Detail</a></li>
+						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link active" data-toggle="tab" href="#review">Review</a></li>
 						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#qna">Q & A</a></li>
-						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link active" data-toggle="tab" href="#return">Return & Delivery</a></li>
+						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#return">Return & Delivery</a></li>
 					</ul>
 				</div>
 				<!-- Tab panes -->
@@ -293,7 +293,7 @@
 			<div align="center">
 				<ul class="nav nav-tabs" role="tablist">
 					<!-- 이벤트 클릭 넣어서 누르면 해당 부분으로 이동하게 구현 -->
-					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#Detail">Detail</a></li>
+					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#detail">Detail</a></li>
 					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#review">Review</a></li>
 					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link  active" data-toggle="tab" href="#qna">Q & A</a></li>
 					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#return">Return & Delivery</a></li>
@@ -347,7 +347,7 @@
 			<div align="center">
 				<ul class="nav nav-tabs" role="tablist">
 					<!-- 이벤트 클릭 넣어서 누르면 해당 부분으로 이동하게 구현 -->
-					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#Detail">Detail</a></li>
+					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#detail">Detail</a></li>
 					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#review">Review</a></li>
 					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#qna">Q & A</a></li>
 					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link active" data-toggle="tab" href="#rende">Return & Delivery</a></li>
