@@ -3,26 +3,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>상품 리스트</title>
-
-<!-- Required CSS files -->
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/owl.carousel.css">
-<link rel="stylesheet" href="/assets/css/barfiller.css">
-<link rel="stylesheet" href="/assets/css/animate.css">
-<link rel="stylesheet" href="/assets/css/font-awesome.min.css">
-<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="/assets/css/slicknav.css">
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/bootstrap.min.css">
-
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Branches : Product Registration</title>
+	
+	<!-- Required CSS files -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/css/owl.carousel.css">
+	<link rel="stylesheet" href="/assets/css/barfiller.css">
+	<link rel="stylesheet" href="/assets/css/animate.css">
+	<link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/assets/css/slicknav.css">
+	<link rel="stylesheet" href="/assets/css/main.css">
+	<link rel="stylesheet" href="/bootstrap.min.css">
 </head>
 <body>
-<div style="overflow: hidden;" class="container">
-	<header style="padding-bottom: 10px; padding-top: 5px;">
+	<div style="overflow: hidden;" class="container">
+		<header style="padding-bottom: 10px; padding-top: 5px;">
 		<div class="container">
 			<div class="row">
 				<div class="col-6 col-sm-3 logo-column">
@@ -128,32 +127,95 @@
 				</ul>
 			</nav>
 		</header>
-		<div class="page-title sp">
-			<div class="container text-center">
-				<h2>상품 목록</h2>
-				<p>내용 뭐 넣을지</p>
-			</div>
-		</div>
-		<div class="team-area sp">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-2 col-md-2 col-lg-2 single-team">
-						<div class="inner">
-							<div class="team-img">
-								<img src="/ksp/th-ex.jpg" alt="Member Photo">
-							</div>
-							<div class="team-content">
-								<h4>상품명</h4>
-								<h5>브랜드</h5>
-								<h5>$100</h5>
-							</div>
-						</div>
-					</div>
-					
 
+		<div class="container">
+
+			<span style="margin-left: 14px;">
+				
+			</span>
+			<span style="margin-left: 400px;" align="center">
+				
+			</span>
+		</div>
+		
+
+		<div class="container" style="">
+			<div class="row" >
+				
+				<div class="col-md-9 contact-info" style="margin: auto;">
+				<hr>
+					<h3 style="text-align: center;">
+					<strong>고객 Q&A</strong>
+					</h3><hr>
+					<form action="#" method="post">
+						<fieldset>
+							<div class="form-group row">
+								<label for="staticEmail" class="col-md-2 col-form-label">문의유형</label>
+								<div class="col-sm-10">
+									<select class="form-control" id="exampleSelect1" style="height: 45px;">
+									<option>유형을 선택하세요</option>
+									<c:forEach items="${inq}" var="inq">
+									<option value="${inq.inquiry_number }">${inq.inquiry_name }</option>
+									</c:forEach>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label for="staticEmail" class="col-sm-2 col-form-label">주문번호</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control col-sm-8" placeholder="주문번호를 입력하세요">		
+									<button type="button" class="btn btn-primary" style="display: inline-block; float: left;">조회</button>
+									<div >
+									<label class="form-check-label"> 
+									<input class="form-check-input" type="checkbox" value="" style="float: left;">주문번호 없이 문의 
+									</label>
+									</div>
+								</div>
+								
+							</div>
+							
+							<div class="form-group row">
+								<label for="staticEmail" class="col-sm-2 col-form-label">제목</label>
+								<div class="col-sm-10" >
+									<input type="text" class="form-control" placeholder="제목을 입력하세요">
+									</div>
+							</div>
+							
+							<div class="form-group row">
+								<label for="staticEmail" class="col-sm-2 col-form-label">내용</label>
+								<div class="col-sm-10">
+									<textarea class="form-control" id="exampleTextarea" rows="10"></textarea>
+								</div>
+							</div>
+							
+							<div class="form-group row">
+								<label for="staticEmail" class="col-sm-2 col-form-label">사진</label>
+								<div class="col-sm-10">
+									<textarea class="form-control" rows="3" placeholder="사진 첨부"></textarea>
+									<input type="file" class="form-control-file" >
+									<small class="form-text text-muted">jpg, png, gif의 사진파일만 적용됩니다.</small>
+								</div>
+							</div>
+							<div class="form-group row" style="align-content: center;">
+							<button type="submit" class="btn btn-primary">상품등록</button>
+							 </div>
+						</fieldset>
+					</form>			
 				</div>
+			
+			
+			
+			
+			
+			
+			
+			
 			</div>
 		</div>
+		
+		<hr>
+		
 		<!-- footer -->
 		<footer>
 			<div class="footer-top">
@@ -177,12 +239,13 @@
 						</div>
 						<div class="col-md-6 col-lg-3 footer_widget">
 							<div class="inner">
-								<h4 style="padding-left: 100px;">Address</h4>
+								<h4>Address</h4>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			<hr>
 			<div class="footer-bottom">
 				<div class="container">
 					<div class="row">
@@ -197,16 +260,13 @@
 					</div>
 				</div>
 			</div>
-
 		</footer>
 		<div class="container-fluid">
 			<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 <strong>팩스 :</strong>
 				000-0000-0000 <strong>사업자등록번호 :</strong> 000-00-000000 <strong>통신판매업신고 :</strong> 0000-서울종로-00000
 			</small> <br /> <small style="color: black;"><strong>고객센터</strong> 0000-0000 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) <strong>이메일</strong>
-				admin@branches.co.kr <strong>대표이사</strong> 000 <strong>개인정보책임자</strong> 000 <strong>호스팅서비스</strong> (주)00000</small>
+				customer@29cm.co.kr <strong>대표이사</strong> 000 <strong>개인정보책임자</strong> 000 <strong>호스팅서비스</strong> (주)00000</small>
 		</div>
-		<br />
-		<br />
 
 		<!--Required JS files-->
 		<script src="/assets/js/jquery-2.2.4.min.js"></script>
