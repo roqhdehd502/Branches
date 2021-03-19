@@ -6,7 +6,7 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>상품 리스트</title>
+<title>Like Product</title>
 
 <!-- Required CSS files -->
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
@@ -18,10 +18,10 @@
 <link rel="stylesheet" href="/assets/css/slicknav.css">
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css">
-
 </head>
 <body>
-<div style="overflow: hidden;" class="container">
+
+	<div style="overflow: hidden;" class="container">
 	<header style="padding-bottom: 10px; padding-top: 5px;">
 		<div class="container">
 			<div class="row">
@@ -128,32 +128,189 @@
 				</ul>
 			</nav>
 		</header>
-		<div class="page-title sp">
-			<div class="container text-center">
-				<h2>상품 목록</h2>
-				<p>내용 뭐 넣을지</p>
-			</div>
+
+		<hr style="margin: 5px;">
+
+		<!-- 상단 회원 정보 요약 -->
+		<div class="container">
+			<span style="margin-left: 70px;"> </span> <span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
+				<h3>닉네임</h3>
+			</span> <span style="margin-left: 22px; position: relative; bottom: 2px;"> <a href="#">정보수정</a></span> <span style="margin-left: 372px;">
+				<h4 style="position: relative; top: 10px; margin-left: 10px;">포인트</h4>
+				<h2 style="position: relative; top: 30px;">1000p</h2>
+			</span> <span style="margin-left: 142px;">
+				<h4 style="position: relative; top: 10px;">쿠폰</h4>
+				<h2 style="position: relative; top: 30px; margin-left: 15px;">1</h2>
+			</span>
 		</div>
-		<div class="team-area sp">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-2 col-md-2 col-lg-2 single-team">
-						<div class="inner">
-							<div class="team-img">
-								<img src="/ksp/th-ex.jpg" alt="Member Photo">
-							</div>
-							<div class="team-content">
-								<h4>상품명</h4>
-								<h5>브랜드</h5>
-								<h5>$100</h5>
+
+		<hr style="margin: 15px 15px 24px 15px;">
+
+		<!-- 왼쪽 사이드 메뉴  -->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 contact-info" align="center">
+					<div class="single-info" style="margin-bottom: 40px">
+						<h3>나의 쇼핑활동</h3>
+						<hr>
+						<h5>
+							<a href="#">주문내역 조회</a>
+						</h5>
+						<h5>
+							<a href="#">최근 본 상품보기</a>
+						</h5>
+						<h5>
+							<a href="#">찜한 목록</a>
+						</h5>
+					</div>
+					<div class="single-info" style="margin-bottom: 40px">
+						<h3>매거진</h3>
+						<hr>
+						<h5>
+							<a href="#">매거진</a>
+						</h5>
+					</div>
+					<div class="single-info" style="margin-bottom: 40px">
+						<h3>내가 쓴 글보기</h3>
+						<hr>
+						<h5>
+							<a href="#">구매후기</a>
+						</h5>
+						<h5>
+							<a href="#">상품문의</a>
+						</h5>
+						<h5>
+							<a href="#">고객Q&A</a>
+						</h5>
+					</div>
+				</div>
+
+				<!-- 오른쪽 컨텐츠 내용 -->
+				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 822px;">
+					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, .1);">
+						<strong style="margin: 10px;">찜한 목록</strong>
+					</h3>
+					<div class="team-area sp">
+						<div class="container">
+							<div class="row">
+								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
+									<div class="inner">
+										<div class="team-img">
+											<img src="/ksp/th-ex.jpg" alt="Member Photo">
+										</div>
+										<div class="team-content">
+											<h4>상품명</h4>
+											<h5>브랜드</h5>
+											<h5>$100</h5>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
+									<div class="inner">
+										<div class="team-img">
+											<img src="/ksp/th-ex.jpg" alt="Member Photo">
+										</div>
+										<div class="team-content">
+											<h4>상품명</h4>
+											<h5>브랜드</h5>
+											<h5>$100</h5>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
+									<div class="inner">
+										<div class="team-img">
+											<img src="/ksp/th-ex.jpg" alt="Member Photo">
+										</div>
+										<div class="team-content">
+											<h4>상품명</h4>
+											<h5>브랜드</h5>
+											<h5>$100</h5>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
+									<div class="inner">
+										<div class="team-img">
+											<img src="/ksp/th-ex.jpg" alt="Member Photo">
+										</div>
+										<div class="team-content">
+											<h4>상품명</h4>
+											<h5>브랜드</h5>
+											<h5>$100</h5>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
+									<div class="inner">
+										<div class="team-img">
+											<img src="/ksp/th-ex.jpg" alt="Member Photo">
+										</div>
+										<div class="team-content">
+											<h4>상품명</h4>
+											<h5>브랜드</h5>
+											<h5>$100</h5>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
+									<div class="inner">
+										<div class="team-img">
+											<img src="/ksp/th-ex.jpg" alt="Member Photo">
+										</div>
+										<div class="team-content">
+											<h4>상품명</h4>
+											<h5>브랜드</h5>
+											<h5>$100</h5>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
+									<div class="inner">
+										<div class="team-img">
+											<img src="/ksp/th-ex.jpg" alt="Member Photo">
+										</div>
+										<div class="team-content">
+											<h4>상품명</h4>
+											<h5>브랜드</h5>
+											<h5>$100</h5>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
+									<div class="inner">
+										<div class="team-img">
+											<img src="/ksp/th-ex.jpg" alt="Member Photo">
+										</div>
+										<div class="team-content">
+											<h4>상품명</h4>
+											<h5>브랜드</h5>
+											<h5>$100</h5>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
+									<div class="inner">
+										<div class="team-img">
+											<img src="/ksp/th-ex.jpg" alt="Member Photo">
+										</div>
+										<div class="team-content">
+											<h4>상품명</h4>
+											<h5>브랜드</h5>
+											<h5>$100</h5>
+										</div>
+									</div>
+								</div>
+
 							</div>
 						</div>
 					</div>
-					
-
-				</div>
+				</span>
 			</div>
 		</div>
+
+
+		<hr>
 		<!-- footer -->
 		<footer>
 			<div class="footer-top">

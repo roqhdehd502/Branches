@@ -25,7 +25,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-6 col-sm-3 logo-column">
-					<a href="index.html" class="logo"> <img src="/img/branches_text.png" alt="logo" style="width: 70px; height: 200px;">
+					<a href="index.html" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
 					</a>
 				</div>
 				<div class="col-6 col-sm-9 nav-column clearfix">
@@ -96,7 +96,7 @@
 	
 	<div class="container">
 			<div class="row">
-				<div class="col-md-3 contact-info" align="center">
+				<div class="col-md-2 contact-info" align="center">
 					<div class="single-info" style="margin-bottom: 40px; margin-top: 15px;">
 	                    <h3>업체관리</h3><hr>
 	                    <h5><a href="#">업체등록</a></h5>
@@ -113,7 +113,7 @@
 	                    <h5><a href="#">검색순위 조회</a></h5>
 	                </div>
 				</div>
-				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 822px;">
+				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">
 					<h3 style="margin-top: 15px; margin-left: 15px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, .1);">
 						<strong>일간매출(템플릿생각중..)</strong>
 					</h3><br/><br/><br/><br/>
@@ -127,64 +127,56 @@
 	
 	<hr>
 	<!-- footer -->
-	<footer>
-    <div class="footer-top">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-lg-3 footer_widget">
-                    <div class="inner">
-                        <h4>About</h4>                
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 footer_widget">
-                    <div class="inner">
-                        <h4>Company</h4>
+		<footer>
+			<div class="footer-top">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6 col-lg-3 footer_widget">
+							<div class="inner">
+								<h4>About</h4>
+							</div>
+						</div>
+						<div class="col-md-6 col-lg-3 footer_widget">
+							<div class="inner">
+								<h4>Company</h4>
 
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 footer_widget">
-                    <div class="inner">
-                        <h4>Recent Posts</h4>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 footer_widget">
-                    <div class="inner">
-                        <h4>Address</h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <hr>
-    <div class="footer-bottom">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="copyright-txt">
-                        © 2017 Flat Pro. All Rights Reserved.
-                    </div>
-                </div>
-                <div class="col-lg-6 text-right">
-                    <div class="footer-nav">
-                        <a href="#">Home</a>
-                        <a href="#">Portfolio</a>
-                        <a href="#">Pages</a>
-                        <a href="#">Shortcode</a>
-                        <a href="#">Blog</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-	<div class="container-fluid">
-		<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 <strong>팩스 :</strong> 000-0000-0000 <strong>사업자등록번호
-				:</strong> 000-00-000000 <strong>통신판매업신고 :</strong> 0000-서울종로-00000</small > 
-		<br /> 
-		<small style="color: black;"><strong>고객센터</strong> 0000-0000 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) <strong>이메일</strong>
-			customer@29cm.co.kr <strong>대표이사</strong> 000 <strong>개인정보책임자</strong> 000 <strong>호스팅서비스</strong> (주)00000</small>
-	</div>
-	<br/><br/>
+							</div>
+						</div>
+						<div class="col-md-6 col-lg-3 footer_widget">
+							<div class="inner">
+								<h4>Recent Posts</h4>
+							</div>
+						</div>
+						<div class="col-md-6 col-lg-3 footer_widget">
+							<div class="inner">
+								<h4 style="padding-left: 100px;">Address</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-bottom">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="copyright-txt">© 2017 Flat Pro. All Rights Reserved.</div>
+						</div>
+						<div class="col-lg-6 text-right">
+							<div class="footer-nav">
+								<a href="#">Home</a> <a href="#">Portfolio</a> <a href="#">Pages</a> <a href="#">Shortcode</a> <a href="#">Blog</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</footer>
+		<div class="container-fluid">
+			<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 <strong>팩스 :</strong>
+				000-0000-0000 <strong>사업자등록번호 :</strong> 000-00-000000 <strong>통신판매업신고 :</strong> 0000-서울종로-00000
+			</small> <br /> <small style="color: black;"><strong>고객센터</strong> 0000-0000 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) <strong>이메일</strong>
+				admin@branches.co.kr <strong>대표이사</strong> 000 <strong>개인정보책임자</strong> 000 <strong>호스팅서비스</strong> (주)00000</small>
+		</div><br/><br/>
 	<!--Required JS files-->
 	<script src="/assets/js/jquery-2.2.4.min.js"></script>
 	<script src="/assets/js/vendor/popper.min.js"></script>

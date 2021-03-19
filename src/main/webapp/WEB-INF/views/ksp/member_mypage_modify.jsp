@@ -200,14 +200,18 @@
 							</div>
 							<div class="form-group row">
 							<label for="staticEmail" class="col-sm-2 col-form-label">Gender</label>
-							<label class="form-check-label" style="margin: 16px;">남성 
-									<span style="position: relative; top: 16px; right: 5px;"><input style="width: 14px; height: 14px;" type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1"
+									<div class="form-check" style="padding-left: 0;">
+									<label class="form-check-label" style="margin: 16px;">남성 
+									<span style="position: relative; top: 25px; right: 5px;"><input style="width: 14px; height: 14px;" type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1"
 										value="option1" checked=""></span> 
 									</label> 
 									<label class="form-check-label" style="margin: 16px;">여성
-									<span style="position: relative; top: 16px; right: 5px;"><input style="width: 14px; height: 14px;" type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1"
+									
+									<span style="position: relative; top: 25px; right: 5px;"><input style="width: 14px; height: 14px;" type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1"
 										value="option1" checked=""></span> 
 									</label> 
+								</div>
+								</br></br>
 							</div> 
 							<div style="text-align: center;">
 							<button type="button" class="btn btn-primary">수정</button>
@@ -216,14 +220,11 @@
 						</fieldset>
 					</form>
 				</div>
-				
-				
-				
 			</div>
 		</div>
 		<hr>
 		
-		<!-- footer -->
+			<!-- footer -->
 		<div>
 			<div class="footer-top">
 				<div class="container" align="center">
@@ -290,7 +291,5 @@
 		
 		
 	</div>
-</body>
-</html>
 </body>
 </html>
