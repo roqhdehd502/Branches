@@ -41,6 +41,53 @@
 							<a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
 						</div>
 					</div>
+					<nav id="menu" class="d-none d-lg-block">
+						<ul>
+							<li class="current-menu-item has-child"><a href="index.html">Home</a>
+								<ul class="sub-menu">
+									<li><a href="index.html">Home - 01</a></li>
+									<li><a href="index-2.html">Home - 02</a></li>
+									<li><a href="index-3.html">Home - 03</a></li>
+								</ul>
+							</li>
+							<li class="current-menu-item has-child"><a href="index.html">Home</a>
+								<ul class="sub-menu">
+									<li><a href="index.html">Home - 01</a></li>
+									<li><a href="index-2.html">Home - 02</a></li>
+									<li><a href="index-3.html">Home - 03</a></li>
+								</ul>
+							</li>
+							<li class="current-menu-item has-child"><a href="index.html">Home</a>
+								<ul class="sub-menu">
+									<li><a href="index.html">Home - 01</a></li>
+									<li><a href="index-2.html">Home - 02</a></li>
+									<li><a href="index-3.html">Home - 03</a></li>
+								</ul>
+							</li>
+							<li class="current-menu-item has-child"><a href="index.html">Home</a>
+								<ul class="sub-menu">
+									<li><a href="index.html">Home - 01</a></li>
+									<li><a href="index-2.html">Home - 02</a></li>
+									<li><a href="index-3.html">Home - 03</a></li>
+								</ul>
+							</li>
+							<li class="current-menu-item has-child"><a href="index.html">Home</a>
+								<ul class="sub-menu">
+									<li><a href="index.html">Home - 01</a></li>
+									<li><a href="index-2.html">Home - 02</a></li>
+									<li><a href="index-3.html">Home - 03</a></li>
+								</ul>
+							</li>
+							<li class="current-menu-item has-child"><a href="index.html">Home</a>
+								<ul class="sub-menu">
+									<li><a href="index.html">Home - 01</a></li>
+									<li><a href="index-2.html">Home - 02</a></li>
+									<li><a href="index-3.html">Home - 03</a></li>
+								</ul>
+							</li>
+							
+						</ul>
+					</nav>
 				</div>
 			</div>
 		</div>
@@ -90,9 +137,9 @@
 	                </div>
 				</div>
 
-				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;" >
+				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">
 					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px;">
-						<strong style="margin: 10px;">새 주문 내역 미리보기</strong>
+						<strong style="margin: 10px;">교환 확인</strong>
 					</h3>
 					<table class="table">
 						<thead style="text-align: center;">
@@ -100,7 +147,7 @@
 								<td><h5>상품정보</h5></td>
 								<td><h5>주문일</h5></td>
 								<td><h5>주문번호</h5></td>
-								<td><h5>주문금액</h5></td>
+								<td><h5>사유</h5></td>
 								<td><h5>상태</h5></td>
 							</tr>
 						</thead>
@@ -110,78 +157,85 @@
 									<h6>[단독]Denim Jaket & Pants</h6>
 									<h6>M(95)/S(90)</h6>
 									<h6>Sky Blue</h6>
-									<h6>(1)</h6>
+									<h6>29,900₩(1)</h6>
 								</td>
 								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
 								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
-								<td><h6 style="position: relative; top: 34px; text-align: center;">29,900₩</h6></td>
-								<td><h6 style="position: relative; top: 34px; margin-left: 14px;">결제요청</h6></td>
+								<td><h6 style="position: relative; top: 34px; text-align: center;">상의 S -> M 변경요청</h6></td>
+								<td>
+									<h6 style="position: relative; top: 22px; margin-left: 14px;">교환요청</h6>
+									<h6 style="position: relative; top: 24px; margin-left: 10px;"><button class="btn btn-primary btn-sm">교환처리</button></h6>
+								</td>
 							</tr>
-							
 							<tr>
 								<td>
 									<h6>[단독]Denim Jaket & Pants</h6>
 									<h6>M(95)/S(90)</h6>
 									<h6>Sky Blue</h6>
-									<h6>(1)</h6>
+									<h6>29,900₩(1)</h6>
 								</td>
 								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
 								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
-								<td><h6 style="position: relative; top: 34px; text-align: center;">29,900₩</h6></td>
-								<td><h6 style="position: relative; top: 34px; margin-left: 14px;">결제요청</h6></td>
+								<td><h6 style="position: relative; top: 34px; text-align: center;">상의 S -> M 변경요청</h6></td>
+								<td>
+									<h6 style="position: relative; top: 22px; margin-left: 14px;">교환요청</h6>
+									<h6 style="position: relative; top: 24px; margin-left: 10px;"><button class="btn btn-primary btn-sm">교환처리</button></h6>
+								</td>
 							</tr>
-							
 							<tr>
 								<td>
 									<h6>[단독]Denim Jaket & Pants</h6>
 									<h6>M(95)/S(90)</h6>
 									<h6>Sky Blue</h6>
-									<h6>(1)</h6>
+									<h6>29,900₩(1)</h6>
 								</td>
 								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
 								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
-								<td><h6 style="position: relative; top: 34px; text-align: center;">29,900₩</h6></td>
-								<td><h6 style="position: relative; top: 34px; margin-left: 14px;">결제요청</h6></td>
+								<td><h6 style="position: relative; top: 34px; text-align: center;">상의 S -> M 변경요청</h6></td>
+								<td>
+									<h6 style="position: relative; top: 22px; margin-left: 14px;">교환요청</h6>
+									<h6 style="position: relative; top: 24px; margin-left: 10px;"><button class="btn btn-primary btn-sm">교환처리</button></h6>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<h6>[단독]Denim Jaket & Pants</h6>
+									<h6>M(95)/S(90)</h6>
+									<h6>Sky Blue</h6>
+									<h6>29,900₩(1)</h6>
+								</td>
+								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
+								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
+								<td><h6 style="position: relative; top: 34px; text-align: center;">상의 S -> M 변경요청</h6></td>
+								<td>
+									<h6 style="position: relative; top: 22px; margin-left: 14px;">교환요청</h6>
+									<h6 style="position: relative; top: 24px; margin-left: 10px;"><button class="btn btn-primary btn-sm">교환처리</button></h6>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<h6>[단독]Denim Jaket & Pants</h6>
+									<h6>M(95)/S(90)</h6>
+									<h6>Sky Blue</h6>
+									<h6>29,900₩(1)</h6>
+								</td>
+								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
+								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
+								<td><h6 style="position: relative; top: 34px; text-align: center;">상의 S -> M 변경요청</h6></td>
+								<td>
+									<h6 style="position: relative; top: 22px; margin-left: 14px;">교환요청</h6>
+									<h6 style="position: relative; top: 24px; margin-left: 10px;"><button class="btn btn-primary btn-sm">교환처리</button></h6>
+								</td>
 							</tr>
 							
 						</tbody>
 					</table>
-			
-					<hr>
-					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, .1);">
-						<strong style="margin: 20px;">매출관리(템플릿 찾아보기)</strong>
-					</h3><br/>
-					<h5 style="text-align: center;">OUTER</h5>
-              		 <div class="progress">
-						<div class="progress-bar bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 45%;"></div>
-					</div>
-					<br />
-					<h5 style="text-align: center;">TOP</h5>
-					<div class="progress">
-						<div class="progress-bar bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 65%;"></div>
-					</div>
-					<br />
-					<h5 style="text-align: center;">BOTTOM</h5>
-					<div class="progress">
-						<div class="progress-bar bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 55%;"></div>
-					</div>
-					<br />
-					<h5 style="text-align: center;">SHOES</h5>
-					<div class="progress">
-						<div class="progress-bar bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 30%;"></div>
-					</div>
-					<br />
-					<h5 style="text-align: center;">ACC</h5>
-					<div class="progress">
-						<div class="progress-bar bg-success " role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
-					</div>
-					<br />
-				</span>
+				<hr>
 			</div>
 		</div>
 	
 	<hr>
-	<!-- footer -->
+		<!-- footer -->
 		<footer>
 			<div class="footer-top">
 				<div class="container">
@@ -242,7 +296,7 @@
 				admin@branches.co.kr | <strong>개인정보책임자</strong> 000 | <strong>호스팅서비스</strong> (주)00000 | </small>
 		</div>
 		<br /> <br />
-	<!--Required JS files-->
+		<!--Required JS files-->
 	<script src="/assets/js/jquery-2.2.4.min.js"></script>
 	<script src="/assets/js/vendor/popper.min.js"></script>
 	<script src="/assets/js/vendor/bootstrap.min.js"></script>

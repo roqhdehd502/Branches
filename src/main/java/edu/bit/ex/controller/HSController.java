@@ -42,4 +42,46 @@ public class HSController {
 		return "adminpage";
 	}
 
+	@GetMapping("/sellerorderCheck")
+	public String sellerorderCheck(Model model) throws Exception {
+		log.debug("sellerorderCheck");
+		log.info("sellerorderCheck");
+		return "sellerorderCheck";
+	}
+
+	@GetMapping("/sellerdeleCheck")
+	public String sellerdeleCheck(Model model) throws Exception {
+		log.debug("sellerdeleCheck");
+		log.info("sellerdeleCheck");
+		return "sellerdeleCheck";
+	}
+
+	@GetMapping("/sellercancelCheck")
+	public String sellercancelCheck(Model model) throws Exception {
+		log.debug("sellercancelCheck");
+		log.info("sellercancelCheck");
+		return "sellercancelCheck";
+	}
+
+	@GetMapping("/sellercancelList")
+	public String sellercancelList(Model model) throws Exception {
+		log.debug("sellercancelList");
+		log.info("sellercancelList");
+		return "sellercancelList";
+	}
+
+	@GetMapping("/sellerchangeCheck")
+	public String sellerchangeCheck(Model model) throws Exception {
+		log.debug("sellerchangeCheck");
+		log.info("sellerchangeCheck");
+		return "sellerchangeCheck";
+	}
+
+	@GetMapping("/magazine")
+	public String magazine(Model model) throws Exception {
+		log.debug("magazine");
+		log.info("magazine");
+		return "magazine";
+	}
+
 }
