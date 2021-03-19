@@ -61,7 +61,7 @@
   color: #4698ff; }
 
 .c3-bg, .bg1, .button, .hero-slider .owl-dots .owl-dot.active, .single-service-2:hover .inner, .single-portfolio .inner .portfolio-img .hover-content, .faq .single-item.active, .single-faq h2 span, .footer_widget .nw_form button, .tabs-area .tabs-nav li a.active, .single-team .inner .team-img::after, .single-pricing.active .inner, .active.single-pricing-2 .inner, .single-pricing-2.active .inner .title .price {
-  background-color: #4698ff; }
+  background-color: blue; } /* 수정 호버색상 변경 */
 
 .c3-bo, .button, .single-service.bordered .inner:hover, .bordered.single-service-2 .inner:hover, .bordered.single-service-3 .inner:hover, .testimonial-slider .single-slide, .tabs-area .tabs-nav li a::after, .tabs-area .tabs-nav li a.active, .contact-form input:not([type="submit"]):focus,
 .contact-form textarea:focus {
@@ -107,8 +107,8 @@ span {
   background-color: #f3f6fa; }
 
 .sp {
-  padding-top: 90px;
-  padding-bottom: 90px; }
+  padding-top: 18px;
+  padding-bottom: 40px; }
 
 .spt {
   padding-top: 90px; }
@@ -250,8 +250,8 @@ iframe {
 /*****************************
  *   01. header
  ***************************** */
-header {
-  background-color: white;
+header { 
+  background-color: white; /* 수정 */
   padding: 18px 0; }
 
 .logo-column a.logo {
@@ -335,9 +335,9 @@ form.search-form button {
       font-weight: 500;
       line-height: 25px; }
       #menu ul > li > a:hover {
-        color: #black; }
+        color: white; } /* 메뉴 글씨 색상 수정 */
     #menu ul > li.current-menu-item > a {
-      color: #black; }
+      color: white; } /* 메뉴 글씨 색상 수정 */
 
 #menu ul ul {
   position: absolute;
@@ -797,8 +797,7 @@ form.search-form button {
  *   08. footer-top
  ***************************** */
 footer {
-  background-color: #white;
-  color: black;
+  background-color: black;
   line-height: 24px; }
 
 .footer-top {
@@ -816,7 +815,7 @@ footer {
 
 .footer_widget h4,
 .footer_widget h5 {
-  color: black; }
+  color: white; }
 
 @media only screen and (max-width: 991px) {
   .footer_widget {

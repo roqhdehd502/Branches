@@ -34,14 +34,54 @@ public class KSPController {
 		return "ksp/member_mypage_modify";
 	}
 
-	@GetMapping("/seller/mypage")
-	public String seller_mypage(Model model) {
-		return "ksp/seller_mypage";
+	@GetMapping("/member/question")
+	public String member_q_a(Model model) {
+		model.addAttribute("inq", kspService.getInquiry());
+
+		return "ksp/member_question";
+	}
+
+	@GetMapping("/member/{m_id}/myinfo/myreview")
+	public String member_myreview(@PathVariable("m_id") String m_id, Model model) {
+		model.addAttribute("mem", kspService.getMemberInfo(m_id));
+		return "ksp/member_myreview";
+	}
+
+	@GetMapping("/member/{m_id}/myinfo/myprdctq")
+	public String member_myprdctq(@PathVariable("m_id") String m_id, Model model) {
+		model.addAttribute("mem", kspService.getMemberInfo(m_id));
+		return "ksp/member_myprdctq";
+	}
+
+	@GetMapping("/member/{m_id}/myinfo/myq")
+	public String member_myq(@PathVariable("m_id") String m_id, Model model) {
+		model.addAttribute("mem", kspService.getMemberInfo(m_id));
+		return "ksp/member_myq";
+	}
+
+	@GetMapping("/member/order/complete")
+	public String member_order_complete(Model model) {
+		// model.addAttribute("mem", kspService.getMemberInfo(m_id));
+		return "ksp/member_order_complete";
 	}
 
 	@GetMapping("/seller/{m_id}/myinfo")
 	public String seller_mypage_modify(@PathVariable("m_id") String m_id, Model model) {
 		model.addAttribute("mem", kspService.getMemberInfo(m_id));
 		return "ksp/seller_mypage_modify";
+	}
+
+	@GetMapping("/brand_prdct_list/{b_id}")
+	public String brand_prdct_list(@PathVariable("b_id") String b_id, Model model) {
+		model.addAttribute("prdct", kspService.getPrdctList(b_id));
+		model.addAttribute("mbr", kspService.getMemberInfo(b_id));
+		return "ksp/brand_prdct_list";
+	}
+
+	@GetMapping("/prdct_list/{search}")
+	public String seach_prdct_list(@PathVariable("search") String search, Model model) {
+		model.addAttribute("result", kspService.getSearchResult(search));
+		model.addAttribute("mbr", kspService.getMemberInfoByName(search));
+		return "ksp/search_prdct_list";
 	}
 }
