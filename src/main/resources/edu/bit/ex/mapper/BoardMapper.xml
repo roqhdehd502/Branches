@@ -23,4 +23,22 @@
 		WHERE b.board_type_number = t.board_type_number AND 
 		    t.board_type_name = 'NOTICE'
 	</select>
+	
+	<!-- 공지사항 작성 -->
+	
+	<!-- 공지사항 게시글 -->
+	<select id="getNoticeContent" resultType="edu.bit.ex.vo.BoardVO">
+	<![CDATA[
+		SELECT * FROM board WHERE board_id = #{board_id}
+	]]>
+	</select>
+	
+	<!-- 공지사항 게시글 수정 -->
+	<update id="setNoticeModify">
+	<![CDATA[
+		UPDATE board SET board_name = #{board_name}, board_title = #{board_title}, board_content = #{board_content} WHERE board_id = #{board_id}
+	]]>
+	</update>
+	
+	<!-- 매거진 게시판 리스트 -->
 </mapper>
