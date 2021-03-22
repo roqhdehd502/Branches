@@ -116,6 +116,7 @@
 		</header>
 	<!-- 장바구니	 -->
 		<div class="container" style="text-align: center;">
+
 			<h3>Cart List</h3>
 			<table class="table cart_table n-cart-table">
 				<colgroup>
@@ -141,6 +142,7 @@
 					</tr>
 				</thead>
 				<tbody>
+				<c:forEach items="${cartList}" var="cvo">
 					<tr class="cart-group has_gift">
 						<td colspan="9" class="cart_cont">
 							<table class="table_basic cart_table">
@@ -158,7 +160,7 @@
 								<tbody>
 									<tr class="cart_list_no">
 										<td>1</td>
-										<td><input type="checkbox" class="checked_cart" name="cart_no" value="521779327" checked="checked"></td>
+										<td><input type="checkbox" class="checked_cart" name="cart_no" value="${cvo.cart_number}" checked="checked"></td>
 										<td>
 											<div class="connect_img">
 												<a href=# class="img-block"> <img src="//image.msscdn.net/images/goods_img/20200820/1557658/1557658_2_62.jpg"
@@ -175,7 +177,7 @@
 												<p class="txt_option">옵션: M
 											</div>
 										</td>
-										<td class="td_price">44,400</td>
+										<td class="td_price">${cvo.cart_price}</td>
 										<td>
 											<!-- 수량 -->
 											<div class="n-input-amount">
@@ -246,27 +248,15 @@
 					<tr class="gift-division">
 						<td colspan="9"></td>
 					</tr>
+				</c:forEach>
 				</tbody>
 			</table>
 			<button type="button" class="btn btn-primary"><a class="order-bnt" herf="#">주문하기</a></button>
 			<br/>
 			<br/>
+
 		</div>
 
-		<!-- footer -->
-		</section>
-		<article>
-			<nav>
-				<ul class="nav justify-content-center bg-dark" style="font-family: sans-serif;">
-					<li class="nav-item col-md"><a class="nav-link text-white" href="#">회사소개</a></li>
-					<li class="nav-item col-md"><a class="nav-link text-white" href="#">제휴문의</a></li>
-					<li class="nav-item col-md"><a class="nav-link text-white" href="#">이용약관</a></li>
-					<li class="nav-item col-md"><a class="nav-link text-white" href="#">고객센터</a></li>
-					<li class="nav-item col-md"><a class="nav-link text-white" href="#">채용정보</a></li>
-					<li class="nav-item col-md"><a class="nav-link text-white" href="#">개인정보처리</a></li>
-				</ul>
-			</nav>
-		</article>
 		<!-- footer -->
 		<footer>
 			<div class="footer-top">

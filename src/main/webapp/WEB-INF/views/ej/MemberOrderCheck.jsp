@@ -128,7 +128,7 @@
 			</nav>
 		</header>
 
-		<!-- 비회원 결제 전 주문정보 확인 페이지 -->
+		<!-- 회원 결제 전 주문정보 확인 페이지 -->
 		<!-- 상품정보 확인 -->
 		<br /> <br />
 		<legend style="text-align: center;">주문 확인</legend>
@@ -182,11 +182,13 @@
 			<div class="card-header">주문자 정보 확인</div>
 			<div class="card-body">
 				<table class="table table-borderless">
-
+					<tr>
+						<td>User Id</td>
+						<td>aaa111</td>
+					</tr>					
 					<tr>
 						<td>Oder Name</td>
 						<td>이은지</td>
-
 					</tr>
 					<tr>
 						<td>Phone Number</td>

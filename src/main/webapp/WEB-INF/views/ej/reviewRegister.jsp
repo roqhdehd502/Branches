@@ -6,7 +6,7 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Oder Input</title>
+<title>Review Register</title>
 
 <!-- Required CSS files -->
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
@@ -18,7 +18,51 @@
 <link rel="stylesheet" href="/assets/css/slicknav.css">
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css">
+ <link rel="stylesheet" type="text/css" href="style.css">
+
 </head>
+<style>
+*{
+    margin: 0;
+    padding: 0;
+}
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+</style>
+
 <body>
 <div style="overflow: hidden;" class="container">
 	<header style="padding-bottom: 10px; padding-top: 5px;">
@@ -127,93 +171,67 @@
 				</ul>
 			</nav>
 		</header>
+		
+		<!-- 리뷰 등록 페이지 -->
+		<form>
+			<input type="hidden" value="아이디" /> <!-- 데이터끌고와서 처리 --> 
+			<input type="hidden" value="등급" /> <br /> <br />
+			<fieldset>
+				<legend style="text-align: center;">리뷰 등록</legend>
+				<br />
 
-		<!-- 비회원 결제 전 주문정보 확인 페이지 -->
-		<!-- 상품정보 확인 -->
-		<br /> <br />
-		<legend style="text-align: center;">주문 확인</legend>
-		<br />
-		<div class="card border-secondary mb-3">
-			<div class="card-header">주문 상품 확인</div>
-			<div class="card-body">
-				<table class="table table-borderless">
-					<thead>
-						<tr>
-							<th>장바구니번호</th>
-							<th>&nbsp;&nbsp;</th>
-							<th>상품정보</th>
-							<th>상품금액(수량)</th>
-							<th>배송비</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>1234567</td>
-							<td><img src="https://ssl.pstatic.net/checkout.phinf/20201204_159/1607073546048sLCFy_JPEG/2002794851675469.jpg?type=m80"></td>
-							<td><p>[Phone Case] Pattern Watercolor 03</p>
-								<p>기종: 아이폰 X/XS</p></td>
-							<td>17,000원(1개)</td>
-							<td>3,000원</td>
-						</tr>
-						<tr>
-							<td>2344323</td>
-							<td><img src="https://ssl.pstatic.net/checkout.phinf/20201130_58/1606748056268joq3k_JPEG/2002794851675735.jpg?type=m80"></td>
-							<td><p>[Air pods hard Case] Pattern Watercolor 03 (Air pods & Air pods Pro)</p>
-								<p>에어팟 프로 (고리형) / 타입: 유광</p></td>
-							<td>10,000원(1개)</td>
-							<td>0원</td>
-						</tr>
-						<tr>
-							<th>총 금액</th>
-							<th>&nbsp;&nbsp;</th>
-							<th>&nbsp;&nbsp;</th>
-							<th>&nbsp;&nbsp;</th>
-							<th>
-								<!-- 합산한금액 계산되게 -->30,000원
-							</th>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
+				<!-- 상품정보 -->
+				<div class="form-group row">
+					<label for="prdName" class="col-sm-2 col-form-label">상품</label>
+					<div class="col-sm-10">
+						<p id="prdName" class="font-weight-bold">상품이름</p>
+					</div>
+				</div>
 
-		<!-- 주문자 정보 확인 -->
-		<div class="card border-secondary mb-3">
-			<div class="card-header">주문자 정보 확인</div>
-			<div class="card-body">
-				<table class="table table-borderless">
+				<!-- 별점 -->
+				<div class="form-group row">
+					<label for="prdName" class="col-sm-2 col-form-label">별점</label>
+					 <div class="rate">
+	    				<input type="radio" id="star5" name="rate" value="5" />
+					    <label for="star5" title="text">5 stars</label>
+					    
+					    <input type="radio" id="star4" name="rate" value="4" />
+					    <label for="star4" title="text">4 stars</label>
+					    
+					    <input type="radio" id="star3" name="rate" value="3" />
+					    <label for="star3" title="text">3 stars</label>
+					    
+					    <input type="radio" id="star2" name="rate" value="2" />
+					    <label for="star2" title="text">2 stars</label>
+					    
+					    <input type="radio" id="star1" name="rate" value="1" />
+					    <label for="star1" title="text">1 star</label>
+ 				 	</div>
+ 				 </div>
 
-					<tr>
-						<td>Oder Name</td>
-						<td>이은지</td>
+				<!--내용 -->
+				<div class="form-group row">
+					<label for="orderEmail" class="col-sm-2 col-form-label">내용</label>
+					<div class="col-sm-10">
+						<textarea name="etc_textarea" class="form-control" style="" value="" maxlength="300" onkeyup="return textarea_maxlength(this)" placeholder="최대 300자까지 입력 가능합니다."></textarea>
+					</div>
+				</div>
 
-					</tr>
-					<tr>
-						<td>Phone Number</td>
-						<td>010-2222-2222</td>
-					</tr>
-					<tr>
-						<td>Email</td>
-						<td>abc@kaka.com</td>
-					</tr>
-					<tr>
-						<td>Shipping Address</td>
-						<td>서울특별시 종로구 종로 69 YMCA빌딩 7층</td>
-					</tr>
-					<tr>
-						<td>Shipping Memo</td>
-						<td>부재 시 경비실에 맡겨주세요.</td>
-					</tr>
-				</table>
-			</div>
-		</div>
-
-
-		<div style="text-align: center;">
-			<button type="button" class="btn btn-primary">결제하기</button>
-		</div>
-		<br /> <br />
-
+				<!-- 사진등록 -->
+				<div class="form-group row">
+								<label class="col-sm-2 col-form-label">사진등록</label>
+								<div class="col-sm-10">
+									
+									<input type="file" class="form-control-file">
+									<small class="form-text text-muted">jpg, png, gif의 사진파일만 적용됩니다.</small>
+								</div>
+							</div>
+				<div style="text-align: center;">
+					<button type="button" class="btn btn-primary">등록</button>
+				</div>
+				<br /> <br />
+			</fieldset>
+		</form>
 
 		<!-- footer -->
 		<footer>

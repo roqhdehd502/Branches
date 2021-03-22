@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="edu.bit.ex.mapper.EjMapper">
+	<!-- 장바구니 리스트 -->
+	<resultMap id="cartMap" type="edu.bit.ex.vo.CartVO">
+	    <result property="cart_number" column="cart_number"/>
+	    <result property="cart_price" column="cart_price"/>
+	    <result property="cart_date" column="cart_date"/>
+	</resultMap>
+	
+	<resultMap id="mbrMap" type="edu.bit.ex.vo.MbrVO">
+		<result property="mbr_id" column="mbr_id"/>
+	</resultMap>
+	
+	<resultMap id="cartDMap" type="edu.bit.ex.vo.CartDetailVO">
+		<result property="cart_color" column="cart_color"/>
+		<result property="cart_size" column="cart_size"/>
+		<result property="cart_amount" column="cart_amount"/>
+		<result property="prdct_price" column="prdct_price"/>
+	</resultMap>
+	
+	<select id="getCartList" resultMap="cartMap">
+		select cart_number, cart_price, cart_date from cart
+	</select>
+	<!-- 맵퍼 대체 어떻게 쓰는거냐고요 -->
+
+</mapper>
