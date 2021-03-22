@@ -93,89 +93,72 @@
 
 				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">
 					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px;">
-						<strong style="margin: 10px;">취소주문 조회</strong>
+						<strong style="margin: 10px;">상품 Q & A</strong>
 					</h3>
-					<table class="table">
-						<thead style="text-align: center;">
+					<table class="table" style="text-align: center;">
+						<thead>
 							<tr>
-								<td><h5>상품정보</h5></td>
-								<td><h5>주문일</h5></td>
-								<td><h5>주문번호</h5></td>
-								<td><h5>주문금액</h5></td>
-								<td><h5>상태</h5></td>
+								<td><h5>No.</h5></td>
+								<td><h5>제목</h5></td>
+								<td><h5>작성자</h5></td>
+								<td><h5>문의유형</h5></td>
+								<td><h5>상품명</h5></td>
+								<td><h5>일자</h5></td>
 							</tr>
 						</thead>
-						<tbody >
+						<tbody>
 							<tr>
 								<td>
-									<h6>[단독]Denim Jaket & Pants</h6>
-									<h6>M(95)/S(90)</h6>
-									<h6>Sky Blue</h6>
+									<h6>1</h6>
 								</td>
-								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
-								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
-								<td><h6 style="position: relative; top: 34px; text-align: center;">29,900₩</h6></td>
-								<td>
-									<h6 style="position: relative; top: 22px; margin-left: 14px;">취소요청</h6>
-									<h6 style="position: relative; top: 24px; margin-left: 10px;"><button class="btn btn-primary btn-sm">취소처리</button></h6>
-								</td>
+								<td><h6><a href="#">상품배송질문입니다.</a></h6></td>
+								<td><h6>wiqu7***</h6></td>
+								<td><h6>배송</h6></td>
+								<td><h6 >Denim Jaket & Pants</h6></td>
+								<td><h6>2021.03.19</h6></td>
 							</tr>
 							<tr>
 								<td>
-									<h6>[단독]Denim Jaket & Pants</h6>
-									<h6>M(95)/S(90)</h6>
-									<h6>Sky Blue</h6>
+									<h6>2</h6>
 								</td>
-								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
-								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
-								<td><h6 style="position: relative; top: 34px; text-align: center;">29,900₩</h6></td>
-								<td>
-									<h6 style="position: relative; top: 22px; margin-left: 14px;">취소요청</h6>
-									<h6 style="position: relative; top: 24px; margin-left: 10px;"><button class="btn btn-primary btn-sm">취소처리</button></h6>
-								</td>
+								<td><h6><a href="#">상품배송질문입니다.</a></h6></td>
+								<td><h6>wiqu7***</h6></td>
+								<td><h6>배송</h6></td>
+								<td><h6>Denim Jaket & Pants</h6></td>
+								<td><h6>2021.03.19</h6></td>
 							</tr>
 							<tr>
 								<td>
-									<h6>[단독]Denim Jaket & Pants</h6>
-									<h6>M(95)/S(90)</h6>
-									<h6>Sky Blue</h6>
+									<h6>3</h6>
 								</td>
-								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
-								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
-								<td><h6 style="position: relative; top: 34px; text-align: center;">29,900₩</h6></td>
-								<td>
-									<h6 style="position: relative; top: 22px; margin-left: 14px;">취소요청</h6>
-									<h6 style="position: relative; top: 24px; margin-left: 10px;"><button class="btn btn-primary btn-sm">취소처리</button></h6>
-								</td>
+								<td><h6><a href="#">상품배송질문입니다.</a></h6></td>
+								<td><h6>wiqu7***</h6></td>
+								<td><h6>배송</h6></td>
+								<td><h6>Denim Jaket & Pants</h6></td>
+								<td><h6>2021.03.19</h6></td>
 							</tr>
 							<tr>
 								<td>
-									<h6>[단독]Denim Jaket & Pants</h6>
-									<h6>M(95)/S(90)</h6>
-									<h6>Sky Blue</h6>
+									<h6>4</h6>
 								</td>
-								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
-								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
-								<td><h6 style="position: relative; top: 34px; text-align: center;">29,900₩</h6></td>
-								<td>
-									<h6 style="position: relative; top: 22px; margin-left: 14px;">취소요청</h6>
-									<h6 style="position: relative; top: 24px; margin-left: 10px;"><button class="btn btn-primary btn-sm">취소처리</button></h6>
-								</td>
+								<td><h6><a href="#">상품배송질문입니다.</a></h6></td>
+								<td><h6>wiqu7***</h6></td>
+								<td><h6>배송</h6></td>
+								<td><h6>Denim Jaket & Pants</h6></td>
+								<td><h6>2021.03.19</h6></td>
 							</tr>
 							<tr>
 								<td>
-									<h6>[단독]Denim Jaket & Pants</h6>
-									<h6>M(95)/S(90)</h6>
-									<h6>Sky Blue</h6>
+									<h6>5</h6>
 								</td>
-								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
-								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
-								<td><h6 style="position: relative; top: 34px; text-align: center;">29,900₩</h6></td>
-								<td>
-									<h6 style="position: relative; top: 22px; margin-left: 14px;">취소요청</h6>
-									<h6 style="position: relative; top: 24px; margin-left: 10px;"><button class="btn btn-primary btn-sm">취소처리</button></h6>
-								</td>
+								<td><h6><a href="#">상품배송질문입니다.</a></h6></td>
+								<td><h6>wiqu7***</h6></td>
+								<td><h6>배송</h6></td>
+								<td><h6>Denim Jaket & Pants</h6></td>
+								<td><h6>2021.03.19</h6></td>
 							</tr>
+							
+							
 						
 						</tbody>
 					</table>

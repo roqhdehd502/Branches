@@ -6,7 +6,7 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>판매자 마이페이지</title>
+<title>관리자 마이페이지</title>
 
 <!-- Required CSS files -->
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
@@ -47,144 +47,113 @@
 			</div>
 		</div>
 	</header>
+	
 	<div class="container">
-         <span style="margin-left: 70px;">
-         </span> <span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
-            <h3>이름(업체명)</h3>
-            <h3 style="position: relative; top: 15px;">아이디</h3>
-         </span>
-         <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="#">정보수정</a></span> 
-         <span style="margin-left: 480px;" align="center">
-            <h2 style="position: relative; top: 5px;">새주문</h2>
-            <h4 style="position: relative; top: 15px;">2건</h4>
-         </span>
-      </div>
-		
-		<hr style="margin: 15px 15px 24px 15px;">
-
-		<div class="container">
 			<div class="row">
 				<div class="col-md-2 contact-info" align="center">
-					<div class="single-info" style="margin-bottom: 40px">
-	                    <h3>주문 관리</h3><hr>
-	                    <h5><a href="#">전체</a></h5>
-	                    <h5><a href="#">주문확인</a></h5>
-	                    <h5><a href="#">발송확인</a></h5>
-	                    <h5><a href="#">취소</a></h5>
-	                    <h5><a href="#">교환</a></h5>
-	                    <h5><a href="#">환불</a></h5>
-	                </div>
+					<div class="single-info" style="margin-bottom: 40px; margin-top: 15px;">
+	                    <h3>업체관리</h3><hr>
+	                    <h5><a href="#">업체등록</a></h5>
+	                    <h5><a href="#">업체목록 조회</a></h5>
+	                </div><br/>
 	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>상품 관리</h3><hr>
-	                    <h5><a href="#">등록</a></h5>
-	                    <h5><a href="#">수정</a></h5>
-	                    <h5><a href="#">삭제</a></h5>
-	                </div>
+	                    <h3>회원관리</h3><hr>
+	                    <h5><a href="#">회원정보 조회</a></h5>
+	                    <h5><a href="#">고객Q&A 목록</a></h5>
+	                </div><br/>
 	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>회원 관리</h3><hr>
-	                    <h5><a href="#">Q&A</a></h5>
-	                    <h5><a href="#">리뷰</a></h5>
-	                </div>
-	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>매출 관리</h3><hr>
-	                    <h5><a href="#">매출</a></h5>
+	                    <h3>매출관리</h3><hr>
+	                    <h5><a href="#">매출조회</a></h5>
+	                    <h5><a href="#">검색순위 조회</a></h5>
 	                </div>
 				</div>
-
 				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">
 					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px;">
-						<strong style="margin: 10px;">취소주문 조회</strong>
+						<strong style="margin: 10px;">회원정보 조회</strong>
 					</h3>
-					<table class="table">
-						<thead style="text-align: center;">
+					<div style="margin-bottom: 20px;">
+						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">ㄱㄴㄷ순</button></span>
+						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">abc순</button></span>
+						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">매출순</button></span>
+						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">최근등록순</button></span>
+						<form action="#" style="float: right;">
+							<span><input class="form-control" type="text" style="width: 180px;"></span>
+							<span><button class="btn btn-primary btn-sm" type="submit">검색</button></span>
+						</form> 
+					</div>
+					<table class="table" style="text-align: center;">
+						<thead>
 							<tr>
-								<td><h5>상품정보</h5></td>
-								<td><h5>주문일</h5></td>
-								<td><h5>주문번호</h5></td>
-								<td><h5>주문금액</h5></td>
-								<td><h5>상태</h5></td>
+								<td><h5>No.</h5></td>
+								<td><h5>아이디</h5></td>
+								<td><h5>이름</h5></td>
+								<td><h5>전화번호</h5></td>
+								<td><h5>이메일</h5></td>
+								<td><h5>가입일</h5></td>
 							</tr>
 						</thead>
-						<tbody >
+						<tbody>
 							<tr>
 								<td>
-									<h6>[단독]Denim Jaket & Pants</h6>
-									<h6>M(95)/S(90)</h6>
-									<h6>Sky Blue</h6>
+									<h6>1</h6>
 								</td>
-								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
-								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
-								<td><h6 style="position: relative; top: 34px; text-align: center;">29,900₩</h6></td>
-								<td>
-									<h6 style="position: relative; top: 22px; margin-left: 14px;">취소요청</h6>
-									<h6 style="position: relative; top: 24px; margin-left: 10px;"><button class="btn btn-primary btn-sm">취소처리</button></h6>
-								</td>
+								<td><h6><a href="#">windw123</a></h6></td>
+								<td><h6>김철수</h6></td>
+								<td><h6>010-0000-0000</h6></td>
+								<td><h6>windw123@naver.com</h6></td>
+								<td><h6>2021.03.19</h6></td>
 							</tr>
 							<tr>
 								<td>
-									<h6>[단독]Denim Jaket & Pants</h6>
-									<h6>M(95)/S(90)</h6>
-									<h6>Sky Blue</h6>
+									<h6>2</h6>
 								</td>
-								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
-								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
-								<td><h6 style="position: relative; top: 34px; text-align: center;">29,900₩</h6></td>
-								<td>
-									<h6 style="position: relative; top: 22px; margin-left: 14px;">취소요청</h6>
-									<h6 style="position: relative; top: 24px; margin-left: 10px;"><button class="btn btn-primary btn-sm">취소처리</button></h6>
-								</td>
+								<td><h6><a href="#">windw123</a></h6></td>
+								<td><h6>김철수</h6></td>
+								<td><h6>010-0000-0000</h6></td>
+								<td><h6>windw123@naver.com</h6></td>
+								<td><h6>2021.03.19</h6></td>
 							</tr>
+							
 							<tr>
 								<td>
-									<h6>[단독]Denim Jaket & Pants</h6>
-									<h6>M(95)/S(90)</h6>
-									<h6>Sky Blue</h6>
+									<h6>3</h6>
 								</td>
-								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
-								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
-								<td><h6 style="position: relative; top: 34px; text-align: center;">29,900₩</h6></td>
-								<td>
-									<h6 style="position: relative; top: 22px; margin-left: 14px;">취소요청</h6>
-									<h6 style="position: relative; top: 24px; margin-left: 10px;"><button class="btn btn-primary btn-sm">취소처리</button></h6>
-								</td>
+								<td><h6><a href="#">windw123</a></h6></td>
+								<td><h6>김철수</h6></td>
+								<td><h6>010-0000-0000</h6></td>
+								<td><h6>windw123@naver.com</h6></td>
+								<td><h6>2021.03.19</h6></td>
 							</tr>
+							
 							<tr>
 								<td>
-									<h6>[단독]Denim Jaket & Pants</h6>
-									<h6>M(95)/S(90)</h6>
-									<h6>Sky Blue</h6>
+									<h6>4</h6>
 								</td>
-								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
-								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
-								<td><h6 style="position: relative; top: 34px; text-align: center;">29,900₩</h6></td>
-								<td>
-									<h6 style="position: relative; top: 22px; margin-left: 14px;">취소요청</h6>
-									<h6 style="position: relative; top: 24px; margin-left: 10px;"><button class="btn btn-primary btn-sm">취소처리</button></h6>
-								</td>
+								<td><h6><a href="#">windw123</a></h6></td>
+								<td><h6>김철수</h6></td>
+								<td><h6>010-0000-0000</h6></td>
+								<td><h6>windw123@naver.com</h6></td>
+								<td><h6>2021.03.19</h6></td>
 							</tr>
+							
 							<tr>
 								<td>
-									<h6>[단독]Denim Jaket & Pants</h6>
-									<h6>M(95)/S(90)</h6>
-									<h6>Sky Blue</h6>
+									<h6>5</h6>
 								</td>
-								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
-								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
-								<td><h6 style="position: relative; top: 34px; text-align: center;">29,900₩</h6></td>
-								<td>
-									<h6 style="position: relative; top: 22px; margin-left: 14px;">취소요청</h6>
-									<h6 style="position: relative; top: 24px; margin-left: 10px;"><button class="btn btn-primary btn-sm">취소처리</button></h6>
-								</td>
+								<td><h6><a href="#">windw123</a></h6></td>
+								<td><h6>김철수</h6></td>
+								<td><h6>010-0000-0000</h6></td>
+								<td><h6>windw123@naver.com</h6></td>
+								<td><h6>2021.03.19</h6></td>
 							</tr>
-						
 						</tbody>
 					</table>
-				<hr>
+         		</span>
 			</div>
 		</div>
 	
 	<hr>
-		<!-- footer -->
+	<!-- footer -->
 		<footer>
 			<div class="footer-top">
 				<div class="container">
@@ -236,7 +205,6 @@
 					</div>
 				</div>
 			</div>
-
 		</footer>
 		<div class="container">
 			<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 | <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 | <strong>팩스 :</strong>
@@ -244,7 +212,7 @@
 			</small> <br /> <small style="color: black;"><strong>고객센터</strong> 0000-0000 | 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) | <strong>이메일</strong>
 				admin@branches.co.kr | <strong>개인정보책임자</strong> 000 | <strong>호스팅서비스</strong> (주)00000 | </small>
 		</div><br/><br/>
-		<!--Required JS files-->
+	<!--Required JS files-->
 	<script src="/assets/js/jquery-2.2.4.min.js"></script>
 	<script src="/assets/js/vendor/popper.min.js"></script>
 	<script src="/assets/js/vendor/bootstrap.min.js"></script>
@@ -254,6 +222,7 @@
 	<script src="/assets/js/vendor/loopcounter.js"></script>
 	<script src="/assets/js/vendor/slicknav.min.js"></script>
 	<script src="/assets/js/active.js"></script>
+		
 </div>
 </body>
 </html>

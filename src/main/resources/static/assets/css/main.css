@@ -62,11 +62,12 @@
   color: #4698ff; }
 
 .c3-bg, .bg1, .button, .hero-slider .owl-dots .owl-dot.active, .single-service-2:hover .inner, .single-portfolio .inner .portfolio-img .hover-content, .faq .single-item.active, .single-faq h2 span, .footer_widget .nw_form button, .tabs-area .tabs-nav li a.active, .single-team .inner .team-img::after, .single-pricing.active .inner, .active.single-pricing-2 .inner, .single-pricing-2.active .inner .title .price {
-  background-color: blue; } /* 수정 호버색상 변경 */
+  background: #7d91aa;
+   } /* 수정 호버색상 변경 */
 
 .c3-bo, .button, .single-service.bordered .inner:hover, .bordered.single-service-2 .inner:hover, .bordered.single-service-3 .inner:hover, .testimonial-slider .single-slide, .tabs-area .tabs-nav li a::after, .tabs-area .tabs-nav li a.active, .contact-form input:not([type="submit"]):focus,
 .contact-form textarea:focus {
-  border-color: #4698ff !important; }
+  border-color: black !important; }
 
 .trns, .button, .button-2, .nav-column a, .nav-column span, .nav-column .right-nav span, form.search-form, #menu ul > li > a, #menu ul ul, #menu ul ul::after, #menu ul ul li a, .hero-slider .owl-dots .owl-dot, .single-service .inner, .single-service-2 .inner, .single-service-3 .inner, .single-service .inner .title .icon, .single-service-2 .inner .title .icon, .single-service-3 .inner .title .icon, .single-service .inner .title h4, .single-service-2 .inner .title h4, .single-service-3 .inner .title h4, .single-service .inner .content, .single-service-2 .inner .content, .single-service-3 .inner .content, .isotope-menu li, .single-portfolio .inner .portfolio-img .hover-content, .single-portfolio .inner .portfolio-content h3, .faq-sidebar li a, .single-team .inner .team-img::after, .contact-form input:not([type="submit"]),
 .contact-form textarea {
@@ -253,7 +254,7 @@ iframe {
  ***************************** */
 header { 
   background-color: white; /* 수정 */
-  padding: 18px 0; }
+  padding: 0px;; }
 
 .logo-column a.logo {
   height: 35px;
@@ -273,7 +274,9 @@ header {
       color: black; }
   .nav-column .right-nav {
     float: right;
-    position: relative; }
+    position: relative;
+    top : 16px;
+     }
     .nav-column .right-nav span {
       padding: 0 15px; }
     .nav-column .right-nav .search-icon.active {
@@ -646,7 +649,7 @@ form.search-form button {
   border-radius: 5px;
   font-weight: 300;
   color: #7d91aa;
-  border: 1px solid; }
+  border: 2px solid; }
   .testimonial-slider .single-slide img {
     width: auto; }
   .testimonial-slider .single-slide .client-info {
@@ -657,7 +660,9 @@ form.search-form button {
       border-radius: 50%;
       overflow: hidden; }
     .testimonial-slider .single-slide .client-info .client-data {
-      padding-left: 78px; }
+      padding-left: 50px;
+      padding-top : 20px;
+       }
       .testimonial-slider .single-slide .client-info .client-data h4 {
         font-size: 16px;
         margin: 4px 0 0; }
@@ -898,7 +903,9 @@ footer {
     padding: 0 12.5px;
     display: inline-block;
     float: left;
-    position: relative; }
+    position: relative;
+    width : 130px;
+     }
     @media only screen and (max-width: 991px) {
       .tabs-area .tabs-nav li {
         width: 50%;
