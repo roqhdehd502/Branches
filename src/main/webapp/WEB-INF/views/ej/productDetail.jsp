@@ -21,7 +21,103 @@
 <link rel="stylesheet" href="/assets/css/main.css">
 
 <link rel="stylesheet" href="/bootstrap.min.css">
+
+<link rel="stylesheet" href="/ej/star-rating-svg.css">
+
 </head>
+<style>
+span.star-prototype, span.star-prototype > * {
+    height: 16px; 
+    background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
+    width: 80px;
+    display: inline-block;
+}
+ 
+span.star-prototype > * {
+    background-position: 0 0;
+    max-width:80px; 
+}
+body {
+  font-family: Arial;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img {
+  vertical-align: middle;
+}
+
+/* Position the image container (needed to position the left and right arrows) */
+.container {
+  position: relative;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+  cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 40%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+</style>
+<script>
+$.fn.generateStars = function() {
+    return this.each(function(i,e){$(e).html($('<span/>').width($(e).text()*16));});
+};
+
+// 숫자 평점을 별로 변환하도록 호출하는 함수
+$('.star-prototype').generateStars();
+
+</script>
 
 <body>
 	<div class="preloader">
@@ -93,59 +189,112 @@
 				<!-- 상품 상세 이미지 -->
 				<div class="left-container">
 					<!-- 사진 슬라이딩 처리 -->
-					<div style="float: left; margin-right: 20px;">
-						<img src="https://image.msscdn.net/images/goods_img/20200820/1557658/1557658_2_500.jpg" />
+					<div style="float: left; margin-right: 20px; ">
+						<div class="container">
+							<div class="mySlides" style="width:400px; height:600px;" >
+								<img src="https://image.msscdn.net/images/goods_img/20200205/1291017/1291017_1_500.jpg" style="width: 100%">
+							</div>
+
+							<div class="mySlides" style="width:400px; height:600px;">
+								<img src="https://image.msscdn.net/images/goods_img/20200820/1557508/1557508_1_500.jpg" style="width: 100%">
+							</div>
+
+							<div class="mySlides" style="width:400px; height:600px;">
+								<img src="https://image.msscdn.net/images/prd_img/20200820/1557508/detail_1557508_2_500.jpg" style="width: 100%">
+							</div>
+
+							<a class="prev" onclick="plusSlides(-1)">❮</a> <a class="next" onclick="plusSlides(1)">❯</a>
+							<script>
+							var slideIndex = 1;
+							showSlides(slideIndex);
+
+							function plusSlides(n) {
+								showSlides(slideIndex += n);
+							}
+
+							function currentSlide(n) {
+								showSlides(slideIndex = n);
+							}
+
+							function showSlides(n) {
+								var i;
+								var slides = document
+										.getElementsByClassName("mySlides");
+								var dots = document
+										.getElementsByClassName("demo");
+								var captionText = document
+										.getElementById("caption");
+								if (n > slides.length) {
+									slideIndex = 1
+								}
+								if (n < 1) {
+									slideIndex = slides.length
+								}
+								for (i = 0; i < slides.length; i++) {
+									slides[i].style.display = "none";
+								}
+								for (i = 0; i < dots.length; i++) {
+									dots[i].className = dots[i].className
+											.replace(" active", "");
+								}
+								slides[slideIndex - 1].style.display = "block";
+								dots[slideIndex - 1].className += " active";
+								captionText.innerHTML = dots[slideIndex - 1].alt;
+							}
+						</script>
+						</div>
+						
 					</div>
 				</div>
 
 				<!--  상품 정보와 옵션 선택 -->
-				<div class="row">
-					<div class="contrainer single-service bordered " style="height: 600px; width: 500px;">
-						<div class="inner">
-							<h4>thisisneverthat</h4>
-							<h4>INTL. Logo Crewneck</h4>
-							<h4>44,400원</h4>
-							<hr>
+					<div class="row">
+						<div class="contrainer single-service bordered " style="height: 600px; width: 500px;">
+							<div class="inner">
+								<h4>thisisneverthat</h4>
+								<h4>INTL. Logo Crewneck</h4>
+								<h4>44,400원</h4>
+								<hr>
 
-							<!-- 색상 옵션	 -->
-							<div class="form-group">
-								<label for="colorSelect" class="col-sm-2 col-form-label">Color</label> <select class="form-control" id="colorSelect">
-									<option value="">gray</option>
-									<option value="">blcak</option>
-									<option value="">white</option>
-									<option value="">green</option>
-								</select>
-							</div>
+								<!-- 색상 옵션	 -->
+								<div class="form-group">
+									<label for="colorSelect" class="col-sm-2 col-form-label">Color</label> <select class="form-control" id="colorSelect">
+										<option value="">gray</option>
+										<option value="">blcak</option>
+										<option value="">white</option>
+										<option value="">green</option>
+									</select>
+								</div>
 
-							<!-- 사이즈 옵션 -->
-							<div class="form-group">
-								<label for="sizeSelect" class="col-sm-2 col-form-label">Size</label> <select class="form-control" id="sizeSelect">
-									<option value="">S</option>
-									<option value="">M</option>
-									<option value="">L</option>
-									<option value="">XL</option>
-								</select>
-							</div>
-							<hr>
-							<!--  구매 버튼 및 찜하기  -->
-							<div class="row">
-								<div style="float: left; width: 25%; padding-left: 20px">
-									<button type="button" class="btn btn-primary">바로구매</button>
+								<!-- 사이즈 옵션 -->
+								<div class="form-group">
+									<label for="sizeSelect" class="col-sm-2 col-form-label">Size</label> <select class="form-control" id="sizeSelect">
+										<option value="">S</option>
+										<option value="">M</option>
+										<option value="">L</option>
+										<option value="">XL</option>
+									</select>
 								</div>
-								<div style="float: left; width: 25%; padding-left: 20px">
-									<button type="button" class="btn btn-primary">장바구니</button>
-								</div>
-								<div class="icon" style="float: left; padding-left: 20px; padding-top: 10px;">
-									<i class="fa fa-heart-o fa-2x"> 찜하기</i>
+								<hr>
+								<!--  구매 버튼 및 찜하기  -->
+								<div class="row">
+									<div style="float: left; width: 30%; padding-left: 20px">
+										<button type="button" class="btn btn-primary">바로구매</button>
+									</div>
+									<div style="float: left; width: 30%; padding-left: 20px">
+										<button type="button" class="btn btn-primary">장바구니</button>
+									</div>
+									<div class="icon" style="float: left; padding-left: 20px; padding-top: 10px;">
+										<i class="fa fa-heart-o fa-2x"> 찜하기</i>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
 
-			<!--제품 상세페이지 tab -->
+				<!--제품 상세페이지 tab -->
 			<div class="container">
 				<br>
 				<div align="center">
@@ -203,6 +352,7 @@
 								<!-- 상품 총 별점 -->
 								<div class="wrap-estimate-avg">
 									<span class="tit">구매 만족도</span>
+									<span class="star-prototype"></span> (4.0)	 <!-- 데이터로 별점 끌어씀 -->
 									<div class="estimate-point" id="estimate_point">
 										<span class="img-score"><span class="bar" style="width: 95%"> <!-- 사진자리/별점 평균 -->
 										</span></span>
@@ -233,23 +383,18 @@
 								<div class="card bg-light mb-3" style="max-width: 1000px;">
 									<div class="card-header">
 										<div class="postContents container style_est_cont">
-											<div class="profile">
+											<div class="profile" style="text-align: left; align-content: center;">
 												<p>
 													<span class="gallery_lv"> <span class="notCrawlText" style="font-weight: bold;">Silver(등급) dododndn(아이디)</span>
-													</span> <span class="date last"> 12시간 전 </span>
-
+													</span> <span class="date last" style="clear: left; float: right;"> 12시간 전 </span>
 												</p>
-												<!-- url 복사 -->
-												<div class="url-copy-btn plain-btn btn" id="url_copy">
-													<span class="url">URL복사</span> <input type="hidden" name="copyUrl" value="">
-												</div>
 											</div>
 										</div>
 									</div>
 									<div class="card-body">
 										<!--관련 상품-->
 										<div class="connect_product estimate-item">
-											<div class="connect_review_info">
+											<div class="connect_review_info">												
 												<div>
 													<a class="list_info p_name" href="#"> INTL. Logo Crewneck Black </a>
 												</div>
@@ -264,8 +409,13 @@
 											<div class="summary" style="cursor: pointer;">
 												<div class="cArea">
 													<div class="pContent_text">
-														<span>별점</span> <span class="content-review"> 옷이 탄탄해서 체형보정에도 좋을 것같고 오래입을수 있을것같아요 </span>
+														<span class="content-review"> 옷이 탄탄해서 체형보정에도 좋을 것같고 오래입을수 있을것같아요 </span>
 													</div>
+
+													<!-- 개인 별점 --> 
+													 <span class="star-prototype"></span> (4.5) <!-- 데이터로 별점 끌어씀 -->							
+
+													<!-- 리뷰사진 -->
 													<div class="pContent_Img img3 photoReview">
 														<img class="gallery-images" src="https://image.msscdn.net/images/goods_img/20200820/1557658/1557658_2_500.jpg"
 															alt="디스이즈네버댓(THISISNEVERTHAT) INTL. Logo Crewneck Black 후기">
@@ -273,9 +423,12 @@
 												</div>
 											</div>
 										</div>
-										<!--comment-->
+										
 										<!-- 댓글달기 구현 -->
-										<!--//comment-->
+										<div  class="form-group row"  > 
+											<input class="text col-sm-10" id="replyInput" placeholder="댓글을 입력하세요." >
+											<button type="button" class="btn btn-primary">댓글달기</button>
+										</div>
 
 									</div>
 
@@ -435,114 +588,68 @@
 
 	</div>
 	<!-- 상품컨텐츠 내용 전체 컨테이너 끝 -->
-	<footer>
-		<div class="footer-top">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6 col-lg-3 footer_widget">
-						<div class="inner">
-							<h4>About</h4>
-							<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-							<p>Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, antesenectus et netus et malesuada fames ac turpis egestas.</p>
-						</div>
-					</div>
-					<div class="col-md-6 col-lg-3 footer_widget">
-						<div class="inner">
-							<h4>Company</h4>
-							<ul>
-								<li><a href="#">Company Overview</a></li>
-								<li><a href="#">Meet The Team</a></li>
-								<li><a href="#">Our Awesome Partners</a></li>
-								<li><a href="#">Our Services</a></li>
-								<li><a href="#">Frequently Asked Questions</a></li>
-								<li><a href="#">Contact Us</a></li>
-								<li><a href="#">Terms of Use</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-md-6 col-lg-3 footer_widget">
-						<div class="inner">
-							<h4>Recent Posts</h4>
-							<div class="media">
-								<a href="#"> <img src="/assets/img/recent1.jpg" class="d-flex mr-3" alt="">
-								</a>
-								<div class="media-body">
-									<h5>
-										<a href="#">Curling irons are as individual as the women</a>
-									</h5>
-									<span>June 22, 2017</span>
-								</div>
-							</div>
-							<div class="media">
-								<a href="#"> <img src="/assets/img/recent2.jpg" class="d-flex mr-3" alt="">
-								</a>
-								<div class="media-body">
-									<h5>
-										<a href="#">Curling irons are as individual as the women</a>
-									</h5>
-									<span>June 22, 2017</span>
-								</div>
-							</div>
-							<div class="media">
-								<a href="#"> <img src="/assets/img/recent3.jpg" class="d-flex mr-3" alt="">
-								</a>
-								<div class="media-body">
-									<h5>
-										<a href="#">Curling irons are as individual as the women</a>
-									</h5>
-									<span>June 22, 2017</span>
-								</div>
+	
+		<!-- footer -->
+		<footer>
+			<div class="footer-top">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6 col-lg-3 footer_widget">
+							<div class="inner">
+								<h4>About</h4>
 							</div>
 						</div>
-					</div>
-					<div class="col-md-6 col-lg-3 footer_widget">
-						<div class="inner">
-							<h4>Address</h4>
-							<h5>Flat Pro, Inc.</h5>
-							<p>
-								649 Folsom Ave, Suite 400 <br>San Francisco, CA 63105 <br>P: (123) 456-7890
-							</p>
-							<h4>Newsletter</h4>
-							<form action="#" class="nw_form">
-								<input placeholder="Enter your email" type="email">
-								<button>
-									<i class="fa fa-paper-plane"></i>
-								</button>
-							</form>
+						<div class="col-md-6 col-lg-3 footer_widget">
+							<div class="inner">
+								<h4>Company</h4>
+
+							</div>
+						</div>
+						<div class="col-md-6 col-lg-3 footer_widget">
+							<div class="inner">
+								<h4>Recent Posts</h4>
+							</div>
+						</div>
+						<div class="col-md-6 col-lg-3 footer_widget">
+							<div class="inner">
+								<h4>Address</h4>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="footer-bottom">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-6">
-						<div class="copyright-txt">© 2017 Flat Pro. All Rights Reserved.</div>
-					</div>
-					<div class="col-lg-6 text-right">
-						<div class="footer-nav">
-							<a href="#">Home</a> <a href="#">Portfolio</a> <a href="#">Pages</a> <a href="#">Shortcode</a> <a href="#">Blog</a>
+			<hr>
+			<div class="footer-bottom">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="copyright-txt">© 2017 Flat Pro. All Rights Reserved.</div>
+						</div>
+						<div class="col-lg-6 text-right">
+							<div class="footer-nav">
+								<a href="#">Home</a> <a href="#">Portfolio</a> <a href="#">Pages</a> <a href="#">Shortcode</a> <a href="#">Blog</a>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+		</footer>
+		<div class="container-fluid">
+			<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 <strong>팩스 :</strong>
+				000-0000-0000 <strong>사업자등록번호 :</strong> 000-00-000000 <strong>통신판매업신고 :</strong> 0000-서울종로-00000
+			</small> <br /> <small style="color: black;"><strong>고객센터</strong> 0000-0000 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) <strong>이메일</strong>
+				customer@29cm.co.kr <strong>대표이사</strong> 000 <strong>개인정보책임자</strong> 000 <strong>호스팅서비스</strong> (주)00000</small>
 		</div>
-	</footer>
 
-
-	</div>
-
-	<!--Required JS files-->
-	<script src="/assets/js/jquery-2.2.4.min.js"></script>
-	<script src="/assets/js/vendor/popper.min.js"></script>
-	<script src="/assets/js/vendor/bootstrap.min.js"></script>
-	<script src="/assets/js/vendor/owl.carousel.min.js"></script>
-	<script src="/assets/js/vendor/isotope.pkgd.min.js"></script>
-	<script src="/assets/js/vendor/jquery.barfiller.js"></script>
-	<script src="/assets/js/vendor/loopcounter.js"></script>
-	<script src="/assets/js/vendor/slicknav.min.js"></script>
-	<script src="/assets/js/active.js"></script>
+		<!--Required JS files-->
+		<script src="/assets/js/jquery-2.2.4.min.js"></script>
+		<script src="/assets/js/vendor/popper.min.js"></script>
+		<script src="/assets/js/vendor/bootstrap.min.js"></script>
+		<script src="/assets/js/vendor/owl.carousel.min.js"></script>
+		<script src="/assets/js/vendor/isotope.pkgd.min.js"></script>
+		<script src="/assets/js/vendor/jquery.barfiller.js"></script>
+		<script src="/assets/js/vendor/loopcounter.js"></script>
+		<script src="/assets/js/vendor/slicknav.min.js"></script>
+		<script src="/assets/js/active.js"></script>
 </body>
-
 </html>

@@ -4,7 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
+import edu.bit.ex.service.EjService;
+import edu.bit.ex.vo.CartVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,6 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/ej/*")
 public class EjController {
 	/* @Autowired */
+
+	private EjService ejService;
 
 	@GetMapping("/prd")
 	public String ProductDetail(Model model) throws Exception {
@@ -32,11 +37,12 @@ public class EjController {
 	}
 
 	@GetMapping("/cart")
-	public String MemberCart(Model model) throws Exception {
+	public ModelAndView MemberCart(CartVO cartVO, ModelAndView mav) throws Exception {
 		log.debug("cart");
 		log.info("cart..");
-
-		return "ej/memberCart";
+		mav.setViewName("ej/memberCart");
+		mav.addObject("cart_list", ejService.getCartList());
+		return mav;
 	}
 
 	@GetMapping("/order")
@@ -69,6 +75,46 @@ public class EjController {
 		log.info("nmcheck..");
 
 		return "ej/nonMemberOrderCheck";
+	}
+
+	@GetMapping("/mcheck")
+	public String MemberOrderCheck(Model model) throws Exception {
+		log.debug("mcheck");
+		log.info("mcheck..");
+
+		return "ej/memberOrderCheck";
+	}
+
+	@GetMapping("/spc")
+	public String SellerProductCheck(Model model) throws Exception {
+		log.debug("sellerProductCheck");
+		log.info("sellerProductCheck..");
+
+		return "ej/sellerProductCheck";
+	}
+
+	@GetMapping("/spm")
+	public String SellerProductModify(Model model) throws Exception {
+		log.debug("sellerProductModify");
+		log.info("sellerProductModify..");
+
+		return "ej/sellerProductModify";
+	}
+
+	@GetMapping("/reviewup")
+	public String ReviewRegister(Model model) throws Exception {
+		log.debug("reviewRegister");
+		log.info("reviewRegister..");
+
+		return "ej/reviewRegister";
+	}
+
+	@GetMapping("/prdqna")
+	public String ProductQnARegister(Model model) throws Exception {
+		log.debug("productQnARegister");
+		log.info("productQnARegister..");
+
+		return "ej/productQnARegister";
 	}
 
 }
