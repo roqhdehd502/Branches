@@ -6,7 +6,7 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>상품 리스트</title>
+<title>Oder Input</title>
 
 <!-- Required CSS files -->
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
@@ -14,11 +14,10 @@
 <link rel="stylesheet" href="/assets/css/barfiller.css">
 <link rel="stylesheet" href="/assets/css/animate.css">
 <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
-<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="/assets/css/bootstrap.min.css"> -->
 <link rel="stylesheet" href="/assets/css/slicknav.css">
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css">
-
 </head>
 <body>
 <div style="overflow: hidden;" class="container">
@@ -128,33 +127,81 @@
 				</ul>
 			</nav>
 		</header>
-		<div class="page-title sp">
-			<div class="container text-center">
-				<h2>상품 목록</h2>
-				<p>내용 뭐 넣을지</p>
-			</div>
-		</div>
-		<div class="team-area sp">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-2 col-md-2 col-lg-2 single-team">
-						<div class="inner">
-							<div class="team-img">
-								<img src="/ksp/th-ex.jpg" alt="Member Photo">
-							</div>
-							<div class="team-content">
-								<h4>상품명</h4>
-								<h5>브랜드</h5>
-								<h5>$100</h5>
-							</div>
-						</div>
+		
+		<!-- 비회원 주문 정보 입력 페이지 --> <!-- 결제할 상품 목록 주문입력 후에 보이게 할지 같이 보이고 입력하면서 결제로 바로 넘길지 정하기 -->
+		<form>
+		<br/>
+			<br/>
+			<fieldset>
+				<legend style="text-align: center;">주문 정보 입력</legend>
+				<br/>
+				
+				<!-- 주문자 이름 -->
+				<div class="form-group row">
+					<label for="orderName" class="col-sm-2 col-form-label">Oder Name</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="orderName" placeholder="주문자의 이름을 입력하세요.">
 					</div>
-					
-
 				</div>
-			</div>
-		</div>
-		<!-- footer -->
+				
+				<!-- 주문자 연락처 -->
+				<div class="form-group row">
+					<label for="phoneNumber1" class="col-sm-2 col-form-label">Phone Number</label>
+					<div class="form-group row col-sm-10">
+						<select class="form-control col-sm-2" id="phoneNumber1" style="margin-left: 15px">
+							<option>010</option>
+							<option>011</option>
+							<option>016</option>
+							<option>017</option>
+							<option>018</option>
+							<option>019</option>
+						</select>&nbsp;-&nbsp; <input type="text" class="form-control col-sm-2" id="phoneNumber2">&nbsp;-&nbsp; <input type="text"
+							class="form-control col-sm-2" id="phoneNumber3">
+					</div>
+				</div>
+				
+				<!-- 주문자 이메일 -->
+				<div class="form-group row">
+					<label for="orderEmail" class="col-sm-2 col-form-label">Email</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="orderEmail" placeholder="email@example.com">
+					</div>
+				</div>
+				
+				<!-- 배송 주소 -->
+				<div class="form-group row">
+					<label for="shippingAd" class="col-sm-2 col-form-label">Shipping Address</label>
+					<div class="form-group row col-sm-10" style="margin-left: 1px">
+						<input type="text" class="form-control col-sm-4" id="shippingAd" value="" readonly="">&nbsp; <a class="btn btn-primary" onclick="#">주소
+							찾기</a> <input type="text" class="form-control" id="shippingAd" value="" readonly="" style="margin-bottom: 3px"> <input type="text"
+							class="form-control" id="shippingAd" placeholder="상세 주소를 입력해주세요">
+					</div>
+				</div>
+				
+				<!-- 배송 메모 -->
+				<div class="form-group row">
+					<label for="shipMemo" class="col-sm-2 col-form-label">Shipping Memo</label>
+					<div class="form-group col-sm-10">
+						<select class="form-control" id="shipMemo">
+							<option>배송 시 요청사항을 선택해주세요.</option>
+							<option>부재 시 경비실에 맡겨주세요.</option>
+							<option>부재 시 택배함에 넣어주세요.</option>
+							<option>부재 시 집 앞에 놔주세요.</option>
+							<option>파손의 위험이 있는 상품입니다.</option>
+							<option value="etc">직접입력</option>
+						</select>
+						<!--   직접 입력 선택 시 나타나게
+					      <textarea name="etc_textarea" class="form-control" style="" value="" maxlength="50" onkeyup="return textarea_maxlength(this)" placeholder="최대 50자까지 입력 가능합니다."></textarea> -->
+					</div>
+				</div>
+				<div style="text-align: center;">
+					<button type="button" class="btn btn-primary">결제하기</button>
+				</div>
+				<br /> <br />
+			</fieldset>
+		</form>
+		
+	<!-- footer -->
 		<footer>
 			<div class="footer-top">
 				<div class="container">
@@ -197,16 +244,14 @@
 					</div>
 				</div>
 			</div>
-
+			
 		</footer>
 		<div class="container-fluid">
 			<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 <strong>팩스 :</strong>
 				000-0000-0000 <strong>사업자등록번호 :</strong> 000-00-000000 <strong>통신판매업신고 :</strong> 0000-서울종로-00000
 			</small> <br /> <small style="color: black;"><strong>고객센터</strong> 0000-0000 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) <strong>이메일</strong>
 				admin@branches.co.kr <strong>대표이사</strong> 000 <strong>개인정보책임자</strong> 000 <strong>호스팅서비스</strong> (주)00000</small>
-		</div>
-		<br />
-		<br />
+		</div><br/><br/>
 
 		<!--Required JS files-->
 		<script src="/assets/js/jquery-2.2.4.min.js"></script>

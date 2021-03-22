@@ -39,4 +39,36 @@ public class EjController {
 		return "ej/memberCart";
 	}
 
+	@GetMapping("/order")
+	public String OderInput(Model model) throws Exception {
+		log.debug("order");
+		log.info("order..");
+
+		return "ej/orderInput";
+	}
+
+	@GetMapping("/like")
+	public String LikeProduct(Model model) throws Exception {
+		log.debug("like");
+		log.info("like..");
+
+		return "ej/likeProduct";
+	}
+
+	@GetMapping("/recently")
+	public String RecentlyProduct(Model model) throws Exception {
+		log.debug("recently");
+		log.info("recently..");
+
+		return "ej/recentlyProduct";
+	}
+
+	@GetMapping("/nmcheck")
+	public String NonMemberOrderCheck(Model model) throws Exception {
+		log.debug("nmcheck");
+		log.info("nmcheck..");
+
+		return "ej/nonMemberOrderCheck";
+	}
+
 }

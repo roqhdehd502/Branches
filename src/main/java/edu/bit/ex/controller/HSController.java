@@ -18,7 +18,7 @@ public class HSController {
 	public String main(Model model) throws Exception {
 		log.debug("main");
 		log.info("main");
-		return "main";
+		return "chs/main";
 	}
 
 	@GetMapping("/chart")
@@ -32,7 +32,7 @@ public class HSController {
 	public String mypage(Model model) throws Exception {
 		log.debug("mypage");
 		log.info("mypage");
-		return "mypage";
+		return "chs/mypage";
 	}
 
 	@GetMapping("/myOrderList")
@@ -53,7 +53,7 @@ public class HSController {
 	public String sellerpage(Model model) throws Exception {
 		log.debug("sellerpage");
 		log.info("sellerpage");
-		return "sellerpage";
+		return "chs/sellerpage";
 	}
 
 	@GetMapping("/sellerReview")
@@ -61,6 +61,13 @@ public class HSController {
 		log.debug("sellerReview");
 		log.info("sellerReview");
 		return "sellerReview";
+
+	@GetMapping("/adminpage")
+	public String adminpage(Model model) throws Exception {
+		log.debug("adminpage");
+		log.info("adminpage");
+		return "chs/adminpage";
+
 	}
 
 	@GetMapping("/sellerorderCheck")

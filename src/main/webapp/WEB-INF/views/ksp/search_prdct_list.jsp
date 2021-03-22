@@ -6,7 +6,7 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>상품 리스트</title>
+<title>브랜드 상품 리스트</title>
 
 <!-- Required CSS files -->
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
@@ -128,29 +128,40 @@
 				</ul>
 			</nav>
 		</header>
-		<div class="page-title sp">
-			<div class="container text-center">
-				<h2>상품 목록</h2>
-				<p>내용 뭐 넣을지</p>
+		
+		<hr style="margin: 15px 15px 40px 15px;">
+		
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 contact-info" align="left" style="padding-left: 40px">
+					<h2>${mbr.mbr_name}</h2>
+				</div>
+				<hr style="margin: 15px 15px 40px 15px;">
+				<div class="col-md-6 contact-info"></div>
+				<div class="col-md-2 contact-info" align="center" style="padding-right: 10px">
+					
+				</div>
 			</div>
+			<span style="margin-left: 14px;"> </span> <span style="margin-left: 400px;" align="center"> </span>
 		</div>
 		<div class="team-area sp">
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-2 col-md-2 col-lg-2 single-team">
+					<c:forEach items="${result}" var="result">
+						<div class="col-sm-2 col-md-2 col-lg-2 single-team">
 						<div class="inner">
 							<div class="team-img">
 								<img src="/ksp/th-ex.jpg" alt="Member Photo">
 							</div>
 							<div class="team-content">
-								<h4>상품명</h4>
-								<h5>브랜드</h5>
-								<h5>$100</h5>
+								<h4>${result.prdct_name}</h4>
+								<h5>${mbr.mbr_name}</h5>
+								<h5>${result.prdct_price}</h5>
 							</div>
 						</div>
 					</div>
+					</c:forEach>
 					
-
 				</div>
 			</div>
 		</div>
