@@ -27,4 +27,7 @@ public interface KSPMapper {
 	@Select("select * from prdct where prdct_name=#{search}")
 	public List<PrdctVO> getSearchResult(String search);
 
+	@Select("select * from mbr where authority_number=#{auth}")
+	public List<MbrVO> getMemberList(int auth);
+
 }

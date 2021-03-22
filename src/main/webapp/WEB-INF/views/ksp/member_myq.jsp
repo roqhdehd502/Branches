@@ -5,7 +5,7 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>리뷰</title>
+<title>상품 Q&A</title>
 
 <!-- Required CSS files -->
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
@@ -47,28 +47,28 @@
 <body>
 	<div style="overflow: hidden;" class="container">
 		<header style="padding-bottom: 10px; padding-top: 5px;">
-		<div class="container">
-			<div class="row">
-				<div class="col-6 col-sm-3 logo-column">
-					<a href="index.html" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
-					</a>
-				</div>
-				<div class="col-6 col-sm-9 nav-column clearfix">
-					<div class="right-nav">
-						<span class="search-icon fa fa-search"></span>
-						<form action="#" class="search-form">
-							<input type="search" placeholder="search now">
-							<button type="submit">
-								<i class="fa fa-search"></i>
-							</button>
-						</form>
-						<div class="header-social">
-							<a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
+			<div class="container">
+				<div class="row">
+					<div class="col-6 col-sm-3 logo-column">
+						<a href="index.html" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
+						</a>
+					</div>
+					<div class="col-6 col-sm-9 nav-column clearfix">
+						<div class="right-nav">
+							<span class="search-icon fa fa-search"></span>
+							<form action="#" class="search-form">
+								<input type="search" placeholder="search now">
+								<button type="submit">
+									<i class="fa fa-search"></i>
+								</button>
+							</form>
+							<div class="header-social">
+								<a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 			<nav id="menu" class="d-none d-lg-block">
 				<ul style="padding: 10px; background-color: black;">
 					<li class="current-menu-item has-child"><a href="index.html">OUTER</a>
@@ -96,7 +96,7 @@
 							<li><a href="index-3.html">Slacks</a></li>
 							<li><a href="index-3.html">Training / Jogger</a></li>
 							<li><a href="index-3.html">Leggings</a></li>
-							<li><a href="index-3.html">Skirt</a></li>	
+							<li><a href="index-3.html">Skirt</a></li>
 						</ul></li>
 					<li class="current-menu-item has-child"><a href="index.html">Dress</a>
 						<ul class="sub-menu">
@@ -127,9 +127,7 @@
 							<li><a href="index-2.html">Cap</a></li>
 							<li><a href="index-3.html">Acc</a></li>
 						</ul></li>
-					<li>
-						<a href="index.html" style="color: white;">|</a>
-					</li>
+					<li><a href="index.html" style="color: white;">|</a></li>
 					<li class="current-menu-item has-child"><a href="index.html">BRAND</a>
 						<ul class="sub-menu">
 							<li><a href="index.html">Nike</a></li>
@@ -137,18 +135,15 @@
 							<li><a href="index-3.html">Covernat</a></li>
 							<li><a href="index-3.html">AnderssonBell</a></li>
 							<li><a href="index-3.html">Vans</a></li>
-						</ul>
-					</li>
+						</ul></li>
 					<li class="current-menu-item has-child"><a href="index.html">MAGAZINE</a>
 						<ul class="sub-menu">
 							<li><a href="index.html">바로가기</a></li>
-						</ul>
-					</li>
+						</ul></li>
 					<li class="current-menu-item has-child"><a href="index.html" style="margin-right: 38px;">NOTICE</a>
 						<ul class="sub-menu">
 							<li><a href="index.html">바로가기</a></li>
-						</ul>
-					</li>
+						</ul></li>
 				</ul>
 			</nav>
 		</header>
@@ -157,7 +152,7 @@
 
 		<div class="container">
 			<div class="row">
-				<div class="col-md-3 contact-info" align="left" style="padding-left: 40px">
+				<div class="col-md-2 contact-info" align="left" style="padding-left: 40px">
 					<h2>${mem.mbr_name}</h2>
 					<h2>${mem.mbr_id}</h2>
 				</div>
@@ -175,6 +170,8 @@
 
 		<hr style="margin: 15px 15px 40px 15px;">
 
+
+		<!-- 리뷰 페이지 tab -->
 		<div class="container">
 			<div class="row">
 				<div class="col-md-3 contact-info" align="center">
@@ -216,98 +213,127 @@
 
 				<div class="col-md-9 contact-info">
 					<h3>
-						<strong>내가 쓴 구매후기</strong>
+						<strong>내가 쓴 Q&A</strong>
 					</h3>
 					<hr>
-				
-					<table class="n-table table-col">
-						<colgroup>
-							<col style="width: *">
-							<col style="width: 20%">
-							<col style="width: 20%">
-						</colgroup>
-						<thead>
-							<tr style="text-align: center;">
-								<th scope="col">상품정보</th>
-								<th scope="col">구매 / 구매확정일</th>
-								<th scope="col">후기</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<c:forEach items="${mem} var="mem"></c:forEach>
-							</tr>
-						</tbody>
-					</table>
-					
-					<hr>
+					<!-- Tab panes -->
+					<div class="tab-content">
+						<div id="review" class="container tab-pane active">
+							<div class="container">
+								<div class="section-title" data-margin="0 0 40px">
+									<!-- 리뷰 틀 -->
+									<div class="card bg-light mb-3" style="max-width: 1000px;">
+										<div class="card-header">
+											<div class="postContents container style_est_cont">
+												<div class="profile" style="text-align: left; align-content: center;">
+													<p>
+														<span class="gallery_lv"> <span class="notCrawlText" style="font-weight: bold;">${board.board_name }글제목</span>
+														</span> <span class="date last" style="clear: left; float: right;">${board.board_date }작성날짜</span>
+												</div>
+												<div class="connect_review_info" style="align-content: center;"></div>
+												</p>
 
-				</div>
-			</div>
-		</div>
-		<hr>
+											</div>
+										</div>
+									</div>
+									<div class="card-body" style="text-align: left;">
+										<!--관련 상품-->
+										<div class="connect_product estimate-item"></div>
 
-		<!-- footer -->
-		<footer>
-			<div class="footer-top">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-6 col-lg-3 footer_widget">
-							<div class="inner">
-								<h4>About</h4>
-							</div>
-						</div>
-						<div class="col-md-6 col-lg-3 footer_widget">
-							<div class="inner">
-								<h4>Company</h4>
+										<div class="pContent">
+											<!-- 요약보기 -->
+											<!-- 본문 -->
+											<div class="cArea">
+												<div class="pContent_text">
+													<span class="content-review"> 문의유형 &nbsp; </span> <strong>문의유형 맞추기</strong>
+												</div>
+											</div>
+											<div class="cArea">
+												<div class="pContent_text">
+													<span class="content-review"> 주문번호 &nbsp; </span> <strong>주문번호 맞추기</strong>
+												</div>
+											</div>
+											</br>
+											<div class="cArea">
+												<div class="pContent_text">
+													<span class="content-review">글내용 (사진 있으면 사진 추가)
+												</div>
+											</div>
+										</div>
+									</div>
+									</br>
+
+								</div>
+
+								<hr>
 
 							</div>
 						</div>
-						<div class="col-md-6 col-lg-3 footer_widget">
-							<div class="inner">
-								<h4>Recent Posts</h4>
-							</div>
-						</div>
-						<div class="col-md-6 col-lg-3 footer_widget">
-							<div class="inner">
-								<h4 style="padding-left: 100px;">Address</h4>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="footer-bottom">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="copyright-txt">© 2017 Flat Pro. All Rights Reserved.</div>
-						</div>
-						<div class="col-lg-6 text-right">
-							<div class="footer-nav">
-								<a href="#">Home</a> <a href="#">Portfolio</a> <a href="#">Pages</a> <a href="#">Shortcode</a> <a href="#">Blog</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-		</footer>
-		<div class="container-fluid">
-			<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 <strong>팩스 :</strong>
-				000-0000-0000 <strong>사업자등록번호 :</strong> 000-00-000000 <strong>통신판매업신고 :</strong> 0000-서울종로-00000
-			</small> <br /> <small style="color: black;"><strong>고객센터</strong> 0000-0000 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) <strong>이메일</strong>
-				admin@branches.co.kr <strong>대표이사</strong> 000 <strong>개인정보책임자</strong> 000 <strong>호스팅서비스</strong> (주)00000</small>
-		</div><br/><br/>
+						<br>
 
-		<!--Required JS files-->
-		<script src="/assets/js/jquery-2.2.4.min.js"></script>
-		<script src="/assets/js/vendor/popper.min.js"></script>
-		<script src="/assets/js/vendor/bootstrap.min.js"></script>
-		<script src="/assets/js/vendor/owl.carousel.min.js"></script>
-		<script src="/assets/js/vendor/isotope.pkgd.min.js"></script>
-		<script src="/assets/js/vendor/jquery.barfiller.js"></script>
-		<script src="/assets/js/vendor/loopcounter.js"></script>
-		<script src="/assets/js/vendor/slicknav.min.js"></script>
-		<script src="/assets/js/active.js"></script>
+
+						<!-- footer -->
+						<footer>
+							<div class="footer-top">
+								<div class="container">
+									<div class="row">
+										<div class="col-md-6 col-lg-3 footer_widget">
+											<div class="inner">
+												<h4>About</h4>
+											</div>
+										</div>
+										<div class="col-md-6 col-lg-3 footer_widget">
+											<div class="inner">
+												<h4>Company</h4>
+
+											</div>
+										</div>
+										<div class="col-md-6 col-lg-3 footer_widget">
+											<div class="inner">
+												<h4>Recent Posts</h4>
+											</div>
+										</div>
+										<div class="col-md-6 col-lg-3 footer_widget">
+											<div class="inner">
+												<h4 style="padding-left: 100px;">Address</h4>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="footer-bottom">
+								<div class="container">
+									<div class="row">
+										<div class="col-lg-6">
+											<div class="copyright-txt">© 2017 Flat Pro. All Rights Reserved.</div>
+										</div>
+										<div class="col-lg-6 text-right">
+											<div class="footer-nav">
+												<a href="#">Home</a> <a href="#">Portfolio</a> <a href="#">Pages</a> <a href="#">Shortcode</a> <a href="#">Blog</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</footer>
+						<div class="container-fluid">
+							<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 <strong>팩스 :</strong>
+								000-0000-0000 <strong>사업자등록번호 :</strong> 000-00-000000 <strong>통신판매업신고 :</strong> 0000-서울종로-00000
+							</small> <br /> <small style="color: black;"><strong>고객센터</strong> 0000-0000 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) <strong>이메일</strong>
+								admin@branches.co.kr <strong>대표이사</strong> 000 <strong>개인정보책임자</strong> 000 <strong>호스팅서비스</strong> (주)00000</small>
+						</div>
+						<br /> <br />
+
+						<!--Required JS files-->
+						<script src="/assets/js/jquery-2.2.4.min.js"></script>
+						<script src="/assets/js/vendor/popper.min.js"></script>
+						<script src="/assets/js/vendor/bootstrap.min.js"></script>
+						<script src="/assets/js/vendor/owl.carousel.min.js"></script>
+						<script src="/assets/js/vendor/isotope.pkgd.min.js"></script>
+						<script src="/assets/js/vendor/jquery.barfiller.js"></script>
+						<script src="/assets/js/vendor/loopcounter.js"></script>
+						<script src="/assets/js/vendor/slicknav.min.js"></script>
+						<script src="/assets/js/active.js"></script>
 </body>
 </html>

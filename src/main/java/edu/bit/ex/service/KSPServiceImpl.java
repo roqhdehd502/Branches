@@ -47,4 +47,10 @@ public class KSPServiceImpl implements KSPService {
 		return kspMapper.getSearchResult(search);
 	}
 
+	@Override
+	public List<MbrVO> getMemberList(int auth) {
+		// TODO Auto-generated method stub
+		return kspMapper.getMemberList(auth);
+	}
+
 }
