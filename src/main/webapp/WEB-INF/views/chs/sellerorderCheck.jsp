@@ -22,7 +22,7 @@
 <body>
 <div style="overflow: hidden;" class="container">
 	<header>
-		<div class="container">
+		<div class="container" style="border-bottom: 1px solid rgba(0, 0, 0, .1);">
 			<div class="row">
 				<div class="col-6 col-sm-3 logo-column">
 					<a href="index.html" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
@@ -38,61 +38,15 @@
 							</button>
 						</form>
 						<div class="header-social">
-							<a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
+							<a href="#">Login</a> 
+							<a href="#" class="fa fa-google"></a> 
+							<a href="#" class="fa fa-facebook"></a>
 						</div>
 					</div>
-					<nav id="menu" class="d-none d-lg-block">
-						<ul>
-							<li class="current-menu-item has-child"><a href="index.html">Home</a>
-								<ul class="sub-menu">
-									<li><a href="index.html">Home - 01</a></li>
-									<li><a href="index-2.html">Home - 02</a></li>
-									<li><a href="index-3.html">Home - 03</a></li>
-								</ul>
-							</li>
-							<li class="current-menu-item has-child"><a href="index.html">Home</a>
-								<ul class="sub-menu">
-									<li><a href="index.html">Home - 01</a></li>
-									<li><a href="index-2.html">Home - 02</a></li>
-									<li><a href="index-3.html">Home - 03</a></li>
-								</ul>
-							</li>
-							<li class="current-menu-item has-child"><a href="index.html">Home</a>
-								<ul class="sub-menu">
-									<li><a href="index.html">Home - 01</a></li>
-									<li><a href="index-2.html">Home - 02</a></li>
-									<li><a href="index-3.html">Home - 03</a></li>
-								</ul>
-							</li>
-							<li class="current-menu-item has-child"><a href="index.html">Home</a>
-								<ul class="sub-menu">
-									<li><a href="index.html">Home - 01</a></li>
-									<li><a href="index-2.html">Home - 02</a></li>
-									<li><a href="index-3.html">Home - 03</a></li>
-								</ul>
-							</li>
-							<li class="current-menu-item has-child"><a href="index.html">Home</a>
-								<ul class="sub-menu">
-									<li><a href="index.html">Home - 01</a></li>
-									<li><a href="index-2.html">Home - 02</a></li>
-									<li><a href="index-3.html">Home - 03</a></li>
-								</ul>
-							</li>
-							<li class="current-menu-item has-child"><a href="index.html">Home</a>
-								<ul class="sub-menu">
-									<li><a href="index.html">Home - 01</a></li>
-									<li><a href="index-2.html">Home - 02</a></li>
-									<li><a href="index-3.html">Home - 03</a></li>
-								</ul>
-							</li>
-							
-						</ul>
-					</nav>
 				</div>
 			</div>
 		</div>
 	</header>
-	<hr style="margin: 5px;">
 	<div class="container">
          <span style="margin-left: 70px;">
          </span> <span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
@@ -285,7 +239,7 @@
 						</div>
 						<div class="col-lg-6 text-right">
 							<div class="footer-nav">
-								<a href="/member/main">Home</a> <a href="#">Q&A</a> <a href="#">Brand</a> <a href="#">Magazine</a> <a href="#">Blog</a>
+								<a href="/member/main">Home</a> <a href="#">Q&A</a> <a href="#">Notice</a> <a href="#">Magazine</a> <a href="#">Blog</a>
 							</div>
 						</div>
 					</div>

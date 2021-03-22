@@ -60,7 +60,7 @@
          </span>
       </div>
 		
-		<hr style="margin: 15px 15px 24px 15px;">
+		<hr>
 
 		<div class="container">
 			<div class="row">
@@ -93,97 +93,92 @@
 
 				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">
 					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px;">
-						<strong style="margin: 10px;">취소주문 조회</strong>
+						<strong style="margin: 10px;">매출조회</strong><hr>
 					</h3>
-					<table class="table">
-						<thead style="text-align: center;">
-							<tr>
-								<td><h5>상품정보</h5></td>
-								<td><h5>주문일</h5></td>
-								<td><h5>주문번호</h5></td>
-								<td><h5>주문금액</h5></td>
-								<td><h5>상태</h5></td>
-							</tr>
-						</thead>
-						<tbody >
-							<tr>
-								<td>
-									<h6>[단독]Denim Jaket & Pants</h6>
-									<h6>M(95)/S(90)</h6>
-									<h6>Sky Blue</h6>
-								</td>
-								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
-								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
-								<td><h6 style="position: relative; top: 34px; text-align: center;">29,900₩</h6></td>
-								<td>
-									<h6 style="position: relative; top: 22px; margin-left: 14px;">취소요청</h6>
-									<h6 style="position: relative; top: 24px; margin-left: 10px;"><button class="btn btn-primary btn-sm">취소처리</button></h6>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<h6>[단독]Denim Jaket & Pants</h6>
-									<h6>M(95)/S(90)</h6>
-									<h6>Sky Blue</h6>
-								</td>
-								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
-								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
-								<td><h6 style="position: relative; top: 34px; text-align: center;">29,900₩</h6></td>
-								<td>
-									<h6 style="position: relative; top: 22px; margin-left: 14px;">취소요청</h6>
-									<h6 style="position: relative; top: 24px; margin-left: 10px;"><button class="btn btn-primary btn-sm">취소처리</button></h6>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<h6>[단독]Denim Jaket & Pants</h6>
-									<h6>M(95)/S(90)</h6>
-									<h6>Sky Blue</h6>
-								</td>
-								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
-								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
-								<td><h6 style="position: relative; top: 34px; text-align: center;">29,900₩</h6></td>
-								<td>
-									<h6 style="position: relative; top: 22px; margin-left: 14px;">취소요청</h6>
-									<h6 style="position: relative; top: 24px; margin-left: 10px;"><button class="btn btn-primary btn-sm">취소처리</button></h6>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<h6>[단독]Denim Jaket & Pants</h6>
-									<h6>M(95)/S(90)</h6>
-									<h6>Sky Blue</h6>
-								</td>
-								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
-								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
-								<td><h6 style="position: relative; top: 34px; text-align: center;">29,900₩</h6></td>
-								<td>
-									<h6 style="position: relative; top: 22px; margin-left: 14px;">취소요청</h6>
-									<h6 style="position: relative; top: 24px; margin-left: 10px;"><button class="btn btn-primary btn-sm">취소처리</button></h6>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<h6>[단독]Denim Jaket & Pants</h6>
-									<h6>M(95)/S(90)</h6>
-									<h6>Sky Blue</h6>
-								</td>
-								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
-								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
-								<td><h6 style="position: relative; top: 34px; text-align: center;">29,900₩</h6></td>
-								<td>
-									<h6 style="position: relative; top: 22px; margin-left: 14px;">취소요청</h6>
-									<h6 style="position: relative; top: 24px; margin-left: 10px;"><button class="btn btn-primary btn-sm">취소처리</button></h6>
-								</td>
-							</tr>
+					<div style="margin-bottom: 20px;">
+						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">일간</button></span>
+						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">주간</button></span>
+						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">월간</button></span>
+						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">연간</button></span>
+						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">전체</button></span>
+						<form action="#" style="float: right;">
+						<span style="margin-left: 30px;"><h6>지정</h6></span>
+						<span style="margin-left: 10px;">
+							<select>
+								<option>대분류</option>
+								<option>상의</option>
+								<option>하의</option>
+								<option>아우터</option>
+								<option>신발</option>
+								<option>가방</option>
+							</select>
+						</span>
+						<span style="margin-left: 10px;">
+							<select>
+								<option>소분류</option>
+							</select>
+						</span>
+							<span style="margin-left: 10px;"><button class="btn btn-primary btn-sm" type="submit">조회</button></span>
+						</form>
+					</div>
+					<jsp:include page="chart5.jsp"></jsp:include>
+				<hr style="margin-top: 30px;">
+				<div style="margin-bottom: 20px;">
+					<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">ㄱㄴㄷ순</button></span>
+					<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">abc순</button></span>
+					<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">매출순</button></span>
+					<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">최근등록순</button></span>
+				</div>
+				<table class="table">
+					<thead>
+						<tr>
+							<td><h5>순위</h5></td>
+							<td><h5>상품명</h5></td>
+							<td><h5>등록일</h5></td>
+							<td><h5>가격</h5></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><h5>1</h5></td>
+							<td><h5>Black Shadow Hoodie</h5></td>
+							<td><h5>2021.01.13</h5></td>
+							<td><h5>57,000₩</h5></td>
+						</tr>
 						
-						</tbody>
-					</table>
-				<hr>
+						<tr>
+							<td><h5>1</h5></td>
+							<td><h5>Black Shadow Hoodie</h5></td>
+							<td><h5>2021.01.13</h5></td>
+							<td><h5>57,000₩</h5></td>
+						</tr>
+						
+						<tr>
+							<td><h5>1</h5></td>
+							<td><h5>Black Shadow Hoodie</h5></td>
+							<td><h5>2021.01.13</h5></td>
+							<td><h5>57,000₩</h5></td>
+						</tr>
+						
+						<tr>
+							<td><h5>1</h5></td>
+							<td><h5>Black Shadow Hoodie</h5></td>
+							<td><h5>2021.01.13</h5></td>
+							<td><h5>57,000₩</h5></td>
+						</tr>
+						
+						<tr>
+							<td><h5>1</h5></td>
+							<td><h5>Black Shadow Hoodie</h5></td>
+							<td><h5>2021.01.13</h5></td>
+							<td><h5>57,000₩</h5></td>
+						</tr>
+						
+					</tbody>
+				</table>
 			</div>
 		</div>
-	
-	<hr>
+
 		<!-- footer -->
 		<footer>
 			<div class="footer-top">
@@ -236,7 +231,6 @@
 					</div>
 				</div>
 			</div>
-
 		</footer>
 		<div class="container">
 			<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 | <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 | <strong>팩스 :</strong>

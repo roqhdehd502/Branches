@@ -21,11 +21,11 @@
 </head>
 <body>
 <div style="overflow: hidden;" class="container">
-	<header style="padding-bottom: 10px; padding-top: 5px;">
+	<header style="padding-top: 0px;">
 		<div class="container">
 			<div class="row">
 				<div class="col-6 col-sm-3 logo-column">
-					<a href="/member/main" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
+					<a href="index.html" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
 					</a>
 				</div>
 				<div class="col-6 col-sm-9 nav-column clearfix">
@@ -38,13 +38,15 @@
 							</button>
 						</form>
 						<div class="header-social">
-							<a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
+							<a href="#">Login</a> 
+							<a href="#" class="fa fa-google"></a> 
+							<a href="#" class="fa fa-facebook"></a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-			<nav id="menu" class="d-none d-lg-block">
+		<nav id="menu" class="d-none d-lg-block">
 				<ul style="padding: 10px; background-color: black;">
 					<li class="current-menu-item has-child"><a href="index.html">OUTER</a>
 						<ul class="sub-menu">
@@ -73,14 +75,14 @@
 							<li><a href="index-3.html">Leggings</a></li>
 							<li><a href="index-3.html">Skirt</a></li>	
 						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">Dress</a>
+					<li class="current-menu-item has-child"><a href="index.html">DRESS</a>
 						<ul class="sub-menu">
 							<li><a href="index.html">Mini</a></li>
 							<li><a href="index-2.html">Midi</a></li>
 							<li><a href="index-3.html">Maxi</a></li>
 							<li><a href="index-3.html">Overrall</a></li>
 						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">Back</a>
+					<li class="current-menu-item has-child"><a href="index.html">BACK</a>
 						<ul class="sub-menu">
 							<li><a href="index.html">Backpack</a></li>
 							<li><a href="index-2.html">Messenger / Cross</a></li>
@@ -88,7 +90,7 @@
 							<li><a href="index-2.html">Eco back</a></li>
 							<li><a href="index-3.html">Clutch</a></li>
 						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">Shoes</a>
+					<li class="current-menu-item has-child"><a href="index.html">SHOES</a>
 						<ul class="sub-menu">
 							<li><a href="index.html">Dress shoes</a></li>
 							<li><a href="index-2.html">Boots</a></li>
@@ -110,9 +112,9 @@
 					<li><a href="index.html" style="color: white;">MAGAZINE</a>
 					</li>
 					<li><a href="index.html" style="margin-right: 38px; color: white;">NOTICE</a>
-					</li>
-				</ul>
-			</nav>
+				</li>
+			</ul>
+		</nav>
 		</header>
 	<div class="container">
 		<section>
@@ -180,9 +182,12 @@
 			<br />
 			<br />
 			<br />
-			<article><hr>
+			<article>
 				<!-- 상품소개 1 -->
-					<h2 style="text-align: center; font-family: fantasy;">New Arrival</h2>
+					<div class="section-title">
+						<h2>New Arrival</h2>
+						<p>Branches와 함께 매주 새로운 신상품을 둘러보세요!</p>
+					</div>
 					 <div class="team-area sp">
 							<div class="container">
 								<div class="row">
@@ -241,10 +246,13 @@
 								</div>
 							</div>
 						</div>				
-			</article><hr>
+			</article><br/><br/>
 			<article>
 				<!-- 상품소개 2 -->
-					<h2 style="text-align: center; font-family: fantasy;">Best Pick</h2>
+					<div class="section-title">
+						<h2>Best Pick!</h2>
+						<p>Branches에서 가장 Hot한 상품들을 둘러보세요!</p>
+					</div>
 					 <div class="team-area sp">
 							<div class="container">
 								<div class="row">
@@ -264,7 +272,7 @@
 									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 										<div class="inner">
 											<div class="team-img">
-												<img src="/img/6.jpg" style="height: 428px;" alt="Member Photo">
+												<img src="/img/6.jpg">
 											</div>
 											<div class="team-content">
 												<h4>Balenciaga</h4>
@@ -277,7 +285,7 @@
 									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 										<div class="inner">
 											<div class="team-img">
-												<img src="/img/7.jpg" style="height: 428px;" Member Photo">
+												<img src="/img/7.jpg">
 											</div>
 											<div class="team-content">
 												<h4>Balenciaga</h4>
@@ -303,128 +311,259 @@
 								</div>
 							</div>
 						</div>				
-			</article>
-			<article>
-				<!-- 상품소개 2 -->
-					<h2 style="text-align: center; font-family: fantasy;">HOT SALE</h2>
-					 <div class="team-area sp">
-							<div class="container">
-								<div class="row">
-									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-										<div class="inner">
-											<div class="team-img">
-												<img src="/img/5.jpg" alt="Member Photo">
-											</div>
-											<div class="team-content">
-												<h4>Balenciaga</h4>
-												<h5>데님 자켓 & 펜츠 세트</h5>
-												<h5>990,000₩</h5>
-												<h6><del>1,230,000₩</del></h6>
+			</article><br/><br/>
+				<div class="testimonial-area spb">
+					<div class="container">
+						<div class="section-title">
+							<h2>Branches 2021 Spring Sale</h2>
+							<p>Branches가 여러분들 위해 준비했습니다~ 남들보다 빠른 봄을 준비해보세요!</p>
+						</div>
+						<div class="testimonial-slider bordered">
+							<div class="single-slide">
+								<div class="inner">
+									<a href="#">
+									<div class="client-info">
+										<div class="client-data">
+											<img src="/img/10.jpg" style="width: 100%; height: 120px;">	
+											<h4>나이키 특별 세일!</h4>
+										</div>
+									</div>
+									</a>
+								</div>
+							</div>
+							
+							<div class="single-slide">
+								<div class="inner">
+									<a href="#">
+									<div class="client-info">
+										<div class="client-data">
+											<img src="/img/10.jpg" style="width: 100%; height: 120px;">	
+											<h4>나이키 특별 세일!</h4>
+										</div>
+									</div>
+									</a>
+								</div>
+							</div>
+							
+							<div class="single-slide">
+								<div class="inner">
+									<a href="#">
+									<div class="client-info">
+										<div class="client-data">
+											<img src="/img/10.jpg" style="width: 100%; height: 120px;">	
+											<h4>나이키 특별 세일!</h4>
+										</div>
+									</div>
+									</a>
+								</div>
+							</div>
+
+							<div class="single-slide">
+								<div class="inner">
+									<a href="#">
+									<div class="client-info">
+										<div class="client-data">
+											<img src="/img/10.jpg" style="width: 100%; height: 120px;">	
+											<h4>나이키 특별 세일!</h4>
+										</div>
+									</div>
+									</a>
+								</div>
+							</div>
+							
+							<div class="single-slide">
+								<div class="inner">
+									<a href="#">
+									<div class="client-info">
+										<div class="client-data">
+											<img src="/img/10.jpg" style="width: 100%; height: 120px;">	
+											<h4>나이키 특별 세일!</h4>
+										</div>
+									</div>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div><br/><br/>
+				<div class="portfolio-area sp">
+					<div class="container">
+						<div class="section-title">
+							<h2>MD 추천 Pick</h2>
+							<p>무엇을 입어야 할지 고민이라구요?? Branches MD분들이 매주 여러분들을 위해 Best상품을 추천해드립니다!</p>
+						</div>
+						<div class="row">
+							<div class="single-portfolio col-md-4">
+								<div class="inner">
+									<div class="portfolio-img">
+										<img src="/img/6.jpg" alt="portfolio-image">
+										<div class="hover-content">
+											<div>
+												<a href="#" class="button">더보기</a>
 											</div>
 										</div>
 									</div>
-									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-										<div class="inner">
-											<div class="team-img">
-												<img src="/img/6.jpg" style="height: 428px;" alt="Member Photo">
-											</div>
-											<div class="team-content">
-												<h4>Balenciaga</h4>
-												<h5>데님 자켓 & 펜츠 세트</h5>
-												<h5>990,000</h5>
-												<h6><del>1,230,000</del></h6>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-										<div class="inner">
-											<div class="team-img">
-												<img src="/img/7.jpg" style="height: 428px;" Member Photo">
-											</div>
-											<div class="team-content">
-												<h4>Balenciaga</h4>
-												<h5>데님 자켓 & 펜츠 세트</h5>
-												<h5>990,000₩</h5>
-												<h6><del>1,230,000₩</del></h6>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-										<div class="inner">
-											<div class="team-img">
-												<img src="/img/8.jpg" alt="Member Photo">
-											</div>
-											<div class="team-content">
-												<h4>Balenciaga</h4>
-												<h5>데님 자켓 & 펜츠 세트</h5>
-												<h5>990,000₩</h5>
-												<h6><del>1,230,000₩</del></h6>
-											</div>
-										</div>
+									<div class="portfolio-content">
+										<h4>Balenciaga</h4>
+										<h5>데님 자켓 & 펜츠 세트</h5>
+										<h5>990,000₩</h5>
+										<h6><del>1,230,000₩</del></h6>
 									</div>
 								</div>
 							</div>
-						</div>				
-			</article>
-			<h3 style="text-align: center;">나중에 추가사항있으시면 반영해서 넣겠습니다.</h3>
-			<!-- footer -->
+							
+							<div class="single-portfolio col-md-4">
+								<div class="inner">
+									<div class="portfolio-img">
+										<img src="/img/6.jpg" alt="portfolio-image">
+										<div class="hover-content">
+											<div>
+												<a href="#" class="button">더보기</a>
+											</div>
+										</div>
+									</div>
+									<div class="portfolio-content">
+										<h4>Balenciaga</h4>
+										<h5>데님 자켓 & 펜츠 세트</h5>
+										<h5>990,000₩</h5>
+										<h6><del>1,230,000₩</del></h6>
+									</div>
+								</div>
+							</div>
+							
+							<div class="single-portfolio col-md-4">
+								<div class="inner">
+									<div class="portfolio-img">
+										<img src="/img/6.jpg" alt="portfolio-image">
+										<div class="hover-content">
+											<div>
+												<a href="#" class="button">더보기</a>
+											</div>
+										</div>
+									</div>
+									<div class="portfolio-content">
+										<h4>Balenciaga</h4>
+										<h5>데님 자켓 & 펜츠 세트</h5>
+										<h5>990,000₩</h5>
+										<h6><del>1,230,000₩</del></h6>
+									</div>
+								</div>
+							</div>
+							
+							<div class="single-portfolio col-md-4">
+								<div class="inner">
+									<div class="portfolio-img">
+										<img src="/img/6.jpg" alt="portfolio-image">
+										<div class="hover-content">
+											<div>
+												<a href="#" class="button">더보기</a>
+											</div>
+										</div>
+									</div>
+									<div class="portfolio-content">
+										<h4>Balenciaga</h4>
+										<h5>데님 자켓 & 펜츠 세트</h5>
+										<h5>990,000₩</h5>
+										<h6><del>1,230,000₩</del></h6>
+									</div>
+								</div>
+							</div>
+							
+							<div class="single-portfolio col-md-4">
+								<div class="inner">
+									<div class="portfolio-img">
+										<img src="/img/6.jpg" alt="portfolio-image">
+										<div class="hover-content">
+											<div>
+												<a href="#" class="button">더보기</a>
+											</div>
+										</div>
+									</div>
+									<div class="portfolio-content">
+										<h4>Balenciaga</h4>
+										<h5>데님 자켓 & 펜츠 세트</h5>
+										<h5>990,000₩</h5>
+										<h6><del>1,230,000₩</del></h6>
+									</div>
+								</div>
+							</div>
+							
+							<div class="single-portfolio col-md-4">
+								<div class="inner">
+									<div class="portfolio-img">
+										<img src="/img/6.jpg" alt="portfolio-image">
+										<div class="hover-content">
+											<div>
+												<a href="#" class="button">더보기</a>
+											</div>
+										</div>
+									</div>
+									<div class="portfolio-content">
+										<h4>Balenciaga</h4>
+										<h5>데님 자켓 & 펜츠 세트</h5>
+										<h5>990,000₩</h5>
+										<h6><del>1,230,000₩</del></h6>
+									</div>
+								</div>
+							</div>
+					</div>
+				</div>
 		</section>
 		
 		<!-- footer -->
-			<footer>
-				<div class="footer-top">
-					<div class="container">
-						<div class="row">
-							<div class="col-md-2 footer_widget">
-								<div class="inner">
-									<a href="#"><h5>회사소개</h5></a>
-								</div>
+		<footer>
+			<div class="footer-top">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-2 footer_widget">
+							<div class="inner">
+								<a href="#"><h5>회사소개</h5></a>
 							</div>
-							<div class="col-md-2 footer_widget">
-								<div class="inner">
-									<a href="#"><h5>제휴문의</h5></a>
-								</div>
+						</div>
+						<div class="col-md-2 footer_widget">
+							<div class="inner">
+								<a href="#"><h5>제휴문의</h5></a>
 							</div>
-							<div class="col-md-2 footer_widget">
-								<div class="inner">
-									<a href="#"><h5>채용정보</h5></a>
-								</div>
+						</div>
+						<div class="col-md-2 footer_widget">
+							<div class="inner">
+								<a href="#"><h5>채용정보</h5></a>
 							</div>
-							<div class="col-md-2 footer_widget">
-								<div class="inner">
-									<a href="#"><h5>고객센터</h5></a>
-								</div>
+						</div>
+						<div class="col-md-2 footer_widget">
+							<div class="inner">
+								<a href="#"><h5>고객센터</h5></a>
 							</div>
-							<div class="col-md-2 footer_widget">
-								<div class="inner">
-									<a href="#"><h5>이용약관</h5></a>
-								</div>
+						</div>
+						<div class="col-md-2 footer_widget">
+							<div class="inner">
+								<a href="#"><h5>이용약관</h5></a>
 							</div>
-							<div class="col-md-2 footer_widget">
-								<div class="inner">
-									<a href="#"><h5>개인정보처리</h5></a>
-								</div>
+						</div>
+						<div class="col-md-2 footer_widget">
+							<div class="inner">
+								<a href="#"><h5>개인정보처리</h5></a>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="footer-bottom">
-					<div class="container">
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="copyright-txt">Copyright© 2021 Branches. All Rights Reserved.</div>
-							</div>
-							<div class="col-lg-6 text-right">
-								<div class="footer-nav">
-									<a href="/member/main">Home</a> <a href="#">Q&A</a> <a href="#">Brand</a> <a href="#">Magazine</a> <a href="#">Blog</a>
-								</div>
+			</div>
+			<div class="footer-bottom">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="copyright-txt">Copyright© 2021 Branches. All Rights Reserved.</div>
+						</div>
+						<div class="col-lg-6 text-right">
+							<div class="footer-nav">
+								<a href="/member/main">Home</a> <a href="#">Q&A</a> <a href="#">Notice</a> <a href="#">Magazine</a> <a href="#">Blog</a>
 							</div>
 						</div>
 					</div>
 				</div>
-
-			</footer>
-			<div class="container">
+			</div>
+		</footer>
+		<div class="container">
 			<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 | <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 | <strong>팩스 :</strong>
 				000-0000-0000 |<strong>사업자등록번호 :</strong> 000-00-000000 | <strong>통신판매업신고 :</strong> 0000-서울종로-00000 | 
 			</small> <br /> <small style="color: black;"><strong>고객센터</strong> 0000-0000 | 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) | <strong>이메일</strong>

@@ -21,11 +21,32 @@ public class HSController {
 		return "chs/main";
 	}
 
+	@GetMapping("/chart")
+	public String chart(Model model) throws Exception {
+		log.debug("chart");
+		log.info("chart");
+		return "chart";
+	}
+
 	@GetMapping("/mypage")
 	public String mypage(Model model) throws Exception {
 		log.debug("mypage");
 		log.info("mypage");
 		return "chs/mypage";
+	}
+
+	@GetMapping("/myOrderList")
+	public String myOrderList(Model model) throws Exception {
+		log.debug("myOrderList");
+		log.info("myOrderList");
+		return "myOrderList";
+	}
+
+	@GetMapping("/brandList")
+	public String brandList(Model model) throws Exception {
+		log.debug("brandList");
+		log.info("brandList");
+		return "brandList";
 	}
 
 	@GetMapping("/sellerpage")
@@ -35,11 +56,11 @@ public class HSController {
 		return "chs/sellerpage";
 	}
 
-	@GetMapping("/adminpage")
-	public String adminpage(Model model) throws Exception {
-		log.debug("adminpage");
-		log.info("adminpage");
-		return "chs/adminpage";
+	@GetMapping("/sellerReview")
+	public String sellerReview(Model model) throws Exception {
+		log.debug("sellerReview");
+		log.info("sellerReview");
+		return "sellerReview";
 	}
 
 	@GetMapping("/sellerorderCheck")
@@ -77,11 +98,53 @@ public class HSController {
 		return "sellerchangeCheck";
 	}
 
-	@GetMapping("/magazine")
-	public String magazine(Model model) throws Exception {
-		log.debug("magazine");
-		log.info("magazine");
-		return "magazine";
+	@GetMapping("/sellerQnA")
+	public String sellerQnA(Model model) throws Exception {
+		log.debug("sellerQnA");
+		log.info("sellerQnA");
+		return "sellerQnA";
+	}
+
+	@GetMapping("/sellertotal")
+	public String sellertotal(Model model) throws Exception {
+		log.debug("sellertotal");
+		log.info("sellertotal");
+		return "sellertotal";
+	}
+
+	@GetMapping("/adminpage")
+	public String adminpage(Model model) throws Exception {
+		log.debug("adminpage");
+		log.info("adminpage");
+		return "adminpage";
+	}
+
+	@GetMapping("/adminQnA")
+	public String adminQnA(Model model) throws Exception {
+		log.debug("adminQnA");
+		log.info("adminQnA");
+		return "adminQnA";
+	}
+
+	@GetMapping("/admintotal")
+	public String admintotal(Model model) throws Exception {
+		log.debug("admintotal");
+		log.info("admintotal");
+		return "admintotal";
+	}
+
+	@GetMapping("/adminSearchMember")
+	public String adminSearchMember(Model model) throws Exception {
+		log.debug("adminSearchMember");
+		log.info("adminSearchMember");
+		return "adminSearchMember";
+	}
+
+	@GetMapping("/adminSearchtotal")
+	public String adminSearchtotal(Model model) throws Exception {
+		log.debug("adminSearchtotal");
+		log.info("adminSearchtotal");
+		return "adminSearchtotal";
 	}
 
 }
