@@ -3,50 +3,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- Required meta tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Branches : Product Registration</title>
-	
-	<!-- Required CSS files -->
-	<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
-	<link rel="stylesheet" href="/assets/css/owl.carousel.css">
-	<link rel="stylesheet" href="/assets/css/barfiller.css">
-	<link rel="stylesheet" href="/assets/css/animate.css">
-	<link rel="stylesheet" href="/assets/css/font-awesome.min.css">
-	<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/assets/css/slicknav.css">
-	<link rel="stylesheet" href="/assets/css/main.css">
-	<link rel="stylesheet" href="/bootstrap.min.css">
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>업체목록 조회</title>
+
+<!-- Required CSS files -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/owl.carousel.css">
+<link rel="stylesheet" href="/assets/css/barfiller.css">
+<link rel="stylesheet" href="/assets/css/animate.css">
+<link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/css/slicknav.css">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/bootstrap.min.css"> 
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
-		<header style="padding-bottom: 10px; padding-top: 5px;">
-		<div class="container">
-			<div class="row">
-				<div class="col-6 col-sm-3 logo-column">
-					<a href="index.html" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
-					</a>
-				</div>
-				<div class="col-6 col-sm-9 nav-column clearfix">
-					<div class="right-nav">
-						<span class="search-icon fa fa-search"></span>
-						<form action="#" class="search-form">
-							<input type="search" placeholder="search now">
-							<button type="submit">
-								<i class="fa fa-search"></i>
-							</button>
-						</form>
-						<div class="header-social">
-							<a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
-						</div>
+		<header>
+			<div class="container">
+				<div class="row">
+					<div class="col-6 col-sm-3 logo-column">
+						<a href="index.html" class="logo"> <img src="/img/branches_text.png" alt="logo" style="width: 70px; height: 200px;">
+						</a>
 					</div>
-				</div>
-			</div>
-		</div>
-			<nav id="menu" class="d-none d-lg-block">
-				<ul style="padding: 10px; background-color: black;">
-					<li class="current-menu-item has-child"><a href="index.html">OUTER</a>
+					<div class="col-6 col-sm-9 nav-column clearfix">
+						<div class="right-nav">
+							<span class="search-icon fa fa-search"></span>
+							<form action="#" class="search-form">
+								<input type="search" placeholder="search now">
+								<button type="submit">
+									<i class="fa fa-search"></i>
+								</button>
+							</form>
+							<div class="header-social">
+								<a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
+							</div>
+						</div>
+						<nav id="menu" class="d-none d-lg-block">
+							<ul>
+								<li class="current-menu-item has-child"><a href="index.html">OUTER</a>
 						<ul class="sub-menu">
 							<li><a href="index.html">Coat</a></li>
 							<li><a href="index-2.html">Jarket</a></li>
@@ -124,104 +121,110 @@
 							<li><a href="index.html">바로가기</a></li>
 						</ul>
 					</li>
-				</ul>
-			</nav>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
 		</header>
 
+		<hr style="margin: 15px 15px 40px 15px;">
+
 		<div class="container">
-
-			<span style="margin-left: 14px;">
-				
-			</span>
-			<span style="margin-left: 400px;" align="center">
-				
-			</span>
-		</div>
-		
-
-		<div class="container" style="">
-			<div class="row" >
-				
-				<div class="col-md-9 contact-info" style="margin: auto;">
-				<hr>
-					<h3 style="text-align: center;">
-					<strong>고객 Q&A</strong>
-					</h3><hr>
-					<form action="#" method="post">
-						<fieldset>
-							<div class="form-group row">
-								<label for="staticEmail" class="col-md-2 col-form-label">문의유형</label>
-								<div class="col-sm-10">
-									<select class="form-control" id="exampleSelect1" style="height: 45px;">
-									<option>유형을 선택하세요</option>
-									<c:forEach items="${inq}" var="inq">
-									<option value="${inq.inquiry_number }">${inq.inquiry_name }</option>
-									</c:forEach>
-									</select>
-								</div>
-							</div>
-
-							<div class="form-group row">
-								<label for="staticEmail" class="col-sm-2 col-form-label">주문번호</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control col-sm-8" placeholder="주문번호를 입력하세요">		
-									<button type="button" class="btn btn-primary" style="display: inline-block; float: left;">조회</button>
-									<div >
-									<label class="form-check-label"> 
-									<input class="form-check-input" type="checkbox" value="" style="float: left;">주문번호 없이 문의 
-									</label>
-									</div>
-								</div>
-								
-							</div>
-							
-							<div class="form-group row">
-								<label for="staticEmail" class="col-sm-2 col-form-label">제목</label>
-								<div class="col-sm-10" >
-									<input type="text" class="form-control" placeholder="제목을 입력하세요">
-									</div>
-							</div>
-							
-							<div class="form-group row">
-								<label for="staticEmail" class="col-sm-2 col-form-label">내용</label>
-								<div class="col-sm-10">
-									<textarea class="form-control" id="exampleTextarea" rows="10"></textarea>
-								</div>
-							</div>
-							
-							<div class="form-group row">
-								<label for="staticEmail" class="col-sm-2 col-form-label">사진</label>
-								<div class="col-sm-10">
-									<textarea class="form-control" rows="3" placeholder="사진 첨부"></textarea>
-									<input type="file" class="form-control-file" >
-									<small class="form-text text-muted">jpg, png, gif의 사진파일만 적용됩니다.</small>
-								</div>
-							</div>
-							
-						</fieldset>
-						
-					</form>		
-					<div class="form-group row" style="text-align: center;" >
-							<button type="submit" class="btn btn-primary" >등록</button>
-							 </div>	
+			<div class="row">
+				<div class="col-md-3 contact-info" align="left" style="padding-left: 40px">
+					<h2>${mem.mbr_name}</h2>
+					<h2>${mem.mbr_id}</h2>
 				</div>
-			
-			
-			
-			
-			
-			
-			
-			
+				<div class="col-md-1 contact-info" align="center" style="padding-top: 20px">
+					<a href="#">정보수정</a>
+				</div>
+				<div class="col-md-6 contact-info"></div>
+				<div class="col-md-2 contact-info" align="center" style="padding-right: 10px">
+					<h2>Point</h2>
+					<h3>${mem.mbr_point}</h3>
+				</div>
+			</div>
+			<span style="margin-left: 14px;"> </span> <span style="margin-left: 400px;" align="center"> </span>
+		</div>
+
+		<hr style="margin: 15px 15px 40px 15px;">
+		
+		
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 contact-info" align="center">
+				<div class="single-info" style="margin-bottom: 40px;">
+	                    <h3>업체관리</h3><hr>
+	                    <h5><a href="#">업체등록</a></h5>
+	                    <h5><a href="#">업체목록 조회</a></h5>
+	                </div><br/>
+	                <div class="single-info" style="margin-bottom: 40px">
+	                    <h3>회원관리</h3><hr>
+	                    <h5><a href="#">회원정보 조회</a></h5>
+	                </div><br/>
+	                <div class="single-info" style="margin-bottom: 40px">
+	                    <h3>고객 Q&A 목록</h3><hr>
+	                    <h5><a href="#">통계</a></h5>
+	                    <h5><a href="#">매출조회</a></h5>
+	                    <h5><a href="#">검색순위 조회</a></h5>
+	                </div>
+				</div>
+
+				
+				<div class="col-md-9 contact-info">
+					<h3 >
+					<strong>판매자 목록</strong>
+					</h3><hr>
+					
+					<table class="n-table table-col">
+						<colgroup>
+							<col style="width: 15%">
+							<col style="width: 20%">
+							<col style="width: 25%">
+							<col style="width: 25%">
+							<col style="width: 15%">
+						</colgroup>
+						<thead>
+							<tr style="text-align: center;"> 
+								<th scope="col">판매자ID</th>
+								<th scope="col">판매자명</th>
+								<th scope="col">연락처</th>
+								<th scope="col">가입일</th>
+								<th scope="col">조회</th>
+							</tr>
+						</thead>
+						
+						<tbody>
+							<c:forEach items="${mbr}" var="mbr">
+							<tr style="text-align: center;"> 
+								<td scope="col">${mbr.mbr_id }</td>
+								<td scope="col">${mbr.mbr_name }</td>
+								<td scope="col">${mbr.contact_number }</td>
+								<td scope="col">${mbr.jdate }</td>
+								<td scope="col">
+								<button type="button" class="btn btn-primary" onclick="location.href='링크걸기">조회</button>
+								</td>
+							</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+					
+					<hr>
+					
+				</div>
+				
+				
+				
 			</div>
 		</div>
-		
 		<hr>
 		
+		
 		<!-- footer -->
-		<footer>
+		<div>
 			<div class="footer-top">
-				<div class="container">
+				<div class="container" align="center">
 					<div class="row">
 						<div class="col-md-6 col-lg-3 footer_widget">
 							<div class="inner">
@@ -262,14 +265,16 @@
 					</div>
 				</div>
 			</div>
-		</footer>
+		</div>
+		
+		
 		<div class="container-fluid">
 			<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 <strong>팩스 :</strong>
 				000-0000-0000 <strong>사업자등록번호 :</strong> 000-00-000000 <strong>통신판매업신고 :</strong> 0000-서울종로-00000
 			</small> <br /> <small style="color: black;"><strong>고객센터</strong> 0000-0000 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) <strong>이메일</strong>
 				customer@29cm.co.kr <strong>대표이사</strong> 000 <strong>개인정보책임자</strong> 000 <strong>호스팅서비스</strong> (주)00000</small>
 		</div>
-
+		<br /><br />
 		<!--Required JS files-->
 		<script src="/assets/js/jquery-2.2.4.min.js"></script>
 		<script src="/assets/js/vendor/popper.min.js"></script>
@@ -280,5 +285,10 @@
 		<script src="/assets/js/vendor/loopcounter.js"></script>
 		<script src="/assets/js/vendor/slicknav.min.js"></script>
 		<script src="/assets/js/active.js"></script>
+		
+		
+	</div>
+</body>
+</html>
 </body>
 </html>
