@@ -18,6 +18,36 @@
 	<link rel="stylesheet" href="/assets/css/slicknav.css">
 	<link rel="stylesheet" href="/assets/css/main.css">
 	<link rel="stylesheet" href="/bootstrap.min.css">
+	
+	<!-- AJAX용 JQUERY -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function (){
+			$('#delete').click(function(event){
+				event.preventDefault();
+				console.log("ajax 호출전");		
+				//var trObj = $(this).parent().parent(); 
+	 
+				$.ajax({
+					type : 'DELETE',
+					url : $(this).attr("href"),
+					cache : false,
+					success: function(result){
+						console.log(result);
+						if(result=="SUCCESS"){
+							if(result == "SUCCESS"){     
+	                  					$(location).attr('href', '${pageContext.request.contextPath}/board/notice')                            
+	               				}  
+						}
+					},
+					error:function(e){
+						console.log(e);
+					}
+				})
+			});	
+		});	
+	</script>
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -31,12 +61,12 @@
 				<div class="col-6 col-sm-9 nav-column clearfix">
 					<div class="right-nav">
 						<span class="search-icon fa fa-search"></span>
-						<form action="#" class="search-form">
+						<!-- <form action="#" class="search-form">
 							<input type="search" placeholder="search now">
 							<button type="submit">
 								<i class="fa fa-search"></i>
 							</button>
-						</form>
+						</form> -->
 						<div class="header-social">
 							<a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
 						</div>
@@ -163,7 +193,7 @@
 				<div class="row" style="padding: 3% 5% 3% 5%">
 					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/notice'">목록보기</button>&nbsp;
 					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/notice/modify/${notice_content.board_id}'">수정하기</button>&nbsp;
-					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/notice'">삭제하기</button>
+					<button type="button" id="delete" class="btn btn-primary">삭제하기</button>
 				</div>
 			</div>
 		</div>

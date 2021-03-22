@@ -153,32 +153,33 @@
 			
 			<div class="container">
 				<ul class="pagination justify-content-center">
-					<li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+					<!-- <li class="page-item"><a class="page-link" href="#"></a></li>
 					<li class="page-item"><a class="page-link" href="#">1</a></li>
 					<li class="page-item"><a class="page-link" href="#">2</a></li>
 					<li class="page-item"><a class="page-link" href="#">3</a></li>
 					<li class="page-item"><a class="page-link" href="#">4</a></li>
 					<li class="page-item"><a class="page-link" href="#">5</a></li>
-					<li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-				</ul>
-				<%-- <c:if test="${pageMaker.prev}">
+					<li class="page-item"><a class="page-link" href="#"></a></li> -->
+				
+				<c:if test="${pageMaker.prev}">
 					<li class="page-item">
-						<a href="board${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a>
+						<a class="page-link" href="notice${pageMaker.makeQuery(pageMaker.startPage - 1)}">&laquo;</a>
 					</li>
 				</c:if>
 			
 				<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 					<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
 					<li class="page-item">
-						<a href="board${pageMaker.makeQuery(idx)}">${idx}</a>
+						<a class="page-link" href="notice${pageMaker.makeQuery(idx)}">${idx}</a>
 					</li>
 				</c:forEach>
 					
 				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 					<li class="page-item">
-					 	<a href="board${pageMaker.makeQuery(pageMaker.endPage +1)}">다음</a>
+					 	<a class="page-link" href="notice${pageMaker.makeQuery(pageMaker.endPage +1)}">&raquo;</a>
 					</li>
-				</c:if> --%>
+				</c:if>
+				</ul>
 			</div>
 		</div>
 	<!-- </div> -->

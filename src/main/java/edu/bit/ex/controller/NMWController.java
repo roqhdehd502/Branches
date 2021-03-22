@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/nmw/*")
 public class NMWController {
+
 	// 상품 등록
 	@GetMapping("/prdct_register")
 	public String prdct_register(Model model) {
@@ -60,5 +61,11 @@ public class NMWController {
 	public String facebook_register(Model model) {
 		log.info("facebook_register...");
 		return "nmw/facebook_register";
+	}
+
+	@GetMapping("/upload_view")
+	public String upload_view(Model model) {
+		log.info("upload_view...");
+		return "nmw/upload_view";
 	}
 }

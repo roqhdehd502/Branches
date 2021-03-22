@@ -145,192 +145,31 @@
 				<h2>MAGAZINE</h2>
 			</div>
 			<div class="container" align="center">
-				<div class="row">
+				<div class="row">		
+					<c:forEach items="${magazine_list}" var="dto">	
 					<div class="col-md-4 contact-info">
 						<div class="thumbnail">
-							<a href="#">
+							<a href="${pageContext.request.contextPath}/board/magazine/${dto.board_id}">
 								<div style="padding-top: 7px">
-									<img src="<c:url value="/img/magazine01.jpg"/>">
+									<img src="<c:url value="/img/magazine01.jpg"/>" width="318px" height="212px">
 								</div>
 								<div>
 									<hr>
-									<span><h5>게시글제목</h5></span>
-									<span class="badge badge-primary badge-pill">15</span>
+									<span><h5>${dto.board_name}</h5></span>
+									<span class="badge badge-primary badge-pill">${dto.board_like}</span>
 								</div>
 							</a>
 							<div>
-								<span>2021-03-19</span>
+								<span>${dto.board_date}</span>
 								<span>&nbsp;|&nbsp;</span>
-								<span>3600</span>
+								<span>${dto.board_hit}</span>
 								<hr>
 							</div>
 						</div>
 					</div>
-					<div class="col-md-4 contact-info">
-						<div class="thumbnail">
-							<a href="#">
-								<div style="padding-top: 7px">
-									<img src="<c:url value="/img/magazine02.jpg"/>">
-								</div>
-								<div>
-									<hr>
-									<span><h5>게시글제목</h5></span>
-									<span class="badge badge-primary badge-pill">15</span>
-								</div>
-							</a>
-							<div>
-								<span>2021-03-19</span>
-								<span>&nbsp;|&nbsp;</span>
-								<span>3600</span>
-								<hr>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 contact-info">
-						<div class="thumbnail">
-							<a href="#">
-								<div style="padding-top: 7px">
-									<img src="<c:url value="/img/magazine03.jpg"/>">
-								</div>
-								<div>
-									<hr>
-									<span><h5>게시글제목</h5></span>
-									<span class="badge badge-primary badge-pill">15</span>
-								</div>
-							</a>
-							<div>
-								<span>2021-03-19</span>
-								<span>&nbsp;|&nbsp;</span>
-								<span>3600</span>
-								<hr>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-4 contact-info">
-						<div class="thumbnail">
-							<a href="#">
-								<div style="padding-top: 7px">
-									<img src="<c:url value="/img/magazine04.jpg"/>">
-								</div>
-								<div>
-									<hr>
-									<span><h5>게시글제목</h5></span>
-									<span class="badge badge-primary badge-pill">15</span>
-								</div>
-							</a>
-							<div>
-								<span>2021-03-19</span>
-								<span>&nbsp;|&nbsp;</span>
-								<span>3600</span>
-								<hr>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 contact-info">
-						<div class="thumbnail">
-							<a href="#">
-								<div style="padding-top: 7px">
-									<img src="<c:url value="/img/magazine05.jpg"/>">
-								</div>
-								<div>
-									<hr>
-									<span><h5>게시글제목</h5></span>
-									<span class="badge badge-primary badge-pill">15</span>
-								</div>
-							</a>
-							<div>
-								<span>2021-03-19</span>
-								<span>&nbsp;|&nbsp;</span>
-								<span>3600</span>
-								<hr>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 contact-info">
-						<div class="thumbnail">
-							<a href="#">
-								<div style="padding-top: 7px">
-									<img src="<c:url value="/img/magazine06.jpg"/>">
-								</div>
-								<div>
-									<hr>
-									<span><h5>게시글제목</h5></span>
-									<span class="badge badge-primary badge-pill">15</span>
-								</div>
-							</a>
-							<div>
-								<span>2021-03-19</span>
-								<span>&nbsp;|&nbsp;</span>
-								<span>3600</span>
-								<hr>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-4 contact-info">
-						<div class="thumbnail">
-							<a href="#">
-								<div style="padding-top: 7px">
-									<img src="<c:url value="/img/magazine07.jpg"/>">
-								</div>
-								<div>
-									<hr>
-									<span><h5>게시글제목</h5></span>
-									<span class="badge badge-primary badge-pill">15</span>
-								</div>
-							</a>
-							<div>
-								<span>2021-03-19</span>
-								<span>&nbsp;|&nbsp;</span>
-								<span>3600</span>
-								<hr>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 contact-info">
-						<div class="thumbnail">
-							<a href="#">
-								<div style="padding-top: 7px">
-									<img src="<c:url value="/img/magazine08.jpg"/>">
-								</div>
-								<div>
-									<hr>
-									<span><h5>게시글제목</h5></span>
-									<span class="badge badge-primary badge-pill">15</span>
-								</div>
-							</a>
-							<div>
-								<span>2021-03-19</span>
-								<span>&nbsp;|&nbsp;</span>
-								<span>3600</span>
-								<hr>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 contact-info">
-						<div class="thumbnail">
-							<a href="#">
-								<div style="padding-top: 7px">
-									<img src="<c:url value="/img/magazine09.jpg"/>">
-								</div>
-								<div>
-									<hr>
-									<span><h5>게시글제목</h5></span>
-									<span class="badge badge-primary badge-pill">15</span>
-								</div>
-							</a>
-							<div>
-								<span>2021-03-19</span>
-								<span>&nbsp;|&nbsp;</span>
-								<span>3600</span>
-								<hr>
-							</div>
-						</div>
-					</div>
-				</div>
+					</c:forEach>
+				</div>		
+			</div>
 				<div class="container">
 					<ul class="pagination justify-content-center">
 						<li class="page-item"><a class="page-link" href="#">&laquo;</a></li>

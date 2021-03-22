@@ -6,7 +6,7 @@
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Branches : Notice Board Write</title>
+	<title>Branches : Notice Board Content</title>
 	
 	<!-- Required CSS files -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
@@ -19,45 +19,34 @@
 	<link rel="stylesheet" href="/assets/css/main.css">
 	<link rel="stylesheet" href="/bootstrap.min.css">
 	
-	<!-- AJAX 처리용 JQUERY -->
+	<!-- AJAX용 JQUERY -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
-	<!-- 작성 폼 스크립트 -->
 	<script type="text/javascript">
-   	$(document).ready(function(){
-      $("#writeForm").submit(function(event){         
-           event.preventDefault();
-           var mbr_id = $("#mbr_id").val();
-           var board_name = $("#board_name").val();
-           var board_content = $("#board_content").val();           
-           
-           console.log(mbr_id);
-           console.log(board_name);
-           console.log(board_content);
-           console.log($(this).attr("action"));    
-           
-           var form = {
-        		 mbr_id: mbr_id,
-                 board_name: board_name,
-                 board_content: board_content
-           };
-           $.ajax({
-             type : "PUT",
-             url : $(this).attr("action"),
-             cache : false,
-             contentType:'application/json; charset=utf-8',
-             data: JSON.stringify(form),
-             success: function (result) {       
-               if(result == "SUCCESS"){     
-                  $(location).attr('href', '${pageContext.request.contextPath}/board/notice')                            
-               }                       
-             },
-             error: function (e) {
-                 console.log(e);
-             }
-         })            
-       });       
-   	});
+		$(document).ready(function (){
+			$('#delete').click(function(event){
+				event.preventDefault();
+				console.log("ajax 호출전");		
+				//var trObj = $(this).parent().parent(); 
+	 
+				$.ajax({
+					type : 'DELETE',
+					url : $(this).attr("href"),
+					cache : false,
+					success: function(result){
+						console.log(result);
+						if(result=="SUCCESS"){
+							if(result == "SUCCESS"){     
+	                  					$(location).attr('href', '${pageContext.request.contextPath}/board/notice')                            
+	               				}  
+						}
+					},
+					error:function(e){
+						console.log(e);
+					}
+				})
+			});	
+		});	
 	</script>
 </head>
 <body>
@@ -175,36 +164,41 @@
 			<div class="container">
 				<h2>NOTICE</h2>
 			</div>
-			<hr>
 			<div class="container">
-				<form id="writeForm" method="post" action="${pageContext.request.contextPath}/board/notice/write">
-				<input type="hidden" id="mbr_id" value="${notice_write.mbr_id}">
-				<fieldset>
-					<div class="row">
-						<div class="col-md-2 contact-info" align="center">
-							<legend>글제목</legend>
-						</div>
-						<div class="col-md-10 contact-info">
-							<input class="form-control" type="text" id="board_name" name="board_name" placeholder="글제목을 입력하세요">
-						</div>
-					</div>
-					<div class="row" style="padding: 3% 0px 3% 0px">
-						<div class="col-md-2 contact-info" align="center">
-							<legend>글내용</legend>
-						</div>
-						<div class="col-md-10 contact-info">
-							<textarea class="form-control" cols="3" id="board_content" name="board_content" placeholder="글내용을 입력하세요"></textarea>
-						</div>
-					</div>	
-						<div align="center" style="padding: 3% 0px 3% 0px;">
-						<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/notice'">목록보기</button>&nbsp;
-						<button type="submit" class="btn btn-primary">작성하기</button>
-					</div>	
-				</fieldset>
-				</form>
+				<table class="table table-hover" style="text-align: center;">
+					<tr class="table-primary">
+						<th>번호</th>
+						<th>제목</th>
+						<th>등록일</th>
+					</tr>
+					<tr>
+						<td>${magazine_content.board_id}</td>
+						<td>${magazine_content.board_name}</td>
+						<td>${magazine_content.board_date}</td>
+					</tr>
+				</table>
+			</div>
+			
+			<hr>
+			
+			<div class="container">
+				<div class="row" style="padding: 5% 3% 3% 5%">
+					<p class="lead">${magazine_img.image_number}</p>
+					<p class="lead">${magazine_content.board_content}</p>
+				</div>
+			</div>
+			
+			<hr>
+			
+			<div class="container">
+				<div class="row" style="padding: 3% 5% 3% 5%">
+					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine'">목록보기</button>&nbsp;
+					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine/modify/${magazine_content.board_id}'">수정하기</button>&nbsp;
+					<button type="button" id="delete" class="btn btn-primary">삭제하기</button>
+				</div>
 			</div>
 		</div>
-	</div>
+	<!-- </div> -->
 
 	<hr>
 
@@ -270,5 +264,6 @@
       <script src="/assets/js/vendor/loopcounter.js"></script>
       <script src="/assets/js/vendor/slicknav.min.js"></script>
       <script src="/assets/js/active.js"></script>
+    </div>
 </body>
 </html>
