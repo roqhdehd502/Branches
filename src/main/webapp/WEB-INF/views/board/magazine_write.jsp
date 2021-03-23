@@ -196,7 +196,7 @@
 							<textarea class="form-control" cols="3" id="board_content" name="board_content" placeholder="글내용을 입력하세요"></textarea>
 						</div>
 					</div>	
-						<div align="center" style="padding: 3% 0px 3% 0px;">
+					<div align="center" style="padding: 3% 0px 3% 0px;">
 						<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/notice'">목록보기</button>&nbsp;
 						<button type="submit" class="btn btn-primary">작성하기</button>
 					</div>	

@@ -4,20 +4,22 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import edu.bit.ex.page.Criteria;
+import edu.bit.ex.page.MagazineCriteria;
+import edu.bit.ex.page.NoticeCriteria;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
+import edu.bit.ex.vo.PrdctImageVO;
 
 @Mapper
 public interface BoardMapper {
 	// 공지사항 게시판 리스트
 	public List<BoardVO> getNoticeList();
 
-	// 페이징을 적용한 게시글 불러오기
-	public List<BoardVO> getNoticeListWithPaging(Criteria cri);
+	// 페이징을 적용한 공지사항 게시판 리스트
+	public List<BoardVO> getNoticeListWithPaging(NoticeCriteria cri);
 
-	// 페이징이 적용되는 게시글 수 단위
-	public int getTotalCount(Criteria cri);
+	// 페이징 단위에 적용되는 최대 공지 게시글 단위
+	public int getNoticeTotalCount(NoticeCriteria cri);
 
 	// 공지사항 작성 id 가져오기
 	public MbrVO getNoticeMember(String mbr_id);
@@ -37,7 +39,21 @@ public interface BoardMapper {
 	// 매거진 게시판 리스트
 	public List<BoardVO> getMagazineList();
 
+	// 페이징을 적용한 매거진 게시판 리스트
+	public List<BoardVO> getMagazineListWithPaging(MagazineCriteria cri);
+
+	// 페이징 단위에 적용되는 최대 매거진 게시글 단위
+	public int getMagazineTotalCount(MagazineCriteria cri);
+
+	// 매거진 게시판 썸네일
+	public PrdctImageVO getMagazineThumbnail(int board_id);
+
 	// 매거진 게시글
 	public BoardVO getMagazineContent(int board_id);
 
+	// 매거진 게시글 조회수
+	public void upMagazineHit(int board_id);
+
+	// 매거진 게시글 이미지 리스트
+	public List<PrdctImageVO> getMagazineImage(int board_id);
 }

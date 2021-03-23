@@ -11,23 +11,4 @@
 		VALUES (prdct_image_seq.nextval, #{uploadfiles}, 'D:/Others/Programming/Project Space/branches/branches_project/src/main/resources/static/prdct_img/', 49)
 	]]>
 	</insert>
-
-	<!-- 매거진 게시글 사진 출력 -->
-	<resultMap id="imageMap" type="edu.bit.ex.vo.PrdctImageVO">
-	    <result property="image_number" column="image_number"/>
-	    <result property="image_name" column="image_name"/>
-	    <result property="image_path" column="image_path"/>
-		<collection property="board_id" resultMap="boardMap"></collection>
-	</resultMap>	
-	<resultMap id="boardMap" type="edu.bit.ex.vo.BoardVO">
-		<result property="board_id" column="board_id"/>
-	</resultMap>
-	<select id="getMagazineImage" resultMap="imageMap">
-		SELECT p.image_number, p.image_name, p.image_path 
-		FROM prdct_image p, board b 
-		WHERE p.board_id = b.board_id AND 
-		    b.board_id = #{board_id} AND
-		    p.image_number =  
-		ORDER BY p.image_number DESC
-	</select>
 </mapper>

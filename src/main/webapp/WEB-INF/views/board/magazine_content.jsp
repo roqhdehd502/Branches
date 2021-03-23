@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Branches : Notice Board Content</title>
+	<title>Branches : Magazine Board Content</title>
 	
 	<!-- Required CSS files -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
@@ -37,7 +38,7 @@
 						console.log(result);
 						if(result=="SUCCESS"){
 							if(result == "SUCCESS"){     
-	                  					$(location).attr('href', '${pageContext.request.contextPath}/board/notice')                            
+	                  					$(location).attr('href', '${pageContext.request.contextPath}/board/magazine')                            
 	               				}  
 						}
 					},
@@ -161,41 +162,34 @@
 		<hr style="margin: 15px 15px 40px 15px;">
 
 		<div class="container">
-			<div class="container">
-				<h2>NOTICE</h2>
+			<!-- <div class="container" align="center">
+				<h2>Magazine</h2>
 			</div>
-			<div class="container">
-				<table class="table table-hover" style="text-align: center;">
-					<tr class="table-primary">
-						<th>번호</th>
-						<th>제목</th>
-						<th>등록일</th>
-					</tr>
-					<tr>
-						<td>${magazine_content.board_id}</td>
-						<td>${magazine_content.board_name}</td>
-						<td>${magazine_content.board_date}</td>
-					</tr>
-				</table>
+			<hr> -->
+			<div class="container" align="center">
+				<div><h2>${magazine_content.board_name}</h2></div>
+				<div><label>${magazine_content.board_date}</label></div>
 			</div>
-			
 			<hr>
-			
 			<div class="container">
 				<div class="row" style="padding: 5% 3% 3% 5%">
-					<p class="lead">${magazine_img.image_number}</p>
-					<p class="lead">${magazine_content.board_content}</p>
+					<c:forEach items="${magazine_img}" var="img">	
+					<div class="col-md-12" style="text-align: center;">
+						<img class="rounded" width="800px" height="600px" src="<c:url value="/prdct_img/${img.image_name}"/>">
+					</div>
+					</c:forEach>
+					<div class="col-md-12">
+						<p>${magazine_content.board_content}</p>
+					</div>
 				</div>
 			</div>
 			
 			<hr>
 			
-			<div class="container">
-				<div class="row" style="padding: 3% 5% 3% 5%">
-					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine'">목록보기</button>&nbsp;
-					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine/modify/${magazine_content.board_id}'">수정하기</button>&nbsp;
-					<button type="button" id="delete" class="btn btn-primary">삭제하기</button>
-				</div>
+			<div align="center" style="padding: 3% 5% 3% 5%">
+				<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine'">목록보기</button>&nbsp;
+				<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine/modify/${magazine_content.board_id}'">수정하기</button>&nbsp;
+				<button type="button" id="delete" class="btn btn-primary">삭제하기</button>
 			</div>
 		</div>
 	<!-- </div> -->
