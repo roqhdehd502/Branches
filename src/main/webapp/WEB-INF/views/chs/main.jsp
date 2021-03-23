@@ -38,7 +38,7 @@
 							</button>
 						</form>
 						<div class="header-social">
-							<a href="#">Login</a> 
+							<a href="/member/login2">Login</a> 
 							<a href="#" class="fa fa-google"></a> 
 							<a href="#" class="fa fa-facebook"></a>
 						</div>
@@ -82,12 +82,12 @@
 							<li><a href="index-3.html">Maxi</a></li>
 							<li><a href="index-3.html">Overrall</a></li>
 						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">BACK</a>
+					<li class="current-menu-item has-child"><a href="index.html">BAG</a>
 						<ul class="sub-menu">
 							<li><a href="index.html">Backpack</a></li>
 							<li><a href="index-2.html">Messenger / Cross</a></li>
 							<li><a href="index-3.html">Shoulder / Tod</a></li>
-							<li><a href="index-2.html">Eco back</a></li>
+							<li><a href="index-2.html">Eco bag</a></li>
 							<li><a href="index-3.html">Clutch</a></li>
 						</ul></li>
 					<li class="current-menu-item has-child"><a href="index.html">SHOES</a>
@@ -120,7 +120,7 @@
 		<section>
 			<article>
 					<div class="hero-slider">
-						<div class="single-slide" style="background-image: url(/img/1.jpg)">
+						<div class="single-slide" style="background-image: url(/hs/1.jpg)">
 							<div class="inner">
 								<div class="container">
 									<div class="row justify-content-center">
@@ -134,7 +134,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="single-slide" style="background-image: url(/img/2.jpg)">
+						<div class="single-slide" style="background-image: url(/hs/2.jpg)">
 							<div class="inner">
 								<div class="container">
 									<div class="row justify-content-center">
@@ -148,7 +148,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="single-slide" style="background-image: url(/img/3.jpg)">
+						<div class="single-slide" style="background-image: url(/hs/3.jpg)">
 							<div class="inner">
 								<div class="container">
 									<div class="row justify-content-center">
@@ -161,7 +161,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="single-slide" style="background-image: url(/img/4.jpg)">
+						<div class="single-slide" style="background-image: url(/hs/4.jpg)">
 							<div class="inner">
 								<div class="container">
 									<div class="row justify-content-center">
@@ -191,58 +191,21 @@
 					 <div class="team-area sp">
 							<div class="container">
 								<div class="row">
+								<c:forEach items="${prdct }" var="prdct">
 									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 										<div class="inner">
 											<div class="team-img">
-												<img src="/img/5.jpg" alt="Member Photo">
+												<img src="/hs/5.jpg" alt="Member Photo">
 											</div>
 											<div class="team-content">
-												<h4>Balenciaga</h4>
-												<h5>데님 자켓 & 펜츠 세트</h5>
-												<h5>990,000₩</h5>
+												<h4>브랜드명</h4>
+												<h5>${prdct.prdct_name}</h5>
+												<h5>${prdct.prdct_price}</h5>
 												<h6><del>1,230,000₩</del></h6>
 											</div>
 										</div>
 									</div>
-									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-										<div class="inner">
-											<div class="team-img">
-												<img src="/img/6.jpg" alt="Member Photo">
-											</div>
-											<div class="team-content">
-												<h4>Balenciaga</h4>
-												<h5>데님 자켓 & 펜츠 세트</h5>
-												<h5>990,000₩</h5>
-												<h6><del>1,230,000₩</del></h6>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-										<div class="inner">
-											<div class="team-img">
-												<img src="/img/7.jpg" alt="Member Photo">
-											</div>
-											<div class="team-content">
-												<h4>Balenciaga</h4>
-												<h5>데님 자켓 & 펜츠 세트</h5>
-												<h5>990,000₩</h5>
-												<h6><del>1,230,000₩</del></h6>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-										<div class="inner">
-											<div class="team-img">
-												<img src="/img/8.jpg" alt="Member Photo">
-											</div>
-											<div class="team-content">
-												<h4>Balenciaga</h4>
-												<h5>데님 자켓 & 펜츠 세트</h5>
-												<h5>990,000</h5>
-												<h6><del>1,230,000₩</del></h6>
-											</div>
-										</div>
-									</div>
+									</c:forEach>
 								</div>
 							</div>
 						</div>				
@@ -256,58 +219,21 @@
 					 <div class="team-area sp">
 							<div class="container">
 								<div class="row">
+									<c:forEach items="${prdct }" var="prdct">
 									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 										<div class="inner">
 											<div class="team-img">
-												<img src="/img/5.jpg" alt="Member Photo">
+												<img src="/hs/5.jpg" alt="Member Photo">
 											</div>
 											<div class="team-content">
-												<h4>Balenciaga</h4>
-												<h5>데님 자켓 & 펜츠 세트</h5>
-												<h5>990,000₩</h5>
+												<h4>브랜드명</h4>
+												<h5>${prdct.prdct_name}</h5>
+												<h5>${prdct.prdct_price}</h5>
 												<h6><del>1,230,000₩</del></h6>
 											</div>
 										</div>
 									</div>
-									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-										<div class="inner">
-											<div class="team-img">
-												<img src="/img/6.jpg">
-											</div>
-											<div class="team-content">
-												<h4>Balenciaga</h4>
-												<h5>데님 자켓 & 펜츠 세트</h5>
-												<h5>990,000</h5>
-												<h6><del>1,230,000₩</del></h6>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-										<div class="inner">
-											<div class="team-img">
-												<img src="/img/7.jpg">
-											</div>
-											<div class="team-content">
-												<h4>Balenciaga</h4>
-												<h5>데님 자켓 & 펜츠 세트</h5>
-												<h5>990,000₩</h5>
-												<h6><del>1,230,000₩</del></h6>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-										<div class="inner">
-											<div class="team-img">
-												<img src="/img/8.jpg" alt="Member Photo">
-											</div>
-											<div class="team-content">
-												<h4>Balenciaga</h4>
-												<h5>데님 자켓 & 펜츠 세트</h5>
-												<h5>990,000₩</h5>
-												<h6><del>1,230,000₩</del></h6>
-											</div>
-										</div>
-									</div>
+									</c:forEach>
 								</div>
 							</div>
 						</div>				
@@ -324,7 +250,7 @@
 									<a href="#">
 									<div class="client-info">
 										<div class="client-data">
-											<img src="/img/10.jpg" style="width: 100%; height: 120px;">	
+											<img src="/hs/10.jpg" style="width: 100%; height: 120px;">	
 											<h4>나이키 특별 세일!</h4>
 										</div>
 									</div>
@@ -337,7 +263,7 @@
 									<a href="#">
 									<div class="client-info">
 										<div class="client-data">
-											<img src="/img/10.jpg" style="width: 100%; height: 120px;">	
+											<img src="/hs/10.jpg" style="width: 100%; height: 120px;">	
 											<h4>나이키 특별 세일!</h4>
 										</div>
 									</div>
@@ -350,7 +276,7 @@
 									<a href="#">
 									<div class="client-info">
 										<div class="client-data">
-											<img src="/img/10.jpg" style="width: 100%; height: 120px;">	
+											<img src="/hs/10.jpg" style="width: 100%; height: 120px;">	
 											<h4>나이키 특별 세일!</h4>
 										</div>
 									</div>
@@ -363,7 +289,7 @@
 									<a href="#">
 									<div class="client-info">
 										<div class="client-data">
-											<img src="/img/10.jpg" style="width: 100%; height: 120px;">	
+											<img src="/hs/10.jpg" style="width: 100%; height: 120px;">	
 											<h4>나이키 특별 세일!</h4>
 										</div>
 									</div>
@@ -376,7 +302,7 @@
 									<a href="#">
 									<div class="client-info">
 										<div class="client-data">
-											<img src="/img/10.jpg" style="width: 100%; height: 120px;">	
+											<img src="/hs/10.jpg" style="width: 100%; height: 120px;">	
 											<h4>나이키 특별 세일!</h4>
 										</div>
 									</div>
@@ -393,10 +319,11 @@
 							<p>무엇을 입어야 할지 고민이라구요?? Branches MD분들이 매주 여러분들을 위해 Best상품을 추천해드립니다!</p>
 						</div>
 						<div class="row">
+							<c:forEach items="${prdct}" var="prdct">
 							<div class="single-portfolio col-md-4">
 								<div class="inner">
 									<div class="portfolio-img">
-										<img src="/img/6.jpg" alt="portfolio-image">
+										<img src="/hs/6.jpg" alt="portfolio-image">
 										<div class="hover-content">
 											<div>
 												<a href="#" class="button">더보기</a>
@@ -404,108 +331,17 @@
 										</div>
 									</div>
 									<div class="portfolio-content">
-										<h4>Balenciaga</h4>
-										<h5>데님 자켓 & 펜츠 세트</h5>
-										<h5>990,000₩</h5>
+										<h4>브랜드명</h4>
+										<h5>${prdct.prdct_name}</h5>
+										<h5>${prdct.prdct_price}</h5>
 										<h6><del>1,230,000₩</del></h6>
 									</div>
 								</div>
 							</div>
+							</c:forEach>
 							
-							<div class="single-portfolio col-md-4">
-								<div class="inner">
-									<div class="portfolio-img">
-										<img src="/img/6.jpg" alt="portfolio-image">
-										<div class="hover-content">
-											<div>
-												<a href="#" class="button">더보기</a>
-											</div>
-										</div>
-									</div>
-									<div class="portfolio-content">
-										<h4>Balenciaga</h4>
-										<h5>데님 자켓 & 펜츠 세트</h5>
-										<h5>990,000₩</h5>
-										<h6><del>1,230,000₩</del></h6>
-									</div>
-								</div>
-							</div>
 							
-							<div class="single-portfolio col-md-4">
-								<div class="inner">
-									<div class="portfolio-img">
-										<img src="/img/6.jpg" alt="portfolio-image">
-										<div class="hover-content">
-											<div>
-												<a href="#" class="button">더보기</a>
-											</div>
-										</div>
-									</div>
-									<div class="portfolio-content">
-										<h4>Balenciaga</h4>
-										<h5>데님 자켓 & 펜츠 세트</h5>
-										<h5>990,000₩</h5>
-										<h6><del>1,230,000₩</del></h6>
-									</div>
-								</div>
-							</div>
 							
-							<div class="single-portfolio col-md-4">
-								<div class="inner">
-									<div class="portfolio-img">
-										<img src="/img/6.jpg" alt="portfolio-image">
-										<div class="hover-content">
-											<div>
-												<a href="#" class="button">더보기</a>
-											</div>
-										</div>
-									</div>
-									<div class="portfolio-content">
-										<h4>Balenciaga</h4>
-										<h5>데님 자켓 & 펜츠 세트</h5>
-										<h5>990,000₩</h5>
-										<h6><del>1,230,000₩</del></h6>
-									</div>
-								</div>
-							</div>
-							
-							<div class="single-portfolio col-md-4">
-								<div class="inner">
-									<div class="portfolio-img">
-										<img src="/img/6.jpg" alt="portfolio-image">
-										<div class="hover-content">
-											<div>
-												<a href="#" class="button">더보기</a>
-											</div>
-										</div>
-									</div>
-									<div class="portfolio-content">
-										<h4>Balenciaga</h4>
-										<h5>데님 자켓 & 펜츠 세트</h5>
-										<h5>990,000₩</h5>
-										<h6><del>1,230,000₩</del></h6>
-									</div>
-								</div>
-							</div>
-							
-							<div class="single-portfolio col-md-4">
-								<div class="inner">
-									<div class="portfolio-img">
-										<img src="/img/6.jpg" alt="portfolio-image">
-										<div class="hover-content">
-											<div>
-												<a href="#" class="button">더보기</a>
-											</div>
-										</div>
-									</div>
-									<div class="portfolio-content">
-										<h4>Balenciaga</h4>
-										<h5>데님 자켓 & 펜츠 세트</h5>
-										<h5>990,000₩</h5>
-										<h6><del>1,230,000₩</del></h6>
-									</div>
-								</div>
-							</div>
 					</div>
 				</div>
 		</section>

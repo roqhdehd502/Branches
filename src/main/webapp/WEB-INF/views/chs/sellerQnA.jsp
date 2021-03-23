@@ -117,46 +117,6 @@
 								<td><h6 >Denim Jaket & Pants</h6></td>
 								<td><h6>2021.03.19</h6></td>
 							</tr>
-							<tr>
-								<td>
-									<h6>2</h6>
-								</td>
-								<td><h6><a href="#">상품배송질문입니다.</a></h6></td>
-								<td><h6>wiqu7***</h6></td>
-								<td><h6>배송</h6></td>
-								<td><h6>Denim Jaket & Pants</h6></td>
-								<td><h6>2021.03.19</h6></td>
-							</tr>
-							<tr>
-								<td>
-									<h6>3</h6>
-								</td>
-								<td><h6><a href="#">상품배송질문입니다.</a></h6></td>
-								<td><h6>wiqu7***</h6></td>
-								<td><h6>배송</h6></td>
-								<td><h6>Denim Jaket & Pants</h6></td>
-								<td><h6>2021.03.19</h6></td>
-							</tr>
-							<tr>
-								<td>
-									<h6>4</h6>
-								</td>
-								<td><h6><a href="#">상품배송질문입니다.</a></h6></td>
-								<td><h6>wiqu7***</h6></td>
-								<td><h6>배송</h6></td>
-								<td><h6>Denim Jaket & Pants</h6></td>
-								<td><h6>2021.03.19</h6></td>
-							</tr>
-							<tr>
-								<td>
-									<h6>5</h6>
-								</td>
-								<td><h6><a href="#">상품배송질문입니다.</a></h6></td>
-								<td><h6>wiqu7***</h6></td>
-								<td><h6>배송</h6></td>
-								<td><h6>Denim Jaket & Pants</h6></td>
-								<td><h6>2021.03.19</h6></td>
-							</tr>
 							
 							
 						

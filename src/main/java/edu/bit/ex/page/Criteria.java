@@ -9,7 +9,7 @@ import lombok.ToString;
 @Getter
 public class Criteria {
 	private int pageNum; // 페이지 번호
-	private int amount; // 한 페이지당 몇 개의 데이터를 보여줄것인가?
+	private int amount; // 한 페이지당 몇 개의 데이터를 보여줄것인가?zz
 
 	public Criteria() {
 		this(1, 10); // 기본 값 1페이지를 10개로 지정한다
