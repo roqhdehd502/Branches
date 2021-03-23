@@ -3,6 +3,7 @@ package edu.bit.ex.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,12 +21,17 @@ public class EjController {
 
 	private EjService ejService;
 
-	@GetMapping("/prd")
-	public String ProductDetail(Model model) throws Exception {
-		log.debug("product");
-		log.info("product..");
+	// 상품 상세페이지
+	@GetMapping("/prd/{prdc_id}")
+	public ModelAndView ProductDetail(@PathVariable("prdc_id") String p_id, ModelAndView mav) throws Exception {
 
-		return "ej/productDetail";
+		log.info("product..");
+		mav.setViewName("ej/productDetail");
+		mav.addObject("productDetail", (ejService.getProductDetail(p_id)));
+		mav.addObject("productInfo", (ejService.getProductInfo(p_id)));
+		/* mav.addObject("productQna", (ejService.productQna(p_id))); */
+
+		return mav;
 	}
 
 	@GetMapping("/main")
