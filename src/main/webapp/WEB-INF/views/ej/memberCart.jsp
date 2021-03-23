@@ -20,30 +20,30 @@
 <link rel="stylesheet" href="/bootstrap.min.css">
 </head>
 <body>
-<div style="overflow: hidden;" class="container">
-	<header style="padding-bottom: 10px;">
-		<div class="container">
-			<div class="row">
-				<div class="col-6 col-sm-3 logo-column">
-					<a href="index.html" class="logo"> <img src="/img/branches_text.png" alt="logo">
-					</a>
-				</div>
-				<div class="col-6 col-sm-9 nav-column clearfix">
-					<div class="right-nav">
-						<span class="search-icon fa fa-search"></span>
-						<form action="#" class="search-form">
-							<input type="search" placeholder="search now">
-							<button type="submit">
-								<i class="fa fa-search"></i>
-							</button>
-						</form>
-						<div class="header-social">
-							<a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
+	<div style="overflow: hidden;" class="container">
+		<header style="padding-bottom: 10px;">
+			<div class="container">
+				<div class="row">
+					<div class="col-6 col-sm-3 logo-column">
+						<a href="index.html" class="logo"> <img src="/img/branches_text.png" alt="logo">
+						</a>
+					</div>
+					<div class="col-6 col-sm-9 nav-column clearfix">
+						<div class="right-nav">
+							<span class="search-icon fa fa-search"></span>
+							<form action="#" class="search-form">
+								<input type="search" placeholder="search now">
+								<button type="submit">
+									<i class="fa fa-search"></i>
+								</button>
+							</form>
+							<div class="header-social">
+								<a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 			<nav id="menu" class="d-none d-lg-block">
 				<ul style="padding: 10px;">
 					<li class="current-menu-item has-child"><a href="index.html">OUTER</a>
@@ -88,33 +88,29 @@
 							<li><a href="index-2.html">Home - 02</a></li>
 							<li><a href="index-3.html">Home - 03</a></li>
 						</ul></li>
-					<li><a href="index.html">|</a>
-					</li>
+					<li><a href="index.html">|</a></li>
 					<li class="current-menu-item has-child"><a href="index.html">NOTICE</a>
 						<ul class="sub-menu">
 							<li><a href="index.html">Home - 01</a></li>
 							<li><a href="index-2.html">Home - 02</a></li>
 							<li><a href="index-3.html">Home - 03</a></li>
-						</ul>
-					</li>
+						</ul></li>
 					<li class="current-menu-item has-child"><a href="index.html">MAGAZINE</a>
 						<ul class="sub-menu">
 							<li><a href="index.html">Home - 01</a></li>
 							<li><a href="index-2.html">Home - 02</a></li>
 							<li><a href="index-3.html">Home - 03</a></li>
-						</ul>
-					</li>
+						</ul></li>
 					<li class="current-menu-item has-child"><a href="index.html" style="margin-right: 38px;">Q&A</a>
 						<ul class="sub-menu">
 							<li><a href="index.html">Home - 01</a></li>
 							<li><a href="index-2.html">Home - 02</a></li>
 							<li><a href="index-3.html">Home - 03</a></li>
-						</ul>
-					</li>
+						</ul></li>
 				</ul>
 			</nav>
 		</header>
-	<!-- 장바구니	 -->
+		<!-- 장바구니	 -->
 		<div class="container" style="text-align: center;">
 
 			<h3>Cart List</h3>
@@ -142,7 +138,7 @@
 					</tr>
 				</thead>
 				<tbody>
-				<c:forEach items="${cartList}" var="cvo">
+
 					<tr class="cart-group has_gift">
 						<td colspan="9" class="cart_cont">
 							<table class="table_basic cart_table">
@@ -158,102 +154,105 @@
 									<col width="12%">
 								</colgroup>
 								<tbody>
-									<tr class="cart_list_no">
-										<td>1</td>
-										<td><input type="checkbox" class="checked_cart" name="cart_no" value="${cvo.cart_number}" checked="checked"></td>
-										<td>
-											<div class="connect_img">
-												<a href=# class="img-block"> <img src="//image.msscdn.net/images/goods_img/20200820/1557658/1557658_2_62.jpg"
-													alt="디스이즈네버댓(THISISNEVERTHAT) INTL. Logo Crewneck Black">
-												</a>
-											</div>
-										</td>
-										<td>
-											<div class="article_info connect_info">
-												<p class="txt_brand"></p>
-												<p class="list_info ">
-													<a href="/app/goods/1557658/0"> [디스이즈네버댓] INTL. Logo Crewneck Black </a>
-												</p>
-												<p class="txt_option">옵션: M
-											</div>
-										</td>
-										<td class="td_price">${cvo.cart_price}</td>
-										<td>
-											<!-- 수량 -->
-											<div class="n-input-amount">
-												<div class="form-group">
-													<select class="form-control" id="exampleSelect1">
-														<option>1</option>
-														<option>2</option>
-														<option>3</option>
-														<option>4</option>
-														<option>5</option>
-													</select>
+									<c:forEach items="${cart_list}" var="cvo">
+										<tr class="cart_list_no">
+											<td>1</td>
+											<td><input type="checkbox" class="checked_cart" name="cart_no" value="${cvo.cart_number}" checked="checked"></td>
+											<td>
+												<div class="connect_img">
+													<a href=# class="img-block"> <img src="//image.msscdn.net/images/goods_img/20200820/1557658/1557658_2_62.jpg"
+														alt="디스이즈네버댓(THISISNEVERTHAT) INTL. Logo Crewneck Black">
+													</a>
 												</div>
-											</div>
-										</td>
-										<td>44,400<br>
-										</td>
-										<td><a href=# class="plain-btn btn">삭제하기</a></td>
-										<td>택배 배송<br>
-											<p>2,500</p>
-										</td>
-									</tr>
-									<tr class="cart_list_no">
-										<td>2</td>
-										<td><input type="checkbox" class="checked_cart" name="cart_no" value="521779327" checked="checked"></td>
-										<td>
-											<div class="connect_img">
-												<a href=# class="img-block"> <img src="//image.msscdn.net/images/goods_img/20200820/1557658/1557658_2_62.jpg"
-													alt="디스이즈네버댓(THISISNEVERTHAT) INTL. Logo Crewneck Black">
-												</a>
-											</div>
-										</td>
-										<td>
-											<div class="article_info connect_info">
-												<p class="txt_brand"></p>
-												<p class="list_info ">
-													<a href="/app/goods/1557658/0"> [디스이즈네버댓] INTL. Logo Crewneck Black </a>
-												</p>
-												<p class="txt_option">옵션: M
-											</div>
-										</td>
-										<td class="td_price">44,400</td>
-										<td>
-											<!-- 수량 -->
-											<div class="n-input-amount">
-												<div class="form-group">
-													<select class="form-control" id="exampleSelect1">
-														<option>1</option>
-														<option>2</option>
-														<option>3</option>
-														<option>4</option>
-														<option>5</option>
-													</select>
+											</td>
+											<td>
+												<div class="article_info connect_info">
+													<p class="txt_brand"></p>
+													<p class="list_info ">
+														<a href="/app/goods/1557658/0"> [디스이즈네버댓] INTL. Logo Crewneck Black </a>
+													</p>
+													<p class="txt_option">옵션: M
 												</div>
-											</div>
-										</td>
-										<td>44,400<br>
-										</td>
-										<td><a href="#" class="plain-btn btn">삭제하기</a></td>
-										<td>택배 배송<br>
-											<p>2,500</p>
-										</td>
-									</tr>
+											</td>
+											<td class="td_price">${cvo.cart_price}</td>
+											<td>
+												<!-- 수량 -->
+												<div class="n-input-amount">
+													<div class="form-group">
+														<select class="form-control" id="exampleSelect1">
+															<option>1</option>
+															<option>2</option>
+															<option>3</option>
+															<option>4</option>
+															<option>5</option>
+														</select>
+													</div>
+												</div>
+											</td>
+											<td>44,400<br>
+											</td>
+											<td><a href=# class="plain-btn btn">삭제하기</a></td>
+											<td>택배 배송<br>
+												<p>2,500</p>
+											</td>
+										</tr>
+										<tr class="cart_list_no">
+											<td>2</td>
+											<td><input type="checkbox" class="checked_cart" name="cart_no" value="521779327" checked="checked"></td>
+											<td>
+												<div class="connect_img">
+													<a href=# class="img-block"> <img src="//image.msscdn.net/images/goods_img/20200820/1557658/1557658_2_62.jpg"
+														alt="디스이즈네버댓(THISISNEVERTHAT) INTL. Logo Crewneck Black">
+													</a>
+												</div>
+											</td>
+											<td>
+												<div class="article_info connect_info">
+													<p class="txt_brand"></p>
+													<p class="list_info ">
+														<a href="/app/goods/1557658/0"> [디스이즈네버댓] INTL. Logo Crewneck Black </a>
+													</p>
+													<p class="txt_option">옵션: M
+												</div>
+											</td>
+											<td class="td_price">44,400</td>
+											<td>
+												<!-- 수량 -->
+												<div class="n-input-amount">
+													<div class="form-group">
+														<select class="form-control" id="exampleSelect1">
+															<option>1</option>
+															<option>2</option>
+															<option>3</option>
+															<option>4</option>
+															<option>5</option>
+														</select>
+													</div>
+												</div>
+											</td>
+											<td>44,400<br>
+											</td>
+											<td><a href="#" class="plain-btn btn">삭제하기</a></td>
+											<td>택배 배송<br>
+												<p>2,500</p>
+											</td>
+										</tr>
+										</c:forEach>
 								</tbody>
-								
+
 							</table>
 						</td>
 					</tr>
 					<tr class="gift-division">
 						<td colspan="9"></td>
 					</tr>
-				</c:forEach>
+					
 				</tbody>
 			</table>
-			<button type="button" class="btn btn-primary"><a class="order-bnt" herf="#">주문하기</a></button>
-			<br/>
-			<br/>
+			<button type="button" class="btn btn-primary">
+				<a class="order-bnt" herf="#">주문하기</a>
+			</button>
+			<br /> <br />
 
 		</div>
 
