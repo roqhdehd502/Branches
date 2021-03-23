@@ -58,13 +58,13 @@
 	                </div><br/>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>회원관리</h3><hr>
-	                    <h5><a href="#">회원정보 조회</a></h5>
-	                    <h5><a href="#">고객Q&A 목록</a></h5>
+	                    <h5><a href="/member/adminSearchMember">회원정보 조회</a></h5>
+	                    <h5><a href="/member/adminQnA">고객Q&A 목록</a></h5>
 	                </div><br/>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>매출관리</h3><hr>
-	                    <h5><a href="#">매출조회</a></h5>
-	                    <h5><a href="#">검색순위 조회</a></h5>
+	                    <h5><a href="/member/admintotal">매출조회</a></h5>
+	                    <h5><a href="/member/adminSearchtotal">검색순위 조회</a></h5>
 	                </div>
 				</div>
 				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">

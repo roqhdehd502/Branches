@@ -182,7 +182,7 @@
 							    </ul>
 							</div>
 							
-							<span><h4 style="margin-top: 10px;">BACK</h4></span>
+							<span><h4 style="margin-top: 10px;">BAG</h4></span>
 							<span style="margin-left: 58px;">
 								<button type="button" class="btn btn-white btn-sm" data-toggle="collapse" data-target="#demo4" style="padding: 5px 5px 5px 5px;"><h5 class="text-dark"> + </h5></button>
 							</span>
@@ -191,7 +191,7 @@
 							    	<li><a href="index.html">Backpack</a></li>
 									<li><a href="index-2.html">Messenger / Cross</a></li>
 									<li><a href="index-3.html">Shoulder / Tod</a></li>
-									<li><a href="index-2.html">Eco back</a></li>
+									<li><a href="index-2.html">Eco bag</a></li>
 									<li><a href="index-3.html">Clutch</a></li>
 							    </ul>
 							</div>
@@ -245,7 +245,7 @@
 								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 									<div class="inner">
 										<div class="team-img">
-											<img src="/img/10.jpg" alt="Member Photo">
+											<img src="/hs/10.jpg" alt="Member Photo">
 										</div>
 										<div class="team-content">
 											<h4>Nike</h4>
@@ -255,7 +255,7 @@
 								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 									<div class="inner">
 										<div class="team-img">
-											<img src="/img/10.jpg" alt="Member Photo">
+											<img src="/hs/10.jpg" alt="Member Photo">
 										</div>
 										<div class="team-content">
 											<h4>Nike</h4>
@@ -265,7 +265,7 @@
 								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 									<div class="inner">
 										<div class="team-img">
-											<img src="/img/10.jpg" alt="Member Photo">
+											<img src="/hs/10.jpg" alt="Member Photo">
 										</div>
 										<div class="team-content">
 											<h4>Nike</h4>
@@ -275,7 +275,7 @@
 								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 									<div class="inner">
 										<div class="team-img">
-											<img src="/img/10.jpg" alt="Member Photo">
+											<img src="/hs/10.jpg" alt="Member Photo">
 										</div>
 										<div class="team-content">
 											<h4>Nike</h4>
@@ -286,7 +286,7 @@
 								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 									<div class="inner">
 										<div class="team-img">
-											<img src="/img/10.jpg" alt="Member Photo">
+											<img src="/hs/10.jpg" alt="Member Photo">
 										</div>
 										<div class="team-content">
 											<h4>Nike</h4>
@@ -296,7 +296,7 @@
 								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 									<div class="inner">
 										<div class="team-img">
-											<img src="/img/10.jpg" alt="Member Photo">
+											<img src="/hs/10.jpg" alt="Member Photo">
 										</div>
 										<div class="team-content">
 											<h4>Nike</h4>
@@ -306,7 +306,7 @@
 								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 									<div class="inner">
 										<div class="team-img">
-											<img src="/img/10.jpg" alt="Member Photo">
+											<img src="/hs/10.jpg" alt="Member Photo">
 										</div>
 										<div class="team-content">
 											<h4>Nike</h4>
@@ -316,7 +316,7 @@
 								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 									<div class="inner">
 										<div class="team-img">
-											<img src="/img/10.jpg" alt="Member Photo">
+											<img src="/hs/10.jpg" alt="Member Photo">
 										</div>
 										<div class="team-content">
 											<h4>Nike</h4>
@@ -327,7 +327,7 @@
 								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 									<div class="inner">
 										<div class="team-img">
-											<img src="/img/10.jpg" alt="Member Photo">
+											<img src="/hs/10.jpg" alt="Member Photo">
 										</div>
 										<div class="team-content">
 											<h4>Nike</h4>
@@ -337,7 +337,7 @@
 								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 									<div class="inner">
 										<div class="team-img">
-											<img src="/img/10.jpg" alt="Member Photo">
+											<img src="/hs/10.jpg" alt="Member Photo">
 										</div>
 										<div class="team-content">
 											<h4>Nike</h4>
@@ -347,7 +347,7 @@
 								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 									<div class="inner">
 										<div class="team-img">
-											<img src="/img/10.jpg" alt="Member Photo">
+											<img src="/hs/10.jpg" alt="Member Photo">
 										</div>
 										<div class="team-content">
 											<h4>Nike</h4>
@@ -357,7 +357,7 @@
 								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 									<div class="inner">
 										<div class="team-img">
-											<img src="/img/10.jpg" alt="Member Photo">
+											<img src="/hs/10.jpg" alt="Member Photo">
 										</div>
 										<div class="team-content">
 											<h4>Nike</h4>
