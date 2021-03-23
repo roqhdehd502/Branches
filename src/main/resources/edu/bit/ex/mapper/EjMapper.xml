@@ -25,6 +25,19 @@
 	<select id="getCartList" resultMap="cartMap">
 		select cart_number, cart_price, cart_date from cart
 	</select>
-	<!-- 맵퍼 대체 어떻게 쓰는거냐고요 -->
+	
+	<!-- 상품상세페이지 -->
+	<select id="getProductDetail" resultType="edu.bit.ex.vo.PrdctVO">
+	<![CDATA[
+		SELECT * FROM prdct WHERE prdct_id = #{prdct_id}
+	]]>
+	</select>
+	
+		<!-- 상품상세페이지 옵션-->
+	<select id="getProductInfo" resultType="edu.bit.ex.vo.PrdctDetailVO">
+	<![CDATA[
+		SELECT * FROM prdct_detail WHERE prdct_id = #{prdct_id}
+	]]>
+	</select>
 
 </mapper>

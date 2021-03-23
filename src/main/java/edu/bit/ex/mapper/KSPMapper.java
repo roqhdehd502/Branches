@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import edu.bit.ex.page.Criteria;
+import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.InquiryVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctVO;
@@ -29,5 +31,21 @@ public interface KSPMapper {
 
 	@Select("select * from mbr where authority_number=#{auth}")
 	public List<MbrVO> getMemberList(int auth);
+
+	/* restcontroller */
+
+	public List<PrdctVO> getPrdctListWithPaging(Criteria cri);
+
+	public int getTotalCount(Criteria cri);
+
+	public List<PrdctVO> getCategoryPrdctList(Criteria cri, int c_id);
+
+	public int getCategoryTotalCount(Criteria cri, int c_id);
+
+	public CategoryVO getCategory(int c_id);
+
+	public List<PrdctVO> getBrandPrdctList(Criteria cri, String b_id);
+
+	public int getBrandTotalCount(Criteria cri, String b_id);
 
 }

@@ -58,17 +58,17 @@
 	                </div><br/>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>회원관리</h3><hr>
-	                    <h5><a href="#">회원정보 조회</a></h5>
-	                    <h5><a href="#">고객Q&A 목록</a></h5>
+	                    <h5><a href="/member/adminSearchMember">회원정보 조회</a></h5>
+	                    <h5><a href="/member/adminQnA">고객Q&A 목록</a></h5>
 	                </div><br/>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>매출관리</h3><hr>
-	                    <h5><a href="#">매출조회</a></h5>
-	                    <h5><a href="#">검색순위 조회</a></h5>
+	                    <h5><a href="/member/admintotal">매출조회</a></h5>
+	                    <h5><a href="/member/adminSearchtotal">검색순위 조회</a></h5>
 	                </div>
 				</div>
 				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">
-					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px;">
+					<h3 style="margin-top: 18px; margin-left: 15px; padding-bottom: 16px;">
 						<strong style="margin: 10px;">Q & A</strong>
 					</h3>
 					<table class="table" style="text-align: center;">
@@ -83,56 +83,18 @@
 							</tr>
 						</thead>
 						<tbody>
+							<c:forEach items="${ board}" var="board">
 							<tr>
 								<td>
-									<h6>1</h6>
+									<h6>${board.board_id }</h6>
 								</td>
-								<td><h6><a href="#">상품배송질문입니다.</a></h6></td>
-								<td><h6>wiqu7***</h6></td>
-								<td><h6>배송</h6></td>
-								<td><h6 >Denim Jaket & Pants</h6></td>
-								<td><h6>2021.03.19</h6></td>
+								<td><h6><a href="#">${board.board_name }</a></h6></td>
+								<td><h6>${board.mbr_id }</h6></td>
+								<td><h6>${board.inquiry_number }</h6></td>
+								<td><h6 >${board.prdct_id }</h6></td>
+								<td><h6>${board.board_date }</h6></td>
 							</tr>
-							<tr>
-								<td>
-									<h6>2</h6>
-								</td>
-								<td><h6><a href="#">상품배송질문입니다.</a></h6></td>
-								<td><h6>wiqu7***</h6></td>
-								<td><h6>배송</h6></td>
-								<td><h6>Denim Jaket & Pants</h6></td>
-								<td><h6>2021.03.19</h6></td>
-							</tr>
-							<tr>
-								<td>
-									<h6>3</h6>
-								</td>
-								<td><h6><a href="#">상품배송질문입니다.</a></h6></td>
-								<td><h6>wiqu7***</h6></td>
-								<td><h6>배송</h6></td>
-								<td><h6>Denim Jaket & Pants</h6></td>
-								<td><h6>2021.03.19</h6></td>
-							</tr>
-							<tr>
-								<td>
-									<h6>4</h6>
-								</td>
-								<td><h6><a href="#">상품배송질문입니다.</a></h6></td>
-								<td><h6>wiqu7***</h6></td>
-								<td><h6>배송</h6></td>
-								<td><h6>Denim Jaket & Pants</h6></td>
-								<td><h6>2021.03.19</h6></td>
-							</tr>
-							<tr>
-								<td>
-									<h6>5</h6>
-								</td>
-								<td><h6><a href="#">상품배송질문입니다.</a></h6></td>
-								<td><h6>wiqu7***</h6></td>
-								<td><h6>배송</h6></td>
-								<td><h6>Denim Jaket & Pants</h6></td>
-								<td><h6>2021.03.19</h6></td>
-							</tr>
+							</c:forEach>
 						</tbody>
 					</table>
          		</span>

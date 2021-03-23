@@ -23,6 +23,9 @@
 <link rel="stylesheet" href="/bootstrap.min.css">
 
 <link rel="stylesheet" href="/ej/star-rating-svg.css">
+<!-- AJAX용 JQUERY -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 </head>
 <style>
@@ -118,68 +121,158 @@ $.fn.generateStars = function() {
 $('.star-prototype').generateStars();
 
 </script>
+	<script type="text/javascript">
+		$(document).ready(function (){
+			$('#detailForm').sbmit(function(event){
+				event.preventDefault();
+				console.log("ajax 호출전");
+				var prdct_id = $("#prdct_id").val();
+		        var prdct_name = $("#prdct_name").val();
+		        var prdct_price = $("#prdct_price").val();
+		        var category_number = $("#category_number").val(); 
+				
+		        var form = {
+		        		prdct_id: prdct_id,
+		        		prdct_name: prdct_name,
+		        		prdct_price: prdct_price,
+		        		category_number: category_number
+		        };
+	 
+				$.ajax({
+					type : 'PUT',
+					url : $(this).attr("action"),
+					cache : false,
+					contentType:'application/json; charset=utf-8', 
+					success: function(result){
+						console.log(result);
+						if(result=="SUCCESS"){
+							if(result == "SUCCESS"){     
+	                  					$(location).attr('href', '${pageContext.request.contextPath}/ej/productDetail')                            
+	               				}  
+						}
+					},
+					error:function(e){
+						console.log(e);
+					}
+				})
+			});	
+		});	
+	</script>
 
 <body>
-	<div class="preloader">
-		<span class="preloader-spin"></span>
-	</div>
-	<div class="site">
-
-		<header>
-			<div class="container">
-				<div class="row">
-					<div class="col-6 col-sm-3 logo-column">
-						<a href="index.html" class="logo"> <img src="/assets/img/logo.png" alt="logo">
-						</a>
-					</div>
-					<div class="col-6 col-sm-9 nav-column clearfix">
-						<div class="right-nav">
-							<span class="search-icon fa fa-search"></span>
-							<form action="#" class="search-form">
-								<input type="search" placeholder="search now">
-								<button type="submit">
-									<i class="fa fa-search"></i>
-								</button>
-							</form>
-							<div class="header-social">
-								<a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
-							</div>
+ 
+<div style="overflow: hidden;" class="container">
+	<header style="padding-bottom: 10px; padding-top: 5px;">
+		<div class="container">
+			<div class="row">
+				<div class="col-6 col-sm-3 logo-column">
+					<a href="index.html" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
+					</a>
+				</div>
+				<div class="col-6 col-sm-9 nav-column clearfix">
+					<div class="right-nav">
+						<span class="search-icon fa fa-search"></span>
+						<form action="#" class="search-form">
+							<input type="search" placeholder="search now">
+							<button type="submit">
+								<i class="fa fa-search"></i>
+							</button>
+						</form>
+						<div class="header-social">
+							<a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
 						</div>
-						<nav id="menu" class="d-none d-lg-block">
-							<ul>
-								<li class="current-menu-item has-child"><a href="index.html">Home</a>
-									<ul class="sub-menu">
-										<li><a href="index.html">Home - 01</a></li>
-										<li><a href="index-2.html">Home - 02</a></li>
-										<li><a href="index-3.html">Home - 03</a></li>
-									</ul></li>
-								<li><a href="about.html">About</a></li>
-								<li><a href="portfolio.html">Portfolio</a></li>
-								<li class="has-child"><a href="#">Pages</a>
-									<ul class="sub-menu">
-										<li><a href="404.html">404</a></li>
-										<li><a href="about.html">About</a></li>
-										<li><a href="career.html">Career</a></li>
-										<li><a href="coming-soon.html">Coming Soon</a></li>
-										<li><a href="contact.html">Contact</a></li>
-										<li><a href="faq.html">Faq</a></li>
-										<li><a href="portfolio.html">Portfolio</a></li>
-										<li><a href="pricing.html">Pricing</a></li>
-										<li><a href="service.html">Service</a></li>
-										<li><a href="team.html">Team</a></li>
-										<li><a href="testimonial.html">Testimonial</a></li>
-									</ul></li>
-								<li><a href="contact.html">Contact</a></li>
-							</ul>
-						</nav>
 					</div>
 				</div>
 			</div>
+		</div>
+			<nav id="menu" class="d-none d-lg-block">
+				<ul style="padding: 10px; background-color: black;">
+					<li class="current-menu-item has-child"><a href="index.html">OUTER</a>
+						<ul class="sub-menu">
+							<li><a href="index.html">Coat</a></li>
+							<li><a href="index-2.html">Jarket</a></li>
+							<li><a href="index-3.html">Jumper / Mustang</a></li>
+							<li><a href="index-3.html">Cardigan</a></li>
+							<li><a href="index-3.html">Padding</a></li>
+						</ul></li>
+					<li class="current-menu-item has-child"><a href="index.html">TOP</a>
+						<ul class="sub-menu">
+							<li><a href="index.html">T-shirt</a></li>
+							<li><a href="index-2.html">Blouse / Shirt</a></li>
+							<li><a href="index-3.html">Neat / Sweater</a></li>
+							<li><a href="index-3.html">Hoddie</a></li>
+							<li><a href="index-3.html">Sweater shirt</a></li>
+							<li><a href="index-3.html">Sleeveless</a></li>
+						</ul></li>
+					<li class="current-menu-item has-child"><a href="index.html">BOTTOM</a>
+						<ul class="sub-menu">
+							<li><a href="index.html">Denim</a></li>
+							<li><a href="index-2.html">Cotten</a></li>
+							<li><a href="index-3.html">Short</a></li>
+							<li><a href="index-3.html">Slacks</a></li>
+							<li><a href="index-3.html">Training / Jogger</a></li>
+							<li><a href="index-3.html">Leggings</a></li>
+							<li><a href="index-3.html">Skirt</a></li>	
+						</ul></li>
+					<li class="current-menu-item has-child"><a href="index.html">Dress</a>
+						<ul class="sub-menu">
+							<li><a href="index.html">Mini</a></li>
+							<li><a href="index-2.html">Midi</a></li>
+							<li><a href="index-3.html">Maxi</a></li>
+							<li><a href="index-3.html">Overrall</a></li>
+						</ul></li>
+					<li class="current-menu-item has-child"><a href="index.html">Back</a>
+						<ul class="sub-menu">
+							<li><a href="index.html">Backpack</a></li>
+							<li><a href="index-2.html">Messenger / Cross</a></li>
+							<li><a href="index-3.html">Shoulder / Tod</a></li>
+							<li><a href="index-2.html">Eco back</a></li>
+							<li><a href="index-3.html">Clutch</a></li>
+						</ul></li>
+					<li class="current-menu-item has-child"><a href="index.html">Shoes</a>
+						<ul class="sub-menu">
+							<li><a href="index.html">Dress shoes</a></li>
+							<li><a href="index-2.html">Boots</a></li>
+							<li><a href="index-3.html">Sandal</a></li>
+							<li><a href="index-2.html">slipper</a></li>
+							<li><a href="index-3.html">Sneakers</a></li>
+						</ul></li>
+					<li class="current-menu-item has-child"><a href="index.html">ETC</a>
+						<ul class="sub-menu">
+							<li><a href="index.html">Socks</a></li>
+							<li><a href="index-2.html">Cap</a></li>
+							<li><a href="index-3.html">Acc</a></li>
+						</ul></li>
+					<li>
+						<a href="index.html" style="color: white;">|</a>
+					</li>
+					<li class="current-menu-item has-child"><a href="index.html">BRAND</a>
+						<ul class="sub-menu">
+							<li><a href="index.html">Nike</a></li>
+							<li><a href="index-2.html">Thisisneverthat</a></li>
+							<li><a href="index-3.html">Covernat</a></li>
+							<li><a href="index-3.html">AnderssonBell</a></li>
+							<li><a href="index-3.html">Vans</a></li>
+						</ul>
+					</li>
+					<li class="current-menu-item has-child"><a href="index.html">MAGAZINE</a>
+						<ul class="sub-menu">
+							<li><a href="index.html">바로가기</a></li>
+						</ul>
+					</li>
+					<li class="current-menu-item has-child"><a href="index.html" style="margin-right: 38px;">NOTICE</a>
+						<ul class="sub-menu">
+							<li><a href="index.html">바로가기</a></li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
 		</header>
 
 		<!-- 상세페이지 내용	 -->
+		<form id="detailForm" action="${pageContext.request.contextPath}/ej/prd/${productDetail.prdct_id}" method="post">
 		<div class="detail-area sp">
-			<div class="container">
+			<div class="container" style="align-content: center;">
 
 				<!-- 	상품 카테고리 분류  -->
 				<div class="item categories">
@@ -189,7 +282,7 @@ $('.star-prototype').generateStars();
 				<!-- 상품 상세 이미지 -->
 				<div class="left-container">
 					<!-- 사진 슬라이딩 처리 -->
-					<div style="float: left; margin-right: 20px; ">
+					<div style="float: left; margin-right: 20px; margin-left: 100px; ">
 						<div class="container">
 							<div class="mySlides" style="width:400px; height:600px;" >
 								<img src="https://image.msscdn.net/images/goods_img/20200205/1291017/1291017_1_500.jpg" style="width: 100%">
@@ -251,30 +344,22 @@ $('.star-prototype').generateStars();
 					<div class="row">
 						<div class="contrainer single-service bordered " style="height: 600px; width: 500px;">
 							<div class="inner">
-								<h4>thisisneverthat</h4>
-								<h4>INTL. Logo Crewneck</h4>
-								<h4>44,400원</h4>
+								<h4>${productDetail.mbr_id}</h4>
+								<h4>${productDetail.prdct_name}</h4>
+								<h4>${productDetail.prdct_price}원</h4>
 								<hr>
 
 								<!-- 색상 옵션	 -->
 								<div class="form-group">
-									<label for="colorSelect" class="col-sm-2 col-form-label">Color</label> <select class="form-control" id="colorSelect">
-										<option value="">gray</option>
-										<option value="">blcak</option>
-										<option value="">white</option>
-										<option value="">green</option>
+									<label for="colorSelect" class="col-sm-2 col-form-label">Color</label>
+									<select class="form-control" id="colorSelect">
+									<c:forEach items="${productInfo}" var="productInfo">
+										<option value="${productInfo}">${productInfo.prdct_color} / ${productInfo.prdct_size}</option>
+									</c:forEach>	
 									</select>
 								</div>
 
-								<!-- 사이즈 옵션 -->
-								<div class="form-group">
-									<label for="sizeSelect" class="col-sm-2 col-form-label">Size</label> <select class="form-control" id="sizeSelect">
-										<option value="">S</option>
-										<option value="">M</option>
-										<option value="">L</option>
-										<option value="">XL</option>
-									</select>
-								</div>
+								
 								<hr>
 								<!--  구매 버튼 및 찜하기  -->
 								<div class="row">
@@ -439,7 +524,7 @@ $('.star-prototype').generateStars();
 				</div>
 			</div>
 		</div>
-
+      </form>
 		<!-- Q&A 페이지 tab -->
 		<div class="container">
 			<br>
@@ -589,7 +674,7 @@ $('.star-prototype').generateStars();
 	</div>
 	<!-- 상품컨텐츠 내용 전체 컨테이너 끝 -->
 	
-		<!-- footer -->
+	<!-- footer -->
 		<footer>
 			<div class="footer-top">
 				<div class="container">
@@ -612,13 +697,12 @@ $('.star-prototype').generateStars();
 						</div>
 						<div class="col-md-6 col-lg-3 footer_widget">
 							<div class="inner">
-								<h4>Address</h4>
+								<h4 style="padding-left: 100px;">Address</h4>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<hr>
 			<div class="footer-bottom">
 				<div class="container">
 					<div class="row">
@@ -633,13 +717,14 @@ $('.star-prototype').generateStars();
 					</div>
 				</div>
 			</div>
+			
 		</footer>
 		<div class="container-fluid">
 			<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 <strong>팩스 :</strong>
 				000-0000-0000 <strong>사업자등록번호 :</strong> 000-00-000000 <strong>통신판매업신고 :</strong> 0000-서울종로-00000
 			</small> <br /> <small style="color: black;"><strong>고객센터</strong> 0000-0000 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) <strong>이메일</strong>
-				customer@29cm.co.kr <strong>대표이사</strong> 000 <strong>개인정보책임자</strong> 000 <strong>호스팅서비스</strong> (주)00000</small>
-		</div>
+				admin@branches.co.kr <strong>대표이사</strong> 000 <strong>개인정보책임자</strong> 000 <strong>호스팅서비스</strong> (주)00000</small>
+		</div><br/><br/>
 
 		<!--Required JS files-->
 		<script src="/assets/js/jquery-2.2.4.min.js"></script>

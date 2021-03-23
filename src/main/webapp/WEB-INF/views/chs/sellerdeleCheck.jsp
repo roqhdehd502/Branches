@@ -67,12 +67,11 @@
 				<div class="col-md-2 contact-info" align="center">
 					<div class="single-info" style="margin-bottom: 40px">
 	                    <h3>주문 관리</h3><hr>
-	                    <h5><a href="#">전체</a></h5>
-	                    <h5><a href="#">주문확인</a></h5>
-	                    <h5><a href="#">발송확인</a></h5>
-	                    <h5><a href="#">취소</a></h5>
-	                    <h5><a href="#">교환</a></h5>
-	                    <h5><a href="#">환불</a></h5>
+	                    <h5><a href="/member/sellerorderCheck">주문확인</a></h5>
+	                    <h5><a href="/member/sellerdeleCheck">발송확인</a></h5>
+	                    <h5><a href="/member/sellercancelCheck">취소</a></h5>
+	                    <h5><a href="/member/sellerchangeCheck">교환</a></h5>
+	                    <h5><a href="/member/sellercancelList">환불</a></h5>
 	                </div>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>상품 관리</h3><hr>
@@ -82,18 +81,18 @@
 	                </div>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>회원 관리</h3><hr>
-	                    <h5><a href="#">Q&A</a></h5>
-	                    <h5><a href="#">리뷰</a></h5>
+	                    <h5><a href="/member/sellerQnA">Q&A</a></h5>
+	                    <h5><a href="/member/sellerReview">리뷰</a></h5>
 	                </div>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>매출 관리</h3><hr>
-	                    <h5><a href="#">매출</a></h5>
+	                    <h5><a href="/member/sellertotal">매출</a></h5>
 	                </div>
 				</div>
 
 				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">
 					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px;">
-						<strong style="margin: 10px;">환불확인</strong>
+						<strong style="margin: 10px;">발송확인</strong>
 					</h3>
 					<table class="table">
 						<thead style="text-align: center;">
@@ -106,86 +105,24 @@
 							</tr>
 						</thead>
 						<tbody >
-							<tr>
+							<c:forEach items="${order }" var="order">
+							<tr style="text-align: center;">
 								<td>
 									<h6>[단독]Denim Jaket & Pants</h6>
-									<h6>M(95)/S(90)</h6>
-									<h6>Sky Blue</h6>
+									<h6>${order.order_size }</h6>
+									<h6>${order.order_color }</h6>
 								</td>
-								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
-								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
+								<td><h6 style="position: relative; top: 22px;">2021.03.23</h6></td>
+								<td style="text-align: center;"><h6 style="position: relative; top: 22px;">${order.order_number }</h6></td>
 								<td>
 									<h6 style="position: relative; top: 22px; text-align: center;">발송전</h6>
 								</td>
 								<td>
 									<input class="form-control" type="text" placeholder="송장번호 입력">
-									<h6 style="position: relative; top: 24px; text-align: center;"><button class="btn btn-primary btn-sm">취소처리</button></h6>
+									<h6 style="position: relative; top: 24px; text-align: center;"><button class="btn btn-primary btn-sm">발송처리</button></h6>
 								</td>
 							</tr>
-							<tr>
-								<td>
-									<h6>[단독]Denim Jaket & Pants</h6>
-									<h6>M(95)/S(90)</h6>
-									<h6>Sky Blue</h6>
-								</td>
-								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
-								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
-								<td>
-									<h6 style="position: relative; top: 22px; text-align: center;">발송전</h6>
-								</td>
-								<td>
-									<input class="form-control" type="text" placeholder="송장번호 입력">
-									<h6 style="position: relative; top: 24px; text-align: center;"><button class="btn btn-primary btn-sm">취소처리</button></h6>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<h6>[단독]Denim Jaket & Pants</h6>
-									<h6>M(95)/S(90)</h6>
-									<h6>Sky Blue</h6>
-								</td>
-								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
-								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
-								<td>
-									<h6 style="position: relative; top: 22px; text-align: center;">발송전</h6>
-								</td>
-								<td>
-									<input class="form-control" type="text" placeholder="송장번호 입력">
-									<h6 style="position: relative; top: 24px; text-align: center;"><button class="btn btn-primary btn-sm">취소처리</button></h6>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<h6>[단독]Denim Jaket & Pants</h6>
-									<h6>M(95)/S(90)</h6>
-									<h6>Sky Blue</h6>
-								</td>
-								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
-								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
-								<td>
-									<h6 style="position: relative; top: 22px; text-align: center;">발송전</h6>
-								</td>
-								<td>
-									<input class="form-control" type="text" placeholder="송장번호 입력">
-									<h6 style="position: relative; top: 24px; text-align: center;"><button class="btn btn-primary btn-sm">취소처리</button></h6>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<h6>[단독]Denim Jaket & Pants</h6>
-									<h6>M(95)/S(90)</h6>
-									<h6>Sky Blue</h6>
-								</td>
-								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
-								<td><h6 style="position: relative; top: 34px;">2021031111550001</h6></td>
-								<td>
-									<h6 style="position: relative; top: 22px; text-align: center;">발송전</h6>
-								</td>
-								<td>
-									<input class="form-control" type="text" placeholder="송장번호 입력">
-									<h6 style="position: relative; top: 24px; text-align: center;"><button class="btn btn-primary btn-sm">취소처리</button></h6>
-								</td>
-							</tr>
+							</c:forEach>
 							
 						</tbody>
 					</table>

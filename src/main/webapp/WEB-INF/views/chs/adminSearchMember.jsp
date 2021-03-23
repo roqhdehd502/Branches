@@ -58,17 +58,17 @@
 	                </div><br/>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>회원관리</h3><hr>
-	                    <h5><a href="#">회원정보 조회</a></h5>
-	                    <h5><a href="#">고객Q&A 목록</a></h5>
+	                    <h5><a href="/member/adminSearchMember">회원정보 조회</a></h5>
+	                    <h5><a href="/member/adminQnA">고객Q&A 목록</a></h5>
 	                </div><br/>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>매출관리</h3><hr>
-	                    <h5><a href="#">매출조회</a></h5>
-	                    <h5><a href="#">검색순위 조회</a></h5>
+	                    <h5><a href="/member/admintotal">매출조회</a></h5>
+	                    <h5><a href="/member/adminSearchtotal">검색순위 조회</a></h5>
 	                </div>
 				</div>
 				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">
-					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px;">
+					<h3 style="margin-top: 18px; margin-left: 15px; padding-bottom: 16px;">
 						<strong style="margin: 10px;">회원정보 조회</strong>
 					</h3>
 					<div style="margin-bottom: 20px;">
@@ -77,6 +77,12 @@
 						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">매출순</button></span>
 						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">최근등록순</button></span>
 						<form action="#" style="float: right;">
+							<span>
+								<select>
+									<option>이름</option>
+									<option>아이디</option>
+								</select>
+							</span>
 							<span><input class="form-control" type="text" style="width: 180px;"></span>
 							<span><button class="btn btn-primary btn-sm" type="submit">검색</button></span>
 						</form> 
@@ -93,59 +99,18 @@
 							</tr>
 						</thead>
 						<tbody>
+						<c:forEach items="${mem}" var="mem">
 							<tr>
 								<td>
 									<h6>1</h6>
 								</td>
-								<td><h6><a href="#">windw123</a></h6></td>
-								<td><h6>김철수</h6></td>
-								<td><h6>010-0000-0000</h6></td>
-								<td><h6>windw123@naver.com</h6></td>
-								<td><h6>2021.03.19</h6></td>
+								<td><h6><a href="#">${mem.mbr_id }</a></h6></td>
+								<td><h6>${mem.mbr_name }</h6></td>
+								<td><h6>${mem.contact_number }</h6></td>
+								<td><h6>${mem.mbr_email }</h6></td>
+								<td><h6>${mem.jdate }</h6></td>
 							</tr>
-							<tr>
-								<td>
-									<h6>2</h6>
-								</td>
-								<td><h6><a href="#">windw123</a></h6></td>
-								<td><h6>김철수</h6></td>
-								<td><h6>010-0000-0000</h6></td>
-								<td><h6>windw123@naver.com</h6></td>
-								<td><h6>2021.03.19</h6></td>
-							</tr>
-							
-							<tr>
-								<td>
-									<h6>3</h6>
-								</td>
-								<td><h6><a href="#">windw123</a></h6></td>
-								<td><h6>김철수</h6></td>
-								<td><h6>010-0000-0000</h6></td>
-								<td><h6>windw123@naver.com</h6></td>
-								<td><h6>2021.03.19</h6></td>
-							</tr>
-							
-							<tr>
-								<td>
-									<h6>4</h6>
-								</td>
-								<td><h6><a href="#">windw123</a></h6></td>
-								<td><h6>김철수</h6></td>
-								<td><h6>010-0000-0000</h6></td>
-								<td><h6>windw123@naver.com</h6></td>
-								<td><h6>2021.03.19</h6></td>
-							</tr>
-							
-							<tr>
-								<td>
-									<h6>5</h6>
-								</td>
-								<td><h6><a href="#">windw123</a></h6></td>
-								<td><h6>김철수</h6></td>
-								<td><h6>010-0000-0000</h6></td>
-								<td><h6>windw123@naver.com</h6></td>
-								<td><h6>2021.03.19</h6></td>
-							</tr>
+						</c:forEach>
 						</tbody>
 					</table>
          		</span>
