@@ -8,8 +8,10 @@ import edu.bit.ex.mapper.KSPMapper;
 import edu.bit.ex.page.Criteria;
 import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.InquiryVO;
+import edu.bit.ex.vo.MbrAddressVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctVO;
+import edu.bit.ex.vo.ShippingVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -99,6 +101,25 @@ public class KSPServiceImpl implements KSPService {
 	public int getBrandTotalCount(Criteria cri, String b_id) {
 		// TODO Auto-generated method stub
 		return kspMapper.getBrandTotalCount(cri, b_id);
+	}
+
+	@Override
+	public void memberInfoUpdate(MbrVO mbrvo) {
+		// TODO Auto-generated method stub
+		log.info("memberInfoUpdate()......");
+		kspMapper.memberInfoUpdate(mbrvo);
+	}
+
+	@Override
+	public ShippingVO getSellerAddress(String m_id) {
+		// TODO Auto-generated method stub
+		return kspMapper.getSellerAddress(m_id);
+	}
+
+	@Override
+	public void sellerInfoUpdate(MbrAddressVO mavo) {
+		// TODO Auto-generated method stub
+		kspMapper.sellerInfoUpdate(mavo);
 	}
 
 }

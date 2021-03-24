@@ -1,4 +1,6 @@
+<%@page import="edu.bit.ex.vo.MbrVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,108 +26,195 @@
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 
 <script type="text/javascript">
-    $(document).ready(function () {
-            $.datepicker.setDefaults($.datepicker.regional['ko']); 
-            $( "#birthDate" ).datepicker({
-                 changeMonth: true, 
-                 changeYear: true,
-                 nextText: '다음 달',
-                 prevText: '이전 달', 
-                 dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
-                 dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
-                 monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-                 monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-                 dateFormat: "yymmdd",
-                 maxDate: 0,                       // 선택할수있는 최소날짜, ( 0 : 오늘 이후 날짜 선택 불가)
-                     
- 
-            });
-             
-    });
+
+function check_pw() {
+	
+	$("#alert-success").hide(); 
+	$("#alert-danger").hide();
+	
+	var pw = $("mbr_pw").val();
+	var pw_c = $("pw_c").val();
+    
+    if(pw !="" || pw_c != "") {
+    	if(pw == pw_c) {
+    		document.getElementById('check').innerHTML='비밀번호 일치';
+    	} else if {
+        	document.getElementById('check').innerHTML='비밀번호 불일치';
+        }
+    }
+    
+}
+
+$(document).ready(function(){
+    
+	//https://m.blog.naver.com/PostView.nhn?blogId=moonv11&logNo=220605582547&proxyReferer=https:%2F%2Fwww.google.com%2F
+	$("#updateForm").submit(function(event){
+		
+		event.preventDefault();
+		
+		var mbr_id = $("#mbr_id").val();
+        var mbr_pw = $("#mbr_pw").val();
+        var pw_c = $("#pw_c").val();
+        var mbr_email = $("#mbr_email").val();
+        var contact_number = $("#contact_number").val();
+        var mbr_gender = $('#mbr_gender:checked').val();        
+        
+        console.log(mbr_id);
+        console.log($(this).attr("action"));
+        
+        var form = {
+        		mbr_id: mbr_id,
+        		mbr_pw: mbr_pw,
+        		mbr_email: mbr_email,
+        		contact_number: contact_number,
+        		mbr_gender: mbr_gender
+        };
+	    //dataType: 'json',
+        $.ajax({
+		    type : "PUT",
+		    url : $(this).attr("action"),
+		    cache : false,
+		    contentType:'application/json; charset=utf-8',
+			    data: JSON.stringify(form), 
+		    success: function (result) {       
+				if(result == "SUCCESS"){
+					//list로 
+					$(location).attr('href', '${pageContext.request.contextPath}/rest_ksp/member/${mbr.mbr_id}/mypage/myinfo')				      	       
+				}					        
+		    },
+		    error: function (e) {
+		        console.log(e);
+		    }
+		})	       
+
+    }); // end submit()
+    
+}); // end ready() 
 </script>
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
-		<header>
-			<div class="container">
-				<div class="row">
-					<div class="col-6 col-sm-3 logo-column">
-						<a href="index.html" class="logo"> <img src="/img/branches_text.png" alt="logo" style="width: 70px; height: 200px;">
-						</a>
-					</div>
-					<div class="col-6 col-sm-9 nav-column clearfix">
-						<div class="right-nav">
-							<span class="search-icon fa fa-search"></span>
-							<form action="#" class="search-form">
-								<input type="search" placeholder="search now">
-								<button type="submit">
-									<i class="fa fa-search"></i>
-								</button>
-							</form>
-							<div class="header-social">
-								<a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
-							</div>
+		<header style="padding-bottom: 10px; padding-top: 5px;">
+		<div class="container">
+			<div class="row">
+				<div class="col-6 col-sm-3 logo-column">
+					<a href="index.html" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
+					</a>
+				</div>
+				<div class="col-6 col-sm-9 nav-column clearfix">
+					<div class="right-nav">
+						<span class="search-icon fa fa-search"></span>
+						<form action="#" class="search-form">
+							<input type="search" placeholder="search now">
+							<button type="submit">
+								<i class="fa fa-search"></i>
+							</button>
+						</form>
+						<div class="header-social">
+							<a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
 						</div>
-						<nav id="menu" class="d-none d-lg-block">
-							<ul>
-								<li class="current-menu-item has-child"><a href="index.html">Home</a>
-									<ul class="sub-menu">
-										<li><a href="index.html">Home - 01</a></li>
-										<li><a href="index-2.html">Home - 02</a></li>
-										<li><a href="index-3.html">Home - 03</a></li>
-									</ul></li>
-								<li class="current-menu-item has-child"><a href="index.html">Home</a>
-									<ul class="sub-menu">
-										<li><a href="index.html">Home - 01</a></li>
-										<li><a href="index-2.html">Home - 02</a></li>
-										<li><a href="index-3.html">Home - 03</a></li>
-									</ul></li>
-								<li class="current-menu-item has-child"><a href="index.html">Home</a>
-									<ul class="sub-menu">
-										<li><a href="index.html">Home - 01</a></li>
-										<li><a href="index-2.html">Home - 02</a></li>
-										<li><a href="index-3.html">Home - 03</a></li>
-									</ul></li>
-								<li class="current-menu-item has-child"><a href="index.html">Home</a>
-									<ul class="sub-menu">
-										<li><a href="index.html">Home - 01</a></li>
-										<li><a href="index-2.html">Home - 02</a></li>
-										<li><a href="index-3.html">Home - 03</a></li>
-									</ul></li>
-								<li class="current-menu-item has-child"><a href="index.html">Home</a>
-									<ul class="sub-menu">
-										<li><a href="index.html">Home - 01</a></li>
-										<li><a href="index-2.html">Home - 02</a></li>
-										<li><a href="index-3.html">Home - 03</a></li>
-									</ul></li>
-								<li class="current-menu-item has-child"><a href="index.html">Home</a>
-									<ul class="sub-menu">
-										<li><a href="index.html">Home - 01</a></li>
-										<li><a href="index-2.html">Home - 02</a></li>
-										<li><a href="index-3.html">Home - 03</a></li>
-									</ul></li>
-							</ul>
-						</nav>
 					</div>
 				</div>
 			</div>
+		</div>
+			<nav id="menu" class="d-none d-lg-block">
+				<ul style="padding: 10px; background-color: black;">
+					<li class="current-menu-item has-child"><a href="index.html">OUTER</a>
+						<ul class="sub-menu">
+							<li><a href="index.html">Coat</a></li>
+							<li><a href="index-2.html">Jarcket</a></li>
+							<li><a href="index-3.html">Jumper / Mustang</a></li>
+							<li><a href="index-3.html">Cardigan</a></li>
+							<li><a href="index-3.html">Padding</a></li>
+						</ul></li>
+					<li class="current-menu-item has-child"><a href="index.html">TOP</a>
+						<ul class="sub-menu">
+							<li><a href="index.html">T-shirt</a></li>
+							<li><a href="index-2.html">Blouse / Shirt</a></li>
+							<li><a href="index-3.html">Knit / Sweater</a></li>
+							<li><a href="index-3.html">Hoddie</a></li>
+							<li><a href="index-3.html">Sweat shirt</a></li>
+							<li><a href="index-3.html">Sleeveless</a></li>
+						</ul></li>
+					<li class="current-menu-item has-child"><a href="index.html">BOTTOM</a>
+						<ul class="sub-menu">
+							<li><a href="index.html">Denim</a></li>
+							<li><a href="index-2.html">Cotton</a></li>
+							<li><a href="index-3.html">Shorts</a></li>
+							<li><a href="index-3.html">Slacks</a></li>
+							<li><a href="index-3.html">Training / Jogger</a></li>
+							<li><a href="index-3.html">Leggings</a></li>
+							<li><a href="index-3.html">Skirt</a></li>	
+						</ul></li>
+					<li class="current-menu-item has-child"><a href="index.html">Dress</a>
+						<ul class="sub-menu">
+							<li><a href="index.html">Mini</a></li>
+							<li><a href="index-2.html">Midi</a></li>
+							<li><a href="index-3.html">Maxi</a></li>
+							<li><a href="index-3.html">Overall</a></li>
+						</ul></li>
+					<li class="current-menu-item has-child"><a href="index.html">Bag</a>
+						<ul class="sub-menu">
+							<li><a href="index.html">Bagpack</a></li>
+							<li><a href="index-2.html">Messenger / Cross</a></li>
+							<li><a href="index-3.html">Shoulder / Tote</a></li>
+							<li><a href="index-2.html">Eco bag</a></li>
+							<li><a href="index-3.html">Clutch</a></li>
+						</ul></li>
+					<li class="current-menu-item has-child"><a href="index.html">Shoes</a>
+						<ul class="sub-menu">
+							<li><a href="index.html">Dress shoes</a></li>
+							<li><a href="index-2.html">Boots</a></li>
+							<li><a href="index-3.html">Sandal</a></li>
+							<li><a href="index-2.html">Slipper</a></li>
+							<li><a href="index-3.html">Sneakers</a></li>
+						</ul></li>
+					<li class="current-menu-item has-child"><a href="index.html">ETC</a>
+						<ul class="sub-menu">
+							<li><a href="index.html">Socks</a></li>
+							<li><a href="index-2.html">Cap</a></li>
+							<li><a href="index-3.html">Acc</a></li>
+						</ul></li>
+					<li>
+						<a href="index.html" style="color: white;">|</a>
+					</li>
+					<li class="current-menu-item has-child"><a href="index.html">BRAND</a>
+						<ul class="sub-menu">
+							<li><a href="index.html">Nike</a></li>
+							<li><a href="index-2.html">Thisisneverthat</a></li>
+							<li><a href="index-3.html">Covernat</a></li>
+							<li><a href="index-3.html">AnderssonBell</a></li>
+							<li><a href="index-3.html">Vans</a></li>
+						</ul>
+					</li>
+					<li class="current-menu-item has-child"><a href="index.html">MAGAZINE</a>
+						<ul class="sub-menu">
+							<li><a href="index.html">바로가기</a></li>
+						</ul>
+					</li>
+					<li class="current-menu-item has-child"><a href="index.html" style="margin-right: 38px;">NOTICE</a>
+						<ul class="sub-menu">
+							<li><a href="index.html">바로가기</a></li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
 		</header>
 
 		<hr style="margin: 15px 15px 40px 15px;">
 
 		<div class="container">
-			<div class="row">
-				<div class="col-md-3 contact-info" align="left" style="padding-left: 40px">
-					<h2>${mem.mbr_name}</h2>
-					<h2>${mem.mbr_id}</h2>
+			<div class="row" style=" height : 50px;">
+				<div class="col-md-3 contact-info" align="left" style="padding-left: 15px; margin-top : 10px; text-align: center;">
+					<h2>${mbr.mbr_name}</h2>
 				</div>
-				<div class="col-md-1 contact-info" align="center" style="padding-top: 20px">
+				<div class="col-md-1 contact-info"  style="padding-top: 20px;"  >
 					<a href="#">정보수정</a>
 				</div>
 				<div class="col-md-6 contact-info"></div>
 				<div class="col-md-2 contact-info" align="center" style="padding-right: 10px">
 					<h2>Point</h2>
-					<h3>${mem.mbr_point}</h3>
+					<h3>${mbr.mbr_point}</h3>
 				</div>
 			</div>
 			<span style="margin-left: 14px;"> </span> <span style="margin-left: 400px;" align="center"> </span>
@@ -159,62 +248,66 @@
 					<h3 >
 					<strong>회원 등록 정보</strong>
 					</h3><hr>
-					<form action="#" method="post">
+					<form action="${pageContext.request.contextPath}/rest_ksp/member/${mbr.mbr_id}/mypage/myinfo" method="post" id="updateForm">
+						<input type="hidden" id="mbr_id" value="${mbr.mbr_id}">
 						<fieldset>
 							<div class="form-group row">
 								<label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
 								<label for="staticEmail" class="col-sm-2 col-form-label">
-									${mem.mbr_name}
+									${mbr.mbr_name}
 								</label>
 							</div>
 							<div class="form-group row">
 							<label for="staticEmail" class="col-sm-2 col-form-label">ID</label>
 							<label for="staticEmail" class="col-sm-2 col-form-label">
-									${mem.mbr_id}
+									${mbr.mbr_id}
 								</label>
 							</div>
 							
 							<div class="form-group row">
 								<label for="staticEmail" class="col-sm-2 col-form-label">PW</label>
-								<div class="col-sm-10">
-									<input type="password" class="form-control" placeholder="비밀번호를 입력하세요">
+								<div class="col-sm-6">
+									<input type="password" class="form-control" placeholder="비밀번호를 입력하세요" id="mbr_pw" required="required">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label for="staticEmail" class="col-sm-2 col-form-label">PW 확인</label>
-								<div class="col-sm-10">
-									<input type="password" class="form-control" placeholder="비밀번호를 확인하세요">
-								</div>
+								<div class="col-sm-6">
+									<input type="password" class="form-control" placeholder="비밀번호를 확인하세요" id="pw_c"  onchange="check_pw()">
+								</div><span id="check"></span>
 							</div>
 							<div class="form-group row">
 							<label for="staticEmail" class="col-sm-2 col-form-label">EMAIL</label>
 							<div class="col-sm-10">
-									<input type="number" class="form-control" placeholder="${mem.mbr_email}">
+									<input type="text" class="form-control" value="${mbr.mbr_email}" id="mbr_email">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label for="staticEmail" class="col-sm-2 col-form-label">Phone</label>
 								<div class="col-sm-10">
-									<input type="number" class="form-control" placeholder="${mem.contact_number}">
+									<input type="number" class="form-control" value="${mbr.contact_number}" id="contact_number">
 								</div>
 							</div>
 							<div class="form-group row">
 							<label for="staticEmail" class="col-sm-2 col-form-label">Gender</label>
 									<div class="form-check" style="padding-left: 0;">
 									<label class="form-check-label" style="margin: 16px;">남성 
-									<span style="position: relative; top: 25px; right: 5px;"><input style="width: 14px; height: 14px;" type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1"
-										value="option1" checked=""></span> 
+									<span style="position: relative; top: 25px; right: 5px;">
+									
+									<input style="width: 14px; height: 14px;" type="radio" class="form-check-input" name="mbr_gender" id="mbr_gender"
+										value="M" <c:if test="${mbr.mbr_gender eq 'M'}"> checked="checked" </c:if> ></input></span> 
 									</label> 
 									<label class="form-check-label" style="margin: 16px;">여성
+									<span style="position: relative; top: 25px; right: 5px;">
 									
-									<span style="position: relative; top: 25px; right: 5px;"><input style="width: 14px; height: 14px;" type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1"
-										value="option1" checked=""></span> 
+									<input style="width: 14px; height: 14px;" type="radio" class="form-check-input" name="mbr_gender" id="mbr_gender"
+										value="F" <c:if test="${mbr.mbr_gender eq 'F'}"> checked="checked" </c:if>></input></span> 
 									</label> 
 								</div>
 								</br></br>
 							</div> 
 							<div style="text-align: center;">
-							<button type="button" class="btn btn-primary">수정</button>
+							<input type="submit" class="btn btn-primary" value="저장">
 							</div>
 						
 						</fieldset>

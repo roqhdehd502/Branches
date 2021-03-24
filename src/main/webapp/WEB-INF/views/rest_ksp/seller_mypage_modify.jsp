@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,35 +18,88 @@
 <link rel="stylesheet" href="/assets/css/slicknav.css">
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css"> 
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+    
+	//https://m.blog.naver.com/PostView.nhn?blogId=moonv11&logNo=220605582547&proxyReferer=https:%2F%2Fwww.google.com%2F
+	$("#updateForm").submit(function(event){
+		
+		event.preventDefault();
+		
+		var mbr_id = $("#mbr_id").val();
+        var mbr_pw = $("#mbr_pw").val();
+        var pw_c = $("#pw_c").val();
+        var mbr_email = $("#mbr_email").val();
+        var contact_number = $("#contact_number").val();
+        var shipping_address = $("#shipping_address").val();
+        
+        console.log(mbr_id);
+        console.log($(this).attr("action"));
+        
+        var form = {
+        		mbr_id: mbr_id,
+        		mbr_pw: mbr_pw,
+        		mbr_email: mbr_email,
+        		contact_number: contact_number,
+        		shipping_adress: shipping_address
+        };
+	    //dataType: 'json',
+        $.ajax({
+		    type : "PUT",
+		    url : $(this).attr("action"),
+		    cache : false,
+		    contentType:'application/json; charset=utf-8',
+			    data: JSON.stringify(form), 
+		    success: function (result) {       
+				if(result == "SUCCESS"){
+					//list로 
+					$(location).attr('href', '${pageContext.request.contextPath}/rest_ksp/seller/${mbr.mbr_id}/mypage/myinfo')				      	       
+				}					        
+		    },
+		    error: function (e) {
+		        console.log(e);
+		    }
+		})	       
+
+    }); // end submit()
+    
+}); // end ready() 
+</script>
 </head>
+
 <body>
 	<div style="overflow: hidden;" class="container">
-		<header>
-			<div class="container">
-				<div class="row">
-					<div class="col-6 col-sm-3 logo-column">
-						<a href="index.html" class="logo"> <img src="/img/branches_text.png" alt="logo" style="width: 70px; height: 200px;">
-						</a>
-					</div>
-					<div class="col-6 col-sm-9 nav-column clearfix">
-						<div class="right-nav">
-							<span class="search-icon fa fa-search"></span>
-							<form action="#" class="search-form">
-								<input type="search" placeholder="search now">
-								<button type="submit">
-									<i class="fa fa-search"></i>
-								</button>
-							</form>
-							<div class="header-social">
-								<a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
-							</div>
+		<header style="padding-bottom: 10px; padding-top: 5px;">
+		<div class="container">
+			<div class="row">
+				<div class="col-6 col-sm-3 logo-column">
+					<a href="index.html" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
+					</a>
+				</div>
+				<div class="col-6 col-sm-9 nav-column clearfix">
+					<div class="right-nav">
+						<span class="search-icon fa fa-search"></span>
+						<form action="#" class="search-form">
+							<input type="search" placeholder="search now">
+							<button type="submit">
+								<i class="fa fa-search"></i>
+							</button>
+						</form>
+						<div class="header-social">
+							<a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
 						</div>
-						<nav id="menu" class="d-none d-lg-block">
-							<ul>
-								<li class="current-menu-item has-child"><a href="index.html">OUTER</a>
+					</div>
+				</div>
+			</div>
+		</div>
+			<nav id="menu" class="d-none d-lg-block">
+				<ul style="padding: 10px; background-color: black;">
+					<li class="current-menu-item has-child"><a href="index.html">OUTER</a>
 						<ul class="sub-menu">
 							<li><a href="index.html">Coat</a></li>
-							<li><a href="index-2.html">Jarket</a></li>
+							<li><a href="index-2.html">Jarcket</a></li>
 							<li><a href="index-3.html">Jumper / Mustang</a></li>
 							<li><a href="index-3.html">Cardigan</a></li>
 							<li><a href="index-3.html">Padding</a></li>
@@ -54,16 +108,16 @@
 						<ul class="sub-menu">
 							<li><a href="index.html">T-shirt</a></li>
 							<li><a href="index-2.html">Blouse / Shirt</a></li>
-							<li><a href="index-3.html">Neat / Sweater</a></li>
+							<li><a href="index-3.html">Knit / Sweater</a></li>
 							<li><a href="index-3.html">Hoddie</a></li>
-							<li><a href="index-3.html">Sweater shirt</a></li>
+							<li><a href="index-3.html">Sweat shirt</a></li>
 							<li><a href="index-3.html">Sleeveless</a></li>
 						</ul></li>
 					<li class="current-menu-item has-child"><a href="index.html">BOTTOM</a>
 						<ul class="sub-menu">
 							<li><a href="index.html">Denim</a></li>
-							<li><a href="index-2.html">Cotten</a></li>
-							<li><a href="index-3.html">Short</a></li>
+							<li><a href="index-2.html">Cotton</a></li>
+							<li><a href="index-3.html">Shorts</a></li>
 							<li><a href="index-3.html">Slacks</a></li>
 							<li><a href="index-3.html">Training / Jogger</a></li>
 							<li><a href="index-3.html">Leggings</a></li>
@@ -74,14 +128,14 @@
 							<li><a href="index.html">Mini</a></li>
 							<li><a href="index-2.html">Midi</a></li>
 							<li><a href="index-3.html">Maxi</a></li>
-							<li><a href="index-3.html">Overrall</a></li>
+							<li><a href="index-3.html">Overall</a></li>
 						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">Back</a>
+					<li class="current-menu-item has-child"><a href="index.html">Bag</a>
 						<ul class="sub-menu">
-							<li><a href="index.html">Backpack</a></li>
+							<li><a href="index.html">Bagpack</a></li>
 							<li><a href="index-2.html">Messenger / Cross</a></li>
-							<li><a href="index-3.html">Shoulder / Tod</a></li>
-							<li><a href="index-2.html">Eco back</a></li>
+							<li><a href="index-3.html">Shoulder / Tote</a></li>
+							<li><a href="index-2.html">Eco bag</a></li>
 							<li><a href="index-3.html">Clutch</a></li>
 						</ul></li>
 					<li class="current-menu-item has-child"><a href="index.html">Shoes</a>
@@ -89,7 +143,7 @@
 							<li><a href="index.html">Dress shoes</a></li>
 							<li><a href="index-2.html">Boots</a></li>
 							<li><a href="index-3.html">Sandal</a></li>
-							<li><a href="index-2.html">slipper</a></li>
+							<li><a href="index-2.html">Slipper</a></li>
 							<li><a href="index-3.html">Sneakers</a></li>
 						</ul></li>
 					<li class="current-menu-item has-child"><a href="index.html">ETC</a>
@@ -120,11 +174,8 @@
 							<li><a href="index.html">바로가기</a></li>
 						</ul>
 					</li>
-							</ul>
-						</nav>
-					</div>
-				</div>
-			</div>
+				</ul>
+			</nav>
 		</header>
 
 		<hr style="margin: 15px 15px 40px 15px;">
@@ -132,8 +183,8 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-3 contact-info" align="left" style="padding-left: 40px">
-					<h2>${mem.mbr_name}</h2>
-					<h2>${mem.mbr_id}</h2>
+					<h2>${mbr.mbr_name}</h2>
+					<h2>${mbr.mbr_id}</h2>
 				</div>
 				<div class="col-md-1 contact-info" align="center" style="padding-top: 20px">
 					<a href="#">정보수정</a>
@@ -183,24 +234,24 @@
 					<h3 >
 					<strong>판매자 등록 정보</strong>
 					</h3><hr>
-					<form action="#" method="post">
+					<form action="${pageContext.request.contextPath}/rest_ksp/seller/${mbr.mbr_id}/mypage/myinfo" method="post" id="updateForm">
 						<fieldset>
 							<div class="form-group row">
 							<label for="staticEmail" class="col-sm-2 col-form-label">ID</label>
 							<label for="staticEmail" class="col-sm-2 col-form-label">
-									${mem.mbr_id}
+									${mbr.mbr_id}
 								</label>
 							</div>
 							<div class="form-group row">
 								<label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" placeholder="${mem.mbr_name}">
+									<input type="text" class="form-control" value="${mbr.mbr_name}">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label for="staticEmail" class="col-sm-2 col-form-label">PW</label>
 								<div class="col-sm-10">
-									<input type="password" class="form-control" placeholder="비밀번호를 입력하세요">
+									<input type="password" class="form-control" placeholder="비밀번호를 입력하세요" id="mbr_pw">
 								</div>
 							</div>
 							<div class="form-group row">
@@ -212,13 +263,19 @@
 							<div class="form-group row">
 							<label for="staticEmail" class="col-sm-2 col-form-label">EMAIL</label>
 							<div class="col-sm-10">
-									<input type="number" class="form-control" placeholder="${mem.mbr_email}">
+									<input type="text" class="form-control" value="${mbr.mbr_email}" id="mbr_email">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label for="staticEmail" class="col-sm-2 col-form-label">Phone</label>
 								<div class="col-sm-10">
-									<input type="number" class="form-control" placeholder="${mem.contact_number}">
+									<input type="number" class="form-control" value="${mbr.contact_number}" id="contact_number">
+								</div>
+							</div>
+							<div class="form-group row">
+							<label for="staticEmail" class="col-sm-2 col-form-label">Address</label>
+							<div class="col-sm-10">
+									<input type="text" class="form-control" placeholder="${adr.shipping_address}" id="shipping_address">
 								</div>
 							</div>
 							<div style="text-align: center;">
@@ -302,7 +359,5 @@
 		
 		
 	</div>
-</body>
-</html>
 </body>
 </html>

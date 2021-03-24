@@ -5,8 +5,10 @@ import java.util.List;
 import edu.bit.ex.page.Criteria;
 import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.InquiryVO;
+import edu.bit.ex.vo.MbrAddressVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctVO;
+import edu.bit.ex.vo.ShippingVO;
 
 public interface KSPService {
 	// 판매자 마이페이지
@@ -35,4 +37,11 @@ public interface KSPService {
 	public List<PrdctVO> getBrandPrdctListWithCri(Criteria cri, String b_id);
 
 	public int getBrandTotalCount(Criteria cri, String b_id);
+
+	public void memberInfoUpdate(MbrVO mbrvo);
+
+	public ShippingVO getSellerAddress(String m_id);
+
+	public void sellerInfoUpdate(MbrAddressVO mavo);
+
 }
