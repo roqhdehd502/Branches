@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="edu.bit.ex.mapper.HSMapper">
+	<sql id="searchCriteria">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type =='T'.toString()">
+							mbr_id like '%'||#{keyword}||'%'
+						</when>
+						<when test="type =='C'.toString()">
+							mbr_name like '%'||#{keyword}||'%'
+						</when>
+						<when test="type =='W'.toString()">
+							mbr_email like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>	
+	</sql>
+	
+	<select id="getMemberList" resultType="edu.bit.ex.vo.MbrVO">
+		<![CDATA[
+			SELECT  
+				contact_number, mbr_id, mbr_name, mbr_email, jdate
+		 FROM (
+		 	select rownum rn, contact_number, mbr_id, mbr_name, mbr_email, jdate
+		 	from mbr
+		 	where
+		]]>
+		
+		<include refid="searchCriteria"></include>
+		
+		<![CDATA[
+			rownum <= #{pageNum} * #{amount}
+			)
+		where rn > (#{pageNum} -1) * #{amount}	
+		]]>
+	</select>
+	
+	<select id="getTotal" resultType="int">
+		select count(*) from mbr where
+		
+		<include refid="searchCriteria"></include>
+		
+		authority_number > 0
+	</select>
+</mapper>

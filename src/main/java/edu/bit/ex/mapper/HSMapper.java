@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.OrderDetailVO;
@@ -28,5 +29,9 @@ public interface HSMapper {
 
 	@Select("select * from prdct_order")
 	public List<PrdctOrderVO> getPrdOrder();
+
+	public int getTotal(SearchCriteria cri);
+
+	public List<MbrVO> getMemberList(SearchCriteria cri);
 
 }

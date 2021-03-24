@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import edu.bit.ex.mapper.HSMapper;
+import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.OrderDetailVO;
@@ -48,6 +49,18 @@ public class HSServiceImpl implements HSService {
 	public List<PrdctOrderVO> getPrdOrder() {
 		log.info("getPrdOrder......");
 		return mapper.getPrdOrder();
+	}
+
+	@Override
+	public int getTotal(SearchCriteria cri) {
+		log.info("getTotal.........");
+		return mapper.getTotal(cri);
+	}
+
+	@Override
+	public List<MbrVO> getMemberList(SearchCriteria cri) {
+		log.info("getMemberList.........");
+		return mapper.getMemberList(cri);
 	}
 
 }

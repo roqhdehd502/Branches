@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.bit.ex.page.SearchCriteria;
+import edu.bit.ex.page.SearchPageVO;
 import edu.bit.ex.service.HSService;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
@@ -67,6 +69,8 @@ public class HSController {
 		log.info("sellerpage");
 		mav.setViewName("sellerpage");
 		mav.addObject("order", hsService.getOrder());
+		mav.addObject("prdct", hsService.getProduct());
+		mav.addObject("prdOrder", hsService.getPrdOrder());
 		return mav;
 	}
 
@@ -78,6 +82,7 @@ public class HSController {
 		mav.setViewName("sellerorderCheck");
 		mav.addObject("order", hsService.getOrder());
 		mav.addObject("prdct", hsService.getProduct());
+		mav.addObject("prdOrder", hsService.getPrdOrder());
 		return mav;
 	}
 
@@ -164,12 +169,15 @@ public class HSController {
 	}
 
 	@GetMapping("/adminSearchMember")
-	public ModelAndView adminSearchMember(ModelAndView mav, MbrVO mbrVO) throws Exception {
+	public String adminSearchMember(Model model, SearchCriteria cri) throws Exception {
 		log.info("adminSearchMember.........");
-		mav.setViewName("adminSearchMember");
-		mav.addObject("mem", hsService.getMember());
+		model.addAttribute("mem", hsService.getMemberList(cri));
 
-		return mav;
+		int total = hsService.getTotal(cri);
+		log.info("total..........");
+		model.addAttribute("pageMaker", new SearchPageVO(cri, total));
+
+		return "/adminSearchMember";
 	}
 
 	@GetMapping("/adminSearchtotal")
