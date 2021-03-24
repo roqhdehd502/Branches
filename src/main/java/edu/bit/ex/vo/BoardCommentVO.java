@@ -19,7 +19,7 @@ COMMENT_DATE	DATE*/
 @Setter
 @Getter
 @ToString
-public class BoardCommnentVO { // 게시판댓글
+public class BoardCommentVO { // 게시판댓글
 	private int comment_id; // 댓글번호 pk
 	private int board_id; // 게시글번호 fk
 	private String mbr_id; // 회원id fk

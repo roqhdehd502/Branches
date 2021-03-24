@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import edu.bit.ex.mapper.BoardMapper;
 import edu.bit.ex.page.MagazineCriteria;
 import edu.bit.ex.page.NoticeCriteria;
+import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctImageVO;
@@ -108,8 +109,8 @@ public class BoardServiceImpl implements BoardService {
 	// 매거진 게시글
 	@Override
 	public BoardVO getMagazineContent(int board_id) {
-		boardMapper.upMagazineHit(board_id); // 매거진 게시글 조회수
 		log.info("getMagazineContent");
+		boardMapper.upMagazineHit(board_id); // 매거진 게시글 조회
 		return boardMapper.getMagazineContent(board_id);
 	}
 
@@ -120,4 +121,24 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.getMagazineImage(board_id);
 	}
 
+	// 매거진 게시글 추천
+	@Override
+	public int magazineUpLike(int board_id) {
+		log.info("magazineUpHit");
+		return boardMapper.magazineUpLike(board_id);
+	}
+
+	// 매거진 게시글 댓글 리스트
+	@Override
+	public List<BoardCommentVO> getMagazineComment(String mbr_id, int board_id) {
+		log.info("getMagazineComment");
+		return boardMapper.getMagazineComment(mbr_id, board_id);
+	}
+
+	// 매거진 게시글 댓글 작성
+	@Override
+	public void setMagazineCommentWrite(BoardCommentVO boardCommentVO) {
+		log.info("setMagazineCommentWrite");
+		boardMapper.setMagazineCommentWrite(boardCommentVO);
+	}
 }

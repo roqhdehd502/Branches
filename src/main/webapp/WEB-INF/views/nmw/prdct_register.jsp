@@ -22,111 +22,111 @@
 <body>
 	<div style="overflow: hidden;" class="container">
 		<header style="padding-bottom: 10px; padding-top: 5px;">
-		<div class="container">
-			<div class="row">
-				<div class="col-6 col-sm-3 logo-column">
-					<a href="index.html" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
-					</a>
-				</div>
-				<div class="col-6 col-sm-9 nav-column clearfix">
-					<div class="right-nav">
-						<span class="search-icon fa fa-search"></span>
-						<form action="#" class="search-form">
-							<input type="search" placeholder="search now">
-							<button type="submit">
-								<i class="fa fa-search"></i>
-							</button>
-						</form>
-						<div class="header-social">
-							<a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-			<nav id="menu" class="d-none d-lg-block">
-				<ul style="padding: 10px; background-color: black;">
-					<li class="current-menu-item has-child"><a href="index.html">OUTER</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Coat</a></li>
-							<li><a href="index-2.html">Jarket</a></li>
-							<li><a href="index-3.html">Jumper / Mustang</a></li>
-							<li><a href="index-3.html">Cardigan</a></li>
-							<li><a href="index-3.html">Padding</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">TOP</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">T-shirt</a></li>
-							<li><a href="index-2.html">Blouse / Shirt</a></li>
-							<li><a href="index-3.html">Neat / Sweater</a></li>
-							<li><a href="index-3.html">Hoddie</a></li>
-							<li><a href="index-3.html">Sweater shirt</a></li>
-							<li><a href="index-3.html">Sleeveless</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">BOTTOM</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Denim</a></li>
-							<li><a href="index-2.html">Cotten</a></li>
-							<li><a href="index-3.html">Short</a></li>
-							<li><a href="index-3.html">Slacks</a></li>
-							<li><a href="index-3.html">Training / Jogger</a></li>
-							<li><a href="index-3.html">Leggings</a></li>
-							<li><a href="index-3.html">Skirt</a></li>	
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">Dress</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Mini</a></li>
-							<li><a href="index-2.html">Midi</a></li>
-							<li><a href="index-3.html">Maxi</a></li>
-							<li><a href="index-3.html">Overrall</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">Back</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Backpack</a></li>
-							<li><a href="index-2.html">Messenger / Cross</a></li>
-							<li><a href="index-3.html">Shoulder / Tod</a></li>
-							<li><a href="index-2.html">Eco back</a></li>
-							<li><a href="index-3.html">Clutch</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">Shoes</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Dress shoes</a></li>
-							<li><a href="index-2.html">Boots</a></li>
-							<li><a href="index-3.html">Sandal</a></li>
-							<li><a href="index-2.html">slipper</a></li>
-							<li><a href="index-3.html">Sneakers</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">ETC</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Socks</a></li>
-							<li><a href="index-2.html">Cap</a></li>
-							<li><a href="index-3.html">Acc</a></li>
-						</ul></li>
-					<li>
-						<a href="index.html" style="color: white;">|</a>
-					</li>
-					<li class="current-menu-item has-child"><a href="index.html">BRAND</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Nike</a></li>
-							<li><a href="index-2.html">Thisisneverthat</a></li>
-							<li><a href="index-3.html">Covernat</a></li>
-							<li><a href="index-3.html">AnderssonBell</a></li>
-							<li><a href="index-3.html">Vans</a></li>
-						</ul>
-					</li>
-					<li class="current-menu-item has-child"><a href="index.html">MAGAZINE</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">바로가기</a></li>
-						</ul>
-					</li>
-					<li class="current-menu-item has-child"><a href="index.html" style="margin-right: 38px;">NOTICE</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">바로가기</a></li>
-						</ul>
-					</li>
-				</ul>
-			</nav>
-		</header>
+      <div class="container">
+         <div class="row">
+            <div class="col-6 col-sm-3 logo-column">
+               <a href="index.html" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
+               </a>
+            </div>
+            <div class="col-6 col-sm-9 nav-column clearfix">
+               <div class="right-nav">
+                  <span class="search-icon fa fa-search"></span>
+                  <form action="#" class="search-form">
+                     <input type="search" placeholder="search now">
+                     <button type="submit">
+                        <i class="fa fa-search"></i>
+                     </button>
+                  </form>
+                  <div class="header-social">
+                     <a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+         <nav id="menu" class="d-none d-lg-block">
+            <ul style="padding: 10px; background-color: black;">
+               <li class="current-menu-item has-child"><a href="index.html">OUTER</a>
+                  <ul class="sub-menu">
+                     <li><a href="index.html">Coat</a></li>
+                     <li><a href="index-2.html">Jarcket</a></li>
+                     <li><a href="index-3.html">Jumper / Mustang</a></li>
+                     <li><a href="index-3.html">Cardigan</a></li>
+                     <li><a href="index-3.html">Padding</a></li>
+                  </ul></li>
+               <li class="current-menu-item has-child"><a href="index.html">TOP</a>
+                  <ul class="sub-menu">
+                     <li><a href="index.html">T-shirt</a></li>
+                     <li><a href="index-2.html">Blouse / Shirt</a></li>
+                     <li><a href="index-3.html">Knit / Sweater</a></li>
+                     <li><a href="index-3.html">Hoddie</a></li>
+                     <li><a href="index-3.html">Sweat shirt</a></li>
+                     <li><a href="index-3.html">Sleeveless</a></li>
+                  </ul></li>
+               <li class="current-menu-item has-child"><a href="index.html">BOTTOM</a>
+                  <ul class="sub-menu">
+                     <li><a href="index.html">Denim</a></li>
+                     <li><a href="index-2.html">Cotton</a></li>
+                     <li><a href="index-3.html">Shorts</a></li>
+                     <li><a href="index-3.html">Slacks</a></li>
+                     <li><a href="index-3.html">Training / Jogger</a></li>
+                     <li><a href="index-3.html">Leggings</a></li>
+                     <li><a href="index-3.html">Skirt</a></li>   
+                  </ul></li>
+               <li class="current-menu-item has-child"><a href="index.html">Dress</a>
+                  <ul class="sub-menu">
+                     <li><a href="index.html">Mini</a></li>
+                     <li><a href="index-2.html">Midi</a></li>
+                     <li><a href="index-3.html">Maxi</a></li>
+                     <li><a href="index-3.html">Overall</a></li>
+                  </ul></li>
+               <li class="current-menu-item has-child"><a href="index.html">Bag</a>
+                  <ul class="sub-menu">
+                     <li><a href="index.html">Bagpack</a></li>
+                     <li><a href="index-2.html">Messenger / Cross</a></li>
+                     <li><a href="index-3.html">Shoulder / Tote</a></li>
+                     <li><a href="index-2.html">Eco bag</a></li>
+                     <li><a href="index-3.html">Clutch</a></li>
+                  </ul></li>
+               <li class="current-menu-item has-child"><a href="index.html">Shoes</a>
+                  <ul class="sub-menu">
+                     <li><a href="index.html">Dress shoes</a></li>
+                     <li><a href="index-2.html">Boots</a></li>
+                     <li><a href="index-3.html">Sandal</a></li>
+                     <li><a href="index-2.html">slipper</a></li>
+                     <li><a href="index-3.html">Sneakers</a></li>
+                  </ul></li>
+               <li class="current-menu-item has-child"><a href="index.html">ETC</a>
+                  <ul class="sub-menu">
+                     <li><a href="index.html">Socks</a></li>
+                     <li><a href="index-2.html">Cap</a></li>
+                     <li><a href="index-3.html">Acc</a></li>
+                  </ul></li>
+               <li>
+                  <a href="index.html" style="color: white;">|</a>
+               </li>
+               <li class="current-menu-item has-child"><a href="index.html">BRAND</a>
+                  <ul class="sub-menu">
+                     <li><a href="index.html">Nike</a></li>
+                     <li><a href="index-2.html">Thisisneverthat</a></li>
+                     <li><a href="index-3.html">Covernat</a></li>
+                     <li><a href="index-3.html">AnderssonBell</a></li>
+                     <li><a href="index-3.html">Vans</a></li>
+                  </ul>
+               </li>
+               <li class="current-menu-item has-child"><a href="index.html">MAGAZINE</a>
+                  <ul class="sub-menu">
+                     <li><a href="index.html">바로가기</a></li>
+                  </ul>
+               </li>
+               <li class="current-menu-item has-child"><a href="index.html" style="margin-right: 38px;">NOTICE</a>
+                  <ul class="sub-menu">
+                     <li><a href="index.html">바로가기</a></li>
+                  </ul>
+               </li>
+            </ul>
+         </nav>
+      </header>
 
 		<hr style="margin: 15px 15px 40px 15px;">
 

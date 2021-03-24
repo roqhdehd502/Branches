@@ -1,11 +1,12 @@
 package edu.bit.ex.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import edu.bit.ex.page.MagazinePageVO;
 import edu.bit.ex.page.NoticeCriteria;
 import edu.bit.ex.page.NoticePageVO;
 import edu.bit.ex.service.BoardService;
+import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import lombok.AllArgsConstructor;
@@ -27,6 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/board/*")
 public class BoardController {
+	@Autowired
 	private BoardService boardService;
 
 	// 페이징을 이용한 공지사항 게시판 리스트
@@ -56,7 +59,7 @@ public class BoardController {
 
 	// 공지사항 삭제
 	@DeleteMapping("/notice/{board_id}")
-	public ResponseEntity<String> noticeDelete(BoardVO boardVO, Model model) {
+	public ResponseEntity<String> noticeDelete(BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
 		log.info("noticeDelete...");
 
@@ -142,14 +145,48 @@ public class BoardController {
 	// 매거진 게시글
 	@Transactional
 	@GetMapping("/magazine/{board_id}")
-	public ModelAndView magazineContent(BoardVO boardVO, ModelAndView mav) {
+	public ModelAndView magazineContent(MbrVO mbrVO, BoardVO boardVO, ModelAndView mav) {
 		log.info("magazineContent...");
 		mav.setViewName("board/magazine_content");
 		// 매거진 내용
 		mav.addObject("magazine_content", boardService.getMagazineContent(boardVO.getBoard_id()));
 		// 매거진 사진
 		mav.addObject("magazine_img", boardService.getMagazineImage(boardVO.getBoard_id()));
-		// 매거진 댓글
+		// 매거진 댓글 불러오기
+		mav.addObject("magazine_comment", boardService.getMagazineComment(mbrVO.getMbr_id(), boardVO.getBoard_id()));
 		return mav;
+	}
+
+	// 매거진 게시글 추천
+	@PutMapping("/magazine/{board_id}")
+	public ResponseEntity<String> magazineUpLike(BoardVO boardVO) {
+		ResponseEntity<String> entity = null;
+		log.info("magazineUpLike...");
+
+		try {
+			boardService.magazineUpLike(boardVO.getBoard_id());
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+
+	// 매거진 게시글 댓글 작성
+	@PostMapping("/magazine/{board_id}")
+	public ResponseEntity<String> magazineCommentWrite(@RequestBody BoardCommentVO boardCommentVO, ModelAndView modelAndView) {
+		ResponseEntity<String> entity = null;
+
+		log.info("magazineCommentWrite..");
+		try {
+			boardService.setMagazineCommentWrite(boardCommentVO);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
 	}
 }

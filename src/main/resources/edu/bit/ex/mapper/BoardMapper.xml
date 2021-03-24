@@ -43,7 +43,7 @@
 	]]>	
 	</select>
 	
-	<!-- 공지사항 작성 id 가져오기 -->
+	<!-- 공지사항 작성 id 가져오기(스프링 시큐리티때 수정할것) -->
 	<select id="getNoticeMember" resultType="edu.bit.ex.vo.MbrVO">
 	<![CDATA[
 		SELECT * FROM mbr WHERE mbr_id = 'abcd1234'
@@ -147,7 +147,7 @@
 	]]>
 	</select>
 	
-	<!-- 매거진 게시글 조회수 -->
+	<!-- 매거진 게시글 조회 -->
 	<update id="upMagazineHit">
 	<![CDATA[
 		UPDATE board SET board_hit = board_hit+1 WHERE board_id = #{board_id}
@@ -171,4 +171,42 @@
 		    b.board_id = #{board_id} 
 		ORDER BY p.image_number ASC
 	</select>
+	
+	<!-- 매거진 게시글 추천 -->
+	<update id="magazineUpLike">
+	<![CDATA[
+		UPDATE board SET board_like = board_like+1 WHERE board_id = #{board_id}
+	]]>
+	</update>
+	
+	<!-- 매거진 게시글 댓글 리스트 -->
+	<resultMap id="magazineContentCommentMap" type="edu.bit.ex.vo.BoardCommentVO">
+	    <result property="comment_id" column="comment_id"/>
+	    <result property="comment_content" column="comment_content"/>
+	    <result property="comment_date" column="comment_date"/>
+		<collection property="mbr_id" resultMap="magazineCommentMemberMap"></collection>
+		<collection property="board_id" resultMap="magazineCommentContentMap"></collection>
+	</resultMap>
+	<resultMap id="magazineCommentMemberMap" type="edu.bit.ex.vo.MbrVO">
+		<result property="mbr_id" column="mbr_id"/>
+	</resultMap>	
+	<resultMap id="magazineCommentContentMap" type="edu.bit.ex.vo.BoardVO">
+		<result property="board_id" column="board_id"/>
+	</resultMap>
+	<select id="getMagazineComment" resultMap="magazineContentCommentMap">
+		SELECT c.comment_id, c.comment_content, c.comment_date 
+		FROM board_comment c, mbr m, board b 
+		WHERE c.mbr_id = m.mbr_id AND 
+		    c.board_id = b.board_id AND 
+		    b.board_id = #{board_id} 
+		ORDER BY c.comment_id DESC, c.comment_date DESC
+	</select>
+	
+	<!-- 매거진 게시글 댓글 작성(스프링 시큐리티 적용시 mbr_id 변경 적용할 것) -->
+	<insert id="setMagazineCommentWrite">
+	<![CDATA[
+		INSERT INTO board_comment (comment_id, board_id, mbr_id, comment_content) 
+		VALUES (board_comment_seq.nextval, #{board_id}, 'defg1234', #{comment_content}) 
+	]]>
+	</insert>
 </mapper>

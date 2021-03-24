@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import edu.bit.ex.page.MagazineCriteria;
 import edu.bit.ex.page.NoticeCriteria;
+import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctImageVO;
@@ -51,9 +52,18 @@ public interface BoardMapper {
 	// 매거진 게시글
 	public BoardVO getMagazineContent(int board_id);
 
-	// 매거진 게시글 조회수
+	// 매거진 게시글 조회
 	public void upMagazineHit(int board_id);
 
 	// 매거진 게시글 이미지 리스트
 	public List<PrdctImageVO> getMagazineImage(int board_id);
+
+	// 매거진 게시글 추천
+	public int magazineUpLike(int board_id);
+
+	// 매거진 게시글 댓글 리스트
+	public List<BoardCommentVO> getMagazineComment(String mbr_id, int board_id);
+
+	// 매거진 게시글 댓글 작성
+	public void setMagazineCommentWrite(BoardCommentVO boardCommentVO);
 }
