@@ -8,8 +8,10 @@ import org.apache.ibatis.annotations.Select;
 import edu.bit.ex.page.Criteria;
 import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.InquiryVO;
+import edu.bit.ex.vo.MbrAddressVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctVO;
+import edu.bit.ex.vo.ShippingVO;
 
 @Mapper
 public interface KSPMapper {
@@ -47,5 +49,11 @@ public interface KSPMapper {
 	public List<PrdctVO> getBrandPrdctList(Criteria cri, String b_id);
 
 	public int getBrandTotalCount(Criteria cri, String b_id);
+
+	public void memberInfoUpdate(MbrVO mbrvo);
+
+	public ShippingVO getSellerAddress(String m_id);
+
+	public Object sellerInfoUpdate(MbrAddressVO mavo);
 
 }

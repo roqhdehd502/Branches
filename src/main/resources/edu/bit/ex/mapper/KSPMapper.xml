@@ -74,4 +74,25 @@
 	]]>
 	</select>
 	
+	<!-- 회원정보수정 -->
+	<update id="memberInfoUpdate">
+	<![CDATA[
+		update mbr set mbr_pw=#{mbr_pw}, mbr_email=#{mbr_email}, contact_number=#{contact_number}, mbr_gender=#{mbr_gender} where mbr_id=#{mbr_id}
+	]]>
+	</update>
+	
+	<!-- 판매자 주소 --> 
+	<select id="getSellerAddress" resultType="edu.bit.ex.vo.ShippingVO">
+	<![CDATA[
+		select * from shipping where mbr_id=#{m_id}
+	]]>
+	</select>
+	
+	<!-- 판매자 정보 수정 -->
+	<update id="sellerInfoUpdate">
+	<![CDATA[
+		update shipping as s, mbr as m set s.shipping_address=#{shipping_address}, m.mbr_pw=#{mbr_pw}, m.mbr_email=#{mbr_email}, m.contact_number=#{contact_number} where m.mbr_id=#{mbr_id} and s.mbr_id=#{mbr_id}
+	]]>
+	</update>
+	
 </mapper>
