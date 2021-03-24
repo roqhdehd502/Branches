@@ -2,6 +2,7 @@ package edu.bit.ex.service;
 
 import java.util.List;
 
+import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.OrderDetailVO;
@@ -19,5 +20,9 @@ public interface HSService {
 	public List<OrderDetailVO> getOrder();
 
 	public List<PrdctOrderVO> getPrdOrder();
+
+	public List<MbrVO> getMemberList(SearchCriteria cri);
+
+	public int getTotal(SearchCriteria cri);
 
 }

@@ -76,16 +76,16 @@
 						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">abc순</button></span>
 						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">매출순</button></span>
 						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">최근등록순</button></span>
-						<form action="#" style="float: right;">
-							<span>
-								<select>
-									<option>이름</option>
-									<option>아이디</option>
-								</select>
-							</span>
-							<span><input class="form-control" type="text" style="width: 180px;"></span>
-							<span><button class="btn btn-primary btn-sm" type="submit">검색</button></span>
-						</form> 
+						<form id="searchForm" action="/member/adminSearchMember" method="get" style="float: right;">
+							<select name="type">
+								<option value="" <c:out value="${pageMaker.cri.type == null?'selected' : '' }" />>---</option>
+								<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ?'selected' : '' }" />>아이디</option>
+								<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ?'selected' : '' }" />>이름</option>
+								<option value="W" <c:out value="${pageMaker.cri.type eq 'W' ?'selected' : '' }" />>이메일</option>
+							</select> <input type="text" name="keyword" value='<c:out value="${pageMaker.cri.keyword}" />' /> <input type="hidden" name="pageNum"
+								value='<c:out value="${pageMaker.cri.pageNum}" />' /> <input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}" />' />
+							<button class="btn btn-primary btn-sm">검색</button>
+						</form>
 					</div>
 					<table class="table" style="text-align: center;">
 						<thead>
@@ -113,9 +113,20 @@
 						</c:forEach>
 						</tbody>
 					</table>
-         		</span>
+					<ul class="pagination justify-content-center">
+						<c:if test="${pageMaker.prev}">
+							<a class="page-link" href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}">«</a>
+						</c:if> <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+							<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+							<a class="page-link" href="list${pageMaker.makeQuery(idx)}">${idx}</a>
+						</c:forEach> <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+							<a class="page-link" href="list${pageMaker.makeQuery(pageMaker.endPage +1)}">»</a>
+						</c:if>
+					</ul>
+				</span>
 			</div>
 		</div>
+		
 	
 	<hr>
 	<!-- footer -->
@@ -187,7 +198,28 @@
 	<script src="/assets/js/vendor/loopcounter.js"></script>
 	<script src="/assets/js/vendor/slicknav.min.js"></script>
 	<script src="/assets/js/active.js"></script>
-		
-</div>
+
+		<script type="text/javascript">
+			var searchForm = $("#searchForm");
+			$("#searchForm button").on("click", function(e) {
+
+				if (!searchForm.find("option:selected").val()) {
+					alert("검색종류를 선택하세요!");
+					return false;
+				}
+
+				if (!searchForm.find("input[name='keyword']").val()) {
+					alert("키워드를 입력하세요!");
+					return false;
+				}
+
+				searchForm.find("input[name='pageNum']").val("1");
+				e.preventDefault();
+
+				searchForm.submit();
+			});
+		</script>
+
+	</div>
 </body>
 </html>
