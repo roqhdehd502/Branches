@@ -33,11 +33,31 @@
 	]]>
 	</select>
 	
-		<!-- 상품상세페이지 옵션-->
+	<!-- 상품상세페이지 옵션-->
 	<select id="getProductInfo" resultType="edu.bit.ex.vo.PrdctDetailVO">
 	<![CDATA[
 		SELECT * FROM prdct_detail WHERE prdct_id = #{prdct_id}
 	]]>
+	</select>
+	
+	<!-- 상품상세 이미지-->
+	<resultMap id="getprdDetailImageMap" type="edu.bit.ex.vo.PrdctImageVO">
+	    <result property="image_number" column="image_number"/>
+	    <result property="image_name" column="image_name"/>
+	    <result property="image_path" column="image_path"/>
+		<collection property="board_id" resultMap="prdListMap"></collection>
+	</resultMap>	
+	<resultMap id="prdListMap" type="edu.bit.ex.vo.BoardVO">
+		<result property="board_id" column="board_id"/>
+	</resultMap>
+	<select id="getprdDetailImage" resultMap="getprdDetailImageMap">
+		SELECT p.image_name 
+		FROM prdct_image p, board b 
+		WHERE p.board_id = b.board_id AND 
+		    p.image_number = (SELECT MIN(image_number) 
+		                      FROM prdct_image 
+		                      WHERE #{board_id} = #{board_id}) 
+		ORDER BY p.image_number ASC
 	</select>
 
 </mapper>

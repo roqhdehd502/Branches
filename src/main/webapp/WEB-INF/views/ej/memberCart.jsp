@@ -249,8 +249,8 @@
 					
 				</tbody>
 			</table>
-			<button type="button" class="btn btn-primary">
-				<a class="order-bnt" herf="#">주문하기</a>
+			<button type="button" class="btn btn-primary"> <!-- 여기도 비회원 주문확인페이지랑 회원 주문확인 페이지 각각 연결 -->
+				<a class="order-bnt" onclick="location.href='${pageContext.request.contextPath}/ej/nmcheck' ">주문하기</a>
 			</button>
 			<br /> <br />
 

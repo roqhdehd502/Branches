@@ -4,6 +4,7 @@ import java.util.List;
 
 import edu.bit.ex.vo.CartVO;
 import edu.bit.ex.vo.PrdctDetailVO;
+import edu.bit.ex.vo.PrdctImageVO;
 import edu.bit.ex.vo.PrdctVO;
 
 public interface EjService {
@@ -16,5 +17,8 @@ public interface EjService {
 
 	// 상품 상세페이지 옵션
 	public List<PrdctDetailVO> getProductInfo(String p_id);
+
+	// 상품 상세 사진
+	public PrdctImageVO getprdDetailImage(int board_id);
 
 }
