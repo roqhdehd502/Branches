@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import edu.bit.ex.vo.CartVO;
 import edu.bit.ex.vo.PrdctDetailVO;
+import edu.bit.ex.vo.PrdctImageVO;
 import edu.bit.ex.vo.PrdctVO;
 
 @Mapper
@@ -19,5 +20,8 @@ public interface EjMapper {
 
 	// 상품 상세페이지 옵션
 	public List<PrdctDetailVO> getProductInfo(String p_id);
+
+	// 상품 상세이미지
+	public PrdctImageVO getprdDetailImage(int board_id);
 
 }

@@ -24,9 +24,11 @@
 
 <link rel="stylesheet" href="/ej/star-rating-svg.css">
 <!-- AJAX용 JQUERY -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-
+<!-- 사진 슬라이딩 처리 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
 </head>
 <style>
 span.star-prototype, span.star-prototype > * {
@@ -111,6 +113,25 @@ img {
 .demo:hover {
   opacity: 1;
 }
+
+.swiper-container {
+	height: 220px;
+	border: 1px solid gray;
+	border-radius: 5px;
+	
+}
+
+.swiper-slide {
+	text-align: center;
+	display: flex; /* 내용을 중앙정렬 하기위해 flex 사용 */
+	align-items: center; /* 위아래 기준 중앙정렬 */
+	justify-content: center; /* 좌우 기준 중앙정렬 */
+}
+
+.swiper-slide img {
+
+	max-width: 100%; /* 이미지 최대너비를 제한, 슬라이드에 이미지가 여러개가 보여질때 필요 */
+}
 </style>
 <script>
 $.fn.generateStars = function() {
@@ -163,111 +184,111 @@ $('.star-prototype').generateStars();
  
 <div style="overflow: hidden;" class="container">
 	<header style="padding-bottom: 10px; padding-top: 5px;">
-		<div class="container">
-			<div class="row">
-				<div class="col-6 col-sm-3 logo-column">
-					<a href="index.html" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
-					</a>
-				</div>
-				<div class="col-6 col-sm-9 nav-column clearfix">
-					<div class="right-nav">
-						<span class="search-icon fa fa-search"></span>
-						<form action="#" class="search-form">
-							<input type="search" placeholder="search now">
-							<button type="submit">
-								<i class="fa fa-search"></i>
-							</button>
-						</form>
-						<div class="header-social">
-							<a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-			<nav id="menu" class="d-none d-lg-block">
-				<ul style="padding: 10px; background-color: black;">
-					<li class="current-menu-item has-child"><a href="index.html">OUTER</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Coat</a></li>
-							<li><a href="index-2.html">Jarket</a></li>
-							<li><a href="index-3.html">Jumper / Mustang</a></li>
-							<li><a href="index-3.html">Cardigan</a></li>
-							<li><a href="index-3.html">Padding</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">TOP</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">T-shirt</a></li>
-							<li><a href="index-2.html">Blouse / Shirt</a></li>
-							<li><a href="index-3.html">Neat / Sweater</a></li>
-							<li><a href="index-3.html">Hoddie</a></li>
-							<li><a href="index-3.html">Sweater shirt</a></li>
-							<li><a href="index-3.html">Sleeveless</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">BOTTOM</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Denim</a></li>
-							<li><a href="index-2.html">Cotten</a></li>
-							<li><a href="index-3.html">Short</a></li>
-							<li><a href="index-3.html">Slacks</a></li>
-							<li><a href="index-3.html">Training / Jogger</a></li>
-							<li><a href="index-3.html">Leggings</a></li>
-							<li><a href="index-3.html">Skirt</a></li>	
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">Dress</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Mini</a></li>
-							<li><a href="index-2.html">Midi</a></li>
-							<li><a href="index-3.html">Maxi</a></li>
-							<li><a href="index-3.html">Overrall</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">Back</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Backpack</a></li>
-							<li><a href="index-2.html">Messenger / Cross</a></li>
-							<li><a href="index-3.html">Shoulder / Tod</a></li>
-							<li><a href="index-2.html">Eco back</a></li>
-							<li><a href="index-3.html">Clutch</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">Shoes</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Dress shoes</a></li>
-							<li><a href="index-2.html">Boots</a></li>
-							<li><a href="index-3.html">Sandal</a></li>
-							<li><a href="index-2.html">slipper</a></li>
-							<li><a href="index-3.html">Sneakers</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">ETC</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Socks</a></li>
-							<li><a href="index-2.html">Cap</a></li>
-							<li><a href="index-3.html">Acc</a></li>
-						</ul></li>
-					<li>
-						<a href="index.html" style="color: white;">|</a>
-					</li>
-					<li class="current-menu-item has-child"><a href="index.html">BRAND</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Nike</a></li>
-							<li><a href="index-2.html">Thisisneverthat</a></li>
-							<li><a href="index-3.html">Covernat</a></li>
-							<li><a href="index-3.html">AnderssonBell</a></li>
-							<li><a href="index-3.html">Vans</a></li>
-						</ul>
-					</li>
-					<li class="current-menu-item has-child"><a href="index.html">MAGAZINE</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">바로가기</a></li>
-						</ul>
-					</li>
-					<li class="current-menu-item has-child"><a href="index.html" style="margin-right: 38px;">NOTICE</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">바로가기</a></li>
-						</ul>
-					</li>
-				</ul>
-			</nav>
-		</header>
+      <div class="container">
+         <div class="row">
+            <div class="col-6 col-sm-3 logo-column">
+               <a href="index.html" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
+               </a>
+            </div>
+            <div class="col-6 col-sm-9 nav-column clearfix">
+               <div class="right-nav">
+                  <span class="search-icon fa fa-search"></span>
+                  <form action="#" class="search-form">
+                     <input type="search" placeholder="search now">
+                     <button type="submit">
+                        <i class="fa fa-search"></i>
+                     </button>
+                  </form>
+                  <div class="header-social">
+                     <a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+         <nav id="menu" class="d-none d-lg-block">
+            <ul style="padding: 10px; background-color: black;">
+               <li class="current-menu-item has-child"><a href="index.html">OUTER</a>
+                  <ul class="sub-menu">
+                     <li><a href="index.html">Coat</a></li>
+                     <li><a href="index-2.html">Jarcket</a></li>
+                     <li><a href="index-3.html">Jumper / Mustang</a></li>
+                     <li><a href="index-3.html">Cardigan</a></li>
+                     <li><a href="index-3.html">Padding</a></li>
+                  </ul></li>
+               <li class="current-menu-item has-child"><a href="index.html">TOP</a>
+                  <ul class="sub-menu">
+                     <li><a href="index.html">T-shirt</a></li>
+                     <li><a href="index-2.html">Blouse / Shirt</a></li>
+                     <li><a href="index-3.html">Knit / Sweater</a></li>
+                     <li><a href="index-3.html">Hoddie</a></li>
+                     <li><a href="index-3.html">Sweat shirt</a></li>
+                     <li><a href="index-3.html">Sleeveless</a></li>
+                  </ul></li>
+               <li class="current-menu-item has-child"><a href="index.html">BOTTOM</a>
+                  <ul class="sub-menu">
+                     <li><a href="index.html">Denim</a></li>
+                     <li><a href="index-2.html">Cotton</a></li>
+                     <li><a href="index-3.html">Shorts</a></li>
+                     <li><a href="index-3.html">Slacks</a></li>
+                     <li><a href="index-3.html">Training / Jogger</a></li>
+                     <li><a href="index-3.html">Leggings</a></li>
+                     <li><a href="index-3.html">Skirt</a></li>   
+                  </ul></li>
+               <li class="current-menu-item has-child"><a href="index.html">Dress</a>
+                  <ul class="sub-menu">
+                     <li><a href="index.html">Mini</a></li>
+                     <li><a href="index-2.html">Midi</a></li>
+                     <li><a href="index-3.html">Maxi</a></li>
+                     <li><a href="index-3.html">Overall</a></li>
+                  </ul></li>
+               <li class="current-menu-item has-child"><a href="index.html">Bag</a>
+                  <ul class="sub-menu">
+                     <li><a href="index.html">Bagpack</a></li>
+                     <li><a href="index-2.html">Messenger / Cross</a></li>
+                     <li><a href="index-3.html">Shoulder / Tote</a></li>
+                     <li><a href="index-2.html">Eco bag</a></li>
+                     <li><a href="index-3.html">Clutch</a></li>
+                  </ul></li>
+               <li class="current-menu-item has-child"><a href="index.html">Shoes</a>
+                  <ul class="sub-menu">
+                     <li><a href="index.html">Dress shoes</a></li>
+                     <li><a href="index-2.html">Boots</a></li>
+                     <li><a href="index-3.html">Sandal</a></li>
+                     <li><a href="index-2.html">slipper</a></li>
+                     <li><a href="index-3.html">Sneakers</a></li>
+                  </ul></li>
+               <li class="current-menu-item has-child"><a href="index.html">ETC</a>
+                  <ul class="sub-menu">
+                     <li><a href="index.html">Socks</a></li>
+                     <li><a href="index-2.html">Cap</a></li>
+                     <li><a href="index-3.html">Acc</a></li>
+                  </ul></li>
+               <li>
+                  <a href="index.html" style="color: white;">|</a>
+               </li>
+               <li class="current-menu-item has-child"><a href="index.html">BRAND</a>
+                  <ul class="sub-menu">
+                     <li><a href="index.html">Nike</a></li>
+                     <li><a href="index-2.html">Thisisneverthat</a></li>
+                     <li><a href="index-3.html">Covernat</a></li>
+                     <li><a href="index-3.html">AnderssonBell</a></li>
+                     <li><a href="index-3.html">Vans</a></li>
+                  </ul>
+               </li>
+               <li class="current-menu-item has-child"><a href="index.html">MAGAZINE</a>
+                  <ul class="sub-menu">
+                     <li><a href="index.html">바로가기</a></li>
+                  </ul>
+               </li>
+               <li class="current-menu-item has-child"><a href="index.html" style="margin-right: 38px;">NOTICE</a>
+                  <ul class="sub-menu">
+                     <li><a href="index.html">바로가기</a></li>
+                  </ul>
+               </li>
+            </ul>
+         </nav>
+      </header>
 
 		<!-- 상세페이지 내용	 -->
 		<form id="detailForm" action="${pageContext.request.contextPath}/ej/prd/${productDetail.prdct_id}" method="post">
@@ -342,7 +363,7 @@ $('.star-prototype').generateStars();
 
 				<!--  상품 정보와 옵션 선택 -->
 					<div class="row">
-						<div class="contrainer single-service bordered " style="height: 600px; width: 500px;">
+						<div class="contrainer single-service bordered " style="height: 600px; width: 500px; ">
 							<div class="inner">
 								<h4>${productDetail.mbr_id}</h4>
 								<h4>${productDetail.prdct_name}</h4>
@@ -351,11 +372,19 @@ $('.star-prototype').generateStars();
 
 								<!-- 색상 옵션	 -->
 								<div class="form-group">
-									<label for="colorSelect" class="col-sm-2 col-form-label">Color</label>
+									<label for="optionSelect" class="col-sm-2 col-form-label">Option</label>
 									<select class="form-control" id="colorSelect">
 									<c:forEach items="${productInfo}" var="productInfo">
 										<option value="${productInfo}">${productInfo.prdct_color} / ${productInfo.prdct_size}</option>
 									</c:forEach>	
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="amountSelect" class="col-sm-2 col-form-label">수량</label>
+									<select class="form-control" id="colorSelect">
+									<c:forEach begin="1" end="10" var="i">
+										<option value="${i}">${i}</option>
+									</c:forEach>
 									</select>
 								</div>
 
@@ -364,10 +393,10 @@ $('.star-prototype').generateStars();
 								<!--  구매 버튼 및 찜하기  -->
 								<div class="row">
 									<div style="float: left; width: 30%; padding-left: 20px">
-										<button type="button" class="btn btn-primary">바로구매</button>
+										<button type="button" class="btn btn-primary">바로구매</button> <!-- 회원은 주문확인페이지, 비회원은 주문정보 입력 페이지로 연결.. -->
 									</div>
-									<div style="float: left; width: 30%; padding-left: 20px">
-										<button type="button" class="btn btn-primary">장바구니</button>
+									<div style="float: left; width: 30%; padding-left: 20px"> <!-- 상품정보를 저장해서 장바구니로 이동 -->
+										<button type="button" class="btn btn-primary"><a onclick="location.href='${pageContext.request.contextPath}/ej/cart'">장바구니</a></button>
 									</div>
 									<div class="icon" style="float: left; padding-left: 20px; padding-top: 10px;">
 										<i class="fa fa-heart-o fa-2x"> 찜하기</i>
@@ -384,11 +413,10 @@ $('.star-prototype').generateStars();
 				<br>
 				<div align="center">
 					<ul class="nav nav-tabs" role="tablist">
-						<!-- 이벤트 클릭 넣어서 누르면 해당 부분으로 이동하게 구현 -->
-						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link active" data-toggle="tab" href="#detail">Detail</a></li>
-						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#review">Review</a></li>
-						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#qna">Q & A</a></li>
-						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#return">Return & Delivery</a></li>
+						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link active" data-toggle="tab" onclick="location.href = '#detail';">Detail</a></li>
+						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#review';">Review</a></li>
+						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#qna';">Q & A</a></li>
+						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#return';">Return & Delivery</a></li>
 					</ul>
 				</div>
 				<!-- Tab panes -->
@@ -405,7 +433,9 @@ $('.star-prototype').generateStars();
 								<div class="row">
 									<div class="col-md-12 single-gallery">
 										<div class="inner">
-											<img src="/assets/img/gallery-1.jpg" alt="">
+										<div style="padding-top: 7px">
+											<img src="<c:url value="/prdct_img/${prdDetailimg.image_name}"/>">
+										</div>
 										</div>
 									</div>
 								</div>
@@ -420,97 +450,188 @@ $('.star-prototype').generateStars();
 				<br>
 				<div align="center">
 					<ul class="nav nav-tabs" role="tablist">
-						<!-- 이벤트 클릭 넣어서 누르면 해당 부분으로 이동하게 구현 -->
-						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#detail">Detail</a></li>
-						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link active" data-toggle="tab" href="#review">Review</a></li>
-						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#qna">Q & A</a></li>
-						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#return">Return & Delivery</a></li>
+						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab"  onclick="location.href = '#detail';">Detail</a></li>
+						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link active" data-toggle="tab" onclick="location.href = '#review';">Review</a></li>
+						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#qna';">Q & A</a></li>
+						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#return';">Return & Delivery</a></li>
 					</ul>
 				</div>
 				<!-- Tab panes -->
-				<div class="tab-content">
-					<div id="review" class="container tab-pane active">
-						<br>
-						<div class="container">
-							<div class="section-title" data-margin="0 0 40px">
-								<h3 class="title-box font-mss">Review</h3>
-								<!-- 상품 총 별점 -->
-								<div class="wrap-estimate-avg">
-									<span class="tit">구매 만족도</span>
-									<span class="star-prototype"></span> (4.0)	 <!-- 데이터로 별점 끌어씀 -->
-									<div class="estimate-point" id="estimate_point">
-										<span class="img-score"><span class="bar" style="width: 95%"> <!-- 사진자리/별점 평균 -->
-										</span></span>
-									</div>
-								</div>
-								<!-- 상품 총 별점 끝 -->
-								<!--리뷰 사진/일반 모아보기 기능  -->
-								<ul class="snb">
-									<li class="box-tab-btn tab-btn btn active" data-for="total-estimate"><p class="text-primary">
-											<span class="korSub" id="estimate_total">전체 후기 (113)</span>
-										</p></li>
-									<li class="box-tab-btn tab-btn btn" data-for="photo-estimate"><p class="text-primary">
-											<span class="korSub" id="estimate_photo">상품 사진 후기 (63)</span>
-										</p></li>
-									<li class="box-tab-btn tab-btn btn" data-for="list-estimate"><p class="text-primary">
-											<span class="korSub" id="estimate_goods">일반 후기 (50)</span>
-										</p></li>
-									<li class="box-tab-btn tab-btn btn" data-for="select-estimate">
-										<!-- <div class="form-group"> --> <select class="form-control" id="review_sort">
-											<option value="new" selected="selected">최신순</option>
-											<option value="comment_cnt_desc">댓글 순</option>
-											<option value="up_cnt_desc">추천 순</option>
-											<option value="goods_est_desc">높은 평점 순</option>
-											<option value="goods_est_asc">낮은 평점 순</option>
-									</select>
-								</ul>
-								<!-- 리뷰 틀 -->
-								<div class="card bg-light mb-3" style="max-width: 1000px;">
-									<div class="card-header">
-										<div class="postContents container style_est_cont">
-											<div class="profile" style="text-align: left; align-content: center;">
-												<p>
-													<span class="gallery_lv"> <span class="notCrawlText" style="font-weight: bold;">Silver(등급) dododndn(아이디)</span>
-													</span> <span class="date last" style="clear: left; float: right;"> 12시간 전 </span>
-												</p>
-											</div>
+					<div class="tab-content">
+						<div id="review" class="container tab-pane active">
+							<br>
+							<div class="container">
+								<div class="section-title" data-margin="0 0 40px">
+									<h3 class="title-box font-mss">Review</h3>
+									<!-- 상품 총 별점 -->
+									<div class="wrap-estimate-avg">
+										<span class="tit">구매 만족도</span> <span class="star-prototype"></span> (4.0)
+										<!-- 데이터로 별점 끌어씀 -->
+										<div class="estimate-point" id="estimate_point">
+											<span class="img-score"><span class="bar" style="width: 95%"> <!-- 별점 평균 -->
+											</span></span>
 										</div>
 									</div>
-									<div class="card-body">
-										<!--관련 상품-->
-										<div class="connect_product estimate-item">
-											<div class="connect_review_info">												
-												<div>
-													<a class="list_info p_name" href="#"> INTL. Logo Crewneck Black </a>
-												</div>
-												<p class="txt_option">
-													L 구매 <span class="estimate-profile">남성, 177cm, 67kg</span>
-												</p>
+									<!-- 상품 총 별점 끝 -->
+
+									<!-- 리뷰 사진 슬라이드 -->
+
+									<div class="swiper-container">
+										<div class="swiper-wrapper">
+											<div class="swiper-slide">
+												<img src="/hs/1.jpg" style="width: 200px; height: 200px;">
+											</div>
+											<div class="swiper-slide">
+												<img src="/hs/2.jpg" style="width: 200px; height: 200px;">
+											</div>
+											<div class="swiper-slide">
+												<img src="/hs/3.jpg" style="width: 200px; height: 200px;">
+											</div>
+											<div class="swiper-slide">
+												<img src="/hs/4.jpg" style="width: 200px; height: 200px;">
+											</div>
+											<div class="swiper-slide">
+												<img src="/hs/5.jpg" style="width: 200px; height: 200px;">
+											</div>
+											<div class="swiper-slide">
+												<img src="/hs/6.jpg" style="width: 200px; height: 200px;">
+											</div>
+											<div class="swiper-slide">
+												<img src="/hs/7.jpg" style="width: 200px; height: 200px;">
+											</div>
+											<div class="swiper-slide">
+												<img src="/hs/8.jpg" style="width: 200px; height: 200px;">
+											</div>
+											<div class="swiper-slide">
+												<img src="/hs/9.jpg" style="width: 200px; height: 200px;">
+											</div>
+											<div class="swiper-slide">
+												<img src="/hs/1.jpg" style="width: 200px; height: 200px;">
+											</div>
+											<div class="swiper-slide">
+												<img src="/hs/2.jpg" style="width: 200px; height: 200px;">
+											</div>
+											<div class="swiper-slide">
+												<img src="/hs/3.jpg" style="width: 200px; height: 200px;">
+											</div>
+											<div class="swiper-slide">
+												<img src="/hs/4.jpg" style="width: 200px; height: 200px;">
+											</div>
+											<div class="swiper-slide">
+												<img src="/hs/5.jpg" style="width: 200px; height: 200px;">
+											</div>
+											<div class="swiper-slide">
+												<img src="/hs/6.jpg" style="width: 200px; height: 200px;">
+											</div>
+											<div class="swiper-slide">
+												<img src="/hs/7.jpg" style="width: 200px; height: 200px;">
+											</div>
+											<div class="swiper-slide">
+												<img src="/hs/8.jpg" style="width: 200px; height: 200px;">
+											</div>
+											<div class="swiper-slide">
+												<img src="/hs/9.jpg" style="width: 200px; height: 200px;">
+											</div>
+
+											</div>
+
+										<!-- 네비게이션 -->
+										<div class="swiper-button-next"></div>
+										<!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+										<div class="swiper-button-prev"></div>
+										<!-- 이전 버튼 -->
+
+										<!-- 페이징 -->
+										<div class="swiper-pagination"></div>
+									</div>
+
+									<script>
+										new Swiper('.swiper-container', {
+
+											slidesPerView : 7, // 동시에 보여줄 슬라이드 갯수
+											spaceBetween : 1, // 슬라이드간 간격
+											slidesPerGroup : 7, // 그룹으로 묶을 수, slidesPerView 와 같은 값을 지정하는게 좋음
+
+											// 그룹수가 맞지 않을 경우 빈칸으로 메우기
+											// 3개가 나와야 되는데 1개만 있다면 2개는 빈칸으로 채워서 3개를 만듬
+											loopFillGroupWithBlank : true,
+
+											loop : true, // 무한 반복
+
+											pagination : { // 페이징
+												el : '.swiper-pagination',
+												clickable : true, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
+											},
+											navigation : { // 네비게이션
+												nextEl : '.swiper-button-next', // 다음 버튼 클래스명
+												prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
+											},
+										});
+									</script>
+
+
+									<!--리뷰 사진/일반 모아보기 기능  -->
+									<ul class="snb">
+										<li class="box-tab-btn tab-btn btn active" data-for="total-estimate"><p class="text-primary">
+												<span class="korSub" id="estimate_total">전체 후기 (113)</span>
+											</p></li>
+										<li class="box-tab-btn tab-btn btn" data-for="photo-estimate"><p class="text-primary">
+												<span class="korSub" id="estimate_photo">상품 사진 후기 (63)</span>
+											</p></li>
+										<li class="box-tab-btn tab-btn btn" data-for="list-estimate"><p class="text-primary">
+												<span class="korSub" id="estimate_goods">일반 후기 (50)</span>
+											</p></li>
+										<li class="box-tab-btn tab-btn btn" data-for="select-estimate">
+											<!-- <div class="form-group"> --> <select class="form-control" id="review_sort">
+												<option value="new" selected="selected">최신순</option>
+												<option value="comment_cnt_desc">댓글 순</option>
+												<option value="up_cnt_desc">추천 순</option>
+												<option value="goods_est_desc">높은 평점 순</option>
+												<option value="goods_est_asc">낮은 평점 순</option>
+										</select>
+									</ul>
+									<!-- 리뷰 틀 -->
+									<div class="gallery-area spb">
+										<div class="container">
+											<div class="section-title" data-margin="0 0 40px">
+												<table class="table">
+													<!-- 한 페이지 글 몇개, 페이징 처리 -->
+
+													<tr>
+														<td><span class="star-prototype"></span></td> 
+														<td>사진</td>
+														<td>구매옵션:()
+															<p>배송이 너무 늦었고 먼지가 정말 많이 달라붙네요 ㅠ 핏은 맘에듭니다
+														</td>
+														<td>작성자</td>
+														<td>등록일자</td>
+													</tr>
+													<tr>
+														<td><span class="star-prototype"></span></td>
+														<td>사진</td>
+														<td>구매옵션:()
+															<p>배송이 너무 늦었고 먼지가 정말 많이 달라붙네요 ㅠ 핏은 맘에듭니다
+														</td>
+														<td>작성자</td>
+														<td>등록일자</td>
+													</tr>
+													<tr>
+														<td><span class="star-prototype"></span></td>
+														<td>사진</td>
+														<td>구매옵션:()
+															<p>배송이 너무 늦었고 먼지가 정말 많이 달라붙네요 ㅠ 핏은 맘에듭니다
+														</td>
+														<td>작성자</td>
+														<td>등록일자</td>
+													</tr>
+
+												</table>
 											</div>
 										</div>
+									</div>
 
-										<div class="pContent">
-											<!-- 요약보기 -->
-											<div class="summary" style="cursor: pointer;">
-												<div class="cArea">
-													<div class="pContent_text">
-														<span class="content-review"> 옷이 탄탄해서 체형보정에도 좋을 것같고 오래입을수 있을것같아요 </span>
-													</div>
-
-													<!-- 개인 별점 --> 
-													 <span class="star-prototype"></span> (4.5) <!-- 데이터로 별점 끌어씀 -->							
-
-													<!-- 리뷰사진 -->
-													<div class="pContent_Img img3 photoReview">
-														<img class="gallery-images" src="https://image.msscdn.net/images/goods_img/20200820/1557658/1557658_2_500.jpg"
-															alt="디스이즈네버댓(THISISNEVERTHAT) INTL. Logo Crewneck Black 후기">
-													</div>
-												</div>
-											</div>
-										</div>
-										
-										<!-- 댓글달기 구현 -->
-										<div  class="form-group row"  > 
+									<!-- 댓글달기 구현 -->
+									<div  class="form-group row"  > 
 											<input class="text col-sm-10" id="replyInput" placeholder="댓글을 입력하세요." >
 											<button type="button" class="btn btn-primary">댓글달기</button>
 										</div>
@@ -530,11 +651,10 @@ $('.star-prototype').generateStars();
 			<br>
 			<div align="center">
 				<ul class="nav nav-tabs" role="tablist">
-					<!-- 이벤트 클릭 넣어서 누르면 해당 부분으로 이동하게 구현 -->
-					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#detail">Detail</a></li>
-					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#review">Review</a></li>
-					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link  active" data-toggle="tab" href="#qna">Q & A</a></li>
-					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#return">Return & Delivery</a></li>
+					<li class="nav-item col-sm-3" style="margin-right: 0px;" ><a class="nav-link" data-toggle="tab" href="#detail" onclick="location.href = '#detail';">Detail</a></li>
+					<li class="nav-item col-sm-3" style="margin-right: 0px;" ><a class="nav-link" data-toggle="tab" href="#review" onclick="location.href = '#review';">Review</a></li>
+					<li class="nav-item col-sm-3" style="margin-right: 0px;" ><a class="nav-link  active" data-toggle="tab" onclick="location.href = '#qna';">Q & A</a></li>
+					<li class="nav-item col-sm-3" style="margin-right: 0px;" ><a class="nav-link" data-toggle="tab" onclick="location.href = '#return';">Return & Delivery</a></li>
 				</ul>
 			</div>
 			<!-- Tab panes -->
@@ -584,16 +704,16 @@ $('.star-prototype').generateStars();
 			<br>
 			<div align="center">
 				<ul class="nav nav-tabs" role="tablist">
-					<!-- 이벤트 클릭 넣어서 누르면 해당 부분으로 이동하게 구현 -->
-					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#detail">Detail</a></li>
-					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#review">Review</a></li>
-					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#qna">Q & A</a></li>
-					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link active" data-toggle="tab" href="#rende">Return & Delivery</a></li>
+
+					<li class="nav-item col-sm-3" style="margin-right: 0px;" ><a class="nav-link" data-toggle="tab" onclick="location.href = '#detail';">Detail</a></li>
+					<li class="nav-item col-sm-3" style="margin-right: 0px;" ><a class="nav-link" data-toggle="tab" onclick="location.href = '#review';">Review</a></li>
+					<li class="nav-item col-sm-3" style="margin-right: 0px;" ><a class="nav-link" data-toggle="tab" onclick="location.href = '#qna';">Q & A</a></li>
+					<li class="nav-item col-sm-3" style="margin-right: 0px;" ><a class="nav-link active" data-toggle="tab" onclick="location.href = '#return';">Return & Delivery</a></li>
 				</ul>
 			</div>
 			<!-- Tab panes -->
 			<div class="tab-content">
-				<div id="rende" class="container tab-pane active">
+				<div id="return" class="container tab-pane active">
 					<br>
 					<div class="pdt_contents delivery">
 						<div class="title">

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import edu.bit.ex.mapper.EjMapper;
 import edu.bit.ex.vo.CartVO;
 import edu.bit.ex.vo.PrdctDetailVO;
+import edu.bit.ex.vo.PrdctImageVO;
 import edu.bit.ex.vo.PrdctVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +39,13 @@ public class EjServiceImpl implements EjService {
 	public List<PrdctDetailVO> getProductInfo(String p_id) {
 		log.info("getProductInfo");
 		return ejMapper.getProductInfo(p_id);
+	}
+
+	// 상품 상세이미지
+	@Override
+	public PrdctImageVO getprdDetailImage(int board_id) {
+		log.info("getprdDetailImage");
+		return ejMapper.getprdDetailImage(board_id);
 	}
 
 }
