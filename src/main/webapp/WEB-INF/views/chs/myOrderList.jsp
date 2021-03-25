@@ -99,11 +99,11 @@
 					<table class="table">
 						<thead style="text-align: center;">
 							<tr>
-								<td colspan="2"><h5>상품정보</h5></td>
-								<td><h5>주문일</h5></td>
-								<td><h5>주문번호</h5></td>
-								<td><h5>주문금액</h5></td>
-								<td><h5>상태</h5></td>
+								<th colspan="2"><h5>상품정보</h5></th>
+								<th><h5>주문일</h5></th>
+								<th><h5>주문번호</h5></th>
+								<th><h5>주문금액</h5></th>
+								<th><h5>상태</h5></th>
 							</tr>
 						</thead>
 						<tbody >

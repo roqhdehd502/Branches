@@ -90,12 +90,12 @@
 					<table class="table" style="text-align: center;">
 						<thead>
 							<tr>
-								<td><h5>No.</h5></td>
-								<td><h5>아이디</h5></td>
-								<td><h5>이름</h5></td>
-								<td><h5>전화번호</h5></td>
-								<td><h5>이메일</h5></td>
-								<td><h5>가입일</h5></td>
+								<th><h5>No.</h5></th>
+								<th><h5>아이디</h5></th>
+								<th><h5>이름</h5></th>
+								<th><h5>전화번호</h5></th>
+								<th><h5>이메일</h5></th>
+								<th><h5>가입일</h5></th>
 							</tr>
 						</thead>
 						<tbody>

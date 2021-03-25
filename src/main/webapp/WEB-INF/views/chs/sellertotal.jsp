@@ -121,7 +121,6 @@
 							<span style="margin-left: 10px;"><button class="btn btn-primary btn-sm" type="submit">조회</button></span>
 						</form>
 					</div>
-					<jsp:include page="chart5.jsp"></jsp:include>
 				<hr style="margin-top: 30px;">
 				<div style="margin-bottom: 20px;">
 					<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">ㄱㄴㄷ순</button></span>
@@ -132,48 +131,21 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<td><h5>순위</h5></td>
-							<td><h5>상품명</h5></td>
-							<td><h5>등록일</h5></td>
-							<td><h5>가격</h5></td>
+							<th><h5>순위</h5></th>
+							<th><h5>상품명</h5></th>
+							<th><h5>등록일</h5></th>
+							<th><h5>가격</h5></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td><h5>1</h5></td>
-							<td><h5>Black Shadow Hoodie</h5></td>
-							<td><h5>2021.01.13</h5></td>
-							<td><h5>57,000₩</h5></td>
-						</tr>
-						
-						<tr>
-							<td><h5>1</h5></td>
-							<td><h5>Black Shadow Hoodie</h5></td>
-							<td><h5>2021.01.13</h5></td>
-							<td><h5>57,000₩</h5></td>
-						</tr>
-						
-						<tr>
-							<td><h5>1</h5></td>
-							<td><h5>Black Shadow Hoodie</h5></td>
-							<td><h5>2021.01.13</h5></td>
-							<td><h5>57,000₩</h5></td>
-						</tr>
-						
-						<tr>
-							<td><h5>1</h5></td>
-							<td><h5>Black Shadow Hoodie</h5></td>
-							<td><h5>2021.01.13</h5></td>
-							<td><h5>57,000₩</h5></td>
-						</tr>
-						
-						<tr>
-							<td><h5>1</h5></td>
-							<td><h5>Black Shadow Hoodie</h5></td>
-							<td><h5>2021.01.13</h5></td>
-							<td><h5>57,000₩</h5></td>
-						</tr>
-						
+						<c:forEach items="${prdct }" var="prdct" varStatus="status">
+							<tr>
+								<td><h5>1</h5></td>
+								<td><h5>${prdct.prdct_name }</h5></td>
+								<td><h5>${prdOrder[status.index].order_date }</h5></td>
+								<td><h5>${prdct.prdct_price }₩</h5></td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>

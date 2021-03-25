@@ -74,16 +74,16 @@
 					<table class="table" style="text-align: center;">
 						<thead>
 							<tr>
-								<td><h5>No.</h5></td>
-								<td><h5>제목</h5></td>
-								<td><h5>작성자</h5></td>
-								<td><h5>문의유형</h5></td>
-								<td><h5>상품명</h5></td>
-								<td><h5>일자</h5></td>
+								<th><h5>No.</h5></th>
+								<th><h5>제목</h5></th>
+								<th><h5>작성자</h5></th>
+								<th><h5>문의유형</h5></th>
+								<th><h5>상품명</h5></th>
+								<th><h5>일자</h5></th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${ board}" var="board">
+							<c:forEach items="${ board}" var="board" varStatus="status">
 							<tr>
 								<td>
 									<h6>${board.board_id }</h6>
@@ -91,7 +91,7 @@
 								<td><h6><a href="#">${board.board_name }</a></h6></td>
 								<td><h6>${board.mbr_id }</h6></td>
 								<td><h6>${board.inquiry_number }</h6></td>
-								<td><h6 >${board.prdct_id }</h6></td>
+								<td><h6 >${prdct[status.index].prdct_name }</h6></td>
 								<td><h6>${board.board_date }</h6></td>
 							</tr>
 							</c:forEach>

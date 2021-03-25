@@ -18,6 +18,8 @@
 <link rel="stylesheet" href="/assets/css/slicknav.css">
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css">
+
+
 </head>
 <body>
 <div style="overflow: hidden;" class="container">
@@ -76,7 +78,7 @@
 					<h3 style="margin-top: 15px; margin-left: 15px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, .1);">
 						<strong>월간매출</strong>
 					</h3>
-					<jsp:include page="chart2.jsp"></jsp:include>
+					<jsp:include page="chart3.jsp"></jsp:include>	
          		</span>
 			</div>
 		</div>
