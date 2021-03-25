@@ -19,8 +19,10 @@
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css"> 
 
-<script type="text/javascript">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 
+<script type="text/javascript">
 $(document).ready(function(){
     
 	//https://m.blog.naver.com/PostView.nhn?blogId=moonv11&logNo=220605582547&proxyReferer=https:%2F%2Fwww.google.com%2F
@@ -30,9 +32,9 @@ $(document).ready(function(){
 		
 		var mbr_id = $("#mbr_id").val();
         var mbr_pw = $("#mbr_pw").val();
-        var pw_c = $("#pw_c").val();
+        var mbr_name = $("#mbr_name").val();
         var mbr_email = $("#mbr_email").val();
-        var contact_number = $("#contact_number").val();
+        var contact_number = $("#contact_number").val(); 
         var shipping_address = $("#shipping_address").val();
         
         console.log(mbr_id);
@@ -41,9 +43,10 @@ $(document).ready(function(){
         var form = {
         		mbr_id: mbr_id,
         		mbr_pw: mbr_pw,
+        		mbr_name: mbr_name,
         		mbr_email: mbr_email,
         		contact_number: contact_number,
-        		shipping_adress: shipping_address
+        		shipping_address: shipping_address
         };
 	    //dataType: 'json',
         $.ajax({
@@ -68,8 +71,8 @@ $(document).ready(function(){
 }); // end ready() 
 </script>
 </head>
-
 <body>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 	<div style="overflow: hidden;" class="container">
 		<header style="padding-bottom: 10px; padding-top: 5px;">
 		<div class="container">
@@ -235,30 +238,52 @@ $(document).ready(function(){
 					<strong>판매자 등록 정보</strong>
 					</h3><hr>
 					<form action="${pageContext.request.contextPath}/rest_ksp/seller/${mbr.mbr_id}/mypage/myinfo" method="post" id="updateForm">
+						<input type="hidden" id="mbr_id" value="${mbr.mbr_id}">
 						<fieldset>
+							<div class="form-group row">
+								<label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" value="${mbr.mbr_name}" id="mbr_name">
+								</div>
+							</div>
 							<div class="form-group row">
 							<label for="staticEmail" class="col-sm-2 col-form-label">ID</label>
 							<label for="staticEmail" class="col-sm-2 col-form-label">
 									${mbr.mbr_id}
 								</label>
 							</div>
-							<div class="form-group row">
-								<label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" value="${mbr.mbr_name}">
-								</div>
-							</div>
+							
 							<div class="form-group row">
 								<label for="staticEmail" class="col-sm-2 col-form-label">PW</label>
-								<div class="col-sm-10">
-									<input type="password" class="form-control" placeholder="비밀번호를 입력하세요" id="mbr_pw">
+								<div class="col-sm-6">
+									<input type="password" class="form-control" placeholder="비밀번호를 입력하세요" id="mbr_pw" required="required" onchange="isSame()">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label for="staticEmail" class="col-sm-2 col-form-label">PW 확인</label>
-								<div class="col-sm-10">
-									<input type="password" class="form-control" placeholder="비밀번호를 확인하세요">
+								<div class="col-sm-6">
+									<input type="password" class="form-control" placeholder="비밀번호를 확인하세요" id="pw_c" required="required" onchange="isSame()">
 								</div>
+								<span id="check" ></span>
+								<script type="text/javascript">
+
+									function isSame() {
+										
+										var pw = $("mbr_pw").val();
+										var pw_c = $("pw_c").val();
+									    
+									    if(pw !="" || pw_c != "") {
+									    	if(document.getElementById('mbr_pw').value == document.getElementById('pw_c').value) {
+									    		document.getElementById('check').innerHTML='비밀번호 일치';
+									    		document.getElementById('check').style.color='blue';
+									    	} else {
+									        	document.getElementById('check').innerHTML='비밀번호 불일치';
+									        	document.getElementById('check').style.color='red';
+									        }
+									    }
+									    
+									}
+								</script>
 							</div>
 							<div class="form-group row">
 							<label for="staticEmail" class="col-sm-2 col-form-label">EMAIL</label>
@@ -275,11 +300,11 @@ $(document).ready(function(){
 							<div class="form-group row">
 							<label for="staticEmail" class="col-sm-2 col-form-label">Address</label>
 							<div class="col-sm-10">
-									<input type="text" class="form-control" placeholder="${adr.shipping_address}" id="shipping_address">
+									<input type="text" class="form-control" value="${adr.shipping_address}" id="shipping_address">
 								</div>
 							</div>
 							<div style="text-align: center;">
-							<button type="button" class="btn btn-primary">수정</button>
+								<input type="submit" class="btn btn-primary" value="저장">
 							</div>
 						
 						</fieldset>

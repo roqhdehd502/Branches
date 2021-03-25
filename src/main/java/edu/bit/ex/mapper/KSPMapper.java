@@ -54,6 +54,12 @@ public interface KSPMapper {
 
 	public ShippingVO getSellerAddress(String m_id);
 
-	public Object sellerInfoUpdate(MbrAddressVO mavo);
+	public void sellerAddressUpdate(MbrAddressVO mavo);
+
+	public void sellerInfoUpdate(MbrAddressVO mavo);
+
+	public void deleteMbrAdress(MbrAddressVO mavo);
+
+	public void deleteMbrInfo(MbrAddressVO mavo);
 
 }
