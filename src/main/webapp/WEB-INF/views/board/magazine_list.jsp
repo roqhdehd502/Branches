@@ -151,7 +151,9 @@
 						<div class="thumbnail">
 							<a href="${pageContext.request.contextPath}/board/magazine/${dto.board_id}">
 								<div style="padding-top: 7px">
-									<img src="<c:url value="/prdct_img/${magazine_thumbnail.image_name}"/>" width="318px" height="212px">
+									<c:forEach  items="${magazine_thumbnail}" var="magazine_thumbnail">						
+									<img src="/prdct_img/${dto.board_id eq magazine_thumbnail.board_id ? magazine_thumbnail.image_name : 'none-thumbnail.jpg'}" width="318px" height="212px">
+									</c:forEach>	
 								</div>
 								<div>
 									<hr>

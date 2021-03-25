@@ -2,6 +2,7 @@ package edu.bit.ex.service;
 
 import java.util.List;
 
+import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.page.MagazineCriteria;
 import edu.bit.ex.page.NoticeCriteria;
 import edu.bit.ex.vo.BoardCommentVO;
@@ -10,9 +11,6 @@ import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctImageVO;
 
 public interface BoardService {
-	// 공지사항 게시판 리스트
-	public List<BoardVO> getNoticeList();
-
 	// 페이징을 적용한 공지사항 게시판 리스트
 	public List<BoardVO> getNoticeList(NoticeCriteria cri);
 
@@ -34,9 +32,6 @@ public interface BoardService {
 	// 공지사항 수정
 	public void setNoticeModify(BoardVO boardVO);
 
-	// 매거진 게시판 리스트
-	public List<BoardVO> getMagazineList();
-
 	// 페이징을 적용한 매거진 게시판 리스트
 	public List<BoardVO> getMagazineList(MagazineCriteria cri);
 
@@ -44,7 +39,13 @@ public interface BoardService {
 	public int getMagazineTotal(MagazineCriteria cri);
 
 	// 매거진 게시판 썸네일
-	public PrdctImageVO getMagazineThumbnail(int board_id);
+	public List<BoardPrdctImageVO> getMagazineThumbnail(int board_id);
+
+	// 매거진 작성 id 가져오기
+	public MbrVO getMagazineMember(String mbr_id);
+
+	// 매거진 작성
+	public void setMagazineWrite(BoardVO boardVO);
 
 	// 매거진 게시글
 	public BoardVO getMagazineContent(int board_id);
@@ -60,4 +61,8 @@ public interface BoardService {
 
 	// 매거진 게시글 댓글 작성
 	public void setMagazineCommentWrite(BoardCommentVO boardCommentVO);
+
+	// 매거진 수정
+	public void setMagazineModify(BoardVO boardVO);
+
 }

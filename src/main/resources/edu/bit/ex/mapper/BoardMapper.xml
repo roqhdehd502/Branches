@@ -4,25 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="edu.bit.ex.mapper.BoardMapper">
-	<!-- 공지사항 게시판 리스트 -->
-	<resultMap id="noticeBoardMap" type="edu.bit.ex.vo.BoardVO">
-	    <result property="board_id" column="board_id"/>
-	    <result property="board_name" column="board_name"/>
-	    <result property="board_date" column="board_date"/>
-		<collection property="board_type_number" resultMap="noticeBoardTypeMap"></collection>
-	</resultMap>	
-	<resultMap id="noticeBoardTypeMap" type="edu.bit.ex.vo.BoardTypeVO">
-		<result property="board_type_number" column="board_type_number"/>
-		<result property="board_type_name" column="board_type_name"/>
-	</resultMap>
-	<select id="getNoticeList" resultMap="noticeBoardMap">
-		SELECT b.board_id, b.board_name, b.board_date 
-		FROM board b, board_type t 
-		WHERE b.board_type_number = t.board_type_number AND 
-		    t.board_type_name = 'NOTICE' 
-		ORDER BY b.board_id DESC, b.board_date DESC 
-	</select>
-	
 	<!-- 페이징을 적용한 공지사항 게시판 리스트 -->
 	<select id="getNoticeListWithPaging" resultType="edu.bit.ex.vo.BoardVO">
 		<![CDATA[
@@ -30,6 +11,7 @@
 			     SELECT ROWNUM AS RNUM, A.* FROM ( 
 			        		SELECT * 
 			                FROM board 
+			                WHERE board_type_number = 1 
 			                ORDER BY board_id DESC, board_date DESC 
 			    ) A WHERE ROWNUM <= #{pageNum} * #{amount} 
 			) WHERE RNUM > (#{pageNum}-1) * #{amount}
@@ -39,7 +21,7 @@
 	<!-- 페이징 단위에 적용되는 최대 공지 게시글 단위 -->
 	<select id="getNoticeTotalCount" resultType="int">
 	<![CDATA[
-		SELECT COUNT(*) FROM board
+		SELECT COUNT(*) FROM board WHERE board_type_number = 1
 	]]>	
 	</select>
 	
@@ -72,33 +54,12 @@
 	]]>
 	</delete>
 	
-	<!-- 공지사항 게시글 수정 -->
+	<!-- 공지사항 수정 -->
 	<update id="setNoticeModify">
 	<![CDATA[
 		UPDATE board SET board_name = #{board_name}, board_content = #{board_content} WHERE board_id = #{board_id}
 	]]>
 	</update>
-	
-	<!-- 매거진 게시판 리스트 -->
-	<resultMap id="magazineBoardMap" type="edu.bit.ex.vo.BoardVO">
-	    <result property="board_id" column="board_id"/>
-	    <result property="board_name" column="board_name"/>
-	    <result property="board_date" column="board_date"/>
-	    <result property="board_like" column="board_like"/>
-	    <result property="board_hit" column="board_hit"/>
-		<collection property="board_type_number" resultMap="magazineBoardTypeMap"></collection>
-	</resultMap>	
-	<resultMap id="magazineBoardTypeMap" type="edu.bit.ex.vo.BoardTypeVO">
-		<result property="board_type_number" column="board_type_number"/>
-		<result property="board_type_name" column="board_type_name"/>
-	</resultMap>
-	<select id="getMagazineList" resultMap="magazineBoardMap">
-		SELECT b.board_id, b.board_name, b.board_date, b.board_like, b.board_hit 
-		FROM board b, board_type t 
-		WHERE b.board_type_number = t.board_type_number AND 
-		    t.board_type_name = 'MAGAZINE' 
-		ORDER BY b.board_id DESC, b.board_date DESC 
-	</select>
 	
 	<!-- 페이징을 적용한 매거진 게시판 리스트 -->
 	<select id="getMagazineListWithPaging" resultType="edu.bit.ex.vo.BoardVO">
@@ -107,6 +68,7 @@
 			     SELECT ROWNUM AS RNUM, A.* FROM ( 
 			        		SELECT * 
 			                FROM board 
+			                WHERE board_type_number = 2 
 			                ORDER BY board_id DESC, board_date DESC 
 			    ) A WHERE ROWNUM <= #{pageNum} * #{amount} 
 			) WHERE RNUM > (#{pageNum}-1) * #{amount}
@@ -116,29 +78,35 @@
 	<!-- 페이징 단위에 적용되는 최대 매거진 게시글 단위 -->
 	<select id="getMagazineTotalCount" resultType="int">
 	<![CDATA[
-		SELECT COUNT(*) FROM board
+		SELECT COUNT(*) FROM board WHERE board_type_number = 2
 	]]>	
 	</select>
 	
 	<!-- 매거진 게시판 썸네일 -->
-	<resultMap id="magazineContentThumbnailMap" type="edu.bit.ex.vo.PrdctImageVO">
-	    <result property="image_number" column="image_number"/>
-	    <result property="image_name" column="image_name"/>
-	    <result property="image_path" column="image_path"/>
-		<collection property="board_id" resultMap="magazineListMap"></collection>
-	</resultMap>	
-	<resultMap id="magazineListMap" type="edu.bit.ex.vo.BoardVO">
-		<result property="board_id" column="board_id"/>
-	</resultMap>
-	<select id="getMagazineThumbnail" resultMap="magazineContentThumbnailMap">
-		SELECT p.image_name 
-		FROM prdct_image p, board b 
-		WHERE p.board_id = b.board_id AND 
-		    p.image_number = (SELECT MIN(image_number) 
-		                      FROM prdct_image 
-		                      WHERE #{board_id} = #{board_id}) 
-		ORDER BY p.image_number ASC
+	<select id="getMagazineThumbnail" resultType="edu.bit.ex.joinvo.BoardPrdctImageVO">
+		<![CDATA[
+			SELECT ROWNUM, p.image_name, b.board_id, p.board_id 
+			FROM prdct_image p, board b 
+			WHERE p.board_id = b.board_id AND 
+			    ROWNUM = 1 AND 
+			    #{board_id} = #{board_id}
+		]]>
 	</select>
+	
+	<!-- 매거진 작성 id 가져오기(스프링 시큐리티때 수정할것) -->
+	<select id="getMagazineMember" resultType="edu.bit.ex.vo.MbrVO">
+	<![CDATA[
+		SELECT * FROM mbr WHERE mbr_id = 'abcd1234'
+	]]>
+	</select>
+	
+	<!-- 매거진 작성 -->
+	<insert id="setMagazineWrite" >
+	<![CDATA[
+		INSERT INTO board (board_id, board_name, board_content, mbr_id, board_type_number, inquiry_number, prdct_id, order_number, board_like, board_hit) 
+		VALUES (board_seq.nextval, #{board_name}, #{board_content}, #{mbr_id}, 2, 1, 'PRDCT34', 23, 0, 0) 
+	]]>
+	</insert>	
 	
 	<!-- 매거진 게시글 -->
 	<select id="getMagazineContent" resultType="edu.bit.ex.vo.BoardVO">
@@ -206,7 +174,14 @@
 	<insert id="setMagazineCommentWrite">
 	<![CDATA[
 		INSERT INTO board_comment (comment_id, board_id, mbr_id, comment_content) 
-		VALUES (board_comment_seq.nextval, #{board_id}, 'defg1234', #{comment_content}) 
+		VALUES (board_comment_seq.nextval, #{board_id}, #{mbr_id}, #{comment_content}) 
 	]]>
 	</insert>
+	
+	<!-- 매거진 수정 -->
+	<update id="setMagazineModify">
+	<![CDATA[
+		UPDATE board SET board_name = #{board_name}, board_content = #{board_content} WHERE board_id = #{board_id}
+	]]>
+	</update>
 </mapper>

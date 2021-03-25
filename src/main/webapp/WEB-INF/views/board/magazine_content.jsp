@@ -77,42 +77,41 @@
 	
 	<!-- 매거진 댓글 작성 -->
 	<script type="text/javascript">
-   	$(document).ready(function(){
-      $("#commentWriteForm").submit(function(event){         
-           event.preventDefault();
-           var board_id = $("#board_id").val();
-           /* var mbr_id = $("#mbr_id").val(); */
-           var comment_content = $("#comment_content").val();
-           
-           console.log(board_id);
-           /* console.log(mbr_id); */
-           console.log(comment_content);
-           console.log($(this).attr("action"));    
-           
-           var form = {
-        		board_id: board_id,
-        		/* mbr_id: mbr_id, */
-        		comment_content: comment_content
-           };
-
-           $.ajax({
-             type : "POST",
-             url : $(this).attr("action"),
-             cache : false,
-             dataType:'json',
-             contentType:'application/json; charset=utf-8',
-             data: JSON.stringify(form),
-             success: function (result) {       
-               if(result == "SUCCESS"){     
-                  $(location).attr('href', '${pageContext.request.contextPath}/board/magazine/magazine/${magazine_content.board_id}')                            
-               }                       
-             },
-             error: function (e) {
-                 console.log(e);
-             }
-         })            
-       });       
-   	});
+	   	$(document).ready(function(){
+	      $("#commentWriteForm").submit(function(event){         
+	           event.preventDefault();
+	           var board_id = $("board_id").val();
+	           var mbr_id = $("#mbr_id").val();
+	           var comment_content = $("#comment_content").val();
+	           
+	           console.log(board_id);
+	           console.log(mbr_id);
+	           console.log(comment_content);
+	           console.log($(this).attr("action"));    
+	           
+	           var form = {
+	        		board_id: board_id,
+	        		mbr_id: mbr_id, 
+	        		comment_content: comment_content
+	           };
+	
+	           $.ajax({
+	             type : "POST",
+	             url : $(this).attr("action"),
+	             cache : false,
+	             contentType:'application/json; charset=utf-8',
+	             data: JSON.stringify(form),
+	             success: function (result) {       
+	               if(result == "SUCCESS"){     
+	                  $(location).attr('href', '${pageContext.request.contextPath}/board/magazine/${magazine_content.board_id}')                            
+	               }                       
+	             },
+	             error: function (e) {
+	                 console.log(e);
+	             }
+	         })            
+	       });       
+	   	});
 	</script>	
 </head>
 <body>
@@ -242,10 +241,10 @@
 				<div class="row" style="padding: 5% 3% 3% 5%">
 					<c:forEach items="${magazine_img}" var="img">	
 					<div class="col-md-12" style="text-align: center;">
-						<img class="rounded" width="800px" height="600px" src="<c:url value="/prdct_img/${img.image_name}"/>">
+						<img class="rounded" width="1024px" height="600px" src="<c:url value="/prdct_img/${img.image_name}"/>">
 					</div>
 					</c:forEach>
-					<div class="col-md-12">
+					<div class="col-md-12" style="padding: 2% 3% 3% 3%">
 						<p>${magazine_content.board_content}</p>
 					</div>
 				</div>
@@ -263,16 +262,16 @@
 			<hr>
 			
 			<!-- 댓글 작성 -->
-			<form method="post" action="${pageContext.request.contextPath}/board/magazine/${magazine_content.board_id}">
-				<input type="hidden" id="board_id" value="${magazine_content.board_id}">
+			<form id="commentWriteForm" method="post" action="${pageContext.request.contextPath}/board/magazine/${magazine_content.board_id}">		
 				<!-- 이 부분에서 value="mbr_id"는 스프링 시큐리티때 계정 정보를 가져와야해서 이후에 수정해야함! -->
-				<!-- <input type="hidden" id="mbr_id" value="mbr_id"> -->
+				<input type="hidden" id="mbr_id" value="defg1234">
+				<input type="hidden" id="board_id" value="${magazine_content.board_id}">
 				<div class="container">
 					<div class="row" style="padding: 5% 3% 3% 5%">
 						<div class="col-md-10" align="left">
 							<textarea class="form-control" cols="3" id="comment_content" name="comment_content" placeholder="댓글을 남겨주세요"></textarea>		
 						</div>
-						<div class="col-md-2" align="right">
+						<div class="col-md-2" align="center">
 							<button type="submit" class="btn btn-primary">등록</button>
 						</div>
 					</div>
@@ -283,16 +282,16 @@
 			
 			<!-- 댓글 불러오기 -->
 			<div class="container">
-				<div class="row" style="padding: 5% 3% 3% 5%">
-					<c:forEach items="${magazine_comment}" var="magazine_comment">
+				<c:forEach items="${magazine_comment}" var="magazine_comment">
+				<div class="row" style="margin: 1% 3% 1% 3%; padding: 1% 3% 1% 3%; border: 1px solid #E5E5E5;">
 					<div class="col-md-8" align="left">
 						${magazine_comment.comment_content}
 					</div>
 					<div class="col-md-4" align="right">
 						${magazine_comment.comment_date}					
 					</div>
-					</c:forEach>
 				</div>
+				</c:forEach>
 			</div>
 		</div>
 	<!-- </div> -->

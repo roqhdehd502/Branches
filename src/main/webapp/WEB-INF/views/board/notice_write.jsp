@@ -42,7 +42,7 @@
                  board_content: board_content
            };
            $.ajax({
-             type : "PUT",
+             type : "POST",
              url : $(this).attr("action"),
              cache : false,
              contentType:'application/json; charset=utf-8',

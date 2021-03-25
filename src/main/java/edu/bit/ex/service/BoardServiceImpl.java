@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.mapper.BoardMapper;
 import edu.bit.ex.page.MagazineCriteria;
 import edu.bit.ex.page.NoticeCriteria;
@@ -19,13 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class BoardServiceImpl implements BoardService {
 	private BoardMapper boardMapper;
-
-	// 공지사항 게시판 리스트
-	@Override
-	public List<BoardVO> getNoticeList() {
-		log.info("getNoticeList");
-		return boardMapper.getNoticeList();
-	}
 
 	// 페이징을 적용한 공지사항 게시판 리스트
 	@Override
@@ -78,13 +72,6 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.setNoticeModify(boardVO);
 	}
 
-	// 매거진 게시판 리스트
-	@Override
-	public List<BoardVO> getMagazineList() {
-		log.info("getMagazineList");
-		return boardMapper.getMagazineList();
-	}
-
 	// 페이징을 적용한 매거진 게시판 리스트
 	@Override
 	public List<BoardVO> getMagazineList(MagazineCriteria cri) {
@@ -101,9 +88,23 @@ public class BoardServiceImpl implements BoardService {
 
 	// 매거진 게시판 썸네일
 	@Override
-	public PrdctImageVO getMagazineThumbnail(int board_id) {
+	public List<BoardPrdctImageVO> getMagazineThumbnail(int board_id) {
 		log.info("getMagazineThumbnail");
 		return boardMapper.getMagazineThumbnail(board_id);
+	}
+
+	// 매거진 작성 id 가져오기
+	@Override
+	public MbrVO getMagazineMember(String mbr_id) {
+		log.info("getMagazineMember");
+		return boardMapper.getMagazineMember(mbr_id);
+	}
+
+	// 매거진 작성
+	@Override
+	public void setMagazineWrite(BoardVO boardVO) {
+		log.info("setMagazineWrite");
+		boardMapper.setMagazineWrite(boardVO);
 	}
 
 	// 매거진 게시글
@@ -141,4 +142,12 @@ public class BoardServiceImpl implements BoardService {
 		log.info("setMagazineCommentWrite");
 		boardMapper.setMagazineCommentWrite(boardCommentVO);
 	}
+
+	// 매거진 수정
+	@Override
+	public void setMagazineModify(BoardVO boardVO) {
+		log.info("setMagazineModify");
+		boardMapper.setMagazineModify(boardVO);
+	}
+
 }

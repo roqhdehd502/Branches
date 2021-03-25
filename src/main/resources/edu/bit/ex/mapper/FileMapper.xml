@@ -8,7 +8,7 @@
 	<insert id="saveFile" >
 	<![CDATA[
 		INSERT INTO prdct_image (image_number, image_name, image_path, board_id) 
-		VALUES (prdct_image_seq.nextval, #{uploadfiles}, 'D:/Others/Programming/Project Space/branches/branches_project/src/main/resources/static/prdct_img/', 49)
+		VALUES (prdct_image_seq.nextval, #{uploadfiles}, 'D:/Others/Programming/Project Space/branches/branches_project/src/main/resources/static/prdct_img/', 71)
 	]]>
 	</insert>
 </mapper>
