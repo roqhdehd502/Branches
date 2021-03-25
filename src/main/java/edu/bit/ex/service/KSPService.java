@@ -44,4 +44,6 @@ public interface KSPService {
 
 	public void sellerInfoUpdate(MbrAddressVO mavo);
 
+	public void deleteMbr(MbrAddressVO mavo);
+
 }

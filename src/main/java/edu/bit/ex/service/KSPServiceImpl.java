@@ -119,7 +119,17 @@ public class KSPServiceImpl implements KSPService {
 	@Override
 	public void sellerInfoUpdate(MbrAddressVO mavo) {
 		// TODO Auto-generated method stub
+		log.info("sellerInfoUpdate()......");
 		kspMapper.sellerInfoUpdate(mavo);
+		kspMapper.sellerAddressUpdate(mavo);
+	}
+
+	@Override
+	public void deleteMbr(MbrAddressVO mavo) {
+		// TODO Auto-generated method stub
+		log.info("delete member");
+		kspMapper.deleteMbrAdress(mavo);
+		kspMapper.deleteMbrInfo(mavo);
 	}
 
 }

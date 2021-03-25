@@ -91,7 +91,14 @@
 	<!-- 판매자 정보 수정 -->
 	<update id="sellerInfoUpdate">
 	<![CDATA[
-		update shipping as s, mbr as m set s.shipping_address=#{shipping_address}, m.mbr_pw=#{mbr_pw}, m.mbr_email=#{mbr_email}, m.contact_number=#{contact_number} where m.mbr_id=#{mbr_id} and s.mbr_id=#{mbr_id}
+		update mbr set mbr_name=#{mbr_name}, mbr_pw=#{mbr_pw}, mbr_email=#{mbr_email}, contact_number=#{contact_number}  where mbr_id=#{mbr_id}
+	]]>
+	</update>
+	
+	<!-- 판매자 주소 수정 -->
+	<update id="sellerAddressUpdate">
+	<![CDATA[
+		update shipping set shipping_address=#{shipping_address} where mbr_id=#{mbr_id}
 	]]>
 	</update>
 	

@@ -2,6 +2,7 @@ package edu.bit.ex.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -70,14 +71,14 @@ public class KSPRestController {
 	}
 
 	@PutMapping(value = "/member/{member_id}/mypage/myinfo")
-	public ResponseEntity<String> member_info_modify(@RequestBody MbrVO mbrvo, ModelAndView mav) {
+	public ResponseEntity<String> member_info_modify(@RequestBody MbrVO mbrvo) {
 		ResponseEntity<String> entity = null;
 
 		log.info("rest_update..");
 		try {
 
 			kspService.memberInfoUpdate(mbrvo);
-			log.info("update 넘어온 숫자:::::");
+			log.info("update member info");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 
 		} catch (Exception e) {
@@ -98,14 +99,14 @@ public class KSPRestController {
 	}
 
 	@PutMapping(value = "/seller/{seller_id}/mypage/myinfo")
-	public ResponseEntity<String> seller_info_modify(@RequestBody MbrAddressVO mavo, ModelAndView mav) {
+	public ResponseEntity<String> seller_info_modify(@RequestBody MbrAddressVO mavo) {
 		ResponseEntity<String> entity = null;
 
 		log.info("rest_update..");
 		try {
 
 			kspService.sellerInfoUpdate(mavo);
-			log.info("update 넘어온 숫자:::::");
+			log.info("update seller info");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 
 		} catch (Exception e) {
@@ -114,6 +115,113 @@ public class KSPRestController {
 		}
 
 		return entity;
+	}
+
+	// 관리자 판매자 리스트
+	@RequestMapping(value = "/admin/mypage/seller", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView admin_seller_list(ModelAndView mav) {
+		mav.setViewName("rest_ksp/admin_seller_list");
+		mav.addObject("mbr", kspService.getMemberList(2));
+		return mav;
+	}
+
+	// 관리자 판매자 상세정보
+	@RequestMapping(value = "/admin/mypage/seller/{seller_id}", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView admin_seller_detail(@PathVariable("seller_id") String m_id, ModelAndView mav) {
+		mav.setViewName("rest_ksp/admin_seller");
+		mav.addObject("mbr", kspService.getMemberInfo(m_id));
+		mav.addObject("adr", kspService.getSellerAddress(m_id));
+		return mav;
+	}
+
+	@PutMapping(value = "/admin/mypage/seller/{seller_id}")
+	public ResponseEntity<String> admin_seller_update(@RequestBody MbrAddressVO mavo) {
+		ResponseEntity<String> entity = null;
+
+		log.info("rest_update..");
+		try {
+
+			kspService.sellerInfoUpdate(mavo);
+			log.info("update seller info");
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
+
+	@DeleteMapping("/admin/mypage/seller/{seller_id}")
+	public ResponseEntity<String> seller_delete(MbrAddressVO mavo) {
+		ResponseEntity<String> entity = null;
+		log.info("rest_delete..");
+		try {
+			kspService.deleteMbr(mavo);
+			// 삭제가 성공하면 성공 상태메시지 저장
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			// 댓글 삭제가 실패하면 실패 상태메시지 저장
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		// 삭제 처리 HTTP 상태 메시지 리턴
+		return entity;
+
+	}
+
+	// 관리자 회원 리스트
+	@RequestMapping(value = "/admin/mypage/member", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView admin_member_list(ModelAndView mav) {
+		mav.setViewName("rest_ksp/admin_member_list");
+		mav.addObject("mbr", kspService.getMemberList(3));
+		return mav;
+	}
+
+	// 관리자 회원 상세정보
+	@RequestMapping(value = "/admin/mypage/member/{member_id}", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView admin_member_detail(@PathVariable("member_id") String m_id, ModelAndView mav) {
+		mav.setViewName("rest_ksp/admin_member");
+		mav.addObject("mbr", kspService.getMemberInfo(m_id));
+		return mav;
+	}
+
+	@PutMapping(value = "/admin/mypage/member/{member_id}")
+	public ResponseEntity<String> admin_member_update(@RequestBody MbrVO mbrvo) {
+		ResponseEntity<String> entity = null;
+
+		log.info("rest_update..");
+		try {
+
+			kspService.memberInfoUpdate(mbrvo);
+			log.info("update member info");
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
+
+	@DeleteMapping("/admin/mypage/member/{member_id}")
+	public ResponseEntity<String> member_delete(MbrVO mbrvo) {
+		ResponseEntity<String> entity = null;
+		log.info("rest_delete..");
+		try {
+			// kspService.deleteMbr(mbrvo);
+			// 삭제가 성공하면 성공 상태메시지 저장
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			// 댓글 삭제가 실패하면 실패 상태메시지 저장
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		// 삭제 처리 HTTP 상태 메시지 리턴
+		return entity;
+
 	}
 
 }

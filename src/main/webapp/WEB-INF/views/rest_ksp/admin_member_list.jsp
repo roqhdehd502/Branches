@@ -41,88 +41,6 @@
 								<a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
 							</div>
 						</div>
-						<nav id="menu" class="d-none d-lg-block">
-							<ul>
-								<li class="current-menu-item has-child"><a href="index.html">OUTER</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Coat</a></li>
-							<li><a href="index-2.html">Jarket</a></li>
-							<li><a href="index-3.html">Jumper / Mustang</a></li>
-							<li><a href="index-3.html">Cardigan</a></li>
-							<li><a href="index-3.html">Padding</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">TOP</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">T-shirt</a></li>
-							<li><a href="index-2.html">Blouse / Shirt</a></li>
-							<li><a href="index-3.html">Neat / Sweater</a></li>
-							<li><a href="index-3.html">Hoddie</a></li>
-							<li><a href="index-3.html">Sweater shirt</a></li>
-							<li><a href="index-3.html">Sleeveless</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">BOTTOM</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Denim</a></li>
-							<li><a href="index-2.html">Cotten</a></li>
-							<li><a href="index-3.html">Short</a></li>
-							<li><a href="index-3.html">Slacks</a></li>
-							<li><a href="index-3.html">Training / Jogger</a></li>
-							<li><a href="index-3.html">Leggings</a></li>
-							<li><a href="index-3.html">Skirt</a></li>	
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">Dress</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Mini</a></li>
-							<li><a href="index-2.html">Midi</a></li>
-							<li><a href="index-3.html">Maxi</a></li>
-							<li><a href="index-3.html">Overrall</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">Back</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Backpack</a></li>
-							<li><a href="index-2.html">Messenger / Cross</a></li>
-							<li><a href="index-3.html">Shoulder / Tod</a></li>
-							<li><a href="index-2.html">Eco back</a></li>
-							<li><a href="index-3.html">Clutch</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">Shoes</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Dress shoes</a></li>
-							<li><a href="index-2.html">Boots</a></li>
-							<li><a href="index-3.html">Sandal</a></li>
-							<li><a href="index-2.html">slipper</a></li>
-							<li><a href="index-3.html">Sneakers</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">ETC</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Socks</a></li>
-							<li><a href="index-2.html">Cap</a></li>
-							<li><a href="index-3.html">Acc</a></li>
-						</ul></li>
-					<li>
-						<a href="index.html" style="color: white;">|</a>
-					</li>
-					<li class="current-menu-item has-child"><a href="index.html">BRAND</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Nike</a></li>
-							<li><a href="index-2.html">Thisisneverthat</a></li>
-							<li><a href="index-3.html">Covernat</a></li>
-							<li><a href="index-3.html">AnderssonBell</a></li>
-							<li><a href="index-3.html">Vans</a></li>
-						</ul>
-					</li>
-					<li class="current-menu-item has-child"><a href="index.html">MAGAZINE</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">바로가기</a></li>
-						</ul>
-					</li>
-					<li class="current-menu-item has-child"><a href="index.html" style="margin-right: 38px;">NOTICE</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">바로가기</a></li>
-						</ul>
-					</li>
-							</ul>
-						</nav>
 					</div>
 				</div>
 			</div>
@@ -130,22 +48,10 @@
 
 		<hr style="margin: 15px 15px 40px 15px;">
 
-		<div class="container">
-			<div class="row">
-				<div class="col-md-3 contact-info" align="left" style="padding-left: 40px">
-					<h2>${mem.mbr_name}</h2>
-					<h2>${mem.mbr_id}</h2>
-				</div>
-				<div class="col-md-1 contact-info" align="center" style="padding-top: 20px">
-					<a href="#">정보수정</a>
-				</div>
-				<div class="col-md-6 contact-info"></div>
-				<div class="col-md-2 contact-info" align="center" style="padding-right: 10px">
-					<h2>Point</h2>
-					<h3>${mem.mbr_point}</h3>
-				</div>
-			</div>
-			<span style="margin-left: 14px;"> </span> <span style="margin-left: 400px;" align="center"> </span>
+		<div class="container" style="text-align: center; margin: 25px;">
+			<h3>
+			<strong>관리자 페이지</strong>
+			</h3>
 		</div>
 
 		<hr style="margin: 15px 15px 40px 15px;">
@@ -177,34 +83,34 @@
 					<strong>회원 목록</strong>
 					</h3><hr>
 					
-					<table class="n-table table-col">
+					<table class="n-table table-col" style="width: 100%; border-collapse: separate; border-spacing: 0 10px;">
 						<colgroup>
-							<col style="width: 15%">
-							<col style="width: 20%">
 							<col style="width: 25%">
 							<col style="width: 25%">
-							<col style="width: 15%">
+							<col style="width: 25%">
+							<col style="width: 25%">
 						</colgroup>
 						<thead>
-							<tr style="text-align: center;"> 
-								<th scope="col">ID</th>
-								<th scope="col">회원명</th>
-								<th scope="col">연락처</th>
-								<th scope="col">가입일</th>
-								<th scope="col">조회</th>
+							<tr style="text-align: center; border-bottom: 1px solid #444444;"> 
+								<th scope="col"><h5><strong>회원ID</strong></h5></th>
+								<th scope="col"><h5><strong>회원명</strong></h5></th>
+								<th scope="col"><h5><strong>연락처</strong></h5></th>
+								<th scope="col"><h5><strong>가입일</strong></h5></th>
 							</tr>
 						</thead>
-						
 						<tbody>
 							<c:forEach items="${mbr}" var="mbr">
-							<tr style="text-align: center;"> 
-								<td scope="col">${mbr.mbr_id }</td>
-								<td scope="col">${mbr.mbr_name }</td>
+							<tr style="text-align: center; border-bottom: 10px solid #fff;"> 
+								<td scope="col" >
+								<a href="${pageContext.request.contextPath}/rest_ksp/admin/mypage/member/${mbr.mbr_id}">
+								${mbr.mbr_id }
+								</a></td>
+								<td scope="col" >
+								<a href="${pageContext.request.contextPath}/rest_ksp/admin/mypage/member/${mbr.mbr_id}">
+								${mbr.mbr_name }
+								</a></td>
 								<td scope="col">${mbr.contact_number }</td>
 								<td scope="col">${mbr.jdate }</td>
-								<td scope="col">
-								<button type="button" class="btn btn-primary" onclick="location.href='링크걸기">조회</button>
-								</td>
 							</tr>
 							</c:forEach>
 						</tbody>
