@@ -105,14 +105,14 @@
 							</tr>
 						</thead>
 						<tbody >
-							<c:forEach items="${order }" var="order">
+							<c:forEach items="${order }" var="order" varStatus="status">
 							<tr style="text-align: center;">
 								<td>
-									<h6>[단독]Denim Jaket & Pants</h6>
+									<h6>${prdct[status.index].prdct_name }</h6>
 									<h6>${order.order_size }</h6>
 									<h6>${order.order_color }</h6>
 								</td>
-								<td><h6 style="position: relative; top: 22px;">2021.03.23</h6></td>
+								<td><h6 style="position: relative; top: 22px;">${prdOrder[status.index].order_date }</h6></td>
 								<td style="text-align: center;"><h6 style="position: relative; top: 22px;">${order.order_number }</h6></td>
 								<td>
 									<h6 style="position: relative; top: 22px; text-align: center;">발송전</h6>

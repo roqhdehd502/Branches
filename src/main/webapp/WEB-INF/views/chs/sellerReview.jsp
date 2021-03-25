@@ -67,12 +67,11 @@
 				<div class="col-md-2 contact-info" align="center">
 					<div class="single-info" style="margin-bottom: 40px">
 	                    <h3>주문 관리</h3><hr>
-	                    <h5><a href="#">전체</a></h5>
-	                    <h5><a href="#">주문확인</a></h5>
-	                    <h5><a href="#">발송확인</a></h5>
-	                    <h5><a href="#">취소</a></h5>
-	                    <h5><a href="#">교환</a></h5>
-	                    <h5><a href="#">환불</a></h5>
+	            	    <h5><a href="/member/sellerorderCheck">주문확인</a></h5>
+	                    <h5><a href="/member/sellerdeleCheck">발송확인</a></h5>
+	                    <h5><a href="/member/sellercancelCheck">취소</a></h5>
+	                    <h5><a href="/member/sellerchangeCheck">교환</a></h5>
+	                    <h5><a href="/member/sellercancelList">환불</a></h5>
 	                </div>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>상품 관리</h3><hr>
@@ -82,12 +81,12 @@
 	                </div>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>회원 관리</h3><hr>
-	                    <h5><a href="#">Q&A</a></h5>
-	                    <h5><a href="#">리뷰</a></h5>
+	                    <h5><a href="/member/sellerQnA">Q&A</a></h5>
+	                    <h5><a href="/member/sellerReview">리뷰</a></h5>
 	                </div>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>매출 관리</h3><hr>
-	                    <h5><a href="#">매출</a></h5>
+	                    <h5><a href="/member/sellertotal">매출</a></h5>
 	                </div>
 				</div>
 
@@ -95,7 +94,30 @@
 					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px;">
 						<strong style="margin: 10px;">Review</strong>
 					</h3>
-					
+					<table class="table" style="text-align: center;">
+						<thead>
+							<tr>
+								<th><h5>No.</h5></th>
+								<th><h5>제목</h5></th>
+								<th><h5>작성자</h5></th>
+								<th><h5>상품명</h5></th>
+								<th><h5>일자</h5></th>
+							</tr>
+						</thead>
+						<tbody>
+						<c:forEach items="${ board}" var="board" varStatus="status">
+							<tr>
+								<td>
+									<h6>${board.board_id }</h6>
+								</td>
+								<td><h6><a href="#">${board.board_name }</a></h6></td>
+								<td><h6>${board.mbr_id }</h6></td>
+								<td><h6 >${prdct[status.index].prdct_name }</h6></td>
+								<td><h6>${board.board_date }</h6></td>
+							</tr>
+						</c:forEach>
+						</tbody>
+					</table>
 				<hr>
 			</div>
 		</div>

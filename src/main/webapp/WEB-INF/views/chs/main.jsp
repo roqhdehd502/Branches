@@ -25,7 +25,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-6 col-sm-3 logo-column">
-					<a href="index.html" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
+					<a href="/member/main" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
 					</a>
 				</div>
 				<div class="col-6 col-sm-9 nav-column clearfix">
@@ -191,18 +191,19 @@
 					 <div class="team-area sp">
 							<div class="container">
 								<div class="row">
-								<c:forEach items="${prdct }" var="prdct">
+								<c:forEach items="${prdct }" var="prdct" varStatus="status" begin="0" end="7">
 									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 										<div class="inner">
+											<a href="#" style="text-decoration: none;">
 											<div class="team-img">
-												<img src="/hs/5.jpg" alt="Member Photo">
+												<img src="/hs/5.jpg">
 											</div>
 											<div class="team-content">
-												<h4>브랜드명</h4>
+												<h4>${member[status.index].mbr_name }</h4>
 												<h5>${prdct.prdct_name}</h5>
-												<h5>${prdct.prdct_price}</h5>
-												<h6><del>1,230,000₩</del></h6>
-											</div>
+												<h5>${prdct.prdct_price}₩</h5>
+												<h6><del>${prdct.prdct_price *2}₩</del></h6>
+											</div></a>
 										</div>
 									</div>
 									</c:forEach>
@@ -219,18 +220,19 @@
 					 <div class="team-area sp">
 							<div class="container">
 								<div class="row">
-									<c:forEach items="${prdct }" var="prdct">
+									<c:forEach items="${prdct }" var="prdct" begin="0" end="7" varStatus="status">
 									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 										<div class="inner">
+										<a href="#" style="text-decoration: none;">
 											<div class="team-img">
-												<img src="/hs/5.jpg" alt="Member Photo">
+												<img src="/hs/8.jpg" alt="Member Photo">
 											</div>
 											<div class="team-content">
-												<h4>브랜드명</h4>
+												<h4>${member[status.index].mbr_name }</h4>
 												<h5>${prdct.prdct_name}</h5>
-												<h5>${prdct.prdct_price}</h5>
-												<h6><del>1,230,000₩</del></h6>
-											</div>
+												<h5>${prdct.prdct_price}₩</h5>
+												<h6><del>${prdct.prdct_price *2}₩</del></h6>
+											</div></a>
 										</div>
 									</div>
 									</c:forEach>
@@ -245,6 +247,7 @@
 							<p>Branches가 여러분들 위해 준비했습니다~ 남들보다 빠른 봄을 준비해보세요!</p>
 						</div>
 						<div class="testimonial-slider bordered">
+						<c:forEach begin="0" end="5">
 							<div class="single-slide">
 								<div class="inner">
 									<a href="#">
@@ -257,58 +260,7 @@
 									</a>
 								</div>
 							</div>
-							
-							<div class="single-slide">
-								<div class="inner">
-									<a href="#">
-									<div class="client-info">
-										<div class="client-data">
-											<img src="/hs/10.jpg" style="width: 100%; height: 120px;">	
-											<h4>나이키 특별 세일!</h4>
-										</div>
-									</div>
-									</a>
-								</div>
-							</div>
-							
-							<div class="single-slide">
-								<div class="inner">
-									<a href="#">
-									<div class="client-info">
-										<div class="client-data">
-											<img src="/hs/10.jpg" style="width: 100%; height: 120px;">	
-											<h4>나이키 특별 세일!</h4>
-										</div>
-									</div>
-									</a>
-								</div>
-							</div>
-
-							<div class="single-slide">
-								<div class="inner">
-									<a href="#">
-									<div class="client-info">
-										<div class="client-data">
-											<img src="/hs/10.jpg" style="width: 100%; height: 120px;">	
-											<h4>나이키 특별 세일!</h4>
-										</div>
-									</div>
-									</a>
-								</div>
-							</div>
-							
-							<div class="single-slide">
-								<div class="inner">
-									<a href="#">
-									<div class="client-info">
-										<div class="client-data">
-											<img src="/hs/10.jpg" style="width: 100%; height: 120px;">	
-											<h4>나이키 특별 세일!</h4>
-										</div>
-									</div>
-									</a>
-								</div>
-							</div>
+						</c:forEach>					
 						</div>
 					</div>
 				</div><br/><br/>
@@ -319,30 +271,26 @@
 							<p>무엇을 입어야 할지 고민이라구요?? Branches MD분들이 매주 여러분들을 위해 Best상품을 추천해드립니다!</p>
 						</div>
 						<div class="row">
-							<c:forEach items="${prdct}" var="prdct">
-							<div class="single-portfolio col-md-4">
-								<div class="inner">
-									<div class="portfolio-img">
-										<img src="/hs/6.jpg" alt="portfolio-image">
-										<div class="hover-content">
-											<div>
-												<a href="#" class="button">더보기</a>
+							<c:forEach items="${prdct }" var="prdct" begin="0" end="8" varStatus="status">
+								<div class="col-md-4 single-team">
+									<div class="inner">
+										<a href="#" style="text-decoration: none;">
+											<div class="team-img">
+												<img src="/hs/7.jpg" alt="Member Photo">
 											</div>
-										</div>
-									</div>
-									<div class="portfolio-content">
-										<h4>브랜드명</h4>
-										<h5>${prdct.prdct_name}</h5>
-										<h5>${prdct.prdct_price}</h5>
-										<h6><del>1,230,000₩</del></h6>
+											<div class="team-content">
+												<h4>${member[status.index].mbr_name }</h4>
+												<h5>${prdct.prdct_name}</h5>
+												<h5>${prdct.prdct_price}₩</h5>
+												<h6>
+													<del>${prdct.prdct_price *2}₩</del>
+												</h6>
+											</div>
+										</a>
 									</div>
 								</div>
-							</div>
 							</c:forEach>
-							
-							
-							
-					</div>
+						</div>
 				</div>
 		</section>
 		
