@@ -195,7 +195,7 @@
 					</div>
 				</div>
 				<div style="text-align: center;">
-					<button type="button" class="btn btn-primary">결제하기</button>
+					<button type="submit" class="btn btn-primary"><a class="order-bnt" onclick="location.href='${pageContext.request.contextPath}/ej/nmcheck' ">결제하기</a></button>
 				</div>
 				<br /> <br />
 			</fieldset>

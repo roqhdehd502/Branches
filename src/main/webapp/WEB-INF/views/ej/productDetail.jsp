@@ -393,10 +393,10 @@ $('.star-prototype').generateStars();
 								<!--  구매 버튼 및 찜하기  -->
 								<div class="row">
 									<div style="float: left; width: 30%; padding-left: 20px">
-										<button type="button" class="btn btn-primary">바로구매</button> <!-- 회원은 주문확인페이지, 비회원은 주문정보 입력 페이지로 연결.. -->
+										<button type="submit" class="btn btn-primary"><a onclick="location.href='${pageContext.request.contextPath}/ej/cart'">바로구매</a></button> <!-- 회원은 주문확인페이지, 비회원은 주문정보 입력 페이지로 연결.. -->
 									</div>
 									<div style="float: left; width: 30%; padding-left: 20px"> <!-- 상품정보를 저장해서 장바구니로 이동 -->
-										<button type="button" class="btn btn-primary"><a onclick="location.href='${pageContext.request.contextPath}/ej/cart'">장바구니</a></button>
+										<button type="submit" class="btn btn-primary"><a onclick="location.href='${pageContext.request.contextPath}/ej/cart'">장바구니</a></button>
 									</div>
 									<div class="icon" style="float: left; padding-left: 20px; padding-top: 10px;">
 										<i class="fa fa-heart-o fa-2x"> 찜하기</i>
