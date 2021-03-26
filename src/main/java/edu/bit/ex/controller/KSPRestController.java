@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import edu.bit.ex.page.Criteria;
-import edu.bit.ex.page.PageVO;
-import edu.bit.ex.service.KSPService;
+import edu.bit.ex.page.MemberCriteria;
+import edu.bit.ex.page.MemberPageVO;
+import edu.bit.ex.page.PrdctListCriteria;
+import edu.bit.ex.page.PrdctListPageVO;
+import edu.bit.ex.service.KSPRestService;
 import edu.bit.ex.vo.MbrAddressVO;
 import edu.bit.ex.vo.MbrVO;
 import lombok.AllArgsConstructor;
@@ -25,39 +27,39 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/rest_ksp/*")
 public class KSPRestController {
 
-	private KSPService kspService;
+	private KSPRestService kspService;
 
 	// 전체 상품리스트
 	@RequestMapping(value = "/prdct_list", method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView prdct_list(ModelAndView mav, Criteria cri) {
+	public ModelAndView prdct_list(ModelAndView mav, PrdctListCriteria cri) {
 		mav.setViewName("rest_ksp/prdct_list");
 		mav.addObject("prdct", kspService.getPrdctListWithCri(cri));
 		int total = kspService.getTotalCount(cri);
-		mav.addObject("pageMaker", new PageVO(cri, total));
+		mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
 		log.info("total : " + total);
 		return mav;
 	}
 
 	// 카테고리별 상품리스트
 	@RequestMapping(value = "/category/{category_id}", method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView category_prdct_list(@PathVariable("category_id") int c_id, ModelAndView mav, Criteria cri) {
+	public ModelAndView category_prdct_list(@PathVariable("category_id") int c_id, PrdctListCriteria cri, ModelAndView mav) {
 		mav.setViewName("rest_ksp/category_prdct_list");
 		mav.addObject("prdct", kspService.getCategoryPrdctListWithCri(cri, c_id));
 		mav.addObject("category", kspService.getCategory(c_id));
 		int total = kspService.getCategoryTotalCount(cri, c_id);
-		mav.addObject("pageMaker", new PageVO(cri, total));
+		mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
 		log.info("total : " + total);
 		return mav;
 	}
 
 	// 브랜드별 상품리스트
 	@RequestMapping(value = "/brand/{brand_id}", method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView brand_prdct_list(@PathVariable("brand_id") String b_id, ModelAndView mav, Criteria cri) {
+	public ModelAndView brand_prdct_list(@PathVariable("brand_id") String b_id, PrdctListCriteria cri, ModelAndView mav) {
 		mav.setViewName("rest_ksp/brand_prdct_list");
 		mav.addObject("mbr", kspService.getMemberInfo(b_id));
 		mav.addObject("prdct", kspService.getBrandPrdctListWithCri(cri, b_id));
 		int total = kspService.getBrandTotalCount(cri, b_id);
-		mav.addObject("pageMaker", new PageVO(cri, total));
+		mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
 		log.info("total : " + total);
 		return mav;
 	}
@@ -117,11 +119,15 @@ public class KSPRestController {
 		return entity;
 	}
 
+	////////////////////////////////////////////////////
+
 	// 관리자 판매자 리스트
 	@RequestMapping(value = "/admin/mypage/seller", method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView admin_seller_list(ModelAndView mav) {
+	public ModelAndView admin_seller_list(ModelAndView mav, MemberCriteria cri) {
 		mav.setViewName("rest_ksp/admin_seller_list");
-		mav.addObject("mbr", kspService.getMemberList(2));
+		mav.addObject("mbr", kspService.getMemberListWithPaging(2, cri));
+		int total = kspService.getBrandTotalCount(2, cri);
+		mav.addObject("pageMaker", new MemberPageVO(cri, total));
 		return mav;
 	}
 
@@ -131,6 +137,18 @@ public class KSPRestController {
 		mav.setViewName("rest_ksp/admin_seller");
 		mav.addObject("mbr", kspService.getMemberInfo(m_id));
 		mav.addObject("adr", kspService.getSellerAddress(m_id));
+		return mav;
+	}
+
+	// 관리자 판매자 상품리스트
+	@RequestMapping(value = "/admin/mypage/seller/{seller_id}/prdct", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView admin_seller_prdctlist(@PathVariable("seller_id") String m_id, PrdctListCriteria cri, ModelAndView mav) {
+		mav.setViewName("rest_ksp/brand_prdct_list");
+		mav.addObject("mbr", kspService.getMemberInfo(m_id));
+		mav.addObject("prdct", kspService.getSellerPrdctListWithCri(cri, m_id));
+		int total = kspService.getSellerotalCount(cri, m_id);
+		mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
+		log.info("total : " + total);
 		return mav;
 	}
 

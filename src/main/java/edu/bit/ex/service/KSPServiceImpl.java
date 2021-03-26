@@ -5,7 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import edu.bit.ex.mapper.KSPMapper;
-import edu.bit.ex.page.Criteria;
+import edu.bit.ex.page.MemberCriteria;
+import edu.bit.ex.page.PrdctListCriteria;
 import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.InquiryVO;
 import edu.bit.ex.vo.MbrAddressVO;
@@ -60,27 +61,27 @@ public class KSPServiceImpl implements KSPService {
 	// =====================================================
 
 	@Override
-	public List<PrdctVO> getPrdctListWithCri(Criteria cri) {
+	public List<PrdctVO> getPrdctListWithCri(PrdctListCriteria cri) {
 		// TODO Auto-generated method stub
 		log.info("getListWithPaging()......");
 		return kspMapper.getPrdctListWithPaging(cri);
 	}
 
 	@Override
-	public int getTotalCount(Criteria cri) {
+	public int getTotalCount(PrdctListCriteria cri) {
 		// TODO Auto-generated method stub
 		log.info("getTotal()......");
 		return kspMapper.getTotalCount(cri);
 	}
 
 	@Override
-	public List<PrdctVO> getCategoryPrdctListWithCri(Criteria cri, int c_id) {
+	public List<PrdctVO> getCategoryPrdctListWithCri(PrdctListCriteria cri, int c_id) {
 		// TODO Auto-generated method stub
 		return kspMapper.getCategoryPrdctList(cri, c_id);
 	}
 
 	@Override
-	public int getCategoryTotalCount(Criteria cri, int c_id) {
+	public int getCategoryTotalCount(PrdctListCriteria cri, int c_id) {
 		// TODO Auto-generated method stub
 		return kspMapper.getCategoryTotalCount(cri, c_id);
 	}
@@ -92,13 +93,13 @@ public class KSPServiceImpl implements KSPService {
 	}
 
 	@Override
-	public List<PrdctVO> getBrandPrdctListWithCri(Criteria cri, String b_id) {
+	public List<PrdctVO> getBrandPrdctListWithCri(PrdctListCriteria cri, String b_id) {
 		// TODO Auto-generated method stub
 		return kspMapper.getBrandPrdctList(cri, b_id);
 	}
 
 	@Override
-	public int getBrandTotalCount(Criteria cri, String b_id) {
+	public int getBrandTotalCount(PrdctListCriteria cri, String b_id) {
 		// TODO Auto-generated method stub
 		return kspMapper.getBrandTotalCount(cri, b_id);
 	}
@@ -130,6 +131,31 @@ public class KSPServiceImpl implements KSPService {
 		log.info("delete member");
 		kspMapper.deleteMbrAdress(mavo);
 		kspMapper.deleteMbrInfo(mavo);
+	}
+
+	@Override
+	public List<MbrVO> getMemberListWithPaging(int auth, MemberCriteria cri) {
+		// TODO Auto-generated method stub
+		return kspMapper.getMemberListWithPaging(auth, cri);
+	}
+
+	@Override
+	public int getSellerTotalCount(int auth, MemberCriteria cri) {
+		// TODO Auto-generated method stub
+		return kspMapper.getSellerTotalCount(auth, cri);
+	}
+
+	@Override
+	public List<PrdctVO> getSellerPrdctListWithCri(PrdctListCriteria cri, String m_id) {
+		// TODO Auto-generated method stub
+		return kspMapper.getSellerPrdctListWithCri(cri, m_id);
+	}
+
+	@Override
+	public int getSellerotalCount(PrdctListCriteria cri, String m_id) {
+		// TODO Auto-generated method stub
+		String b_id = m_id;
+		return kspMapper.getBrandTotalCount(cri, b_id);
 	}
 
 }
