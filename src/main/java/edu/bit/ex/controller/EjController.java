@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.bit.ex.page.PrdQnACriteria;
+import edu.bit.ex.page.PrdQnAPageVO;
 import edu.bit.ex.service.EjService;
 import edu.bit.ex.vo.CartVO;
 import lombok.AllArgsConstructor;
@@ -22,17 +24,38 @@ public class EjController {
 	private EjService ejService;
 
 	// 상품 상세페이지
-	@GetMapping("/prd/{prdc_id}")
-	public ModelAndView ProductDetail(@PathVariable("prdc_id") String p_id, ModelAndView mav) throws Exception {
+	@GetMapping("/prd/{prdct_id}")
+	public ModelAndView ProductDetail(@PathVariable("prdct_id") String p_id, PrdQnACriteria cri, ModelAndView mav) throws Exception {
 
 		log.info("product..");
 		mav.setViewName("ej/productDetail");
 		mav.addObject("productDetail", (ejService.getProductDetail(p_id)));
 		mav.addObject("productInfo", (ejService.getProductInfo(p_id)));
-		/* mav.addObject("productQna", (ejService.productQna(p_id))); */
+
+		log.info("prdQnAList...");
+		log.info(cri.toString());
+
+		mav.addObject("prdQnAList", ejService.getPrdQnAList(cri, p_id));
+
+		int total = ejService.getPrdQnATotal(cri);
+		log.info("total" + total);
+		mav.addObject("pageMaker", new PrdQnAPageVO(cri, total));
 
 		return mav;
 	}
+
+	/*
+	 * @PutMapping(value = "/prd/{prdc_id}") public ResponseEntity<String> ProductDetail(@RequestBody PrdctVO prdctVO) { ResponseEntity<String> entity
+	 * = null;
+	 * 
+	 * log.info("rest_update.."); try {
+	 * 
+	 * ejService.PrdDetailCartIn(prdctVO); log.info("PrdDetailCartIn"); entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+	 * 
+	 * } catch (Exception e) { e.printStackTrace(); entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST); }
+	 * 
+	 * return entity; }
+	 */
 
 	@GetMapping("/main")
 	public String Main(Model model) throws Exception {
@@ -116,11 +139,12 @@ public class EjController {
 	}
 
 	@GetMapping("/prdqna")
-	public String ProductQnARegister(Model model) throws Exception {
-		log.debug("productQnARegister");
+	public ModelAndView ProductQnARegister(ModelAndView mav) throws Exception {
 		log.info("productQnARegister..");
+		mav.setViewName("ej/productQnARegister");
+		mav.addObject("ProductQnARegister", (ejService.getProductQnARegister(p_id)));
 
-		return "ej/productQnARegister";
+		return mav;
 	}
 
 }
