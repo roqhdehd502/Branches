@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.mapper.BoardMapper;
+import edu.bit.ex.page.MagazineCommentCriteria;
 import edu.bit.ex.page.MagazineCriteria;
 import edu.bit.ex.page.NoticeCriteria;
+import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctImageVO;
@@ -122,11 +124,29 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.magazineUpLike(board_id);
 	}
 
-	// 매거진 게시글 댓글 리스트
+	// 매거진 게시글 댓글 수
+	@Override
+	public BoardCommentVO getMagazineCommentCnt(String mbr_id, int board_id) {
+		log.info("getMagazineCommentCnt");
+		return boardMapper.getMagazineCommentCnt(mbr_id, board_id);
+	}
+
+	// 페이징을 적용한 매거진 게시글 댓글 리스트
 	@Override
 	public List<BoardBoardCommentVO> getMagazineComment(String mbr_id, int board_id) {
-		log.info("getMagazineComment");
+		log.info("getMagazineComment WITH criteria: ");
 		return boardMapper.getMagazineComment(mbr_id, board_id);
+	}
+	/*
+	 * @Override public List<BoardBoardCommentVO> getMagazineComment(String mbr_id, int board_id, MagazineCommentCriteria cri) {
+	 * log.info("getMagazineComment WITH criteria: " + cri); return boardMapper.getMagazineComment(mbr_id, board_id, cri); }
+	 */
+
+	// 페이징 단위에 적용되는 최대 매거진 게시글 댓글 단위
+	@Override
+	public int getMagazineCommentTotal(MagazineCommentCriteria cri) {
+		log.info("getMagazineCommentTotal WITH criteria: " + cri);
+		return boardMapper.getMagazineCommentTotalCount(cri);
 	}
 
 	// 매거진 게시글 댓글 작성

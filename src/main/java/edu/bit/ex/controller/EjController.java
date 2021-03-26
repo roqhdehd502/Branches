@@ -142,7 +142,7 @@ public class EjController {
 	public ModelAndView ProductQnARegister(ModelAndView mav) throws Exception {
 		log.info("productQnARegister..");
 		mav.setViewName("ej/productQnARegister");
-		mav.addObject("ProductQnARegister", (ejService.getProductQnARegister(p_id)));
+		// mav.addObject("ProductQnARegister", (ejService.getProductQnARegister(p_id)));
 
 		return mav;
 	}

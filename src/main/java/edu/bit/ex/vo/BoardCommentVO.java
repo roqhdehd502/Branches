@@ -25,4 +25,6 @@ public class BoardCommentVO { // 게시판댓글
 	private String mbr_id; // 회원id fk
 	private String comment_content; // 댓글내용
 	private Date comment_date; // 댓글작성일자
+
+	private int comment_count; // 댓글 개수(Only VO)
 }

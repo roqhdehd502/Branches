@@ -48,31 +48,6 @@
 				})
 			});	
 		});	
-	</script>	
-	
-	<!-- 매거진 게시글 삭제 -->
-	<script type="text/javascript">
-		$(document).ready(function (){
-			$('#delete').click(function(event){
-				event.preventDefault();
-				console.log("ajax 호출전");		
-	 
-				$.ajax({
-					type : 'DELETE',
-					url : $(this).attr("href"),
-					cache : false,
-					success: function(result){
-						console.log(result);
-						if(result=="SUCCESS"){
-							$(location).attr('href', '${pageContext.request.contextPath}/board/magazine')
-						}
-					},
-					error:function(e){
-						console.log(e);
-					}
-				})
-			});	
-		});	
 	</script>
 	
 	<!-- 매거진 댓글 작성 -->
@@ -80,12 +55,12 @@
 	   	$(document).ready(function(){
 	      $("#commentWriteForm").submit(function(event){         
 	           event.preventDefault();
-	           var board_id = $("board_id").val();
 	           var mbr_id = $("#mbr_id").val();
+	           var board_id = $("#board_id").val();
 	           var comment_content = $("#comment_content").val();
 	           
-	           console.log(board_id);
 	           console.log(mbr_id);
+	           console.log(board_id);
 	           console.log(comment_content);
 	           console.log($(this).attr("action"));    
 	           
@@ -112,6 +87,31 @@
 	         })            
 	       });       
 	   	});
+	</script>		
+	
+	<!-- 매거진 게시글 삭제 -->
+	<script type="text/javascript">
+		$(document).ready(function (){
+			$('#delete').click(function(event){
+				event.preventDefault();
+				console.log("ajax 호출전");		
+	 
+				$.ajax({
+					type : 'DELETE',
+					url : $(this).attr("href"),
+					cache : false,
+					success: function(result){
+						console.log(result);
+						if(result=="SUCCESS"){
+							$(location).attr('href', '${pageContext.request.contextPath}/board/magazine')
+						}
+					},
+					error:function(e){
+						console.log(e);
+					}
+				})
+			});	
+		});	
 	</script>	
 </head>
 <body>
@@ -282,6 +282,18 @@
 			
 			<!-- 댓글 불러오기 -->
 			<div class="container">
+				<div class="container">
+					<div class="row" style="padding: 3% 3% 3% 3%">
+						<div class="col-md-5" align="center">
+						</div>
+						<div class="col-md-2" align="center" style="border: 1px solid #e5e5e5; padding-top: 1%">
+							<h4>댓글</h4>
+							<h4>${magazine_comment_cnt.comment_count}</h4>
+						</div>
+						<div class="col-md-5" align="center">
+						</div>
+					</div>
+				</div>
 				<c:forEach items="${magazine_comment}" var="magazine_comment">
 				<div class="row" style="margin: 1% 3% 1% 3%; padding: 1% 3% 1% 3%; border: 1px solid #E5E5E5;">
 					<div class="col-md-8" align="left">
@@ -293,6 +305,30 @@
 				</div>
 				</c:forEach>
 			</div>
+			
+			<!-- 댓글 페이징 -->
+			<%-- <div class="container">
+				<ul class="pagination justify-content-center">			
+				<c:if test="${pageMaker.prev}">
+				<li class="page-item">
+					<a class="page-link" href="magazine/${magazine_content.board_id}${pageMaker.makeQuery(pageMaker.startPage - 1)}">&laquo;</a>
+				</li>
+				</c:if>
+				
+				<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+					<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+					<li class="page-item">
+						<a class="page-link" href="magazine/${magazine_content.board_id}${pageMaker.makeQuery(idx)}">${idx}</a>
+					</li>
+				</c:forEach>
+						
+				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+				<li class="page-item">
+					<a class="page-link" href="magazine/${magazine_content.board_id}${pageMaker.makeQuery(pageMaker.endPage +1)}">&raquo;</a>
+				</li>
+				</c:if>
+				</ul>
+			</div> --%>
 		</div>
 	<!-- </div> -->
 

@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
+import edu.bit.ex.page.MagazineCommentCriteria;
 import edu.bit.ex.page.MagazineCriteria;
 import edu.bit.ex.page.MagazinePageVO;
 import edu.bit.ex.page.NoticeCriteria;
@@ -169,15 +170,23 @@ public class BoardController {
 	// 매거진 게시글
 	@Transactional
 	@GetMapping("/magazine/{board_id}")
-	public ModelAndView magazineContent(MbrVO mbrVO, BoardVO boardVO, ModelAndView mav) {
+	public ModelAndView magazineContent(MbrVO mbrVO, BoardVO boardVO, MagazineCommentCriteria cri, ModelAndView mav) {
 		log.info("magazineContent...");
 		mav.setViewName("board/magazine_content");
 		// 매거진 내용
 		mav.addObject("magazine_content", boardService.getMagazineContent(boardVO.getBoard_id()));
 		// 매거진 사진
 		mav.addObject("magazine_img", boardService.getMagazineImage(boardVO.getBoard_id()));
-		// 매거진 댓글 불러오기
+		// 매거진 댓글 수 불러오기
+		mav.addObject("magazine_comment_cnt", boardService.getMagazineCommentCnt(mbrVO.getMbr_id(), boardVO.getBoard_id()));
+		// 페이징을 적용한 매거진 댓글 불러오기
 		mav.addObject("magazine_comment", boardService.getMagazineComment(mbrVO.getMbr_id(), boardVO.getBoard_id()));
+		/* mav.addObject("magazine_comment", boardService.getMagazineComment(mbrVO.getMbr_id(), boardVO.getBoard_id(), cri)); */
+
+		/*
+		 * int total = boardService.getMagazineCommentTotal(cri); log.info("total" + total); mav.addObject("pageMaker", new MagazineCommentPageVO(cri,
+		 * total));
+		 */
 		return mav;
 	}
 
@@ -198,7 +207,7 @@ public class BoardController {
 	}
 
 	// 매거진 게시글 댓글 작성
-	@PostMapping("/magazine/{board_id}")
+	@PostMapping("magazine/{board_id}")
 	public ResponseEntity<String> magazineCommentWrite(@RequestBody BoardBoardCommentVO boardBoardCommentVO, ModelAndView modelAndView) {
 		ResponseEntity<String> entity = null;
 

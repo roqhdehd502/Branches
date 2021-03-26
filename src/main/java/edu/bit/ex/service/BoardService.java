@@ -4,8 +4,10 @@ import java.util.List;
 
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
+import edu.bit.ex.page.MagazineCommentCriteria;
 import edu.bit.ex.page.MagazineCriteria;
 import edu.bit.ex.page.NoticeCriteria;
+import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctImageVO;
@@ -53,8 +55,15 @@ public interface BoardService {
 	// 매거진 게시글 추천
 	public int magazineUpLike(int board_id);
 
-	// 매거진 게시글 댓글 리스트
+	// 매거진 게시글 댓글 수
+	public BoardCommentVO getMagazineCommentCnt(String mbr_id, int board_id);
+
+	// 페이징을 적용한 매거진 게시글 댓글 리스트
 	public List<BoardBoardCommentVO> getMagazineComment(String mbr_id, int board_id);
+	/* public List<BoardBoardCommentVO> getMagazineComment(String mbr_id, int board_id, MagazineCommentCriteria cri); */
+
+	// 페이징 단위에 적용되는 최대 매거진 게시글 댓글 단위
+	public int getMagazineCommentTotal(MagazineCommentCriteria cri);
 
 	// 매거진 게시글 댓글 작성
 	public void setMagazineCommentWrite(BoardBoardCommentVO boardBoardCommentVO);
