@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.page.MagazineCriteria;
 import edu.bit.ex.page.MagazinePageVO;
 import edu.bit.ex.page.NoticeCriteria;
 import edu.bit.ex.page.NoticePageVO;
 import edu.bit.ex.service.BoardService;
-import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import lombok.AllArgsConstructor;
@@ -199,12 +199,12 @@ public class BoardController {
 
 	// 매거진 게시글 댓글 작성
 	@PostMapping("/magazine/{board_id}")
-	public ResponseEntity<String> magazineCommentWrite(@RequestBody BoardCommentVO boardCommentVO, ModelAndView modelAndView) {
+	public ResponseEntity<String> magazineCommentWrite(@RequestBody BoardBoardCommentVO boardBoardCommentVO, ModelAndView modelAndView) {
 		ResponseEntity<String> entity = null;
 
 		log.info("magazineCommentWrite...");
 		try {
-			boardService.setMagazineCommentWrite(boardCommentVO);
+			boardService.setMagazineCommentWrite(boardBoardCommentVO);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -2,10 +2,10 @@ package edu.bit.ex.service;
 
 import java.util.List;
 
+import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.page.MagazineCriteria;
 import edu.bit.ex.page.NoticeCriteria;
-import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctImageVO;
@@ -54,10 +54,10 @@ public interface BoardService {
 	public int magazineUpLike(int board_id);
 
 	// 매거진 게시글 댓글 리스트
-	public List<BoardCommentVO> getMagazineComment(String mbr_id, int board_id);
+	public List<BoardBoardCommentVO> getMagazineComment(String mbr_id, int board_id);
 
 	// 매거진 게시글 댓글 작성
-	public void setMagazineCommentWrite(BoardCommentVO boardCommentVO);
+	public void setMagazineCommentWrite(BoardBoardCommentVO boardBoardCommentVO);
 
 	// 매거진 수정
 	public void setMagazineModify(BoardVO boardVO);

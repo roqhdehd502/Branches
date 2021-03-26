@@ -97,8 +97,6 @@
 	]]>	
 	</select>
 	
-	
-	
 	<!-- 매거진 작성 id 가져오기(스프링 시큐리티때 수정할것) -->
 	<select id="getMagazineMember" resultType="edu.bit.ex.vo.MbrVO">
 	<![CDATA[
@@ -154,19 +152,16 @@
 	</update>
 	
 	<!-- 매거진 게시글 댓글 리스트 -->
-	<resultMap id="magazineContentCommentMap" type="edu.bit.ex.vo.BoardCommentVO">
+	<resultMap id="magazineContentCommentMap" type="edu.bit.ex.joinvo.BoardBoardCommentVO">
+	    <result property="board_id" column="comment_id"/>
 	    <result property="comment_id" column="comment_id"/>
 	    <result property="comment_content" column="comment_content"/>
 	    <result property="comment_date" column="comment_date"/>
 		<collection property="mbr_id" resultMap="magazineCommentMemberMap"></collection>
-		<collection property="board_id" resultMap="magazineCommentContentMap"></collection>
 	</resultMap>
 	<resultMap id="magazineCommentMemberMap" type="edu.bit.ex.vo.MbrVO">
 		<result property="mbr_id" column="mbr_id"/>
 	</resultMap>	
-	<resultMap id="magazineCommentContentMap" type="edu.bit.ex.vo.BoardVO">
-		<result property="board_id" column="board_id"/>
-	</resultMap>
 	<select id="getMagazineComment" resultMap="magazineContentCommentMap">
 		SELECT c.comment_id, c.comment_content, c.comment_date 
 		FROM board_comment c, mbr m, board b 
