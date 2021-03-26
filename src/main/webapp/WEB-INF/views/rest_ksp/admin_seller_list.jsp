@@ -116,8 +116,50 @@
 						</tbody>
 					</table>
 					
-					<hr>
+					<br>
+					<hr>	
+
+					<div  >
+						<ul class="pagination" style="align-content: center;">
+							<c:choose>
+								<c:when test="${pageMaker.prev}">
+									<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item  disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+								</c:otherwise>
+							</c:choose>
+
+							<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+								<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+								<li class="page-item active"><a class="page-link" href="${pageMaker.makeQuery(idx)}">${idx}</a></li>
+							</c:forEach>
+							
+							<c:choose>
+							<c:when test="${pageMaker.next && pageMaker.endPage > 0}">
+								<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+							</c:otherwise>
+							</c:choose>
+						</ul>
+					</div>
 					
+
+					<div>
+						<ul class="pagination">
+							<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+							<li class="page-item active"><a class="page-link" href="#">1</a></li>
+							<li class="page-item"><a class="page-link" href="#">2</a></li>
+							<li class="page-item"><a class="page-link" href="#">3</a></li>
+							<li class="page-item"><a class="page-link" href="#">4</a></li>
+							<li class="page-item"><a class="page-link" href="#">5</a></li>
+							<li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+						</ul>
+					</div>
+
+
 				</div>
 				
 				

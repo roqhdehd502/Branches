@@ -3,6 +3,7 @@ package edu.bit.ex.service;
 import java.util.List;
 
 import edu.bit.ex.page.Criteria;
+import edu.bit.ex.page.MemberCriteria;
 import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.InquiryVO;
 import edu.bit.ex.vo.MbrAddressVO;
@@ -45,5 +46,9 @@ public interface KSPService {
 	public void sellerInfoUpdate(MbrAddressVO mavo);
 
 	public void deleteMbr(MbrAddressVO mavo);
+
+	public List<MbrVO> getMemberListWithPaging(int auth, MemberCriteria cri); // 회원목록조회
+
+	public int getSellerTotalCount(int auth, MemberCriteria cri);
 
 }

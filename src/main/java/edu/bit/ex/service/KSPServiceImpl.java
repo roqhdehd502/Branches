@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import edu.bit.ex.mapper.KSPMapper;
 import edu.bit.ex.page.Criteria;
+import edu.bit.ex.page.MemberCriteria;
 import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.InquiryVO;
 import edu.bit.ex.vo.MbrAddressVO;
@@ -130,6 +131,18 @@ public class KSPServiceImpl implements KSPService {
 		log.info("delete member");
 		kspMapper.deleteMbrAdress(mavo);
 		kspMapper.deleteMbrInfo(mavo);
+	}
+
+	@Override
+	public List<MbrVO> getMemberListWithPaging(int auth, MemberCriteria cri) {
+		// TODO Auto-generated method stub
+		return kspMapper.getMemberListWithPaging(auth, cri);
+	}
+
+	@Override
+	public int getSellerTotalCount(int auth, MemberCriteria cri) {
+		// TODO Auto-generated method stub
+		return kspMapper.getSellerTotalCount(auth, cri);
 	}
 
 }

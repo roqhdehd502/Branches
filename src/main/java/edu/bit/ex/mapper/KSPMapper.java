@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import edu.bit.ex.page.Criteria;
+import edu.bit.ex.page.MemberCriteria;
 import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.InquiryVO;
 import edu.bit.ex.vo.MbrAddressVO;
@@ -61,5 +62,9 @@ public interface KSPMapper {
 	public void deleteMbrAdress(MbrAddressVO mavo);
 
 	public void deleteMbrInfo(MbrAddressVO mavo);
+
+	public List<MbrVO> getMemberListWithPaging(int auth, MemberCriteria cri);
+
+	public int getSellerTotalCount(int auth, MemberCriteria cri);
 
 }
