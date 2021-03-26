@@ -78,17 +78,18 @@
 				</div>
 
 				
-				<div class="col-md-9 contact-info">
+				<div class="col-md-9 contact-info" >
 					<h3 >
 					<strong>업체 목록</strong>
 					</h3><hr>
 					
 					<table class="n-table table-col" style="width: 100%; border-collapse: separate; border-spacing: 0 10px;">
 						<colgroup>
-							<col style="width: 25%">
-							<col style="width: 25%">
-							<col style="width: 25%">
-							<col style="width: 25%">
+							<col style="width: 20%">
+							<col style="width: 20%">
+							<col style="width: 20%">
+							<col style="width: 20%">
+							<col style="width: 20%">
 						</colgroup>
 						<thead>
 							<tr style="text-align: center; border-bottom: 1px solid #444444;"> 
@@ -96,6 +97,7 @@
 								<th scope="col"><h5><strong>판매자명</strong></h5></th>
 								<th scope="col"><h5><strong>연락처</strong></h5></th>
 								<th scope="col"><h5><strong>가입일</strong></h5></th>
+								<th scope="col"><h5><strong>상품</strong></h5></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -111,6 +113,7 @@
 								</a></td>
 								<td scope="col">${mbr.contact_number }</td>
 								<td scope="col">${mbr.jdate }</td>
+								<td scope="col"><button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/rest_ksp/admin/mypage/seller/${mbr.mbr_id}/prdct'">조회</button></td>
 							</tr>
 							</c:forEach>
 						</tbody>
@@ -119,8 +122,8 @@
 					<br>
 					<hr>	
 
-					<div  >
-						<ul class="pagination" style="align-content: center;">
+					<div>
+						<ul class="pagination" >
 							<c:choose>
 								<c:when test="${pageMaker.prev}">
 									<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
@@ -158,12 +161,7 @@
 							<li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
 						</ul>
 					</div>
-
-
 				</div>
-				
-				
-				
 			</div>
 		</div>
 		<hr>
@@ -234,9 +232,7 @@
 		<script src="/assets/js/vendor/slicknav.min.js"></script>
 		<script src="/assets/js/active.js"></script>
 		
-		
 	</div>
-</body>
-</html>
+
 </body>
 </html>

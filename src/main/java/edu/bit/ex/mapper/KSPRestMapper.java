@@ -15,7 +15,7 @@ import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
 
 @Mapper
-public interface KSPMapper {
+public interface KSPRestMapper {
 
 	@Select("select * from mbr where mbr_id=#{m_id}")
 	public MbrVO getMemberInfo(String s_id);

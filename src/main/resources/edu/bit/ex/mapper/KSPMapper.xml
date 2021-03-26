@@ -124,4 +124,20 @@
 	]]>
 	</select>
 	
+	<!-- 브랜드 상품리스트 + 페이징 -->
+	<select id="getSellerPrdctListWithCri" resultType="edu.bit.ex.vo.PrdctVO">
+	<![CDATA[
+		select * from (
+			     select rownum as rnum, a.* from (
+			        		select
+			                    *
+			                from
+			                    prdct  
+			    ) a where rownum <= #{cri.pageNum} * #{cri.amount}
+			) where rnum > (#{cri.pageNum}-1) * #{cri.amount} and mbr_id=#{m_id}
+	]]>
+	</select>
+	
+	
+	
 </mapper>
