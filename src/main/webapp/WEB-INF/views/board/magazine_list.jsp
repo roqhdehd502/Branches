@@ -151,7 +151,7 @@
 						<div class="thumbnail">
 							<a href="${pageContext.request.contextPath}/board/magazine/${dto.board_id}">
 								<div style="padding-top: 7px">
-									<img src="<c:url value="/prdct_img/${magazine_thumbnail.image_name}"/>" width="318px" height="212px">
+									<img src="/prdct_img/${dto.image_name eq null ? 'none-thumbnail.jpg' : dto.image_name}" width="318px" height="212px">	
 								</div>
 								<div>
 									<hr>

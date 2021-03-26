@@ -37,6 +37,7 @@ public class HSController {
 		mav.setViewName("main");
 		// mav.addObject("prdct", hsService.getProduct("테스트")); 하나씩 불러올때 ("해당 컬럼속성의 db값을 적기")
 		mav.addObject("prdct", hsService.getProduct());
+		mav.addObject("member", hsService.getMember());
 		return mav;
 	}
 
@@ -92,6 +93,8 @@ public class HSController {
 		log.info("sellerdeleCheck");
 		mav.setViewName("sellerdeleCheck");
 		mav.addObject("order", hsService.getOrder());
+		mav.addObject("prdct", hsService.getProduct());
+		mav.addObject("prdOrder", hsService.getPrdOrder());
 
 		return mav;
 	}
@@ -102,6 +105,7 @@ public class HSController {
 		log.info("sellercancelCheck");
 		mav.setViewName("sellercancelCheck");
 		mav.addObject("order", hsService.getOrder());
+		mav.addObject("prdct", hsService.getProduct());
 
 		return mav;
 	}
@@ -112,6 +116,8 @@ public class HSController {
 		log.info("sellercancelList");
 		mav.setViewName("sellercancelList");
 		mav.addObject("order", hsService.getOrder());
+		mav.addObject("prdct", hsService.getProduct());
+		mav.addObject("prdOrder", hsService.getPrdOrder());
 		return mav;
 	}
 
@@ -121,27 +127,43 @@ public class HSController {
 		log.info("sellerchangeCheck");
 		mav.setViewName("sellerchangeCheck");
 		mav.addObject("order", hsService.getOrder());
+		mav.addObject("prdct", hsService.getProduct());
+		mav.addObject("prdOrder", hsService.getPrdOrder());
 		return mav;
 	}
 
 	@GetMapping("/sellerQnA")
-	public String sellerQnA(Model model) throws Exception {
+	public ModelAndView sellerQnA(ModelAndView mav) throws Exception {
 		log.info("sellerQnA");
-		return "sellerQnA";
+
+		mav.setViewName("sellerQnA");
+		mav.addObject("board", hsService.getBoard());
+		mav.addObject("prdct", hsService.getProduct());
+		return mav;
 	}
 
 	@GetMapping("/sellerReview")
-	public String sellerReview(Model model) throws Exception {
+	public ModelAndView sellerReview(ModelAndView mav) throws Exception {
 		log.debug("sellerReview");
 		log.info("sellerReview");
-		return "sellerReview";
+
+		mav.setViewName("sellerReview");
+		mav.addObject("board", hsService.getBoard());
+		mav.addObject("prdct", hsService.getProduct());
+
+		return mav;
 	}
 
 	@GetMapping("/sellertotal")
-	public String sellertotal(Model model) throws Exception {
+	public ModelAndView sellertotal(ModelAndView mav) throws Exception {
 		log.debug("sellertotal");
 		log.info("sellertotal");
-		return "sellertotal";
+
+		mav.setViewName("sellertotal");
+		mav.addObject("prdct", hsService.getProduct());
+		mav.addObject("prdOrder", hsService.getPrdOrder());
+
+		return mav;
 	}
 
 	@GetMapping("/adminpage")
@@ -157,15 +179,21 @@ public class HSController {
 		log.info("adminQnA");
 		mav.setViewName("adminQnA");
 		mav.addObject("board", hsService.getBoard());
+		mav.addObject("prdct", hsService.getProduct());
 
 		return mav;
 	}
 
 	@GetMapping("/admintotal")
-	public String admintotal(Model model) throws Exception {
+	public ModelAndView admintotal(ModelAndView mav) throws Exception {
 		log.debug("admintotal");
 		log.info("admintotal");
-		return "admintotal";
+
+		mav.setViewName("admintotal");
+		mav.addObject("prdct", hsService.getProduct());
+		mav.addObject("prdOrder", hsService.getPrdOrder());
+
+		return mav;
 	}
 
 	@GetMapping("/adminSearchMember")
@@ -181,10 +209,14 @@ public class HSController {
 	}
 
 	@GetMapping("/adminSearchtotal")
-	public String adminSearchtotal(Model model) throws Exception {
+	public ModelAndView adminSearchtotal(ModelAndView mav) throws Exception {
 		log.debug("adminSearchtotal");
 		log.info("adminSearchtotal");
-		return "adminSearchtotal";
+		mav.setViewName("adminSearchtotal");
+		mav.addObject("prdct", hsService.getProduct());
+		mav.addObject("prdOrder", hsService.getPrdOrder());
+
+		return mav;
 	}
 
 }

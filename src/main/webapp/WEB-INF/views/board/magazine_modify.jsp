@@ -6,7 +6,7 @@
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Branches : Notice Board Modify</title>
+	<title>Branches : Magazine Board Modify</title>
 	
 	<!-- Required CSS files -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
@@ -42,7 +42,7 @@
 	        		 board_content: board_content
 	           };
 	           $.ajax({
-	             type : "PUT",
+	             type : "POST",
 	             url : $(this).attr("action"),
 	             cache : false,
 	             contentType:'application/json; charset=utf-8', // 인코딩 데이터 변환
@@ -50,7 +50,7 @@
 	             success: function (result) {       
 	               if(result == "SUCCESS"){
 	                  // update가 완료되었으면 리스트 페이지로 이동        
-	                  $(location).attr('href', '${pageContext.request.contextPath}/board/notice')                            
+	                  $(location).attr('href', '${pageContext.request.contextPath}/board/magazine')                            
 	               }                       
 	             },
 	             error: function (e) {
@@ -174,22 +174,22 @@
 
 		<div class="container">
 			<div class="container">
-				<h2>NOTICE</h2>
+				<h2>MAGAZINE</h2>
 			</div>
 			
-			<form id="updateForm" action="${pageContext.request.contextPath}/board/notice/modify/${notice_modify.board_id}" method="post">
+			<form id="updateForm" action="${pageContext.request.contextPath}/board/magazine/modify/${magazine_modify.board_id}" method="post">
 			<div class="container">
 				<table class="table table-hover" style="text-align: center;">
-					<input type="hidden" id="board_id" value="${notice_modify.board_id}">
+					<input type="hidden" id="board_id" value="${magazine_modify.board_id}">
 					<tr class="table-primary">
 						<th>번호</th>
 						<th>제목</th>
 						<th>등록일</th>
 					</tr>
 					<tr>
-						<td>${notice_modify.board_id}</td>						
-						<td><input type="text" id="board_name" value="${notice_modify.board_name}"></td>
-						<td>${notice_modify.board_date}</td>
+						<td>${magazine_modify.board_id}</td>						
+						<td><input type="text" id="board_name" value="${magazine_modify.board_name}"></td>
+						<td>${magazine_modify.board_date}</td>
 					</tr>
 				</table>
 			</div>
@@ -199,7 +199,7 @@
 			<div class="container">
 				<div class="row" style="padding: 5% 3% 3% 5%">
 					<p class="lead">
-						<textarea cols="50%" rows="10" id="board_content">${notice_modify.board_content}</textarea>
+						<textarea cols="50%" rows="10" id="board_content">${magazine_modify.board_content}</textarea>
 					</p>
 				</div>
 			</div>
@@ -208,7 +208,7 @@
 			
 			<div class="container">
 				<div class="row" style="padding: 3% 5% 3% 5%">
-					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/notice'">목록보기</button>&nbsp;
+					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine'">목록보기</button>&nbsp;
 					<button type="submit" class="btn btn-primary">수정하기</button>
 				</div>
 			</div>

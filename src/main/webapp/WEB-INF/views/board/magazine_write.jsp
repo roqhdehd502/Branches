@@ -6,7 +6,7 @@
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Branches : Notice Board Write</title>
+	<title>Branches : Magazine Board Write</title>
 	
 	<!-- Required CSS files -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
@@ -42,14 +42,14 @@
                  board_content: board_content
            };
            $.ajax({
-             type : "PUT",
+             type : "POST",
              url : $(this).attr("action"),
              cache : false,
              contentType:'application/json; charset=utf-8',
              data: JSON.stringify(form),
              success: function (result) {       
                if(result == "SUCCESS"){     
-                  $(location).attr('href', '${pageContext.request.contextPath}/board/notice')                            
+                  $(location).attr('href', '${pageContext.request.contextPath}/board/magazine')                            
                }                       
              },
              error: function (e) {
@@ -173,12 +173,12 @@
 
 		<div class="container">
 			<div class="container">
-				<h2>NOTICE</h2>
+				<h2>MAGAZINE</h2>
 			</div>
 			<hr>
 			<div class="container">
-				<form id="writeForm" method="post" action="${pageContext.request.contextPath}/board/notice/write">
-				<input type="hidden" id="mbr_id" value="${notice_write.mbr_id}">
+				<form id="writeForm" method="post" action="${pageContext.request.contextPath}/board/magazine/write">
+				<input type="hidden" id="mbr_id" value="${magazine_write.mbr_id}">
 				<fieldset>
 					<div class="row">
 						<div class="col-md-2 contact-info" align="center">
@@ -197,7 +197,7 @@
 						</div>
 					</div>	
 					<div align="center" style="padding: 3% 0px 3% 0px;">
-						<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/notice'">목록보기</button>&nbsp;
+						<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine'">목록보기</button>&nbsp;
 						<button type="submit" class="btn btn-primary">작성하기</button>
 					</div>	
 				</fieldset>

@@ -105,15 +105,15 @@
 							</tr>
 						</thead>
 						<tbody >
-							<c:forEach items="${order }" var="order">
+							<c:forEach items="${order }" var="order" varStatus="status">
 							<tr style="text-align: center;">
 								<td>
-									<h6>${order.prdct_id }</h6>
+									<h6>${prdct[status.index].prdct_name }</h6>
 									<h6>${order.order_size }</h6>
 									<h6>${order.order_color }</h6>
 									<h6>${order.prdct_price }</h6>
 								</td>
-								<td><h6 style="position: relative; top: 34px;">2021.03.19</h6></td>
+								<td><h6 style="position: relative; top: 34px;">${prdOrder[status.index].order_date }</h6></td>
 								<td><h6 style="position: relative; top: 34px;">${order.order_number }</h6></td>
 								<td><h6 style="position: relative; top: 34px;">??</h6></td>
 								<td>

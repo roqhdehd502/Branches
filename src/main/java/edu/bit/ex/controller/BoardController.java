@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.bit.ex.joinvo.BoardBoardCommentVO;
+import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.page.MagazineCriteria;
 import edu.bit.ex.page.MagazinePageVO;
 import edu.bit.ex.page.NoticeCriteria;
 import edu.bit.ex.page.NoticePageVO;
 import edu.bit.ex.service.BoardService;
-import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import lombok.AllArgsConstructor;
@@ -46,6 +47,32 @@ public class BoardController {
 		mav.addObject("pageMaker", new NoticePageVO(cri, total));
 
 		return mav;
+	}
+
+	// 공지사항 작성페이지
+	@GetMapping("/notice/write")
+	public ModelAndView noticeWriteView(MbrVO mbrVO, ModelAndView mav) {
+		log.info("noticeWriteView...");
+		mav.setViewName("board/notice_write");
+		mav.addObject("notice_write", boardService.getNoticeMember(mbrVO.getMbr_id()));
+		return mav;
+	}
+
+	// 공지사항 작성
+	@PostMapping("/notice/write")
+	public ResponseEntity<String> noticeWrite(@RequestBody BoardVO boardVO, ModelAndView modelAndView) {
+		ResponseEntity<String> entity = null;
+
+		log.info("noticeWrite..");
+		try {
+			boardService.setNoticeWrite(boardVO);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
 	}
 
 	// 공지사항 게시글
@@ -83,7 +110,7 @@ public class BoardController {
 	}
 
 	// 공지사항 수정
-	@PutMapping("/notice/modify/{board_id}")
+	@PostMapping("/notice/modify/{board_id}")
 	public ResponseEntity<String> noticeModify(@RequestBody BoardVO boardVO, ModelAndView modelAndView) {
 		ResponseEntity<String> entity = null;
 
@@ -99,23 +126,37 @@ public class BoardController {
 		return entity;
 	}
 
-	// 공지사항 작성페이지
-	@GetMapping("/notice/write")
-	public ModelAndView noticeWriteView(MbrVO mbrVO, ModelAndView mav) {
-		log.info("noticeWriteView...");
-		mav.setViewName("board/notice_write");
-		mav.addObject("notice_write", boardService.getNoticeMember(mbrVO.getMbr_id()));
+	// 페이징을 적용한 매거진 게시판 리스트
+	@Transactional
+	@GetMapping("/magazine")
+	public ModelAndView magazineList(BoardVO boardVO, BoardPrdctImageVO bPrdctImageVO, MagazineCriteria cri, ModelAndView mav) {
+		log.info("magazineList...");
+		mav.setViewName("board/magazine_list");
+		mav.addObject("magazine_list", boardService.getMagazineList(cri));
+
+		int total = boardService.getMagazineTotal(cri);
+		log.info("total" + total);
+		mav.addObject("pageMaker", new MagazinePageVO(cri, total));
 		return mav;
 	}
 
-	// 공지사항 작성
-	@PutMapping("/notice/write")
-	public ResponseEntity<String> noticeWrite(@RequestBody BoardVO boardVO, ModelAndView modelAndView) {
+	// 매거진 작성페이지
+	@GetMapping("/magazine/write")
+	public ModelAndView magazineWriteView(MbrVO mbrVO, ModelAndView mav) {
+		log.info("magazineWriteView...");
+		mav.setViewName("board/magazine_write");
+		mav.addObject("magazine_write", boardService.getMagazineMember(mbrVO.getMbr_id()));
+		return mav;
+	}
+
+	// 매거진 작성
+	@PostMapping("/magazine/write")
+	public ResponseEntity<String> magazineWrite(@RequestBody BoardVO boardVO, ModelAndView modelAndView) {
 		ResponseEntity<String> entity = null;
 
-		log.info("noticeWrite..");
+		log.info("magazineWrite..");
 		try {
-			boardService.setNoticeWrite(boardVO);
+			boardService.setMagazineWrite(boardVO);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -123,23 +164,6 @@ public class BoardController {
 		}
 
 		return entity;
-	}
-
-	// 페이징을 적용한 매거진 게시판 리스트
-	@Transactional
-	@GetMapping("/magazine")
-	public ModelAndView magazineList(BoardVO boardVO, MagazineCriteria cri, ModelAndView mav) {
-		log.info("magazineList...");
-		mav.setViewName("board/magazine_list");
-		// 매거진 제목
-		mav.addObject("magazine_list", boardService.getMagazineList());
-		// 매거진 썸네일
-		mav.addObject("magazine_thumbnail", boardService.getMagazineThumbnail(boardVO.getBoard_id()));
-
-		int total = boardService.getMagazineTotal(cri);
-		log.info("total" + total);
-		mav.addObject("pageMaker", new MagazinePageVO(cri, total));
-		return mav;
 	}
 
 	// 매거진 게시글
@@ -175,12 +199,40 @@ public class BoardController {
 
 	// 매거진 게시글 댓글 작성
 	@PostMapping("/magazine/{board_id}")
-	public ResponseEntity<String> magazineCommentWrite(@RequestBody BoardCommentVO boardCommentVO, ModelAndView modelAndView) {
+	public ResponseEntity<String> magazineCommentWrite(@RequestBody BoardBoardCommentVO boardBoardCommentVO, ModelAndView modelAndView) {
 		ResponseEntity<String> entity = null;
 
-		log.info("magazineCommentWrite..");
+		log.info("magazineCommentWrite...");
 		try {
-			boardService.setMagazineCommentWrite(boardCommentVO);
+			boardService.setMagazineCommentWrite(boardBoardCommentVO);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
+
+	// 매거진 삭제
+
+	// 매거진 수정페이지
+	@GetMapping("/magazine/modify/{board_id}")
+	public ModelAndView magazineModifyView(BoardVO boardVO, ModelAndView mav) {
+		log.info("magazineModifyView...");
+		mav.setViewName("board/magazine_modify");
+		mav.addObject("magazine_modify", boardService.getMagazineContent(boardVO.getBoard_id()));
+		return mav;
+	}
+
+	// 매거진 수정
+	@PostMapping("/magazine/modify/{board_id}")
+	public ResponseEntity<String> magazineModify(@RequestBody BoardVO boardVO, ModelAndView modelAndView) {
+		ResponseEntity<String> entity = null;
+
+		log.info("magazineModify..");
+		try {
+			boardService.setMagazineModify(boardVO);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

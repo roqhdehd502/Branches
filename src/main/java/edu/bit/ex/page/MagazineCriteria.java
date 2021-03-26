@@ -12,7 +12,7 @@ public class MagazineCriteria {
 	private int amount; // 한 페이지당 몇 개의 데이터를 보여줄것인가?
 
 	public MagazineCriteria() {
-		this(1, 9); // 기본 값 1페이지를 10개로 지정한다
+		this(1, 9); // 기본 값 1페이지를 9개로 지정한다
 	}
 
 	public MagazineCriteria(int pageNum, int amount) {

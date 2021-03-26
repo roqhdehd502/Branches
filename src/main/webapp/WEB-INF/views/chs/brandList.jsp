@@ -84,12 +84,12 @@
 							<li><a href="index-3.html">Maxi</a></li>
 							<li><a href="index-3.html">Overrall</a></li>
 						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">BACK</a>
+					<li class="current-menu-item has-child"><a href="index.html">BAG</a>
 						<ul class="sub-menu">
 							<li><a href="index.html">Backpack</a></li>
 							<li><a href="index-2.html">Messenger / Cross</a></li>
 							<li><a href="index-3.html">Shoulder / Tod</a></li>
-							<li><a href="index-2.html">Eco back</a></li>
+							<li><a href="index-2.html">Eco bag</a></li>
 							<li><a href="index-3.html">Clutch</a></li>
 						</ul></li>
 					<li class="current-menu-item has-child"><a href="index.html">SHOES</a>
