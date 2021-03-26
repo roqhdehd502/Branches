@@ -132,10 +132,7 @@ public class BoardController {
 	public ModelAndView magazineList(BoardVO boardVO, BoardPrdctImageVO bPrdctImageVO, MagazineCriteria cri, ModelAndView mav) {
 		log.info("magazineList...");
 		mav.setViewName("board/magazine_list");
-		// 매거진 제목
 		mav.addObject("magazine_list", boardService.getMagazineList(cri));
-		// 매거진 썸네일
-		mav.addObject("magazine_thumbnail", boardService.getMagazineThumbnail(bPrdctImageVO.getBoard_id()));
 
 		int total = boardService.getMagazineTotal(cri);
 		log.info("total" + total);

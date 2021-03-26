@@ -33,13 +33,10 @@ public interface BoardService {
 	public void setNoticeModify(BoardVO boardVO);
 
 	// 페이징을 적용한 매거진 게시판 리스트
-	public List<BoardVO> getMagazineList(MagazineCriteria cri);
+	public List<BoardPrdctImageVO> getMagazineList(MagazineCriteria cri);
 
 	// 페이징 단위에 적용되는 최대 매거진 게시글 단위
 	public int getMagazineTotal(MagazineCriteria cri);
-
-	// 매거진 게시판 썸네일
-	public List<BoardPrdctImageVO> getMagazineThumbnail(int board_id);
 
 	// 매거진 작성 id 가져오기
 	public MbrVO getMagazineMember(String mbr_id);

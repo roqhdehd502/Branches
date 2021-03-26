@@ -74,7 +74,7 @@ public class BoardServiceImpl implements BoardService {
 
 	// 페이징을 적용한 매거진 게시판 리스트
 	@Override
-	public List<BoardVO> getMagazineList(MagazineCriteria cri) {
+	public List<BoardPrdctImageVO> getMagazineList(MagazineCriteria cri) {
 		log.info("getMagazineList WITH criteria: " + cri);
 		return boardMapper.getMagazineListWithPaging(cri);
 	}
@@ -84,13 +84,6 @@ public class BoardServiceImpl implements BoardService {
 	public int getMagazineTotal(MagazineCriteria cri) {
 		log.info("getMagazineTotal WITH criteria: " + cri);
 		return boardMapper.getMagazineTotalCount(cri);
-	}
-
-	// 매거진 게시판 썸네일
-	@Override
-	public List<BoardPrdctImageVO> getMagazineThumbnail(int board_id) {
-		log.info("getMagazineThumbnail");
-		return boardMapper.getMagazineThumbnail(board_id);
 	}
 
 	// 매거진 작성 id 가져오기
