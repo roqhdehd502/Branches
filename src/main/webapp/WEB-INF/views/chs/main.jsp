@@ -182,7 +182,8 @@
 			<br />
 			<br />
 			<br />
-			<article>
+
+				<article>
 				<!-- 상품소개 1 -->
 					<div class="section-title">
 						<h2>New Arrival</h2>

@@ -71,15 +71,16 @@
 				</div>
 				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">
 					<h3 style="margin-top: 15px; margin-left: 15px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, .1);">
-						<strong>일간매출</strong>
+						<strong>총 매출 현황</strong>
 					</h3>
 					<jsp:include page="chart.jsp"></jsp:include>
 					
 					<h3 style="margin-top: 15px; margin-left: 15px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, .1);">
-						<strong>월간매출</strong>
+						<strong>상품 주문 비율</strong>
 					</h3>
-					<jsp:include page="chart3.jsp"></jsp:include>	
-         		</span>
+					<jsp:include page="chart5.jsp"></jsp:include>
+					
+				</span>
 			</div>
 		</div>
 	

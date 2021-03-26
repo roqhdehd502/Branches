@@ -9,47 +9,42 @@
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
     google.charts.load('current', {packages: ['corechart', 'bar']});
-    google.charts.setOnLoadCallback(drawColColors);
+    google.charts.setOnLoadCallback(drawBasic);
 
-    function drawColColors() {
+    function drawBasic() {
+
           var data = new google.visualization.DataTable();
           data.addColumn('timeofday', 'Time of Day');
-          data.addColumn('number', '오늘 판매량');
+          data.addColumn('number', '판매량');
 
           data.addRows([
-            [{v: [9, 0, 0], f: '9 am'}, 1],
+            [{v: [8, 0, 0], f: '8 am'}, 1],
             [{v: [10, 0, 0], f: '10 am'}, 2],
-            [{v: [11, 0, 0], f:'11 am'}, 3],
-            [{v: [12, 0, 0], f: '12 pm'}, 4],
-            [{v: [13, 0, 0], f: '1 pm'}, 5],
-            [{v: [14, 0, 0], f: '2 pm'}, 6],
-            [{v: [15, 0, 0], f: '3 pm'}, 7],
-            [{v: [16, 0, 0], f: '4 pm'}, 8],
-            [{v: [17, 0, 0], f: '5 pm'}, 9],
-            [{v: [18, 0, 0], f: '6 pm'}, 4],
-            [{v: [19, 0, 0], f: '7 pm'}, 3],
-            [{v: [20, 0, 0], f: '8 pm'}, 2],
-            [{v: [21, 0, 0], f: '9 pm'}, 1],
-            [{v: [22, 0, 0], f: '10 pm'}, 8],
-            [{v: [23, 0, 0], f: '11 pm'}, 5],
+            [{v: [12, 0, 0], f:'12 pm'}, 3],
+            [{v: [14, 0, 0], f: '14 am'}, 4],
+            [{v: [16, 0, 0], f: '16 pm'}, 5],
+            [{v: [18, 0, 0], f: '18 pm'}, 6],
+            [{v: [20, 0, 0], f: '20 pm'}, 7],
+            [{v: [22, 0, 0], f: '22 pm'}, 8],
+            [{v: [00, 0, 0], f: '12 am'}, 9],
           ]);
 
           var options = {
-            title: 'Branches 일별 판매 매출',
-            colors: ['#9575cd'],
-            width : 920,
-            height : 550,
+            title: '일간매출 그래프',
+            width : 900,
+            height : 500,
             hAxis: {
-              title: 'Time of Day',
-              format: 'h',
+              format: 'h a',
               viewWindow: {
-                min: [9, 00, 0],
+                min: [8, 00, 0],
                 max: [23, 00, 0]
               }
             },
           };
 
-          var chart = new google.visualization.ColumnChart(document.getElementById('chart_div1'));
+          var chart = new google.visualization.ColumnChart(
+            document.getElementById('chart_div1'));
+
           chart.draw(data, options);
         }
     </script>

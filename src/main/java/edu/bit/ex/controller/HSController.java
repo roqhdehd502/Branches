@@ -50,7 +50,7 @@ public class HSController {
 		return mav;
 	}
 
-	@GetMapping("/myOrderList/{member}")
+	@GetMapping("/myOrderList")
 	public String myOrderList(Model model) throws Exception {
 		log.debug("myOrderList");
 		log.info("myOrderList");
@@ -58,9 +58,15 @@ public class HSController {
 	}
 
 	@GetMapping("/brandList")
-	public String brandList(Model model) throws Exception {
+	public String brandList(Model model, SearchCriteria cri) throws Exception {
 		log.debug("brandList");
 		log.info("brandList");
+		model.addAttribute("mem", hsService.getMemberList(cri));
+
+		int total = hsService.getTotal(cri);
+		log.info("total..........");
+		model.addAttribute("pageMaker", new SearchPageVO(cri, total));
+
 		return "brandList";
 	}
 
