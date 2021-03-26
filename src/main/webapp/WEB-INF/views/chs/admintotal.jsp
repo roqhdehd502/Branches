@@ -72,38 +72,39 @@
 						<strong style="margin: 10px;">매출조회</strong><hr>
 					</h3>
 					
-					<div id="accordion">
-
-						<div class="card">
-							<div class="card-header">
-								<a class="collapsed card-link" data-toggle="collapse" href="#collapseOne"><h5>일간</h5> </a>
-							</div>
-							<div id="collapseOne" class="collapse" data-parent="#accordion">
-								<div class="card-body"><jsp:include page="chart.jsp"></jsp:include></div>
+					<div class="container">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="faq">
+										<span class="single-item">
+											<h4 style="color: black; margin-left: 46px;">일간</h4>
+											<div class="content"><jsp:include page="chart.jsp" /></div>
+										</span>
+										<span class="single-item">
+											<h4 style="color: black; margin-left: 46px;">주간</h4>
+											<div class="content"><jsp:include page="chart2.jsp" /></div>
+										</span>
+										<span class="single-item">
+											<h4 style="color: black; margin-left: 46px;">월간</h4>
+											<div class="content"><jsp:include page="chart3.jsp" /></div>
+										</span>
+										<span class="single-item">
+											<h4 style="color: black; margin-left: 46px;">연간</h4>
+											<div class="content"><jsp:include page="chart4.jsp" /></div>
+										</span>
+										<span class="single-item">
+											<h4 style="color: black; margin-left: 46px;">전체</h4>
+											<div class="content"><jsp:include page="chart6.jsp" /></div>
+										</span>
+									</div>
+								</div>
 							</div>
 						</div>
-
-						<div class="card">
-							<div class="card-header">
-								<a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo"><h5>주간</h5> </a>
-							</div>
-							<div id="collapseTwo" class="collapse" data-parent="#accordion">
-								<div class="card-body"><jsp:include page="chart2.jsp"></jsp:include></div>
-							</div>
-						</div>
-
-						<div class="card">
-							<div class="card-header">
-								<a class="collapsed card-link" data-toggle="collapse" href="#collapseThree"> <h5>월간</h5> </a>
-							</div>
-							<div id="collapseThree" class="collapse" data-parent="#accordion">
-								<div class="card-body"><jsp:include page="chart4.jsp"></jsp:include></div>
-							</div>
-						</div>
-
-					</div>
 					
-					<hr style="margin-top: 30px;">
+					<hr style="margin-top: 1px;">
+					<h3 style="margin-top: 25px; margin-left: 15px;">
+						<strong style="margin: 10px;">검색어 순위 조회</strong><hr>
+					</h3>
 				<div style="margin-bottom: 20px;">
 					<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">ㄱㄴㄷ순</button></span>
 					<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">abc순</button></span>

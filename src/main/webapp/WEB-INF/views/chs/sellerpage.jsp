@@ -38,7 +38,7 @@
 							</button>
 						</form>
 						<div class="header-social">
-							<a href="#">Login</a> 
+							<a href="/member/login2">Login</a> 
 							<a href="#" class="fa fa-google"></a> 
 							<a href="#" class="fa fa-facebook"></a>
 						</div>
@@ -124,33 +124,9 @@
 			
 					<hr>
 					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, .1);">
-						<strong style="margin: 20px;">매출관리(템플릿 찾아보기)</strong>
-					</h3><br/>
-					<h5 style="text-align: center;">OUTER</h5>
-              		 <div class="progress">
-						<div class="progress-bar bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 45%;"></div>
-					</div>
-					<br />
-					<h5 style="text-align: center;">TOP</h5>
-					<div class="progress">
-						<div class="progress-bar bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 65%;"></div>
-					</div>
-					<br />
-					<h5 style="text-align: center;">BOTTOM</h5>
-					<div class="progress">
-						<div class="progress-bar bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 55%;"></div>
-					</div>
-					<br />
-					<h5 style="text-align: center;">SHOES</h5>
-					<div class="progress">
-						<div class="progress-bar bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 30%;"></div>
-					</div>
-					<br />
-					<h5 style="text-align: center;">ACC</h5>
-					<div class="progress">
-						<div class="progress-bar bg-success " role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
-					</div>
-					<br />
+						<strong style="margin: 20px;">총 수익 현황</strong>
+					</h3>
+					<div><jsp:include page="chart6.jsp"></jsp:include></div>
 				</span>
 			</div>
 		</div>

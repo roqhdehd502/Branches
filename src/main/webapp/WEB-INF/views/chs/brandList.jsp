@@ -19,7 +19,6 @@
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css">
 
-
 </head>
 <body>
 <div style="overflow: hidden;" class="container">
@@ -183,7 +182,7 @@
 							</div>
 							
 							<span><h4 style="margin-top: 10px;">BAG</h4></span>
-							<span style="margin-left: 58px;">
+							<span style="margin-left: 72px;">
 								<button type="button" class="btn btn-white btn-sm" data-toggle="collapse" data-target="#demo4" style="padding: 5px 5px 5px 5px;"><h5 class="text-dark"> + </h5></button>
 							</span>
 							  <div id="demo4" class="collapse">
@@ -226,7 +225,7 @@
 				</div>
 
 				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">
-					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, .1);">
+					<h3 style="margin-top: 15px; margin-left: 15px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, .1);">
 						<strong style="margin: 10px;">Brand</strong>
 					</h3>
 					<div style="margin-bottom: 20px; margin-top: 20px;">
@@ -234,136 +233,32 @@
 						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm" type="button"><a>abc순</a></button></span>
 						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm" type="button"><a>매출순</a></button></span>
 						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm" type="button"><a>최근등록순</a></button></span>
-						<form action="#" style="float: right;">
-							<span><input class="form-control"  type="text"> </span>
-							<span><button class="btn btn-primary btn-sm" type="submit"><a>검색</a></button> </span>
+						<form id="searchForm" action="/member/brandList" method="get" style="float: right;">
+							<select name="type">
+								<option value="" <c:out value="${pageMaker.cri.type == null?'selected' : '' }" />>---</option>
+								<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ?'selected' : '' }" />>아이디</option>
+								<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ?'selected' : '' }" />>이름</option>
+								<option value="W" <c:out value="${pageMaker.cri.type eq 'W' ?'selected' : '' }" />>이메일</option>
+							</select> <input type="text" name="keyword" value='<c:out value="${pageMaker.cri.keyword}" />' /> <input type="hidden" name="pageNum"
+								value='<c:out value="${pageMaker.cri.pageNum}" />' /> <input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}" />' />
+							<button class="btn btn-primary btn-sm">검색</button>
 						</form>
 					</div><br/>
 					<div class="team-area sp">
 						<div class="container">
 							<div class="row">
+								<c:forEach items="${mem }" var="mbr">
 								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 									<div class="inner">
 										<div class="team-img">
 											<img src="/hs/10.jpg" alt="Member Photo">
 										</div>
 										<div class="team-content">
-											<h4>Nike</h4>
+											<h4>${mbr.mbr_name }</h4>
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/hs/10.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>Nike</h4>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/hs/10.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>Nike</h4>
-										</div>
-									</div>
-								</div>					
-								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/hs/10.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>Nike</h4>
-										</div>
-									</div>
-								</div>
-								
-								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/hs/10.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>Nike</h4>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/hs/10.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>Nike</h4>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/hs/10.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>Nike</h4>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/hs/10.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>Nike</h4>
-										</div>
-									</div>
-								</div>
-								
-								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/hs/10.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>Nike</h4>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/hs/10.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>Nike</h4>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/hs/10.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>Nike</h4>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/hs/10.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>Nike</h4>
-										</div>
-									</div>
-								</div>
+								</c:forEach>
 							</div>
 						</div>		
 					</span>
@@ -442,7 +337,26 @@
 	<script src="/assets/js/vendor/loopcounter.js"></script>
 	<script src="/assets/js/vendor/slicknav.min.js"></script>
 	<script src="/assets/js/active.js"></script>
+	<script type="text/javascript">
+	var searchForm = $("#searchForm");
+	$("#searchForm button").on("click", function(e) {
 
+		if (!searchForm.find("option:selected").val()) {
+			alert("검색종류를 선택하세요!");
+			return false;
+		}
+
+		if (!searchForm.find("input[name='keyword']").val()) {
+			alert("키워드를 입력하세요!");
+			return false;
+		}
+
+		searchForm.find("input[name='pageNum']").val("1");
+		e.preventDefault();
+
+		searchForm.submit();
+	});
+</script>
 
 </div>
 </body>

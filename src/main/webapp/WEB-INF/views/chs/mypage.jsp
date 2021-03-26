@@ -69,7 +69,7 @@
 				<div class="col-md-2 contact-info" align="center">
 					<div class="single-info" style="margin-bottom: 40px">
 	                    <h4>나의 쇼핑활동</h4><hr>
-	                    <h5><a href="#">주문내역 조회</a></h5>
+	                    <h5><a href="/member/myOrderList">주문내역 조회</a></h5>
 	                    <h5><a href="#">최근본상품보기</a></h5>
 	                    <h5><a href="#">찜한 목록</a></h5>
 	                </div>
@@ -90,7 +90,7 @@
 						<strong style="margin: 10px;">주문내역 미리보기</strong>
 					</h3>
 					<span style="margin: 20px;">
-               			<img src="<c:url value="/img/5.jpg"/>" width="140px" height="140px">
+               			<img src="<c:url value="/hs/5.jpg"/>" width="140px" height="140px">
             		</span>
             		<span>
                			<h5 style="position: relative; top: 10px;">Covernat</h5>
@@ -106,7 +106,7 @@
          			</span><br/><hr style="margin-top: 34px;">
          			
          			<span style="margin: 20px;">
-               			<img src="<c:url value="/img/5.jpg"/>" width="140px" height="140px">
+               			<img src="<c:url value="/hs/5.jpg"/>" width="140px" height="140px">
             		</span>
             		<span>
                			<h5 style="position: relative; top: 10px;">Covernat</h5>
@@ -122,7 +122,7 @@
          			</span><br/><hr style="margin-top: 34px;">
          			
          			<span style="margin: 20px;">
-               			<img src="<c:url value="/img/5.jpg"/>" width="140px" height="140px">
+               			<img src="<c:url value="/hs/5.jpg"/>" width="140px" height="140px">
             		</span>
             		<span>
                			<h5 style="position: relative; top: 10px;">Covernat</h5>
@@ -143,7 +143,7 @@
 					</h3><br/>
 					<form action="#" method="post">   
 			            <span style="margin: 20px;">
-			               <img src="<c:url value="/img/5.jpg"/>" width="140px" height="140px">
+			               <img src="<c:url value="/hs/5.jpg"/>" width="140px" height="140px">
 			            </span>
 			            <span>
 			               <h5 style="position: relative; top: 10px;">Balenciaga</h5>
@@ -153,15 +153,27 @@
 			               <h2 style="position: relative; top: 10px;"><input type="checkbox">&nbsp;&nbsp;&nbsp;30,000₩</h2>
 			            </span><br/>
 			            <span style="margin: 20px;">
-			               <img src="<c:url value="/img/5.jpg"/>" width="140px" height="140px">
+			               <img src="<c:url value="/hs/5.jpg"/>" width="140px" height="140px">
 			            </span>
 			            <span>
 			               <h5 style="position: relative; top: 10px;">Balenciaga</h5>
 			               <h5 style="position: relative; top: 20px;">[단독]Denim Jaket & Pants</h5>
-			            </span>
+			            </span> 
 			            <span style="margin-left: 250px;">
 			               <h2 style="position: relative; top: 10px;"><input type="checkbox">&nbsp;&nbsp;&nbsp;29,000₩</h2>
-			            </span><br/><hr>
+			            </span><br/>
+			            <span style="margin: 20px;">
+			               <img src="<c:url value="/hs/5.jpg"/>" width="140px" height="140px">
+			            </span>
+			            <span>
+			               <h5 style="position: relative; top: 10px;">Balenciaga</h5>
+			               <h5 style="position: relative; top: 20px;">[단독]Denim Jaket & Pants</h5>
+			            </span> 
+			            <span style="margin-left: 250px;">
+			               <h2 style="position: relative; top: 10px;"><input type="checkbox">&nbsp;&nbsp;&nbsp;29,000₩</h2>
+			            </span><br/>
+     
+			            <hr>
 			            <span>
 			               <span style="float: left; margin-left: 20px; margin-top: 14px;"><button class="btn btn-primary" type="submit" >바로구매</button></span>      
 			               <span style="margin-left: 640px"><h5>Total</h5><h3>59,000₩</h3></span>            

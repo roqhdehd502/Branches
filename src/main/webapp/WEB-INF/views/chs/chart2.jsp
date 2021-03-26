@@ -20,18 +20,19 @@
         data.addColumn('number', '판매량');
 
         data.addRows([
-          [new Date(2021, 0, 1), 7],
-          [new Date(2021, 0, 8), 7],
-          [new Date(2021, 0, 15), 10],
-          [new Date(2021, 0, 22), 19],
-          [new Date(2021, 0, 29), 15],
-          [new Date(2021, 1, 5), 17],
-          [new Date(2021, 1, 12), 13],
-          [new Date(2021, 1, 19), 11],
-          [new Date(2021, 1, 26), 10],
-          [new Date(2021, 2, 5), 7],
-          [new Date(2021, 2, 12), 3],
-          [new Date(2021, 2, 19), 7],
+          [new Date(2021, 0, 4), 7],
+          [new Date(2021, 0, 11), 7],
+          [new Date(2021, 0, 18), 10],
+          [new Date(2021, 0, 25), 19],
+          [new Date(2021, 1, 1), 17],
+          [new Date(2021, 1, 8), 13],
+          [new Date(2021, 1, 15), 11],
+          [new Date(2021, 1, 22), 10],
+          [new Date(2021, 2, 1), 7],
+          [new Date(2021, 2, 8), 3],
+          [new Date(2021, 2, 15), 7],
+          [new Date(2021, 2, 22), 7],
+          [new Date(2021, 2, 29), 7],
         ]);
 
 

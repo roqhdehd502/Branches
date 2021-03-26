@@ -62,7 +62,7 @@
   color: #4698ff; }
 
 .c3-bg, .bg1, .button, .hero-slider .owl-dots .owl-dot.active, .single-service-2:hover .inner, .single-portfolio .inner .portfolio-img .hover-content, .faq .single-item.active, .single-faq h2 span, .footer_widget .nw_form button, .tabs-area .tabs-nav li a.active, .single-team .inner .team-img::after, .single-pricing.active .inner, .active.single-pricing-2 .inner, .single-pricing-2.active .inner .title .price {
-  background: black;
+  background: white;
    } /* 수정 호버색상 변경 */
 
 .c3-bo, .button, .single-service.bordered .inner:hover, .bordered.single-service-2 .inner:hover, .bordered.single-service-3 .inner:hover, .testimonial-slider .single-slide, .tabs-area .tabs-nav li a::after, .tabs-area .tabs-nav li a.active, .contact-form input:not([type="submit"]):focus,
@@ -707,7 +707,7 @@ form.search-form button {
   .faq .single-item {
     background-color: #fff;
     padding: 20px;
-    padding-left: 50px;
+    padding-left: 5px;
     line-height: 28px;
     font-weight: 700;
     margin-bottom: 10px;
@@ -727,10 +727,10 @@ form.search-form button {
       text-align: center;
       line-height: 25px;
       font-size: 20px; }
-    .faq .single-item.active::after {
+    .faq .single-item.active::after { /* 통계 메뉴 펼칠때 글자 뒷배경 색상 수정 */
       content: "-";
-      background-color: #fff;
-      color: #222; }
+      background-color: black;
+      color: white; }
     .faq .single-item.active {
       color: #fff; }
       .faq .single-item.active h4 {

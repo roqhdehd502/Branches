@@ -7,30 +7,33 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Branches : Login</title>
-	
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
-  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Required CSS files -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/owl.carousel.css">
+<link rel="stylesheet" href="/assets/css/barfiller.css">
+<link rel="stylesheet" href="/assets/css/animate.css">
+<link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/css/slicknav.css">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/bootstrap.min.css">
 </head>
 <body>
 	<div class="row">
   		<div class="col"></div>
   		<div class="col">
   			<div class="container">
-				<div align="center"><img src="<c:url value="/img/branches_text.png"/>" width="200"></div>
-				<h2 align="center">로그인</h2><br>
+				<div align="center"><img src="<c:url value="/img/branches_text.png"/>" width="400"></div>
+				<h2 align="center">Login</h2><br>
 				
 			  	<form action="member/mypage">
-					<div class="form-check" align="left">
-						<label class="form-check-label">
-							<p>
+					<div align="left">
+						<span style="margin: 6px;">
+							<h6>
 							<input type="radio" class="form-check-inline" name="optradio">회원&nbsp;&nbsp;&nbsp;
 							<input type="radio" class="form-check-inline" name="optradio">비회원
-							</p>
-						</label>
+							</h6>
+						</span>
 					</div>	  	
 			  	
 			    	<div class="form-group">
@@ -43,16 +46,19 @@
 			    	<button type="submit" class="btn btn-primary btn-block">로그인</button><br>
 			 	
 			 		<div class="form-check-inline">
-					  	<label class="form-check-label">
+			 		<h6>
+					  	<label class="form-check-label"  style="padding-left: 0px;">
 					    	<input type="checkbox" class="form-check-input" value="">자동로그인
 					  	</label>
+					</h6>	
 					</div>
 					
 					<div class="form-group" align="center">
-						<br>
+						<br><h6>
 			      		<a href="/member/member_register">회원가입</a>&nbsp;|&nbsp;
 			      		<a href="#">ID찾기</a>&nbsp;|&nbsp;
 			      		<a href="#">PW찾기</a>
+			      		</h6>
 			    	</div>
 			    	
 					<div class="form-group" align="center">
@@ -67,5 +73,16 @@
   		</div>
   		<div class="col"></div>
 	</div>
+	
+	<!--Required JS files-->
+	<script src="/assets/js/jquery-2.2.4.min.js"></script>
+	<script src="/assets/js/vendor/popper.min.js"></script>
+	<script src="/assets/js/vendor/bootstrap.min.js"></script>
+	<script src="/assets/js/vendor/owl.carousel.min.js"></script>
+	<script src="/assets/js/vendor/isotope.pkgd.min.js"></script>
+	<script src="/assets/js/vendor/jquery.barfiller.js"></script>
+	<script src="/assets/js/vendor/loopcounter.js"></script>
+	<script src="/assets/js/vendor/slicknav.min.js"></script>
+	<script src="/assets/js/active.js"></script>
 </body>
 </html>

@@ -93,35 +93,37 @@
 
 				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">
 					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px;">
-						<strong style="margin: 10px;">매출조회</strong><hr>
+						<strong style="margin: 10px;">매출조회</strong><hr />
 					</h3>
-					<div style="margin-bottom: 20px;">
-						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">일간</button></span>
-						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">주간</button></span>
-						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">월간</button></span>
-						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">연간</button></span>
-						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">전체</button></span>
-						<form action="#" style="float: right;">
-						<span style="margin-left: 30px;"><h6>지정</h6></span>
-						<span style="margin-left: 10px;">
-							<select>
-								<option>대분류</option>
-								<option>상의</option>
-								<option>하의</option>
-								<option>아우터</option>
-								<option>신발</option>
-								<option>가방</option>
-							</select>
-						</span>
-						<span style="margin-left: 10px;">
-							<select>
-								<option>소분류</option>
-							</select>
-						</span>
-							<span style="margin-left: 10px;"><button class="btn btn-primary btn-sm" type="submit">조회</button></span>
-						</form>
+					<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="faq">
+								<span class="single-item">
+									<h4 style="color: black; margin-left: 46px;">일간</h4>
+									<div class="content"><jsp:include page="chart.jsp" /></div>
+								</span> <span class="single-item">
+									<h4 style="color: black; margin-left: 46px;">주간</h4>
+									<div class="content"><jsp:include page="chart2.jsp" /></div>
+								</span> <span class="single-item">
+									<h4 style="color: black; margin-left: 46px;">월간</h4>
+									<div class="content"><jsp:include page="chart3.jsp" /></div>
+								</span> <span class="single-item">
+									<h4 style="color: black; margin-left: 46px;">연간</h4>
+									<div class="content"><jsp:include page="chart4.jsp" /></div>
+								</span> <span class="single-item">
+									<h4 style="color: black; margin-left: 46px;">전체</h4>
+									<div class="content"><jsp:include page="chart6.jsp" /></div>
+								</span>
+							</div>
+						</div>
 					</div>
-				<hr style="margin-top: 30px;">
+				</div>
+
+				<hr style="margin-top: 1px;">
+				<h3 style="margin-top: 25px; margin-left: 15px;">
+					<strong style="margin: 10px;">검색어 순위 조회</strong><hr>
+				</h3>
 				<div style="margin-bottom: 20px;">
 					<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">ㄱㄴㄷ순</button></span>
 					<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">abc순</button></span>
@@ -138,7 +140,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${prdct }" var="prdct" varStatus="status">
+						<c:forEach items="${prdct }" var="prdct" varStatus="status" begin="0" end="4">
 							<tr>
 								<td><h5>1</h5></td>
 								<td><h5>${prdct.prdct_name }</h5></td>
@@ -148,6 +150,7 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				</span>
 			</div>
 		</div>
 
