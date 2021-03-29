@@ -82,7 +82,7 @@
 										</span>
 										<span class="single-item">
 											<h4 style="color: black; margin-left: 46px;">주간</h4>
-											<div class="content"><jsp:include page="chart2.jsp" /></div>
+											<div class="content"></div>
 										</span>
 										<span class="single-item">
 											<h4 style="color: black; margin-left: 46px;">월간</h4>

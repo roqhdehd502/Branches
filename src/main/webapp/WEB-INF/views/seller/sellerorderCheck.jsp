@@ -60,19 +60,18 @@
          </span>
       </div>
 		
-		<hr>
+		<hr style="margin: 15px 15px 24px 15px;">
 
 		<div class="container">
 			<div class="row">
 				<div class="col-md-2 contact-info" align="center">
 					<div class="single-info" style="margin-bottom: 40px">
 	                    <h3>주문 관리</h3><hr>
-	                    <h5><a href="#">전체</a></h5>
-	                    <h5><a href="#">주문확인</a></h5>
-	                    <h5><a href="#">발송확인</a></h5>
-	                    <h5><a href="#">취소</a></h5>
-	                    <h5><a href="#">교환</a></h5>
-	                    <h5><a href="#">환불</a></h5>
+	                    <h5><a href="/member/sellerorderCheck">주문확인</a></h5>
+	                    <h5><a href="/member/sellerdeleCheck">발송확인</a></h5>
+	                    <h5><a href="/member/sellercancelCheck">취소</a></h5>
+	                    <h5><a href="/member/sellerchangeCheck">교환</a></h5>
+	                    <h5><a href="/member/sellercancelList">환불</a></h5>
 	                </div>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>상품 관리</h3><hr>
@@ -82,78 +81,54 @@
 	                </div>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>회원 관리</h3><hr>
-	                    <h5><a href="#">Q&A</a></h5>
-	                    <h5><a href="#">리뷰</a></h5>
+	                    <h5><a href="/member/sellerQnA">Q&A</a></h5>
+	                    <h5><a href="/member/sellerReview">리뷰</a></h5>
 	                </div>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>매출 관리</h3><hr>
-	                    <h5><a href="#">매출</a></h5>
+	                    <h5><a href="/member/sellertotal">매출</a></h5>
 	                </div>
 				</div>
 
 				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">
 					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px;">
-						<strong style="margin: 10px;">매출조회</strong><hr />
+						<strong style="margin: 10px;">주문 확인</strong>
 					</h3>
-					<div class="container">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="faq">
-								<span class="single-item">
-									<h4 style="color: black; margin-left: 46px;">일간</h4>
-									<div class="content"><jsp:include page="chart.jsp" /></div>
-								</span> <span class="single-item">
-									<h4 style="color: black; margin-left: 46px;">주간</h4>
-									<div class="content"></div>
-								</span> <span class="single-item">
-									<h4 style="color: black; margin-left: 46px;">월간</h4>
-									<div class="content"><jsp:include page="chart3.jsp" /></div>
-								</span> <span class="single-item">
-									<h4 style="color: black; margin-left: 46px;">연간</h4>
-									<div class="content"><jsp:include page="chart4.jsp" /></div>
-								</span> <span class="single-item">
-									<h4 style="color: black; margin-left: 46px;">전체</h4>
-									<div class="content"><jsp:include page="chart6.jsp" /></div>
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<hr style="margin-top: 1px;">
-				<h3 style="margin-top: 25px; margin-left: 15px;">
-					<strong style="margin: 10px;">검색어 순위 조회</strong><hr>
-				</h3>
-				<div style="margin-bottom: 20px;">
-					<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">ㄱㄴㄷ순</button></span>
-					<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">abc순</button></span>
-					<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">매출순</button></span>
-					<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">최근등록순</button></span>
-				</div>
-				<table class="table">
-					<thead>
-						<tr>
-							<th><h5>순위</h5></th>
-							<th><h5>상품명</h5></th>
-							<th><h5>등록일</h5></th>
-							<th><h5>가격</h5></th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${prdct }" var="prdct" varStatus="status" begin="0" end="4">
+					<table class="table">
+						<thead style="text-align: center;">
 							<tr>
-								<td><h5>1</h5></td>
-								<td><h5>${prdct.prdct_name }</h5></td>
-								<td><h5>${prdOrder[status.index].order_date }</h5></td>
-								<td><h5>${prdct.prdct_price }₩</h5></td>
+								<th><h5>상품정보</h5></th>
+								<th><h5>주문일</h5></th>
+								<th><h5>주문번호</h5></th>
+								<th><h5>주문금액</h5></th>
+								<th><h5>상태</h5></th>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-				</span>
+						</thead>
+						<tbody style="text-align: center;">
+						<c:forEach items="${order }" var="order" varStatus="status">	
+							<tr >
+								<td>
+									<h6>${prdct[status.index].prdct_name }</h6>
+									<h6>${order.order_size }</h6>
+									<h6>${order.order_color }</h6>
+									<h6>${order.prdct_price }</h6>
+								</td>
+								<td><h6 style="position: relative; top: 34px;">${prdOrder[status.index].order_date }</h6></td>
+								<td style="text-align: center;"><h6 style="position: relative; top: 34px;">${order.order_number }</h6></td>
+								<td><h6 style="position: relative; top: 34px; text-align: center;">${order.prdct_price }₩</h6></td>
+								<td>
+									<h6 style="position: relative; top: 22px; margin-left: 14px;">결제요청</h6>
+									<h6 style="position: relative; top: 24px; margin-left: 10px;"><button class="btn btn-primary btn-sm">결제처리</button></h6>
+								</td>
+							</tr>
+							</c:forEach>			
+						</tbody>
+					</table>		
+				<hr>
 			</div>
 		</div>
-
+	
+	<hr>
 		<!-- footer -->
 		<footer>
 			<div class="footer-top">
@@ -206,14 +181,18 @@
 					</div>
 				</div>
 			</div>
+
 		</footer>
 		<div class="container">
 			<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 | <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 | <strong>팩스 :</strong>
-				000-0000-0000 |<strong>사업자등록번호 :</strong> 000-00-000000 | <strong>통신판매업신고 :</strong> 0000-서울종로-00000 | 
+				000-0000-0000 |<strong>사업자등록번호 :</strong> 000-00-000000 | <strong>통신판매업신고 :</strong> 0000-서울종로-00000 |
 			</small> <br /> <small style="color: black;"><strong>고객센터</strong> 0000-0000 | 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) | <strong>이메일</strong>
 				admin@branches.co.kr | <strong>개인정보책임자</strong> 000 | <strong>호스팅서비스</strong> (주)00000 | </small>
-		</div><br/><br/>
-		<!--Required JS files-->
+		</div>
+		<br /> <br />
+		
+		
+	<!--Required JS files-->
 	<script src="/assets/js/jquery-2.2.4.min.js"></script>
 	<script src="/assets/js/vendor/popper.min.js"></script>
 	<script src="/assets/js/vendor/bootstrap.min.js"></script>
