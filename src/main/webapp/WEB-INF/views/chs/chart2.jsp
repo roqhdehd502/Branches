@@ -19,7 +19,7 @@
         data.addColumn('date', '주간');
         data.addColumn('number', '판매량');
 
-        data.addRows([
+        data.addRows(
           [new Date(2021, 0, 4), 7],
           [new Date(2021, 0, 11), 7],
           [new Date(2021, 0, 18), 10],
