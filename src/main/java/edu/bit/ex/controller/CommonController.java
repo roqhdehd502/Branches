@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,6 +17,7 @@ import edu.bit.ex.page.MagazineCommentCriteria;
 import edu.bit.ex.page.MagazineCriteria;
 import edu.bit.ex.page.NoticeCriteria;
 import edu.bit.ex.page.PrdQnACriteria;
+import edu.bit.ex.page.PrdctListCriteria;
 import edu.bit.ex.service.CommonService;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
@@ -169,6 +172,41 @@ public class CommonController {
 		// mav.addObject("prdct", hsService.getProduct("테스트")); 하나씩 불러올때 ("해당 컬럼속성의 db값을 적기")
 		// mav.addObject("prdct", hsService.getProduct());
 		// mav.addObject("member", hsService.getMember());
+		return mav;
+	}
+
+	// 전체 상품리스트 common
+	@RequestMapping(value = "/prdct_list", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView prdct_list(ModelAndView mav, PrdctListCriteria cri) {
+		mav.setViewName("rest_ksp/prdct_list");
+		// mav.addObject("prdct", kspService.getPrdctListWithCri(cri));
+		// int total = kspService.getTotalCount(cri);
+		// mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
+		// log.info("total : " + total);
+		return mav;
+	}
+
+	// 카테고리별 상품리스트 common
+	@RequestMapping(value = "/category/{category_id}", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView category_prdct_list(@PathVariable("category_id") int c_id, PrdctListCriteria cri, ModelAndView mav) {
+		mav.setViewName("rest_ksp/category_prdct_list");
+		// mav.addObject("prdct", kspService.getCategoryPrdctListWithCri(cri, c_id));
+		// mav.addObject("category", kspService.getCategory(c_id));
+		// int total = kspService.getCategoryTotalCount(cri, c_id);
+		// mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
+		// log.info("total : " + total);
+		return mav;
+	}
+
+	// 브랜드별 상품리스트 common
+	@RequestMapping(value = "/brand/{brand_id}", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView brand_prdct_list(@PathVariable("brand_id") String b_id, PrdctListCriteria cri, ModelAndView mav) {
+		mav.setViewName("rest_ksp/brand_prdct_list");
+		// mav.addObject("mbr", kspService.getMemberInfo(b_id));
+		// mav.addObject("prdct", kspService.getBrandPrdctListWithCri(cri, b_id));
+		// int total = kspService.getBrandTotalCount(cri, b_id);
+		// mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
+		// log.info("total : " + total);
 		return mav;
 	}
 }

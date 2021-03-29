@@ -1,13 +1,20 @@
 package edu.bit.ex.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.service.SellerService;
+import edu.bit.ex.vo.MbrAddressVO;
 import edu.bit.ex.vo.OrderDetailVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -155,4 +162,34 @@ public class SellerController {
 
 		return mav;
 	}
+
+	// 판매자 정보수정폼 seller
+	@RequestMapping(value = "/seller/{seller_id}/mypage/myinfo", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView seller_info(@PathVariable("seller_id") String m_id, ModelAndView mav) {
+		mav.setViewName("rest_ksp/seller_mypage_modify");
+		// mav.addObject("mbr", kspService.getMemberInfo(m_id));
+		// mav.addObject("adr", kspService.getSellerAddress(m_id));
+		return mav;
+	}
+
+	// 판매자 정보수정 ajax
+	@PutMapping(value = "/seller/{seller_id}/mypage/myinfo")
+	public ResponseEntity<String> seller_info_modify(@RequestBody MbrAddressVO mavo) {
+		ResponseEntity<String> entity = null;
+
+		log.info("rest_update..");
+		try {
+
+			// kspService.sellerInfoUpdate(mavo);
+			log.info("update seller info");
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
+
 }

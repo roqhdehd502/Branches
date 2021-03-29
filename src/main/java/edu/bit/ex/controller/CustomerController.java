@@ -6,9 +6,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -137,5 +140,33 @@ public class CustomerController {
 		// model.addAttribute("pageMaker", new SearchPageVO(cri, total));
 
 		return "brandList";
+	}
+
+	// 회원 정보수정폼 customer
+	@RequestMapping(value = "/member/{member_id}/mypage/myinfo", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView member_info(@PathVariable("member_id") String m_id, ModelAndView mav) {
+		mav.setViewName("rest_ksp/member_mypage_modify");
+		// mav.addObject("mbr", kspService.getMemberInfo(m_id));
+		return mav;
+	}
+
+	// 회원정보수정 ajax customer
+	@PutMapping(value = "/member/{member_id}/mypage/myinfo")
+	public ResponseEntity<String> member_info_modify(@RequestBody MbrVO mbrvo) {
+		ResponseEntity<String> entity = null;
+
+		log.info("rest_update..");
+		try {
+
+			// kspService.memberInfoUpdate(mbrvo);
+			log.info("update member info");
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
 	}
 }
