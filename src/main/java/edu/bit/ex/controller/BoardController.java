@@ -21,6 +21,7 @@ import edu.bit.ex.page.MagazinePageVO;
 import edu.bit.ex.page.NoticeCriteria;
 import edu.bit.ex.page.NoticePageVO;
 import edu.bit.ex.service.BoardService;
+import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import lombok.AllArgsConstructor;
@@ -85,22 +86,6 @@ public class BoardController {
 		return mav;
 	}
 
-	// 공지사항 삭제
-	@DeleteMapping("/notice/{board_id}")
-	public ResponseEntity<String> noticeDelete(BoardVO boardVO) {
-		ResponseEntity<String> entity = null;
-		log.info("noticeDelete...");
-
-		try {
-			boardService.noticeRemove(boardVO.getBoard_id());
-			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-		}
-		return entity;
-	}
-
 	// 공지사항 수정페이지
 	@GetMapping("/notice/modify/{board_id}")
 	public ModelAndView noticeModifyView(BoardVO boardVO, ModelAndView mav) {
@@ -124,6 +109,22 @@ public class BoardController {
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
+		return entity;
+	}
+
+	// 공지사항 삭제
+	@DeleteMapping("/notice/modify/{board_id}")
+	public ResponseEntity<String> noticeDelete(BoardVO boardVO) {
+		ResponseEntity<String> entity = null;
+		log.info("noticeDelete...");
+
+		try {
+			boardService.noticeRemove(boardVO.getBoard_id());
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
 		return entity;
 	}
 
@@ -223,7 +224,21 @@ public class BoardController {
 		return entity;
 	}
 
-	// 매거진 삭제
+	// 매거진 댓글 삭제(오류수정할것)
+	@DeleteMapping("/magazine/{board_id}")
+	public ResponseEntity<String> magazineCommentDelete(BoardCommentVO boardCommentVO) {
+		ResponseEntity<String> entity = null;
+		log.info("magazineDelete...");
+
+		try {
+			boardService.magazineCommentRemove(boardCommentVO.getComment_id());
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
 
 	// 매거진 수정페이지
 	@GetMapping("/magazine/modify/{board_id}")
@@ -248,6 +263,22 @@ public class BoardController {
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
+		return entity;
+	}
+
+	// 매거진 삭제
+	@DeleteMapping("/magazine/modify/{board_id}")
+	public ResponseEntity<String> magazineDelete(BoardVO boardVO) {
+		ResponseEntity<String> entity = null;
+		log.info("magazineDelete...");
+
+		try {
+			// boardService.magazineRemove(boardVO.getBoard_id());
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
 		return entity;
 	}
 }

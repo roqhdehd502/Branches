@@ -89,7 +89,7 @@
 	   	});
 	</script>		
 	
-	<!-- 매거진 게시글 삭제 -->
+	<!-- 매거진 댓글 삭제 -->
 	<script type="text/javascript">
 		$(document).ready(function (){
 			$('#delete').click(function(event){
@@ -103,7 +103,7 @@
 					success: function(result){
 						console.log(result);
 						if(result=="SUCCESS"){
-							$(location).attr('href', '${pageContext.request.contextPath}/board/magazine')
+							$(location).attr('href', '${pageContext.request.contextPath}/board/magazine/${magazine_content.board_id}')
 						}
 					},
 					error:function(e){
@@ -245,7 +245,7 @@
 					</div>
 					</c:forEach>
 					<div class="col-md-12" style="padding: 2% 3% 3% 3%">
-						<p>${magazine_content.board_content}</p>
+						<p class="lead">${magazine_content.board_content}</p>
 					</div>
 				</div>
 			</div>
@@ -256,7 +256,7 @@
 				<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine'">목록보기</button>&nbsp;
 				<button type="button" id="uplike" class="btn btn-primary">추천하기</button>&nbsp;
 				<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine/modify/${magazine_content.board_id}'">수정하기</button>&nbsp;
-				<button type="button" id="delete" class="btn btn-primary">삭제하기</button>
+				
 			</div>
 			
 			<hr>
@@ -296,11 +296,37 @@
 				</div>
 				<c:forEach items="${magazine_comment}" var="magazine_comment">
 				<div class="row" style="margin: 1% 3% 1% 3%; padding: 1% 3% 1% 3%; border: 1px solid #E5E5E5;">
-					<div class="col-md-8" align="left">
+					<div class="col-md-7" align="left">
 						${magazine_comment.comment_content}
 					</div>
 					<div class="col-md-4" align="right">
 						${magazine_comment.comment_date}					
+					</div>
+					<div class="col-md-1" align="right">
+						<!-- 모달을 열기 위한 버튼 -->
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+							...
+						</button>
+						<!-- 모달 영역 -->
+						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&#88;</span></button>
+									</div>
+									<div class="modal-body">
+										<p class="lead" align="left">${magazine_comment.comment_content}</p>
+									</div>
+									<div class="modal-footer">
+										<div align="left">
+										<button type="button" id="delete" class="btn btn-danger">삭제하기</button>&nbsp;
+										<!-- <button type="button" id="modify" class="btn btn-primary">수정하기</button>&nbsp; -->
+										<!-- <button type="button" class="btn btn-primary" data-dismiss="modal">돌아가기</button> -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				</c:forEach>

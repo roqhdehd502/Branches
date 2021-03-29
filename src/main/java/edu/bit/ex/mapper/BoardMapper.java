@@ -74,7 +74,9 @@ public interface BoardMapper {
 	// 매거진 게시글 댓글 작성
 	public void setMagazineCommentWrite(BoardBoardCommentVO boardBoardCommentVO);
 
+	// 매거진 게시글 댓글 삭제
+	public int magazineCommentRemove(int comment_id);
+
 	// 매거진 수정
 	public void setMagazineModify(BoardVO boardVO);
-
 }

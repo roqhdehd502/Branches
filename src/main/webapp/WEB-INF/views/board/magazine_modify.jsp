@@ -60,6 +60,31 @@
 	       }); // end submit()       
 	   	}); // end ready()
 	</script>
+	
+	<!-- 매거진 게시글 삭제 -->
+	<script type="text/javascript">
+		$(document).ready(function (){
+			$('#delete').click(function(event){
+				event.preventDefault();
+				console.log("ajax 호출전");		
+	 
+				$.ajax({
+					type : 'DELETE',
+					url : $(this).attr("href"),
+					cache : false,
+					success: function(result){
+						console.log(result);
+						if(result=="SUCCESS"){
+							$(location).attr('href', '${pageContext.request.contextPath}/board/magazine')
+						}
+					},
+					error:function(e){
+						console.log(e);
+					}
+				})
+			});	
+		});	
+	</script>	
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -208,6 +233,7 @@
 			
 			<div class="container">
 				<div class="row" style="padding: 3% 5% 3% 5%">
+					<button type="button" id="delete" class="btn btn-danger">삭제하기</button>&nbsp;
 					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine'">목록보기</button>&nbsp;
 					<button type="submit" class="btn btn-primary">수정하기</button>
 				</div>

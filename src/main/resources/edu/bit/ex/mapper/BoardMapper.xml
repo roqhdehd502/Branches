@@ -210,13 +210,20 @@
 	]]>	
 	</select>
 	
-	<!-- 매거진 게시글 댓글 작성(스프링 시큐리티 적용시 mbr_id 변경 적용할 것) -->
+	<!-- 매거진 게시글 댓글 작성 -->
 	<insert id="setMagazineCommentWrite">
 	<![CDATA[
 		INSERT INTO board_comment (comment_id, board_id, mbr_id, comment_content) 
 		VALUES (board_comment_seq.nextval, #{board_id}, #{mbr_id}, #{comment_content}) 
 	]]>
 	</insert>
+	
+	<!-- 매거진 게시글 댓글 삭제 -->
+	<delete id="magazineCommentRemove">
+	<![CDATA[
+		DELETE FROM board_comment WHERE comment_id = #{comment_id}
+	]]>
+	</delete>	
 	
 	<!-- 매거진 수정 -->
 	<update id="setMagazineModify">

@@ -20,7 +20,7 @@
 		<java.version>15</java.version>
 	</properties>
 	
-	   <repositories>
+   <repositories>
       <repository>
          <id>oracle</id>
          <url>http://www.datanucleus.org/downloads/maven2/</url>

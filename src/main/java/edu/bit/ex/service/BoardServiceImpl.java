@@ -156,11 +156,17 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.setMagazineCommentWrite(boardBoardCommentVO);
 	}
 
+	// 매거진 게시글 댓글 삭제
+	@Override
+	public int magazineCommentRemove(int comment_id) {
+		log.info("magazineCommentRemove");
+		return boardMapper.magazineCommentRemove(comment_id);
+	}
+
 	// 매거진 수정
 	@Override
 	public void setMagazineModify(BoardVO boardVO) {
 		log.info("setMagazineModify");
 		boardMapper.setMagazineModify(boardVO);
 	}
-
 }

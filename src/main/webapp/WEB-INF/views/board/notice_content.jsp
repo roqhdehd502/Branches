@@ -22,29 +22,6 @@
 	<!-- AJAX용 JQUERY -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
-	<script type="text/javascript">
-		$(document).ready(function (){
-			$('#delete').click(function(event){
-				event.preventDefault();
-				console.log("ajax 호출전");		
-	 
-				$.ajax({
-					type : 'DELETE',
-					url : $(this).attr("href"),
-					cache : false,
-					success: function(result){
-						console.log(result);
-						if(result=="SUCCESS"){
-							$(location).attr('href', '${pageContext.request.contextPath}/board/notice') 
-						}
-					},
-					error:function(e){
-						console.log(e);
-					}
-				})
-			});	
-		});	
-	</script>
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -190,7 +167,6 @@
 				<div class="row" style="padding: 3% 5% 3% 5%">
 					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/notice'">목록보기</button>&nbsp;
 					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/notice/modify/${notice_content.board_id}'">수정하기</button>&nbsp;
-					<button type="button" id="delete" class="btn btn-primary">삭제하기</button>
 				</div>
 			</div>
 		</div>
