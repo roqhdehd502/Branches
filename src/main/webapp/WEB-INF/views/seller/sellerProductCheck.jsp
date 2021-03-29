@@ -52,7 +52,7 @@
             <h3>이름(업체명)</h3>
             <h3 style="position: relative; top: 15px;">아이디</h3>
          </span>
-         <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="#">정보수정</a></span> 
+         <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="/seller/mypage/myinfo">정보수정</a></span> 
          <span style="margin-left: 480px;" align="center">
             <h2 style="position: relative; top: 5px;">새주문</h2>
             <h4 style="position: relative; top: 15px;">2건</h4>
@@ -66,27 +66,25 @@
 				<div class="col-md-2 contact-info" align="center">
 					<div class="single-info" style="margin-bottom: 40px">
 	                    <h3>주문 관리</h3><hr>
-	                    <h5><a href="#">전체</a></h5>
-	                    <h5><a href="#">주문확인</a></h5>
-	                    <h5><a href="#">발송확인</a></h5>
-	                    <h5><a href="#">취소</a></h5>
-	                    <h5><a href="#">교환</a></h5>
-	                    <h5><a href="#">환불</a></h5>
+	                   <h5><a href="/seller/mypage/order">주문확인</a></h5>
+	                    <h5><a href="/seller/mypage/release">발송확인</a></h5>
+	                    <h5><a href="/seller/mypage/cancel">취소</a></h5>
+	                    <h5><a href="/seller/mypage/exchange">교환</a></h5>
+	                    <h5><a href="/seller/mypage/refund">환불</a></h5>
 	                </div>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>상품 관리</h3><hr>
-	                    <h5><a href="#">등록</a></h5>
-	                    <h5><a href="#">수정</a></h5>
-	                    <h5><a href="#">삭제</a></h5>
+	                    <h5><a href="/seller/mypage/prdct_register">등록</a></h5>
+	                    <h5><a href="/seller/mypage/prdct">조회</a></h5>
 	                </div>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>회원 관리</h3><hr>
-	                    <h5><a href="#">Q&A</a></h5>
-	                    <h5><a href="#">리뷰</a></h5>
+	                    <h5><a href="/seller/mypage/prdctqna">Q&A</a></h5>
+	                    <h5><a href="/seller/mypage/review">리뷰</a></h5>
 	                </div>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>매출 관리</h3><hr>
-	                    <h5><a href="#">매출</a></h5>
+	                    <h5><a href="/seller/mypage/sales">매출</a></h5>
 	                </div>
 				</div>
 					
@@ -98,110 +96,22 @@
 					<div class="team-area sp">
 						<div class="container">
 							<div class="row">
-								<div class="col-sm-2 col-md-2 col-lg-2 single-team">
+							<c:forEach items="${prdct }" var="prdct">
+								<div class="col-md-2 single-team">
 									<div class="inner">
+									<a href="/seller/mypage/prdct/{prdct_id}">
 										<div class="team-img">
-											<img src="/ksp/th-ex.jpg" alt="Member Photo">
+											<img src="/ksp/th-ex.jpg">
 										</div>
 										<div class="team-content"> <!-- 누르면 상세페이지 이동 -->
-											<h4>상품명</h4>
-											<h5>브랜드</h5>
-											<h5>$100</h5>
-											<button type="button" class="btn btn-primary btn-sm">수정</button>
+											<h4>${prdct.prdct_name }</h4>
+											<h5>${prdct.prdct_id }</h5>
+											<h5>${prdct.prdct_price }</h5>
 										</div>
+									</a>	
 									</div>
 								</div>
-								<div class="col-sm-2 col-md-2 col-lg-2 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/ksp/th-ex.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>상품명</h4>
-											<h5>브랜드</h5>
-											<h5>$100</h5>
-											<button type="button" class="btn btn-primary btn-sm">수정</button>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-2 col-md-2 col-lg-2 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/ksp/th-ex.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>상품명</h4>
-											<h5>브랜드</h5>
-											<h5>$100</h5>
-											<button type="button" class="btn btn-primary btn-sm">수정</button>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-2 col-md-2 col-lg-2 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/ksp/th-ex.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>상품명</h4>
-											<h5>브랜드</h5>
-											<h5>$100</h5>
-											<button type="button" class="btn btn-primary btn-sm">수정</button>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-2 col-md-2 col-lg-2 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/ksp/th-ex.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>상품명</h4>
-											<h5>브랜드</h5>
-											<h5>$100</h5>
-											<button type="button" class="btn btn-primary btn-sm">수정</button>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-2 col-md-2 col-lg-2 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/ksp/th-ex.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>상품명</h4>
-											<h5>브랜드</h5>
-											<h5>$100</h5>
-											<button type="button" class="btn btn-primary btn-sm">수정</button>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-2 col-md-2 col-lg-2 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/ksp/th-ex.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>상품명</h4>
-											<h5>브랜드</h5>
-											<h5>$100</h5>
-											<button type="button" class="btn btn-primary btn-sm">수정</button>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-2 col-md-2 col-lg-2 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/ksp/th-ex.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>상품명</h4>
-											<h5>브랜드</h5>
-											<h5>$100</h5>
-											<button type="button" class="btn btn-primary btn-sm">수정</button>
-										</div>
-									</div>
-								</div>
+							</c:forEach>	
 							</div>
 						</div>
 					</div>

@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.service.CustomerService;
 import edu.bit.ex.vo.MbrVO;
-import edu.bit.ex.vo.PrdctVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,10 +28,10 @@ public class CustomerController {
 	// 상품 Q&A 등록 customer
 	// 상품 - 상품상세페이지(qna리스트) - 상품등록페이지
 	@GetMapping("/prdct/{prdct_id}/qna/write")
-	public ModelAndView productQnARegister(PrdctVO prdctVO, ModelAndView mav) throws Exception {
+	public ModelAndView productQnARegister(ModelAndView mav) throws Exception {
 		log.info("productQnARegister..");
 		mav.setViewName("customer/productQnARegister");
-		mav.addObject("ProductQnARegister", (customerService.getProductQnARegister(prdctVO.getPrdct_id())));
+		// mav.addObject("ProductQnARegister", (customerService.getProductQnARegister(p_id)));
 
 		return mav;
 	}
@@ -42,7 +41,7 @@ public class CustomerController {
 	public ModelAndView mypage(ModelAndView mav, MbrVO mbrVO) throws Exception {
 		log.info("mypage.......");
 		mav.setViewName("customer/mypage");
-		// mav.addObject("member", customerService.getMember());
+		// mav.addObject("member", hsService.getMember());
 
 		return mav;
 	}
@@ -103,7 +102,7 @@ public class CustomerController {
 	@RequestMapping(value = "/mypage/myinfo", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView member_info(@PathVariable("member_id") String m_id, ModelAndView mav) {
 		mav.setViewName("customer/member_mypage_modify");
-		mav.addObject("mbr", customerService.getMemberInfo(m_id));
+		// mav.addObject("mbr", customerService.getMemberInfo(m_id));
 		return mav;
 	}
 
@@ -115,7 +114,7 @@ public class CustomerController {
 		log.info("rest_update..");
 		try {
 
-			customerService.memberInfoUpdate(mbrvo);
+			// customerService.memberInfoUpdate(mbrvo);
 			log.info("update member info");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 

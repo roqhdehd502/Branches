@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.page.MemberCriteria;
-import edu.bit.ex.page.MemberPageVO;
 import edu.bit.ex.page.PrdctListCriteria;
+
 import edu.bit.ex.page.PrdctListPageVO;
 import edu.bit.ex.page.UserQnACriteria;
 import edu.bit.ex.page.UserQnAPageVO;
+
 import edu.bit.ex.service.AdminService;
 import edu.bit.ex.vo.MbrAddressVO;
 import edu.bit.ex.vo.MbrVO;
@@ -48,9 +49,11 @@ public class AdminController {
 		log.debug("adminQnA");
 		log.info("adminQnA");
 		mav.setViewName("admin/adminQnA");
+
 		mav.addObject("board", adminService.getUserQnAListWithCri(cri));
 		int total = adminService.getUserQnATotalCount(cri);
 		mav.addObject("pageMaker", new UserQnAPageVO(cri, total));
+
 
 		return mav;
 	}
@@ -93,6 +96,7 @@ public class AdminController {
 		mav.addObject("mbr", adminService.getSellerListWithCri(cri));
 		int total = adminService.getSellerTotalCount(cri);
 		mav.addObject("pageMaker", new MemberPageVO(cri, total));
+
 		return mav;
 	}
 
@@ -100,8 +104,8 @@ public class AdminController {
 	@RequestMapping(value = "/mypage/seller/{seller_id}", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView admin_seller_detail(@PathVariable("seller_id") String m_id, ModelAndView mav) {
 		mav.setViewName("admin/admin_seller");
-		mav.addObject("mbr", adminService.getMemberInfo(m_id));
-		mav.addObject("adr", adminService.getSellerAddress(m_id));
+		// mav.addObject("mbr", adminService.getMemberInfo(m_id));
+		// mav.addObject("adr", adminService.getSellerAddress(m_id));
 		return mav;
 	}
 
@@ -109,11 +113,11 @@ public class AdminController {
 	@RequestMapping(value = "/mypage/seller/{seller_id}/prdct", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView admin_seller_prdctlist(@PathVariable("seller_id") String m_id, PrdctListCriteria cri, ModelAndView mav) {
 		mav.setViewName("admin/brand_prdct_list");
-		mav.addObject("mbr", adminService.getMemberInfo(m_id));
-		mav.addObject("prdct", adminService.getSellerPrdctListWithCri(cri, m_id));
-		int total = adminService.getSellerPrdctTotalCount(cri, m_id);
-		mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
-		log.info("total : " + total);
+		// mav.addObject("mbr", adminService.getMemberInfo(m_id));
+		// mav.addObject("prdct", adminService.getSellerPrdctListWithCri(cri, m_id));
+		// int total = adminService.getSellerPrdctTotalCount(cri, m_id);
+		// mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
+		// log.info("total : " + total);
 		return mav;
 	}
 
@@ -125,7 +129,7 @@ public class AdminController {
 		log.info("rest_update..");
 		try {
 
-			adminService.sellerInfoUpdate(mavo);
+			// adminService.sellerInfoUpdate(mavo);
 			log.info("update seller info");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 
@@ -160,6 +164,7 @@ public class AdminController {
 	@RequestMapping(value = "/mypage/member", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView admin_member_list(MemberCriteria cri, ModelAndView mav) {
 		mav.setViewName("admin/admin_member_list");
+
 		mav.addObject("mbr", adminService.getMemberListWithCri(cri));
 		int total = adminService.getMemberTotalCount(cri);
 		mav.addObject("pageMaker", new MemberPageVO(cri, total));
@@ -170,7 +175,7 @@ public class AdminController {
 	@RequestMapping(value = "/mypage/member/{member_id}", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView admin_member_detail(@PathVariable("member_id") String m_id, ModelAndView mav) {
 		mav.setViewName("admin/admin_member");
-		mav.addObject("mbr", adminService.getMemberInfo(m_id));
+		// mav.addObject("mbr", adminService.getMemberInfo(m_id));
 		return mav;
 	}
 
@@ -182,7 +187,7 @@ public class AdminController {
 		log.info("rest_update..");
 		try {
 
-			adminService.memberInfoUpdate(mbrvo);
+			// adminService.memberInfoUpdate(mbrvo);
 			log.info("update member info");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 
@@ -200,7 +205,7 @@ public class AdminController {
 		ResponseEntity<String> entity = null;
 		log.info("rest_delete..");
 		try {
-			adminService.deleteMbr(mbrvo);
+			// adminService.deleteMbr(mbrvo);
 			// 삭제가 성공하면 성공 상태메시지 저장
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
