@@ -1,31 +1,45 @@
 package edu.bit.ex.service;
 
-import edu.bit.ex.page.SearchCriteria;
+import java.util.List;
+
+import edu.bit.ex.page.MemberCriteria;
+import edu.bit.ex.page.PrdctListCriteria;
+import edu.bit.ex.page.UserQnACriteria;
 import edu.bit.ex.vo.BoardVO;
+import edu.bit.ex.vo.MbrAddressVO;
 import edu.bit.ex.vo.MbrVO;
+import edu.bit.ex.vo.PrdctVO;
+import edu.bit.ex.vo.ShippingVO;
 
 public interface AdminService {
-	// 공지사항 작성 id 가져오기
-	public MbrVO getNoticeMember(String mbr_id);
 
-	// 공지사항 작성
-	public void setNoticeWrite(BoardVO boardVO);
+	// 유저 Q&A 페이징 리스트
+	public List<BoardVO> getUserQnAListWithCri(UserQnACriteria cri);
 
-	// 공지사항 삭제
-	public int noticeRemove(int board_id);
+	public int getUserQnATotalCount(UserQnACriteria cri);
 
-	// 공지사항 수정
-	public void setNoticeModify(BoardVO boardVO);
+	public List<MbrVO> getSellerListWithCri(MemberCriteria cri);
 
-	// 매거진 작성 id 가져오기
-	public MbrVO getMagazineMember(String mbr_id);
+	public int getSellerTotalCount(MemberCriteria cri);
 
-	// 매거진 작성
-	public void setMagazineWrite(BoardVO boardVO);
+	public MbrVO getMemberInfo(String m_id);
 
-	// 매거진 수정
-	public void setMagazineModify(BoardVO boardVO);
+	public ShippingVO getSellerAddress(String m_id);
 
-	// 관리자 회원정보 조회(admin)
-	public int getTotal(SearchCriteria cri);
+	public List<PrdctVO> getSellerPrdctListWithCri(PrdctListCriteria cri, String m_id);
+
+	public int getSellerPrdctTotalCount(PrdctListCriteria cri, String m_id);
+
+	public void sellerInfoUpdate(MbrAddressVO mavo);
+
+	public void deleteSeller(MbrAddressVO mavo);
+
+	public List<MbrVO> getMemberListWithCri(MemberCriteria cri);
+
+	public int getMemberTotalCount(MemberCriteria cri);
+
+	public void memberInfoUpdate(MbrVO mbrvo);
+
+	public void deleteMbr(MbrVO mbrvo);
+
 }
