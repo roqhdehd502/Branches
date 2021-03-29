@@ -24,12 +24,34 @@ public class CommonController {
 	@Autowired
 	private CommonService commonService;
 
-	// 상품 상세페이지 common
-	@GetMapping("/product/{prdct_id}")
-	public ModelAndView ProductDetail(@PathVariable("prdct_id") String p_id, PrdQnACriteria cri, ModelAndView mav) throws Exception {
+	// 메인 페이지
+	@GetMapping("/main")
+	public ModelAndView main(ModelAndView mav, PrdctVO prdctVO) throws Exception {
+		log.info("main.......");
+		mav.setViewName("common/main");
+		// mav.addObject("prdct", commonService.getProduct("테스트"));
+		/* 하나씩 불러올때 ("해당 컬럼속성의 db값을 적기") */
+		mav.addObject("prdct", commonService.getProduct());
+		mav.addObject("member", commonService.getMember());
+		return mav;
+	}
+
+	// 전체 상품리스트
+	@RequestMapping(value = "/prdct", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView prdctList(ModelAndView mav, PrdctListCriteria cri) {
+		mav.setViewName("common/prdct_list");
+		// mav.addObject("prdct", commonService.getPrdctListWithCri(cri));
+		// mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
+		// log.info("total : " + total);
+		return mav;
+	}
+
+	// 상품 상세페이지
+	@GetMapping("/prdct/{prdct_id}")
+	public ModelAndView productDetail(@PathVariable("prdct_id") String p_id, PrdQnACriteria cri, ModelAndView mav) throws Exception {
 
 		log.info("product..");
-		mav.setViewName("ej/productDetail");
+		mav.setViewName("common/productDetail");
 		mav.addObject("productDetail", (commonService.getProductDetail(p_id)));
 		mav.addObject("productInfo", (commonService.getProductInfo(p_id)));
 
@@ -45,31 +67,9 @@ public class CommonController {
 		return mav;
 	}
 
-	// 메인 페이지...(common)
-	@GetMapping("/main")
-	public ModelAndView main(ModelAndView mav, PrdctVO pVO) throws Exception {
-		log.info("main.......");
-		mav.setViewName("main");
-		// mav.addObject("prdct", commonService.getProduct("테스트"));
-		/* 하나씩 불러올때 ("해당 컬럼속성의 db값을 적기") */
-		mav.addObject("prdct", commonService.getProduct());
-		mav.addObject("member", commonService.getMember());
-		return mav;
-	}
-
-	// 전체 상품리스트 common
-	@RequestMapping(value = "/prdct_list", method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView prdct_list(ModelAndView mav, PrdctListCriteria cri) {
-		mav.setViewName("rest_ksp/prdct_list");
-		// mav.addObject("prdct", commonService.getPrdctListWithCri(cri));
-		// mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
-		// log.info("total : " + total);
-		return mav;
-	}
-
-	// 카테고리별 상품리스트 common
+	// 카테고리별 상품리스트
 	@RequestMapping(value = "/category/{category_id}", method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView category_prdct_list(@PathVariable("category_id") int c_id, PrdctListCriteria cri, ModelAndView mav) {
+	public ModelAndView categoryPrdctList(@PathVariable("category_id") int c_id, PrdctListCriteria cri, ModelAndView mav) {
 		mav.setViewName("common/category_prdct_list");
 		mav.addObject("prdct", commonService.getCategoryPrdctListWithCri(cri, c_id));
 		mav.addObject("category", commonService.getCategory(c_id));
@@ -79,9 +79,9 @@ public class CommonController {
 		return mav;
 	}
 
-	// 브랜드별 상품리스트 common
+	// 브랜드별 상품리스트
 	@RequestMapping(value = "/brand/{brand_id}", method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView brand_prdct_list(@PathVariable("brand_id") String b_id, PrdctListCriteria cri, ModelAndView mav) {
+	public ModelAndView brandPrdctList(@PathVariable("brand_id") String b_id, PrdctListCriteria cri, ModelAndView mav) {
 		mav.setViewName("common/brand_prdct_list");
 		mav.addObject("mbr", commonService.getMemberInfo(b_id));
 		mav.addObject("prdct", commonService.getBrandPrdctListWithCri(cri, b_id));

@@ -4,5 +4,104 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="edu.bit.ex.mapper.CommonMapper">
+	<!-- 상품 리스트 -->
+	<select id="getProduct" resultType="edu.bit.ex.vo.PrdctVO">
+		<![CDATA[
+			SELECT * FROM prdct
+		]]>
+	</select>
 	
+	<!-- 회원 리스트 -->
+	<select id="getMember" resultType="edu.bit.ex.vo.MbrVO">
+		<![CDATA[
+			SELECT * FROM mbr
+		]]>
+	</select>
+	
+	<!-- 상품 상세페이지 -->
+	<select id="getProductDetail" resultType="edu.bit.ex.vo.PrdctVO">
+	<![CDATA[
+		SELECT * FROM prdct WHERE prdct_id = #{prdct_id}
+	]]>
+	</select>
+	
+	<!-- 상품 상세페이지 옵션 -->
+	<select id="getProductInfo" resultType="edu.bit.ex.vo.PrdctDetailVO">
+	<![CDATA[
+		SELECT * FROM prdct_detail WHERE prdct_id = #{prdct_id}
+	]]>
+	</select>
+	
+	<!-- 페이징을 적용한 상품 Q&A 게시판 리스트 -->
+	<select id="getPrdQnAListWithPaging" resultType="edu.bit.ex.vo.BoardVO">
+		<![CDATA[
+			SELECT * FROM (
+			     SELECT ROWNUM AS RNUM, A.* FROM ( 
+			        		SELECT * 
+			                FROM board 
+			                WHERE board_type_number = 4
+			                ORDER BY board_date DESC 
+			    ) A WHERE ROWNUM <= #{cri.pageNum} * #{cri.amount} 
+			) WHERE RNUM > (#{cri.pageNum}-1) * #{cri.amount} and prdct_id = #{p_id} 
+		]]>
+	</select>
+	
+	<!-- 페이징 단위에 적용되는 최대 상품 Q&A 게시글 단위 -->
+	<select id="getPrdQnATotalCount" resultType="int">
+	<![CDATA[
+		SELECT COUNT(*) FROM board WHERE board_type_number = 4
+	]]>	
+	</select>
+	
+	<!-- 카테고리별 상품 리스트 -->
+		<select id="getCategoryPrdctList" resultType="edu.bit.ex.vo.PrdctVO">
+	<![CDATA[
+		SELECT * FROM ( 
+			     SELECT ROWNUM AS rnum, a.* FROM ( 
+			        		SELECT * 
+			                FROM prdct 
+			    ) a WHERE ROWNUM <= #{cri.pageNum} * #{cri.amount} 
+			) WHERE rnum > (#{cri.pageNum}-1) * #{cri.amount} AND category_number=#{c_id}
+	]]>
+	</select>
+	
+	<!-- 카테고리별 상품 상세 -->
+	<select id="getCategory" resultType="edu.bit.ex.vo.CategoryVO">
+	<![CDATA[
+		SELECT * FROM category WHERE category_number=#{c_id}
+	]]>
+	</select>
+	
+	<!-- 페이징을 적용한 상품 리스트 -->
+	<select id="getCategoryTotalCount" resultType="int">
+	<![CDATA[
+		SELECT COUNT(*)	FROM prdct WHERE category_number=#{c_id}
+	]]>
+	</select>
+	
+	<!-- 판매자 마이페이지 -->
+	<select id="getMemberInfo" resultType="edu.bit.ex.vo.MbrVO">
+	<![CDATA[
+		SELECT * FROM mbr WHERE mbr_id=#{m_id}
+	]]>
+	</select>
+	
+	<!-- 페이징 단위에 적용되는 최대 브랜드 상품 리스트 단위 -->
+	<select id="getBrandPrdctList" resultType="edu.bit.ex.vo.PrdctVO">
+	<![CDATA[
+		SELECT * FROM ( 
+			     SELECT ROWNUM AS rnum, a.* FROM ( 
+			        		SELECT * 
+			                FROM prdct 
+			    ) a WHERE ROWNUM <= #{cri.pageNum} * #{cri.amount} 
+			) WHERE rnum > (#{cri.pageNum}-1) * #{cri.amount} AND mbr_id=#{b_id}
+	]]>
+	</select>
+	
+	<!-- 페이징에 적용되는 브랜드 상품 수 -->
+	<select id="getBrandTotalCount" resultType="int">
+	<![CDATA[
+		SELECT COUNT(*)	FROM prdct WHERE mbr_id=#{b_id}
+	]]>
+	</select>
 </mapper>
