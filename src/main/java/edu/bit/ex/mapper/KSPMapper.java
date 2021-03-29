@@ -37,37 +37,37 @@ public interface KSPMapper {
 
 	/* restcontroller */
 
-	public List<PrdctVO> getPrdctListWithPaging(PrdctListCriteria cri);
+	public List<PrdctVO> getPrdctListWithPaging(PrdctListCriteria cri); // common
 
 	public int getTotalCount(PrdctListCriteria cri);
 
-	public List<PrdctVO> getCategoryPrdctList(PrdctListCriteria cri, int c_id);
+	public List<PrdctVO> getCategoryPrdctList(PrdctListCriteria cri, int c_id); // common
 
 	public int getCategoryTotalCount(PrdctListCriteria cri, int c_id);
 
 	public CategoryVO getCategory(int c_id);
 
-	public List<PrdctVO> getBrandPrdctList(PrdctListCriteria cri, String b_id);
+	public List<PrdctVO> getBrandPrdctList(PrdctListCriteria cri, String b_id); // common
 
 	public int getBrandTotalCount(PrdctListCriteria cri, String b_id);
 
-	public void memberInfoUpdate(MbrVO mbrvo);
+	public void memberInfoUpdate(MbrVO mbrvo); // admin customer
 
-	public ShippingVO getSellerAddress(String m_id);
+	public ShippingVO getSellerAddress(String m_id); // admin seller
 
-	public void sellerAddressUpdate(MbrAddressVO mavo);
+	public void sellerAddressUpdate(MbrAddressVO mavo); // admin seller
 
-	public void sellerInfoUpdate(MbrAddressVO mavo);
+	public void sellerInfoUpdate(MbrAddressVO mavo); // admin seller
 
-	public void deleteMbrAdress(MbrAddressVO mavo);
+	public void deleteMbrAdress(MbrAddressVO mavo); // admin seller 미완
 
-	public void deleteMbrInfo(MbrAddressVO mavo);
+	public void deleteMbrInfo(MbrAddressVO mavo); // admin seller 미완
 
-	public List<MbrVO> getMemberListWithPaging(int auth, MemberCriteria cri);
+	public List<MbrVO> getMemberListWithPaging(int auth, MemberCriteria cri); // admin
 
 	public int getSellerTotalCount(int auth, MemberCriteria cri);
 
-	public List<PrdctVO> getSellerPrdctListWithCri(PrdctListCriteria cri, String m_id);
+	public List<PrdctVO> getSellerPrdctListWithCri(PrdctListCriteria cri, String m_id); // admin seller
 
 	public int getSellerPrdctCount(PrdctListCriteria cri, String b_id);
 
