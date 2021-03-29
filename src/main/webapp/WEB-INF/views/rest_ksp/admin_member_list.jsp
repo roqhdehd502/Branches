@@ -85,10 +85,11 @@
 					
 					<table class="n-table table-col" style="width: 100%; border-collapse: separate; border-spacing: 0 10px;">
 						<colgroup>
-							<col style="width: 25%">
-							<col style="width: 25%">
-							<col style="width: 25%">
-							<col style="width: 25%">
+							<col style="width: 20%">
+							<col style="width: 20%">
+							<col style="width: 20%">
+							<col style="width: 20%">
+							<col style="width: 20%">
 						</colgroup>
 						<thead>
 							<tr style="text-align: center; border-bottom: 1px solid #444444;"> 
@@ -96,6 +97,7 @@
 								<th scope="col"><h5><strong>회원명</strong></h5></th>
 								<th scope="col"><h5><strong>연락처</strong></h5></th>
 								<th scope="col"><h5><strong>가입일</strong></h5></th>
+								<th scope="col"><h5><strong>주문내역</strong></h5></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -111,6 +113,7 @@
 								</a></td>
 								<td scope="col">${mbr.contact_number }</td>
 								<td scope="col">${mbr.jdate }</td>
+								<td scope="col"><button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/rest_ksp/admin/mypage/seller/${mbr.mbr_id}/prdct'">조회</button></td>
 							</tr>
 							</c:forEach>
 						</tbody>

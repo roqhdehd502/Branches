@@ -1,5 +1,7 @@
 package edu.bit.ex.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 import edu.bit.ex.page.PrdQnACriteria;
 import edu.bit.ex.page.PrdQnAPageVO;
 import edu.bit.ex.service.EjService;
-import edu.bit.ex.vo.CartVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -66,9 +67,9 @@ public class EjController {
 	}
 
 	@GetMapping("/cart")
-	public ModelAndView MemberCart(CartVO cartVO, ModelAndView mav) throws Exception {
-		log.debug("cart");
-		log.info("cart..");
+	public ModelAndView MemberCart(HttpSession session, ModelAndView mav) throws Exception {
+		log.debug("cart list");
+		log.info("cart list..");
 		mav.setViewName("ej/memberCart");
 		mav.addObject("cart_list", ejService.getCartList());
 		return mav;
