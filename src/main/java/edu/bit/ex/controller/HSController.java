@@ -24,13 +24,6 @@ public class HSController {
 
 	private HSService hsService;
 
-	@GetMapping("/login2")
-	public String login(Model model) throws Exception {
-		log.debug("login2");
-		log.info("login2");
-		return "login2";
-	}
-
 	@GetMapping("/main")
 	public ModelAndView main(ModelAndView mav, PrdctVO pVO) throws Exception {
 		log.info("main.......");
