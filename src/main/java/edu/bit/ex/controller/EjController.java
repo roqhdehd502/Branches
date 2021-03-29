@@ -24,7 +24,7 @@ public class EjController {
 
 	private EjService ejService;
 
-	// 상품 상세페이지
+	// 상품 상세페이지 common
 	@GetMapping("/prd/{prdct_id}")
 	public ModelAndView ProductDetail(@PathVariable("prdct_id") String p_id, PrdQnACriteria cri, ModelAndView mav) throws Exception {
 
@@ -45,27 +45,22 @@ public class EjController {
 		return mav;
 	}
 
+	// 장바구니 담기 //common
 	/*
 	 * @PutMapping(value = "/prd/{prdc_id}") public ResponseEntity<String> ProductDetail(@RequestBody PrdctVO prdctVO) { ResponseEntity<String> entity
 	 * = null;
 	 * 
-	 * log.info("rest_update.."); try {
-	 * 
-	 * ejService.PrdDetailCartIn(prdctVO); log.info("PrdDetailCartIn"); entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+	 * log.info("rest_update.."); try { ejService.PrdDetailCartIn(prdctVO); log.info("PrdDetailCartIn"); entity = new
+	 * ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 	 * 
 	 * } catch (Exception e) { e.printStackTrace(); entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST); }
 	 * 
-	 * return entity; }
+	 * return entity;
+	 * 
+	 * }
 	 */
 
-	@GetMapping("/main")
-	public String Main(Model model) throws Exception {
-		log.debug("main");
-		log.info("main..");
-
-		return "ej/main";
-	}
-
+	// 장바구니 common
 	@GetMapping("/cart")
 	public ModelAndView MemberCart(HttpSession session, ModelAndView mav) throws Exception {
 		log.debug("cart list");
@@ -75,6 +70,7 @@ public class EjController {
 		return mav;
 	}
 
+	// 비회원 주문정보 입력 common
 	@GetMapping("/order")
 	public String OderInput(Model model) throws Exception {
 		log.debug("order");
@@ -83,6 +79,7 @@ public class EjController {
 		return "ej/orderInput";
 	}
 
+	// 찜하기 customer
 	@GetMapping("/like")
 	public String LikeProduct(Model model) throws Exception {
 		log.debug("like");
@@ -91,6 +88,7 @@ public class EjController {
 		return "ej/likeProduct";
 	}
 
+	// 최근본상품 customer
 	@GetMapping("/recently")
 	public String RecentlyProduct(Model model) throws Exception {
 		log.debug("recently");
@@ -99,14 +97,15 @@ public class EjController {
 		return "ej/recentlyProduct";
 	}
 
-	@GetMapping("/nmcheck")
-	public String NonMemberOrderCheck(Model model) throws Exception {
-		log.debug("nmcheck");
-		log.info("nmcheck..");
+	/*
+	 * //비회원 주문확인 common
+	 * 
+	 * @GetMapping("/nmcheck") public String NonMemberOrderCheck(Model model) throws Exception { log.debug("nmcheck"); log.info("nmcheck..");
+	 * 
+	 * return "ej/nonMemberOrderCheck"; }
+	 */
 
-		return "ej/nonMemberOrderCheck";
-	}
-
+	// 회원 주문확인 customer
 	@GetMapping("/mcheck")
 	public String MemberOrderCheck(Model model) throws Exception {
 		log.debug("mcheck");
@@ -115,6 +114,7 @@ public class EjController {
 		return "ej/memberOrderCheck";
 	}
 
+	// 판매자 등록상품 확인 seller
 	@GetMapping("/spc")
 	public String SellerProductCheck(Model model) throws Exception {
 		log.debug("sellerProductCheck");
@@ -123,6 +123,7 @@ public class EjController {
 		return "ej/sellerProductCheck";
 	}
 
+	// 판매자 등록상품 수정 seller
 	@GetMapping("/spm")
 	public String SellerProductModify(Model model) throws Exception {
 		log.debug("sellerProductModify");
@@ -131,6 +132,7 @@ public class EjController {
 		return "ej/sellerProductModify";
 	}
 
+	// 상품 리뷰 등록 customer
 	@GetMapping("/reviewup")
 	public String ReviewRegister(Model model) throws Exception {
 		log.debug("reviewRegister");
@@ -139,6 +141,7 @@ public class EjController {
 		return "ej/reviewRegister";
 	}
 
+	// 상품 Q&A 등록 customer
 	@GetMapping("/prdqna")
 	public ModelAndView ProductQnARegister(ModelAndView mav) throws Exception {
 		log.info("productQnARegister..");
