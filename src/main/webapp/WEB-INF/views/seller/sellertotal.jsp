@@ -101,19 +101,19 @@
 							<div class="faq">
 								<span class="single-item">
 									<h4 style="color: black; margin-left: 46px;">일간</h4>
-									<div class="content"><jsp:include page="chart.jsp" /></div>
+									<div class="content"></div>
 								</span> <span class="single-item">
 									<h4 style="color: black; margin-left: 46px;">주간</h4>
 									<div class="content"></div>
 								</span> <span class="single-item">
 									<h4 style="color: black; margin-left: 46px;">월간</h4>
-									<div class="content"><jsp:include page="chart3.jsp" /></div>
+									<div class="content"></div>
 								</span> <span class="single-item">
 									<h4 style="color: black; margin-left: 46px;">연간</h4>
-									<div class="content"><jsp:include page="chart4.jsp" /></div>
+									<div class="content"></div>
 								</span> <span class="single-item">
 									<h4 style="color: black; margin-left: 46px;">전체</h4>
-									<div class="content"><jsp:include page="chart6.jsp" /></div>
+									<div class="content"></div>
 								</span>
 							</div>
 						</div>

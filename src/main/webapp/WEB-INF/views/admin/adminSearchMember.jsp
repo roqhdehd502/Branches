@@ -6,7 +6,7 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>판매자 마이페이지</title>
+<title>관리자 마이페이지</title>
 
 <!-- Required CSS files -->
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
@@ -47,114 +47,89 @@
 			</div>
 		</div>
 	</header>
+	
 	<div class="container">
-         <span style="margin-left: 70px;">
-         </span> <span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
-            <h3>이름(업체명)</h3>
-            <h3 style="position: relative; top: 15px;">아이디</h3>
-         </span>
-         <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="#">정보수정</a></span> 
-         <span style="margin-left: 480px;" align="center">
-            <h2 style="position: relative; top: 5px;">새주문</h2>
-            <h4 style="position: relative; top: 15px;">2건</h4>
-         </span>
-      </div>
-		
-		<hr>
-
-		<div class="container">
 			<div class="row">
 				<div class="col-md-2 contact-info" align="center">
-					<div class="single-info" style="margin-bottom: 40px">
-	                    <h3>주문 관리</h3><hr>
-	                    <h5><a href="#">전체</a></h5>
-	                    <h5><a href="#">주문확인</a></h5>
-	                    <h5><a href="#">발송확인</a></h5>
-	                    <h5><a href="#">취소</a></h5>
-	                    <h5><a href="#">교환</a></h5>
-	                    <h5><a href="#">환불</a></h5>
-	                </div>
+					<div class="single-info" style="margin-bottom: 40px; margin-top: 15px;">
+	                    <h3>업체관리</h3><hr>
+	                    <h5><a href="#">업체등록</a></h5>
+	                    <h5><a href="#">업체목록 조회</a></h5>
+	                </div><br/>
 	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>상품 관리</h3><hr>
-	                    <h5><a href="#">등록</a></h5>
-	                    <h5><a href="#">수정</a></h5>
-	                    <h5><a href="#">삭제</a></h5>
-	                </div>
+	                    <h3>회원관리</h3><hr>
+	                    <h5><a href="/member/adminSearchMember">회원정보 조회</a></h5>
+	                    <h5><a href="/member/adminQnA">고객Q&A 목록</a></h5>
+	                </div><br/>
 	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>회원 관리</h3><hr>
-	                    <h5><a href="#">Q&A</a></h5>
-	                    <h5><a href="#">리뷰</a></h5>
-	                </div>
-	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>매출 관리</h3><hr>
-	                    <h5><a href="#">매출</a></h5>
+	                    <h3>매출관리</h3><hr>
+	                    <h5><a href="/member/admintotal">매출조회</a></h5>
+	                    <h5><a href="/member/adminSearchtotal">검색순위 조회</a></h5>
 	                </div>
 				</div>
-
 				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">
-					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px;">
-						<strong style="margin: 10px;">매출조회</strong><hr />
+					<h3 style="margin-top: 18px; margin-left: 15px; padding-bottom: 16px;">
+						<strong style="margin: 10px;">회원정보 조회</strong>
 					</h3>
-					<div class="container">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="faq">
-								<span class="single-item">
-									<h4 style="color: black; margin-left: 46px;">일간</h4>
-									<div class="content"><jsp:include page="chart.jsp" /></div>
-								</span> <span class="single-item">
-									<h4 style="color: black; margin-left: 46px;">주간</h4>
-									<div class="content"></div>
-								</span> <span class="single-item">
-									<h4 style="color: black; margin-left: 46px;">월간</h4>
-									<div class="content"><jsp:include page="chart3.jsp" /></div>
-								</span> <span class="single-item">
-									<h4 style="color: black; margin-left: 46px;">연간</h4>
-									<div class="content"><jsp:include page="chart4.jsp" /></div>
-								</span> <span class="single-item">
-									<h4 style="color: black; margin-left: 46px;">전체</h4>
-									<div class="content"><jsp:include page="chart6.jsp" /></div>
-								</span>
-							</div>
-						</div>
+					<div style="margin-bottom: 20px;">
+						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">ㄱㄴㄷ순</button></span>
+						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">abc순</button></span>
+						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">매출순</button></span>
+						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">최근등록순</button></span>
+						<form id="searchForm" action="/member/adminSearchMember" method="get" style="float: right;">
+							<select name="type">
+								<option value="" <c:out value="${pageMaker.cri.type == null?'selected' : '' }" />>---</option>
+								<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ?'selected' : '' }" />>아이디</option>
+								<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ?'selected' : '' }" />>이름</option>
+								<option value="W" <c:out value="${pageMaker.cri.type eq 'W' ?'selected' : '' }" />>이메일</option>
+							</select> <input type="text" name="keyword" value='<c:out value="${pageMaker.cri.keyword}" />' /> <input type="hidden" name="pageNum"
+								value='<c:out value="${pageMaker.cri.pageNum}" />' /> <input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}" />' />
+							<button class="btn btn-primary btn-sm">검색</button>
+						</form>
 					</div>
-				</div>
-
-				<hr style="margin-top: 1px;">
-				<h3 style="margin-top: 25px; margin-left: 15px;">
-					<strong style="margin: 10px;">검색어 순위 조회</strong><hr>
-				</h3>
-				<div style="margin-bottom: 20px;">
-					<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">ㄱㄴㄷ순</button></span>
-					<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">abc순</button></span>
-					<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">매출순</button></span>
-					<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">최근등록순</button></span>
-				</div>
-				<table class="table">
-					<thead>
-						<tr>
-							<th><h5>순위</h5></th>
-							<th><h5>상품명</h5></th>
-							<th><h5>등록일</h5></th>
-							<th><h5>가격</h5></th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${prdct }" var="prdct" varStatus="status" begin="0" end="4">
+					<table class="table" style="text-align: center;">
+						<thead>
 							<tr>
-								<td><h5>1</h5></td>
-								<td><h5>${prdct.prdct_name }</h5></td>
-								<td><h5>${prdOrder[status.index].order_date }</h5></td>
-								<td><h5>${prdct.prdct_price }₩</h5></td>
+								<th><h5>No.</h5></th>
+								<th><h5>아이디</h5></th>
+								<th><h5>이름</h5></th>
+								<th><h5>전화번호</h5></th>
+								<th><h5>이메일</h5></th>
+								<th><h5>가입일</h5></th>
+							</tr>
+						</thead>
+						<tbody>
+						<c:forEach items="${mem}" var="mem">
+							<tr>
+								<td>
+									<h6>1</h6>
+								</td>
+								<td><h6><a href="#">${mem.mbr_id }</a></h6></td>
+								<td><h6>${mem.mbr_name }</h6></td>
+								<td><h6>${mem.contact_number }</h6></td>
+								<td><h6>${mem.mbr_email }</h6></td>
+								<td><h6>${mem.jdate }</h6></td>
 							</tr>
 						</c:forEach>
-					</tbody>
-				</table>
+						</tbody>
+					</table>
+					<ul class="pagination justify-content-center">
+						<c:if test="${pageMaker.prev}">
+							<a class="page-link" href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}">«</a>
+						</c:if> <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+							<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+							<a class="page-link" href="list${pageMaker.makeQuery(idx)}">${idx}</a>
+						</c:forEach> <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+							<a class="page-link" href="list${pageMaker.makeQuery(pageMaker.endPage +1)}">»</a>
+						</c:if>
+					</ul>
 				</span>
 			</div>
 		</div>
-
-		<!-- footer -->
+		
+	
+	<hr>
+	<!-- footer -->
 		<footer>
 			<div class="footer-top">
 				<div class="container">
@@ -213,7 +188,7 @@
 			</small> <br /> <small style="color: black;"><strong>고객센터</strong> 0000-0000 | 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) | <strong>이메일</strong>
 				admin@branches.co.kr | <strong>개인정보책임자</strong> 000 | <strong>호스팅서비스</strong> (주)00000 | </small>
 		</div><br/><br/>
-		<!--Required JS files-->
+	<!--Required JS files-->
 	<script src="/assets/js/jquery-2.2.4.min.js"></script>
 	<script src="/assets/js/vendor/popper.min.js"></script>
 	<script src="/assets/js/vendor/bootstrap.min.js"></script>
@@ -223,6 +198,28 @@
 	<script src="/assets/js/vendor/loopcounter.js"></script>
 	<script src="/assets/js/vendor/slicknav.min.js"></script>
 	<script src="/assets/js/active.js"></script>
-</div>
+
+		<script type="text/javascript">
+			var searchForm = $("#searchForm");
+			$("#searchForm button").on("click", function(e) {
+
+				if (!searchForm.find("option:selected").val()) {
+					alert("검색종류를 선택하세요!");
+					return false;
+				}
+
+				if (!searchForm.find("input[name='keyword']").val()) {
+					alert("키워드를 입력하세요!");
+					return false;
+				}
+
+				searchForm.find("input[name='pageNum']").val("1");
+				e.preventDefault();
+
+				searchForm.submit();
+			});
+		</script>
+
+	</div>
 </body>
 </html>
