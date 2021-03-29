@@ -18,6 +18,7 @@ import edu.bit.ex.page.PrdQnACriteria;
 import edu.bit.ex.service.CommonService;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
+import edu.bit.ex.vo.PrdctVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -159,4 +160,15 @@ public class CommonController {
 	 * 
 	 * return "ej/nonMemberOrderCheck"; }
 	 */
+
+	// 메인 페이지...(common)
+	@GetMapping("/main")
+	public ModelAndView main(ModelAndView mav, PrdctVO pVO) throws Exception {
+		log.info("main.......");
+		mav.setViewName("main");
+		// mav.addObject("prdct", hsService.getProduct("테스트")); 하나씩 불러올때 ("해당 컬럼속성의 db값을 적기")
+		// mav.addObject("prdct", hsService.getProduct());
+		// mav.addObject("member", hsService.getMember());
+		return mav;
+	}
 }

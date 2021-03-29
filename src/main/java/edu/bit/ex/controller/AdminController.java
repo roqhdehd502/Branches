@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.service.AdminService;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
@@ -167,5 +168,63 @@ public class AdminController {
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return entity;
+	}
+
+	// 관리자 마이페이지...(admin)
+	@GetMapping("/adminpage")
+	public String adminpage(Model model) throws Exception {
+		log.debug("adminpage");
+		log.info("adminpage");
+		return "adminpage";
+	}
+
+	// 관리자 유저 Q&A 조회페이지...(admin)
+	@GetMapping("/adminQnA")
+	public ModelAndView adminQnA(ModelAndView mav, BoardVO boardVO) throws Exception {
+		log.debug("adminQnA");
+		log.info("adminQnA");
+		mav.setViewName("adminQnA");
+		// mav.addObject("board", hsService.getBoard());
+		// mav.addObject("prdct", hsService.getProduct());
+
+		return mav;
+	}
+
+	// 관리자 매출조회 페이지..(admin)
+	@GetMapping("/admintotal")
+	public ModelAndView admintotal(ModelAndView mav) throws Exception {
+		log.debug("admintotal");
+		log.info("admintotal");
+
+		mav.setViewName("admintotal");
+		// mav.addObject("prdct", hsService.getProduct());
+		// mav.addObject("prdOrder", hsService.getPrdOrder());
+
+		return mav;
+	}
+
+	// 관리자 회원정보 조회 페이지...(admin)
+	@GetMapping("/adminSearchMember")
+	public String adminSearchMember(Model model, SearchCriteria cri) throws Exception {
+		log.info("adminSearchMember.........");
+		// model.addAttribute("mem", hsService.getMemberList(cri));
+
+		// int total = hsService.getTotal(cri);
+		log.info("total..........");
+		// model.addAttribute("pageMaker", new SearchPageVO(cri, total));
+
+		return "/adminSearchMember";
+	}
+
+	// 관리자 매출 조회 검색페이지?...(admin)
+	@GetMapping("/adminSearchtotal")
+	public ModelAndView adminSearchtotal(ModelAndView mav) throws Exception {
+		log.debug("adminSearchtotal");
+		log.info("adminSearchtotal");
+		mav.setViewName("adminSearchtotal");
+		// mav.addObject("prdct", hsService.getProduct());
+		// mav.addObject("prdOrder", hsService.getPrdOrder());
+
+		return mav;
 	}
 }
