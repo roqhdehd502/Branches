@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.4.3</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
-	
-	<groupId>edu.bit</groupId>
-	<artifactId>ex</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
-	<name>branches_project</name>
-	<description>Demo project for Spring Boot</description>
-	
-	<properties>
-		<java.version>15</java.version>
-	</properties>
-	
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <parent>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-parent</artifactId>
+      <version>2.4.3</version>
+      <relativePath/> <!-- lookup parent from repository -->
+   </parent>
+   
+   <groupId>edu.bit</groupId>
+   <artifactId>ex</artifactId>
+   <version>0.0.1-SNAPSHOT</version>
+   <packaging>war</packaging>
+   <name>branches_project</name>
+   <description>Demo project for Spring Boot</description>
+   
+   <properties>
+      <java.version>15</java.version>
+   </properties>
+   
    <repositories>
       <repository>
          <id>oracle</id>
@@ -99,29 +99,11 @@
         
         <!-- DB Logback -->
         <dependency>
-	        <groupId>org.bgee.log4jdbc-log4j2</groupId>
-	        <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
-	        <version>1.16</version>
+           <groupId>org.bgee.log4jdbc-log4j2</groupId>
+           <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
+           <version>1.16</version>
         </dependency>
-
-		<!-- jwt -->
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>0.9.1</version>
-		</dependency>
-	
-		<!--Security -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-				
+            
    </dependencies>
    
 

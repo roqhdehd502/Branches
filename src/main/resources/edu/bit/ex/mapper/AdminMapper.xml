@@ -5,4 +5,127 @@
   
 <mapper namespace="edu.bit.ex.mapper.AdminMapper">
 	
+	<!-- 고객Q&A + 페이징 -->
+	<select id="getUserQnAListWithCri" resultType="edu.bit.ex.vo.BoardVO">
+	<![CDATA[
+		select * from (
+			     select rownum as rnum, a.* from (
+			        		select
+			                    *
+			                from
+			                    board  
+			    ) a where rownum <= #{pageNum} * #{amount}
+			) where rnum > (#{pageNum}-1) * #{amount} and board_type_number=5
+	]]>
+	</select>
+	
+	<!-- 고객 Q&A 수 반환 -->
+	<select id="getUserQnATotalCount" resultType="int">
+	<![CDATA[
+		select count(*)	from board where board_type_number=5
+	]]>
+	</select>
+	
+	<!-- 판매자 리스트 + 페이징 -->
+	<select id="getSellerListWithCri" resultType="edu.bit.ex.vo.MbrVO">
+	<![CDATA[
+		select * from (
+			     select rownum as rnum, a.* from (
+			        		select
+			                    *
+			                from
+			                    mbr  
+			    ) a where rownum <= #{pageNum} * #{amount}
+			) where rnum > (#{pageNum}-1) * #{amount} and authority_number=2
+	]]>
+	</select>
+	
+	<!-- 판매자 수 반환 -->
+	<select id="getSellerTotalCount" resultType="int">
+	<![CDATA[
+		select count(*)	from mbr where authority_number=2
+	]]>
+	</select>
+	
+	<!-- 회원 상세 정보 -->
+	<select id="getMemberInfo" resultType="edu.bit.ex.vo.MbrVO">
+	<![CDATA[
+		select * from mbr where mbr_id=#{m_id}
+	]]>
+	</select>
+	
+	<!-- 판매자 주소 --> 
+	<select id="getSellerAddress" resultType="edu.bit.ex.vo.ShippingVO">
+	<![CDATA[
+		select * from shipping where mbr_id=#{m_id}
+	]]>
+	</select>
+	
+	<!-- 브랜드 상품리스트 + 페이징 common -->
+	<select id="getSellerPrdctListWithCri" resultType="edu.bit.ex.vo.PrdctVO">
+	<![CDATA[
+		select * from (
+			     select rownum as rnum, a.* from (
+			        		select
+			                    *
+			                from
+			                    prdct  
+			    ) a where rownum <= #{cri.pageNum} * #{cri.amount}
+			) where rnum > (#{cri.pageNum}-1) * #{cri.amount} and mbr_id=#{m_id}
+	]]>
+	</select>
+	
+	<!-- 전체 수 반환 common -->
+	<select id="getSellerPrdctTotalCount" resultType="int">
+	<![CDATA[
+		select count(*)	from prdct where mbr_id=#{m_id}
+	]]>
+	</select>
+	
+	<!-- 판매자 정보 수정 admin seller-->
+	<update id="sellerInfoUpdate">
+	<![CDATA[
+		update mbr set mbr_name=#{mbr_name}, mbr_pw=#{mbr_pw}, mbr_email=#{mbr_email}, contact_number=#{contact_number}  where mbr_id=#{mbr_id}
+	]]>
+	</update>
+	
+	<!-- 판매자 주소 수정 admin seller -->
+	<update id="sellerAddressUpdate">
+	<![CDATA[
+		update shipping set shipping_address=#{shipping_address} where mbr_id=#{mbr_id}
+	]]>
+	</update>
+	
+	<!-- 판매자 정보 삭제====탈퇴=====보류 -->
+	
+	<!--  회원 리스트 + 페이징 -->
+	<select id="getMemberListListWithCri" resultType="edu.bit.ex.vo.MbrVO">
+	<![CDATA[
+		select * from (
+			     select rownum as rnum, a.* from (
+			        		select
+			                    *
+			                from
+			                    mbr  
+			    ) a where rownum <= #{cri.pageNum} * #{cri.amount}
+			) where rnum > (#{cri.pageNum}-1) * #{cri.amount} and authority_number=3
+	]]>
+	</select>
+	
+	<!-- 전체 수 반환 common -->
+	<select id="getMemberTotalCount" resultType="int">
+	<![CDATA[
+		select count(*)	from mbr where authority_number=3
+	]]>
+	</select>
+	
+	<!-- 회원정보수정 -->
+	<update id="memberInfoUpdate">
+	<![CDATA[
+		update mbr set mbr_pw=#{mbr_pw}, mbr_email=#{mbr_email}, contact_number=#{contact_number}, mbr_gender=#{mbr_gender} where mbr_id=#{mbr_id}
+	]]>
+	</update>
+	
+	<!-- 회원 정보 삭제====탈퇴====보류 -->
+	
 </mapper>
