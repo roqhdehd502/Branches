@@ -22,49 +22,49 @@ import lombok.extern.slf4j.Slf4j;
 public class EjServiceImpl implements EjService {
 	private EjMapper ejMapper;
 
-	// 장바구니
+	// 장바구니 common
 	@Override
 	public List<CartVO> getCartList() {
 		log.info("getCartList");
 		return ejMapper.getCartList();
 	}
 
-	// 상품 상세페이지
+	// 상품 상세페이지 common
 	@Override
 	public PrdctVO getProductDetail(String prdct_id) {
 		log.info("getProductDetail");
 		return ejMapper.getProductDetail(prdct_id);
 	}
 
-	// 상품 상세페이지 옵션
+	// 상품 상세페이지 옵션 common
 	@Override
 	public List<PrdctDetailVO> getProductInfo(String p_id) {
 		log.info("getProductInfo");
 		return ejMapper.getProductInfo(p_id);
 	}
 
-	// 상품 상세이미지
+	// 상품 상세이미지 common
 	@Override
 	public PrdctImageVO getprdDetailImage(int board_id) {
 		log.info("getprdDetailImage");
 		return ejMapper.getprdDetailImage(board_id);
 	}
 
-	// 상품 장바구니 담기
+	// 상품 장바구니 담기 common
 	/*
 	 * @Override public void PrdDetailCartIn(PrdctVO prdctVO) { log.info("PrdDetailCartIn"); ejMapper.PrdDetailCartIn(prdctVO);
 	 * 
 	 * }
 	 */
 
-	// 페이징을 적용한 상품 Q&A 게시판 리스트
+	// 페이징을 적용한 상품 Q&A 게시판 리스트 customer
 	@Override
 	public List<BoardVO> getPrdQnAList(PrdQnACriteria cri, String p_id) {
 		log.info("getPrdQnAList WITH criteria: " + cri);
 		return ejMapper.getPrdQnAListWithPaging(cri, p_id);
 	}
 
-	// 페이징 단위에 적용되는 최대 상품 Q&A 게시글 단위
+	// 페이징 단위에 적용되는 최대 상품 Q&A 게시글 단위 customer
 	@Override
 	public int getPrdQnATotal(PrdQnACriteria cri) {
 		log.info("getPrdQnATotal WITH criteria: " + cri);

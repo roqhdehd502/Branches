@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="edu.bit.ex.mapper.EjMapper">
-	<!-- 장바구니 리스트 -->
+	<!-- 장바구니 리스트  common -->
 	<resultMap id="cartMap" type="edu.bit.ex.vo.CartVO">
 	    <result property="cart_number" column="cart_number"/>
 	    <result property="cart_price" column="cart_price"/>
@@ -26,21 +26,21 @@
 		select cart_number, cart_price, cart_date from cart
 	</select>
 	
-	<!-- 상품상세페이지 -->
+	<!-- 상품상세페이지 common -->
 	<select id="getProductDetail" resultType="edu.bit.ex.vo.PrdctVO">
 	<![CDATA[
 		SELECT * FROM prdct WHERE prdct_id = #{prdct_id}
 	]]>
 	</select>
 	
-	<!-- 상품상세페이지 옵션-->
+	<!-- 상품상세페이지 옵션 common -->
 	<select id="getProductInfo" resultType="edu.bit.ex.vo.PrdctDetailVO">
 	<![CDATA[
 		SELECT * FROM prdct_detail WHERE prdct_id = #{prdct_id}
 	]]>
 	</select>
 	
-	<!-- 상품상세 이미지-->
+	<!-- 상품상세 이미지 common -->
 	<resultMap id="getprdDetailImageMap" type="edu.bit.ex.vo.PrdctImageVO">
 	    <result property="image_number" column="image_number"/>
 	    <result property="image_name" column="image_name"/>
@@ -60,7 +60,7 @@
 		ORDER BY p.image_number ASC
 	</select>
 	
-	<!--  상품 담기 
+	<!--  상품 담기 common
 	<resultMap id="getprdDetailCartInMap" type="edu.bit.ex.vo.PrdctVO">
 	    <result property="prdct_id" column="prdct_id"/>
 	    <result property="prdct_name" column="prdct_name"/>
@@ -75,7 +75,7 @@
 		insert into 
 	</insert> -->
 	
-	<!-- 페이징을 적용한 상품 Q&A 게시판 리스트 -->
+	<!-- 페이징을 적용한 상품 Q&A 게시판 리스트 customer -->
 	<select id="getPrdQnAListWithPaging" resultType="edu.bit.ex.vo.BoardVO">
 		<![CDATA[
 			SELECT * FROM (
@@ -89,7 +89,7 @@
 		]]>
 	</select>
 	
-	<!-- 페이징 단위에 적용되는 최대 공지 게시글 단위 -->
+	<!-- 페이징 단위에 적용되는 최대 공지 게시글 단위 customer -->
 	<select id="getPrdQnATotalCount" resultType="int">
 	<![CDATA[
 		SELECT COUNT(*) FROM board WHERE board_type_number = 4
