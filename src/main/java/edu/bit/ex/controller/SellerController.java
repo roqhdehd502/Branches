@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.service.SellerService;
 import edu.bit.ex.vo.MbrAddressVO;
-import edu.bit.ex.vo.OrderDetailVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,6 +40,7 @@ public class SellerController {
 		log.debug("sellerProductCheck");
 		log.info("sellerProductCheck..");
 		mav.setViewName("seller/sellerProductCheck");
+		mav.addObject("prdct", sellerService.getProduct());
 
 		return mav;
 	}
@@ -58,11 +58,11 @@ public class SellerController {
 
 	// 판매자 마이페이지...(seller)
 	@GetMapping("/mypage")
-	public ModelAndView sellerpage(ModelAndView mav, OrderDetailVO orVO) throws Exception {
+	public ModelAndView sellerpage(ModelAndView mav) throws Exception {
 		log.debug("sellerpage");
 		log.info("sellerpage");
 		mav.setViewName("seller/sellerpage");
-		mav.addObject("order", sellerService.getOrder());
+		mav.addObject("order", sellerService.getOrderDetail());
 		mav.addObject("prdct", sellerService.getProduct());
 		mav.addObject("prdOrder", sellerService.getPrdOrder());
 		return mav;
@@ -70,12 +70,12 @@ public class SellerController {
 
 	// 판매자 주문확인 페이지...(seller)
 	@GetMapping("/mypage/order")
-	public ModelAndView sellerorderCheck(ModelAndView mav, OrderDetailVO orVO) throws Exception {
+	public ModelAndView sellerorderCheck(ModelAndView mav) throws Exception {
 		log.debug("sellerorderCheck");
 		log.info("sellerorderCheck");
 
 		mav.setViewName("seller/sellerorderCheck");
-		mav.addObject("order", sellerService.getOrder());
+		mav.addObject("order", sellerService.getOrderDetail());
 		mav.addObject("prdct", sellerService.getProduct());
 		mav.addObject("prdOrder", sellerService.getPrdOrder());
 		return mav;
@@ -83,11 +83,11 @@ public class SellerController {
 
 	// 판매자 발송확인 페이지...(seller)
 	@GetMapping("/mypage/release")
-	public ModelAndView sellerdeleCheck(ModelAndView mav, OrderDetailVO orVO) throws Exception {
+	public ModelAndView sellerdeleCheck(ModelAndView mav) throws Exception {
 		log.debug("sellerdeleCheck");
 		log.info("sellerdeleCheck");
 		mav.setViewName("seller/sellerdeleCheck");
-		mav.addObject("order", sellerService.getOrder());
+		mav.addObject("order", sellerService.getOrderDetail());
 		mav.addObject("prdct", sellerService.getProduct());
 		mav.addObject("prdOrder", sellerService.getPrdOrder());
 
@@ -96,11 +96,11 @@ public class SellerController {
 
 	// 판매자 취소 확인 페이지...(seller)
 	@GetMapping("/mypage/cancel")
-	public ModelAndView sellercancelCheck(ModelAndView mav, OrderDetailVO orVO) throws Exception {
+	public ModelAndView sellercancelCheck(ModelAndView mav) throws Exception {
 		log.debug("sellercancelCheck");
 		log.info("sellercancelCheck");
 		mav.setViewName("seller/sellercancelCheck");
-		mav.addObject("order", sellerService.getOrder());
+		mav.addObject("order", sellerService.getOrderDetail());
 		mav.addObject("prdct", sellerService.getProduct());
 
 		return mav;
@@ -108,11 +108,11 @@ public class SellerController {
 
 	// 판매자 환불 확인 페이지...(seller)
 	@GetMapping("/mypage/refund")
-	public ModelAndView sellercancelList(ModelAndView mav, OrderDetailVO orVO) throws Exception {
-		log.debug("sellercancelList");
-		log.info("sellercancelList");
-		mav.setViewName("seller/sellercancelList");
-		mav.addObject("order", sellerService.getOrder());
+	public ModelAndView sellerRefund(ModelAndView mav) throws Exception {
+		log.debug("sellerRefund");
+		log.info("sellerRefund");
+		mav.setViewName("seller/sellerRefund");
+		mav.addObject("order", sellerService.getOrderDetail());
 		mav.addObject("prdct", sellerService.getProduct());
 		mav.addObject("prdOrder", sellerService.getPrdOrder());
 		return mav;
@@ -120,11 +120,11 @@ public class SellerController {
 
 	// 판매자 교환확인 페이지...(seller)
 	@GetMapping("/mypage/exchange")
-	public ModelAndView sellerchangeCheck(ModelAndView mav, OrderDetailVO orVO) throws Exception {
+	public ModelAndView sellerchangeCheck(ModelAndView mav) throws Exception {
 		log.debug("sellerchangeCheck");
 		log.info("sellerchangeCheck");
 		mav.setViewName("seller/sellerchangeCheck");
-		mav.addObject("order", sellerService.getOrder());
+		mav.addObject("order", sellerService.getOrderDetail());
 		mav.addObject("prdct", sellerService.getProduct());
 		mav.addObject("prdOrder", sellerService.getPrdOrder());
 		return mav;
@@ -156,11 +156,11 @@ public class SellerController {
 
 	// 판매자 매출조회 페이지...(seller)
 	@GetMapping("/mypage/sales")
-	public ModelAndView sellertotal(ModelAndView mav) throws Exception {
-		log.debug("sellertotal");
-		log.info("sellertotal");
+	public ModelAndView sellerSales(ModelAndView mav) throws Exception {
+		log.debug("sellerSales");
+		log.info("sellerSales");
 
-		mav.setViewName("seller/sellertotal");
+		mav.setViewName("seller/sellerSales");
 		mav.addObject("prdct", sellerService.getProduct());
 		mav.addObject("prdOrder", sellerService.getPrdOrder());
 

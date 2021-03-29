@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.page.MemberCriteria;
-import edu.bit.ex.page.MemberPageVO;
 import edu.bit.ex.page.PrdctListCriteria;
-import edu.bit.ex.page.PrdctListPageVO;
 import edu.bit.ex.service.AdminService;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrAddressVO;
@@ -47,8 +45,8 @@ public class AdminController {
 		log.debug("adminQnA");
 		log.info("adminQnA");
 		mav.setViewName("admin/adminQnA");
-		mav.addObject("board", adminService.getBoard());
-		mav.addObject("prdct", adminService.getProduct());
+		// mav.addObject("board", adminService.getBoard());
+		// mav.addObject("prdct", adminService.getProduct());
 
 		return mav;
 	}
@@ -60,8 +58,8 @@ public class AdminController {
 		log.info("admintotal");
 
 		mav.setViewName("admin/admintotal");
-		mav.addObject("prdct", adminService.getProduct());
-		mav.addObject("prdOrder", adminService.getPrdOrder());
+		// mav.addObject("prdct", adminService.getProduct());
+		// mav.addObject("prdOrder", adminService.getPrdOrder());
 
 		return mav;
 	}
@@ -82,8 +80,8 @@ public class AdminController {
 		log.debug("adminSearchtotal");
 		log.info("adminSearchtotal");
 		mav.setViewName("admin/adminSearchtotal");
-		mav.addObject("prdct", adminService.getProduct());
-		mav.addObject("prdOrder", adminService.getPrdOrder());
+		// mav.addObject("prdct", adminService.getProduct());
+		// mav.addObject("prdOrder", adminService.getPrdOrder());
 
 		return mav;
 	}
@@ -92,9 +90,9 @@ public class AdminController {
 	@RequestMapping(value = "/mypage/seller", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView admin_seller_list(ModelAndView mav, MemberCriteria cri) {
 		mav.setViewName("admin/admin_seller_list");
-		mav.addObject("mbr", adminService.getMemberListWithPaging(2, cri));
-		int total = adminService.getSellerTotalCount(2, cri);
-		mav.addObject("pageMaker", new MemberPageVO(cri, total));
+		// mav.addObject("mbr", adminService.getMemberListWithPaging(2, cri));
+		// int total = adminService.getSellerTotalCount(2, cri);
+		// mav.addObject("pageMaker", new MemberPageVO(cri, total));
 		return mav;
 	}
 
@@ -102,8 +100,8 @@ public class AdminController {
 	@RequestMapping(value = "/mypage/seller/{seller_id}", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView admin_seller_detail(@PathVariable("seller_id") String m_id, ModelAndView mav) {
 		mav.setViewName("admin/admin_seller");
-		mav.addObject("mbr", adminService.getMemberInfo(m_id));
-		mav.addObject("adr", adminService.getSellerAddress(m_id));
+		// mav.addObject("mbr", adminService.getMemberInfo(m_id));
+		// mav.addObject("adr", adminService.getSellerAddress(m_id));
 		return mav;
 	}
 
@@ -111,11 +109,11 @@ public class AdminController {
 	@RequestMapping(value = "/mypage/seller/{seller_id}/prdct", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView admin_seller_prdctlist(@PathVariable("seller_id") String m_id, PrdctListCriteria cri, ModelAndView mav) {
 		mav.setViewName("admin/brand_prdct_list");
-		mav.addObject("mbr", adminService.getMemberInfo(m_id));
-		mav.addObject("prdct", adminService.getSellerPrdctListWithCri(cri, m_id));
-		int total = adminService.getSellerPrdctTotalCount(cri, m_id);
-		mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
-		log.info("total : " + total);
+		// mav.addObject("mbr", adminService.getMemberInfo(m_id));
+		// mav.addObject("prdct", adminService.getSellerPrdctListWithCri(cri, m_id));
+		// int total = adminService.getSellerPrdctTotalCount(cri, m_id);
+		// mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
+		// log.info("total : " + total);
 		return mav;
 	}
 
@@ -127,7 +125,7 @@ public class AdminController {
 		log.info("rest_update..");
 		try {
 
-			adminService.sellerInfoUpdate(mavo);
+			// adminService.sellerInfoUpdate(mavo);
 			log.info("update seller info");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 
@@ -145,7 +143,7 @@ public class AdminController {
 		ResponseEntity<String> entity = null;
 		log.info("rest_delete..");
 		try {
-			adminService.deleteMbr(mavo);
+			// adminService.deleteMbr(mavo);
 			// 삭제가 성공하면 성공 상태메시지 저장
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
@@ -162,7 +160,7 @@ public class AdminController {
 	@RequestMapping(value = "/mypage/member", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView admin_member_list(MemberCriteria cri, ModelAndView mav) {
 		mav.setViewName("admin/admin_member_list");
-		mav.addObject("mbr", adminService.getMemberListWithPaging(3, cri));
+		// mav.addObject("mbr", adminService.getMemberListWithPaging(3, cri));
 		return mav;
 	}
 
@@ -170,7 +168,7 @@ public class AdminController {
 	@RequestMapping(value = "/mypage/member/{member_id}", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView admin_member_detail(@PathVariable("member_id") String m_id, ModelAndView mav) {
 		mav.setViewName("admin/admin_member");
-		mav.addObject("mbr", adminService.getMemberInfo(m_id));
+		// mav.addObject("mbr", adminService.getMemberInfo(m_id));
 		return mav;
 	}
 
@@ -182,7 +180,7 @@ public class AdminController {
 		log.info("rest_update..");
 		try {
 
-			adminService.memberInfoUpdate(mbrvo);
+			// adminService.memberInfoUpdate(mbrvo);
 			log.info("update member info");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 
@@ -200,7 +198,7 @@ public class AdminController {
 		ResponseEntity<String> entity = null;
 		log.info("rest_delete..");
 		try {
-			adminService.deleteMbr(mbrvo);
+			// adminService.deleteMbr(mbrvo);
 			// 삭제가 성공하면 성공 상태메시지 저장
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {

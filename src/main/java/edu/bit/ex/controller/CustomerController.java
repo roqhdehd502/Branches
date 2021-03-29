@@ -31,7 +31,7 @@ public class CustomerController {
 	public ModelAndView productQnARegister(ModelAndView mav) throws Exception {
 		log.info("productQnARegister..");
 		mav.setViewName("customer/productQnARegister");
-		mav.addObject("ProductQnARegister", (customerService.getProductQnARegister(p_id)));
+		// mav.addObject("ProductQnARegister", (customerService.getProductQnARegister(p_id)));
 
 		return mav;
 	}
@@ -102,7 +102,7 @@ public class CustomerController {
 	@RequestMapping(value = "/mypage/myinfo", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView member_info(@PathVariable("member_id") String m_id, ModelAndView mav) {
 		mav.setViewName("customer/member_mypage_modify");
-		mav.addObject("mbr", customerService.getMemberInfo(m_id));
+		// mav.addObject("mbr", customerService.getMemberInfo(m_id));
 		return mav;
 	}
 
@@ -114,7 +114,7 @@ public class CustomerController {
 		log.info("rest_update..");
 		try {
 
-			customerService.memberInfoUpdate(mbrvo);
+			// customerService.memberInfoUpdate(mbrvo);
 			log.info("update member info");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 

@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.page.PrdQnACriteria;
-import edu.bit.ex.page.PrdQnAPageVO;
 import edu.bit.ex.page.PrdctListCriteria;
-import edu.bit.ex.page.PrdctListPageVO;
 import edu.bit.ex.service.CommonService;
 import edu.bit.ex.vo.PrdctVO;
 import lombok.AllArgsConstructor;
@@ -36,11 +34,11 @@ public class CommonController {
 		log.info("prdQnAList...");
 		log.info(cri.toString());
 
-		mav.addObject("prdQnAList", commonService.getPrdQnAList(cri, p_id));
+		// mav.addObject("prdQnAList", commonService.getPrdQnAList(cri, p_id));
 
-		int total = commonService.getPrdQnATotal(cri);
-		log.info("total" + total);
-		mav.addObject("pageMaker", new PrdQnAPageVO(cri, total));
+		// int total = commonService.getPrdQnATotal(cri);
+		// log.info("total" + total);
+		// mav.addObject("pageMaker", new PrdQnAPageVO(cri, total));
 
 		return mav;
 	}
@@ -71,11 +69,11 @@ public class CommonController {
 	@RequestMapping(value = "/category/{category_id}", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView category_prdct_list(@PathVariable("category_id") int c_id, PrdctListCriteria cri, ModelAndView mav) {
 		mav.setViewName("common/category_prdct_list");
-		mav.addObject("prdct", commonService.getCategoryPrdctListWithCri(cri, c_id));
-		mav.addObject("category", commonService.getCategory(c_id));
-		int total = commonService.getCategoryTotalCount(cri, c_id);
-		mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
-		log.info("total : " + total);
+		// mav.addObject("prdct", commonService.getCategoryPrdctListWithCri(cri, c_id));
+		// mav.addObject("category", commonService.getCategory(c_id));
+		// int total = commonService.getCategoryTotalCount(cri, c_id);
+		// mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
+		// log.info("total : " + total);
 		return mav;
 	}
 
@@ -83,11 +81,11 @@ public class CommonController {
 	@RequestMapping(value = "/brand/{brand_id}", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView brand_prdct_list(@PathVariable("brand_id") String b_id, PrdctListCriteria cri, ModelAndView mav) {
 		mav.setViewName("common/brand_prdct_list");
-		mav.addObject("mbr", commonService.getMemberInfo(b_id));
-		mav.addObject("prdct", commonService.getBrandPrdctListWithCri(cri, b_id));
-		int total = commonService.getBrandTotalCount(cri, b_id);
-		mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
-		log.info("total : " + total);
+		/*
+		 * mav.addObject("mbr", commonService.getMemberInfo(b_id)); mav.addObject("prdct", commonService.getBrandPrdctListWithCri(cri, b_id)); int
+		 * total = commonService.getBrandTotalCount(cri, b_id); mav.addObject("pageMaker", new PrdctListPageVO(cri, total)); log.info("total : " +
+		 * total);
+		 */
 		return mav;
 	}
 }
