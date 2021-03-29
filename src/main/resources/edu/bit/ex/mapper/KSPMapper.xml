@@ -5,7 +5,7 @@
   
 <mapper namespace="edu.bit.ex.mapper.KSPMapper">
 	
-	<!-- 전체 상품리스트 + 페이징 -->
+	<!-- 전체 상품리스트 + 페이징 common -->
 	<select id="getPrdctListWithPaging" resultType="edu.bit.ex.vo.PrdctVO">
 	<![CDATA[
 		select * from (
@@ -19,7 +19,7 @@
 	]]>
 	</select>
 	
-	<!-- 전체 수 반환 -->
+	<!-- 전체 수 반환 common-->
 	<select id="getTotalCount" resultType="int">
 	<![CDATA[
 		select count(*)	from prdct
@@ -40,20 +40,21 @@
 	]]>
 	</select>
 	
-	<!-- 전체 수 반환 -->
+	<!-- 전체 수 반환 common-->
 	<select id="getCategoryTotalCount" resultType="int">
 	<![CDATA[
 		select count(*)	from prdct where category_number=#{c_id}
 	]]>
 	</select>
 	
+	<!-- 카테고리 조회 common -->
 	<select id="getCategory" resultType="edu.bit.ex.vo.CategoryVO">
 	<![CDATA[
 		select * from category where category_number=#{c_id}
 	]]>
 	</select>
 	
-	<!-- 브랜드 상품리스트 + 페이징 -->
+	<!-- 브랜드 상품리스트 + 페이징 common -->
 	<select id="getBrandPrdctList" resultType="edu.bit.ex.vo.PrdctVO">
 	<![CDATA[
 		select * from (
@@ -67,35 +68,35 @@
 	]]>
 	</select>
 	
-	<!-- 전체 수 반환 -->
+	<!-- 전체 수 반환 common -->
 	<select id="getBrandTotalCount" resultType="int">
 	<![CDATA[
 		select count(*)	from prdct where mbr_id=#{b_id}
 	]]>
 	</select>
 	
-	<!-- 회원정보수정 -->
+	<!-- 회원정보수정 admin seller customer-->
 	<update id="memberInfoUpdate">
 	<![CDATA[
 		update mbr set mbr_pw=#{mbr_pw}, mbr_email=#{mbr_email}, contact_number=#{contact_number}, mbr_gender=#{mbr_gender} where mbr_id=#{mbr_id}
 	]]>
 	</update>
 	
-	<!-- 판매자 주소 --> 
+	<!-- 판매자 주소 admin seller customer--> 
 	<select id="getSellerAddress" resultType="edu.bit.ex.vo.ShippingVO">
 	<![CDATA[
 		select * from shipping where mbr_id=#{m_id}
 	]]>
 	</select>
 	
-	<!-- 판매자 정보 수정 -->
+	<!-- 판매자 정보 수정 admin seller-->
 	<update id="sellerInfoUpdate">
 	<![CDATA[
 		update mbr set mbr_name=#{mbr_name}, mbr_pw=#{mbr_pw}, mbr_email=#{mbr_email}, contact_number=#{contact_number}  where mbr_id=#{mbr_id}
 	]]>
 	</update>
 	
-	<!-- 판매자 주소 수정 -->
+	<!-- 판매자 주소 수정 admin seller -->
 	<update id="sellerAddressUpdate">
 	<![CDATA[
 		update shipping set shipping_address=#{shipping_address} where mbr_id=#{mbr_id}
@@ -103,7 +104,7 @@
 	</update>
 	
 	
-	<!-- 브랜드 상품리스트 + 페이징 -->
+	<!-- 판매자리스트 + 페이징 admin-->
 	<select id="getMemberListWithPaging" resultType="edu.bit.ex.vo.MbrVO">
 	<![CDATA[
 		select * from (
@@ -117,14 +118,14 @@
 	]]>
 	</select>
 	
-	<!-- 전체 수 반환 -->
+	<!-- 전체 수 반환 admin seller-->
 	<select id="getSellerTotalCount" resultType="int">
 	<![CDATA[
 		select count(*)	from mbr where authority_number=#{auth}
 	]]>
 	</select>
 	
-	<!-- 브랜드 상품리스트 + 페이징 -->
+	<!-- 브랜드 상품리스트 + 페이징 admin seller-->
 	<select id="getSellerPrdctListWithCri" resultType="edu.bit.ex.vo.PrdctVO">
 	<![CDATA[
 		select * from (

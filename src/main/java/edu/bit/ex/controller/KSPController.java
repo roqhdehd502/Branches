@@ -77,19 +77,17 @@ public class KSPController {
 		return "ksp/seller_mypage_modify";
 	}
 
-	@GetMapping("/brand_prdct_list/{b_id}") // 브랜드 상품리스트페이지
-	public String brand_prdct_list(@PathVariable("b_id") String b_id, Model model) {
-		model.addAttribute("prdct", kspService.getPrdctList(b_id));
-		model.addAttribute("mbr", kspService.getMemberInfo(b_id));
-		return "ksp/brand_prdct_list";
-	}
+	/*
+	 * @GetMapping("/brand_prdct_list/{b_id}") // 브랜드 상품리스트페이지 public String brand_prdct_list(@PathVariable("b_id") String b_id, Model model) {
+	 * model.addAttribute("prdct", kspService.getPrdctList(b_id)); model.addAttribute("mbr", kspService.getMemberInfo(b_id)); return
+	 * "ksp/brand_prdct_list"; }
+	 */
 
-	@GetMapping("/prdct_list/{search}") // 검색 상품리스트페이지
-	public String search_prdct_list(@PathVariable("search") String search, Model model) {
-		model.addAttribute("result", kspService.getSearchResult(search));
-		model.addAttribute("mbr", kspService.getMemberInfoByName(search));
-		return "ksp/search_prdct_list";
-	}
+	/*
+	 * @GetMapping("/prdct_list/{search}") // 검색 상품리스트페이지 public String search_prdct_list(@PathVariable("search") String search, Model model) {
+	 * model.addAttribute("result", kspService.getSearchResult(search)); model.addAttribute("mbr", kspService.getMemberInfoByName(search)); return
+	 * "ksp/search_prdct_list"; }
+	 */
 
 	@GetMapping("/member/myreview") // 회원 내가쓴 리뷰상세페이지
 	public String member_myreview(Model model) {
@@ -124,17 +122,15 @@ public class KSPController {
 		return "ksp/member_myq";
 	}
 
-	@GetMapping("admin/seller") // 관리자 업체목록페이지
-	public String admin_seller_list(Model model) {
-		model.addAttribute("mbr", kspService.getMemberList(2));
-		return "ksp/admin_seller_list";
-	}
+	/*
+	 * @GetMapping("admin/seller") // 관리자 업체목록페이지 public String admin_seller_list(Model model) { model.addAttribute("mbr",
+	 * kspService.getMemberList(2)); return "ksp/admin_seller_list"; }
+	 */
 
-	@GetMapping("admin/member") // 관리자 회원목록페이지
-	public String admin_member_list(Model model) {
-		model.addAttribute("mbr", kspService.getMemberList(3));
-		return "ksp/admin_member_list";
-	}
+	/*
+	 * @GetMapping("admin/member") // 관리자 회원목록페이지 public String admin_member_list(Model model) { model.addAttribute("mbr",
+	 * kspService.getMemberList(3)); return "ksp/admin_member_list"; }
+	 */
 
 	@GetMapping("admin/seller/{m_id}") // 관리자 업체상세페이지
 	public String admin_seller(@PathVariable("m_id") String m_id, Model model) {

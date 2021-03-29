@@ -29,7 +29,7 @@ public class KSPRestController {
 
 	private KSPService kspService;
 
-	// 전체 상품리스트
+	// 전체 상품리스트 common
 	@RequestMapping(value = "/prdct_list", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView prdct_list(ModelAndView mav, PrdctListCriteria cri) {
 		mav.setViewName("rest_ksp/prdct_list");
@@ -40,7 +40,7 @@ public class KSPRestController {
 		return mav;
 	}
 
-	// 카테고리별 상품리스트
+	// 카테고리별 상품리스트 common
 	@RequestMapping(value = "/category/{category_id}", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView category_prdct_list(@PathVariable("category_id") int c_id, PrdctListCriteria cri, ModelAndView mav) {
 		mav.setViewName("rest_ksp/category_prdct_list");
@@ -52,7 +52,7 @@ public class KSPRestController {
 		return mav;
 	}
 
-	// 브랜드별 상품리스트
+	// 브랜드별 상품리스트 common
 	@RequestMapping(value = "/brand/{brand_id}", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView brand_prdct_list(@PathVariable("brand_id") String b_id, PrdctListCriteria cri, ModelAndView mav) {
 		mav.setViewName("rest_ksp/brand_prdct_list");
@@ -64,7 +64,7 @@ public class KSPRestController {
 		return mav;
 	}
 
-	// 회원 정보수정폼
+	// 회원 정보수정폼 customer
 	@RequestMapping(value = "/member/{member_id}/mypage/myinfo", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView member_info(@PathVariable("member_id") String m_id, ModelAndView mav) {
 		mav.setViewName("rest_ksp/member_mypage_modify");
@@ -72,6 +72,7 @@ public class KSPRestController {
 		return mav;
 	}
 
+	// 회원정보수정 ajax customer
 	@PutMapping(value = "/member/{member_id}/mypage/myinfo")
 	public ResponseEntity<String> member_info_modify(@RequestBody MbrVO mbrvo) {
 		ResponseEntity<String> entity = null;
@@ -91,7 +92,7 @@ public class KSPRestController {
 		return entity;
 	}
 
-	// 판매자 정보수정폼
+	// 판매자 정보수정폼 seller
 	@RequestMapping(value = "/seller/{seller_id}/mypage/myinfo", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView seller_info(@PathVariable("seller_id") String m_id, ModelAndView mav) {
 		mav.setViewName("rest_ksp/seller_mypage_modify");
@@ -100,6 +101,7 @@ public class KSPRestController {
 		return mav;
 	}
 
+	// 판매자 정보수정 ajax
 	@PutMapping(value = "/seller/{seller_id}/mypage/myinfo")
 	public ResponseEntity<String> seller_info_modify(@RequestBody MbrAddressVO mavo) {
 		ResponseEntity<String> entity = null;
@@ -119,9 +121,7 @@ public class KSPRestController {
 		return entity;
 	}
 
-	////////////////////////////////////////////////////
-
-	// 관리자 판매자 리스트
+	// 관리자 판매자 리스트 admin
 	@RequestMapping(value = "/admin/mypage/seller", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView admin_seller_list(ModelAndView mav, MemberCriteria cri) {
 		mav.setViewName("rest_ksp/admin_seller_list");
@@ -131,7 +131,7 @@ public class KSPRestController {
 		return mav;
 	}
 
-	// 관리자 판매자 상세정보
+	// 관리자 판매자 상세정보 admin
 	@RequestMapping(value = "/admin/mypage/seller/{seller_id}", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView admin_seller_detail(@PathVariable("seller_id") String m_id, ModelAndView mav) {
 		mav.setViewName("rest_ksp/admin_seller");
@@ -140,18 +140,19 @@ public class KSPRestController {
 		return mav;
 	}
 
-	// 관리자 판매자 상품리스트
+	// 관리자 판매자 상품리스트 admin
 	@RequestMapping(value = "/admin/mypage/seller/{seller_id}/prdct", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView admin_seller_prdctlist(@PathVariable("seller_id") String m_id, PrdctListCriteria cri, ModelAndView mav) {
 		mav.setViewName("rest_ksp/brand_prdct_list");
 		mav.addObject("mbr", kspService.getMemberInfo(m_id));
 		mav.addObject("prdct", kspService.getSellerPrdctListWithCri(cri, m_id));
-		int total = kspService.getSellerotalCount(cri, m_id);
+		int total = kspService.getSellerPrdctTotalCount(cri, m_id);
 		mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
 		log.info("total : " + total);
 		return mav;
 	}
 
+	// 관리자 판매자 정보수정 admin
 	@PutMapping(value = "/admin/mypage/seller/{seller_id}")
 	public ResponseEntity<String> admin_seller_update(@RequestBody MbrAddressVO mavo) {
 		ResponseEntity<String> entity = null;
@@ -171,6 +172,7 @@ public class KSPRestController {
 		return entity;
 	}
 
+	// 관리자 판매자 삭제 admin
 	@DeleteMapping("/admin/mypage/seller/{seller_id}")
 	public ResponseEntity<String> seller_delete(MbrAddressVO mavo) {
 		ResponseEntity<String> entity = null;
@@ -189,15 +191,15 @@ public class KSPRestController {
 
 	}
 
-	// 관리자 회원 리스트
+	// 관리자 회원 리스트 admin
 	@RequestMapping(value = "/admin/mypage/member", method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView admin_member_list(ModelAndView mav) {
+	public ModelAndView admin_member_list(MemberCriteria cri, ModelAndView mav) {
 		mav.setViewName("rest_ksp/admin_member_list");
-		mav.addObject("mbr", kspService.getMemberList(3));
+		mav.addObject("mbr", kspService.getMemberListWithPaging(3, cri));
 		return mav;
 	}
 
-	// 관리자 회원 상세정보
+	// 관리자 회원 상세정보 admin
 	@RequestMapping(value = "/admin/mypage/member/{member_id}", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView admin_member_detail(@PathVariable("member_id") String m_id, ModelAndView mav) {
 		mav.setViewName("rest_ksp/admin_member");
@@ -205,6 +207,7 @@ public class KSPRestController {
 		return mav;
 	}
 
+	// 관리자 회원정보수정 admin
 	@PutMapping(value = "/admin/mypage/member/{member_id}")
 	public ResponseEntity<String> admin_member_update(@RequestBody MbrVO mbrvo) {
 		ResponseEntity<String> entity = null;
@@ -224,6 +227,7 @@ public class KSPRestController {
 		return entity;
 	}
 
+	// 관리자 회원 삭제 admin
 	@DeleteMapping("/admin/mypage/member/{member_id}")
 	public ResponseEntity<String> member_delete(MbrVO mbrvo) {
 		ResponseEntity<String> entity = null;
