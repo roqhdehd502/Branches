@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.page.MemberCriteria;
+import edu.bit.ex.page.MemberPageVO;
 import edu.bit.ex.page.PrdctListCriteria;
 import edu.bit.ex.page.PrdctListPageVO;
-import edu.bit.ex.service.KSPRestService;
+import edu.bit.ex.service.KSPService;
 import edu.bit.ex.vo.MbrAddressVO;
 import edu.bit.ex.vo.MbrVO;
 import lombok.AllArgsConstructor;
@@ -26,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/rest_ksp/*")
 public class KSPRestController {
 
-	private KSPRestService kspService;
+	private KSPService kspService;
 
 	// 전체 상품리스트
 	@RequestMapping(value = "/prdct_list", method = { RequestMethod.POST, RequestMethod.GET })
@@ -125,8 +126,8 @@ public class KSPRestController {
 	public ModelAndView admin_seller_list(ModelAndView mav, MemberCriteria cri) {
 		mav.setViewName("rest_ksp/admin_seller_list");
 		mav.addObject("mbr", kspService.getMemberListWithPaging(2, cri));
-		// int total = kspService.getBrandTotalCount(2, cri);
-		// mav.addObject("pageMaker", new MemberPageVO(cri, total));
+		int total = kspService.getSellerTotalCount(2, cri);
+		mav.addObject("pageMaker", new MemberPageVO(cri, total));
 		return mav;
 	}
 
@@ -144,10 +145,10 @@ public class KSPRestController {
 	public ModelAndView admin_seller_prdctlist(@PathVariable("seller_id") String m_id, PrdctListCriteria cri, ModelAndView mav) {
 		mav.setViewName("rest_ksp/brand_prdct_list");
 		mav.addObject("mbr", kspService.getMemberInfo(m_id));
-		// mav.addObject("prdct", kspService.getSellerPrdctListWithCri(cri, m_id));
-		// int total = kspService.getSellerotalCount(cri, m_id);
-		// mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
-		// log.info("total : " + total);
+		mav.addObject("prdct", kspService.getSellerPrdctListWithCri(cri, m_id));
+		int total = kspService.getSellerotalCount(cri, m_id);
+		mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
+		log.info("total : " + total);
 		return mav;
 	}
 
