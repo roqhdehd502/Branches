@@ -3,7 +3,6 @@ package edu.bit.ex.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -28,159 +27,165 @@ public class SellerController {
 	private SellerService sellerService;
 
 	// 상품 등록 seller
-	@GetMapping("/prdct_register")
-	public String prdct_register(Model model) {
+	@GetMapping("/mypage/prdct_register")
+	public ModelAndView prdct_register(ModelAndView mav) {
 		log.info("prdct_register...");
-		return "nmw/prdct_register";
+		mav.setViewName("seller/prdct_register");
+		return mav;
 	}
 
 	// 판매자 등록상품 확인 seller
-	@GetMapping("/spc")
-	public String SellerProductCheck(Model model) throws Exception {
+	// 수정 버튼 옮길것! => SellerProductModify
+	@GetMapping("/mypage/prdct")
+	public ModelAndView sellerProductCheck(ModelAndView mav) throws Exception {
 		log.debug("sellerProductCheck");
 		log.info("sellerProductCheck..");
+		mav.setViewName("seller/sellerProductCheck");
 
-		return "ej/sellerProductCheck";
+		return mav;
 	}
 
-	// 판매자 등록상품 수정 seller
-	@GetMapping("/spm")
-	public String SellerProductModify(Model model) throws Exception {
+	// 판매자 등록상품 수정페이지 seller
+	// 이 페이지는 상세페이지가 곧 수정페이지입니다
+	@GetMapping("/mypage/prdct/{prdct_id}")
+	public ModelAndView sellerProductModify(ModelAndView mav) throws Exception {
 		log.debug("sellerProductModify");
 		log.info("sellerProductModify..");
+		mav.setViewName("seller/sellerProductModify");
 
-		return "ej/sellerProductModify";
+		return mav;
 	}
 
 	// 판매자 마이페이지...(seller)
-	@GetMapping("/sellerpage")
+	@GetMapping("/mypage")
 	public ModelAndView sellerpage(ModelAndView mav, OrderDetailVO orVO) throws Exception {
 		log.debug("sellerpage");
 		log.info("sellerpage");
-		mav.setViewName("sellerpage");
-		// mav.addObject("order", hsService.getOrder());
-		// mav.addObject("prdct", hsService.getProduct());
-		// mav.addObject("prdOrder", hsService.getPrdOrder());
+		mav.setViewName("seller/sellerpage");
+		mav.addObject("order", sellerService.getOrder());
+		mav.addObject("prdct", sellerService.getProduct());
+		mav.addObject("prdOrder", sellerService.getPrdOrder());
 		return mav;
 	}
 
 	// 판매자 주문확인 페이지...(seller)
-	@GetMapping("/sellerorderCheck")
+	@GetMapping("/mypage/order")
 	public ModelAndView sellerorderCheck(ModelAndView mav, OrderDetailVO orVO) throws Exception {
 		log.debug("sellerorderCheck");
 		log.info("sellerorderCheck");
 
-		mav.setViewName("sellerorderCheck");
-		// mav.addObject("order", hsService.getOrder());
-		// mav.addObject("prdct", hsService.getProduct());
-		// mav.addObject("prdOrder", hsService.getPrdOrder());
+		mav.setViewName("seller/sellerorderCheck");
+		mav.addObject("order", sellerService.getOrder());
+		mav.addObject("prdct", sellerService.getProduct());
+		mav.addObject("prdOrder", sellerService.getPrdOrder());
 		return mav;
 	}
 
 	// 판매자 발송확인 페이지...(seller)
-	@GetMapping("/sellerdeleCheck")
+	@GetMapping("/mypage/release")
 	public ModelAndView sellerdeleCheck(ModelAndView mav, OrderDetailVO orVO) throws Exception {
 		log.debug("sellerdeleCheck");
 		log.info("sellerdeleCheck");
-		mav.setViewName("sellerdeleCheck");
-		// mav.addObject("order", hsService.getOrder());
-		// mav.addObject("prdct", hsService.getProduct());
-		// mav.addObject("prdOrder", hsService.getPrdOrder());
+		mav.setViewName("seller/sellerdeleCheck");
+		mav.addObject("order", sellerService.getOrder());
+		mav.addObject("prdct", sellerService.getProduct());
+		mav.addObject("prdOrder", sellerService.getPrdOrder());
 
 		return mav;
 	}
 
 	// 판매자 취소 확인 페이지...(seller)
-	@GetMapping("/sellercancelCheck")
+	@GetMapping("/mypage/cancel")
 	public ModelAndView sellercancelCheck(ModelAndView mav, OrderDetailVO orVO) throws Exception {
 		log.debug("sellercancelCheck");
 		log.info("sellercancelCheck");
-		mav.setViewName("sellercancelCheck");
-		// mav.addObject("order", hsService.getOrder());
-		// mav.addObject("prdct", hsService.getProduct());
+		mav.setViewName("seller/sellercancelCheck");
+		mav.addObject("order", sellerService.getOrder());
+		mav.addObject("prdct", sellerService.getProduct());
 
 		return mav;
 	}
 
 	// 판매자 환불 확인 페이지...(seller)
-	@GetMapping("/sellercancelList")
+	@GetMapping("/mypage/refund")
 	public ModelAndView sellercancelList(ModelAndView mav, OrderDetailVO orVO) throws Exception {
 		log.debug("sellercancelList");
 		log.info("sellercancelList");
-		mav.setViewName("sellercancelList");
-		// mav.addObject("order", hsService.getOrder());
-		// mav.addObject("prdct", hsService.getProduct());
-		// mav.addObject("prdOrder", hsService.getPrdOrder());
+		mav.setViewName("seller/sellercancelList");
+		mav.addObject("order", sellerService.getOrder());
+		mav.addObject("prdct", sellerService.getProduct());
+		mav.addObject("prdOrder", sellerService.getPrdOrder());
 		return mav;
 	}
 
 	// 판매자 교환확인 페이지...(seller)
-	@GetMapping("/sellerchangeCheck")
+	@GetMapping("/mypage/exchange")
 	public ModelAndView sellerchangeCheck(ModelAndView mav, OrderDetailVO orVO) throws Exception {
 		log.debug("sellerchangeCheck");
 		log.info("sellerchangeCheck");
-		mav.setViewName("sellerchangeCheck");
-		// mav.addObject("order", hsService.getOrder());
-		// mav.addObject("prdct", hsService.getProduct());
-		// mav.addObject("prdOrder", hsService.getPrdOrder());
+		mav.setViewName("seller/sellerchangeCheck");
+		mav.addObject("order", sellerService.getOrder());
+		mav.addObject("prdct", sellerService.getProduct());
+		mav.addObject("prdOrder", sellerService.getPrdOrder());
 		return mav;
 	}
 
 	// 판매자 상품Q&A조회 페이지...(seller)
-	@GetMapping("/sellerQnA")
+	@GetMapping("/mypage/prdctqna")
 	public ModelAndView sellerQnA(ModelAndView mav) throws Exception {
 		log.info("sellerQnA");
 
-		mav.setViewName("sellerQnA");
-		// mav.addObject("board", hsService.getBoard());
-		// mav.addObject("prdct", hsService.getProduct());
+		mav.setViewName("seller/sellerQnA");
+		mav.addObject("board", sellerService.getBoard());
+		mav.addObject("prdct", sellerService.getProduct());
 		return mav;
 	}
 
 	// 판매자 상품리뷰조회 페이지...(seller)
-	@GetMapping("/sellerReview")
+	@GetMapping("/mypage/review")
 	public ModelAndView sellerReview(ModelAndView mav) throws Exception {
 		log.debug("sellerReview");
 		log.info("sellerReview");
 
-		mav.setViewName("sellerReview");
-		// mav.addObject("board", hsService.getBoard());
-		// mav.addObject("prdct", hsService.getProduct());
+		mav.setViewName("seller/sellerReview");
+		mav.addObject("board", sellerService.getBoard());
+		mav.addObject("prdct", sellerService.getProduct());
 
 		return mav;
 	}
 
 	// 판매자 매출조회 페이지...(seller)
-	@GetMapping("/sellertotal")
+	@GetMapping("/mypage/sales")
 	public ModelAndView sellertotal(ModelAndView mav) throws Exception {
 		log.debug("sellertotal");
 		log.info("sellertotal");
 
-		mav.setViewName("sellertotal");
-		// mav.addObject("prdct", hsService.getProduct());
-		// mav.addObject("prdOrder", hsService.getPrdOrder());
+		mav.setViewName("seller/sellertotal");
+		mav.addObject("prdct", sellerService.getProduct());
+		mav.addObject("prdOrder", sellerService.getPrdOrder());
 
 		return mav;
 	}
 
 	// 판매자 정보수정폼 seller
-	@RequestMapping(value = "/seller/{seller_id}/mypage/myinfo", method = { RequestMethod.POST, RequestMethod.GET })
+	// 로그인이 되면 member_id 받아오기
+	@RequestMapping(value = "/mypage/myinfo", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView seller_info(@PathVariable("seller_id") String m_id, ModelAndView mav) {
-		mav.setViewName("rest_ksp/seller_mypage_modify");
-		// mav.addObject("mbr", kspService.getMemberInfo(m_id));
-		// mav.addObject("adr", kspService.getSellerAddress(m_id));
+		mav.setViewName("seller/seller_mypage_modify");
+		mav.addObject("mbr", sellerService.getMemberInfo(m_id));
+		mav.addObject("adr", sellerService.getSellerAddress(m_id));
 		return mav;
 	}
 
 	// 판매자 정보수정 ajax
-	@PutMapping(value = "/seller/{seller_id}/mypage/myinfo")
+	@PutMapping(value = "/mypage/myinfo")
 	public ResponseEntity<String> seller_info_modify(@RequestBody MbrAddressVO mavo) {
 		ResponseEntity<String> entity = null;
 
 		log.info("rest_update..");
 		try {
 
-			// kspService.sellerInfoUpdate(mavo);
+			sellerService.sellerInfoUpdate(mavo);
 			log.info("update seller info");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 
@@ -191,5 +196,4 @@ public class SellerController {
 
 		return entity;
 	}
-
 }

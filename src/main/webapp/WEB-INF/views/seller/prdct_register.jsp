@@ -6,7 +6,7 @@
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Branches : Notice Board List</title>
+	<title>Branches : Product Registration</title>
 	
 	<!-- Required CSS files -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
@@ -21,7 +21,7 @@
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
-	<header style="padding-bottom: 10px; padding-top: 5px;">
+		<header style="padding-bottom: 10px; padding-top: 5px;">
       <div class="container">
          <div class="row">
             <div class="col-6 col-sm-3 logo-column">
@@ -131,62 +131,158 @@
 		<hr style="margin: 15px 15px 40px 15px;">
 
 		<div class="container">
-			<div class="container">
-				<h2>NOTICE</h2>
-			</div>
-			<div class="container">
-				<table class="table table-hover" style="text-align: center;">
-					<tr class="table-primary">
-						<th>번호</th>
-						<th>제목</th>
-						<th>등록일</th>
-					</tr>
-					<c:forEach items="${notice_list}" var="dto">
-						<tr>
-							<td>${dto.board_id}</td>
-							<td><a href="${pageContext.request.contextPath}/notice/${dto.board_id}">${dto.board_name}</a></td>
-							<td>${dto.board_date}</td>
-						</tr>
-					</c:forEach>
-				</table>
-			</div>
-			
-			<div class="container">
-				<ul class="pagination justify-content-center">
-					<!-- <li class="page-item"><a class="page-link" href="#"></a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">4</a></li>
-					<li class="page-item"><a class="page-link" href="#">5</a></li>
-					<li class="page-item"><a class="page-link" href="#"></a></li> -->
-				
-				<c:if test="${pageMaker.prev}">
-					<li class="page-item">
-						<a class="page-link" href="notice${pageMaker.makeQuery(pageMaker.startPage - 1)}">&laquo;</a>
-					</li>
-				</c:if>
-			
-				<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-					<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
-					<li class="page-item">
-						<a class="page-link" href="notice${pageMaker.makeQuery(idx)}">${idx}</a>
-					</li>
-				</c:forEach>
-					
-				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-					<li class="page-item">
-					 	<a class="page-link" href="notice${pageMaker.makeQuery(pageMaker.endPage +1)}">&raquo;</a>
-					</li>
-				</c:if>
-				</ul>
+			<div class="row">
+				<div class="col-md-3 contact-info" align="left" style="padding-left: 40px">
+					<h2>이름(업체명)</h2>
+					<h2>아이디</h2>
+				</div>
+				<div class="col-md-1 contact-info" align="center" style="padding-top: 20px">
+					<a href="#">정보수정</a>					
+				</div>
+				<div class="col-md-6 contact-info"></div>
+				<div class="col-md-2 contact-info" align="center" style="padding-right: 10px">
+					<h2>새주문</h2>
+					<h3>2건</h3>
+				</div>
 			</div>
 		</div>
-	<!-- </div> -->
+		
+		<hr style="margin: 15px 15px 40px 15px;">
 
-	<hr>
-
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 contact-info" align="center">
+					<div class="single-info" style="margin-bottom: 40px">
+	                    <h3>주문 관리</h3><hr>
+	                    <h5><a href="#">전체</a></h5>
+	                    <h5><a href="#">주문확인</a></h5>
+	                    <h5><a href="#">발송확인</a></h5>
+	                    <h5><a href="#">취소</a></h5>
+	                    <h5><a href="#">교환</a></h5>
+	                    <h5><a href="#">환불</a></h5>
+	                </div>
+	                <div class="single-info" style="margin-bottom: 40px">
+	                    <h3>상품 관리</h3><hr>
+	                    <h5><a href="#">등록</a></h5>
+	                    <h5><a href="#">수정</a></h5>
+	                    <h5><a href="#">삭제</a></h5>
+	                </div>
+	                <div class="single-info" style="margin-bottom: 40px">
+	                    <h3>회원 관리</h3><hr>
+	                    <h5><a href="#">Q&A</a></h5>
+	                    <h5><a href="#">리뷰</a></h5>
+	                </div>
+	                <div class="single-info" style="margin-bottom: 40px">
+	                    <h3>매출 관리</h3><hr>
+	                    <h5><a href="#">매출</a></h5>
+	                </div>
+				</div>	
+				
+				<div class="col-md-9 contact-info">
+					<h3 >
+					<strong>상품 등록</strong>
+					</h3><hr>
+					<form action="#" method="post">
+						<fieldset>
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">상품명</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" placeholder="상품명을 입력해주세요">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">카테고리</label>
+								<div class="col-sm-10">
+									<select class="form-control">
+										<option>아우터-코트</option>
+										<option>아우터-자켓</option>
+										<option>아우터-점퍼/무스탕</option>
+										<option>아우터-가디건</option>
+										<option>아우터-패딩</option>
+										<option>상의-티셔츠</option>
+										<option>상의-블라우스/셔츠</option>
+										<option>상의-니트/스웨터</option>
+										<option>상의-후드티</option>
+										<option>상의-맨투맨</option>
+										<option>상의-슬리브리스</option>
+										<option>하의-데님</option>
+										<option>하의-코튼</option>
+										<option>하의-숏</option>
+										<option>하의-슬랙스</option>
+										<option>하의-트레이닝/조거</option>
+										<option>하의-레깅스</option>
+										<option>하의-스커트</option>
+										<option>드레스-미니</option>
+										<option>드레스-미디</option>
+										<option>드레스-맥시</option>
+										<option>드레스-오버롤</option>
+										<option>가방-백팩</option>
+										<option>가방-메신저/크로스</option>
+										<option>가방-숄더/토트</option>
+										<option>가방-에코백</option>
+										<option>가방-클러치</option>
+										<option>신발-구두</option>
+										<option>신발-부츠</option>
+										<option>신발-샌들</option>
+										<option>신발-슬리퍼</option>
+										<option>신발-스니커즈</option>
+										<option>ETC-가방</option>
+										<option>ETC-모자</option>
+										<option>ETC-악세서리</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">색상</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" placeholder="ex) BLOWN, DARK, NAVY">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">사이즈</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" placeholder="ex) XL (혹은) 105">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">가격(원)</label>
+								<div class="col-sm-10">
+									<input type="number" class="form-control" placeholder="가격을 입력해주세요">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">내용</label>
+								<div class="col-sm-10">
+									<textarea class="form-control" rows="3" placeholder="해당 상품에 대한 설명을 입력해주세요"></textarea>
+									<input type="file" class="form-control-file">
+									<small class="form-text text-muted">jpg, png, gif의 사진파일만 적용됩니다.</small>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">교환/반품</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" placeholder="주소를 입력해주세요">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">공급량</label>
+								<div class="col-sm-10">
+									<input type="number" class="form-control" placeholder="공급량을 입력해주세요">
+								</div>
+							</div>
+							<div align="center">
+								<button type="submit" class="btn btn-primary">상품등록</button>
+							</div>
+						</fieldset>
+					</form>			
+				</div>
+			</div>
+		</div>
+		
+		<hr>
+			
 <!-- footer -->
+
       <footer>
          <div class="footer-top">
             <div class="container">
@@ -248,7 +344,5 @@
       <script src="/assets/js/vendor/loopcounter.js"></script>
       <script src="/assets/js/vendor/slicknav.min.js"></script>
       <script src="/assets/js/active.js"></script>
-      
-      </div>
 </body>
 </html>

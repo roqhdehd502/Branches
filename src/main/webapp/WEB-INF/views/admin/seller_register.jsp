@@ -6,7 +6,7 @@
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Branches : Notice Board List</title>
+	<title>Branches : Seller Registration</title>
 	
 	<!-- Required CSS files -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
@@ -21,7 +21,7 @@
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
-	<header style="padding-bottom: 10px; padding-top: 5px;">
+		<header style="padding-bottom: 10px; padding-top: 5px;">
       <div class="container">
          <div class="row">
             <div class="col-6 col-sm-3 logo-column">
@@ -131,62 +131,106 @@
 		<hr style="margin: 15px 15px 40px 15px;">
 
 		<div class="container">
-			<div class="container">
-				<h2>NOTICE</h2>
-			</div>
-			<div class="container">
-				<table class="table table-hover" style="text-align: center;">
-					<tr class="table-primary">
-						<th>번호</th>
-						<th>제목</th>
-						<th>등록일</th>
-					</tr>
-					<c:forEach items="${notice_list}" var="dto">
-						<tr>
-							<td>${dto.board_id}</td>
-							<td><a href="${pageContext.request.contextPath}/notice/${dto.board_id}">${dto.board_name}</a></td>
-							<td>${dto.board_date}</td>
-						</tr>
-					</c:forEach>
-				</table>
-			</div>
-			
-			<div class="container">
-				<ul class="pagination justify-content-center">
-					<!-- <li class="page-item"><a class="page-link" href="#"></a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">4</a></li>
-					<li class="page-item"><a class="page-link" href="#">5</a></li>
-					<li class="page-item"><a class="page-link" href="#"></a></li> -->
-				
-				<c:if test="${pageMaker.prev}">
-					<li class="page-item">
-						<a class="page-link" href="notice${pageMaker.makeQuery(pageMaker.startPage - 1)}">&laquo;</a>
-					</li>
-				</c:if>
-			
-				<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-					<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
-					<li class="page-item">
-						<a class="page-link" href="notice${pageMaker.makeQuery(idx)}">${idx}</a>
-					</li>
-				</c:forEach>
-					
-				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-					<li class="page-item">
-					 	<a class="page-link" href="notice${pageMaker.makeQuery(pageMaker.endPage +1)}">&raquo;</a>
-					</li>
-				</c:if>
-				</ul>
+			<div class="row">
+				<div class="col-md-3 contact-info" align="left" style="padding-left: 40px">
+					<h2>관리자아이디</h2>
+				</div>
+				<div class="col-md-1 contact-info" align="center" style="padding-top: 20px">
+					<a href="#">정보수정</a>					
+				</div>
+				<div class="col-md-8 contact-info"></div>		
 			</div>
 		</div>
-	<!-- </div> -->
+		
+		<hr style="margin: 15px 15px 40px 15px;">
 
-	<hr>
-
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 contact-info" align="center">
+					<div class="single-info" style="margin-bottom: 40px">
+	                    <h3>업체 관리</h3><hr>
+	                    <h5><a href="#">업체등록</a></h5>
+	                    <h5><a href="#">업체목록조회</a></h5>
+	                </div>
+	                <div class="single-info" style="margin-bottom: 40px">
+	                    <h3>고객 관리</h3><hr>
+	                    <h5><a href="#">고객정보조회</a></h5>
+	                    <h5><a href="#">고객Q&A목록</a></h5>
+	                </div>
+	                <div class="single-info" style="margin-bottom: 40px">
+	                    <h3>통계</h3><hr>
+	                    <h5><a href="#">매출조회</a></h5>
+	                    <h5><a href="#">검색순위조회</a></h5>
+	                </div>
+				</div>	
+				
+				<div class="col-md-9 contact-info">
+					<h3 >
+					<strong>업체 등록</strong>
+					</h3><hr>
+					<form action="#" method="post">
+						<fieldset>
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">업체명</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" placeholder="업체명을 입력해주세요">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">ID</label>
+								<div class="col-sm-10 row">
+									<div class="col-sm-10">
+										<input type="text" class="form-control" placeholder="아이디를 입력해주세요">
+									</div>
+									<!-- 이부분은 추후 스크립트상에서 alert으로 알림띄울것 -->
+									<div class="col-sm-2">
+										<button type="button" class="btn btn-primary">중복체크</button>
+									</div>				
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">PW</label>
+								<div class="col-sm-10">
+									<input type="password" class="form-control" placeholder="비밀번호를 입력해주세요">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">e-mail</label>
+								<div class="col-sm-10">
+									<input type="email" class="form-control" placeholder="이메일을 입력해주세요">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">주소</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" placeholder="주소를 입력해주세요">
+								</div>
+							</div>
+							<div class="form-group row">
+					    		<label class="col-sm-2 col-form-label">연락처</label>
+					      		<div class="col-sm-2">
+					      			<input type="number" class="form-control">
+					      		</div>
+								<div class="col-sm-4">
+									<input type="number" class="form-control">
+								</div>
+								<div class="col-sm-4">
+									<input type="number" class="form-control">
+								</div>		
+					    	</div>
+							<div align="center">
+							<button type="submit" class="btn btn-primary">업체등록</button>
+							</div>	
+						</fieldset>
+					</form>			
+				</div>
+			</div>
+		</div>
+		
+		<hr>
+			
 <!-- footer -->
+
       <footer>
          <div class="footer-top">
             <div class="container">
@@ -248,7 +292,5 @@
       <script src="/assets/js/vendor/loopcounter.js"></script>
       <script src="/assets/js/vendor/slicknav.min.js"></script>
       <script src="/assets/js/active.js"></script>
-      
-      </div>
 </body>
 </html>

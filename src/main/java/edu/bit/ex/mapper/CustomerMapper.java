@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.page.PrdQnACriteria;
 import edu.bit.ex.vo.BoardVO;
+import edu.bit.ex.vo.MbrVO;
 
 @Mapper
 public interface CustomerMapper {
@@ -21,4 +22,6 @@ public interface CustomerMapper {
 
 	// 페이징 단위에 적용되는 최대 상품 Q&A 게시글 단위 customer
 	public int getPrdQnATotalCount(PrdQnACriteria cri);
+
+	public void memberInfoUpdate(MbrVO mbrvo); // admin customer
 }

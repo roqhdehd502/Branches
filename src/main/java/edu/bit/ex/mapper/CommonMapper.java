@@ -3,15 +3,18 @@ package edu.bit.ex.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.page.MagazineCommentCriteria;
 import edu.bit.ex.page.MagazineCriteria;
 import edu.bit.ex.page.NoticeCriteria;
+import edu.bit.ex.page.PrdctListCriteria;
 import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.CartVO;
+import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctDetailVO;
 import edu.bit.ex.vo.PrdctImageVO;
 import edu.bit.ex.vo.PrdctVO;
@@ -77,4 +80,19 @@ public interface CommonMapper {
 	/*
 	 * public void PrdDetailCartIn(PrdctVO prdctVO);
 	 */
+
+	// 메인(common), 판매자마이페이지(seller), 판매자 주문확인(seller), 판매자 발송확인(seller), 판매자 취소확인(seller), 판매자 환불확인(seller), 판매자 교환확인(seller), 판매자 상품 Q&A조회(seller),
+	// 판매자 상품 리뷰조회(seller), 판매자 매출조회(seller), 관리자 유저 Q&A 조회(admin), 관리자 매출조회(admin), 관리자 매출 조회 검색(admin)
+	@Select("select * from prdct")
+	public List<PrdctVO> getProduct();
+
+	// 메인(common), 회원마이페이지(member)
+	@Select("select * from mbr")
+	public List<MbrVO> getMember();
+
+	public List<PrdctVO> getPrdctListWithPaging(PrdctListCriteria cri); // common
+
+	public List<PrdctVO> getCategoryPrdctList(PrdctListCriteria cri, int c_id); // common
+
+	public List<PrdctVO> getBrandPrdctList(PrdctListCriteria cri, String b_id); // common
 }
