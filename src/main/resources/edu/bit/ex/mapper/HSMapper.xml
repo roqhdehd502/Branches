@@ -2,7 +2,8 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+ 
+ <!-- xml 전체 => 회원 정보 조회페이지 페이지 및 검색기능 --> 
 <mapper namespace="edu.bit.ex.mapper.HSMapper">
 	<sql id="searchCriteria">
 		<trim prefix="(" suffix=") AND " prefixOverrides="OR">

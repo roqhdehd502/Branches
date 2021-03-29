@@ -24,6 +24,7 @@ public class HSController {
 
 	private HSService hsService;
 
+	// 메인 페이지...(common)
 	@GetMapping("/main")
 	public ModelAndView main(ModelAndView mav, PrdctVO pVO) throws Exception {
 		log.info("main.......");
@@ -34,6 +35,7 @@ public class HSController {
 		return mav;
 	}
 
+	// 회원 마이페이지...(custom)
 	@GetMapping("/mypage")
 	public ModelAndView mypage(ModelAndView mav, MbrVO mbrVO) throws Exception {
 		log.info("mypage.......");
@@ -43,6 +45,7 @@ public class HSController {
 		return mav;
 	}
 
+	// 회원 주문내역 조회페이지...(custom)
 	@GetMapping("/myOrderList")
 	public String myOrderList(Model model) throws Exception {
 		log.debug("myOrderList");
@@ -50,6 +53,7 @@ public class HSController {
 		return "myOrderList";
 	}
 
+	// 회원 브랜드 조회페이지...(custom)
 	@GetMapping("/brandList")
 	public String brandList(Model model, SearchCriteria cri) throws Exception {
 		log.debug("brandList");
@@ -63,6 +67,7 @@ public class HSController {
 		return "brandList";
 	}
 
+	// 판매자 마이페이지...(seller)
 	@GetMapping("/sellerpage")
 	public ModelAndView sellerpage(ModelAndView mav, OrderDetailVO orVO) throws Exception {
 		log.debug("sellerpage");
@@ -74,6 +79,7 @@ public class HSController {
 		return mav;
 	}
 
+	// 판매자 주문확인 페이지...(seller)
 	@GetMapping("/sellerorderCheck")
 	public ModelAndView sellerorderCheck(ModelAndView mav, OrderDetailVO orVO) throws Exception {
 		log.debug("sellerorderCheck");
@@ -86,6 +92,7 @@ public class HSController {
 		return mav;
 	}
 
+	// 판매자 발송확인 페이지...(seller)
 	@GetMapping("/sellerdeleCheck")
 	public ModelAndView sellerdeleCheck(ModelAndView mav, OrderDetailVO orVO) throws Exception {
 		log.debug("sellerdeleCheck");
@@ -98,6 +105,7 @@ public class HSController {
 		return mav;
 	}
 
+	// 판매자 취소 확인 페이지...(seller)
 	@GetMapping("/sellercancelCheck")
 	public ModelAndView sellercancelCheck(ModelAndView mav, OrderDetailVO orVO) throws Exception {
 		log.debug("sellercancelCheck");
@@ -109,6 +117,7 @@ public class HSController {
 		return mav;
 	}
 
+	// 판매자 환불 확인 페이지...(seller)
 	@GetMapping("/sellercancelList")
 	public ModelAndView sellercancelList(ModelAndView mav, OrderDetailVO orVO) throws Exception {
 		log.debug("sellercancelList");
@@ -120,6 +129,7 @@ public class HSController {
 		return mav;
 	}
 
+	// 판매자 교환확인 페이지...(seller)
 	@GetMapping("/sellerchangeCheck")
 	public ModelAndView sellerchangeCheck(ModelAndView mav, OrderDetailVO orVO) throws Exception {
 		log.debug("sellerchangeCheck");
@@ -131,6 +141,7 @@ public class HSController {
 		return mav;
 	}
 
+	// 판매자 상품Q&A조회 페이지...(seller)
 	@GetMapping("/sellerQnA")
 	public ModelAndView sellerQnA(ModelAndView mav) throws Exception {
 		log.info("sellerQnA");
@@ -141,6 +152,7 @@ public class HSController {
 		return mav;
 	}
 
+	// 판매자 상품리뷰조회 페이지...(seller)
 	@GetMapping("/sellerReview")
 	public ModelAndView sellerReview(ModelAndView mav) throws Exception {
 		log.debug("sellerReview");
@@ -153,6 +165,7 @@ public class HSController {
 		return mav;
 	}
 
+	// 판매자 매출조회 페이지...(seller)
 	@GetMapping("/sellertotal")
 	public ModelAndView sellertotal(ModelAndView mav) throws Exception {
 		log.debug("sellertotal");
@@ -165,6 +178,7 @@ public class HSController {
 		return mav;
 	}
 
+	// 관리자 마이페이지...(admin)
 	@GetMapping("/adminpage")
 	public String adminpage(Model model) throws Exception {
 		log.debug("adminpage");
@@ -172,6 +186,7 @@ public class HSController {
 		return "adminpage";
 	}
 
+	// 관리자 유저 Q&A 조회페이지...(admin)
 	@GetMapping("/adminQnA")
 	public ModelAndView adminQnA(ModelAndView mav, BoardVO boardVO) throws Exception {
 		log.debug("adminQnA");
@@ -183,6 +198,7 @@ public class HSController {
 		return mav;
 	}
 
+	// 관리자 매출조회 페이지..(admin)
 	@GetMapping("/admintotal")
 	public ModelAndView admintotal(ModelAndView mav) throws Exception {
 		log.debug("admintotal");
@@ -195,6 +211,7 @@ public class HSController {
 		return mav;
 	}
 
+	// 관리자 회원정보 조회 페이지...(admin)
 	@GetMapping("/adminSearchMember")
 	public String adminSearchMember(Model model, SearchCriteria cri) throws Exception {
 		log.info("adminSearchMember.........");
@@ -207,6 +224,7 @@ public class HSController {
 		return "/adminSearchMember";
 	}
 
+	// 관리자 매출 조회 검색페이지?...(admin)
 	@GetMapping("/adminSearchtotal")
 	public ModelAndView adminSearchtotal(ModelAndView mav) throws Exception {
 		log.debug("adminSearchtotal");
