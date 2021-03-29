@@ -4,5 +4,54 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="edu.bit.ex.mapper.SellerMapper">
+
+	<!-- 상품 정보 불러오기 - 상품명,일자? -->
+	<select id="getProduct" resultType="edu.bit.ex.vo.PrdctVO">
+		<![CDATA[
+			select * from prdct
+		]]>
+	</select>
+	
+	<!-- 게시글 정보 불러오기 -->
+	<select id="getBoard" resultType="edu.bit.ex.vo.BoardVO">
+		<![CDATA[
+			select * from board
+		]]>
+	</select>
+	
+	<!-- 상품 상세정보 불러오기 2 - 가격,옵션 -->
+	<select id="getOrderDetail" resultType="edu.bit.ex.vo.OrderDetailVO">
+		<![CDATA[
+			select * from order_detail
+		]]>
+	</select>
+	
+	<!-- 주문상품 정보 불러오기 - 상품번호, 상품명 등...?  -->
+	<select id="getPrdOrder" resultType="edu.bit.ex.vo.PrdctOrderVO">
+		<![CDATA[
+			select * from prdct_order
+		]]>
+	</select>
+	
+	<!-- 판매자 정보 불러오기 (수정할 때) -->	
+	<select id="getMemberInfo" resultType="edu.bit.ex.vo.MbrVO">
+		<![CDATA[
+			select * from mbr where mbr_id=#{m_id}
+		]]>
+	</select>	
+	
+	<!-- 판매자 주소 admin seller customer--> 
+	<select id="getSellerAddress" resultType="edu.bit.ex.vo.ShippingVO">
+	<![CDATA[
+		select * from shipping where mbr_id=#{m_id}
+	]]>
+	</select>
+	
+	<!-- 판매자 정보 수정 admin seller-->
+	<update id="sellerInfoUpdate">
+	<![CDATA[
+		update mbr set mbr_name=#{mbr_name}, mbr_pw=#{mbr_pw}, mbr_email=#{mbr_email}, contact_number=#{contact_number}  where mbr_id=#{mbr_id}
+	]]>
+	</update>
 	
 </mapper>

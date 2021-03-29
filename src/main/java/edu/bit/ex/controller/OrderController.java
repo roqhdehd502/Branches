@@ -41,7 +41,7 @@ public class OrderController {
 		log.debug("cart list");
 		log.info("cart list..");
 		mav.setViewName("common/memberCart");
-		mav.addObject("cart_list", commonService.getCartList());
+		mav.addObject("cart_list", orderService.getCartList());
 		return mav;
 	}
 
@@ -66,7 +66,7 @@ public class OrderController {
 	 */
 
 	// 회원 주문확인 customer
-	// 회원 배송지 입력폼 만들기 ordercontroller로 옮겨
+	// 회원 배송지 입력폼 만들기
 	@GetMapping("/orderForm")
 	public ModelAndView memberOrderCheck(ModelAndView mav) throws Exception {
 		log.debug("mcheck");

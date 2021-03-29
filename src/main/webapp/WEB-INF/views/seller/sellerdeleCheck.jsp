@@ -53,7 +53,7 @@
             <h3>이름(업체명)</h3>
             <h3 style="position: relative; top: 15px;">아이디</h3>
          </span>
-         <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="#">정보수정</a></span> 
+         <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="/seller/mypage/myinfo">정보수정</a></span> 
          <span style="margin-left: 480px;" align="center">
             <h2 style="position: relative; top: 5px;">새주문</h2>
             <h4 style="position: relative; top: 15px;">2건</h4>
@@ -66,27 +66,26 @@
 			<div class="row">
 				<div class="col-md-2 contact-info" align="center">
 					<div class="single-info" style="margin-bottom: 40px">
-	                    <h3>주문 관리</h3><hr>
-	                    <h5><a href="/member/sellerorderCheck">주문확인</a></h5>
-	                    <h5><a href="/member/sellerdeleCheck">발송확인</a></h5>
-	                    <h5><a href="/member/sellercancelCheck">취소</a></h5>
-	                    <h5><a href="/member/sellerchangeCheck">교환</a></h5>
-	                    <h5><a href="/member/sellercancelList">환불</a></h5>
+	                     <h3>주문 관리</h3><hr>
+	                    <h5><a href="/seller/mypage/order">주문확인</a></h5>
+	                    <h5><a href="/seller/mypage/release">발송확인</a></h5>
+	                    <h5><a href="/seller/mypage/cancel">취소</a></h5>
+	                    <h5><a href="/seller/mypage/exchange">교환</a></h5>
+	                    <h5><a href="/seller/mypage/refund">환불</a></h5>
 	                </div>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>상품 관리</h3><hr>
-	                    <h5><a href="#">등록</a></h5>
-	                    <h5><a href="#">수정</a></h5>
-	                    <h5><a href="#">삭제</a></h5>
+	                    <h5><a href="/seller/mypage/prdct_register">등록</a></h5>
+	                    <h5><a href="/seller/mypage/prdct">조회</a></h5>
 	                </div>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>회원 관리</h3><hr>
-	                    <h5><a href="/member/sellerQnA">Q&A</a></h5>
-	                    <h5><a href="/member/sellerReview">리뷰</a></h5>
+	                    <h5><a href="/seller/mypage/prdctqna">Q&A</a></h5>
+	                    <h5><a href="/seller/mypage/review">리뷰</a></h5>
 	                </div>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>매출 관리</h3><hr>
-	                    <h5><a href="/member/sellertotal">매출</a></h5>
+	                    <h5><a href="/seller/mypage/sales">매출</a></h5>
 	                </div>
 				</div>
 
