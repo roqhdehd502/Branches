@@ -9,6 +9,7 @@ import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrAddressVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.OrderDetailVO;
+import edu.bit.ex.vo.PrdctDetailVO;
 import edu.bit.ex.vo.PrdctOrderVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
@@ -64,6 +65,37 @@ public class SellerServiceImpl implements SellerService {
 		sellerMapper.sellerInfoUpdate(mavo);
 		sellerMapper.sellerAddressUpdate(mavo);
 
+	}
+
+	@Override
+	public void prdctUpdate(PrdctVO pvo) {
+		log.info("prdctUpdate()......");
+		sellerMapper.prdctUpdate(pvo);
+
+	}
+
+	@Override
+	public void prdInsert(PrdctVO pvo) {
+		log.info("prdInsert()......");
+		sellerMapper.prdInsert(pvo);
+	}
+
+	@Override
+	public PrdctDetailVO getPrdetail(String prdct_id) {
+		log.info("getPrdetail()......");
+		return sellerMapper.getPrdetail(prdct_id);
+	}
+
+	@Override
+	public PrdctVO getProductId(String prdct_id) {
+		log.info("getProductId()......");
+		return sellerMapper.getProductId(prdct_id);
+	}
+
+	@Override
+	public List<PrdctDetailVO> getPrdctDetail() {
+		log.info("getPrdctDetail()......");
+		return sellerMapper.getPrdctDetail();
 	}
 
 }

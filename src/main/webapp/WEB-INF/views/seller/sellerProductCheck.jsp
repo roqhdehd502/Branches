@@ -99,16 +99,16 @@
 							<c:forEach items="${prdct }" var="prdct">
 								<div class="col-md-2 single-team">
 									<div class="inner">
-									<a href="/seller/mypage/prdct/{prdct_id}">
 										<div class="team-img">
 											<img src="/ksp/th-ex.jpg">
 										</div>
+										<a href="/seller/mypage/prdct/${prdct.prdct_id }">
 										<div class="team-content"> <!-- 누르면 상세페이지 이동 -->
 											<h4>${prdct.prdct_name }</h4>
 											<h5>${prdct.prdct_id }</h5>
 											<h5>${prdct.prdct_price }</h5>
 										</div>
-									</a>	
+										</a>	
 									</div>
 								</div>
 							</c:forEach>	
