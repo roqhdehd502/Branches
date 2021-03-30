@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import edu.bit.ex.mapper.CommonMapper;
 import edu.bit.ex.page.PrdQnACriteria;
 import edu.bit.ex.page.PrdctListCriteria;
+import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.MbrVO;
@@ -49,6 +50,13 @@ public class CommonServiceImpl implements CommonService {
 		return commonMapper.getProductInfo(p_id);
 	}
 
+	// 리뷰 리스트
+	@Override
+	public List<BoardVO> getreviewList(String p_id) {
+		log.info("getreviewList");
+		return commonMapper.getreviewList(p_id);
+	}
+
 	// 페이징을 적용한 상품 Q&A 게시판 리스트
 	@Override
 	public List<BoardVO> getPrdQnAList(PrdQnACriteria cri, String p_id) {
@@ -61,6 +69,13 @@ public class CommonServiceImpl implements CommonService {
 	public int getPrdQnATotal(PrdQnACriteria cri) {
 		log.info("getPrdQnATotal WITH criteria: " + cri);
 		return commonMapper.getPrdQnATotalCount(cri);
+	}
+
+	// 리뷰 모달 댓글
+	@Override
+	public void setModalReply(BoardCommentVO boardCommentVO) {
+		// TODO Auto-generated method stub
+
 	}
 
 	// 카테고리별 상품 리스트
@@ -104,4 +119,5 @@ public class CommonServiceImpl implements CommonService {
 		log.info(b_id);
 		return commonMapper.getBrandTotalCount(cri, b_id);
 	}
+
 }

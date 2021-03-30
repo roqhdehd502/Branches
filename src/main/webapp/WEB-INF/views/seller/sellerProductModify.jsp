@@ -18,10 +18,11 @@
 <link rel="stylesheet" href="/assets/css/slicknav.css">
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css">
+
+
 </head>
 <body>
 <div style="overflow: hidden;" class="container">
-	<header>
 		<header>
 		<div class="container" style="border-bottom: 1px solid rgba(0, 0, 0, .1);">
 			<div class="row">
@@ -95,54 +96,54 @@
 					<h3 >
 					<strong>상품 정보 수정</strong>
 					</h3><hr>
-					<form action="#" method="post">
-					<input type="hidden" value="${prdct.prdct_id }">
+					<form id="updatePrd" action="/seller/mypage/prdct/{prdct_id}" method="PUT">
+					<input id="prcdt_id" type="hidden" value="${prd.prdct_id }">
 						<fieldset>
 							<div class="form-group row">
-								<label class="col-sm-2 col-form-label"></label>
+								<label class="col-sm-2 col-form-label">상품명</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" value="${prdct.prdct_name }" placeholder="상품명을 입력해주세요">
+									<input type="text" class="form-control" placeholder="상품명을 입력해주세요" id="prdct_name" value="${prd.prdct_name }">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">카테고리</label>
 								<div class="col-sm-10">
 									<select class="form-control">
-										<option>아우터-코트</option>
-										<option>아우터-자켓</option>
-										<option>아우터-점퍼/무스탕</option>
-										<option>아우터-가디건</option>
-										<option>아우터-패딩</option>
-										<option>상의-티셔츠</option>
-										<option>상의-블라우스/셔츠</option>
-										<option>상의-니트/스웨터</option>
-										<option>상의-후드티</option>
-										<option>상의-맨투맨</option>
-										<option>상의-슬리브리스</option>
-										<option>하의-데님</option>
-										<option>하의-코튼</option>
-										<option>하의-숏</option>
-										<option>하의-슬랙스</option>
-										<option>하의-트레이닝/조거</option>
-										<option>하의-레깅스</option>
-										<option>하의-스커트</option>
-										<option>드레스-미니</option>
-										<option>드레스-미디</option>
-										<option>드레스-맥시</option>
-										<option>드레스-오버롤</option>
-										<option>가방-백팩</option>
-										<option>가방-메신저/크로스</option>
-										<option>가방-숄더/토트</option>
-										<option>가방-에코백</option>
-										<option>가방-클러치</option>
-										<option>신발-구두</option>
-										<option>신발-부츠</option>
-										<option>신발-샌들</option>
-										<option>신발-슬리퍼</option>
-										<option>신발-스니커즈</option>
-										<option>ETC-가방</option>
-										<option>ETC-모자</option>
-										<option>ETC-악세서리</option>
+										<option value="0">아우터-코트</option>
+										<option value="1">아우터-자켓</option>
+										<option value="2">아우터-점퍼/무스탕</option>
+										<option value="3">아우터-가디건</option>
+										<option value="4">아우터-패딩</option>
+										<option value="5">상의-티셔츠</option>
+										<option value="6">상의-블라우스/셔츠</option>
+										<option value="7">상의-니트/스웨터</option>
+										<option value="8">상의-후드티</option>
+										<option value="9">상의-맨투맨</option>
+										<option value="10">상의-슬리브리스</option>
+										<option value="11">하의-데님</option>
+										<option value="12">하의-코튼</option>
+										<option value="13">하의-숏</option>
+										<option value="14">하의-슬랙스</option>
+										<option value="15">하의-트레이닝/조거</option>
+										<option value="16">하의-레깅스</option>
+										<option value="17">하의-스커트</option>
+										<option value="18">드레스-미니</option>
+										<option value="19">드레스-미디</option>
+										<option value="20">드레스-맥시</option>
+										<option value="21">드레스-오버롤</option>
+										<option value="22">가방-백팩</option>
+										<option value="23">가방-메신저/크로스</option>
+										<option value="24">가방-숄더/토트</option>
+										<option value="25">가방-에코백</option>
+										<option value="26">가방-클러치</option>
+										<option value="27">신발-구두</option>
+										<option value="28">신발-부츠</option>
+										<option value="29">신발-샌들</option>
+										<option value="30">신발-슬리퍼</option>
+										<option value="31">신발-스니커즈</option>
+										<option value="32">ETC-가방</option>
+										<option value="33">ETC-모자</option>
+										<option value="34">ETC-악세서리</option>
 									</select>
 								</div>
 							</div>
@@ -159,9 +160,9 @@
 								</div>
 							</div>
 							<div class="form-group row">
-								<label class="col-sm-2 col-form-label">가격(원)</label>
+								<label class="col-sm-2 col-form-label">가격</label>
 								<div class="col-sm-10">
-									<input type="number" class="form-control" placeholder="가격을 입력해주세요">
+									<input type="number" class="form-control" placeholder="가격을 입력해주세요" id="prdct_price" value="${prd.prdct_price }">
 								</div>
 							</div>
 							<div class="form-group row">
@@ -185,7 +186,7 @@
 								</div>
 							</div><br/><br/>
 							<div align="center">
-								<button type="submit" class="btn btn-primary">상품등록</button>
+								<button type="submit" class="btn btn-primary">상품수정</button>
 							</div>
 						</fieldset>
 					</form>			
@@ -264,6 +265,51 @@
 		<script src="/assets/js/vendor/loopcounter.js"></script> 
 		<script src="/assets/js/vendor/slicknav.min.js"></script>
 		<script src="/assets/js/active.js"></script>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#updatePrd").submit(function(event){
+		
+		event.preventDefault();
+		
+		var prdct_id = $("#prdct_id").val();
+        var prdct_name = $("#prdct_name").val();
+        var prdct_price = $("#prdct_price").val();
+        
+        console.log(prdct_id);
+        console.log($(this).attr("action"));
+        
+        var form = {
+        		prdct_id: prdct_id,
+        		prdct_name: prdct_name,
+        		prdct_price: prdct_price,
+
+        };
+	    //dataType: 'json',
+        $.ajax({
+		    type : "PUT",
+		    url : $(this).attr("action"),
+		    cache : false,
+		    contentType:'application/json; charset=utf-8',
+			    data: JSON.stringify(form), 
+		    success: function (result) {       
+				if(result == "SUCCESS"){
+					//list로 
+					$(location).attr('href', '${pageContext.request.contextPath}/seller/mypage/prdct')				      	       
+				}					        
+		    },
+		    error: function (e) {
+		        console.log(e);
+		    }
+		})	       
+
+    }); // end submit()
+    
+}); // end ready() 
+</script>
+		
 </div>
 </body>
 </html>

@@ -54,4 +54,33 @@
 	]]>
 	</update>
 	
+	<!-- 판매자 상품정보 수정 -->
+	<update id="prdctUpdate">
+	<![CDATA[
+		update prdct set prdct_name=#{prdct_name}, prdct_price=#{prdct_price} where prdct_id=#{prdct_id}
+	]]>
+	</update>
+	
+	<!-- 상품정보 불러오기 -->
+	<select id="getProductId" resultType="edu.bit.ex.vo.PrdctVO" >
+		<![CDATA[
+			select * from prdct where prdct_id = #{prdct_id}
+		]]>	
+	</select>
+	
+	<!-- 상품정보 불러오기2..아직 못불러옴 -->
+	<select id="getPrdetail" resultType="edu.bit.ex.vo.PrdctDetailVO" >
+		<![CDATA[
+			select * from prdct_detail where prdct_id = #{prdct_id}
+		]]>	
+	</select>
+	
+	<!-- 상품등록하기...(옵션부분 못불러옴;;;) -->
+	<insert id="prdInsert">
+		<![CDATA[
+			insert into prdct (prdct_id, prdct_name, prdct_price, category_number, mbr_id) values ('prdct33', #{prdct_name}, #{prdct_price}, 1, 'seller2')
+		]]>
+	</insert>
+	
+	
 </mapper>

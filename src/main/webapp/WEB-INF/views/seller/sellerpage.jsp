@@ -18,6 +18,53 @@
 <link rel="stylesheet" href="/assets/css/slicknav.css">
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css">
+<style type="text/css">
+/* Style the tab */
+.tab {
+  float: left;
+  border: 1px solid #ccc;
+  background-color: black;
+  width: 30%;
+  height: 300px;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  display: block;
+  background-color: inherit;
+  color: black;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: gray;
+}
+
+/* Create an active/current "tab button" class */
+.tab button.active {
+  background-color: gray;
+}
+
+/* Style the tab content */
+.tabcontent {
+  float: left;
+  padding: 0px 12px;
+  border: 1px solid #ccc;
+  width: 70%;
+  border-left: none;
+  height: 300px;
+}
+</style>
+
+
 </head>
 <body>
 <div style="overflow: hidden;" class="container">
@@ -125,12 +172,30 @@
 					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, .1);">
 						<strong style="margin: 20px;">총 수익 현황</strong>
 					</h3>
-					<div></div>
+
+					<div class="tab">
+						<button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen"><h4 style="color: white;">상품</h4></button>
+						<button class="tablinks" onclick="openCity(event, 'Paris')"><h4 style="color: white;">판매량</h4></button>
+						<button class="tablinks" onclick="openCity(event, 'Tokyo')"><h4 style="color: white;">인기</h4></button>
+					</div>
+
+					<div id="London" class="tabcontent">
+						<h3 style="margin-top: 16px;">상품</h3>
+						<jsp:include page="/WEB-INF/views/chart/prdorderChart.jsp"></jsp:include>
+					</div>
+
+					<div id="Paris" class="tabcontent">
+						<h3 style="margin-top: 16px;">판매량</h3>
+						<jsp:include page="/WEB-INF/views/chart/sellChart.jsp"></jsp:include>
+					</div>
+
+					<div id="Tokyo" class="tabcontent">
+						<h3 style="margin-top: 16px;">인기</h3>
+						<jsp:include page="/WEB-INF/views/chart/ageChart.jsp"></jsp:include>
+					</div>
 				</span>
 			</div>
-		</div>
-	
-	<hr>
+		</div><br/><br/><br/>
 	<!-- footer -->
 		<footer>
 			<div class="footer-top">
@@ -202,6 +267,26 @@
 	<script src="/assets/js/vendor/loopcounter.js"></script>
 	<script src="/assets/js/vendor/slicknav.min.js"></script>
 	<script src="/assets/js/active.js"></script>
-</div>
+
+		<script type="text/javascript">
+			function openCity(evt, cityName) {
+				var i, tabcontent, tablinks;
+				tabcontent = document.getElementsByClassName("tabcontent");
+				for (i = 0; i < tabcontent.length; i++) {
+					tabcontent[i].style.display = "none";
+				}
+				tablinks = document.getElementsByClassName("tablinks");
+				for (i = 0; i < tablinks.length; i++) {
+					tablinks[i].className = tablinks[i].className.replace(
+							" active", "");
+				}
+				document.getElementById(cityName).style.display = "block";
+				evt.currentTarget.className += " active";
+			}
+
+			// Get the element with id="defaultOpen" and click on it
+			document.getElementById("defaultOpen").click();
+		</script>
+	</div>
 </body>
 </html>
