@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 import edu.bit.ex.mapper.AdminMapper;
 import edu.bit.ex.page.MemberCriteria;
 import edu.bit.ex.page.PrdctListCriteria;
-import edu.bit.ex.page.UserQnACriteria;
-import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrAddressVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctVO;
@@ -23,19 +21,13 @@ public class AdminServiceImpl implements AdminService {
 	private AdminMapper adminMapper;
 
 	// 고객 Q&A 페이징 리스트
-	@Override
-	public List<BoardVO> getUserQnAListWithCri(UserQnACriteria cri) {
-		// TODO Auto-generated method stub
-		log.info("getUserQnAListWithCri");
-		return adminMapper.getUserQnAListWithCri(cri);
-	}
-
-	@Override
-	public int getUserQnATotalCount(UserQnACriteria cri) {
-		// TODO Auto-generated method stub
-		log.info("getUserQnATotal");
-		return adminMapper.getUserQnATotalCount(cri);
-	}
+	/*
+	 * @Override public List<BoardVO> getUserQnAListWithCri(UserQnACriteria cri) { // TODO Auto-generated method stub
+	 * log.info("getUserQnAListWithCri"); return adminMapper.getUserQnAListWithCri(cri); }
+	 * 
+	 * @Override public int getUserQnATotalCount(UserQnACriteria cri) { // TODO Auto-generated method stub log.info("getUserQnATotal"); return
+	 * adminMapper.getUserQnATotalCount(cri); }
+	 */
 
 	// 판매자 페이징 리스트
 	@Override

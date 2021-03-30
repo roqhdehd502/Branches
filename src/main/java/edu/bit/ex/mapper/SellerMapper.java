@@ -8,6 +8,7 @@ import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrAddressVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.OrderDetailVO;
+import edu.bit.ex.vo.PrdctDetailVO;
 import edu.bit.ex.vo.PrdctOrderVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
@@ -23,6 +24,8 @@ public interface SellerMapper {
 
 	public List<BoardVO> getBoard();
 
+	public List<PrdctDetailVO> getPrdctDetail();
+
 	public MbrVO getMemberInfo(String s_id);
 
 	public ShippingVO getSellerAddress(String m_id);
@@ -30,5 +33,13 @@ public interface SellerMapper {
 	public void sellerInfoUpdate(MbrAddressVO mavo);
 
 	public void sellerAddressUpdate(MbrAddressVO mavo);
+
+	public void prdctUpdate(PrdctVO pvo);
+
+	public PrdctVO getProductId(String prdct_id);
+
+	public PrdctDetailVO getPrdetail(String prdct_id);
+
+	public void prdInsert(PrdctVO pvo);
 
 }

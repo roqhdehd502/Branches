@@ -16,8 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import edu.bit.ex.page.MemberCriteria;
 import edu.bit.ex.page.MemberPageVO;
 import edu.bit.ex.page.PrdctListCriteria;
-import edu.bit.ex.page.UserQnACriteria;
-import edu.bit.ex.page.UserQnAPageVO;
 import edu.bit.ex.service.AdminService;
 import edu.bit.ex.vo.MbrAddressVO;
 import edu.bit.ex.vo.MbrVO;
@@ -42,18 +40,16 @@ public class AdminController {
 	}
 
 	// 관리자 유저 Q&A 페이징리스트
-	@GetMapping("/mypage/userqna")
-	public ModelAndView adminQnA(UserQnACriteria cri, ModelAndView mav) throws Exception {
-		log.debug("adminQnA");
-		log.info("adminQnA");
-		mav.setViewName("admin/adminQnA");
 
-		mav.addObject("board", adminService.getUserQnAListWithCri(cri));
-		int total = adminService.getUserQnATotalCount(cri);
-		mav.addObject("pageMaker", new UserQnAPageVO(cri, total));
-
-		return mav;
-	}
+	/*
+	 * @GetMapping("/mypage/userqna") public ModelAndView adminQnA(UserQnACriteria cri, ModelAndView mav) throws Exception { log.debug("adminQnA");
+	 * log.info("adminQnA"); mav.setViewName("admin/adminQnA");
+	 * 
+	 * mav.addObject("board", adminService.getUserQnAListWithCri(cri)); int total = adminService.getUserQnATotalCount(cri); mav.addObject("pageMaker",
+	 * new UserQnAPageVO(cri, total));
+	 * 
+	 * return mav; }
+	 */
 
 	// 관리자 매출조회 페이지 (보류)
 	@GetMapping("/mypage/sales")

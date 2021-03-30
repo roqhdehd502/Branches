@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.service.SellerService;
 import edu.bit.ex.vo.MbrAddressVO;
+import edu.bit.ex.vo.PrdctVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,11 +27,22 @@ public class SellerController {
 	@Autowired
 	private SellerService sellerService;
 
-	// 상품 등록 seller
+	// 상품 등록페이지 seller
 	@GetMapping("/mypage/prdct_register")
 	public ModelAndView prdct_register(ModelAndView mav) {
 		log.info("prdct_register...");
 		mav.setViewName("seller/prdct_register");
+		return mav;
+	}
+
+	// 상품 등록
+	@PostMapping("/mypage/prdct")
+	public ModelAndView prdct_register(ModelAndView mav, PrdctVO pvo) {
+		log.info("register...");
+		mav.setViewName("seller/sellerProductCheck");
+		sellerService.prdInsert(pvo);
+		mav.addObject("prdct", sellerService.getProduct());
+
 		return mav;
 	}
 
@@ -45,15 +58,36 @@ public class SellerController {
 		return mav;
 	}
 
-	// 판매자 등록상품 수정페이지 seller
-	// 이 페이지는 상세페이지가 곧 수정페이지입니다
+	// 판매자 등록상품 수정페이지 seller // 이 페이지는 상세페이지가 곧 수정페이지입니다
+
 	@GetMapping("/mypage/prdct/{prdct_id}")
-	public ModelAndView sellerProductModify(ModelAndView mav) throws Exception {
+	public ModelAndView sellerProductModify(ModelAndView mav, PrdctVO pvo) throws Exception {
 		log.debug("sellerProductModify");
 		log.info("sellerProductModify..");
 		mav.setViewName("seller/sellerProductModify");
+		mav.addObject("prd", sellerService.getProductId(pvo.getPrdct_id()));
 
 		return mav;
+	}
+
+	// 판매자 상품 수정 ajax
+	@PutMapping(value = "/mypage/prdct/{prdct_id}")
+	public ResponseEntity<String> prdctUpdate(PrdctVO pvo) {
+		ResponseEntity<String> entity = null;
+
+		log.info("prdct_update..");
+		try {
+
+			sellerService.prdctUpdate(pvo);
+			log.info("update prdct info");
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
 	}
 
 	// 판매자 마이페이지...(seller)
