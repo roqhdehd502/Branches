@@ -29,6 +29,7 @@
 <!-- 사진 슬라이딩 처리 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+
 </head>
 <style>
 span.star-prototype, span.star-prototype>* {
@@ -127,6 +128,7 @@ img {
 .swiper-slide img {
 	max-width: 100%; /* 이미지 최대너비를 제한, 슬라이드에 이미지가 여러개가 보여질때 필요 */
 }
+
 </style>
 <script>
 	$.fn.generateStars = function() {
@@ -140,53 +142,49 @@ img {
 </script>
 <script type="text/javascript">
 	$(document)
-			.ready(
-					function() {
-						$('#detailForm')
-								.sbmit(
-										function(event) {
-											event.preventDefault();
-											console.log("ajax 호출전");
-											var prdct_id = $("#prdct_id").val();
-											var prdct_name = $("#prdct_name")
-													.val();
-											var prdct_price = $("#prdct_price")
-													.val();
-											var category_number = $(
-													"#category_number").val();
+		.ready(
+			function() {
+				$('#modalForm')
+					.sbmit(
+						function(event) {
+						event.preventDefault();
+						console.log("ajax 호출전");
+						var prdct_id = $("#prdct_id").val();
+						var prdct_name = $("#prdct_name")
+							.val();
+						var prdct_price = $("#prdct_price")
+							.val();
+						var category_number = $(
+							"#category_number").val();
 
-											var form = {
-												prdct_id : prdct_id,
-												prdct_name : prdct_name,
-												prdct_price : prdct_price,
-												category_number : category_number
-											};
+						var form = {
+							prdct_id : prdct_id,
+							prdct_name : prdct_name,
+							prdct_price : prdct_price,
+							category_number : category_number
+						};
 
-											$
-													.ajax({
-														type : 'PUT',
-														url : $(this).attr(
-																"action"),
-														cache : false,
-														contentType : 'application/json; charset=utf-8',
-														success : function(
-																result) {
-															console.log(result);
-															if (result == "SUCCESS") {
-																if (result == "SUCCESS") {
-																	$(location)
-																			.attr(
-																					'href',
-																					'${pageContext.request.contextPath}/ej/productDetail')
-																}
-															}
-														},
-														error : function(e) {
-															console.log(e);
-														}
-													})
-										});
-					});
+				$
+				.ajax({
+					type : 'PUT',
+					url : $(this).attr("action"),
+					cache : false,
+					contentType : 'application/json; charset=utf-8',
+					success : function(result) {
+						console.log(result);
+						if (result == "SUCCESS") {
+							if (result == "SUCCESS") {
+								$(location)
+								.attr('href','${pageContext.request.contextPath}/ej/productDetail')
+							}
+						}
+					},
+						error : function(e) {
+							console.log(e);
+						}
+					})
+				});
+		});
 </script>
 
 <body>
@@ -366,7 +364,7 @@ img {
 					</div>
 
 					<!--  상품 정보와 옵션 선택 -->
-					<form id="detailForm" action="${pageContext.request.contextPath}/ej/prd/${productDetail.prdct_id}" method="post">
+					<form action="${pageContext.request.contextPath}/common/product/${productDetail.prdct_id}" method="post">
 					<div class="row">
 						<div class="contrainer single-service bordered " style="height: 600px; width: 500px;">
 							<div class="inner">
@@ -599,6 +597,7 @@ img {
 							</ul>
 							<!-- 리뷰 틀 -->
 							<div class="gallery-area spb">
+							<c:forEach items="${getreviewList}" var="list">
 								<div class="container">
 									<div class="section-title" data-margin="0 0 40px">
 										<table class="table">
@@ -606,21 +605,73 @@ img {
 											<tr>
 												<td><span class="star-prototype"></span></td>
 												<td>사진</td>
-												<td>구매옵션:()
-													<p>배송이 너무 늦었고 먼지가 정말 많이 달라붙네요 ㅠ 핏은 맘에듭니다</p></td>
-												<td>작성자</td>
-												<td>등록일자</td>
+												<%-- <c:forEach items="${상품옵션}" var="dto"> --%>
+												<td>
+													<div data-toggle="modal" data-target="#myModal">
+														구매옵션:(리뷰작성한사람의 옵션..을 끌고와야되네)
+														<p>${list.board_content}</p>
+													</div>
+
+												</td>
+												<td>${list.mbr_id}</td>
+												<td>${list.board_date}</td>
 											</tr>
 										</table>
+
 									</div>
 								</div>
+								</c:forEach>
 							</div>
 						</div>
 
 					</div>
 				</div>
 			</div>
-			
+
+			<!-- 리뷰 모달창  -->
+			<form id="modalForm" action="${pageContext.request.contextPath}/common/product/${productDetail.prdct_id}" method="post">
+			<div class="modal fade " id="myModal" role="dialog" >
+				<div class="modal-dialog modal-xl" >
+					<div class="modal-content" >
+
+						<!-- Modal Header -->
+						<div class="modal-header">
+							<h4 class="modal-title">리뷰 보기</h4>
+							<button type="button" class="close" data-dismiss="modal">×</button>
+						</div>
+
+						<!-- Modal body -->
+						<div class="modal-body">
+						<div style="float: left; margin-left: 10px; margin-right: 50px;">
+							<img class="popup_img" style="width: 300px; height: 300px; object-fit: cover;" src="/ej/view.staff_605be555e83ad.jpg">
+							</div>
+						<div class="container" style="width:100%; ">
+								<p>아이디</p>
+								<p>작성일자</p>
+
+							<p>작성내용: 배송이 너무 늦었고 먼지가 정말 많이 달라붙네요 ㅠ 핏은 맘에듭니다</p>
+						</div>
+						<hr>
+						
+						</div>
+						
+						
+
+						<!-- Modal footer -->
+						<div class="modal-footer">
+						<div class="form-group row" >
+							<input class="text" id="replyInput" placeholder="댓글을 입력하세요." style="width: 1005px;">
+							<button type="button" class="btn btn-primary">댓글달기</button>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+		</form>
+
 		<!-- Q&A 페이지 tab -->
 		<div class="container">
 			<br>
