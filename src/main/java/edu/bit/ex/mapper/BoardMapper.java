@@ -49,6 +49,9 @@ public interface BoardMapper {
 	// 매거진 작성
 	public void setMagazineWrite(BoardVO boardVO);
 
+	// 매거진 첨부사진 작성
+	public void setMagazineImage(String saveName);
+
 	// 매거진 게시글
 	public BoardVO getMagazineContent(int board_id);
 
@@ -79,4 +82,5 @@ public interface BoardMapper {
 
 	// 매거진 수정
 	public void setMagazineModify(BoardVO boardVO);
+
 }

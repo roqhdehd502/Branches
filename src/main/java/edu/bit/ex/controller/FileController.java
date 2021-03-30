@@ -39,20 +39,14 @@ public class FileController {
 
 	// 테스트 파일 업로드
 	@PostMapping("/fileupload")
-	public ResponseEntity<String> upload(@RequestBody MultipartFile[] uploadfiles, ModelAndView mav) {
+	public ResponseEntity<String> upload(@RequestBody MultipartFile[] uploadfiles) {
 		ResponseEntity<String> entity = null;
-
 		log.info("upload...");
 
 		try {
-			/* String result = ""; */
 			for (MultipartFile f : uploadfiles) {
-				// result += fileService.saveFile(f);
 				fileService.saveFile(f);
 			}
-			/*
-			 * model.addAttribute("result", result); log.info("result: " + result);
-			 */
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);

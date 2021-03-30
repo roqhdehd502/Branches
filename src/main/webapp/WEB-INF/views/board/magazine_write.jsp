@@ -29,17 +29,20 @@
            event.preventDefault();
            var mbr_id = $("#mbr_id").val();
            var board_name = $("#board_name").val();
-           var board_content = $("#board_content").val();           
+           var board_content = $("#board_content").val();
+           var uploadfiles = $("#uploadfiles").val();
            
            console.log(mbr_id);
            console.log(board_name);
            console.log(board_content);
+           console.log(uploadfiles);
            console.log($(this).attr("action"));    
            
            var form = {
-        		 mbr_id: mbr_id,
-                 board_name: board_name,
-                 board_content: board_content
+        		mbr_id: mbr_id, 
+                board_name: board_name, 
+                board_content: board_content, 
+                uploadfiles: uploadfiles
            };
            $.ajax({
              type : "POST",
@@ -54,6 +57,8 @@
              },
              error: function (e) {
                  console.log(e);
+                 alert('업로드를 할 수 없습니다.');
+                 location.reload(); // 실패시 새로고침하기
              }
          })            
        });       
@@ -177,11 +182,11 @@
 			</div>
 			<hr>
 			<div class="container">
-				<form id="writeForm" method="post" action="${pageContext.request.contextPath}/board/magazine/write">
+				<form id="writeForm" method="post" action="${pageContext.request.contextPath}/board/magazine/write" enctype="multipart/form-data">
 				<input type="hidden" id="mbr_id" value="${magazine_write.mbr_id}">
 				<fieldset>
 					<div class="row">
-						<div class="col-md-2 contact-info" align="center">
+						<div class="col-md-2 contact-info" align="left">
 							<legend>글제목</legend>
 						</div>
 						<div class="col-md-10 contact-info">
@@ -189,11 +194,19 @@
 						</div>
 					</div>
 					<div class="row" style="padding: 3% 0px 3% 0px">
-						<div class="col-md-2 contact-info" align="center">
+						<div class="col-md-2 contact-info" align="left">
 							<legend>글내용</legend>
 						</div>
 						<div class="col-md-10 contact-info">
 							<textarea class="form-control" cols="3" id="board_content" name="board_content" placeholder="글내용을 입력하세요"></textarea>
+						</div>
+					</div>
+					<div class="row" style="padding: 3% 0px 3% 0px">
+						<div class="col-md-2 contact-info" align="left">
+							<legend>첨부사진</legend>
+						</div>
+						<div class="col-md-10 contact-info">
+							<input type="file" id="uploadfiles" name="uploadfiles" placeholder="첨부 사진" multiple/>
 						</div>
 					</div>	
 					<div align="center" style="padding: 3% 0px 3% 0px;">
@@ -204,7 +217,7 @@
 				</form>
 			</div>
 		</div>
-	</div>
+	<!-- </div> -->
 
 	<hr>
 
@@ -270,5 +283,6 @@
       <script src="/assets/js/vendor/loopcounter.js"></script>
       <script src="/assets/js/vendor/slicknav.min.js"></script>
       <script src="/assets/js/active.js"></script>
+    </div>  
 </body>
 </html>

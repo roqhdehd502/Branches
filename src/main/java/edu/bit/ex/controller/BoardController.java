@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
+import edu.bit.ex.joinvo.BoardImageUploadVO;
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.page.MagazineCommentCriteria;
 import edu.bit.ex.page.MagazineCriteria;
@@ -35,7 +37,7 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 
-	// 페이징을 이용한 공지사항 게시판 리스트 common
+	// 페이징을 이용한 공지사항 게시판 리스트
 	@Transactional
 	@GetMapping("/notice")
 	public ModelAndView noticeList(NoticeCriteria cri, ModelAndView mav) {
@@ -51,7 +53,7 @@ public class BoardController {
 		return mav;
 	}
 
-	// 공지사항 작성페이지 admin
+	// 공지사항 작성페이지
 	@GetMapping("/notice/write")
 	public ModelAndView noticeWriteView(MbrVO mbrVO, ModelAndView mav) {
 		log.info("noticeWriteView...");
@@ -60,7 +62,7 @@ public class BoardController {
 		return mav;
 	}
 
-	// 공지사항 작성 admin
+	// 공지사항 작성
 	@PostMapping("/notice/write")
 	public ResponseEntity<String> noticeWrite(@RequestBody BoardVO boardVO, ModelAndView modelAndView) {
 		ResponseEntity<String> entity = null;
@@ -77,7 +79,7 @@ public class BoardController {
 		return entity;
 	}
 
-	// 공지사항 게시글 common
+	// 공지사항 게시글
 	@GetMapping("/notice/{board_id}")
 	public ModelAndView noticeContent(BoardVO boardVO, ModelAndView mav) {
 		log.info("noticeContent...");
@@ -86,7 +88,7 @@ public class BoardController {
 		return mav;
 	}
 
-	// 공지사항 수정페이지 admin
+	// 공지사항 수정페이지
 	@GetMapping("/notice/modify/{board_id}")
 	public ModelAndView noticeModifyView(BoardVO boardVO, ModelAndView mav) {
 		log.info("noticeModifyView...");
@@ -95,7 +97,7 @@ public class BoardController {
 		return mav;
 	}
 
-	// 공지사항 수정 admin
+	// 공지사항 수정
 	@PostMapping("/notice/modify/{board_id}")
 	public ResponseEntity<String> noticeModify(@RequestBody BoardVO boardVO, ModelAndView modelAndView) {
 		ResponseEntity<String> entity = null;
@@ -112,7 +114,7 @@ public class BoardController {
 		return entity;
 	}
 
-	// 공지사항 삭제 admin
+	// 공지사항 삭제
 	@DeleteMapping("/notice/modify/{board_id}")
 	public ResponseEntity<String> noticeDelete(BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
@@ -128,7 +130,7 @@ public class BoardController {
 		return entity;
 	}
 
-	// 페이징을 적용한 매거진 게시판 리스트 common
+	// 페이징을 적용한 매거진 게시판 리스트
 	@Transactional
 	@GetMapping("/magazine")
 	public ModelAndView magazineList(BoardVO boardVO, BoardPrdctImageVO bPrdctImageVO, MagazineCriteria cri, ModelAndView mav) {
@@ -142,7 +144,7 @@ public class BoardController {
 		return mav;
 	}
 
-	// 매거진 작성페이지 admin
+	// 매거진 작성페이지
 	@GetMapping("/magazine/write")
 	public ModelAndView magazineWriteView(MbrVO mbrVO, ModelAndView mav) {
 		log.info("magazineWriteView...");
@@ -151,14 +153,20 @@ public class BoardController {
 		return mav;
 	}
 
-	// 매거진 작성 admin
+	// 매거진 작성(오류 해결하기)
+	@Transactional
 	@PostMapping("/magazine/write")
-	public ResponseEntity<String> magazineWrite(@RequestBody BoardVO boardVO, ModelAndView modelAndView) {
+	public ResponseEntity<String> magazineWrite(@RequestBody BoardImageUploadVO bImageUploadVO) {
 		ResponseEntity<String> entity = null;
-
 		log.info("magazineWrite..");
+		MultipartFile[] uploadfiles = bImageUploadVO.getUploadfiles();
+
 		try {
-			boardService.setMagazineWrite(boardVO);
+			boardService.setMagazineWrite(bImageUploadVO.getBoardVO()); // 텍스트 등록(1)
+			for (MultipartFile f : uploadfiles) {
+				boardService.setMagazineImage(f); // 이미지 등록(N)
+			}
+
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -168,7 +176,7 @@ public class BoardController {
 		return entity;
 	}
 
-	// 매거진 게시글 common
+	// 매거진 게시글
 	@Transactional
 	@GetMapping("/magazine/{board_id}")
 	public ModelAndView magazineContent(MbrVO mbrVO, BoardVO boardVO, MagazineCommentCriteria cri, ModelAndView mav) {
@@ -191,7 +199,7 @@ public class BoardController {
 		return mav;
 	}
 
-	// 매거진 게시글 추천 common
+	// 매거진 게시글 추천
 	@PutMapping("/magazine/{board_id}")
 	public ResponseEntity<String> magazineUpLike(BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
@@ -207,9 +215,9 @@ public class BoardController {
 		return entity;
 	}
 
-	// 매거진 게시글 댓글 작성 member
+	// 매거진 게시글 댓글 작성
 	@PostMapping("/magazine/{board_id}")
-	public ResponseEntity<String> magazineCommentWrite(@RequestBody BoardBoardCommentVO boardBoardCommentVO, ModelAndView modelAndView) {
+	public ResponseEntity<String> magazineCommentWrite(@RequestBody BoardBoardCommentVO boardBoardCommentVO) {
 		ResponseEntity<String> entity = null;
 
 		log.info("magazineCommentWrite...");
@@ -224,11 +232,11 @@ public class BoardController {
 		return entity;
 	}
 
-	// 매거진 댓글 삭제(오류수정할것) member
+	// 매거진 댓글 삭제(오류수정할것)
 	@DeleteMapping("/magazine/{board_id}")
 	public ResponseEntity<String> magazineCommentDelete(BoardCommentVO boardCommentVO) {
 		ResponseEntity<String> entity = null;
-		log.info("magazineDelete...");
+		log.info("magazineCommentDelete...");
 
 		try {
 			boardService.magazineCommentRemove(boardCommentVO.getComment_id());
@@ -240,7 +248,7 @@ public class BoardController {
 		return entity;
 	}
 
-	// 매거진 수정페이지 admin
+	// 매거진 수정페이지
 	@GetMapping("/magazine/modify/{board_id}")
 	public ModelAndView magazineModifyView(BoardVO boardVO, ModelAndView mav) {
 		log.info("magazineModifyView...");
@@ -249,9 +257,9 @@ public class BoardController {
 		return mav;
 	}
 
-	// 매거진 수정 admin
+	// 매거진 수정
 	@PostMapping("/magazine/modify/{board_id}")
-	public ResponseEntity<String> magazineModify(@RequestBody BoardVO boardVO, ModelAndView modelAndView) {
+	public ResponseEntity<String> magazineModify(@RequestBody BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
 
 		log.info("magazineModify..");
@@ -266,7 +274,7 @@ public class BoardController {
 		return entity;
 	}
 
-	// 매거진 삭제 admin
+	// 매거진 삭제
 	@DeleteMapping("/magazine/modify/{board_id}")
 	public ResponseEntity<String> magazineDelete(BoardVO boardVO) {
 		ResponseEntity<String> entity = null;

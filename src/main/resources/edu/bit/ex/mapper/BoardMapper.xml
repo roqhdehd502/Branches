@@ -35,8 +35,8 @@
 	<!-- 공지사항 작성 -->
 	<insert id="setNoticeWrite" >
 	<![CDATA[
-		INSERT INTO board (board_id, board_name, board_content, mbr_id, board_type_number, inquiry_number, prdct_id, order_number, board_like, board_hit) 
-		VALUES (board_seq.nextval, #{board_name}, #{board_content}, #{mbr_id}, 1, 1, 'PRDCT34', 23, 0, 0) 
+		INSERT INTO board (board_id, board_name, board_content, mbr_id, board_type_number, board_like, board_hit) 
+		VALUES (board_seq.nextval, #{board_name}, #{board_content}, #{mbr_id}, 1, 0, 0) 
 	]]>
 	</insert>
 	
@@ -107,8 +107,16 @@
 	<!-- 매거진 작성 -->
 	<insert id="setMagazineWrite" >
 	<![CDATA[
-		INSERT INTO board (board_id, board_name, board_content, mbr_id, board_type_number, inquiry_number, prdct_id, order_number, board_like, board_hit) 
-		VALUES (board_seq.nextval, #{board_name}, #{board_content}, #{mbr_id}, 2, 1, 'PRDCT34', 23, 0, 0) 
+		INSERT INTO board (board_id, board_name, board_content, mbr_id, board_type_number, board_like, board_hit) 
+		VALUES (board_seq.nextval, #{board_name}, #{board_content}, #{mbr_id}, 2, 0, 0) 
+	]]>
+	</insert>
+	
+	<!-- 매거진 첨부사진 작성 -->
+	<insert id="setMagazineImage" >
+	<![CDATA[
+		INSERT INTO prdct_image (image_number, image_name, image_path, board_id) 
+		VALUES (prdct_image_seq.nextval, #{uploadfiles}, 'D:/Others/Programming/Project Space/branches/branches_project/src/main/resources/static/prdct_img/', board_seq.currval) 
 	]]>
 	</insert>	
 	
@@ -151,7 +159,7 @@
 	]]>
 	</update>
 	
-	<!-- 매거진 게시글 댓글 수 -->
+	<!-- 매거진 게시글 댓글 수(board_comment VO 객체 참조) -->
 	<select id="getMagazineCommentCnt" resultType="edu.bit.ex.vo.BoardCommentVO">
 	<![CDATA[
 		SELECT COUNT(comment_id) AS comment_count FROM board_comment WHERE board_id = #{board_id}

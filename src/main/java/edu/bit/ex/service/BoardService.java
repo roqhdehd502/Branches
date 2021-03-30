@@ -2,6 +2,8 @@ package edu.bit.ex.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.page.MagazineCommentCriteria;
@@ -46,6 +48,9 @@ public interface BoardService {
 	// 매거진 작성
 	public void setMagazineWrite(BoardVO boardVO);
 
+	// 매거진 첨부사진 작성
+	public void setMagazineImage(MultipartFile file);
+
 	// 매거진 게시글
 	public BoardVO getMagazineContent(int board_id);
 
@@ -73,4 +78,5 @@ public interface BoardService {
 
 	// 매거진 수정
 	public void setMagazineModify(BoardVO boardVO);
+
 }

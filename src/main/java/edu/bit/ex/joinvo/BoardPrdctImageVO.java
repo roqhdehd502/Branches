@@ -34,7 +34,7 @@ BOARD_ID	NUMBER
 @Setter
 @Getter
 @ToString
-public class BoardPrdctImageVO {
+public class BoardPrdctImageVO { // 게시판 이미지 VO
 	private String board_name; // 게시글제목
 	private String board_content; // 게시글내용
 	private String mbr_id; // 회원id
@@ -45,10 +45,13 @@ public class BoardPrdctImageVO {
 	private int order_number; // 주문번호
 	private int board_like; // 게시글추천수
 	private int board_hit; // 게시글조회수
+	private int board_starrate; // 게시글별점수
 
 	private int board_id; // 게시글번호 부모pk, 자식fk
 
-	private int image_number; // 상품이미지번호 자식pk
+	private int image_number; // 상품이미지번호
 	private String image_name; // 상품이미지명
 	private String image_path; // 상품이미지경로
+
+	// private List<MultipartFile> uploadfiles; // 게시글 사진첨부
 }

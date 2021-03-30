@@ -144,7 +144,7 @@
 					<c:forEach items="${notice_list}" var="dto">
 						<tr>
 							<td>${dto.board_id}</td>
-							<td><a href="${pageContext.request.contextPath}/notice/${dto.board_id}">${dto.board_name}</a></td>
+							<td><a href="${pageContext.request.contextPath}/board/notice/${dto.board_id}">${dto.board_name}</a></td>
 							<td>${dto.board_date}</td>
 						</tr>
 					</c:forEach>

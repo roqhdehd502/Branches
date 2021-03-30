@@ -44,6 +44,8 @@
 					},
 					error:function(e){
 						console.log(e);
+						alert('추천할 수 없습니다.');
+		                location.reload(); // 실패시 새로고침하기
 					}
 				})
 			});	
@@ -83,13 +85,15 @@
 	             },
 	             error: function (e) {
 	                 console.log(e);
+	                 alert('댓글 업로드에 실패하였습니다.');
+	                 location.reload(); // 실패시 새로고침하기
 	             }
 	         })            
 	       });       
 	   	});
 	</script>		
 	
-	<!-- 매거진 댓글 삭제 -->
+	<!-- 매거진 댓글 삭제 -->	
 	<script type="text/javascript">
 		$(document).ready(function (){
 			$('#delete').click(function(event){
@@ -102,12 +106,14 @@
 					cache : false,
 					success: function(result){
 						console.log(result);
-						if(result=="SUCCESS"){
+						if(result == "SUCCESS"){
 							$(location).attr('href', '${pageContext.request.contextPath}/board/magazine/${magazine_content.board_id}')
 						}
 					},
 					error:function(e){
 						console.log(e);
+						alert('댓글 삭제를 할 수 없습니다.');
+		                location.reload(); // 실패시 새로고침하기
 					}
 				})
 			});	
@@ -294,28 +300,29 @@
 						</div>
 					</div>
 				</div>
-				<c:forEach items="${magazine_comment}" var="magazine_comment">
+				
+				<c:forEach items="${magazine_comment}" var="comment">
 				<div class="row" style="margin: 1% 3% 1% 3%; padding: 1% 3% 1% 3%; border: 1px solid #E5E5E5;">
 					<div class="col-md-7" align="left">
-						${magazine_comment.comment_content}
+						${comment.comment_content}
 					</div>
 					<div class="col-md-4" align="right">
-						${magazine_comment.comment_date}					
+						${comment.comment_date}					
 					</div>
 					<div class="col-md-1" align="right">
 						<!-- 모달을 열기 위한 버튼 -->
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#${comment.comment_id}">
 							...
 						</button>
 						<!-- 모달 영역 -->
-						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						<div class="modal fade myModal" id="${comment.comment_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 							<div class="modal-dialog" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&#88;</span></button>
 									</div>
 									<div class="modal-body">
-										<p class="lead" align="left">${magazine_comment.comment_content}</p>
+										<p class="lead" align="left">${comment.comment_content}</p>
 									</div>
 									<div class="modal-footer">
 										<div align="left">
@@ -330,6 +337,7 @@
 					</div>
 				</div>
 				</c:forEach>
+				
 			</div>
 			
 			<!-- 댓글 페이징 -->

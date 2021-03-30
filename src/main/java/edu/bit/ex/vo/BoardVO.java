@@ -18,7 +18,8 @@ BOARD_DATE	DATE
 PRDCT_ID	VARCHAR2(20 BYTE)
 ORDER_NUMBER	NUMBER
 BOARD_LIKE	NUMBER
-BOARD_HIT	NUMBER*/
+BOARD_HIT	NUMBER
+BOARD_STARRATE	NUMBER*/
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -37,4 +38,5 @@ public class BoardVO { // 게시판
 	private int order_number; // 주문번호 fk
 	private int board_like; // 게시글추천수
 	private int board_hit; // 게시글조회수
+	private int board_starrate; // 게시글별점수
 }

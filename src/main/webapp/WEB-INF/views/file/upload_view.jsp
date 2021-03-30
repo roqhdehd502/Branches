@@ -12,8 +12,14 @@
 	<script>
 	    $(document).ready(function () {
 	    	$("#uploadForm").submit(function(event){
-	    		var result = $("#uploadfiles").val();
-	    		console.log(result);
+	    		event.preventDefault();
+	    		var uploadfiles = $("#uploadfiles").val();
+	    		
+	    		console.log(uploadfiles);
+	    		
+	    		var form = {
+	    			uploadfiles : uploadfiles
+	    		};
 	    		
 	    		$.ajax({
 	                type : "POST",
@@ -22,18 +28,16 @@
 	                contentType:'application/json; charset=utf-8',
 	                data: JSON.stringify(form),
 	                success: function (result) {       
-	                  if(result != null){
+	                  if(result == "SUCCESS"){
 	                	 console.log("UPLOAD SUCCESS!")
 	  	          	  	 alert('파일 저장 성공');   
 	                     $(location).attr('href', '${pageContext.request.contextPath}/file/index');                            
-	                  } else {
-	                	 console.log("UPLOAD FAILED")
-	  	            	 alert('파일 저장 실패');
-	  	            	 location.reload(); // 실패시 새로고침하기
-					  }                   
+	                  }               
 	                },
 	                error: function (e) {
 	                    console.log(e);
+	                    alert('파일 저장 실패');
+	  	            	location.reload(); // 실패시 새로고침하기
 	                }
 	            }) 
 	    	});

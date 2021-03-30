@@ -1,8 +1,12 @@
 package edu.bit.ex.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
@@ -22,6 +26,8 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class BoardServiceImpl implements BoardService {
 	private BoardMapper boardMapper;
+	// 파일 저장 경로
+	private static final String UPLOAD_PATH = "D:/Others/Programming/Project Space/branches/branches_project/src/main/resources/static/prdct_img/";
 
 	// 페이징을 적용한 공지사항 게시판 리스트
 	@Override
@@ -52,10 +58,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	// 공지사항 게시글
-	// @Transactional
 	@Override
 	public BoardVO getNoticeContent(int board_id) {
-		// boardMapper.upNoticeHit(board_id);
 		log.info("getNoticeContent");
 		return boardMapper.getNoticeContent(board_id);
 	}
@@ -63,7 +67,7 @@ public class BoardServiceImpl implements BoardService {
 	// 공지사항 삭제
 	@Override
 	public int noticeRemove(int board_id) {
-		log.info("noticeRemove");
+		log.info("noticeRemove: " + board_id);
 		return boardMapper.noticeRemove(board_id);
 	}
 
@@ -100,6 +104,28 @@ public class BoardServiceImpl implements BoardService {
 	public void setMagazineWrite(BoardVO boardVO) {
 		log.info("setMagazineWrite");
 		boardMapper.setMagazineWrite(boardVO);
+	}
+
+	// 매거진 첨부사진 작성
+	@Override
+	public void setMagazineImage(MultipartFile file) {
+		// 파일 이름 변경(중복방지)
+		UUID uuid = UUID.randomUUID();
+		String saveName = uuid + "_" + file.getOriginalFilename();
+		log.info("image_name: ", saveName);
+
+		// 저장할 File 객체를 생성(껍데기 파일)
+		// 저장할 폴더 이름, 저장할 파일 이름
+		File saveFile = new File(UPLOAD_PATH, saveName);
+
+		try {
+			// 업로드 파일에 saveFile이라는 껍데기 입힘
+			file.transferTo(saveFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		boardMapper.setMagazineImage(saveName);
 	}
 
 	// 매거진 게시글
@@ -159,7 +185,7 @@ public class BoardServiceImpl implements BoardService {
 	// 매거진 게시글 댓글 삭제
 	@Override
 	public int magazineCommentRemove(int comment_id) {
-		log.info("magazineCommentRemove");
+		log.info("magazineCommentRemove: " + comment_id);
 		return boardMapper.magazineCommentRemove(comment_id);
 	}
 

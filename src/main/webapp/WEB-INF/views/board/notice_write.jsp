@@ -54,6 +54,8 @@
              },
              error: function (e) {
                  console.log(e);
+                 alert('업로드에 실패하였습니다.');
+                 location.reload(); // 실패시 새로고침하기
              }
          })            
        });       
