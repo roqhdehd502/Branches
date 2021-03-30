@@ -37,4 +37,5 @@ public class BoardVO { // 게시판
 	private int order_number; // 주문번호 fk
 	private int board_like; // 게시글추천수
 	private int board_hit; // 게시글조회수
+	private int board_starrate;
 }
