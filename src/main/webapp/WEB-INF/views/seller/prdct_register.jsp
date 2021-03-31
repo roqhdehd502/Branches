@@ -50,8 +50,8 @@
 
 		<div class="container">
 			<span style="margin-left: 70px;"> </span> <span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
-				<h3>이름(업체명)</h3>
-				<h3 style="position: relative; top: 15px;">아이디</h3>
+				<h3>${mbr.mbr_name }</h3>
+            	<h3 style="position: relative; top: 15px;">${mbr.mbr_id }</h3>
 			</span> <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="/seller/mypage/myinfo">정보수정</a></span> <span
 				style="margin-left: 480px;" align="center">
 				<h2 style="position: relative; top: 5px;">새주문</h2>
@@ -103,7 +103,7 @@
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">카테고리</label>
 								<div class="col-sm-10">
-									<select class="form-control" name="category_name">
+									<select class="form-control" name="category_number">
 										<option value="0">아우터-코트</option>
 										<option value="1">아우터-자켓</option>
 										<option value="2">아우터-점퍼/무스탕</option>

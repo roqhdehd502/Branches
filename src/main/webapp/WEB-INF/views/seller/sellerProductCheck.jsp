@@ -49,8 +49,8 @@
 	<div class="container">
          <span style="margin-left: 70px;">
          </span> <span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
-            <h3>이름(업체명)</h3>
-            <h3 style="position: relative; top: 15px;">아이디</h3>
+            <h3>${mbr.mbr_name }</h3>
+            <h3 style="position: relative; top: 15px;">${mbr.mbr_id }</h3>
          </span>
          <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="/seller/mypage/myinfo">정보수정</a></span> 
          <span style="margin-left: 480px;" align="center">

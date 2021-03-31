@@ -5,6 +5,18 @@
   
 <mapper namespace="edu.bit.ex.mapper.SellerMapper">
 
+	<select id="getOption" resultType="edu.bit.ex.vo.PrdctVO">
+		<![CDATA[
+			select * from prdct where prdct_id = #{prdct_id}
+		]]>
+	</select>
+	
+	<select id="getPrd" resultType="edu.bit.ex.vo.PrdctDetailVO">
+		<![CDATA[
+			select * from prdct_detail where prdct_id = #{prdct_id}
+		]]>
+	</select>
+
 	<!-- 상품 정보 불러오기 - 상품명,일자? -->
 	<select id="getProduct" resultType="edu.bit.ex.vo.PrdctVO">
 		<![CDATA[
@@ -32,6 +44,13 @@
 			select * from prdct_order
 		]]>
 	</select>
+	
+	<!-- 판매자 정보 불러오기 로그인시 -->	
+	<select id="getSellerInfo" resultType="edu.bit.ex.vo.MbrVO">
+		<![CDATA[
+			select * from mbr where mbr_id='prism'
+		]]>
+	</select>	
 	
 	<!-- 판매자 정보 불러오기 (수정할 때) -->	
 	<select id="getMemberInfo" resultType="edu.bit.ex.vo.MbrVO">
@@ -61,24 +80,19 @@
 	]]>
 	</update>
 	
-	<!-- 상품정보 불러오기 -->
-	<select id="getProductId" resultType="edu.bit.ex.vo.PrdctVO" >
-		<![CDATA[
-			select * from prdct where prdct_id = #{prdct_id}
-		]]>	
-	</select>
+	<!-- 판매자 상품정보 삭제...#{prdct_id}로 정보를 못불러온다;; 각 prdctID를 지정해야 삭제가능,,,왜이럴까.. -->
+	<delete id="prdctDelete">
+	<![CDATA[
+		delete from prdct where prdct_id = #{prdct_id}
+	]]>
+	</delete>
 	
-	<!-- 상품정보 불러오기2..아직 못불러옴 -->
-	<select id="getPrdetail" resultType="edu.bit.ex.vo.PrdctDetailVO" >
+	<!-- 상품등록하기 -->
+	<insert id="prdInsert" parameterType="map">
 		<![CDATA[
-			select * from prdct_detail where prdct_id = #{prdct_id}
-		]]>	
-	</select>
-	
-	<!-- 상품등록하기...(옵션부분 못불러옴;;;) -->
-	<insert id="prdInsert">
-		<![CDATA[
-			insert into prdct (prdct_id, prdct_name, prdct_price, category_number, mbr_id) values ('prdct33', #{prdct_name}, #{prdct_price}, 1, 'seller2')
+			insert all into prdct (prdct_id, prdct_name, prdct_price, category_number, mbr_id) values
+				('prism2',#{prdct_name}, #{prdct_price}, 1, 'prism' ) into prdct_detail (prdct_id, prdct_color, prdct_size, prdct_stock) values
+					('prism2',#{prdct_color}, #{prdct_size} , #{prdct_stock}) select * from dual
 		]]>
 	</insert>
 	

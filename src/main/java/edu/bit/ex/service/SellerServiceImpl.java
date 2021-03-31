@@ -2,6 +2,7 @@ package edu.bit.ex.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import edu.bit.ex.mapper.SellerMapper;
@@ -75,27 +76,41 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public void prdInsert(PrdctVO pvo) {
+	public void prdInsert(@Param("prdct_name") String prdct_name, @Param("prdct_price") int prdct_price, @Param("prdct_color") String prdct_color,
+			@Param("prdct_size") String prdct_size, @Param("prdct_stock") String prdct_stock) {
 		log.info("prdInsert()......");
-		sellerMapper.prdInsert(pvo);
-	}
-
-	@Override
-	public PrdctDetailVO getPrdetail(String prdct_id) {
-		log.info("getPrdetail()......");
-		return sellerMapper.getPrdetail(prdct_id);
-	}
-
-	@Override
-	public PrdctVO getProductId(String prdct_id) {
-		log.info("getProductId()......");
-		return sellerMapper.getProductId(prdct_id);
+		sellerMapper.prdInsert(prdct_name, prdct_price, prdct_color, prdct_size, prdct_stock);
 	}
 
 	@Override
 	public List<PrdctDetailVO> getPrdctDetail() {
 		log.info("getPrdctDetail()......");
 		return sellerMapper.getPrdctDetail();
+	}
+
+	@Override
+	public MbrVO getSellerInfo(String mbr_id) {
+		log.info("getSellerInfo()......");
+		return sellerMapper.getSellerInfo(mbr_id);
+	}
+
+	@Override
+	public void prdctDelete(String prdct_id) {
+		log.info("prdctDelete()......");
+		sellerMapper.prdctDelete(prdct_id);
+
+	}
+
+	@Override
+	public PrdctVO getOption(String getPrdct_id) {
+		log.info("getOption()......");
+		return sellerMapper.getOption(getPrdct_id);
+	}
+
+	@Override
+	public PrdctDetailVO getPrd(String getPrdct_id) {
+		log.info("getPrd()......");
+		return sellerMapper.getPrd(getPrdct_id);
 	}
 
 }
