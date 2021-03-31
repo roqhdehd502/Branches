@@ -80,6 +80,12 @@ public class BoardServiceImpl implements BoardService {
 
 	// 페이징을 적용한 매거진 게시판 리스트
 	@Override
+	public List<BoardPrdctImageVO> getMagazineList() {
+		log.info("getMagazineList");
+		return boardMapper.getMagazineList();
+	}
+
+	@Override
 	public List<BoardPrdctImageVO> getMagazineList(MagazineCriteria cri) {
 		log.info("getMagazineList WITH criteria: " + cri);
 		return boardMapper.getMagazineListWithPaging(cri);
@@ -101,9 +107,9 @@ public class BoardServiceImpl implements BoardService {
 
 	// 매거진 작성
 	@Override
-	public void setMagazineWrite(BoardVO boardVO) {
+	public void setMagazineWrite(BoardPrdctImageVO bPrdctImageVO) {
 		log.info("setMagazineWrite");
-		boardMapper.setMagazineWrite(boardVO);
+		boardMapper.setMagazineWrite(bPrdctImageVO);
 	}
 
 	// 매거진 첨부사진 작성
@@ -195,4 +201,5 @@ public class BoardServiceImpl implements BoardService {
 		log.info("setMagazineModify");
 		boardMapper.setMagazineModify(boardVO);
 	}
+
 }

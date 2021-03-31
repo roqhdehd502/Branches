@@ -25,7 +25,7 @@
 					formData.append("uploadfiles", files[i]);
 				}     
 	    		
-              	// 파일 넣을때 JSON.stringify(form)은 하지마...
+              	// 파일 넣을때 JSON.stringify()는 하지마...
 	    		$.ajax({
 	                type : "POST",
 	                url : $(this).attr("action"),

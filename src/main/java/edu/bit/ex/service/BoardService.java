@@ -37,6 +37,8 @@ public interface BoardService {
 	public void setNoticeModify(BoardVO boardVO);
 
 	// 페이징을 적용한 매거진 게시판 리스트
+	public List<BoardPrdctImageVO> getMagazineList();
+
 	public List<BoardPrdctImageVO> getMagazineList(MagazineCriteria cri);
 
 	// 페이징 단위에 적용되는 최대 매거진 게시글 단위
@@ -46,7 +48,7 @@ public interface BoardService {
 	public MbrVO getMagazineMember(String mbr_id);
 
 	// 매거진 작성
-	public void setMagazineWrite(BoardVO boardVO);
+	public void setMagazineWrite(BoardPrdctImageVO bPrdctImageVO);
 
 	// 매거진 첨부사진 작성
 	public void setMagazineImage(MultipartFile file);

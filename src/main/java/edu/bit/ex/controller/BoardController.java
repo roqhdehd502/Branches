@@ -15,11 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
-import edu.bit.ex.joinvo.BoardImageUploadVO;
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.page.MagazineCommentCriteria;
 import edu.bit.ex.page.MagazineCriteria;
-import edu.bit.ex.page.MagazinePageVO;
 import edu.bit.ex.page.NoticeCriteria;
 import edu.bit.ex.page.NoticePageVO;
 import edu.bit.ex.service.BoardService;
@@ -137,10 +135,11 @@ public class BoardController {
 		log.info("magazineList...");
 		mav.setViewName("board/magazine_list");
 		mav.addObject("magazine_list", boardService.getMagazineList(cri));
+		// mav.addObject("magazine_list", boardService.getMagazineList(cri));
 
-		int total = boardService.getMagazineTotal(cri);
-		log.info("total" + total);
-		mav.addObject("pageMaker", new MagazinePageVO(cri, total));
+		/*
+		 * int total = boardService.getMagazineTotal(cri); log.info("total" + total); mav.addObject("pageMaker", new MagazinePageVO(cri, total));
+		 */
 		return mav;
 	}
 
@@ -153,17 +152,17 @@ public class BoardController {
 		return mav;
 	}
 
-	// 매거진 작성(오류 해결하기)
-	@PostMapping("/magazine/write")
+	// 매거진 작성
 	@Transactional
-	// @RequestMapping(value = "/magazine/write", method = RequestMethod.POST, consumes = { "multipart/form-data" })
-	public ResponseEntity<String> magazineWrite(@RequestBody BoardImageUploadVO bImageUploadVO) {
+	@PostMapping("/magazine/write")
+	public ResponseEntity<String> magazineWrite(BoardPrdctImageVO bPrdctImageVO) {
 		ResponseEntity<String> entity = null;
 		log.info("magazineWrite..");
-		MultipartFile[] uploadfiles = bImageUploadVO.getUploadfiles();
+
+		MultipartFile[] uploadfiles = bPrdctImageVO.getUploadfiles();
 
 		try {
-			boardService.setMagazineWrite(bImageUploadVO.getBoardVO()); // 텍스트 등록(1)
+			boardService.setMagazineWrite(bPrdctImageVO); // 텍스트 등록(1)
 
 			for (MultipartFile f : uploadfiles) {
 				boardService.setMagazineImage(f); // 이미지 등록(N)
@@ -177,6 +176,16 @@ public class BoardController {
 
 		return entity;
 	}
+	// @RequestMapping(value = "/magazine/write", method = RequestMethod.POST, consumes = { "multipart/form-data" })
+	/*
+	 * @PostMapping("/magazine/write") public ResponseEntity<String> magazineWrite(@RequestBody BoardPrdctImageVO bPrdctImageVO) {
+	 * ResponseEntity<String> entity = null;
+	 * 
+	 * log.info("magazineWrite.."); try { boardService.setMagazineWrite(bPrdctImageVO); entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+	 * } catch (Exception e) { e.printStackTrace(); entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST); }
+	 * 
+	 * return entity; }
+	 */
 
 	// 매거진 게시글
 	@Transactional

@@ -2,6 +2,8 @@ package edu.bit.ex.joinvo;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -52,4 +54,6 @@ public class BoardPrdctImageVO { // 게시판 이미지 VO
 	private int image_number; // 상품이미지번호
 	private String image_name; // 상품이미지명
 	private String image_path; // 상품이미지경로
+
+	private MultipartFile[] uploadfiles; // 게시판이미지업로드
 }

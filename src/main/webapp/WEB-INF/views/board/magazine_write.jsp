@@ -23,9 +23,9 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
 	<!-- 작성 폼 스크립트 -->
- 	<script type="text/javascript">
+ 	<!-- <script type="text/javascript">
    	$(document).ready(function(){
-      $("#magazine_write").submit(function(event){         
+      $("#writeForm").submit(function(event){         
            event.preventDefault();
            // 텍스트 입력 영역
            var mbr_id = $("#mbr_id").val();
@@ -72,6 +72,58 @@
          })            
        });       
    	});
+	</script> -->
+	<script>
+	    $(document).ready(function () {
+	    	$("#writeForm").submit(function(event){
+	    		event.preventDefault();
+	    		
+	    		var formData = new FormData();
+	    		
+	    		// 텍스트 입력 영역
+	            var mbr_id = $("#mbr_id").val();
+	            var board_name = $("#board_name").val();
+	            var board_content = $("#board_content").val();
+	            
+	            console.log(mbr_id);
+	            console.log(board_name);
+	            console.log(board_content);    
+	            console.log($(this).attr("action"));   
+	            
+	            formData.append("mbr_id", mbr_id);
+	            formData.append("board_name", board_name);
+	            formData.append("board_content", board_content);
+	    		
+	    		// 파일저장 영역
+                var inputFile = $("#uploadfiles");
+                var files = inputFile[0].files;  
+                
+                for (var i = 0; i < files.length; i++) {
+					console.log(files[i]);
+					formData.append("uploadfiles", files[i]);
+				}     
+	    		
+              	// 파일 넣을때 JSON.stringify()는 적용이 안된다...
+	    		$.ajax({
+	                type : "POST",
+	                url : $(this).attr("action"),
+	                cache : false,
+	                contentType:'application/json; charset=utf-8', 
+	                processData: false, 
+		    		contentType: false, 
+	                data: formData, 
+	                success: function (result) {       
+	                	console.log("UPLOAD SUCCESS!")  
+	                    $(location).attr('href', '${pageContext.request.contextPath}/board/magazine');                                        
+	                },
+	                error: function (e) {
+	                    console.log(e);
+	                    alert('업로드 실패');
+	  	            	location.reload(); // 실패시 새로고침하기
+	                }
+	            }) 
+	    	});
+	    })
 	</script>
 </head>
 <body>
@@ -191,7 +243,7 @@
 			</div>
 			<hr>
 			<div class="container">
-				<form id="magazine_write" action="${pageContext.request.contextPath}/board/magazine/write" method="post" enctype="multipart/form-data" >
+				<form id="writeForm" action="${pageContext.request.contextPath}/board/magazine/write" method="post" enctype="multipart/form-data" >
 				<input type="hidden" id="mbr_id" value="${magazine_write.mbr_id}">
 				<!-- <input type="hidden" id="mbr_id" value="abcd1234"> -->
 				<fieldset>
@@ -211,14 +263,14 @@
 							<textarea class="form-control" cols="3" id="board_content" name="board_content" placeholder="글내용을 입력하세요"></textarea>
 						</div>
 					</div>
-					<!-- <div class="row" style="padding: 3% 0px 3% 0px">
+					<div class="row" style="padding: 3% 0px 3% 0px">
 						<div class="col-md-2 contact-info" align="left">
 							<legend>첨부사진</legend>
 						</div>
 						<div class="col-md-10 contact-info">
 							<input type="file" id="uploadfiles" name="uploadfiles" placeholder="첨부 사진" multiple/>
 						</div>
-					</div> -->	
+					</div>	
 					<div align="center" style="padding: 3% 0px 3% 0px;">
 						<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine'">목록보기</button>&nbsp;
 						<button type="submit" class="btn btn-primary">작성하기</button>
