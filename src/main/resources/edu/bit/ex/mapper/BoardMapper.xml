@@ -28,7 +28,7 @@
 	<!-- 공지사항 작성 id 가져오기(스프링 시큐리티때 수정할것) -->
 	<select id="getNoticeMember" resultType="edu.bit.ex.vo.MbrVO">
 	<![CDATA[
-		SELECT * FROM mbr WHERE mbr_id = 'abcd1234'
+		SELECT mbr_id FROM mbr WHERE mbr_id = 'abcd1234'
 	]]>
 	</select>
 	
@@ -100,7 +100,7 @@
 	<!-- 매거진 작성 id 가져오기(스프링 시큐리티때 수정할것) -->
 	<select id="getMagazineMember" resultType="edu.bit.ex.vo.MbrVO">
 	<![CDATA[
-		SELECT * FROM mbr WHERE mbr_id = 'abcd1234'
+		SELECT mbr_id FROM mbr WHERE mbr_id = 'abcd1234'
 	]]>
 	</select>
 	
@@ -110,7 +110,7 @@
 		INSERT INTO board (board_id, board_name, board_content, mbr_id, board_type_number, board_like, board_hit) 
 		VALUES (board_seq.nextval, #{board_name}, #{board_content}, #{mbr_id}, 2, 0, 0) 
 	]]>
-	</insert>
+	</insert> 
 	
 	<!-- 매거진 첨부사진 작성 -->
 	<insert id="setMagazineImage" >

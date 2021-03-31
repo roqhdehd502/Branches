@@ -52,6 +52,4 @@ public class BoardPrdctImageVO { // 게시판 이미지 VO
 	private int image_number; // 상품이미지번호
 	private String image_name; // 상품이미지명
 	private String image_path; // 상품이미지경로
-
-	// private List<MultipartFile> uploadfiles; // 게시글 사진첨부
 }

@@ -64,7 +64,7 @@ public class BoardController {
 
 	// 공지사항 작성
 	@PostMapping("/notice/write")
-	public ResponseEntity<String> noticeWrite(@RequestBody BoardVO boardVO, ModelAndView modelAndView) {
+	public ResponseEntity<String> noticeWrite(@RequestBody BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
 
 		log.info("noticeWrite..");
@@ -99,7 +99,7 @@ public class BoardController {
 
 	// 공지사항 수정
 	@PostMapping("/notice/modify/{board_id}")
-	public ResponseEntity<String> noticeModify(@RequestBody BoardVO boardVO, ModelAndView modelAndView) {
+	public ResponseEntity<String> noticeModify(@RequestBody BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
 
 		log.info("noticeModify..");
@@ -154,8 +154,9 @@ public class BoardController {
 	}
 
 	// 매거진 작성(오류 해결하기)
-	@Transactional
 	@PostMapping("/magazine/write")
+	@Transactional
+	// @RequestMapping(value = "/magazine/write", method = RequestMethod.POST, consumes = { "multipart/form-data" })
 	public ResponseEntity<String> magazineWrite(@RequestBody BoardImageUploadVO bImageUploadVO) {
 		ResponseEntity<String> entity = null;
 		log.info("magazineWrite..");
@@ -163,6 +164,7 @@ public class BoardController {
 
 		try {
 			boardService.setMagazineWrite(bImageUploadVO.getBoardVO()); // 텍스트 등록(1)
+
 			for (MultipartFile f : uploadfiles) {
 				boardService.setMagazineImage(f); // 이미지 등록(N)
 			}
@@ -250,10 +252,13 @@ public class BoardController {
 
 	// 매거진 수정페이지
 	@GetMapping("/magazine/modify/{board_id}")
-	public ModelAndView magazineModifyView(BoardVO boardVO, ModelAndView mav) {
+	public ModelAndView magazineModifyView(BoardPrdctImageVO bPrdctImageVO, ModelAndView mav) {
 		log.info("magazineModifyView...");
 		mav.setViewName("board/magazine_modify");
-		mav.addObject("magazine_modify", boardService.getMagazineContent(boardVO.getBoard_id()));
+		// 매거진 게시글 가져오기
+		mav.addObject("magazine_modify", boardService.getMagazineContent(bPrdctImageVO.getBoard_id()));
+		// 매거진 사진 가져오기
+		mav.addObject("magazine_image", boardService.getMagazineImage(bPrdctImageVO.getBoard_id()));
 		return mav;
 	}
 
