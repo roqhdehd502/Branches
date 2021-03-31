@@ -66,7 +66,7 @@
 	<!-- 매거진 게시글 삭제 -->
 	<script type="text/javascript">
 		$(document).ready(function (){
-			$('#delete').click(function(event){
+			$('#magazine_delete').click(function(event){
 				event.preventDefault();
 				console.log("ajax 호출전");		
 	 
@@ -86,7 +86,35 @@
 				})
 			});	
 		});	
-	</script>	
+	</script>
+	
+	<!-- 매거진 사진만 삭제 -->
+	<script type="text/javascript">
+	$(document).ready(function (){
+		$('#image_delete').click(function(event){
+			event.preventDefault();
+			console.log("ajax 호출전");
+			
+			var trObj = $(this).parent(); 
+ 
+			$.ajax({
+				type : 'DELETE',
+				url : $(this).attr("href"),
+				cache : false,
+				success: function(result){
+					console.log(result);
+					if(result=="SUCCESS"){
+						$(trObj).remove();
+						console.log("IMAGE_REMOVED!")
+					}
+				},
+				error:function(e){
+					console.log(e);
+				}
+			})
+		});	
+	});	
+	</script>		
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -225,9 +253,24 @@
 			
 			<div class="container">
 				<div class="row" style="padding: 5% 3% 3% 5%">
-					<p class="lead">
-						<textarea cols="50%" rows="10" id="board_content">${magazine_modify.board_content}</textarea>
-					</p>
+					<textarea cols="50%" rows="10" id="board_content">${magazine_modify.board_content}</textarea>
+				</div>
+				<!-- 매거진 게시글 이미지 업로드 구현 성공하면 주석 풀고 구현할 것! -->
+				<!-- <div class="row" style="padding: 5% 3% 3% 5%">
+					<input type="file">
+				</div> -->
+			</div>
+			
+			<hr>
+			
+			<div class="container">
+				<div class="row" style="padding: 5% 3% 3% 5%">
+					<c:forEach items="${magazine_image}" var="image">
+						<div class="col-md-2" align="center">
+							<img src="/prdct_img/${image.image_name}" width="160px" height="90px">
+							<button type="button" id="image_delete" class="btn btn-danger">&#88;</button>
+						</div>
+					</c:forEach>	
 				</div>
 			</div>
 			
@@ -235,7 +278,7 @@
 			
 			<div class="container">
 				<div class="row" style="padding: 3% 5% 3% 5%">
-					<button type="button" id="delete" class="btn btn-danger">삭제하기</button>&nbsp;
+					<button type="button" id="magazine_delete" class="btn btn-danger">삭제하기</button>&nbsp;
 					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine'">목록보기</button>&nbsp;
 					<button type="submit" class="btn btn-primary">수정하기</button>
 				</div>

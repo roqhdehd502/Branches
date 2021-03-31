@@ -2,9 +2,13 @@ package edu.bit.ex.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import edu.bit.ex.vo.BoardVO;
+
 @Mapper
 public interface FileMapper {
-	// @Insert("INSERT INTO prdct_image (image_number, image_name, image_path, board_id) VALUES (prdct_image_seq.nextval, #{uploadfiles},
-	// 'D:/Others/Programming/Project Space/branches/branches_project/src/main/resources/static/prdct_img/', 28)")
+	// 보드 ID 가져오기
+	public BoardVO getBoardID(int board_id);
+
+	// 파일 저장
 	public void saveFile(String saveName);
 }
