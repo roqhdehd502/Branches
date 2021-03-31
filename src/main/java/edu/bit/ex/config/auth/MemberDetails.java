@@ -79,4 +79,9 @@ public class MemberDetails implements UserDetails {
 		return true;
 	}
 
+	public String getUserID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

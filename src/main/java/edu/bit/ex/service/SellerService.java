@@ -31,10 +31,14 @@ public interface SellerService {
 
 	public void prdctUpdate(PrdctVO pvo);
 
-	public PrdctVO getProductId(String prdct_id);
+	public MbrVO getSellerInfo(String mbr_id);
 
-	public PrdctDetailVO getPrdetail(String prdct_id);
+	public void prdctDelete(String prdct_id);
 
-	public void prdInsert(PrdctVO pvo);
+	public void prdInsert(String prdct_name, int prdct_price, String prdct_color, String prdct_size, String prdct_stock);
+
+	public PrdctVO getOption(String getPrdct_id);
+
+	public PrdctDetailVO getPrd(String getPrdct_id);
 
 }

@@ -16,14 +16,6 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 
-	// 로그인페이지
-	@GetMapping("/login")
-	public ModelAndView login(ModelAndView mav) {
-		log.info("login...");
-		mav.setViewName("login/login");
-		return mav;
-	}
-
 	// 고객 등록 페이지
 	@GetMapping("/register")
 	public ModelAndView memberRegister(ModelAndView mav) {
