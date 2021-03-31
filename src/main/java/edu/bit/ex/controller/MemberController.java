@@ -5,16 +5,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import edu.bit.ex.service.LoginService;
+import edu.bit.ex.service.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @AllArgsConstructor
 @RestController
-public class LoginController {
+public class MemberController {
 	@Autowired
-	private LoginService loginService;
+	private MemberService memberService;
 
 	// 로그인페이지
 	@GetMapping("/login")
