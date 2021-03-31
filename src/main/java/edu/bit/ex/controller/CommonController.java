@@ -61,7 +61,7 @@ public class CommonController {
 
 		// 리뷰 관련
 		log.info("reviewList..");
-		mav.addObject("reviewList", (commonService.getreviewList(p_id)));
+		mav.addObject("reviewList", (commonService.getReviewList(p_id)));
 
 		// 큐앤에이 관련
 		log.info("prdQnAList...");
