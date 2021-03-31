@@ -29,7 +29,7 @@ public interface CommonMapper {
 	public List<PrdctDetailVO> getProductInfo(String p_id);
 
 	// 리뷰 리스트
-	public List<BoardVO> getreviewList(String p_id);
+	public List<BoardVO> getReviewList(String p_id);
 
 	// 페이징을 적용한 상품 Q&A 게시판 리스트
 	public List<BoardVO> getPrdQnAListWithPaging(PrdQnACriteria cri, String p_id);

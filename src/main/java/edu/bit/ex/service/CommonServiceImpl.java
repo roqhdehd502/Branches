@@ -52,9 +52,9 @@ public class CommonServiceImpl implements CommonService {
 
 	// 리뷰 리스트
 	@Override
-	public List<BoardVO> getreviewList(String p_id) {
+	public List<BoardVO> getReviewList(String p_id) {
 		log.info("getreviewList");
-		return commonMapper.getreviewList(p_id);
+		return commonMapper.getReviewList(p_id);
 	}
 
 	// 페이징을 적용한 상품 Q&A 게시판 리스트
