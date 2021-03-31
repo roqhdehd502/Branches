@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="edu.bit.ex.mapper.LoginMapper">
+
+	<resultMap type="edu.bit.ex.vo.MbrVO" id="loginMapper">
+		<result property="mbr_id" column="mbr_id" />
+		<result property="mbr_pw" column="mbr_pw" />
+		<result property="mbr_name" column="mbr_name" />
+		<result property="authority_number" column="authority_number" />
+		<result property="mbr_gender" column="mbr_gender" />
+		<result property="mbr_birth" column="mbr_birth" />
+		<result property="mbr_email" column="mbr_email" />
+		<result property="login_number" column="login_number" />
+		<result property="contact_number" column="contact_number" />
+		<result property="mbr_nickname" column="mbr_nickname" />
+		<result property="mbr_point" column="mbr_point" />
+		<result property="jdate" column="jdate" />
+		<result property="grade_number" column="grade_number" />
+		<collection property="authorityVO" resultMap="authMap"></collection>
+	</resultMap>
+	
+	<resultMap id="authMap" type="edu.bit.ex.vo.AuthorityVO">
+		<result property="authority_number" column="authority_number"/>
+		<result property="authority_name" column="authority_name"/>
+	</resultMap>
+	
+	<!-- 회원 상세 정보 -->
+	<select id="getMbr" resultMap="loginMapper">
+	<![CDATA[
+		select * from mbr, authority
+		where mbr.mbr_id=#{mbr_id} and mbr.authority_number = authority.authority_number 
+	]]>
+	</select>
+	
+	<insert id="addMbr">
+	<![CDATA[
+		insert into mbr 
+		(mbr_id, mbr_pw, mbr_name, authority_number, mbr_gender, mbr_birth, mbr_email, login_number, contact_number, mbr_nickname, mbr_point, jdate, grade_number) 
+		values
+		(#{mbr_id}, #{mbr_pw}, #{mbr_name}, #{authority_number}, #{mbr_gender}, sysdate, #{mbr_email}, #{login_number}, #{contact_number}, #{mbr_nickname}, #{mbr_point}, sysdate, #{grade_number})
+	]]>
+	</insert>
+	
+	
+</mapper>
