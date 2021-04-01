@@ -28,7 +28,7 @@
 	<!-- 공지사항 작성 id 가져오기(스프링 시큐리티때 수정할것) -->
 	<select id="getNoticeMember" resultType="edu.bit.ex.vo.MbrVO">
 	<![CDATA[
-		SELECT * FROM mbr WHERE mbr_id = 'abcd1234'
+		SELECT mbr_id FROM mbr WHERE mbr_id = 'abcd1234'
 	]]>
 	</select>
 	
@@ -73,6 +73,18 @@
 	</select>
 	
 	<!-- 페이징을 적용한 매거진 게시판 리스트 -->
+	<select id="getMagazineList" resultType="edu.bit.ex.joinvo.BoardPrdctImageVO">
+		<![CDATA[
+			SELECT b.board_id, b.board_name, b.board_date, b.board_like, b.board_hit, p.image_name 
+			FROM board b, prdct_image p 
+			WHERE b.board_id = p.board_id AND 
+				b.board_type_number = 2 AND 
+				p.image_number IN (SELECT MIN(image_number) 
+							       FROM prdct_image 
+							       GROUP BY board_id) 
+			ORDER BY board_id DESC, board_date DESC
+		]]>
+	</select>
 	<select id="getMagazineListWithPaging" resultType="edu.bit.ex.joinvo.BoardPrdctImageVO">
 		<![CDATA[
 			SELECT * FROM (
@@ -100,7 +112,7 @@
 	<!-- 매거진 작성 id 가져오기(스프링 시큐리티때 수정할것) -->
 	<select id="getMagazineMember" resultType="edu.bit.ex.vo.MbrVO">
 	<![CDATA[
-		SELECT * FROM mbr WHERE mbr_id = 'abcd1234'
+		SELECT mbr_id FROM mbr WHERE mbr_id = 'abcd1234'
 	]]>
 	</select>
 	
@@ -110,7 +122,7 @@
 		INSERT INTO board (board_id, board_name, board_content, mbr_id, board_type_number, board_like, board_hit) 
 		VALUES (board_seq.nextval, #{board_name}, #{board_content}, #{mbr_id}, 2, 0, 0) 
 	]]>
-	</insert>
+	</insert> 
 	
 	<!-- 매거진 첨부사진 작성 -->
 	<insert id="setMagazineImage" >
@@ -138,7 +150,7 @@
 		<result property="board_id" column="board_id"/>
 	</resultMap>
 	<select id="getMagazineImage" resultMap="magazineContentImageMap">
-		SELECT p.image_name 
+		SELECT p.image_number, p.image_name 
 		FROM prdct_image p, board b 
 		WHERE p.board_id = b.board_id AND 
 		    b.board_id = #{board_id} 
@@ -231,7 +243,21 @@
 	<![CDATA[
 		DELETE FROM board_comment WHERE comment_id = #{comment_id}
 	]]>
-	</delete>	
+	</delete>
+	
+	<!-- 매거진 삭제 -->
+	<delete id="magazineRemove">
+	<![CDATA[
+		DELETE FROM board WHERE board_id = #{board_id}
+	]]>
+	</delete>
+	
+	<!-- 매거진 이미지 삭제 -->
+	<delete id="magazineImageRemove">
+	<![CDATA[
+		DELETE FROM prdct_image WHERE board_id = #{board_id} AND image_number = #{image_number}
+	]]>
+	</delete>		
 	
 	<!-- 매거진 수정 -->
 	<update id="setMagazineModify">

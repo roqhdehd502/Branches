@@ -47,7 +47,6 @@ public class CustomerController {
 		log.info("productQnARegister..");
 		mav.setViewName("customer/productQnARegister");
 		// mav.addObject("ProductQnARegister", (customerService.getProductQnARegister(p_id)));
-
 		return mav;
 	}
 
@@ -57,7 +56,6 @@ public class CustomerController {
 		log.info("mypage.......");
 		mav.setViewName("customer/mypage");
 		// mav.addObject("member", hsService.getMember());
-
 		return mav;
 	}
 
@@ -66,7 +64,6 @@ public class CustomerController {
 	public ModelAndView likeProduct(ModelAndView mav) throws Exception {
 		log.debug("like");
 		log.info("like..");
-
 		mav.setViewName("customer/likeProduct");
 		return mav;
 	}
@@ -76,7 +73,6 @@ public class CustomerController {
 	public ModelAndView recentlyProduct(ModelAndView mav) throws Exception {
 		log.debug("recently");
 		log.info("recently..");
-
 		mav.setViewName("customer/recentlyProduct");
 		return mav;
 	}
@@ -86,9 +82,7 @@ public class CustomerController {
 	public ModelAndView reviewRegister(ModelAndView mav) throws Exception {
 		log.debug("reviewRegister");
 		log.info("reviewRegister..");
-
 		mav.setViewName("customer/reviewRegister");
-
 		return mav;
 	}
 
@@ -97,11 +91,9 @@ public class CustomerController {
 	public ModelAndView myOrderList(ModelAndView mav) throws Exception {
 		log.debug("myOrderList");
 		log.info("myOrderList");
-
 		mav.setViewName("customer/myOrderList");
 		return mav;
 	}
-
 	// 회원 브랜드 조회페이지...(custom)
 	/*
 	 * @GetMapping("/brandList") public String brandList(Model model, SearchCriteria cri) throws Exception { log.debug("brandList");
@@ -125,14 +117,11 @@ public class CustomerController {
 	@PutMapping(value = "/mypage/myinfo")
 	public ResponseEntity<String> member_info_modify(@RequestBody MbrVO mbrvo) {
 		ResponseEntity<String> entity = null;
-
 		log.info("rest_update..");
 		try {
-
 			// customerService.memberInfoUpdate(mbrvo);
 			log.info("update member info");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);

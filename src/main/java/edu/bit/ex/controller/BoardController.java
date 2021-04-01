@@ -15,11 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
-import edu.bit.ex.joinvo.BoardImageUploadVO;
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.page.MagazineCommentCriteria;
 import edu.bit.ex.page.MagazineCriteria;
-import edu.bit.ex.page.MagazinePageVO;
 import edu.bit.ex.page.NoticeCriteria;
 import edu.bit.ex.page.NoticePageVO;
 import edu.bit.ex.service.BoardService;
@@ -64,7 +62,7 @@ public class BoardController {
 
 	// 공지사항 작성
 	@PostMapping("/notice/write")
-	public ResponseEntity<String> noticeWrite(@RequestBody BoardVO boardVO, ModelAndView modelAndView) {
+	public ResponseEntity<String> noticeWrite(@RequestBody BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
 
 		log.info("noticeWrite..");
@@ -99,7 +97,7 @@ public class BoardController {
 
 	// 공지사항 수정
 	@PostMapping("/notice/modify/{board_id}")
-	public ResponseEntity<String> noticeModify(@RequestBody BoardVO boardVO, ModelAndView modelAndView) {
+	public ResponseEntity<String> noticeModify(@RequestBody BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
 
 		log.info("noticeModify..");
@@ -137,10 +135,11 @@ public class BoardController {
 		log.info("magazineList...");
 		mav.setViewName("board/magazine_list");
 		mav.addObject("magazine_list", boardService.getMagazineList(cri));
+		// mav.addObject("magazine_list", boardService.getMagazineList(cri));
 
-		int total = boardService.getMagazineTotal(cri);
-		log.info("total" + total);
-		mav.addObject("pageMaker", new MagazinePageVO(cri, total));
+		/*
+		 * int total = boardService.getMagazineTotal(cri); log.info("total" + total); mav.addObject("pageMaker", new MagazinePageVO(cri, total));
+		 */
 		return mav;
 	}
 
@@ -153,16 +152,18 @@ public class BoardController {
 		return mav;
 	}
 
-	// 매거진 작성(오류 해결하기)
+	// 매거진 작성
 	@Transactional
 	@PostMapping("/magazine/write")
-	public ResponseEntity<String> magazineWrite(@RequestBody BoardImageUploadVO bImageUploadVO) {
+	public ResponseEntity<String> magazineWrite(BoardPrdctImageVO bPrdctImageVO) {
 		ResponseEntity<String> entity = null;
 		log.info("magazineWrite..");
-		MultipartFile[] uploadfiles = bImageUploadVO.getUploadfiles();
+
+		MultipartFile[] uploadfiles = bPrdctImageVO.getUploadfiles();
 
 		try {
-			boardService.setMagazineWrite(bImageUploadVO.getBoardVO()); // 텍스트 등록(1)
+			boardService.setMagazineWrite(bPrdctImageVO); // 텍스트 등록(1)
+
 			for (MultipartFile f : uploadfiles) {
 				boardService.setMagazineImage(f); // 이미지 등록(N)
 			}
@@ -250,10 +251,13 @@ public class BoardController {
 
 	// 매거진 수정페이지
 	@GetMapping("/magazine/modify/{board_id}")
-	public ModelAndView magazineModifyView(BoardVO boardVO, ModelAndView mav) {
+	public ModelAndView magazineModifyView(BoardPrdctImageVO bPrdctImageVO, ModelAndView mav) {
 		log.info("magazineModifyView...");
 		mav.setViewName("board/magazine_modify");
-		mav.addObject("magazine_modify", boardService.getMagazineContent(boardVO.getBoard_id()));
+		// 매거진 게시글 가져오기
+		mav.addObject("magazine_modify", boardService.getMagazineContent(bPrdctImageVO.getBoard_id()));
+		// 매거진 사진 가져오기
+		mav.addObject("magazine_image", boardService.getMagazineImage(bPrdctImageVO.getBoard_id()));
 		return mav;
 	}
 
@@ -276,12 +280,20 @@ public class BoardController {
 
 	// 매거진 삭제
 	@DeleteMapping("/magazine/modify/{board_id}")
-	public ResponseEntity<String> magazineDelete(BoardVO boardVO) {
+	public ResponseEntity<String> magazineDelete(BoardPrdctImageVO bPrdctImageVO) {
 		ResponseEntity<String> entity = null;
 		log.info("magazineDelete...");
 
+		MultipartFile[] uploadfiles = bPrdctImageVO.getUploadfiles();
+
 		try {
-			// boardService.magazineRemove(boardVO.getBoard_id());
+			// 삭제는 업로드의 역순으로 진행한다
+			for (MultipartFile f : uploadfiles) {
+				boardService.magazineImageRemove(f); // 이미지 삭제(N)
+			}
+
+			boardService.magazineRemove(bPrdctImageVO.getBoard_id()); // 텍스트 삭제(1)
+
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

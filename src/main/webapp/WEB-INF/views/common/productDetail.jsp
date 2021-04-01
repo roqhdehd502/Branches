@@ -364,7 +364,7 @@ img {
 					</div>
 
 					<!--  상품 정보와 옵션 선택 -->
-					<form action="${pageContext.request.contextPath}/common/product/${productDetail.prdct_id}" method="post">
+					<form action="${pageContext.request.contextPath}/prdct/${productDetail.prdct_id}" method="post">
 					<div class="row">
 						<div class="contrainer single-service bordered " style="height: 600px; width: 500px;">
 							<div class="inner">
@@ -595,84 +595,97 @@ img {
 										<option value="goods_est_asc">낮은 평점 순</option>
 								</select>
 							</ul>
+							<hr>
 							<!-- 리뷰 틀 -->
 							<div class="gallery-area spb">
-							<c:forEach items="${getreviewList}" var="list">
-								<div class="container">
-									<div class="section-title" data-margin="0 0 40px">
-										<table class="table">
-											<!-- 한 페이지 글 몇개, 페이징 처리 -->
-											<tr>
-												<td><span class="star-prototype"></span></td>
-												<td>사진</td>
-												<%-- <c:forEach items="${상품옵션}" var="dto"> --%>
-												<td>
-													<div data-toggle="modal" data-target="#myModal">
-														구매옵션:(리뷰작성한사람의 옵션..을 끌고와야되네)
-														<p>${list.board_content}</p>
+								<c:forEach items="${reviewList}" var="list" varStatus="status">
+									<div class="container">
+										<div class="section-title" data-margin="0 0 40px">
+											<table class="table">
+												<!-- 한 페이지 글 몇개, 페이징 처리 -->
+												<tr>
+													<td><span class="star-prototype"></span></td>
+													<td>사진</td>
+													<%-- <c:forEach items="${상품옵션}" var="dto"> --%>
+													<td>
+														<div data-toggle="modal" data-target="#myModal${list.board_id}">
+															구매옵션:(리뷰작성한사람의 옵션..을 끌고와야되네)
+															<%-- ${list2[status.index].prdct_size}  --%>
+															<p>${list.board_content}</p>
+														</div>
+
+													</td>
+													<td>${list.mbr_id}</td>
+													<td>${list.board_date}</td>
+												</tr>
+											</table>
+
+										</div>
+									</div>
+
+
+									<!-- 리뷰 모달창  -->
+									<form id="modalForm" action="${pageContext.request.contextPath}/common/product/${productDetail.prdct_id}" method="post">
+										<div class="modal fade " id="myModal${list.board_id}" role="dialog">
+											<div class="modal-dialog modal-xl">
+												<div class="modal-content">
+
+													<!-- Modal Header -->
+													<div class="modal-header">
+														<h4 class="modal-title">리뷰 보기</h4>
+														<button type="button" class="close" data-dismiss="modal">×</button>
 													</div>
 
-												</td>
-												<td>${list.mbr_id}</td>
-												<td>${list.board_date}</td>
-											</tr>
-										</table>
+													<!-- Modal body -->
+													<div class="modal-body">
+														<!-- 모달 리뷰 컨텐츠 내용 -->
+														<div style="float: left; margin-left: 10px; margin-right: 50px;">
+															<img class="popup_img" style="width: 300px; height: 300px; object-fit: cover;" src="/ej/view.staff_605be555e83ad.jpg">
+														</div>
+														<div class="container" style="width: 100%; height: 50%;">
+															<div class="row">
+																<div style="margin-right: 5px; text-align:left;" >
+																	<span id="review_writer">${list.mbr_id}</span> <span id="writeDate">[${list.board_date}]</span>
+																	<div id="review_content">${list.board_content}</div>
+																</div>
+															</div>
 
-									</div>
-								</div>
+															<div class="row">
+																<table class="table-sm" style="width: 100%;">
+																<colgroup>
+																<col style="width: 15%">
+																<col style="width: 70%">
+																<col style="width: 15%">
+																</colgroup>
+																	<tr>
+																		<td scope="col">작성자</td>
+																		<td scope="col">댓글 내용</td>
+																		<td scope="col">작성일자</td>
+																	</tr>
+																</table>
+															</div>
+														</div>
+													</div>
+													<!-- Modal footer -->
+													<div class="modal-footer">
+													<!-- 모달 댓글 작성 -->
+														<div class="form-group row" style="width: 100%;">
+															<input class="text" id="replyInput" placeholder="댓글을 입력하세요." style="width: 91%;">
+															<button type="submit" class="btn btn-primary">댓글달기</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
 								</c:forEach>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
 
-			<!-- 리뷰 모달창  -->
-			<form id="modalForm" action="${pageContext.request.contextPath}/common/product/${productDetail.prdct_id}" method="post">
-			<div class="modal fade " id="myModal" role="dialog" >
-				<div class="modal-dialog modal-xl" >
-					<div class="modal-content" >
-
-						<!-- Modal Header -->
-						<div class="modal-header">
-							<h4 class="modal-title">리뷰 보기</h4>
-							<button type="button" class="close" data-dismiss="modal">×</button>
-						</div>
-
-						<!-- Modal body -->
-						<div class="modal-body">
-						<div style="float: left; margin-left: 10px; margin-right: 50px;">
-							<img class="popup_img" style="width: 300px; height: 300px; object-fit: cover;" src="/ej/view.staff_605be555e83ad.jpg">
-							</div>
-						<div class="container" style="width:100%; ">
-								<p>아이디</p>
-								<p>작성일자</p>
-
-							<p>작성내용: 배송이 너무 늦었고 먼지가 정말 많이 달라붙네요 ㅠ 핏은 맘에듭니다</p>
-						</div>
-						<hr>
-						
-						</div>
-						
-						
-
-						<!-- Modal footer -->
-						<div class="modal-footer">
-						<div class="form-group row" >
-							<input class="text" id="replyInput" placeholder="댓글을 입력하세요." style="width: 1005px;">
-							<button type="button" class="btn btn-primary">댓글달기</button>
-						</div>
-
-
-					</div>
-				</div>
-			</div>
-
-		</div>
-		</form>
-
-		<!-- Q&A 페이지 tab -->
+			<!-- Q&A 페이지 tab -->
 		<div class="container">
 			<br>
 			<div align="center">

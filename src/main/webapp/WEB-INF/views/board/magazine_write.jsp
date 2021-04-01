@@ -23,46 +23,65 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
 	<!-- 작성 폼 스크립트 -->
-	<script type="text/javascript">
-   	$(document).ready(function(){
-      $("#writeForm").submit(function(event){         
-           event.preventDefault();
-           var mbr_id = $("#mbr_id").val();
-           var board_name = $("#board_name").val();
-           var board_content = $("#board_content").val();
-           var uploadfiles = $("#uploadfiles").val();
-           
-           console.log(mbr_id);
-           console.log(board_name);
-           console.log(board_content);
-           console.log(uploadfiles);
-           console.log($(this).attr("action"));    
-           
-           var form = {
-        		mbr_id: mbr_id, 
-                board_name: board_name, 
-                board_content: board_content, 
-                uploadfiles: uploadfiles
-           };
-           $.ajax({
-             type : "POST",
-             url : $(this).attr("action"),
-             cache : false,
-             contentType:'application/json; charset=utf-8',
-             data: JSON.stringify(form),
-             success: function (result) {       
-               if(result == "SUCCESS"){     
-                  $(location).attr('href', '${pageContext.request.contextPath}/board/magazine')                            
-               }                       
-             },
-             error: function (e) {
-                 console.log(e);
-                 alert('업로드를 할 수 없습니다.');
-                 location.reload(); // 실패시 새로고침하기
-             }
-         })            
-       });       
-   	});
+	<script>
+	    $(document).ready(function () {
+	    	$("#writeForm").submit(function(event){
+	    		event.preventDefault();
+	    		
+	    		var formData = new FormData();
+	    		var appended = false;
+	    		
+	    		// 텍스트 입력 영역
+	            var mbr_id = $("#mbr_id").val();
+	            var board_name = $("#board_name").val();
+	            var board_content = $("#board_content").val();
+	            
+	            console.log(mbr_id);
+	            console.log(board_name);
+	            console.log(board_content);    
+	            console.log($(this).attr("action"));   
+	            
+	            formData.append("mbr_id", mbr_id);
+	            formData.append("board_name", board_name);
+	            formData.append("board_content", board_content);
+	    		
+	    		// 파일저장 영역
+                var inputFile = $("#uploadfiles");
+                var files = inputFile[0].files;  
+                
+                for (var i = 0; i < files.length; i++) {
+					console.log(files[i]);
+					formData.append("uploadfiles", files[i]);
+					appended = true;
+				}
+                
+                // upload 체크(파일을 첨부 안하면 업로드를 안한다...)
+                if (!appended) { return; }
+                for (var value of formData.values()) {
+					console.log(value);
+				}
+	    		
+              	// 파일 넣을때 JSON.stringify()는 적용이 안된다...
+	    		$.ajax({
+	                type : "POST",
+	                url : $(this).attr("action"),
+	                cache : false,
+	                contentType:'application/json; charset=utf-8', 
+	                processData: false, 
+		    		contentType: false, 
+	                data: formData, 
+	                success: function (result) {       
+	                	console.log("UPLOAD SUCCESS!")  
+	                    $(location).attr('href', '${pageContext.request.contextPath}/board/magazine');                                        
+	                },
+	                error: function (e) {
+	                    console.log(e);
+	                    alert('업로드 실패');
+	  	            	location.reload(); // 실패시 새로고침하기
+	                }
+	            }) 
+	    	});
+	    })
 	</script>
 </head>
 <body>
@@ -182,8 +201,9 @@
 			</div>
 			<hr>
 			<div class="container">
-				<form id="writeForm" method="post" action="${pageContext.request.contextPath}/board/magazine/write" enctype="multipart/form-data">
+				<form id="writeForm" action="${pageContext.request.contextPath}/board/magazine/write" method="post" enctype="multipart/form-data" >
 				<input type="hidden" id="mbr_id" value="${magazine_write.mbr_id}">
+				<!-- <input type="hidden" id="mbr_id" value="abcd1234"> -->
 				<fieldset>
 					<div class="row">
 						<div class="col-md-2 contact-info" align="left">
@@ -207,9 +227,10 @@
 						</div>
 						<div class="col-md-10 contact-info">
 							<input type="file" id="uploadfiles" name="uploadfiles" placeholder="첨부 사진" multiple/>
+							<small class="form-text text-muted">jpg, png의 사진파일만 적용됩니다.</small>
 						</div>
 					</div>	
-					<div align="center" style="padding: 3% 0px 3% 0px;">
+					<div align="center" style="padding: 3% 3% 3% 3%;">
 						<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine'">목록보기</button>&nbsp;
 						<button type="submit" class="btn btn-primary">작성하기</button>
 					</div>	

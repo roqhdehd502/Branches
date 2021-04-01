@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.service.FileService;
+import edu.bit.ex.vo.BoardVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,7 +32,7 @@ public class FileController {
 
 	// 테스트 파일 업로드 페이지
 	@GetMapping("/upload_view")
-	public ModelAndView upload_view(ModelAndView mav) {
+	public ModelAndView upload_view(ModelAndView mav, BoardVO boardVO) {
 		log.info("upload_view...");
 		mav.setViewName("file/upload_view");
 		return mav;
@@ -54,4 +55,5 @@ public class FileController {
 
 		return entity;
 	}
+
 }

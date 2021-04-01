@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrAddressVO;
 import edu.bit.ex.vo.MbrVO;
@@ -36,10 +37,20 @@ public interface SellerMapper {
 
 	public void prdctUpdate(PrdctVO pvo);
 
-	public PrdctVO getProductId(String prdct_id);
+	public void prdInsert(PrdctRegisterImageVO PrdctImageVO);
 
-	public PrdctDetailVO getPrdetail(String prdct_id);
+	public MbrVO getSellerInfo(String mbr_id);
 
-	public void prdInsert(PrdctVO pvo);
+	public void prdctDelete(String prdct_id);
+
+	public PrdctVO getOption(String getPrdct_id);
+
+	public PrdctDetailVO getPrd(String getPrdct_id);
+
+	public void setPrdctImage(String saveName);
+
+	public ShippingVO getAddress(String getMbr_id);
+
+	public List<BoardVO> getBoardId(int board_id);
 
 }

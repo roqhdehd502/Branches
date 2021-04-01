@@ -33,7 +33,7 @@
 	</select>
 	
 	<!-- 리뷰 게시판 리스트 -->
-	<select id="getreviewList" resultType="edu.bit.ex.vo.BoardVO">
+	<select id="getReviewList" resultType="edu.bit.ex.vo.BoardVO">
 		<![CDATA[
 			SELECT * FROM board where board_type_number = 3 and prdct_id = #{p_id} ORDER BY board_date DESC 
 		]]>

@@ -26,7 +26,7 @@
 	<!-- 매거진 게시글 추천 -->
 	<script type="text/javascript">
 		$(document).ready(function (){
-			$('#uplike').click(function(event){
+			$('#magazine_uplike').click(function(event){
 				event.preventDefault();
 				console.log("ajax 호출전");		 
 	 
@@ -96,7 +96,7 @@
 	<!-- 매거진 댓글 삭제 -->	
 	<script type="text/javascript">
 		$(document).ready(function (){
-			$('#delete').click(function(event){
+			$('#magazine_comment_delete').click(function(event){
 				event.preventDefault();
 				console.log("ajax 호출전");		
 	 
@@ -260,9 +260,8 @@
 						
 			<div align="center" style="padding: 3% 5% 3% 5%">
 				<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine'">목록보기</button>&nbsp;
-				<button type="button" id="uplike" class="btn btn-primary">추천하기</button>&nbsp;
-				<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine/modify/${magazine_content.board_id}'">수정하기</button>&nbsp;
-				
+				<button type="button" id="magazine_uplike" class="btn btn-primary">추천하기</button>&nbsp;
+				<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine/modify/${magazine_content.board_id}'">수정하기</button>&nbsp;	
 			</div>
 			
 			<hr>
@@ -326,7 +325,7 @@
 									</div>
 									<div class="modal-footer">
 										<div align="left">
-										<button type="button" id="delete" class="btn btn-danger">삭제하기</button>&nbsp;
+										<button type="button" id="magazine_comment_delete" class="btn btn-danger">삭제하기</button>&nbsp;
 										<!-- <button type="button" id="modify" class="btn btn-primary">수정하기</button>&nbsp; -->
 										<!-- <button type="button" class="btn btn-primary" data-dismiss="modal">돌아가기</button> -->
 										</div>

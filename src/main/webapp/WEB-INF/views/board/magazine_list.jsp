@@ -172,7 +172,7 @@
 			</div>
 			
 			<!-- 매거진 페이징 처리 -->
-			<div class="container">
+			<%-- <div class="container">
 					<ul class="pagination justify-content-center">			
 					<c:if test="${pageMaker.prev}">
 						<li class="page-item">
@@ -193,7 +193,7 @@
 						</li>
 					</c:if>
 					</ul>
-			</div>
+			</div> --%>
 		</div>	
 	<!-- </div> -->
 	<!-- </div> -->

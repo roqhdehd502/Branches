@@ -1,5 +1,6 @@
 package edu.bit.ex.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -37,6 +38,8 @@ public interface BoardService {
 	public void setNoticeModify(BoardVO boardVO);
 
 	// 페이징을 적용한 매거진 게시판 리스트
+	public List<BoardPrdctImageVO> getMagazineList();
+
 	public List<BoardPrdctImageVO> getMagazineList(MagazineCriteria cri);
 
 	// 페이징 단위에 적용되는 최대 매거진 게시글 단위
@@ -46,7 +49,7 @@ public interface BoardService {
 	public MbrVO getMagazineMember(String mbr_id);
 
 	// 매거진 작성
-	public void setMagazineWrite(BoardVO boardVO);
+	public void setMagazineWrite(BoardPrdctImageVO bPrdctImageVO);
 
 	// 매거진 첨부사진 작성
 	public void setMagazineImage(MultipartFile file);
@@ -75,6 +78,12 @@ public interface BoardService {
 
 	// 매거진 게시글 댓글 삭제
 	public int magazineCommentRemove(int comment_id);
+
+	// 매거진 삭제
+	public int magazineRemove(int board_id);
+
+	// 매거진 이미지 삭제
+	public int magazineImageRemove(MultipartFile f) throws IOException;
 
 	// 매거진 수정
 	public void setMagazineModify(BoardVO boardVO);

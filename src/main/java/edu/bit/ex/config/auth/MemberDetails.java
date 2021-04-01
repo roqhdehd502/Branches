@@ -40,9 +40,7 @@ public class MemberDetails implements UserDetails, OAuth2User {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
 		Collection<GrantedAuthority> collect = new ArrayList<GrantedAuthority>();
-
 		collect.add(new GrantedAuthority() {
-
 			@Override
 			public String getAuthority() {
 				// TODO Auto-generated method stub
@@ -50,7 +48,6 @@ public class MemberDetails implements UserDetails, OAuth2User {
 				return mbrvo.getAuthorityVO().getAuthority_name();
 			}
 		});
-
 		return collect;
 	}
 
@@ -101,5 +98,6 @@ public class MemberDetails implements UserDetails, OAuth2User {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }
