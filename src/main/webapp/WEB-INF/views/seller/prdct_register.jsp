@@ -92,18 +92,18 @@
 					<h3 >
 					<strong>상품 등록</strong>
 					</h3><hr>
-					<form action="/seller/mypage/prdct" method="post" role="form">
+					<form action="/seller/mypage/prdct" method="post" role="form" id="writeForm" enctype="multipart/form-data">
 						<fieldset>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">상품명</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" placeholder="상품명을 입력해주세요" name="prdct_name">
+									<input type="text" class="form-control" placeholder="상품명을 입력해주세요" id="prdct_name">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">카테고리</label>
 								<div class="col-sm-10">
-									<select class="form-control" name="category_number">
+									<select class="form-control" id="category_number">
 										<option value="0">아우터-코트</option>
 										<option value="1">아우터-자켓</option>
 										<option value="2">아우터-점퍼/무스탕</option>
@@ -145,39 +145,40 @@
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">색상</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" placeholder="ex) BLOWN, DARK, NAVY" name="prdct_color">
+									<input type="text" class="form-control" placeholder="ex) BLOWN, DARK, NAVY" id="prdct_color">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">사이즈</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" placeholder="ex) XL (혹은) 105" name="prdct_size">
+									<input type="text" class="form-control" placeholder="ex) XL (혹은) 105" id="prdct_size">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">가격(원)</label>
 								<div class="col-sm-10">
-									<input type="number" class="form-control" placeholder="가격을 입력해주세요" name="prdct_price">
+									<input type="number" class="form-control" placeholder="가격을 입력해주세요" id="prdct_price">
 								</div>
 							</div>
+							
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">내용</label>
 								<div class="col-sm-10">
-									<textarea class="form-control" rows="3" placeholder="해당 상품에 대한 설명을 입력해주세요"></textarea>
-									<input type="file" class="form-control-file">
+									<textarea class="form-control" rows="20" placeholder="해당 상품에 대한 설명을 입력해주세요" id="board_content"></textarea>
+									<input type="file" id="uploadfiles" name="uploadfiles" placeholder="첨부 사진" multiple class="form-control-file">
 									<small class="form-text text-muted">jpg, png, gif의 사진파일만 적용됩니다.</small>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">교환/반품</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" placeholder="주소를 입력해주세요">
+									<input type="text" class="form-control" placeholder="주소를 입력해주세요" id="shipping_address" value="${svo.shipping_address}">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">공급량</label>
 								<div class="col-sm-10">
-									<input type="number" class="form-control" placeholder="공급량을 입력해주세요" name="prdct_stock">
+									<input type="number" class="form-control" placeholder="공급량을 입력해주세요" id="prdct_stock">
 								</div>
 							</div><br/><br/>
 							<div align="center">
@@ -263,6 +264,71 @@
       <script src="/assets/js/vendor/loopcounter.js"></script>
       <script src="/assets/js/vendor/slicknav.min.js"></script>
       <script src="/assets/js/active.js"></script>
+      
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- 작성 폼 스크립트 -->
+<script>
+    $(document).ready(function () {
+	    $("#writeForm").submit(function(event){
+	    	event.preventDefault();
+	    		
+	    	var formData = new FormData();
+	    		
+	    	// 텍스트 입력 영역
+	        var prdct_name = $("#prdct_name").val();
+	        var prdct_color = $("#prdct_color").val();
+	        var prdct_size = $("#prdct_size").val();
+	        var prdct_price = $("#prdct_price").val();
+	        var board_content = $("#board_content").val();
+	        var prdct_stock = $("#prdct_stock").val();
+	            
+	        console.log(prdct_name);
+	        console.log(prdct_color);
+	        console.log(prdct_size);
+	        console.log(prdct_price);
+	        console.log(board_content); 
+	        console.log(prdct_stock);
+	        console.log($(this).attr("action"));   
+	            
+	        formData.append("prdct_name", prdct_name);
+	        formData.append("prdct_color", prdct_color);
+	        formData.append("prdct_size", prdct_size);
+	        formData.append("prdct_price", prdct_price);
+	        formData.append("board_content", board_content););
+	        formData.append("prdct_stock", prdct_stock);
+	    		
+	    	// 파일저장 영역
+	        var inputFile = $("#uploadfiles");
+	        var files = inputFile[0].files;  
+                
+	        for (var i = 0; i < files.length; i++) {
+	        	console.log(files[i]);
+	        	formData.append("uploadfiles", files[i]);
+	        }     
+	    		
+	        // 파일 넣을때 JSON.stringify()는 적용이 안된다...
+	        $.ajax({
+	        	type : "POST",
+		        url : $(this).attr("action"),
+	        	cache : false,
+	        	contentType:'application/json; charset=utf-8', 
+	        	processData: false, 
+	        	contentType: false, 
+	        	data: formData, 
+	        	success: function (result) {       
+	        		console.log("UPLOAD SUCCESS!")  
+	        		$(location).attr('href', '${pageContext.request.contextPath}/seller/mypage/prdct');                                        
+	        	},
+	        	error: function (e) {
+	        		console.log(e);
+	        		alert('업로드 실패');
+	        		location.reload(); // 실패시 새로고침하기
+	            }
+	        }) 
+	    });
+    })
+</script>
+      
 </div>
 </body>
 </html>

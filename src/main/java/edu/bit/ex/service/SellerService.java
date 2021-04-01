@@ -2,6 +2,9 @@ package edu.bit.ex.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrAddressVO;
 import edu.bit.ex.vo.MbrVO;
@@ -35,10 +38,16 @@ public interface SellerService {
 
 	public void prdctDelete(String prdct_id);
 
-	public void prdInsert(String prdct_name, int prdct_price, String prdct_color, String prdct_size, String prdct_stock);
+	public void prdInsert(PrdctRegisterImageVO PrdctImageVO);
 
 	public PrdctVO getOption(String getPrdct_id);
 
 	public PrdctDetailVO getPrd(String getPrdct_id);
+
+	public void setPrdctImage(MultipartFile file);
+
+	public ShippingVO getAddress(String getMbr_id);
+
+	public List<BoardVO> getBoardId(int board_id);
 
 }

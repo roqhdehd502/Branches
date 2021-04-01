@@ -5,6 +5,12 @@
   
 <mapper namespace="edu.bit.ex.mapper.SellerMapper">
 
+	<select id="getAddress" resultType="edu.bit.ex.vo.ShippingVO">
+			<![CDATA[
+				select shipping_address from shipping where mbr_id = 'prism'
+			]]>
+	</select>
+
 	<select id="getOption" resultType="edu.bit.ex.vo.PrdctVO">
 		<![CDATA[
 			select * from prdct where prdct_id = #{prdct_id}
@@ -88,11 +94,23 @@
 	</delete>
 	
 	<!-- 상품등록하기 -->
-	<insert id="prdInsert" parameterType="map">
+	<insert id="prdInsert">
 		<![CDATA[
 			insert all into prdct (prdct_id, prdct_name, prdct_price, category_number, mbr_id) values
-				('prism2',#{prdct_name}, #{prdct_price}, 1, 'prism' ) into prdct_detail (prdct_id, prdct_color, prdct_size, prdct_stock) values
-					('prism2',#{prdct_color}, #{prdct_size} , #{prdct_stock}) select * from dual
+				('prism13',#{prdct_name}, #{prdct_price}, 2, 'prism' ) into prdct_detail (prdct_id, prdct_color, prdct_size, prdct_stock) values
+					('prism13',#{prdct_color}, #{prdct_size} , #{prdct_stock}) 
+						into board (board_id, board_name, board_content, board_type_number, board_date, board_like, board_hit) 
+							values(board_seq.nextval, 'TEST', #{board_content}, 0, sysdate, 0, 0)
+								select * from dual
+		]]>
+	</insert>
+
+	<!-- 상품등록 첨부사진 작성 -->
+	<!-- 상품등록 작성을 거친뒤 첨부사진을 올리는 상황이므로 업로드하는 board_id의 현재 번호를 가리키는 board_seq.currval을 insert 한다. -->
+	<insert id="setPrdctImage">
+		<![CDATA[
+			INSERT INTO prdct_image (image_number, image_name, image_path, board_id) 
+			VALUES (prdct_image_seq.nextval, #{uploadfiles},'C:\tetleaf\Branches\src\main\resources\static\hs\', board_seq.currval)
 		]]>
 	</insert>
 	

@@ -1,9 +1,9 @@
 package edu.bit.ex.controller;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,13 +13,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.service.SecurityService;
 import edu.bit.ex.service.SellerService;
+import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrAddressVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctVO;
+import edu.bit.ex.vo.ShippingVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,27 +40,42 @@ public class SellerController {
 
 	// 상품 등록페이지 seller
 	@GetMapping("/mypage/prdct_register")
-	public ModelAndView prdct_register(ModelAndView mav, MbrVO mbr) {
+	public ModelAndView prdct_register(ModelAndView mav, MbrVO mbr, ShippingVO svo) {
 		log.info("prdct_register...");
 		mav.setViewName("seller/prdct_register");
 		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
+		mav.addObject("svo", sellerService.getAddress(svo.getMbr_id()));
 		return mav;
 	}
 
 	// 상품 등록
+	@Transactional
 	@PostMapping("/mypage/prdct")
-	public ModelAndView prdct_register(ModelAndView mav, MbrVO mbr, @Param("prdct_name") String prdct_name, @Param("prdct_price") int prdct_price,
-			@Param("prdct_color") String prdct_color, @Param("prdct_size") String prdct_size, @Param("prdct_stock") String prdct_stock) {
-		log.info("register...");
-		mav.setViewName("seller/sellerProductCheck");
-		sellerService.prdInsert(prdct_name, prdct_price, prdct_color, prdct_size, prdct_stock);
-		mav.addObject("prdct", sellerService.getProduct());
+	public ResponseEntity<String> prdct_register(ModelAndView mav, MbrVO mbr, PrdctRegisterImageVO PrdctImageVO) {
+		ResponseEntity<String> entity = null;
+		log.info("prdct_register...");
 		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
 
-		return mav;
+		MultipartFile[] uploadfiles = PrdctImageVO.getUploadfiles();
+
+		try {
+			sellerService.prdInsert(PrdctImageVO);
+			; // 텍스트 등록(1). 우선 텍스트 부분을 선행으로 한다.
+
+			for (MultipartFile f : uploadfiles) {
+				sellerService.setPrdctImage(f); // 이미지 등록(N). 텍스트 부분이 선행되면 이미지를 올린다.
+			}
+
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
 	}
 
-	// 판매자 등록상품 확인 seller
+	// 판매자 상품 조회 seller
 	// 수정 버튼 옮길것! => SellerProductModify
 	@GetMapping("/mypage/prdct")
 	public ModelAndView sellerProductCheck(ModelAndView mav, MbrVO mbr) throws Exception {
@@ -71,13 +90,16 @@ public class SellerController {
 
 	// 판매자 등록상품 수정페이지 seller // 이 페이지는 상세페이지가 곧 수정페이지입니다
 	@GetMapping("/mypage/prdct/{prdct_id}")
-	public ModelAndView sellerProductModify(@PathVariable("prdct_id") String prdct_id, ModelAndView mav, MbrVO mbr) throws Exception {
+	public ModelAndView sellerProductModify(@PathVariable("prdct_id") String prdct_id, ModelAndView mav, MbrVO mbr, ShippingVO svo, BoardVO bvo)
+			throws Exception {
 		log.debug("sellerProductModify");
 		log.info("sellerProductModify..");
 		mav.setViewName("seller/sellerProductModify");
 		mav.addObject("pvo", sellerService.getPrd(prdct_id));
 		mav.addObject("pdvo", sellerService.getOption(prdct_id));
+		mav.addObject("svo", sellerService.getAddress(svo.getMbr_id()));
 		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
+		/* mav.addObject("mbr", sellerService.getBoardId(bvo.getBoard_id())); */
 
 		return mav;
 	}

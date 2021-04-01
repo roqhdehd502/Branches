@@ -1,10 +1,14 @@
 package edu.bit.ex.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.mapper.SellerMapper;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrAddressVO;
@@ -76,10 +80,9 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public void prdInsert(@Param("prdct_name") String prdct_name, @Param("prdct_price") int prdct_price, @Param("prdct_color") String prdct_color,
-			@Param("prdct_size") String prdct_size, @Param("prdct_stock") String prdct_stock) {
+	public void prdInsert(PrdctRegisterImageVO PrdctImageVO) {
 		log.info("prdInsert()......");
-		sellerMapper.prdInsert(prdct_name, prdct_price, prdct_color, prdct_size, prdct_stock);
+		sellerMapper.prdInsert(PrdctImageVO);
 	}
 
 	@Override
@@ -111,6 +114,40 @@ public class SellerServiceImpl implements SellerService {
 	public PrdctDetailVO getPrd(String getPrdct_id) {
 		log.info("getPrd()......");
 		return sellerMapper.getPrd(getPrdct_id);
+	}
+
+	@Override
+	public void setPrdctImage(MultipartFile file) {
+		// 파일 이름 변경(중복방지)
+		UUID uuid = UUID.randomUUID();
+		String saveName = uuid + "_" + file.getOriginalFilename();
+		log.info("image_name: ", saveName);
+
+		// 저장할 File 객체를 생성(껍데기 파일)
+		// 저장할 폴더 이름, 저장할 파일 이름
+		File saveFile = new File("C:/tetleaf/Branches/src/main/resources/static/hs/", saveName);
+
+		try {
+			// 업로드 파일에 saveFile이라는 껍데기 입힘
+			file.transferTo(saveFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		sellerMapper.setPrdctImage(saveName);
+
+	}
+
+	@Override
+	public ShippingVO getAddress(String getMbr_id) {
+		log.info("getAddress()......");
+		return sellerMapper.getAddress(getMbr_id);
+	}
+
+	@Override
+	public List<BoardVO> getBoardId(int board_id) {
+		log.info("getBoardId()......");
+		return sellerMapper.getBoardId(board_id);
 	}
 
 }

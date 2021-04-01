@@ -98,6 +98,12 @@
 					</h3><hr>
 					<form id="updatePrd" action="/seller/mypage/prdct/{prdct_id}" method="PUT">
 						<input type="hidden" id="prdct_id" value="${pdvo.prdct_id}">
+						<input type="hidden" id="board_id" value="${bvo.board_name}">
+						<input type="hidden" id="board_type_number" value="${bvo.board_type_number}">
+						<input type="hidden" id="board_date" value="${bvo.board_date}">
+						<input type="hidden" id="board_like" value="${bvo.board_like}">
+						<input type="hidden" id="board_hit" value="${bvo.board_hit}">
+						
 						<fieldset>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">상품명</label>
@@ -168,7 +174,7 @@
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">내용</label>
 								<div class="col-sm-10">
-									<textarea class="form-control" rows="3" placeholder="해당 상품에 대한 설명을 입력해주세요"></textarea>
+									<textarea class="form-control" rows="20" placeholder="해당 상품에 대한 설명을 입력해주세요" value="${bvo.board_content }"></textarea>
 									<input type="file" class="form-control-file">
 									<small class="form-text text-muted">jpg, png, gif의 사진파일만 적용됩니다.</small>
 								</div>
@@ -176,7 +182,7 @@
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">교환/반품</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" placeholder="주소를 입력해주세요">
+									<input type="text" class="form-control" placeholder="주소를 입력해주세요" value="${svo.shipping_address}">
 								</div>
 							</div>
 							<div class="form-group row">
