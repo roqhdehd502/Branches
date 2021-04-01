@@ -23,56 +23,6 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
 	<!-- 작성 폼 스크립트 -->
- 	<!-- <script type="text/javascript">
-   	$(document).ready(function(){
-      $("#writeForm").submit(function(event){         
-           event.preventDefault();
-           // 텍스트 입력 영역
-           var mbr_id = $("#mbr_id").val();
-           var board_name = $("#board_name").val();
-           var board_content = $("#board_content").val();
-           
-           console.log(mbr_id);
-           console.log(board_name);
-           console.log(board_content);
-           
-           console.log($(this).attr("action"));   
-             
-           var form = {
-        		mbr_id: mbr_id, 
-                board_name: board_name, 
-                board_content: board_content 
-           };
-           
-           // 파일저장 영역
-           var formData = new FormData();
-           var inputFile = $("#uploadfiles");
-           var files = inputFile[0].files;            
-           for (var i = 0; i < files.length; i++) {
-				console.log(files[i]);
-				formData.append("uploadfiles", files[i]);
-           }
-           
-           $.ajax({
-        	 dataType: 'json',   
-             type : "POST", 
-             url : $(this).attr("action"), 
-             cache : false, 
-             contentType:'application/json; charset=utf-8', 
-             processData: false, 
-             data: JSON.stringify({form, formData}), 
-             success: function (result) {       
-                  $(location).attr('href', '${pageContext.request.contextPath}/board/magazine')                                                  
-             },
-             error: function (e) {
-                 console.log(e);
-                 alert('업로드를 할 수 없습니다.');
-                 location.reload();
-             }
-         })            
-       });       
-   	});
-	</script> -->
 	<script>
 	    $(document).ready(function () {
 	    	$("#writeForm").submit(function(event){
