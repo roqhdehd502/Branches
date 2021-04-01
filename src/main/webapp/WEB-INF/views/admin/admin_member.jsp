@@ -60,7 +60,7 @@ $(document).ready(function(){
 		    success: function (result) {       
 				if(result == "SUCCESS"){
 					//list로 
-					$(location).attr('href', '${pageContext.request.contextPath}/rest_ksp/admin/mypage/member/${mbr.mbr_id}')				      	       
+					$(location).attr('href', '${pageContext.request.contextPath}/admin/mypage/member/${mbr.mbr_id}')				      	       
 				}					        
 		    },
 		    error: function (e) {
@@ -134,7 +134,7 @@ $(document).ready(function(){
 					<h3 >
 					<strong>회원 등록 정보</strong>
 					</h3><hr>
-					<form action="${pageContext.request.contextPath}/rest_ksp/admin/mypage/member/${mbr.mbr_id}" method="post" id="updateForm">
+					<form action="${pageContext.request.contextPath}/admin/mypage/member/${mbr.mbr_id}" method="post" id="updateForm">
 						<input type="hidden" id="mbr_id" value="${mbr.mbr_id}">
 						<fieldset>
 							<div class="form-group row">
@@ -179,12 +179,12 @@ $(document).ready(function(){
 											<c:if test="${mbr.mbr_gender eq 'F'}"> checked="checked" </c:if>></input></span>
 									</label>
 								</div>
-								</br>
-								</br>
+								<br />
+								<br />
 							</div>
 							<div style="text-align: center;">
 									<input type="submit" class="btn btn-primary" value="저장" />
-									<input type="button" class="btn btn-primary" style="float: right; margin-left: 20px;" onclick="location.href='${pageContext.request.contextPath}/rest_ksp/admin/mypage/member'" value="목록">	
+									<input type="button" class="btn btn-primary" style="float: right; margin-left: 20px;" onclick="location.href='${pageContext.request.contextPath}/admin/mypage/member'" value="목록">	
 									</div>
 						</fieldset>
 					</form>

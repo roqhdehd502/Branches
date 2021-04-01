@@ -4,25 +4,36 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import edu.bit.ex.vo.MbrVO;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
+@Data
 @Slf4j
-public class MemberDetails implements UserDetails {
+public class MemberDetails implements UserDetails, OAuth2User {
 
+	@Autowired
 	private MbrVO mbrvo;
-	private Map<Integer, Object> attributes;
+
+	private Map<String, Object> attributes;
 
 	public MemberDetails(MbrVO mbrvo) {
 		this.mbrvo = mbrvo;
 	}
 
-	public MemberDetails(MbrVO mbrvo, Map<Integer, Object> attributes) {
+	public MemberDetails(MbrVO mbrvo, Map<String, Object> attributes) {
 		this.mbrvo = mbrvo;
 		this.attributes = attributes;
+	}
+
+	public String getUserID() {
+		// TODO Auto-generated method stub
+		return mbrvo.getMbr_id();
 	}
 
 	@Override
@@ -77,6 +88,18 @@ public class MemberDetails implements UserDetails {
 	public boolean isEnabled() { // 계정 활성화여부
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	@Override
+	public Map<String, Object> getAttributes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -241,7 +241,7 @@ $(document).ready(function(){
 						<strong>회원 등록 정보</strong>
 					</h3>
 					<hr>
-					<form action="${pageContext.request.contextPath}/rest_ksp/member/${mbr.mbr_id}/mypage/myinfo" method="post" id="updateForm">
+					<form action="${pageContext.request.contextPath}/member/${mbr.mbr_id}/mypage/myinfo" method="post" id="updateForm">
 						<input type="hidden" id="mbr_id" value="${mbr.mbr_id}">
 						<fieldset>
 							<div class="form-group row">

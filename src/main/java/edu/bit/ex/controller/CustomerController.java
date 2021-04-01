@@ -3,8 +3,8 @@ package edu.bit.ex.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.bit.ex.config.auth.MemberDetails;
+import edu.bit.ex.controller.validator.MemberValidator;
 import edu.bit.ex.service.CustomerService;
+import edu.bit.ex.service.SecurityService;
 import edu.bit.ex.vo.MbrVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,8 +25,20 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/customer/*")
 public class CustomerController {
+
 	@Autowired
 	private CustomerService customerService;
+
+	private SecurityService securityService;
+
+	private MemberValidator memberValidator;
+
+	@GetMapping("/member")
+	public ModelAndView signUpForm(ModelAndView mv) {
+		mv.setViewName("login/login");
+
+		return mv;
+	}
 
 	// 상품 Q&A 등록 customer
 	// 상품 - 상품상세페이지(qna리스트) - 상품등록페이지
@@ -99,12 +114,12 @@ public class CustomerController {
 
 	// 회원 정보수정폼 customer
 	// 스프링 시큐리티때 member_id 가져오기
-	@RequestMapping(value = "/mypage/myinfo", method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView member_info(@PathVariable("member_id") String m_id, ModelAndView mav) {
-		mav.setViewName("customer/member_mypage_modify");
-		// mav.addObject("mbr", customerService.getMemberInfo(m_id));
-		return mav;
-	}
+	// @RequestMapping(value = "/mypage/myinfo", method = { RequestMethod.POST, RequestMethod.GET })
+	// public ModelAndView member_info(@PathVariable("member_id") String m_id, ModelAndView mav) {
+	// mav.setViewName("customer/member_mypage_modify");
+	// // mav.addObject("mbr", customerService.getMemberInfo(m_id));
+	// return mav;
+	// }
 
 	// 회원정보수정 ajax customer
 	@PutMapping(value = "/mypage/myinfo")
@@ -124,5 +139,14 @@ public class CustomerController {
 		}
 
 		return entity;
+	}
+
+	// 회원 정보수정폼 customer
+	// 스프링 시큐리티 적용 중
+	@RequestMapping(value = "/mypage/myinfo", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView login_member_info(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav) {
+		mav.setViewName("member/member_mypage_modify");
+		mav.addObject("mbr", securityService.getMbr(memberDetails.getUserID()));
+		return mav;
 	}
 }
