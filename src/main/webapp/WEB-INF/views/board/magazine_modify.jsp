@@ -65,31 +65,61 @@
 	
 	<!-- 매거진 게시글 삭제 -->
 	<script type="text/javascript">
-		$(document).ready(function (){
-			$('#magazine_delete').click(function(event){
+		$(document).ready(function () {
+			$('#magazine_delete').click(function(event) {
 				event.preventDefault();
-				console.log("ajax 호출전");		
+				
+	    		var formData = new FormData(); // FormData 객체 생성
+	    		
+	    		// 이미지 파일
+	    		var fileNoArry = new Array(); // 여러 파일번호를 담을 배열 생성
+	     		var fileNameArry = new Array(); // 여러 파일명을 담을 배열 생성
+	     		
+	     		// uploadimagenumber 키워드가 붙은 class의 개수를 가져온다
+	     		console.log("ImageCnt: " + $("[class*='uploadimagenumber']").length);
+	     		
+	     		// 이미지 개수만큼 해당 태그내의 요소 값을 배열안에 push한다
+	     		for (var i = 0; i < $("[class*='uploadimagenumber']").length; i++) {
+	     			fileNoArry.push($('.uploadimagenumber' + 'i').html());
+		     		fileNameArry.push($('.uploadfiles[i]' + 'i').html());
+				}
+	     		
+	     		// push한 데이터 확인
+	     		console.log("fileNoArry: " + fileNoArry);
+     			console.log("fileNameArry: " + fileNameArry);
+	     		
+     			// 배열 길이만큼 formData에 해당 인덱스 값을 append한다
+	     		for (var i = 0; i < fileNoArry.length; i++) {		
+	     			formData.append("image_number", fileNoArry[i]);
+	     			formData.append("uploadfiles", fileNameArry[i]);
+				}
+	     		
+	     		console.log("formData: " + formData);
 	 
 				$.ajax({
-					type : 'DELETE',
-					url : $(this).attr("href"),
-					cache : false,
-					success: function(result){
+					type : 'DELETE', 
+					url : $(this).attr("href"), 
+					cache : false, 
+	                processData: false, 
+		    		contentType: false, 
+	                data: formData, 
+					success: function(result) {
 						console.log(result);
-						if(result=="SUCCESS"){
+						if(result == "SUCCESS") {
 							$(location).attr('href', '${pageContext.request.contextPath}/board/magazine')
 						}
 					},
-					error:function(e){
+					error:function(e) {
+						alert("파일을 삭제할 수 없습니다.");
 						console.log(e);
 					}
 				})
 			});	
-		});	
+		});
 	</script>
 	
 	<!-- 매거진 사진만 삭제 -->
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 	$(document).ready(function (){
 		$('#image_delete').click(function(event){
 			event.preventDefault();
@@ -114,7 +144,7 @@
 			})
 		});	
 	});	
-	</script>		
+	</script> -->		
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -264,8 +294,10 @@
 			<hr>
 			
 			<div class="container">
-				<div class="row" style="padding: 5% 3% 3% 5%">
-					<c:forEach items="${magazine_image}" var="image">
+				<div id="image_container" class="row" style="padding: 5% 3% 3% 5%">
+					<c:forEach items="${magazine_image}" var="image" varStatus="image_status">
+						<span class="uploadimagenumber${image_status.index}" style="display: none;">${image.image_number}</span>
+						<span class="uploadfiles${image_status.index}" style="display: none;">${image.image_name}</span>
 						<div class="col-md-2" align="center">
 							<img src="/prdct_img/${image.image_name}" width="160px" height="90px">
 							<button type="button" id="image_delete" class="btn btn-danger">&#88;</button>

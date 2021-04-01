@@ -150,7 +150,7 @@
 		<result property="board_id" column="board_id"/>
 	</resultMap>
 	<select id="getMagazineImage" resultMap="magazineContentImageMap">
-		SELECT p.image_name 
+		SELECT p.image_number, p.image_name 
 		FROM prdct_image p, board b 
 		WHERE p.board_id = b.board_id AND 
 		    b.board_id = #{board_id} 
@@ -243,7 +243,21 @@
 	<![CDATA[
 		DELETE FROM board_comment WHERE comment_id = #{comment_id}
 	]]>
-	</delete>	
+	</delete>
+	
+	<!-- 매거진 삭제 -->
+	<delete id="magazineRemove">
+	<![CDATA[
+		DELETE FROM board WHERE board_id = #{board_id}
+	]]>
+	</delete>
+	
+	<!-- 매거진 이미지 삭제 -->
+	<delete id="magazineImageRemove">
+	<![CDATA[
+		DELETE FROM prdct_image WHERE board_id = #{board_id} AND image_number = #{image_number}
+	]]>
+	</delete>		
 	
 	<!-- 매거진 수정 -->
 	<update id="setMagazineModify">

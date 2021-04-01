@@ -176,16 +176,6 @@ public class BoardController {
 
 		return entity;
 	}
-	// @RequestMapping(value = "/magazine/write", method = RequestMethod.POST, consumes = { "multipart/form-data" })
-	/*
-	 * @PostMapping("/magazine/write") public ResponseEntity<String> magazineWrite(@RequestBody BoardPrdctImageVO bPrdctImageVO) {
-	 * ResponseEntity<String> entity = null;
-	 * 
-	 * log.info("magazineWrite.."); try { boardService.setMagazineWrite(bPrdctImageVO); entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-	 * } catch (Exception e) { e.printStackTrace(); entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST); }
-	 * 
-	 * return entity; }
-	 */
 
 	// 매거진 게시글
 	@Transactional
@@ -290,12 +280,20 @@ public class BoardController {
 
 	// 매거진 삭제
 	@DeleteMapping("/magazine/modify/{board_id}")
-	public ResponseEntity<String> magazineDelete(BoardVO boardVO) {
+	public ResponseEntity<String> magazineDelete(BoardPrdctImageVO bPrdctImageVO) {
 		ResponseEntity<String> entity = null;
 		log.info("magazineDelete...");
 
+		MultipartFile[] uploadfiles = bPrdctImageVO.getUploadfiles();
+
 		try {
-			// boardService.magazineRemove(boardVO.getBoard_id());
+			// 삭제는 업로드의 역순으로 진행한다
+			for (MultipartFile f : uploadfiles) {
+				boardService.magazineImageRemove(f); // 이미지 삭제(N)
+			}
+
+			boardService.magazineRemove(bPrdctImageVO.getBoard_id()); // 텍스트 삭제(1)
+
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

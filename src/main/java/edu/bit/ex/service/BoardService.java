@@ -1,5 +1,6 @@
 package edu.bit.ex.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -77,6 +78,12 @@ public interface BoardService {
 
 	// 매거진 게시글 댓글 삭제
 	public int magazineCommentRemove(int comment_id);
+
+	// 매거진 삭제
+	public int magazineRemove(int board_id);
+
+	// 매거진 이미지 삭제
+	public int magazineImageRemove(MultipartFile f) throws IOException;
 
 	// 매거진 수정
 	public void setMagazineModify(BoardVO boardVO);

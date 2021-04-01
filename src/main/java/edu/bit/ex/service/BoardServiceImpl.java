@@ -28,6 +28,10 @@ public class BoardServiceImpl implements BoardService {
 	private BoardMapper boardMapper;
 	// 파일 저장 경로
 	private static final String UPLOAD_PATH = "D:/Others/Programming/Project Space/branches/branches_project/src/main/resources/static/prdct_img/";
+	/*
+	 * private HttpServletRequest request = new HttpServletRequest(); private static final String UPLOAD_PATH =
+	 * request.getSession().getServletContext().getRealPath("/resources/static/prdct_img/");
+	 */
 
 	// 페이징을 적용한 공지사항 게시판 리스트
 	@Override
@@ -195,11 +199,35 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.magazineCommentRemove(comment_id);
 	}
 
+	// 매거진 삭제
+	@Override
+	public int magazineRemove(int board_id) {
+		log.info("magazineRemove: " + board_id);
+		return boardMapper.magazineRemove(board_id);
+	}
+
+	// 매거진 이미지 삭제
+	@Override
+	public int magazineImageRemove(MultipartFile file) throws IOException {
+		String deleteName = file.getOriginalFilename();
+		log.info("image_name: ", deleteName);
+
+		// 삭제할 File 객체를 생성(껍데기 파일)
+		// 삭제할 폴더 이름, 삭제할 파일 이름
+		File deleteFile = new File(UPLOAD_PATH, deleteName);
+
+		// 해당 파일이 존재하면 삭제
+		if (deleteFile.exists() == true) {
+			deleteFile.delete();
+		}
+
+		return boardMapper.magazineImageRemove(deleteName);
+	}
+
 	// 매거진 수정
 	@Override
 	public void setMagazineModify(BoardVO boardVO) {
 		log.info("setMagazineModify");
 		boardMapper.setMagazineModify(boardVO);
 	}
-
 }

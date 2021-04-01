@@ -82,7 +82,12 @@ public interface BoardMapper {
 	// 매거진 게시글 댓글 삭제
 	public int magazineCommentRemove(int comment_id);
 
+	// 매거진 삭제
+	public int magazineRemove(int board_id);
+
+	// 매거진 이미지 삭제
+	public int magazineImageRemove(String saveName);
+
 	// 매거진 수정
 	public void setMagazineModify(BoardVO boardVO);
-
 }

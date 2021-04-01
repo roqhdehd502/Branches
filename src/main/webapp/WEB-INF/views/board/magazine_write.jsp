@@ -29,6 +29,7 @@
 	    		event.preventDefault();
 	    		
 	    		var formData = new FormData();
+	    		var appended = false;
 	    		
 	    		// 텍스트 입력 영역
 	            var mbr_id = $("#mbr_id").val();
@@ -51,7 +52,14 @@
                 for (var i = 0; i < files.length; i++) {
 					console.log(files[i]);
 					formData.append("uploadfiles", files[i]);
-				}     
+					appended = true;
+				}
+                
+                // upload 체크(파일을 첨부 안하면 업로드를 안한다...)
+                if (!appended) { return; }
+                for (var value of formData.values()) {
+					console.log(value);
+				}
 	    		
               	// 파일 넣을때 JSON.stringify()는 적용이 안된다...
 	    		$.ajax({
@@ -219,9 +227,10 @@
 						</div>
 						<div class="col-md-10 contact-info">
 							<input type="file" id="uploadfiles" name="uploadfiles" placeholder="첨부 사진" multiple/>
+							<small class="form-text text-muted">jpg, png의 사진파일만 적용됩니다.</small>
 						</div>
 					</div>	
-					<div align="center" style="padding: 3% 0px 3% 0px;">
+					<div align="center" style="padding: 3% 3% 3% 3%;">
 						<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine'">목록보기</button>&nbsp;
 						<button type="submit" class="btn btn-primary">작성하기</button>
 					</div>	
