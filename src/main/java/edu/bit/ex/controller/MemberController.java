@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.config.auth.MemberDetails;
 import edu.bit.ex.controller.validator.MemberValidator;
-import edu.bit.ex.service.CustomerService;
 import edu.bit.ex.service.SecurityService;
 import edu.bit.ex.vo.MbrVO;
 import lombok.AllArgsConstructor;
@@ -23,11 +22,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @AllArgsConstructor
 @RestController
-@RequestMapping("/customer/*")
-public class CustomerController {
+@RequestMapping("/member/*")
+public class MemberController {
 
 	@Autowired
-	private CustomerService customerService;
+	// private CustomerService customerService;
 
 	private SecurityService securityService;
 
