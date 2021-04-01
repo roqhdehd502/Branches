@@ -3,7 +3,6 @@ package edu.bit.ex.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -97,8 +96,8 @@ public class AdminController {
 	@RequestMapping(value = "/mypage/seller/{seller_id}", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView admin_seller_detail(@PathVariable("seller_id") String m_id, ModelAndView mav) {
 		mav.setViewName("admin/admin_seller");
-		// mav.addObject("mbr", adminService.getMemberInfo(m_id));
-		// mav.addObject("adr", adminService.getSellerAddress(m_id));
+		mav.addObject("mbr", adminService.getMemberInfo(m_id));
+		mav.addObject("adr", adminService.getSellerAddress(m_id));
 		return mav;
 	}
 
@@ -135,23 +134,6 @@ public class AdminController {
 	}
 
 	// 관리자 판매자 삭제 admin
-	@DeleteMapping("/mypage/seller/{seller_id}")
-	public ResponseEntity<String> seller_delete(MbrAddressVO mavo) {
-		ResponseEntity<String> entity = null;
-		log.info("rest_delete..");
-		try {
-			adminService.deleteSeller(mavo);
-			// 삭제가 성공하면 성공 상태메시지 저장
-			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			// 댓글 삭제가 실패하면 실패 상태메시지 저장
-			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-		}
-		// 삭제 처리 HTTP 상태 메시지 리턴
-		return entity;
-
-	}
 
 	// 관리자 회원 리스트 admin
 	@RequestMapping(value = "/mypage/member", method = { RequestMethod.POST, RequestMethod.GET })
@@ -168,7 +150,7 @@ public class AdminController {
 	@RequestMapping(value = "/mypage/member/{member_id}", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView admin_member_detail(@PathVariable("member_id") String m_id, ModelAndView mav) {
 		mav.setViewName("admin/admin_member");
-		// mav.addObject("mbr", adminService.getMemberInfo(m_id));
+		mav.addObject("mbr", adminService.getMemberInfo(m_id));
 		return mav;
 	}
 
@@ -193,21 +175,13 @@ public class AdminController {
 	}
 
 	// 관리자 회원 삭제 admin
-	@DeleteMapping("/mypage/member/{member_id}")
-	public ResponseEntity<String> member_delete(MbrVO mbrvo) {
-		ResponseEntity<String> entity = null;
-		log.info("rest_delete..");
-		try {
-			// adminService.deleteMbr(mbrvo);
-			// 삭제가 성공하면 성공 상태메시지 저장
-			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			// 댓글 삭제가 실패하면 실패 상태메시지 저장
-			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-		}
-		// 삭제 처리 HTTP 상태 메시지 리턴
-		return entity;
 
+	// 관리자 회원 상세정보 admin
+	@RequestMapping(value = "/mypage/member/{member_id}/order", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView admin_member_order_list(@PathVariable("member_id") String m_id, ModelAndView mav) {
+		mav.setViewName("admin/admin_member_order_list");
+		mav.addObject("mbr", adminService.getMemberInfo(m_id));
+		return mav;
 	}
+
 }

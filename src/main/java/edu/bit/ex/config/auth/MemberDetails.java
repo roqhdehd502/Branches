@@ -99,4 +99,5 @@ public class MemberDetails implements UserDetails, OAuth2User {
 		return null;
 	}
 
+
 }

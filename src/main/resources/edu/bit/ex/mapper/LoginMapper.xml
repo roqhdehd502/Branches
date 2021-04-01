@@ -38,9 +38,9 @@
 	<insert id="addMbr">
 	<![CDATA[
 		insert into mbr 
-		(mbr_id, mbr_pw, mbr_name, authority_number, mbr_gender, mbr_birth, mbr_email, login_number, contact_number, mbr_nickname, mbr_point, jdate, grade_number) 
+		(mbr_id, mbr_pw, mbr_name, authority_number, mbr_email, login_number, mbr_nickname, mbr_point, jdate, grade_number) 
 		values
-		(#{mbr_id}, #{mbr_pw}, #{mbr_name}, #{authority_number}, #{mbr_gender}, sysdate, #{mbr_email}, #{login_number}, #{contact_number}, #{mbr_nickname}, #{mbr_point}, sysdate, #{grade_number})
+		(#{mbr_id}, #{mbr_pw}, #{mbr_name}, #{authority_number}, #{mbr_email}, #{login_number}, #{mbr_nickname}, #{mbr_point}, sysdate, #{grade_number})
 	]]>
 	</insert>
 	

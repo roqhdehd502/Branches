@@ -60,7 +60,7 @@ $(document).ready(function(){
 		    success: function (result) {       
 				if(result == "SUCCESS"){
 					//list로 
-					$(location).attr('href', '${pageContext.request.contextPath}/rest_ksp/admin/mypage/seller/${mbr.mbr_id}')				      	       
+					$(location).attr('href', '${pageContext.request.contextPath}/admin/mypage/seller/${mbr.mbr_id}')				      	       
 				}					        
 		    },
 		    error: function (e) {
@@ -87,7 +87,7 @@ $(document).ready(function(){
 					console.log(result);
 					if(result=="SUCCESS"){
 						if(result == "SUCCESS"){     
-                  					$(location).attr('href', '${pageContext.request.contextPath}/rest_ksp/admin/mypage/seller')                            
+                  					$(location).attr('href', '${pageContext.request.contextPath}/admin/mypage/seller')                            
                				}  
 					}
 				},
@@ -161,7 +161,7 @@ $(document).ready(function(){
 					<h3 >
 					<strong>판매자 등록 정보</strong>
 					</h3><hr>
-					<form action="${pageContext.request.contextPath}/rest_ksp/admin/mypage/seller/${mbr.mbr_id}" method="post" id="updateForm">
+					<form action="${pageContext.request.contextPath}/admin/mypage/seller/${mbr.mbr_id}" method="post" id="updateForm">
 						<input type="hidden" id="mbr_id" value="${mbr.mbr_id}">
 						<fieldset>
 							<div class="form-group row">
@@ -169,7 +169,6 @@ $(document).ready(function(){
 								<div class="col-sm-8">
 									<input type="text" class="form-control" value="${mbr.mbr_name}" id="mbr_name">
 								</div>
-								
 									<button id="delete" type="button" class="btn btn-danger" style="float: right;">탈퇴</button>
 							</div>
 							<div class="form-group row">
@@ -206,7 +205,7 @@ $(document).ready(function(){
 							
 								<div style="text-align: center;">
 									<input type="submit" class="btn btn-primary" value="저장" />
-									<input type="button" class="btn btn-primary" style="float: right; margin-left: 20px;" onclick="location.href='${pageContext.request.contextPath}/rest_ksp/admin/mypage/seller'" value="목록">	
+									<input type="button" class="btn btn-primary" style="float: right; margin-left: 20px;" onclick="location.href='${pageContext.request.contextPath}/admin/mypage/seller'" value="목록">	
 								</div>
 								
 						</fieldset>

@@ -102,18 +102,12 @@
 						</thead>
 						<tbody>
 							<c:forEach items="${mbr}" var="mbr">
-							<tr style="text-align: center; border-bottom: 10px solid #fff;"> 
-								<td scope="col" >
-								<a href="${pageContext.request.contextPath}/rest_ksp/admin/mypage/seller/${mbr.mbr_id}">
-								${mbr.mbr_id }
-								</a></td>
-								<td scope="col" >
-								<a href="${pageContext.request.contextPath}/rest_ksp/admin/mypage/seller/${mbr.mbr_id}">
-								${mbr.mbr_name }
-								</a></td>
+							<tr onClick="location.href='${pageContext.request.contextPath}/admin/mypage/seller/${mbr.mbr_id}'" style="cursor: pointer; text-align: center; border-bottom: 10px solid #fff;"> 
+								<td scope="col" >${mbr.mbr_id }</td>
+								<td scope="col" >${mbr.mbr_name }</td>
 								<td scope="col">${mbr.contact_number }</td>
 								<td scope="col">${mbr.jdate }</td>
-								<td scope="col"><button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/rest_ksp/admin/mypage/seller/${mbr.mbr_id}/prdct'">조회</button></td>
+								<td scope="col" onclick="event.cancelBubble=true"><button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/admin/mypage/seller/${mbr.mbr_id}/prdct'">조회</button></td>
 							</tr>
 							</c:forEach>
 						</tbody>
