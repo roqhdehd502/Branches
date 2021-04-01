@@ -2,6 +2,7 @@ package edu.bit.ex.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctVO;
 
@@ -16,5 +17,11 @@ public interface CustomerMapper {
 
 	// member info update
 	public void memberInfoUpdate(MbrVO mbrvo); // admin customer
+
+	// 리뷰 등록 페이지
+	public MbrVO getCustomerInfo(String mbr_id);
+
+	// 리뷰 등록 작성
+	public void rivewWrite(BoardVO boardVO);
 
 }

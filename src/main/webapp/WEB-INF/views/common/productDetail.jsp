@@ -364,7 +364,7 @@ img {
 					</div>
 
 					<!--  상품 정보와 옵션 선택 -->
-					<form action="${pageContext.request.contextPath}/common/product/${productDetail.prdct_id}" method="post">
+					<form action="${pageContext.request.contextPath}/prdct/${productDetail.prdct_id}" method="post">
 					<div class="row">
 						<div class="contrainer single-service bordered " style="height: 600px; width: 500px;">
 							<div class="inner">

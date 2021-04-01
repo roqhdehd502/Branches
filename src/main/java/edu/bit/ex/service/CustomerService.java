@@ -1,5 +1,6 @@
 package edu.bit.ex.service;
 
+import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctVO;
 
@@ -13,5 +14,11 @@ public interface CustomerService {
 
 	// member info update
 	public void memberInfoUpdate(MbrVO mbrvo);
+
+	// 리뷰 등록 페이지
+	public MbrVO getCustomerInfo(String mbr_id);
+
+	// 리뷰 등록 작성
+	public void setReviewWrite(BoardVO boardVO);
 
 }

@@ -100,7 +100,7 @@
 								<div class="col-md-2 single-team">
 									<div class="inner">
 										<div class="team-img">
-											<img src="/ksp/th-ex.jpg">
+											<img src="C:/tetleaf/Branches/src/main/resources/static/hs/">
 										</div>
 										<a href="/seller/mypage/prdct/${prdct.prdct_id }">
 										<div class="team-content"> <!-- 누르면 상세페이지 이동 -->
