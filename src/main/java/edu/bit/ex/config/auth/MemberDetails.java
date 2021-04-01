@@ -8,8 +8,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import edu.bit.ex.vo.MbrVO;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
+@Data
 @Slf4j
 public class MemberDetails implements UserDetails {
 

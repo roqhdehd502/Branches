@@ -3,6 +3,7 @@ package edu.bit.ex.service;
 import org.springframework.stereotype.Service;
 
 import edu.bit.ex.mapper.CustomerMapper;
+import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctVO;
 import lombok.AllArgsConstructor;
@@ -34,6 +35,20 @@ public class CustomerServiceImpl implements CustomerService {
 		// TODO Auto-generated method stub
 		log.info("memberInfoUpdate()......");
 		customerMapper.memberInfoUpdate(mbrvo);
+	}
+
+	// 리뷰 등록 페이지
+	@Override
+	public MbrVO getCustomerInfo(String mbr_id) {
+		log.info("getCustomerInfo()......");
+		return customerMapper.getCustomerInfo(mbr_id);
+	}
+
+	// 리뷰 등록 작성
+	@Override
+	public void setReviewWrite(BoardVO boardVO) {
+		customerMapper.rivewWrite(boardVO);
+
 	}
 
 }
