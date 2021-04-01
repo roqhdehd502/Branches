@@ -5,16 +5,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import edu.bit.ex.config.auth.MemberDetails;
 import edu.bit.ex.controller.validator.MemberValidator;
+import edu.bit.ex.service.MemberService;
 import edu.bit.ex.service.SecurityService;
+import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +36,8 @@ public class MemberController {
 
 	private MemberValidator memberValidator;
 
+	private MemberService memberService;
+
 	@GetMapping("/member")
 	public ModelAndView signUpForm(ModelAndView mv) {
 		mv.setViewName("login/login");
@@ -44,7 +50,7 @@ public class MemberController {
 	@GetMapping("/prdct/{prdct_id}/qna/write")
 	public ModelAndView productQnARegister(ModelAndView mav) throws Exception {
 		log.info("productQnARegister..");
-		mav.setViewName("customer/productQnARegister");
+		mav.setViewName("member/productQnARegister");
 		// mav.addObject("ProductQnARegister", (customerService.getProductQnARegister(p_id)));
 		return mav;
 	}
@@ -53,12 +59,12 @@ public class MemberController {
 	@GetMapping("/mypage")
 	public ModelAndView mypage(ModelAndView mav, MbrVO mbrVO) throws Exception {
 		log.info("mypage.......");
-		mav.setViewName("customer/mypage");
+		mav.setViewName("member/mypage");
 		// mav.addObject("member", hsService.getMember());
 		return mav;
 	}
 
-	// 찜하기 목록 페이지 customer
+	// 찜하기 목록 페이지
 	@GetMapping("/mypage/like")
 	public ModelAndView likeProduct(ModelAndView mav) throws Exception {
 		log.debug("like");
@@ -67,21 +73,50 @@ public class MemberController {
 		return mav;
 	}
 
-	// 최근본상품 customer
+	// 최근본상품
 	@GetMapping("/mypage/recently")
 	public ModelAndView recentlyProduct(ModelAndView mav) throws Exception {
 		log.debug("recently");
 		log.info("recently..");
-		mav.setViewName("customer/recentlyProduct");
+		mav.setViewName("member/recentlyProduct");
 		return mav;
 	}
 
-	// 상품 리뷰 등록 customer
+	// 상품 리뷰 등록
 	@GetMapping("/mypage/review/write")
-	public ModelAndView reviewRegister(ModelAndView mav) throws Exception {
+	public ModelAndView reviewRegister(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav) throws Exception {
 		log.debug("reviewRegister");
 		log.info("reviewRegister..");
-		mav.setViewName("customer/reviewRegister");
+
+		mav.setViewName("member/reviewRegister");
+
+		// 리뷰 등록페이지 회원id정보
+		mav.addObject("customerInfo", securityService.getMbr(memberDetails.getUserID()));
+
+		return mav;
+	}
+
+	// 상품 리뷰 작성
+	@PostMapping("/mypage/review/writing")
+	public RedirectView reviewWriting(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, BoardVO boardVO) throws Exception {
+		log.debug("reviewRegister");
+		log.info("reviewRegister..");
+
+		// 리뷰 등록
+		memberService.setReviewWrite(boardVO);
+
+		return new RedirectView("/member/mypage/review/list");
+	}
+
+	// 상품 리뷰 리스트
+	@GetMapping("/mypage/review/list")
+	public ModelAndView reviewList(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav) throws Exception {
+		log.debug("reviewList");
+		log.info("reviewList..");
+
+		mav.setViewName("member/member_myreview_list");
+		mav.addObject("mem", securityService.getMbr(memberDetails.getUserID()));
+
 		return mav;
 	}
 
@@ -90,7 +125,7 @@ public class MemberController {
 	public ModelAndView myOrderList(ModelAndView mav) throws Exception {
 		log.debug("myOrderList");
 		log.info("myOrderList");
-		mav.setViewName("customer/myOrderList");
+		mav.setViewName("member/myOrderList");
 		return mav;
 	}
 	// 회원 브랜드 조회페이지...(custom)

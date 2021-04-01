@@ -173,8 +173,8 @@
 		</header>
 		
 		<!-- 리뷰 등록 페이지 -->
-		<form action="${pageContext.request.contextPath}/customer/mypage/review/list" method="post">
-			<input type="hidden" value="${customerInfo.mbr_id}" /> <!-- 데이터끌고와서 처리 --> 
+		<form action="${pageContext.request.contextPath}/member/mypage/review/writing" method="post">
+			<input type="hidden" value="${customerInfo.mbr_id}" name="mbr_id"/> <!-- 데이터끌고와서 처리 --> 
 			<input type="hidden" value="${customerInfo.grade_number}" /> <br /> <br />
 			<fieldset>
 				<legend style="text-align: center;">리뷰 등록</legend>
@@ -184,7 +184,8 @@
 				<div class="form-group row">
 					<label for="prdName" class="col-sm-2 col-form-label">상품</label>
 					<div class="col-sm-10">
-						<p id="prdct_id" class="font-weight-bold">PRDCT22</p>
+						<p id="prdct_id" class="font-weight-bold" >PRDCT22</p>
+						<input type="hidden" name="prdct_id" value="PRDCT22"/> 
 					</div>
 				</div>
 
