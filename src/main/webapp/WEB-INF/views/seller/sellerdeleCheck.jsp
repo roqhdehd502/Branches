@@ -66,6 +66,10 @@
 			<div class="row">
 				<div class="col-md-2 contact-info" align="center">
 					<div class="single-info" style="margin-bottom: 40px">
+	                    <h3>마이페이지</h3><hr>
+	                    <h5><a href="/seller/mypage">홈 바로가기</a></h5>
+	                </div>
+					<div class="single-info" style="margin-bottom: 40px">
 	                     <h3>주문 관리</h3><hr>
 	                    <h5><a href="/seller/mypage/order">주문확인</a></h5>
 	                    <h5><a href="/seller/mypage/release">발송확인</a></h5>

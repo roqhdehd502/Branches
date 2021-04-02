@@ -113,6 +113,10 @@
 			<div class="row">
 				<div class="col-md-2 contact-info" align="center">
 					<div class="single-info" style="margin-bottom: 40px">
+	                    <h3>마이페이지</h3><hr>
+	                    <h5><a href="/seller/mypage">홈 바로가기</a></h5>
+	                </div>
+					<div class="single-info" style="margin-bottom: 40px">
 	                    <h3>주문 관리</h3><hr>
 	                    <h5><a href="/seller/mypage/order">주문확인</a></h5>
 	                    <h5><a href="/seller/mypage/release">발송확인</a></h5>
@@ -151,17 +155,18 @@
 							</tr>
 						</thead>
 						<tbody >
-							<c:forEach items="${order}" var="order" begin="0" end="2" varStatus="status">
+							<c:forEach items="${ord}" var="ord" begin="0" end="2" varStatus="status">
 								<tr style="text-align: center;">
 									<td>
-										<h6>${prdct[status.index].prdct_name }</h6>
-										<h6>${order.order_size }</h6>
-										<h6>${order.order_color }</h6>
-										<h6>${order.prdct_price }</h6>
+										<h6>${prd[status.index].prdct_name} </h6>
+										<h6>${prd[status.index].prdct_id} </h6>
+										<h6>${ord.order_size} </h6>
+										<h6>${ord.order_color} </h6>
+										<h6>${ord.order_amount} </h6>
 									</td>
-									<td><h6 style="position: relative; top: 34px;">${prdOrder[status.index].order_date }</h6></td>
-									<td><h6 style="position: relative; top: 34px;">${order.order_number }</h6></td>
-									<td><h6 style="position: relative; top: 34px; text-align: center;">${order.prdct_price }₩</h6></td>
+									<td><h6 style="position: relative; top: 34px;">${prdor[status.index].order_date} </h6></td>
+									<td><h6 style="position: relative; top: 34px;">${ord.order_number}</h6></td>
+									<td><h6 style="position: relative; top: 34px; text-align: center;">${ord.prdct_price}₩</h6></td>
 									<td><h6 style="position: relative; top: 34px; margin-left: 14px;">결제요청</h6></td>
 								</tr>
 							</c:forEach>

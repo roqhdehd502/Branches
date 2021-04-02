@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.vo.BoardVO;
+import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.MbrAddressVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.OrderDetailVO;
@@ -32,7 +34,9 @@ public interface SellerService {
 
 	public void sellerInfoUpdate(MbrAddressVO mavo);
 
-	public void prdctUpdate(PrdctVO pvo);
+	public void prdctUpdate(PrdctRegisterImageVO prvo);
+
+	public void prdctDetailUpdate(PrdctRegisterImageVO prvo);
 
 	public MbrVO getSellerInfo(String mbr_id);
 
@@ -48,6 +52,12 @@ public interface SellerService {
 
 	public ShippingVO getAddress(String getMbr_id);
 
-	public List<BoardVO> getBoardId(int board_id);
+	public List<BoardPrdctImageVO> getFileName(int getBoard_id);
+
+	public List<CategoryVO> getCategory();
+
+	public BoardVO getContent(int board_id);
+
+	public void prdctContentUpdate(PrdctRegisterImageVO prvo);
 
 }
