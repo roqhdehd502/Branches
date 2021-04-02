@@ -6,7 +6,7 @@
 <mapper namespace="edu.bit.ex.mapper.SellerMapper">
 	
 	<!-- 상품 내용 불러오기 -> 내용이 뒤죽박죽 불러와짐...쿼리 잘못짠건가ㅠㅠ -->
-	<select id="getContent" resultType="edu.bit.ex.vo.BoardVO" >
+	<select id="getContent" resultType="edu.bit.ex.joinvo.BoardPrdctImageVO" >
 		<![CDATA[			
 			select board_content from board where board_id = #{board_id}
 		]]>

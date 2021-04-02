@@ -56,7 +56,7 @@ public interface SellerService {
 
 	public List<CategoryVO> getCategory();
 
-	public BoardVO getContent(int board_id);
+	public BoardPrdctImageVO getContent(int getBoard_id);
 
 	public void prdctContentUpdate(PrdctRegisterImageVO prvo);
 
