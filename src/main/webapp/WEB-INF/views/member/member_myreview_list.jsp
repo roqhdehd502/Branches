@@ -241,7 +241,7 @@
 							<c:forEach items="${reviewMyList}" var="list">
 								<td>${list.orderDetailVO.prdct_id}/${list.orderDetailVO.order_color}/${list.orderDetailVO.order_size}</td>
 								<td>${list.order_date}</td>
-								<%-- <td>${list.board_content}</td> --%>
+								<td>${list.boardVO.board_content}</td>
 							</c:forEach>
 							</tr>
 						
