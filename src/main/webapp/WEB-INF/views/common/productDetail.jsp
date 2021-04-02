@@ -368,7 +368,7 @@ img {
 					<div class="row">
 						<div class="contrainer single-service bordered " style="height: 600px; width: 500px;">
 							<div class="inner">
-								<h4>${productDetail.mbr_id}</h4>
+								<p>${productDetail.prdct_id}</p>
 								<h4>${productDetail.prdct_name}</h4>
 								<h4>${productDetail.prdct_price}원</h4>
 								<hr>

@@ -173,7 +173,7 @@
 		</header>
 		
 		<!-- 리뷰 등록 페이지 -->
-		<form action="${pageContext.request.contextPath}/customer/mypage/review/list" method="post">
+		<form action="${pageContext.request.contextPath}/customer/mypage/review/writing" method="post">
 			<input type="hidden" value="${customerInfo.mbr_id}" /> <!-- 데이터끌고와서 처리 --> 
 			<input type="hidden" value="${customerInfo.grade_number}" /> <br /> <br />
 			<fieldset>

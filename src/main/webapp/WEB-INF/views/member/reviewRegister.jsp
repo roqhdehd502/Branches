@@ -173,9 +173,8 @@
 		</header>
 		
 		<!-- 리뷰 등록 페이지 -->
-		<form action="${pageContext.request.contextPath}/customer/mypage/review/list" method="post">
-			<input type="hidden" value="${customerInfo.mbr_id}" /> <!-- 데이터끌고와서 처리 --> 
-			<input type="hidden" value="${customerInfo.grade_number}" /> <br /> <br />
+		<form action="${pageContext.request.contextPath}/member/mypage/review/writing" method="post">
+			<input type="hidden" value="${customerInfo.mbr_id}" id="mbr_id" name="mbr_id"/> <!-- 데이터끌고와서 처리 -->  <br /> <br />
 			<fieldset>
 				<legend style="text-align: center;">리뷰 등록</legend>
 				<br />
@@ -184,7 +183,8 @@
 				<div class="form-group row">
 					<label for="prdName" class="col-sm-2 col-form-label">상품</label>
 					<div class="col-sm-10">
-						<p id="prdct_id" class="font-weight-bold">PRDCT22</p>
+						<p id="prdct_id" class="font-weight-bold" >p1</p>
+						<input type="hidden" name="prdct_id" value="p1"/> 
 					</div>
 				</div>
 
@@ -213,7 +213,7 @@
 				<div class="form-group row">
 					<label for="orderEmail" class="col-sm-2 col-form-label">내용</label>
 					<div class="col-sm-10">
-						<textarea name="board_content" class="form-control" style="" value="" maxlength="300" onkeyup="return textarea_maxlength(this)" placeholder="최대 300자까지 입력 가능합니다."></textarea>
+						<textarea id="board_content" name="board_content" class="form-control" style="" value="" maxlength="300" onkeyup="return textarea_maxlength(this)" placeholder="최대 300자까지 입력 가능합니다."></textarea>
 					</div>
 				</div>
 

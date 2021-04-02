@@ -23,4 +23,6 @@ public class PrdctOrderVO { // 상품주문
 	private int order_price; // 상품주문가격
 	private Date order_date; // 상품주문일자
 	private String mbr_id; // 회원id fk
+
+	private OrderDetailVO orderDetailVO;
 }

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -233,11 +234,19 @@
 								<th scope="col">후기</th>
 							</tr>
 						</thead>
+						
 						<tbody>
+						
 							<tr>
-								<c:forEach items="${mem} var="mem"></c:forEach>
+							<c:forEach items="${reviewMyList}" var="list">
+								<td>${list.orderDetailVO.prdct_id}/${list.orderDetailVO.order_color}/${list.orderDetailVO.order_size}</td>
+								<td>${list.order_date}</td>
+								<%-- <td>${list.board_content}</td> --%>
+							</c:forEach>
 							</tr>
+						
 						</tbody>
+						
 					</table>
 					
 					<hr>
