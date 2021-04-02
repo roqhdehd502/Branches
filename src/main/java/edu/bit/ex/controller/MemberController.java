@@ -82,7 +82,7 @@ public class MemberController {
 		return mav;
 	}
 
-	// 상품 리뷰 등록
+	// 상품 리뷰 등록 페이지
 	@GetMapping("/mypage/review/write")
 	public ModelAndView reviewRegister(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav) throws Exception {
 		log.debug("reviewRegister");
@@ -108,15 +108,15 @@ public class MemberController {
 		return new RedirectView("/member/mypage/review/list");
 	}
 
-	// 상품 리뷰 리스트
+	// 상품 리뷰 마이페이지 리스트
 	@GetMapping("/mypage/review/list")
 	public ModelAndView reviewList(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav) throws Exception {
 		log.debug("reviewList");
 		log.info("reviewList..");
-
+		String member_id = memberDetails.getUserID();
 		mav.setViewName("member/member_myreview_list");
-		mav.addObject("mem", securityService.getMbr(memberDetails.getUserID()));
-
+		mav.addObject("mem", securityService.getMbr(member_id));
+		mav.addObject("reviewMyList", memberService.getReviewMyList(member_id));
 		return mav;
 	}
 

@@ -29,8 +29,39 @@
 	<insert id="rivewWrite" parameterType="map">
 	<![CDATA[
 		insert into board (board_id, board_content, mbr_id, board_type_number, prdct_id, order_number , board_starrate)
-			values (board_seq.nextval, #{board_content}, #{mbr_id}, 3, #{prdct_id}, 48, #{board_starrate})
+			values (board_seq.nextval, #{board_content}, #{mbr_id}, 3, #{prdct_id}, 66, #{board_starrate})
 	]]>
 	</insert>
+	
+	<!-- 리뷰 마이페이지 리스트 -->
+	<resultMap type="edu.bit.ex.vo.PrdctOrderVO" id="order">
+		<result property="order_number" column="order_number" />
+		<result property="order_price" column="order_price" />
+		<result property="order_date" column="order_date" />
+		<result property="mbr_id" column="mbr_id" />
+		<collection property="orderDetailVO" resultMap="orderDt"></collection>
+	</resultMap>
+
+	<resultMap id="orderDt" type="edu.bit.ex.vo.OrderDetailVO">
+		<result property="order_number" column="order_number" />
+		<result property="prdct_id" column="prdct_id" />
+		<result property="order_color" column="order_color" />
+		<result property="order_size" column="order_size" />
+		<result property="order_amount" column="order_amount" />
+		<result property="prdct_price" column="prdct_price" />
+	</resultMap>
+	
+	<select id="reviewMyList" resultMap="order">
+		<![CDATA[
+			SELECT * from prdct_order, order_detail 
+			where prdct_order.mbr_id=#{member_id} and prdct_order.order_number = order_detail.order_number  
+		]]>
+	</select>
+	
+	<select id="reviewContent" resultType="edu.bit.ex.vo.BoardVO">
+		<![CDATA[
+			select * from board, prdct_order where prdct_order.mbr_id = board.mbr_id and board.board_type_number = 3 and board.order_number = prdct_order.order_number 
+		]]>
+	</select>
 	
 </mapper>
