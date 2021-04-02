@@ -1,7 +1,5 @@
 package edu.bit.ex.config;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,15 +24,17 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+	@Autowired
 	private final AuthenticationSuccessHandler customSuccessHandler;
 
+	@Autowired
 	private final AuthenticationFailureHandler customFailureHandler;
 
 	@Autowired
 	private PrincipalOauth2UserService principalOauth2UserService;
 
-	@Autowired
-	private DataSource dataSource;
+	// @Autowired
+	// private MemberDetailsService memberDetailsService;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -57,22 +57,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/admin/**").hasAuthority("ADMIN") //
 				.antMatchers("/seller").hasAnyAuthority("ADMIN", "SELLER") // seller/** 경로는 권한 2(=seller) 회원만 접속 가능
 				.antMatchers("/seller/**").hasAnyAuthority("ADMIN", "SELLER") //
-				.antMatchers("/customer").hasAnyAuthority("ADMIN", "MEMBER") // customer/** 경로는 권한 3(=customer) 회원만 접속 가능
-				.antMatchers("/customer/**").hasAnyAuthority("ADMIN", "MEMBER") //
+				.antMatchers("/member").hasAnyAuthority("ADMIN", "MEMBER") // member/** 경로는 권한 3(=member) 회원만 접속 가능
+				.antMatchers("/member/**").hasAnyAuthority("ADMIN", "MEMBER") //
 				.antMatchers("/").permitAll()//
 				.antMatchers("/**").permitAll(); //
 		//
 		http.formLogin() //
 				.loginPage("/login").permitAll() //
-				.usernameParameter("mbr_id") // 로그인시 파라미터로 "id", "password"를 받습니다
-				.passwordParameter("mbr_pw") // 로그인시 파라미터로 "id", "password"를 받습니다
+				.usernameParameter("mbr_id") // 로그인시 username을 mbr_id로 받아옴
+				.passwordParameter("mbr_pw") // 로그인시 password를 mbr_pw 받아옴
 				// .authenticationDetailsSource(authenticationDetailsSource) // 추가 파라메터 설정작업시, 설정해주기
 				.defaultSuccessUrl("/").successHandler(customSuccessHandler) // 성공시 수행할 핸들러 로그인 전 페이지 반환
-				.failureHandler(customFailureHandler); // 실패 핸들러 jsp에 오류 메세지 반환
+				.failureHandler(customFailureHandler); // 실패 핸들러 login page에 오류 메세지 반환
 
 		http.oauth2Login().loginPage("/login") // 소셜로그인 처리
 				.userInfoEndpoint() //
-				.userService(principalOauth2UserService); // oauth2userservice 타입으로 받아오기
+				.userService(principalOauth2UserService); // oauth2userservice 타입으로 받아ㄴ오기
 
 		http.logout() //
 				.logoutUrl("/logoutsuccess") // 로그아웃 처리
@@ -80,13 +80,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.invalidateHttpSession(true); // 로그아웃 시 세션 제거
 
 		http.exceptionHandling() // 권한 없을 경우 접근거부
-				.accessDeniedPage("/denied") //
-				.and().oauth2Login().loginPage("//login") //
-				.defaultSuccessUrl("/").successHandler(customSuccessHandler).userInfoEndpoint().userService(principalOauth2UserService); // 소셜 로그인
+				.accessDeniedPage("/denied"); //
 
-		/*
-		 * http.rememberMe()// 자동로그인 .userDetailsService(memberDetailsService).tokenValiditySeconds(2592000);
-		 */
+		// http.rememberMe()// 자동로그인
+		// .userDetailsService(memberDetailsService).tokenValiditySeconds(2592000);
+
 	}
 
 	@Override // ignore except jsp
