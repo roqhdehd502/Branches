@@ -25,4 +25,5 @@ public class PrdctOrderVO { // 상품주문
 	private String mbr_id; // 회원id fk
 
 	private OrderDetailVO orderDetailVO;
+	private BoardVO boardVO;
 }
