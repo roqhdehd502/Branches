@@ -86,25 +86,13 @@ public class LoginController {
 	@GetMapping("/join")
 	public ModelAndView memberRegister(ModelAndView mav) {
 		log.info("memberRegister...");
-		mav.setViewName("join");
+		mav.setViewName("login/member_register");
 		return mav;
 	}
 
 	@PostMapping("/join")
 	public ResponseEntity<String> memberRegister(@RequestBody MbrVO mbrvo) {
 		log.info("Sign Up Member >>> " + mbrvo.getMbr_id());
-
-		mbrvo.setMbr_name("관리자");
-		mbrvo.setAuthority_number(1);
-		mbrvo.setMbr_gender("F");
-		// mbrvo.setMbr_birth("1997-02-18");
-		mbrvo.setMbr_email("pyo@pyo.com");
-		mbrvo.setLogin_number(1);
-		mbrvo.setContact_number("01011111111");
-		mbrvo.setMbr_nickname("ㄱㄹㅈ");
-		mbrvo.setMbr_point(0);
-		// mbrvo.setJdate();
-		mbrvo.setGrade_number(1);
 
 		ResponseEntity<String> entity = null;
 

@@ -42,8 +42,6 @@ public class MbrVO { // 회원
 	private Date jdate; // 회원가입일
 	private int grade_number; // 회원등급번호 fk
 
-	private AuthorityVO authorityVO;
-
-	// private List<AuthorityVO> authorityList;
+	private AuthorityVO authorityVO; // join Authority
 
 }

@@ -302,16 +302,21 @@ $(document).ready(function(){
 							<div class="form-group row">
 								<label for="staticEmail" class="col-sm-2 col-form-label">Gender</label>
 								<div class="form-check" style="padding-left: 0;">
-									<label class="form-check-label" style="margin: 16px;">남성 <span style="position: relative; top: 25px; right: 5px;"> <input
-											style="width: 14px; height: 14px;" type="radio" class="form-check-input" name="mbr_gender" id="mbr_gender" value="M"
+									<label class="form-check-label" style="margin: 16px;">남성 <span style="position: relative; top: 25px; right: 5px;"> 
+									<input style="width: 14px; height: 14px;" type="radio" class="form-check-input" name="mbr_gender" id="mbr_gender" value="M"
 											<c:if test="${mbr.mbr_gender eq 'M'}"> checked="checked" </c:if>></input></span>
-									</label> <label class="form-check-label" style="margin: 16px;">여성 <span style="position: relative; top: 25px; right: 5px;"> <input
-											style="width: 14px; height: 14px;" type="radio" class="form-check-input" name="mbr_gender" id="mbr_gender" value="F"
+									</label> 
+									<label class="form-check-label" style="margin: 16px;">여성 <span style="position: relative; top: 25px; right: 5px;"> 
+									<input style="width: 14px; height: 14px;" type="radio" class="form-check-input" name="mbr_gender" id="mbr_gender" value="F"
 											<c:if test="${mbr.mbr_gender eq 'F'}"> checked="checked" </c:if>></input></span>
 									</label>
+									<label class="form-check-label" style="margin: 16px;">논바이너리 <span style="position: relative; top: 25px; right: 5px;"> 
+									<input style="width: 14px; height: 14px;" type="radio" class="form-check-input" name="mbr_gender" id="mbr_gender" value="F"
+											<c:if test="${mbr.mbr_gender eq 'N'}"> checked="checked" </c:if>></input></span>
+									</label>
 								</div>
-								</br>
-								</br>
+								<br />
+								<br />
 							</div>
 							<div style="text-align: center;">
 								<input type="submit" class="btn btn-primary" value="저장">

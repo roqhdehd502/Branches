@@ -32,25 +32,44 @@
 			    	<div class="form-group row">
 			    		<label class="col-sm-3 col-form-label">ID</label>
 			      		<div class="col-sm-7">
-			      			<input type="text" class="form-control" placeholder="영문 + 숫자 조합 5~11자">
+			      			<input type="text" class="form-control" placeholder="영문 + 숫자 조합 5~11자" required="required">
 			      		</div>
 			      		<!-- 이부분은 추후 스크립트상에서 alert으로 알림띄울것 -->
-						<div class="col-sm-2" style="padding-left: 0px">
+						<!-- <div class="col-sm-2" style="padding-left: 0px">
 							<button type="button" class="btn btn-primary">중복체크</button>
-						</div>	
+						</div>	 -->
 			    	</div>
 			    	<div class="form-group row">
 			    		<label class="col-sm-3 col-form-label">PW</label>
 			      		<div class="col-sm-9">
-			      			<input type="password" class="form-control" placeholder="영문 + 숫자 + 특수문자 조합 8~16자">
+			      			<input type="password" class="form-control" placeholder="영문 + 숫자 + 특수문자 조합 8~16자" required="required" onchange="isSame()">
 			      		</div>	
 			    	</div>
 			    	<div class="form-group row">
 			    		<label class="col-sm-3 col-form-label">PW확인</label>
 			    		<!-- 이부분은 추후 스크립트상에서 ajax로 알림띄울것 -->
 			      		<div class="col-sm-9">
-			      			<input type="password" class="form-control" placeholder="비밀번호 확인">
-			      		</div>	
+			      			<input type="password" class="form-control" placeholder="비밀번호 확인" required="required" onchange="isSame()">
+			      		</div>
+								<script type="text/javascript">
+
+									function isSame() {
+										
+										var pw = $("mbr_pw").val();
+										var pw_c = $("pw_c").val();
+									    
+									    if(pw !="" || pw_c != "") {
+									    	if(document.getElementById('mbr_pw').value == document.getElementById('pw_c').value) {
+									    		document.getElementById('check').innerHTML='비밀번호 일치';
+									    		document.getElementById('check').style.color='blue';
+									    	} else {
+									        	document.getElementById('check').innerHTML='비밀번호 불일치';
+									        	document.getElementById('check').style.color='red';
+									        }
+									    }
+									    
+									}
+								</script>
 			    	</div>
 			    	<div class="form-group row">
 			    		<label class="col-sm-3 col-form-label">닉네임</label>
@@ -62,9 +81,10 @@
 			    		<label class="col-sm-3 col-form-label">이메일</label>
 			      		<div class="col-sm-4">
 			      			<input type="text" class="form-control" id="usr" name="username" placeholder="아이디">
-			      		</div>
-						<div class="col-sm-5">
-							<select class="form-control">
+			      		</div>@
+						<div class="col-sm-4">
+							<select class="form-control" onChange="selectEmail(this)">
+								<option value="" selected>선택</option>
 						    	<option>@naver.com</option>
 						    	<option>@gmail.com</option>
 						    	<option>@hanmail.com</option>
@@ -76,20 +96,14 @@
 			    	<div class="form-group row">
 			    		<label class="col-sm-3 col-form-label">이름</label>
 			      		<div class="col-sm-9">
-			      			<input type="text" class="form-control" placeholder="실명을 입력해주세요 (필수)">
+			      			<input type="text" class="form-control" placeholder="실명을 입력해주세요 (필수)" required="required">
 			      		</div>	
 			    	</div>
 			    	<div class="form-group row">
 			    		<label class="col-sm-3 col-form-label">연락처</label>
-			      		<div class="col-sm-3">
+			      		<div class="col-sm-9">
 			      			<input type="number" class="form-control">
-			      		</div>
-						<div class="col-sm-3">
-							<input type="number" class="form-control">
-						</div>
-						<div class="col-sm-3">
-							<input type="number" class="form-control">
-						</div>		
+			      		</div>	
 			    	</div>
 			    	<div class="form-group row">
 			    		<label class="col-sm-3 col-form-label">생년월일</label>
@@ -97,22 +111,16 @@
 			      			<input type="date" class="form-control">
 			      		</div>	
 			    	</div>
-<!-- 			    	<div class="form-group row">
-			    		<label class="col-sm-3 col-form-label">주소</label>
-			      		<div class="col-sm-9">
-			      			<input type="text" class="form-control" placeholder="주소를 입력해주세요(필수)">
-			      		</div>	
-			    	</div> -->
 			    	<div class="form-group row">
 			    		<label class="col-sm-3 col-form-label">성별</label>
 			      		<div class="col-sm-3" align="center">
-			      			<input type="radio" class="form-check-input" checked="">&nbsp;남
+			      			<input type="radio" class="form-check-input" checked="">&nbsp;M
 			      		</div>
 			      		<div class="col-sm-3" align="center">
-			      			<input type="radio" class="form-check-input">&nbsp;녀
+			      			<input type="radio" class="form-check-input">&nbsp;F
 			      		</div>	
 			      		<div class="col-sm-3" align="center">
-			      			<input type="radio" class="form-check-input">&nbsp;논바이너리
+			      			<input type="radio" class="form-check-input">&nbsp;N
 			      		</div>		
 			    	</div>
 			    	<hr>

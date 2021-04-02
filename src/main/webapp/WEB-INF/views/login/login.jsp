@@ -52,7 +52,7 @@
 			 	
 			 		<div class="form-check-inline">
 					  	<label class="form-check-label">
-					    	<input type="checkbox" class="form-check-input" value="">자동로그인
+					    	<input type="checkbox" id="remember-me" name="remember-me" class="form-check-input" value="">자동로그인
 					  	</label>
 					</div>
 					

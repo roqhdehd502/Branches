@@ -18,11 +18,12 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberDetailsService implements UserDetailsService {
 
 	@Setter(onMethod_ = @Autowired)
-	private SecurityService securityService;
+	private SecurityService securityService; // 자동 로그인할때 기존 mbr데이터 다 지우고 새로 회원가입 시켜서 해야함
+												// SecurityService로 처리하면 순환주기를 형성해서 mapper로 써야한다
 
 	@Override
 	public UserDetails loadUserByUsername(String mbr_id) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
+
 		MbrVO mbr = securityService.getMbr(mbr_id);
 		log.info(mbr_id);
 		log.info(mbr.getMbr_pw());
