@@ -23,7 +23,7 @@
 </head>
 <body>
 <div style="overflow: hidden;" class="container">
-		<header>
+	<header>
 		<div class="container" style="border-bottom: 1px solid rgba(0, 0, 0, .1);">
 			<div class="row">
 				<div class="col-6 col-sm-3 logo-column">
@@ -49,24 +49,29 @@
 			</div>
 		</div>
 	</header>
-	<div class="container">
-         <span style="margin-left: 70px;">
-         </span> <span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
-            	<h3>${mbr.mbr_name }</h3>
+		<div class="container">
+			<span style="margin-left: 70px;"> </span> <span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
+				<h3>${mbr.mbr_name }</h3>
             	<h3 style="position: relative; top: 15px;">${mbr.mbr_id }</h3>
-         </span>
-         <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="/seller/mypage/myinfo">정보수정</a></span> 
-         <span style="margin-left: 480px;" align="center">
-            <h2 style="position: relative; top: 5px;">새주문</h2>
-            <h4 style="position: relative; top: 15px;">2건</h4>
-         </span>
-      </div>
+			</span>
+			<span style="margin-left: 22px; position: relative; bottom: 10px;">
+				<a href="/seller/mypage/myinfo">정보수정</a>
+			</span>
+			<span style="margin-left: 480px;" align="center">
+				<h2 style="position: relative; top: 5px;">새주문</h2>
+				<h4 style="position: relative; top: 15px;">2건</h4>
+			</span>
+		</div>
 		
 		<hr style="margin: 15px 15px 24px 15px;">
 
 		<div class="container">
 			<div class="row">
 				<div class="col-md-2 contact-info" align="center">
+					<div class="single-info" style="margin-bottom: 40px">
+	                    <h3>마이페이지</h3><hr>
+	                    <h5><a href="/seller/mypage">홈 바로가기</a></h5>
+	                </div>
 					<div class="single-info" style="margin-bottom: 40px">
 	                    <h3>주문 관리</h3><hr>
 	                    <h5><a href="/seller/mypage/order">주문확인</a></h5>
@@ -96,14 +101,9 @@
 					<h3 >
 					<strong>상품 정보 수정</strong>
 					</h3><hr>
-					<form id="updatePrd" action="/seller/mypage/prdct/{prdct_id}" method="PUT">
+					<form id="updatePrd" action="/seller/mypage/prdct/{prdct_id}/modify" method="PUT">
 						<input type="hidden" id="prdct_id" value="${pdvo.prdct_id}">
-						<input type="hidden" id="board_id" value="${bvo.board_name}">
-						<input type="hidden" id="board_type_number" value="${bvo.board_type_number}">
-						<input type="hidden" id="board_date" value="${bvo.board_date}">
-						<input type="hidden" id="board_like" value="${bvo.board_like}">
-						<input type="hidden" id="board_hit" value="${bvo.board_hit}">
-						
+						<input type="hidden" name="board_id" value="${bvo.board_id }">						
 						<fieldset>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">상품명</label>
@@ -115,54 +115,54 @@
 								<label class="col-sm-2 col-form-label">카테고리</label>
 								<div class="col-sm-10">
 									<select class="form-control">
-										<option value="0">아우터-코트</option>
-										<option value="1">아우터-자켓</option>
-										<option value="2">아우터-점퍼/무스탕</option>
-										<option value="3">아우터-가디건</option>
-										<option value="4">아우터-패딩</option>
-										<option value="5">상의-티셔츠</option>
-										<option value="6">상의-블라우스/셔츠</option>
-										<option value="7">상의-니트/스웨터</option>
-										<option value="8">상의-후드티</option>
-										<option value="9">상의-맨투맨</option>
-										<option value="10">상의-슬리브리스</option>
-										<option value="11">하의-데님</option>
-										<option value="12">하의-코튼</option>
-										<option value="13">하의-숏</option>
-										<option value="14">하의-슬랙스</option>
-										<option value="15">하의-트레이닝/조거</option>
-										<option value="16">하의-레깅스</option>
-										<option value="17">하의-스커트</option>
-										<option value="18">드레스-미니</option>
-										<option value="19">드레스-미디</option>
-										<option value="20">드레스-맥시</option>
-										<option value="21">드레스-오버롤</option>
-										<option value="22">가방-백팩</option>
-										<option value="23">가방-메신저/크로스</option>
-										<option value="24">가방-숄더/토트</option>
-										<option value="25">가방-에코백</option>
-										<option value="26">가방-클러치</option>
-										<option value="27">신발-구두</option>
-										<option value="28">신발-부츠</option>
-										<option value="29">신발-샌들</option>
-										<option value="30">신발-슬리퍼</option>
-										<option value="31">신발-스니커즈</option>
-										<option value="32">ETC-가방</option>
-										<option value="33">ETC-모자</option>
-										<option value="34">ETC-악세서리</option>
+										<option value="0" <c:if test="${pdvo.category_number == 0 }">selected</c:if>>아우터-코트</option>
+										<option value="1" <c:if test="${pdvo.category_number == 1 }">selected</c:if>>아우터-자켓</option>
+										<option value="2" <c:if test="${pdvo.category_number == 2 }">selected</c:if>>아우터-점퍼/무스탕</option>
+										<option value="3" <c:if test="${pdvo.category_number == 3 }">selected</c:if>>아우터-가디건</option>
+										<option value="4" <c:if test="${pdvo.category_number == 4 }">selected</c:if>>아우터-패딩</option>
+										<option value="5" <c:if test="${pdvo.category_number == 5 }">selected</c:if>>상의-티셔츠</option>
+										<option value="6" <c:if test="${pdvo.category_number == 6 }">selected</c:if>>상의-블라우스/셔츠</option>
+										<option value="7" <c:if test="${pdvo.category_number == 7 }">selected</c:if>>상의-니트/스웨터</option>
+										<option value="8" <c:if test="${pdvo.category_number == 8 }">selected</c:if>>상의-후드티</option>
+										<option value="9" <c:if test="${pdvo.category_number == 9 }">selected</c:if>>상의-맨투맨</option>
+										<option value="10" <c:if test="${pdvo.category_number == 10 }">selected</c:if>>상의-슬리브리스</option>
+										<option value="11" <c:if test="${pdvo.category_number == 11 }">selected</c:if>>하의-데님</option>
+										<option value="12" <c:if test="${pdvo.category_number == 12 }">selected</c:if>>하의-코튼</option>
+										<option value="13" <c:if test="${pdvo.category_number == 13 }">selected</c:if>>하의-숏</option>
+										<option value="14" <c:if test="${pdvo.category_number == 14 }">selected</c:if>>하의-슬랙스</option>
+										<option value="15" <c:if test="${pdvo.category_number == 15 }">selected</c:if>>하의-트레이닝/조거</option>
+										<option value="16" <c:if test="${pdvo.category_number == 16 }">selected</c:if>>하의-레깅스</option>
+										<option value="17" <c:if test="${pdvo.category_number == 17 }">selected</c:if>>하의-스커트</option>
+										<option value="18" <c:if test="${pdvo.category_number == 18 }">selected</c:if>>드레스-미니</option>
+										<option value="19" <c:if test="${pdvo.category_number == 19 }">selected</c:if>>드레스-미디</option>
+										<option value="20" <c:if test="${pdvo.category_number == 20 }">selected</c:if>>드레스-맥시</option>
+										<option value="21" <c:if test="${pdvo.category_number == 21 }">selected</c:if>>드레스-오버롤</option>
+										<option value="22" <c:if test="${pdvo.category_number == 22 }">selected</c:if>>가방-백팩</option>
+										<option value="23" <c:if test="${pdvo.category_number == 23 }">selected</c:if>>가방-메신저/크로스</option>
+										<option value="24" <c:if test="${pdvo.category_number == 24 }">selected</c:if>>가방-숄더/토트</option>
+										<option value="25" <c:if test="${pdvo.category_number == 25 }">selected</c:if>>가방-에코백</option>
+										<option value="26" <c:if test="${pdvo.category_number == 26 }">selected</c:if>>가방-클러치</option>
+										<option value="27" <c:if test="${pdvo.category_number == 27 }">selected</c:if>>신발-구두</option>
+										<option value="28" <c:if test="${pdvo.category_number == 28 }">selected</c:if>>신발-부츠</option>
+										<option value="29" <c:if test="${pdvo.category_number == 29 }">selected</c:if>>신발-샌들</option>
+										<option value="30" <c:if test="${pdvo.category_number == 30 }">selected</c:if>>신발-슬리퍼</option>
+										<option value="31" <c:if test="${pdvo.category_number == 31 }">selected</c:if>>신발-스니커즈</option>
+										<option value="32" <c:if test="${pdvo.category_number == 32 }">selected</c:if>>ETC-가방</option>
+										<option value="33" <c:if test="${pdvo.category_number == 33 }">selected</c:if>>ETC-모자</option>
+										<option value="34" <c:if test="${pdvo.category_number == 34 }">selected</c:if>>ETC-악세서리</option>
 									</select>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">색상</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" placeholder="ex) BLOWN, DARK, NAVY" value="${pvo.prdct_color}">
+									<input type="text" class="form-control" placeholder="ex) BLOWN, DARK, NAVY" id="prdct_color" value="${pvo.prdct_color}">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">사이즈</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" placeholder="ex) XL (혹은) 105" value="${pvo.prdct_size}">
+									<input type="text" class="form-control" placeholder="ex) XL (혹은) 105" id="prdct_size" value="${pvo.prdct_size}">
 								</div>
 							</div>
 							<div class="form-group row">
@@ -174,7 +174,7 @@
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">내용</label>
 								<div class="col-sm-10">
-									<textarea class="form-control" rows="20" placeholder="해당 상품에 대한 설명을 입력해주세요" value="${bvo.board_content }"></textarea>
+									<textarea class="form-control" rows="20" placeholder="해당 상품에 대한 설명을 입력해주세요" id="board_content">${bvo.board_content }</textarea>
 									<input type="file" class="form-control-file">
 									<small class="form-text text-muted">jpg, png, gif의 사진파일만 적용됩니다.</small>
 								</div>
@@ -188,7 +188,7 @@
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">공급량</label>
 								<div class="col-sm-10">
-									<input type="number" class="form-control" placeholder="공급량을 입력해주세요" value="${pvo.prdct_stock}">
+									<input type="number" class="form-control" placeholder="공급량을 입력해주세요" id="prdct_stock" value="${pvo.prdct_stock}">
 								</div>
 							</div><br/><br/>
 							<div align="center">
@@ -203,67 +203,11 @@
 			</div>
 		</div>
 		<br/><br/><br/>
+		
 		<!-- footer -->
-		<footer>
-			<div class="footer-top">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>회사소개</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>제휴문의</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>채용정보</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>고객센터</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>이용약관</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>개인정보처리</h5></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="footer-bottom">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="copyright-txt">Copyright© 2021 Branches. All Rights Reserved.</div>
-						</div>
-						<div class="col-lg-6 text-right">
-							<div class="footer-nav">
-								<a href="/member/main">Home</a> <a href="#">Q&A</a> <a href="#">Notice</a> <a href="#">Magazine</a> <a href="#">Blog</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</footer>
-		<div class="container">
-			<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 | <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 | <strong>팩스 :</strong>
-				000-0000-0000 |<strong>사업자등록번호 :</strong> 000-00-000000 | <strong>통신판매업신고 :</strong> 0000-서울종로-00000 |
-			</small> <br /> <small style="color: black;"><strong>고객센터</strong> 0000-0000 | 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) | <strong>이메일</strong>
-				admin@branches.co.kr | <strong>개인정보책임자</strong> 000 | <strong>호스팅서비스</strong> (주)00000 | </small>
-		</div>
-		<br /> <br />
+		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
+</div>
+		
 		<!--Required JS files--> 
 		<script src="/assets/js/jquery-2.2.4.min.js"></script> 
 		<script src="/assets/js/vendor/popper.min.js"></script>
@@ -274,7 +218,6 @@
 		<script src="/assets/js/vendor/loopcounter.js"></script> 
 		<script src="/assets/js/vendor/slicknav.min.js"></script>
 		<script src="/assets/js/active.js"></script>
-		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script type="text/javascript">
@@ -286,6 +229,10 @@ $(document).ready(function(){
 		var prdct_id = $("#prdct_id").val();
         var prdct_name = $("#prdct_name").val();
         var prdct_price = $("#prdct_price").val();
+        var prdct_color = $("#prdct_color").val();
+        var prdct_size = $("#prdct_size").val();
+        var board_content = $("#board_content").val();
+        var prdct_stock = $("#prdct_stock").val();
         
         console.log(prdct_id);
         console.log($(this).attr("action"));
@@ -294,8 +241,12 @@ $(document).ready(function(){
         		prdct_id: prdct_id,
         		prdct_name: prdct_name,
         		prdct_price: prdct_price,
-
+        		prdct_color: prdct_color,
+        		prdct_size: prdct_size,
+        		board_content: board_content,
+        		prdct_stock: prdct_stock
         };
+        console.log(form);
 	    //dataType: 'json',
         $.ajax({
 		    type : "PUT",
@@ -305,8 +256,13 @@ $(document).ready(function(){
 			    data: JSON.stringify(form), 
 		    success: function (result) {       
 				if(result == "SUCCESS"){
-					//list로 
-					$(location).attr('href', '${pageContext.request.contextPath}/seller/mypage/prdct')				      	       
+					if (confirm("정말 수정하시겠습니까??") == true) { //확인
+						//(게시글 수정)
+						console.log("Modify!")
+						$(location).attr('href', '${pageContext.request.contextPath}/seller/mypage/prdct')
+					} else { //취소
+						return;
+					}			      	       
 				}					        
 		    },
 		    error: function (e) {
@@ -365,7 +321,5 @@ $(document).ready(function(){
 				});
 			});
 		</script>
-
-	</div>
 </body>
 </html>

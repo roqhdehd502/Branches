@@ -65,6 +65,10 @@
 			<div class="row">
 				<div class="col-md-2 contact-info" align="center">
 					<div class="single-info" style="margin-bottom: 40px">
+	                    <h3>마이페이지</h3><hr>
+	                    <h5><a href="/seller/mypage">홈 바로가기</a></h5>
+	                </div>
+					<div class="single-info" style="margin-bottom: 40px">
 	                    <h3>주문 관리</h3><hr>
 	                   <h5><a href="/seller/mypage/order">주문확인</a></h5>
 	                    <h5><a href="/seller/mypage/release">발송확인</a></h5>
@@ -89,96 +93,61 @@
 				</div>
 					
 				<!-- 등록한 상품 리스트	 -->
-				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">
+				<div class="col-md-10 contact-info" style="border-left: 1px solid rgba(0,0,0,.1) ;">
 					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, .1);">
 						<strong style="margin: 10px;">등록한 상품 리스트</strong>
 					</h3>
 					<div class="team-area sp">
 						<div class="container">
-							<div class="row">
-							<c:forEach items="${prdct }" var="prdct">
-								<div class="col-md-2 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="C:/tetleaf/Branches/src/main/resources/static/hs/">
-										</div>
-										<a href="/seller/mypage/prdct/${prdct.prdct_id }">
-										<div class="team-content"> <!-- 누르면 상세페이지 이동 -->
-											<h4>${prdct.prdct_name }</h4>
-											<h5>${prdct.prdct_id }</h5>
-											<h5>${prdct.prdct_price }</h5>
-										</div>
-										</a>	
-									</div>
-								</div>
-							</c:forEach>	
+							<div class="row">							
+								<table class="table">
+									<thead>
+										<tr>
+											<td><h5>번호</h5></td>
+											<td><h5>상품사진</h5></td>
+											<td><h5>상품ID</h5></td>
+											<td><h5>상품이름</h5></td>
+											<td><h5>상품가격</h5></td>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${prdct}" var="prdct" varStatus="status">
+										<tr>
+											<td>${filename[status.index].board_id }</td>
+											<td>
+												<img src="/hs/${filename[status.index].image_name }" style="width:100px; height: 100px;">
+											</td>
+											<td>${prdct.prdct_id }</td>
+											<td>
+												<a href="/seller/mypage/prdct/${prdct.prdct_id}/${filename[status.index].board_id }">
+													${prdct.prdct_name }
+												</a>
+											</td>
+											<td>${prdct.prdct_price }</td>
+										</tr>
+										</c:forEach>
+									</tbody>
+								</table>
 							</div>
 						</div>
 					</div>
-
-
-					<hr> <!-- footer --> <footer>
-						<div class="footer-top">
-							<div class="container">
-								<div class="row">
-									<div class="col-md-2 footer_widget">
-										<div class="inner">
-											<a href="#"><h5>회사소개</h5></a>
-										</div>
-									</div>
-									<div class="col-md-2 footer_widget">
-										<div class="inner">
-											<a href="#"><h5>제휴문의</h5></a>
-										</div>
-									</div>
-									<div class="col-md-2 footer_widget">
-										<div class="inner">
-											<a href="#"><h5>채용정보</h5></a>
-										</div>
-									</div>
-									<div class="col-md-2 footer_widget">
-										<div class="inner">
-											<a href="#"><h5>고객센터</h5></a>
-										</div>
-									</div>
-									<div class="col-md-2 footer_widget">
-										<div class="inner">
-											<a href="#"><h5>이용약관</h5></a>
-										</div>
-									</div>
-									<div class="col-md-2 footer_widget">
-										<div class="inner">
-											<a href="#"><h5>개인정보처리</h5></a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="footer-bottom">
-							<div class="container">
-								<div class="row">
-									<div class="col-lg-6">
-										<div class="copyright-txt">Copyright© 2021 Branches. All Rights Reserved.</div>
-									</div>
-									<div class="col-lg-6 text-right">
-										<div class="footer-nav">
-											<a href="/member/main">Home</a> <a href="#">Q&A</a> <a href="#">Brand</a> <a href="#">Magazine</a> <a href="#">Blog</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-					</footer>
-					<div class="container">
-						<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 | <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 | <strong>팩스
-								:</strong> 000-0000-0000 |<strong>사업자등록번호 :</strong> 000-00-000000 | <strong>통신판매업신고 :</strong> 0000-서울종로-00000 |
-						</small> <br /> <small style="color: black;"><strong>고객센터</strong> 0000-0000 | 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) | <strong>이메일</strong>
-							admin@branches.co.kr | <strong>개인정보책임자</strong> 000 | <strong>호스팅서비스</strong> (주)00000 | </small>
-					</div> <br /> <br /> <!--Required JS files--> <script src="/assets/js/jquery-2.2.4.min.js"></script> <script src="/assets/js/vendor/popper.min.js"></script>
-					<script src="/assets/js/vendor/bootstrap.min.js"></script> <script src="/assets/js/vendor/owl.carousel.min.js"></script> <script
-						src="/assets/js/vendor/isotope.pkgd.min.js"></script> <script src="/assets/js/vendor/jquery.barfiller.js"></script> <script
-						src="/assets/js/vendor/loopcounter.js"></script> <script src="/assets/js/vendor/slicknav.min.js"></script> <script src="/assets/js/active.js"></script>
+				</div>
 			</div>
+		</div>		
+	<hr> 
+		<!-- footer -->
+		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
+</div>					
+<!--Required JS files--> 
+<script src="/assets/js/jquery-2.2.4.min.js"></script> 
+<script src="/assets/js/vendor/popper.min.js"></script>
+<script src="/assets/js/vendor/bootstrap.min.js"></script>
+<script src="/assets/js/vendor/owl.carousel.min.js"></script>
+<script src="/assets/js/vendor/isotope.pkgd.min.js"></script>
+<script src="/assets/js/vendor/jquery.barfiller.js"></script>
+<script src="/assets/js/vendor/loopcounter.js"></script>
+<script src="/assets/js/vendor/slicknav.min.js"></script>
+<script src="/assets/js/active.js"></script>
+
 </body>
 </html>

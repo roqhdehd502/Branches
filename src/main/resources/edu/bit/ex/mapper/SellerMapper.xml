@@ -4,29 +4,53 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="edu.bit.ex.mapper.SellerMapper">
+	
+	<!-- 상품 내용 불러오기 -> 내용이 뒤죽박죽 불러와짐...쿼리 잘못짠건가ㅠㅠ -->
+	<select id="getContent" resultType="edu.bit.ex.vo.BoardVO" >
+		<![CDATA[			
+			select board_content from board where board_id = #{board_id}
+		]]>
+	</select>
+	
+	<!-- 상품 카테고리 불러오기 -->
+	<select id="getCategory" resultType="edu.bit.ex.vo.CategoryVO">
+			<![CDATA[
+				select * from category
+			]]>
+	</select>
 
+	<!-- 판매자 주소 불러오기 -->
 	<select id="getAddress" resultType="edu.bit.ex.vo.ShippingVO">
 			<![CDATA[
 				select shipping_address from shipping where mbr_id = 'prism'
 			]]>
 	</select>
 
+	<!-- 상품정보 불러오기1 -->
 	<select id="getOption" resultType="edu.bit.ex.vo.PrdctVO">
 		<![CDATA[
 			select * from prdct where prdct_id = #{prdct_id}
 		]]>
 	</select>
 	
+	<!-- 상품정보 불러오기2 -->	
 	<select id="getPrd" resultType="edu.bit.ex.vo.PrdctDetailVO">
 		<![CDATA[
 			select * from prdct_detail where prdct_id = #{prdct_id}
 		]]>
 	</select>
 
-	<!-- 상품 정보 불러오기 - 상품명,일자? -->
+	<!-- 메인페이지 주문정보 불러오기 -->
 	<select id="getProduct" resultType="edu.bit.ex.vo.PrdctVO">
 		<![CDATA[
 			select * from prdct
+		]]>
+	</select>
+	
+		<!-- 메인페이지 주문정보 불러오기2-->
+	<select id="getOrderDetail" resultType="edu.bit.ex.vo.OrderDetailVO">
+		<![CDATA[
+			select * from order_detail
 		]]>
 	</select>
 	
@@ -37,10 +61,10 @@
 		]]>
 	</select>
 	
-	<!-- 상품 상세정보 불러오기 2 - 가격,옵션 -->
-	<select id="getOrderDetail" resultType="edu.bit.ex.vo.OrderDetailVO">
+	<!-- 주문상품 정보 불러오기 - 상품번호, 상품명 등...?  -->
+	<select id="getPrdctDetail" resultType="edu.bit.ex.vo.PrdctDetailVO">
 		<![CDATA[
-			select * from order_detail
+			select * from prdct_detail
 		]]>
 	</select>
 	
@@ -86,7 +110,22 @@
 	]]>
 	</update>
 	
-	<!-- 판매자 상품정보 삭제...#{prdct_id}로 정보를 못불러온다;; 각 prdctID를 지정해야 삭제가능,,,왜이럴까.. -->
+	<!-- 판매자 상품옵션 수정 -->
+	<update id="prdctDetailUpdate">
+	<![CDATA[
+		update prdct_detail set prdct_color=#{prdct_color}, prdct_size=#{prdct_size}, prdct_stock=#{prdct_stock} where prdct_id=#{prdct_id}
+	]]>
+	</update>
+	
+	<!-- 판매자 상품내용 수정 -->
+	<update id="prdctContentUpdate">
+	<![CDATA[
+		update board set board_content=#{prdct_name} where board_id=#{board_id}
+	]]>
+	</update>
+	
+	
+	<!-- 판매자 상품정보 삭제... -->
 	<delete id="prdctDelete">
 	<![CDATA[
 		delete from prdct where prdct_id = #{prdct_id}
@@ -96,12 +135,13 @@
 	<!-- 상품등록하기 -->
 	<insert id="prdInsert">
 		<![CDATA[
-			insert all into prdct (prdct_id, prdct_name, prdct_price, category_number, mbr_id) values
-				('prism13',#{prdct_name}, #{prdct_price}, 2, 'prism' ) into prdct_detail (prdct_id, prdct_color, prdct_size, prdct_stock) values
-					('prism13',#{prdct_color}, #{prdct_size} , #{prdct_stock}) 
-						into board (board_id, board_name, board_content, board_type_number, board_date, board_like, board_hit) 
-							values(board_seq.nextval, 'TEST', #{board_content}, 0, sysdate, 0, 0)
-								select * from dual
+			insert all into prdct (prdct_id, prdct_name, prdct_price, category_number , mbr_id) values
+				('p6',#{prdct_name}, #{prdct_price}, 9 ,'prism' ) 
+					into prdct_detail (prdct_id, prdct_color, prdct_size, prdct_stock) values
+						('p6',#{prdct_color}, #{prdct_size} , #{prdct_stock}) 
+							into board (board_id, board_name, board_content, board_type_number, board_like, board_hit, mbr_id) 
+								values(board_seq.nextval, 'TEST', #{board_content}, 6, 0, 0, 'prism')
+										select * from dual
 		]]>
 	</insert>
 
@@ -110,9 +150,14 @@
 	<insert id="setPrdctImage">
 		<![CDATA[
 			INSERT INTO prdct_image (image_number, image_name, image_path, board_id) 
-			VALUES (prdct_image_seq.nextval, #{uploadfiles},'C:\tetleaf\Branches\src\main\resources\static\hs\', board_seq.currval)
+			VALUES (prdct_image_seq.nextval, #{uploadfiles},'C:\tetleaf\Branches\src\main\resources\static\hs', board_seq.currval)
 		]]>
 	</insert>
 	
+	<select id="getFileName" resultType="edu.bit.ex.joinvo.BoardPrdctImageVO" >
+		<![CDATA[			
+			select b.board_id, a.board_id, a.image_number, a.image_name from prdct_image a, board b where a.board_id = b.board_id 
+		]]>
+	</select>
 	
 </mapper>

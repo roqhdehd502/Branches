@@ -8,9 +8,11 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.mapper.SellerMapper;
 import edu.bit.ex.vo.BoardVO;
+import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.MbrAddressVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.OrderDetailVO;
@@ -73,9 +75,16 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public void prdctUpdate(PrdctVO pvo) {
+	public void prdctUpdate(PrdctRegisterImageVO prvo) {
 		log.info("prdctUpdate()......");
-		sellerMapper.prdctUpdate(pvo);
+		sellerMapper.prdctUpdate(prvo);
+
+	}
+
+	@Override
+	public void prdctDetailUpdate(PrdctRegisterImageVO prvo) {
+		log.info("prdctDetailUpdate()......");
+		sellerMapper.prdctDetailUpdate(prvo);
 
 	}
 
@@ -125,7 +134,7 @@ public class SellerServiceImpl implements SellerService {
 
 		// 저장할 File 객체를 생성(껍데기 파일)
 		// 저장할 폴더 이름, 저장할 파일 이름
-		File saveFile = new File("C:/tetleaf/Branches/src/main/resources/static/hs/", saveName);
+		File saveFile = new File("C:\\tetleaf\\Branches\\src\\main\\resources\\static\\hs", saveName);
 
 		try {
 			// 업로드 파일에 saveFile이라는 껍데기 입힘
@@ -145,9 +154,28 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public List<BoardVO> getBoardId(int board_id) {
-		log.info("getBoardId()......");
-		return sellerMapper.getBoardId(board_id);
+	public List<BoardPrdctImageVO> getFileName(int getBoard_id) {
+		log.info("getFileName()......");
+		return sellerMapper.getFileName(getBoard_id);
+	}
+
+	@Override
+	public List<CategoryVO> getCategory() {
+		log.info("getCategory()......");
+		return sellerMapper.getCategory();
+	}
+
+	@Override
+	public BoardVO getContent(int board_id) {
+		log.info("getContent()......");
+		return sellerMapper.getContent(board_id);
+	}
+
+	@Override
+	public void prdctContentUpdate(PrdctRegisterImageVO prvo) {
+		log.info("prdctContentUpdate()......");
+		sellerMapper.prdctContentUpdate(prvo);
+
 	}
 
 }
