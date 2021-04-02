@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardServiceImpl implements BoardService {
 	private BoardMapper boardMapper;
 	// 파일 저장 경로
-	private static final String UPLOAD_PATH = "D:/Others/Programming/Project Space/branches/branches_project/src/main/resources/static/prdct_img/";
+	private static final String UPLOAD_PATH = "D:/Others/Programming/Project Space/branches/branches_project/src/main/resources/static/board_img/";
 	/*
 	 * private HttpServletRequest request = new HttpServletRequest(); private static final String UPLOAD_PATH =
 	 * request.getSession().getServletContext().getRealPath("/resources/static/prdct_img/");
@@ -206,28 +206,69 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.magazineRemove(board_id);
 	}
 
-	// 매거진 이미지 삭제
+	// 매거진 이미지 삭제(이미지만 삭제시)
 	@Override
-	public int magazineImageRemove(MultipartFile file) throws IOException {
-		String deleteName = file.getOriginalFilename();
-		log.info("image_name: ", deleteName);
+	public int magazineImageOnlyRemove(int board_id, String onedeletefiles) {
+		String image_name = onedeletefiles;
+		log.info("image_name: ", image_name);
 
 		// 삭제할 File 객체를 생성(껍데기 파일)
 		// 삭제할 폴더 이름, 삭제할 파일 이름
-		File deleteFile = new File(UPLOAD_PATH, deleteName);
+		File deleteFile = new File(UPLOAD_PATH, image_name);
 
 		// 해당 파일이 존재하면 삭제
 		if (deleteFile.exists() == true) {
 			deleteFile.delete();
 		}
 
-		return boardMapper.magazineImageRemove(deleteName);
+		return boardMapper.magazineImageOnlyRemove(board_id, image_name);
+
+	}
+
+	// 매거진 이미지 삭제(게시판이랑 같이 삭제시)
+	@Override
+	public int magazineImageRemove(int board_id, String deletefiles) throws IOException {
+		String image_name = deletefiles;
+		log.info("image_name: ", image_name);
+
+		// 삭제할 File 객체를 생성(껍데기 파일)
+		// 삭제할 폴더 이름, 삭제할 파일 이름
+		File deleteFile = new File(UPLOAD_PATH, image_name);
+
+		// 해당 파일이 존재하면 삭제
+		if (deleteFile.exists() == true) {
+			deleteFile.delete();
+		}
+
+		return boardMapper.magazineImageRemove(board_id, image_name);
 	}
 
 	// 매거진 수정
 	@Override
-	public void setMagazineModify(BoardVO boardVO) {
+	public void setMagazineModify(BoardPrdctImageVO bPrdctImageVO) {
 		log.info("setMagazineModify");
-		boardMapper.setMagazineModify(boardVO);
+		boardMapper.setMagazineModify(bPrdctImageVO);
+	}
+
+	// 매거진 수정페이지 이미지 추가
+	@Override
+	public void setMagazineModifyAddImg(int board_id, MultipartFile file) {
+		// 파일 이름 변경(중복방지)
+		UUID uuid = UUID.randomUUID();
+		String uploadfiles = uuid + "_" + file.getOriginalFilename();
+		log.info("image_name: ", uploadfiles);
+
+		// 저장할 File 객체를 생성(껍데기 파일)
+		// 저장할 폴더 이름, 저장할 파일 이름
+		File saveFile = new File(UPLOAD_PATH, uploadfiles);
+
+		try {
+			// 업로드 파일에 saveFile이라는 껍데기 입힘
+			file.transferTo(saveFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		boardMapper.setMagazineModifyAddImg(board_id, uploadfiles);
 	}
 }

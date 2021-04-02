@@ -128,7 +128,7 @@
 	<insert id="setMagazineImage" >
 	<![CDATA[
 		INSERT INTO prdct_image (image_number, image_name, image_path, board_id) 
-		VALUES (prdct_image_seq.nextval, #{uploadfiles}, 'D:/Others/Programming/Project Space/branches/branches_project/src/main/resources/static/prdct_img/', board_seq.currval) 
+		VALUES (prdct_image_seq.nextval, #{uploadfiles}, 'D:/Others/Programming/Project Space/branches/branches_project/src/main/resources/static/board_img/', board_seq.currval) 
 	]]>
 	</insert>	
 	
@@ -252,10 +252,17 @@
 	]]>
 	</delete>
 	
-	<!-- 매거진 이미지 삭제 -->
+	<!-- 매거진 이미지 삭제(이미지만 삭제시) -->
+	<delete id="magazineImageOnlyRemove">
+	<![CDATA[
+		DELETE FROM prdct_image WHERE board_id = #{board_id} AND image_name = #{image_name}
+	]]>
+	</delete>	
+	
+	<!-- 매거진 이미지 삭제(게시판이랑 같이 삭제시) -->
 	<delete id="magazineImageRemove">
 	<![CDATA[
-		DELETE FROM prdct_image WHERE board_id = #{board_id} AND image_number = #{image_number}
+		DELETE FROM prdct_image WHERE board_id = #{board_id} AND image_name = #{image_name}
 	]]>
 	</delete>		
 	
@@ -265,4 +272,12 @@
 		UPDATE board SET board_name = #{board_name}, board_content = #{board_content} WHERE board_id = #{board_id}
 	]]>
 	</update>
+	
+	<!-- 매거진 수정페이지 이미지 추가 -->
+	<insert id="setMagazineModifyAddImg" >
+	<![CDATA[
+		INSERT INTO prdct_image (image_number, image_name, image_path, board_id) 
+		VALUES (prdct_image_seq.nextval, #{uploadfiles}, 'D:/Others/Programming/Project Space/branches/branches_project/src/main/resources/static/board_img/', #{board_id}) 
+	]]>
+	</insert>	
 </mapper>

@@ -118,7 +118,16 @@
 				})
 			});	
 		});	
-	</script>	
+	</script>
+	
+	<!-- content image hover -->
+	<style type="text/css">
+		.con_img:hover {
+			background-color: #e0e0e0;
+			border: 30px solid #e0e0e0;
+			border-radius: 5px;
+		}
+	</style>	
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -244,10 +253,28 @@
 			</div>
 			<hr>
 			<div class="container">
-				<div class="row" style="padding: 5% 3% 3% 5%">
-					<c:forEach items="${magazine_img}" var="img">	
+				<div class="row" style="padding: 3% 3% 5% 3%">
+					<c:forEach items="${magazine_img}" var="img">								
 					<div class="col-md-12" style="text-align: center;">
-						<img class="rounded" width="1024px" height="600px" src="<c:url value="/prdct_img/${img.image_name}"/>">
+						<!-- 모달을 열기 위한 a 태그 -->
+						<a href="#imgmodal${img.image_number}" data-toggle="modal" >
+							<!-- 콘텐츠 이미지 -->
+							<img class="rounded con_img" src="<c:url value="/board_img/${img.image_name}"/>" width="400px" height="600px">
+						</a>
+						<!-- 모달 영역 -->
+						<div class="modal fade myModal" id="imgmodal${img.image_number}" tabindex="-1" role="dialog" aria-labelledby="imgModalLabel">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&#88;</span></button>
+									</div>
+									<div class="modal-body">
+										<!-- 원본 이미지 -->
+										<img src="<c:url value="/board_img/${img.image_name}"/>">
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					</c:forEach>
 					<div class="col-md-12" style="padding: 2% 3% 3% 3%">

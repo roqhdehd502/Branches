@@ -132,14 +132,24 @@
 
 		<div class="container">
 			<div class="container">
-				<h2>NOTICE</h2>
+				<div class="row">
+					<div class="col-md-6 contact-info" align="left">
+						<h2>NOTICE</h2>
+					</div>
+					<div class="col-md-6 contact-info" align="right">
+						<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/notice/write'">작성하기</button>
+					</div>
+				</div>	
 			</div>
+			
+			<hr>
+			
 			<div class="container">
 				<table class="table table-hover" style="text-align: center;">
 					<tr class="table-primary">
-						<th>번호</th>
-						<th>제목</th>
-						<th>등록일</th>
+						<th><h5>번호</h5></th>
+						<th><h5>제목</h5></th>
+						<th><h5>등록일</h5></th>
 					</tr>
 					<c:forEach items="${notice_list}" var="dto">
 						<tr>

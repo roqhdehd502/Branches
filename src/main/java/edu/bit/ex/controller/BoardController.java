@@ -263,12 +263,23 @@ public class BoardController {
 
 	// 매거진 수정
 	@PostMapping("/magazine/modify/{board_id}")
-	public ResponseEntity<String> magazineModify(@RequestBody BoardVO boardVO) {
+	public ResponseEntity<String> magazineModify(BoardPrdctImageVO bPrdctImageVO) {
 		ResponseEntity<String> entity = null;
-
 		log.info("magazineModify..");
+
+		MultipartFile[] uploadfiles = bPrdctImageVO.getUploadfiles(); // 추가할 이미지
+		int board_id = bPrdctImageVO.getBoard_id(); // 반영할 게시글 번호
+
 		try {
-			boardService.setMagazineModify(boardVO);
+			boardService.setMagazineModify(bPrdctImageVO); // 텍스트 수정(1)
+
+			// 수정페이지에서 사진을 새로 추가할 경우 진행한다
+			if (uploadfiles != null) {
+				for (MultipartFile f : uploadfiles) {
+					boardService.setMagazineModifyAddImg(board_id, f); // 이미지 새로 추가(N)
+				}
+			}
+
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -284,15 +295,23 @@ public class BoardController {
 		ResponseEntity<String> entity = null;
 		log.info("magazineDelete...");
 
-		MultipartFile[] uploadfiles = bPrdctImageVO.getUploadfiles();
+		String onedeletefiles = bPrdctImageVO.getOnedeletefiles(); // 삭제할 한 이미지의 정보
+		String[] deletefiles = bPrdctImageVO.getDeletefiles(); // 삭제할 이미지들 정보
+		int board_id = bPrdctImageVO.getBoard_id(); // 삭제할 게시글 번호
 
 		try {
-			// 삭제는 업로드의 역순으로 진행한다
-			for (MultipartFile f : uploadfiles) {
-				boardService.magazineImageRemove(f); // 이미지 삭제(N)
-			}
+			if (onedeletefiles != null && deletefiles == null) { // 사진만 삭제 할 경우
+				boardService.magazineImageOnlyRemove(board_id, onedeletefiles);
 
-			boardService.magazineRemove(bPrdctImageVO.getBoard_id()); // 텍스트 삭제(1)
+			} else if (onedeletefiles == null && deletefiles != null) { // 사진이랑 게시글도 삭제 할 경우
+				// 삭제는 게시글 업로드의 역순으로 진행한다
+				// 이미지 삭제(N)
+				for (String s : deletefiles) {
+					boardService.magazineImageRemove(board_id, s);
+				}
+				// 텍스트 삭제(1)
+				boardService.magazineRemove(board_id);
+			}
 
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {

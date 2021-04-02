@@ -26,7 +26,12 @@
 	<script type="text/javascript">
 	   	$(document).ready(function(){
 	      $("#updateForm").submit(function(event){         
-	           event.preventDefault();     
+	           event.preventDefault();
+	           
+	           // FormData 불러오기
+	           var formData = new FormData();
+	           
+	           // 게시글 텍스트 사항
 	           var board_id = $("#board_id").val();
 	           var board_name = $("#board_name").val();
 	           var board_content = $("#board_content").val();              
@@ -36,31 +41,98 @@
 	           console.log(board_content);
 	           console.log($(this).attr("action"));    
 	           
-	           var form = {
-	        		 board_id: board_id,
-	        		 board_name: board_name,
-	        		 board_content: board_content
-	           };
-	           $.ajax({
-	             type : "POST",
-	             url : $(this).attr("action"),
-	             cache : false,
-	             contentType:'application/json; charset=utf-8', // 인코딩 데이터 변환
-	             data: JSON.stringify(form), // 보안 문제 해결을 위해 stringify 메소드를 사용
-	             success: function (result) {       
-	               if(result == "SUCCESS"){
-	                  // update가 완료되었으면 리스트 페이지로 이동        
-	                  $(location).attr('href', '${pageContext.request.contextPath}/board/magazine')                            
-	               }                       
-	             },
-	             error: function (e) {
-	                 console.log(e);
-	                 alert('수정에 실패하였습니다.');
-	                 location.reload(); // 실패시 새로고침하기
-	             }
-	         })            
-	       }); // end submit()       
-	   	}); // end ready()
+	           // 해당 텍스트들을 FormData에 append
+	           formData.append("board_id", board_id);
+	           formData.append("board_name", board_name);
+	           formData.append("board_content", board_content);           
+               
+	           
+               // 파일 업로드 체크(게시글 내용만 수정하는 것 대비...)
+               var inputFile = $("#uploadfiles");
+               var files = inputFile[0].files;
+	           
+               // 파일을 담는 배열이 비어 있지 않으면(파일 업로드 시) FormData에 파일 정보를 추가한다
+               if (files != null) {    
+            	   for (var i = 0; i < files.length; i++) {
+   				       console.log(files[i]);
+   				       formData.append("uploadfiles", files[i]);
+   				       appended = true;
+   			   	   }
+			   }
+               
+               console.log("formData: " + formData); 
+	           
+	    		$.ajax({
+	                type : "POST",
+	                url : $(this).attr("action"),
+	                cache : false,
+	                contentType:'application/json; charset=utf-8', 
+	                processData: false, 
+		    		contentType: false, 
+	                data: formData, 
+	                success: function (result) {       
+	                	console.log("UPLOAD SUCCESS!");
+	                	alert('수정 성공');
+	                    $(location).attr('href', '${pageContext.request.contextPath}/board/magazine');                                        
+	                },
+	                error: function (e) {
+	                    console.log(e);
+	                    alert('수정 실패');
+	  	            	location.reload(); // 실패시 새로고침하기
+	               }
+	           })            
+	       });     
+	   	});
+	</script>
+		
+	<!-- 매거진 사진만 삭제 -->
+	<script type="text/javascript">
+	$(document).ready(function (){
+		$('#img_del_only').click(function(event){
+			event.preventDefault();
+			
+			// FormData 객체 생성
+			var formData = new FormData(); 
+			
+			// 해당 이미지를 감싸는 태그를 불러온다
+			//var trObj = $(this).parent();
+			var trObj = $(this).parent(); 
+			console.log(trObj);
+			
+			// 파일명을 담을 변수 생성
+     		var fileName = ""; 
+     		
+     		// indvd${image.image_number}가 붙은 class의 정보를 가져온다
+     		var imageInfo = $("[class='indvd${image.image_number}']");
+     		console.log("imageInfo: " + imageInfo);
+     		
+     		// 해당 이미지의 정보를 파일명 변수에 대입한다
+     		var fileName = imageInfo.html();
+     		console.log("fileName: " + fileName);
+     		
+ 			// formData에 해당 값을 append한다
+ 			formData.append("onedeletefiles", fileName);
+     		console.log("formData: " + formData);
+ 
+			$.ajax({
+				type : 'DELETE', 
+				url : $(this).attr("href"), 
+				cache : false, 
+                processData: false, 
+	    		contentType: false, 
+                data: formData, 
+				success: function(result){
+					console.log(result);
+					alert("이미지를 삭제합니다.");
+					$(trObj).remove(); // 해당 이미지 컨테이너 삭제
+					console.log("IMAGE_REMOVED!")
+				},
+				error:function(e){
+					console.log(e);
+				}
+			})
+		});	
+	});	
 	</script>
 	
 	<!-- 매거진 게시글 삭제 -->
@@ -76,12 +148,14 @@
 	     		var fileNameArry = new Array(); // 여러 파일명을 담을 배열 생성
 	     		
 	     		// uploadimagenumber 키워드가 붙은 class의 개수를 가져온다
-	     		console.log("ImageCnt: " + $("[class*='uploadimagenumber']").length);
+	     		var imageCnt = $("[class*='uploadimagenumber']").length;
+	     		console.log("imageCnt: " + imageCnt);
 	     		
 	     		// 이미지 개수만큼 해당 태그내의 요소 값을 배열안에 push한다
-	     		for (var i = 0; i < $("[class*='uploadimagenumber']").length; i++) {
-	     			fileNoArry.push($('.uploadimagenumber' + 'i').html());
-		     		fileNameArry.push($('.uploadfiles[i]' + 'i').html());
+	     		for (var i = 0; i < imageCnt; i++) {
+	     			var temp = i.toString();
+	     			fileNoArry.push($('.uploadimagenumber'.concat(temp)).html());
+		     		fileNameArry.push($('.deletefiles'.concat(temp)).html());
 				}
 	     		
 	     		// push한 데이터 확인
@@ -91,7 +165,7 @@
      			// 배열 길이만큼 formData에 해당 인덱스 값을 append한다
 	     		for (var i = 0; i < fileNoArry.length; i++) {		
 	     			formData.append("image_number", fileNoArry[i]);
-	     			formData.append("uploadfiles", fileNameArry[i]);
+	     			formData.append("deletefiles", fileNameArry[i]);
 				}
 	     		
 	     		console.log("formData: " + formData);
@@ -106,45 +180,18 @@
 					success: function(result) {
 						console.log(result);
 						if(result == "SUCCESS") {
+							alert("게시글을 삭제합니다.");
 							$(location).attr('href', '${pageContext.request.contextPath}/board/magazine')
 						}
 					},
 					error:function(e) {
-						alert("파일을 삭제할 수 없습니다.");
+						alert("게시글을 삭제할 수 없습니다.");
 						console.log(e);
 					}
 				})
 			});	
 		});
 	</script>
-	
-	<!-- 매거진 사진만 삭제 -->
-	<!-- <script type="text/javascript">
-	$(document).ready(function (){
-		$('#image_delete').click(function(event){
-			event.preventDefault();
-			console.log("ajax 호출전");
-			
-			var trObj = $(this).parent(); 
- 
-			$.ajax({
-				type : 'DELETE',
-				url : $(this).attr("href"),
-				cache : false,
-				success: function(result){
-					console.log(result);
-					if(result=="SUCCESS"){
-						$(trObj).remove();
-						console.log("IMAGE_REMOVED!")
-					}
-				},
-				error:function(e){
-					console.log(e);
-				}
-			})
-		});	
-	});	
-	</script> -->		
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -285,10 +332,13 @@
 				<div class="row" style="padding: 5% 3% 3% 5%">
 					<textarea cols="50%" rows="10" id="board_content">${magazine_modify.board_content}</textarea>
 				</div>
-				<!-- 매거진 게시글 이미지 업로드 구현 성공하면 주석 풀고 구현할 것! -->
-				<!-- <div class="row" style="padding: 5% 3% 3% 5%">
-					<input type="file">
-				</div> -->
+				
+				<hr>
+				<!-- 수정페이지에서 새로 추가되는 사진 -->
+				<div class="row" style="padding: 5% 3% 3% 5%">
+					<input type="file" accept=".jpg, .png" id="uploadfiles" name="uploadfiles" placeholder="첨부 사진" multiple/>
+					<small class="form-text text-muted">jpg, png의 사진파일만 적용됩니다.</small>
+				</div>
 			</div>
 			
 			<hr>
@@ -296,11 +346,17 @@
 			<div class="container">
 				<div id="image_container" class="row" style="padding: 5% 3% 3% 5%">
 					<c:forEach items="${magazine_image}" var="image" varStatus="image_status">
-						<span class="uploadimagenumber${image_status.index}" style="display: none;">${image.image_number}</span>
-						<span class="uploadfiles${image_status.index}" style="display: none;">${image.image_name}</span>
+						<!-- 이미지 컨테이너 -->
 						<div class="col-md-2" align="center">
-							<img src="/prdct_img/${image.image_name}" width="160px" height="90px">
-							<button type="button" id="image_delete" class="btn btn-danger">&#88;</button>
+							<!-- 게시글을 삭제할 때 이미지도 삭제하기 위한 이미지 정보 -->
+							<!-- varStatus="image_status"를 통해 해당 리스트의 인덱스를 class 이름 뒤에 붙인다 -->
+							<span class="uploadimagenumber${image_status.index}" style="display: none;">${image.image_number}</span>
+							<span class="deletefiles${image_status.index}" style="display: none;">${image.image_name}</span>
+							
+							<!--  이미지만 삭제하기 위한 해당 이미지 번호 -->
+							<span class="indvd${image.image_number}" style="display: none;">${image.image_name}</span>
+							<img src="/board_img/${image.image_name}" width="100px" height="140px">
+							<button type="button" id="img_del_only" class="btn btn-danger">&#88;</button>
 						</div>
 					</c:forEach>	
 				</div>

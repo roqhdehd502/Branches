@@ -85,9 +85,16 @@ public interface BoardMapper {
 	// 매거진 삭제
 	public int magazineRemove(int board_id);
 
-	// 매거진 이미지 삭제
-	public int magazineImageRemove(String saveName);
+	// 매거진 이미지 삭제(이미지만 삭제시)
+	public int magazineImageOnlyRemove(int board_id, String image_name);
+
+	// 매거진 이미지 삭제(게시판이랑 같이 삭제시)
+	public int magazineImageRemove(int board_id, String image_name);
 
 	// 매거진 수정
-	public void setMagazineModify(BoardVO boardVO);
+	public void setMagazineModify(BoardPrdctImageVO bPrdctImageVO);
+
+	// 매거진 수정페이지 이미지 추가
+	public void setMagazineModifyAddImg(int board_id, String uploadfiles);
+
 }

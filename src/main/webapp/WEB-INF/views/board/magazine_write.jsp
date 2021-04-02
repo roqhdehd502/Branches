@@ -47,6 +47,15 @@
 	    		
 	    		// 파일저장 영역
                 var inputFile = $("#uploadfiles");
+                /*
+                function filechk(){
+                	 var fileDir = inputFile;
+
+                	 if(fileDir.substring(fileDir.lastIndexOf(".")+1,fileDir.length).search("확장자명") == -1){
+                	 	alert("지정된 확장자의 파일만 업로드 가능합니다!");
+                	 } 	 
+                } */
+	    		
                 var files = inputFile[0].files;  
                 
                 for (var i = 0; i < files.length; i++) {
@@ -54,6 +63,8 @@
 					formData.append("uploadfiles", files[i]);
 					appended = true;
 				}
+                
+                console.log("formData: " + formData);
                 
                 // upload 체크(파일을 첨부 안하면 업로드를 안한다...)
                 if (!appended) { return; }
@@ -71,7 +82,8 @@
 		    		contentType: false, 
 	                data: formData, 
 	                success: function (result) {       
-	                	console.log("UPLOAD SUCCESS!")  
+	                	console.log("UPLOAD SUCCESS!");
+	                	alert('업로드 성공');
 	                    $(location).attr('href', '${pageContext.request.contextPath}/board/magazine');                                        
 	                },
 	                error: function (e) {
@@ -226,7 +238,7 @@
 							<legend>첨부사진</legend>
 						</div>
 						<div class="col-md-10 contact-info">
-							<input type="file" id="uploadfiles" name="uploadfiles" placeholder="첨부 사진" multiple/>
+							<input type="file" accept=".jpg, .png" id="uploadfiles" name="uploadfiles" placeholder="첨부 사진" multiple/>
 							<small class="form-text text-muted">jpg, png의 사진파일만 적용됩니다.</small>
 						</div>
 					</div>	

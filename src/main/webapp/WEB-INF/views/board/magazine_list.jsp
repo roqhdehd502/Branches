@@ -24,6 +24,8 @@
 	<style type="text/css">
 		.thumbnail:hover {
 			background-color: #e0e0e0;
+			border: 1px solid #e0e0e0;
+			border-radius: 5px;
 		}
 	</style>
 </head>
@@ -138,12 +140,20 @@
 
 		<hr style="margin: 15px 15px 40px 15px;">
 
-
-
 		<div class="container">
 			<div class="container">
-				<h2>MAGAZINE</h2>
+				<div class="row">
+					<div class="col-md-6 contact-info" align="left">
+						<h2>MAGAZINE</h2>
+					</div>
+					<div class="col-md-6 contact-info" align="right">
+						<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine/write'">작성하기</button>
+					</div>
+				</div>	
 			</div>
+			
+			<hr>
+			
 			<div class="container" align="center">
 				<div class="row">		
 					<c:forEach items="${magazine_list}" var="dto">	
@@ -151,7 +161,7 @@
 						<div class="thumbnail">
 							<a href="${pageContext.request.contextPath}/board/magazine/${dto.board_id}">
 								<div style="padding-top: 7px">
-									<img src="/prdct_img/${dto.image_name eq null ? 'none-thumbnail.jpg' : dto.image_name}" width="318px" height="212px">	
+									<img class="rounded" src="/board_img/${dto.image_name eq null ? 'none-thumbnail.jpg' : dto.image_name}" width="225px" height="350px">	
 								</div>
 								<div>
 									<hr>
@@ -163,7 +173,7 @@
 								<span>${dto.board_date}</span>
 								<span>&nbsp;|&nbsp;</span>
 								<span>${dto.board_hit}</span>
-								<hr>
+								<!-- <hr> -->
 							</div>
 						</div>
 					</div>
