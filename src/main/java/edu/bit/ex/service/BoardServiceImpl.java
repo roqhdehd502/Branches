@@ -222,7 +222,6 @@ public class BoardServiceImpl implements BoardService {
 		}
 
 		return boardMapper.magazineImageOnlyRemove(board_id, image_name);
-
 	}
 
 	// 매거진 이미지 삭제(게시판이랑 같이 삭제시)
