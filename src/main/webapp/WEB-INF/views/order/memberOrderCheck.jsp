@@ -179,7 +179,7 @@
 
 		<!-- 주문자 정보 확인 -->
 		<div class="card border-secondary mb-3">
-			<div class="card-header">주문자 정보 확인</div>
+			<div class="card-header">주문자 정보 입력</div>
 			<div class="card-body">
 				<table class="table table-borderless">
 					<tr>
@@ -198,15 +198,32 @@
 						<td>Email</td>
 						<td>abc@kaka.com</td>
 					</tr>
-					<tr>
-						<td>Shipping Address</td>
-						<td>서울특별시 종로구 종로 69 YMCA빌딩 7층</td>
-					</tr>
-					<tr>
-						<td>Shipping Memo</td>
-						<td>부재 시 경비실에 맡겨주세요.</td>
-					</tr>
-				</table>
+					</table>
+					<!-- 간격수정하기 -->
+					<div class="form-group row">
+					<label for="shippingAd" class="col-sm-2 col-form-label">Shipping Address</label>
+					<div class="form-group row col-sm-10" style="margin-left: 1px">
+						<input type="text" class="form-control col-sm-4" id="shippingAd" value="" readonly="">&nbsp; <a class="btn btn-primary" onclick="#">주소
+							찾기</a> <input type="text" class="form-control" id="shippingAd" value="" readonly="" style="margin-bottom: 3px"> <input type="text"
+							class="form-control" id="shippingAd" placeholder="상세 주소를 입력해주세요">
+					</div>
+				</div>
+					<div class="form-group row">
+					<label for="shipMemo" class="col-sm-2 col-form-label">Shipping Memo</label>
+					<div class="form-group col-sm-10">
+						<select class="form-control" id="shipMemo">
+							<option>배송 시 요청사항을 선택해주세요.</option>
+							<option>부재 시 경비실에 맡겨주세요.</option>
+							<option>부재 시 택배함에 넣어주세요.</option>
+							<option>부재 시 집 앞에 놔주세요.</option>
+							<option>파손의 위험이 있는 상품입니다.</option>
+							<option value="etc">직접입력</option>
+						</select>
+						<!--   직접 입력 선택 시 나타나게
+					      <textarea name="etc_textarea" class="form-control" style="" value="" maxlength="50" onkeyup="return textarea_maxlength(this)" placeholder="최대 50자까지 입력 가능합니다."></textarea> -->
+					</div>
+				</div>
+				
 			</div>
 		</div>
 
