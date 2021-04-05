@@ -34,10 +34,15 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 		OAuth2UserInfo userInfo = null;
 
 		// 소셜 종류 확인
+		// 구글 소셜 로그인
 		if (userRequest.getClientRegistration().getRegistrationId().equals("google")) {
 			userInfo = new GoogleUserInfo(oauth2User.getAttributes());
+			// 네이버 소셜 로그인
 		} else if (userRequest.getClientRegistration().getRegistrationId().equals("naver")) {
 			userInfo = new NaverUserInfo((Map) oauth2User.getAttributes().get("response"));
+			// 카카오 소셜 로그인
+		} else if (userRequest.getClientRegistration().getRegistrationId().equals("kakao")) {
+			userInfo = new KakaoUserInfo(oauth2User.getAttributes());
 		}
 
 		MbrVO mbr = mapper.getMbr(userInfo.getProviderId());

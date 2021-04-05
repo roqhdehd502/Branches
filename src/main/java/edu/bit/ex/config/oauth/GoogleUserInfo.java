@@ -12,26 +12,22 @@ public class GoogleUserInfo implements OAuth2UserInfo {
 
 	@Override
 	public String getProvider() {
-		// TODO Auto-generated method stub
 		return "4";
 	}
 
 	@Override
+	public String getProviderId() {
+		return (String) attributes.get("sub");
+	}
+
+	@Override
 	public String getEmail() {
-		// TODO Auto-generated method stub
 		return (String) attributes.get("email");
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return (String) attributes.get("name");
-	}
-
-	@Override
-	public String getProviderId() {
-		// TODO Auto-generated method stub
-		return (String) attributes.get("sub");
 	}
 
 }

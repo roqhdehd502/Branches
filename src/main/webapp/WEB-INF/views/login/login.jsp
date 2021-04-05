@@ -9,14 +9,19 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Branches : Login</title>
 	
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
-  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<!-- Required CSS files -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/css/owl.carousel.css">
+	<link rel="stylesheet" href="/assets/css/barfiller.css">
+	<link rel="stylesheet" href="/assets/css/animate.css">
+	<link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/assets/css/slicknav.css">
+	<link rel="stylesheet" href="/assets/css/main.css">
+	<link rel="stylesheet" href="/bootstrap.min.css">
 </head>
 <body>
 	<div class="row">
@@ -67,13 +72,23 @@
 						<br>
 			      		<a href="/oauth2/authorization/kakao"><img src="<c:url value="/img/kakao_circle.png"/>" width="50" height="50"></a>&nbsp;&nbsp;&nbsp;&nbsp;
 			      		<a href="/oauth2/authorization/naver"><img src="<c:url value="/img/naver-icon-file.jpg"/>" width="50" height="50"></a>&nbsp;&nbsp;&nbsp;&nbsp;
-			      		<a href="/oauth2/authorization/google"><img src="<c:url value="/img/google_logo.jpg"/>" width="50" height="50"></a>&nbsp;&nbsp;&nbsp;&nbsp;
-			      		<a href="/oauth2/authorization/facebook"><img src="<c:url value="/img/facebook_logo.png"/>" width="50" height="50"></a>
+			      		<a href="/oauth2/authorization/google"><img src="<c:url value="/img/google_logo.jpg"/>" width="50" height="50"></a>
 			    	</div>	    	
 			 	</form>
 			</div>
   		</div>
   		<div class="col"></div>
 	</div>
+	
+	<!--Required JS files-->
+	<script src="/assets/js/jquery-2.2.4.min.js"></script>
+	<script src="/assets/js/vendor/popper.min.js"></script>
+	<script src="/assets/js/vendor/bootstrap.min.js"></script>
+	<script src="/assets/js/vendor/owl.carousel.min.js"></script>
+	<script src="/assets/js/vendor/isotope.pkgd.min.js"></script>
+	<script src="/assets/js/vendor/jquery.barfiller.js"></script>
+	<script src="/assets/js/vendor/loopcounter.js"></script>
+	<script src="/assets/js/vendor/slicknav.min.js"></script>
+	<script src="/assets/js/active.js"></script>
 </body>
 </html>

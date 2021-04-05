@@ -1,7 +1,6 @@
 package edu.bit.ex.config.oauth;
 
 public interface OAuth2UserInfo {
-
 	String getProviderId();
 
 	String getProvider();
@@ -9,5 +8,4 @@ public interface OAuth2UserInfo {
 	String getEmail();
 
 	String getName();
-
 }
