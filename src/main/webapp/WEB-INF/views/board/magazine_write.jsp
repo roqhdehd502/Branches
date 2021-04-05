@@ -209,9 +209,16 @@
 
 		<div class="container">
 			<div class="container">
-				<h2>MAGAZINE</h2>
+				<div class="row">
+					<div class="col-md-6 contact-info" align="left">
+						<h2>MAGAZINE</h2>
+					</div>
+					<div class="col-md-6 contact-info" align="right"></div>
+				</div>	
 			</div>
+			
 			<hr>
+			
 			<div class="container">
 				<form id="writeForm" action="${pageContext.request.contextPath}/board/magazine/write" method="post" enctype="multipart/form-data" >
 				<input type="hidden" id="mbr_id" value="${magazine_write.mbr_id}">

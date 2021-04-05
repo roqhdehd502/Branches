@@ -84,56 +84,6 @@
 	       });     
 	   	});
 	</script>
-		
-	<!-- 매거진 사진만 삭제 -->
-	<script type="text/javascript">
-	$(document).ready(function (){
-		$('#img_del_only').click(function(event){
-			event.preventDefault();
-			
-			// FormData 객체 생성
-			var formData = new FormData(); 
-			
-			// 해당 이미지를 감싸는 태그를 불러온다
-			//var trObj = $(this).parent();
-			var trObj = $(this).parent(); 
-			console.log(trObj);
-			
-			// 파일명을 담을 변수 생성
-     		var fileName = ""; 
-     		
-     		// indvd${image.image_number}가 붙은 class의 정보를 가져온다
-     		var imageInfo = $("[class='indvd${image.image_number}']");
-     		console.log("imageInfo: " + imageInfo);
-     		
-     		// 해당 이미지의 정보를 파일명 변수에 대입한다
-     		var fileName = imageInfo.html();
-     		console.log("fileName: " + fileName);
-     		
- 			// formData에 해당 값을 append한다
- 			formData.append("onedeletefiles", fileName);
-     		console.log("formData: " + formData);
- 
-			$.ajax({
-				type : 'DELETE', 
-				url : $(this).attr("href"), 
-				cache : false, 
-                processData: false, 
-	    		contentType: false, 
-                data: formData, 
-				success: function(result){
-					console.log(result);
-					alert("이미지를 삭제합니다.");
-					$(trObj).remove(); // 해당 이미지 컨테이너 삭제
-					console.log("IMAGE_REMOVED!")
-				},
-				error:function(e){
-					console.log(e);
-				}
-			})
-		});	
-	});	
-	</script>
 	
 	<!-- 매거진 게시글 삭제 -->
 	<script type="text/javascript">
@@ -306,8 +256,15 @@
 
 		<div class="container">
 			<div class="container">
-				<h2>MAGAZINE</h2>
+				<div class="row">
+					<div class="col-md-6 contact-info" align="left">
+						<h2>MAGAZINE</h2>
+					</div>
+					<div class="col-md-6 contact-info" align="right"></div>
+				</div>	
 			</div>
+			
+			<hr>
 			
 			<form id="updateForm" action="${pageContext.request.contextPath}/board/magazine/modify/${magazine_modify.board_id}" method="post">
 			<div class="container">
@@ -351,12 +308,51 @@
 							<!-- 게시글을 삭제할 때 이미지도 삭제하기 위한 이미지 정보 -->
 							<!-- varStatus="image_status"를 통해 해당 리스트의 인덱스를 class 이름 뒤에 붙인다 -->
 							<span class="uploadimagenumber${image_status.index}" style="display: none;">${image.image_number}</span>
-							<span class="deletefiles${image_status.index}" style="display: none;">${image.image_name}</span>
-							
-							<!--  이미지만 삭제하기 위한 해당 이미지 번호 -->
-							<span class="indvd${image.image_number}" style="display: none;">${image.image_name}</span>
-							<img src="/board_img/${image.image_name}" width="100px" height="140px">
-							<button type="button" id="img_del_only" class="btn btn-danger">&#88;</button>
+							<span class="deletefiles${image_status.index}" style="display: none;">${image.image_name}</span>				
+							<div>
+								<img src="/board_img/${image.image_name}" width="100px" height="140px">
+								<button type="button" class="btn btn-danger img_del_only" data-rno="${image.image_name}">&#88;</button>					
+								<!-- 매거진 사진만 삭제 -->
+								<script type="text/javascript">
+								$(document).ready(function (){
+									$('.img_del_only').click(function(event){
+										event.preventDefault();
+										
+										// FormData 객체 생성
+										var formData = new FormData(); 
+										
+										// 해당 이미지를 감싸는 태그를 불러온다
+										var trObj = $(this).parent().parent(); 
+										console.log(trObj);
+										
+										// button의 data-rno 값을 가져온다
+							     		var imageInfo = $(this).attr("data-rno");		
+							     		console.log("imageInfo: " + imageInfo);
+							     		
+							 			// formData에 해당 값을 append한다
+							 			formData.append("onedeletefiles", imageInfo);
+							     		console.log("formData: " + formData);
+							 
+										$.ajax({
+											type : 'DELETE', 
+											url : $(this).attr("href"), 
+											cache : false, 
+							                processData: false, 
+								    		contentType: false, 
+							                data: formData, 
+											success: function(result){
+												console.log(result);
+												$(trObj).remove(); // 해당 이미지 컨테이너 삭제
+												console.log("IMAGE_REMOVED!")
+											},
+											error:function(e){
+												console.log(e);
+											}
+										})
+									});	
+								});	
+								</script>
+							</div>
 						</div>
 					</c:forEach>	
 				</div>

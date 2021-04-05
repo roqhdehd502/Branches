@@ -186,7 +186,7 @@
 					
 				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 					<li class="page-item">
-					 	<a class="page-link" href="notice${pageMaker.makeQuery(pageMaker.endPage +1)}">&raquo;</a>
+					 	<a class="page-link" href="notice${pageMaker.makeQuery(pageMaker.endPage + 1)}">&raquo;</a>
 					</li>
 				</c:if>
 				</ul>

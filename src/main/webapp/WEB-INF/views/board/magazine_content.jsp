@@ -25,21 +25,18 @@
 
 	<!-- 매거진 게시글 추천 -->
 	<script type="text/javascript">
-		$(document).ready(function (){
-			$('#magazine_uplike').click(function(event){
+		$(document).ready(function () {
+			$('#magazine_uplike').click(function(event) {
 				event.preventDefault();
-				console.log("ajax 호출전");		 
 	 
 				$.ajax({
 					type : 'PUT',
 					url : $(this).attr("href"),
 					cache : false,
-					success: function(result){
+					success: function(result) {
 						console.log(result);
-						if(result=="SUCCESS"){
-							if(result == "SUCCESS"){     
-	                  					$(location).attr('href', '${pageContext.request.contextPath}/board/magazine/${magazine_content.board_id}')                            
-	               				}  
+						if(result == "SUCCESS") {
+							$(location).attr('href', '${pageContext.request.contextPath}/board/magazine/${magazine_content.board_id}'); 
 						}
 					},
 					error:function(e){
@@ -91,40 +88,13 @@
 	         })            
 	       });       
 	   	});
-	</script>		
-	
-	<!-- 매거진 댓글 삭제 -->	
-	<script type="text/javascript">
-		$(document).ready(function (){
-			$('#magazine_comment_delete').click(function(event){
-				event.preventDefault();
-				console.log("ajax 호출전");		
-	 
-				$.ajax({
-					type : 'DELETE',
-					url : $(this).attr("href"),
-					cache : false,
-					success: function(result){
-						console.log(result);
-						if(result == "SUCCESS"){
-							$(location).attr('href', '${pageContext.request.contextPath}/board/magazine/${magazine_content.board_id}')
-						}
-					},
-					error:function(e){
-						console.log(e);
-						alert('댓글 삭제를 할 수 없습니다.');
-		                location.reload(); // 실패시 새로고침하기
-					}
-				})
-			});	
-		});	
-	</script>
+	</script>	
 	
 	<!-- content image hover -->
 	<style type="text/css">
 		.con_img:hover {
 			background-color: #e0e0e0;
-			border: 30px solid #e0e0e0;
+			border: 15px solid #e0e0e0;
 			border-radius: 5px;
 		}
 	</style>	
@@ -276,7 +246,7 @@
 							</div>
 						</div>
 					</div>
-					</c:forEach>
+					</c:forEach>	
 					<div class="col-md-12" style="padding: 2% 3% 3% 3%">
 						<p class="lead">${magazine_content.board_content}</p>
 					</div>
@@ -327,7 +297,7 @@
 					</div>
 				</div>
 				
-				<c:forEach items="${magazine_comment}" var="comment">
+				<c:forEach items="${magazine_comment}" var="comment" varStatus="cmnt_status">
 				<div class="row" style="margin: 1% 3% 1% 3%; padding: 1% 3% 1% 3%; border: 1px solid #E5E5E5;">
 					<div class="col-md-7" align="left">
 						${comment.comment_content}
@@ -337,11 +307,11 @@
 					</div>
 					<div class="col-md-1" align="right">
 						<!-- 모달을 열기 위한 버튼 -->
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#${comment.comment_id}">
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mdal${comment.comment_id}">
 							...
 						</button>
 						<!-- 모달 영역 -->
-						<div class="modal fade myModal" id="${comment.comment_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						<div class="modal fade myModal" id="mdal${comment.comment_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 							<div class="modal-dialog" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
@@ -352,9 +322,44 @@
 									</div>
 									<div class="modal-footer">
 										<div align="left">
-										<button type="button" id="magazine_comment_delete" class="btn btn-danger">삭제하기</button>&nbsp;
-										<!-- <button type="button" id="modify" class="btn btn-primary">수정하기</button>&nbsp; -->
-										<!-- <button type="button" class="btn btn-primary" data-dismiss="modal">돌아가기</button> -->
+											<button type="button" class="btn btn-danger cmnt_del" data-rno="${comment.comment_id}">삭제하기</button>
+											<script type="text/javascript">
+												<!-- 매거진 댓글 삭제 -->
+												$(document).ready(function (){
+													$('.cmnt_del').click(function(event){
+														event.preventDefault();
+														
+														// FormData 객체 생성
+														var formData = new FormData(); 
+											     		
+														// button의 data-rno 값을 가져온다
+											     		var cmntInfo = $(this).attr("data-rno");		
+											     		console.log("cmntInfo: " + cmntInfo);
+											     		
+											 			// formData에 해당 값을 append한다
+											 			formData.append("comment_id", cmntInfo);
+											     		console.log("formData: " + formData);
+											 
+														$.ajax({
+															type : 'DELETE', 
+															url : $(this).attr("href"), 
+															cache : false, 
+											                processData: false, 
+												    		contentType: false, 
+											                data: formData, 
+															success: function(result){
+																console.log(result);
+																alert("댓글을 삭제합니다.");
+																$(location).attr('href', '${pageContext.request.contextPath}/board/magazine/${magazine_content.board_id}')
+																console.log("COMMENT_REMOVED!")
+															},
+															error:function(e){
+																console.log(e);
+															}
+														})
+													});	
+												});	
+											</script>
 										</div>
 									</div>
 								</div>

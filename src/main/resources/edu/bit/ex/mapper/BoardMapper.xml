@@ -99,7 +99,7 @@
 							ORDER BY board_id DESC, board_date DESC
 			    ) A WHERE ROWNUM <= #{pageNum} * #{amount} 
 			) WHERE RNUM > (#{pageNum}-1) * #{amount}
-		]]>
+		]]> 
 	</select>
 	
 	<!-- 페이징 단위에 적용되는 최대 매거진 게시글 단위 -->
