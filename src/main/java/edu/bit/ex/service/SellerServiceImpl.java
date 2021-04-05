@@ -166,9 +166,9 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public BoardVO getContent(int board_id) {
+	public BoardPrdctImageVO getContent(int getBoard_id) {
 		log.info("getContent()......");
-		return sellerMapper.getContent(board_id);
+		return sellerMapper.getContent(getBoard_id);
 	}
 
 	@Override

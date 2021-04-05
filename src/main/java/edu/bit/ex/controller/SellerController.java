@@ -102,7 +102,7 @@ public class SellerController {
 		mav.addObject("svo", sellerService.getAddress(svo.getMbr_id()));
 		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
 		mav.addObject("cate", sellerService.getCategory());
-		mav.addObject("bvo", sellerService.getContent(board_id));
+		mav.addObject("bvo", sellerService.getContent(bpvo.getBoard_id()));
 		mav.addObject("filename", sellerService.getFileName(bpvo.getBoard_id()));
 
 		return mav;

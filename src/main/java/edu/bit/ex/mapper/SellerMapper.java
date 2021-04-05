@@ -32,8 +32,7 @@ public interface SellerMapper {
 	public MbrVO getMemberInfo(String s_id);
 
 	public ShippingVO getSellerAddress(String m_id);
-	
-	
+
 	// 회원 정보 수정
 	public void sellerInfoUpdate(MbrAddressVO mavo);
 
@@ -67,6 +66,6 @@ public interface SellerMapper {
 
 	public List<CategoryVO> getCategory();
 
-	public BoardVO getContent(int board_id);
+	public BoardPrdctImageVO getContent(int getBoard_id);
 
 }
