@@ -136,12 +136,12 @@
 	<insert id="prdInsert">
 		<![CDATA[
 			insert all into prdct (prdct_id, prdct_name, prdct_price, category_number , mbr_id) values
-				('p6',#{prdct_name}, #{prdct_price}, 9 ,'prism' ) 
+				('p7',#{prdct_name}, #{prdct_price}, #{category_number} ,'prism' ) 
 					into prdct_detail (prdct_id, prdct_color, prdct_size, prdct_stock) values
-						('p6',#{prdct_color}, #{prdct_size} , #{prdct_stock}) 
+						('p7',#{prdct_color}, #{prdct_size} , #{prdct_stock}) 
 							into board (board_id, board_name, board_content, board_type_number, board_like, board_hit, mbr_id) 
 								values(board_seq.nextval, 'TEST', #{board_content}, 6, 0, 0, 'prism')
-										select * from dual
+									select * from dual
 		]]>
 	</insert>
 
