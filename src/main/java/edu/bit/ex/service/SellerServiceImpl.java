@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
+import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.mapper.SellerMapper;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.CategoryVO;
-import edu.bit.ex.vo.MbrAddressVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.OrderDetailVO;
 import edu.bit.ex.vo.PrdctDetailVO;
@@ -66,7 +66,7 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public void sellerInfoUpdate(MbrAddressVO mavo) {
+	public void sellerInfoUpdate(MbrShippingVO mavo) {
 		// TODO Auto-generated method stub
 		log.info("sellerInfoUpdate()......");
 		sellerMapper.sellerInfoUpdate(mavo);

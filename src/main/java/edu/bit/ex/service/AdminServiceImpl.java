@@ -2,12 +2,14 @@ package edu.bit.ex.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.mapper.AdminMapper;
 import edu.bit.ex.page.MemberCriteria;
 import edu.bit.ex.page.PrdctListCriteria;
-import edu.bit.ex.vo.MbrAddressVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
@@ -19,6 +21,9 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class AdminServiceImpl implements AdminService {
 	private AdminMapper adminMapper;
+
+	@Autowired
+	PasswordEncoder passEncoder;
 
 	// 고객 Q&A 페이징 리스트
 	/*
@@ -77,7 +82,7 @@ public class AdminServiceImpl implements AdminService {
 
 	// 판매자 정보 수정
 	@Override
-	public void sellerInfoUpdate(MbrAddressVO mavo) {
+	public void sellerInfoUpdate(MbrShippingVO mavo) {
 		// TODO Auto-generated method stub
 		log.info("sellerInfoUpdate");
 		adminMapper.sellerInfoUpdate(mavo);
@@ -86,7 +91,7 @@ public class AdminServiceImpl implements AdminService {
 
 	// 판매자 삭제(탈퇴)=====보류
 	@Override
-	public void deleteSeller(MbrAddressVO mavo) {
+	public void deleteSeller(MbrShippingVO mavo) {
 		// TODO Auto-generated method stub
 		log.info("deleteSeller");
 		// adminMapper.deleteSeller(mavo);
@@ -121,6 +126,18 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		log.info("deleteMbr");
 		// adminMapper.deleteMbr(mbrvo);
+	}
+
+	@Override
+	public void addSeller(MbrShippingVO mbrShippingVO) {
+		// TODO Auto-generated method stub
+		log.info("addSeller");
+
+		String pw = passEncoder.encode(mbrShippingVO.getMbr_pw());
+		mbrShippingVO.setMbr_pw(pw);
+
+		adminMapper.addSellerInfo(mbrShippingVO);
+		adminMapper.addSellerAddress(mbrShippingVO);
 	}
 
 }

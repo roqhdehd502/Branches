@@ -9,6 +9,8 @@ public interface LoginMapper {
 
 	public MbrVO getMbr(String m_id);
 
-	public void addMbr(MbrVO mbrvo);
+	public void addMbr(MbrVO mbr);
+
+	public void addSocialMbr(MbrVO mbr);
 
 }

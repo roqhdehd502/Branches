@@ -19,6 +19,9 @@
 	<link rel="stylesheet" href="/assets/css/slicknav.css">
 	<link rel="stylesheet" href="/assets/css/main.css">
 	<link rel="stylesheet" href="/bootstrap.min.css">
+	
+	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+	
 </head>
 <body>
 	<div class="row">
@@ -28,29 +31,31 @@
 				<div align="center"><img src="<c:url value="/img/branches_text.png"/>" width="200"></div>
 				<h2 align="center">회원가입</h2><br>
 				
-			  	<form action="#" method="post">	  	
+			  	<form action="/join" method="post">	  	
 			    	<div class="form-group row">
 			    		<label class="col-sm-3 col-form-label">ID</label>
 			      		<div class="col-sm-7">
-			      			<input type="text" class="form-control" placeholder="영문 + 숫자 조합 5~11자" required="required">
+			      			<input type="text" class="form-control" id="mbr_id" name="mbr_id" maxlength="20" placeholder="영문 + 숫자 조합 5~11자" required="required">
 			      		</div>
-			      		<!-- 이부분은 추후 스크립트상에서 alert으로 알림띄울것 -->
-						<!-- <div class="col-sm-2" style="padding-left: 0px">
+			      		<button type="button" class="btn btn-primary btn-sm">중복확인</button>
+			      		<!-- 이부분은 추후 스크립트상에서 alert으로 알림띄울것
+						<div class="col-sm-2" style="padding-left: 0px">
 							<button type="button" class="btn btn-primary">중복체크</button>
 						</div>	 -->
 			    	</div>
 			    	<div class="form-group row">
 			    		<label class="col-sm-3 col-form-label">PW</label>
 			      		<div class="col-sm-9">
-			      			<input type="password" class="form-control" placeholder="영문 + 숫자 + 특수문자 조합 8~16자" required="required" onchange="isSame()">
+			      			<input type="password" class="form-control" id="mbr_pw" name="mbr_pw" placeholder="영문 + 숫자 + 특수문자 조합 8~16자" required="required" onchange="isSame()">
 			      		</div>	
 			    	</div>
 			    	<div class="form-group row">
 			    		<label class="col-sm-3 col-form-label">PW확인</label>
 			    		<!-- 이부분은 추후 스크립트상에서 ajax로 알림띄울것 -->
-			      		<div class="col-sm-9">
-			      			<input type="password" class="form-control" placeholder="비밀번호 확인" required="required" onchange="isSame()">
+			      		<div class="col-sm-5">
+			      			<input type="password" class="form-control" id="pw_c" name="pw_c" placeholder="비밀번호 확인" required="required" onchange="isSame()">
 			      		</div>
+			      		
 								<script type="text/javascript">
 
 									function isSame() {
@@ -70,57 +75,62 @@
 									    
 									}
 								</script>
+								
 			    	</div>
 			    	<div class="form-group row">
 			    		<label class="col-sm-3 col-form-label">닉네임</label>
 			      		<div class="col-sm-9">
-			      			<input type="text" class="form-control" placeholder="닉네임을 입력해주세요 (필수)">
+			      			<input type="text" class="form-control" id="mbr_nickname" name="mbr_nickname" placeholder="닉네임을 입력해주세요 (필수)">
 			      		</div>	
 			    	</div>
 			    	<div class="form-group row">
 			    		<label class="col-sm-3 col-form-label">이메일</label>
-			      		<div class="col-sm-4">
-			      			<input type="text" class="form-control" id="usr" name="username" placeholder="아이디">
-			      		</div>@
-						<div class="col-sm-4">
-							<select class="form-control" onChange="selectEmail(this)">
-								<option value="" selected>선택</option>
-						    	<option>@naver.com</option>
-						    	<option>@gmail.com</option>
-						    	<option>@hanmail.com</option>
-						    	<option>@nate.com</option>
-						    	<option>@daum.net</option>
+			      		<div class="col-sm-9">
+			      			<input type="text" class="form-control" id="mbr_email" name="mbr_email" placeholder="이메일">
+			      		</div>
+						<!-- <div class="col-sm-4">
+							<select class="form-control" name="selectEmail" id="selectEmail">
+								<option value="1" selected>직접입력</option>
+						    	<option value="naver.com">naver.com</option>
+						    	<option value="gmail.com">gmail.com</option>
+						    	<option value="hanmail.com">hanmail.com</option>
+						    	<option value="nate.com">nate.com</option>
+						    	<option value="daum.net">daum.net</option>
 						    </select>
-						</div>		
+						    <script type="text/javascript"></script>
+						</div>	 -->	
 			    	</div>
 			    	<div class="form-group row">
 			    		<label class="col-sm-3 col-form-label">이름</label>
 			      		<div class="col-sm-9">
-			      			<input type="text" class="form-control" placeholder="실명을 입력해주세요 (필수)" required="required">
+			      			<input type="text" class="form-control" id="mbr_name" name="mbr_name" placeholder="실명을 입력해주세요 (필수)" required="required">
 			      		</div>	
 			    	</div>
 			    	<div class="form-group row">
 			    		<label class="col-sm-3 col-form-label">연락처</label>
 			      		<div class="col-sm-9">
-			      			<input type="number" class="form-control">
+			      			<input type="number" id="contact_number" name="contact_number" class="form-control" placeholder="숫자만 입력하세요">
 			      		</div>	
 			    	</div>
 			    	<div class="form-group row">
 			    		<label class="col-sm-3 col-form-label">생년월일</label>
 			      		<div class="col-sm-9">
-			      			<input type="date" class="form-control">
+			      			<input type="date" id="mbr_birth" name="mbr_birth" class="form-control">
 			      		</div>	
 			    	</div>
 			    	<div class="form-group row">
 			    		<label class="col-sm-3 col-form-label">성별</label>
 			      		<div class="col-sm-3" align="center">
-			      			<input type="radio" class="form-check-input" checked="">&nbsp;M
+			      			<input type="radio" class="form-check-input" name="mbr_gender" id="mbr_gender" value="M"
+			      			>&nbsp;M
 			      		</div>
 			      		<div class="col-sm-3" align="center">
-			      			<input type="radio" class="form-check-input">&nbsp;F
+			      			<input type="radio" class="form-check-input"  name="mbr_gender" id="mbr_gender" value="F"
+			      			>&nbsp;F
 			      		</div>	
 			      		<div class="col-sm-3" align="center">
-			      			<input type="radio" class="form-check-input">&nbsp;N
+			      			<input type="radio" class="form-check-input"  name="mbr_gender" id="mbr_gender" value="N"
+			      			>&nbsp;N
 			      		</div>		
 			    	</div>
 			    	<hr>

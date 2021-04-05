@@ -43,5 +43,6 @@ public class MbrVO { // 회원
 	private int grade_number; // 회원등급번호 fk
 
 	private AuthorityVO authorityVO; // join Authority
+	private ShippingVO shippingVO; // regist seller shipping address
 
 }

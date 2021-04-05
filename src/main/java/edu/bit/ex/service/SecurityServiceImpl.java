@@ -23,21 +23,19 @@ public class SecurityServiceImpl implements SecurityService {
 	@Override
 	public MbrVO getMbr(String mbr_id) {
 		// TODO Auto-generated method stub
-		MbrVO memberVO = loginMapper.getMbr(mbr_id);
-		String password = memberVO.getMbr_pw();
-		String encode = passEncoder.encode(password);
-		log.info("encoding password : " + encode);
 
-		memberVO.setMbr_pw(encode);
-
-		return memberVO;
+		return loginMapper.getMbr(mbr_id);
 
 	}
 
 	@Override
-	public void addMbr(MbrVO mbrvo) {
+	public void addMbr(MbrVO mbr) {
 		// TODO Auto-generated method stub
-		loginMapper.addMbr(mbrvo);
+		String pw = passEncoder.encode(mbr.getMbr_pw());
+		log.info("encoded password >>>>>> " + pw);
+		mbr.setMbr_pw(pw);
+
+		loginMapper.addMbr(mbr);
 	}
 
 }

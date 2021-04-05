@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
+import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.CategoryVO;
-import edu.bit.ex.vo.MbrAddressVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.OrderDetailVO;
 import edu.bit.ex.vo.PrdctDetailVO;
@@ -32,7 +32,7 @@ public interface SellerService {
 
 	public ShippingVO getSellerAddress(String m_id);
 
-	public void sellerInfoUpdate(MbrAddressVO mavo);
+	public void sellerInfoUpdate(MbrShippingVO mavo);
 
 	public void prdctUpdate(PrdctRegisterImageVO prvo);
 

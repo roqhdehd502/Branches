@@ -62,18 +62,18 @@
 				<div class="col-md-3 contact-info" align="center">
 				<div class="single-info" style="margin-bottom: 40px;">
 	                    <h3>업체관리</h3><hr>
-	                    <h5><a href="#">업체등록</a></h5>
-	                    <h5><a href="#">업체목록 조회</a></h5>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/regist/seller">업체등록</a></h5>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/seller">업체목록 조회</a></h5>
 	                </div><br/>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>회원관리</h3><hr>
-	                    <h5><a href="#">회원정보 조회</a></h5>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/member">회원정보 조회</a></h5>
+	               		 <h5><a href="${pageContext.request.contextPath}/admin/mypage/member/adminQnA">고객Q&A 목록</a></h5>
 	                </div><br/>
 	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>고객 Q&A 목록</h3><hr>
-	                    <h5><a href="#">통계</a></h5>
-	                    <h5><a href="#">매출조회</a></h5>
-	                    <h5><a href="#">검색순위 조회</a></h5>
+	                    <h3>매출관리</h3><hr>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/admintotal">매출조회</a></h5>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/adminSearchtotal">검색순위 조회</a></h5>
 	                </div>
 				</div>
 
@@ -129,7 +129,7 @@
 
 							<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
 								<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
-								<li class="page-item active"><a class="page-link" href="${pageMaker.makeQuery(idx)}">${idx}</a></li>
+								<li class="page-item ${pageMaker.cri.pageNum == idx ? 'active' : '' }"><a class="page-link" href="${pageMaker.makeQuery(idx)}">${idx}</a></li>
 							</c:forEach>
 							
 							<c:choose>
@@ -140,19 +140,6 @@
 								<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
 							</c:otherwise>
 							</c:choose>
-						</ul>
-					</div>
-					
-
-					<div>
-						<ul class="pagination">
-							<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
-							<li class="page-item active"><a class="page-link" href="#">1</a></li>
-							<li class="page-item"><a class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#">4</a></li>
-							<li class="page-item"><a class="page-link" href="#">5</a></li>
-							<li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
 						</ul>
 					</div>
 				</div>

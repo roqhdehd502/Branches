@@ -128,4 +128,23 @@
 	
 	<!-- 회원 정보 삭제====탈퇴====보류 -->
 	
+	<!-- 판매자 등록 -->
+	<insert id="addSellerInfo">
+	<![CDATA[
+		insert into mbr
+		(mbr_id, mbr_pw, mbr_name, authority_number, mbr_birth, mbr_email, login_number, contact_number, mbr_nickname)
+		values
+		(#{mbr_id}, #{mbr_pw}, #{mbr_name}, 2, sysdate, #{mbr_email}, 1, #{contact_number}, #{mbr_nickname})
+	]]>
+	</insert>
+	
+	<insert id="addSellerAddress">
+	<![CDATA[
+		insert into shipping
+		(mbr_id, shipping_address)
+		values
+		(#{mbr_id}, #{shipping_address})
+	]]>
+	</insert>
+	
 </mapper>

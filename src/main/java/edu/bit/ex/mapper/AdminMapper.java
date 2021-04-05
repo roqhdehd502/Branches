@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.page.MemberCriteria;
 import edu.bit.ex.page.PrdctListCriteria;
-import edu.bit.ex.vo.MbrAddressVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
@@ -38,9 +38,9 @@ public interface AdminMapper {
 	public int getSellerPrdctTotalCount(PrdctListCriteria cri, String m_id);
 
 	// 판매자 정보 수정
-	public void sellerInfoUpdate(MbrAddressVO mavo);
+	public void sellerInfoUpdate(MbrShippingVO mavo);
 
-	public void sellerAddressUpdate(MbrAddressVO mavo);
+	public void sellerAddressUpdate(MbrShippingVO mavo);
 
 	// 판매자 삭제(탈퇴)======보류
 
@@ -50,6 +50,11 @@ public interface AdminMapper {
 	public int getMemberTotalCount(MemberCriteria cri);
 
 	public void memberInfoUpdate(MbrVO mbrvo);
+
+	// 판매자 등록
+	public void addSellerInfo(MbrShippingVO mbrShippingVO);
+
+	public void addSellerAddress(MbrShippingVO mbrShippingVO);
 
 	// 회원 삭제(탈퇴)======보류
 

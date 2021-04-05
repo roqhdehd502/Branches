@@ -17,10 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
+import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.service.SecurityService;
 import edu.bit.ex.service.SellerService;
-import edu.bit.ex.vo.MbrAddressVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.ShippingVO;
 import lombok.AllArgsConstructor;
@@ -295,7 +295,7 @@ public class SellerController {
 
 	// 판매자 정보수정 ajax
 	@PutMapping(value = "/mypage/myinfo")
-	public ResponseEntity<String> seller_info_modify(@RequestBody MbrAddressVO mavo) {
+	public ResponseEntity<String> seller_info_modify(@RequestBody MbrShippingVO mavo) {
 		ResponseEntity<String> entity = null;
 
 		log.info("rest_update..");
