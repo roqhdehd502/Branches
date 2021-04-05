@@ -172,10 +172,9 @@
 			</nav>
 		</header>
 		
-		<!-- 리뷰 등록 페이지 -->
-		<form>
-			<input type="hidden" value="아이디" /> <!-- 데이터끌고와서 처리 --> 
-			<input type="hidden" value="등급" /> <br /> <br />
+		<!-- 상품 Q&A 등록 페이지 -->
+		<form action="${pageContext.request.contextPath}/member/prdct/{prdct_id}/qna/writing" method="post">
+			<input type="hidden" value="${prdctQnaInfo.mbr_id}" id="mbr_id" name="mbr_id"/> 
 			<fieldset>
 				<legend style="text-align: center;">상품 Q&A 등록</legend>
 				<br />
@@ -184,7 +183,8 @@
 				<div class="form-group row">
 					<label for="prdName" class="col-sm-2 col-form-label">상품</label>
 					<div class="col-sm-10">
-						<p id="prdName" class="font-weight-bold">상품이름</p>
+						<p id="prdct_id" class="font-weight-bold">p1</p>
+						<input type="hidden" name="prdct_id" value="p1"/> 
 					</div>
 				</div>
 
@@ -192,17 +192,17 @@
 				<div class="form-group row">
 					<label for="PrdQNA" class="col-sm-2 col-form-label">문의 유형</label>
 					<div class="form-group col-sm-10">
-						<select class="form-control" id="PrdQNA">
-							<option>EXCHANGE</option>
-							<option>REFUND</option>
-							<option>CANCEL</option>
-							<option>SHIPPING</option>
-							<option>FAULTY</option>
-							<option>ORDER</option>
-							<option>PRODUCT</option>
-							<option>POINT</option>
-							<option>MEMBER</option>
-							<option>ETC</option>
+						<select class="form-control" id="inquiry_number" name="inquiry_number">
+							<option id="inquiry_number" value="1">EXCHANGE</option>
+							<option id="inquiry_number" value="2">REFUND</option>
+							<option id="inquiry_number" value="3">CANCEL</option>
+							<option id="inquiry_number" value="4">SHIPPING</option>
+							<option id="inquiry_number" value="5">FAULTY</option>
+							<option id="inquiry_number" value="6">ORDER</option>
+							<option id="inquiry_number" value="7">PRODUCT</option>
+							<option id="inquiry_number" value="8">POINT</option>
+							<option id="inquiry_number" value="9">MEMBER</option>
+							<option id="inquiry_number" value="10">ETC</option>
 						</select>
 					</div>
 				</div>
@@ -211,7 +211,7 @@
 				<div class="form-group row">
 					<label for="pqnatitle" class="col-sm-2 col-form-label">제목</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" id="pqnatitle" placeholder="제목을 입력해 주세요.">
+						<input type="text" class="form-control" id="board_name" name="board_name" placeholder="제목을 입력해 주세요.">
 					</div>
 				</div>
 
@@ -219,7 +219,7 @@
 				<div class="form-group row">
 					<label for="orderEmail" class="col-sm-2 col-form-label">내용</label>
 					<div class="col-sm-10">
-						<textarea name="etc_textarea" class="form-control" style="" value="" maxlength="500" onkeyup="return textarea_maxlength(this)" placeholder="최대 500자까지 입력 가능합니다."></textarea>
+						<textarea id="board_content" name="board_content" class="form-control" style="" value="" maxlength="500" onkeyup="return textarea_maxlength(this)" placeholder="최대 500자까지 입력 가능합니다."></textarea>
 					</div>
 				</div>
 
@@ -233,7 +233,7 @@
 				</div>
 				
 				<div style="text-align: center;">
-					<button type="submit" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/mypage/prdctq/list'">등록</button>
+					<button type="submit" class="btn btn-primary">등록</button>
 				</div>
 				<br /> <br />
 			</fieldset>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.service.OrderService;
+import edu.bit.ex.service.SecurityService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,6 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 public class OrderController {
 	@Autowired
 	private OrderService orderService;
+
+	private SecurityService securityService;
 
 	// 장바구니 담기 //common
 	/*
@@ -35,7 +38,7 @@ public class OrderController {
 	 * }
 	 */
 
-	// 장바구니 common
+	// 장바구니 페이지
 	@GetMapping("/cart")
 	public ModelAndView MemberCart(HttpSession session, ModelAndView mav) throws Exception {
 		log.debug("cart list");

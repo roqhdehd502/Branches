@@ -45,13 +45,27 @@ public class MemberController {
 		return mv;
 	}
 
-	// 상품 Q&A 등록
+	// 상품 Q&A 등록 페이지
 	@GetMapping("/prdct/{prdct_id}/qna/write")
-	public ModelAndView productQnARegister(ModelAndView mav) throws Exception {
+	public ModelAndView productQnARegister(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav) throws Exception {
 		log.info("productQnARegister..");
 		mav.setViewName("member/productQnARegister");
-		// mav.addObject("ProductQnARegister", (customerService.getProductQnARegister(p_id)));
+		// 상품 Q&A 등록 페이지 회원id정보
+		mav.addObject("prdctQnaInfo", securityService.getMbr(memberDetails.getUserID()));
+
 		return mav;
+	}
+
+	// 상품 Q&A 작성
+	@PostMapping("/prdct/{prdct_id}/qna/writing")
+	public RedirectView prdctQnaWriting(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, BoardVO boardVO) throws Exception {
+		log.debug("prdctQnaWriting");
+		log.info("prdctQnaWriting..");
+
+		// 리뷰 등록
+		memberService.setPrdctQnaWrite(boardVO);
+
+		return new RedirectView("/member/mypage/prdctq/list");
 	}
 
 	// 상품 Q&A 마이페이지 리스트 - 누르면 member_myprdctq 연결
@@ -62,7 +76,7 @@ public class MemberController {
 		String member_id = memberDetails.getUserID();
 		mav.setViewName("member/member_myprdctq_list");
 		mav.addObject("mem", securityService.getMbr(member_id));
-		// mav.addObject("reviewMyList", memberService.getReviewMyList(member_id));
+		mav.addObject("prdctqMyList", memberService.getPrdctqMyList(member_id));
 		return mav;
 	}
 
@@ -110,7 +124,6 @@ public class MemberController {
 		log.info("reviewRegister..");
 
 		mav.setViewName("member/reviewRegister");
-
 		// 리뷰 등록페이지 회원id정보
 		mav.addObject("customerInfo", securityService.getMbr(memberDetails.getUserID()));
 

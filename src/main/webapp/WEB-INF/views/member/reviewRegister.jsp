@@ -174,7 +174,7 @@
 		
 		<!-- 리뷰 등록 페이지 -->
 		<form action="${pageContext.request.contextPath}/member/mypage/review/writing" method="post">
-			<input type="hidden" value="${customerInfo.mbr_id}" id="mbr_id" name="mbr_id"/> <!-- 데이터끌고와서 처리 -->  <br /> <br />
+			<input type="hidden" value="${customerInfo.mbr_id}" id="mbr_id" name="mbr_id"/> < <br /> <br />
 			<fieldset>
 				<legend style="text-align: center;">리뷰 등록</legend>
 				<br />
@@ -195,7 +195,7 @@
 	    				<input type="radio" id="star5" name="board_starrate" value="5" />
 					    <label for="star5" title="text">5 stars</label>
 					    
-					    <input type="radio" id="star4" name="board_starrate" value="4" />
+					    <input type="radio" id="star4"  />
 					    <label for="star4" title="text">4 stars</label>
 					    
 					    <input type="radio" id="star3" name="board_starrate" value="3" />
