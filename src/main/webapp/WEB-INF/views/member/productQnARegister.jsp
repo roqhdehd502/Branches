@@ -233,7 +233,7 @@
 				</div>
 				
 				<div style="text-align: center;">
-					<button type="button" class="btn btn-primary">등록</button>
+					<button type="submit" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/mypage/prdctq/list'">등록</button>
 				</div>
 				<br /> <br />
 			</fieldset>

@@ -216,7 +216,7 @@
 
 				<div class="col-md-9 contact-info">
 					<h3>
-						<strong>내가 쓴 구매후기</strong>
+						<strong>내가 쓴 문의</strong>
 					</h3>
 					<hr>
 				

@@ -364,7 +364,6 @@ img {
 					</div>
 
 					<!--  상품 정보와 옵션 선택 -->
-					<form action="${pageContext.request.contextPath}/prdct/${productDetail.prdct_id}" method="post">
 					<div class="row">
 						<div class="contrainer single-service bordered " style="height: 600px; width: 500px;">
 							<div class="inner">
@@ -394,23 +393,22 @@ img {
 								<!--  구매 버튼 및 찜하기  -->
 								<div class="row">
 									<div style="float: left; width: 30%; padding-left: 20px">
-										<button type="submit" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/ej/order'">
+										<button type="submit" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/order/orderForm'">
 											바로구매
 										</button>
 										<!-- 회원은 주문확인페이지, 비회원은 주문정보 입력 페이지로 연결.. -->
 									</div>
 									<div style="float: left; width: 30%; padding-left: 20px">
 										<!-- 상품정보를 저장해서 장바구니로 이동 -->
-										<button type="submit" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/ej/cart'">장바구니</button>
+										<button type="submit" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/order/cart'">장바구니</button>
 									</div>
 									<div class="icon" style="float: left; padding-left: 20px; padding-top: 10px;">
-										<i class="fa fa-heart-o fa-2x"> 찜하기</i>
+										<i class="fa fa-heart-o fa-2x"> 찜하기</i> <!-- 마이페이지 찜하기 이동/ 계속쇼핑 만들어야되나 -->
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					</form>
 				</div>
 				</div>
 		
@@ -604,7 +602,7 @@ img {
 											<table class="table">
 												<!-- 한 페이지 글 몇개, 페이징 처리 -->
 												<tr>
-													<td><span class="star-prototype"></span></td>
+													<td><span class="star-prototype"><!-- 얘 보니까 별점 평균 끌어쓰는애라 확인하기 --></span></td>
 													<td>사진</td>
 													<%-- <c:forEach items="${상품옵션}" var="dto"> --%>
 													<td>
@@ -706,39 +704,43 @@ img {
 					<br>
 					<div class="gallery-area spb">
 						<div class="container">
-							<div class="section-title" data-margin="0 0 40px">
-								<table class="table" style="width: 100%;">
-									<!-- 한 페이지 글 몇개, 페이징 처리 -->
-									<colgroup>
-										<col style="width: 10%">
-										<col style="width: 15%">
-										<col style="width: 35%">
-										<col style="width: 15%">
-										<col style="width: 15%">
-									</colgroup>
-									<thead>
-										<tr>
-											<td scope="col">번호</td>
-											<td scope="col">문의유형</td>
-											<td scope="col">제목</td>
-											<td scope="col">작성자</td>
-											<td scope="col">등록일자</td>
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach items="${prdQnAList}" var="dto">
+								<div class="section-title" data-margin="0 0 40px">
+									<table class="table" style="width: 100%;">
+										<!-- 한 페이지 글 몇개, 페이징 처리 -->
+										<colgroup>
+											<col style="width: 10%">
+											<col style="width: 15%">
+											<col style="width: 35%">
+											<col style="width: 15%">
+											<col style="width: 15%">
+										</colgroup>
+										<thead>
 											<tr>
-												<td scope="col">${dto.board_id}</td>
-												<td scope="col">${dto.inquiry_number}</td>
-												<td scope="col"><a href="${pageContext.request.contextPath}/ej/prdqna/${dto.board_id}">${dto.board_name}</a></td>
-												<td scope="col">${dto.mbr_id}</td>
-												<td scope="col">${dto.board_date}</td>
+												<td scope="col">번호</td>
+												<td scope="col">문의유형</td>
+												<td scope="col">제목</td>
+												<td scope="col">작성자</td>
+												<td scope="col">등록일자</td>
 											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
+										</thead>
+										<tbody>
+											<c:forEach items="${prdQnAList}" var="dto">
+												<tr>
+													<td scope="col">${dto.board_id}</td>
+													<td scope="col">${dto.inquiry_number}</td>
+													<td scope="col"><a href="${pageContext.request.contextPath}/ej/prdqna/${dto.board_id}">${dto.board_name}</a></td>
+													<td scope="col">${dto.mbr_id}</td>
+													<td scope="col">${dto.board_date}</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+									<div style="text-align: center;">
+										<!-- 상품 문의 등록으로 이동 -->
+										<button type="submit" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/prdct/{prdct_id}/qna/write'">상품문의</button>
+									</div>
+								</div>
 							</div>
-						</div>
 					</div>
 				</div>
 			</div>
