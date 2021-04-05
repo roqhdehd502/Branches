@@ -18,6 +18,8 @@
 	<link rel="stylesheet" href="/assets/css/slicknav.css">
 	<link rel="stylesheet" href="/assets/css/main.css">
 	<link rel="stylesheet" href="/bootstrap.min.css">
+	
+	<script src="/ckeditor/ckeditor.js"></script>
 </head>
 <body>
 <div style="overflow: hidden;" class="container">
@@ -139,9 +141,17 @@
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">내용</label>
 								<div class="col-sm-10">
-									<textarea class="form-control" rows="20" placeholder="해당 상품에 대한 설명을 입력해주세요" id="board_content"></textarea>
-									<input type="file" id="uploadfiles" name="uploadfiles" placeholder="첨부 사진" multiple class="form-control-file">
-									<small class="form-text text-muted">jpg, png, gif의 사진파일만 적용됩니다.</small>
+									<textarea class="form-control" rows="20" name="board_content" id="board_content"></textarea>
+									<script>
+										//id가 description인 태그에 ckeditor를 적용시킴
+										//CKEDITOR.replace("description"); //이미지 업로드 안됨
+										
+										CKEDITOR.replace("board_content", {
+											filebrowserUploadUrl : "${pageContext.request.contextPath}/seller/imageUpload.do"
+
+										});
+										
+									</script>
 								</div>
 							</div>
 							<div class="form-group row">
@@ -181,8 +191,10 @@
       <script src="/assets/js/vendor/slicknav.min.js"></script>
       <script src="/assets/js/active.js"></script>
       
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<!-- 작성 폼 스크립트 -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- 작성 폼 스크립트 -->
 <script>
     $(document).ready(function () {
 	    $("#writeForm").submit(function(event){
@@ -195,15 +207,15 @@
 	        var prdct_color = $("#prdct_color").val();
 	        var prdct_size = $("#prdct_size").val();
 	        var prdct_price = $("#prdct_price").val();
-	        var board_content = $("#board_content").val();
+	        var board_content = CKEDITOR.instances.board_content.getData();
 	        var prdct_stock = $("#prdct_stock").val();
 	            
 	        console.log(prdct_name);
 	        console.log(prdct_color);
 	        console.log(prdct_size);
 	        console.log(prdct_price);
-	        console.log(board_content); 
 	        console.log(prdct_stock);
+	        console.log(board_content);
 	        console.log($(this).attr("action"));   
 	            
 	        formData.append("prdct_name", prdct_name);
