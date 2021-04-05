@@ -46,7 +46,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 			mbr.setMbr_id(userInfo.getProviderId());
 			mbr.setMbr_pw("PW_" + userRequest.getClientRegistration().getRegistrationId());
 			mbr.setMbr_name(userInfo.getName());
-			mbr.setMbr_email(userInfo.getName());
+			mbr.setMbr_email(userInfo.getEmail());
 			mbr.setLogin_number(Integer.parseInt(userInfo.getProvider()));
 			mbr.setMbr_nickname(userInfo.getName());
 			mapper.addSocialMbr(mbr);
