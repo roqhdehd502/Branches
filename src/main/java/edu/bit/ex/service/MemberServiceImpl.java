@@ -8,7 +8,6 @@ import edu.bit.ex.mapper.MemberMapper;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctOrderVO;
-import edu.bit.ex.vo.PrdctVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,9 +19,23 @@ public class MemberServiceImpl implements MemberService {
 
 	// 상품 Q&A 등록 페이지
 	@Override
-	public PrdctVO getProductQnARegister(String prdct_id) {
-		log.info("getProductQnARegister");
-		return memberMapper.getProductQnARegister(prdct_id);
+	public MbrVO getPrdctQnaInfo(String mbr_id) {
+		log.info("getPrdctQnaInfo");
+		return memberMapper.getPrdctQnaInfo(mbr_id);
+	}
+
+	// 상품 Q&A 등록 작성
+	@Override
+	public void setPrdctQnaWrite(BoardVO boardVO) {
+		log.info("setPrdctQnaWrite()......");
+		memberMapper.prdctQnaWrite(boardVO);
+	}
+
+	// 상품 Q&A 마이페이지 리스트
+	@Override
+	public List<BoardVO> getPrdctqMyList(String member_id) {
+		log.info("getPrdctqMyList()......");
+		return memberMapper.prdctqMyList(member_id);
 	}
 
 	// 판매자 마이페이지

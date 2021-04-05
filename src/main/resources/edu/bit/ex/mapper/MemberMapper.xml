@@ -5,12 +5,20 @@
   
 <mapper namespace="edu.bit.ex.mapper.MemberMapper">
 
-	<!-- 상품 Q&A 상품 id 가져오기(나중에수정..)-->
-	<select id="getProductQnARegister" resultType="edu.bit.ex.vo.PrdctVO">
+	<!-- 상품 Q&A 페이지 회원정보 가져오기 -->
+	<select id="getPrdctQnaInfo" resultType="edu.bit.ex.vo.MbrVO">
 	<![CDATA[
-		SELECT * FROM prdct WHERE prdct_id = 'PRDCT22'
+		select * from mbr where mbr_id=#{mbr_id}
 	]]>
 	</select>
+	
+	<!-- 상품 Q&A 등록 작성 -->
+	<insert id="prdctQnaWrite" parameterType="map">
+	<![CDATA[
+		insert into board (board_id, board_name, board_content, mbr_id, board_type_number, inquiry_number, prdct_id)
+			values (board_seq.nextval, #{board_name}, #{board_content}, #{mbr_id}, 4, #{inquiry_number}, #{prdct_id})
+	]]>
+	</insert>
 	
 	<select id="getMemberInfo" resultType="edu.bit.ex.vo.MbrVO">
 	<![CDATA[
