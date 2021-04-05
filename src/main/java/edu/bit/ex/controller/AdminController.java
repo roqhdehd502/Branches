@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.page.MemberCriteria;
 import edu.bit.ex.page.MemberPageVO;
 import edu.bit.ex.page.PrdctListCriteria;
 import edu.bit.ex.service.AdminService;
-import edu.bit.ex.vo.MbrAddressVO;
 import edu.bit.ex.vo.MbrVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -51,7 +53,39 @@ public class AdminController {
 	 */
 
 	// 관리자 매출조회 페이지 (보류)
-	@GetMapping("/mypage/sales")
+	@GetMapping("/mypage/regist/seller")
+	public ModelAndView regist_Seller(ModelAndView mav) throws Exception {
+		log.info("regist seller page........");
+
+		mav.setViewName("admin/seller_register");
+
+		return mav;
+	}
+
+	@PostMapping("/mypage/regist/seller")
+	public String registing_Seller(@ModelAttribute MbrShippingVO mbrShippingVO) throws Exception {
+		log.info("registing seller page........");
+
+		ResponseEntity<String> entity = null;
+		mbrShippingVO.setMbr_nickname(mbrShippingVO.getMbr_name());
+		log.info("rest_update..");
+		try {
+
+			adminService.addSeller(mbrShippingVO);
+			log.info("update seller info");
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return "redirect:admin/mypage/seller/mbrShippingVO.getMbr_id";
+
+	}
+
+	// 관리자 매출조회 페이지 (보류)
+	@GetMapping("/mypage/")
 	public ModelAndView admintotal(ModelAndView mav) throws Exception {
 		log.debug("admintotal");
 		log.info("admintotal");
@@ -60,16 +94,6 @@ public class AdminController {
 
 		return mav;
 	}
-
-	// 관리자 회원정보 조회 페이지...(admin)
-	/*
-	 * @GetMapping("/adminSearchMember") public String adminSearchMember(Model model, SearchCriteria cri) throws Exception {
-	 * log.info("adminSearchMember........."); model.addAttribute("mem", adminService.getMemberList(cri));
-	 * 
-	 * int total = adminService.getTotal(cri); log.info("total.........."); model.addAttribute("pageMaker", new SearchPageVO(cri, total));
-	 * 
-	 * return "/adminSearchMember"; }
-	 */
 
 	// 관리자 매출 조회 검색페이지 (보류)
 	@GetMapping("/mypage/search")
@@ -115,7 +139,7 @@ public class AdminController {
 
 	// 관리자 판매자 정보수정 admin
 	@PutMapping(value = "/mypage/seller/{seller_id}")
-	public ResponseEntity<String> admin_seller_update(@RequestBody MbrAddressVO mavo) {
+	public ResponseEntity<String> admin_seller_update(@RequestBody MbrShippingVO mavo) {
 		ResponseEntity<String> entity = null;
 
 		log.info("rest_update..");

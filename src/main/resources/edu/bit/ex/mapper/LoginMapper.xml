@@ -37,12 +37,20 @@
 	
 	<insert id="addMbr">
 	<![CDATA[
-		insert into mbr 
-		(mbr_id, mbr_pw, mbr_name, authority_number, mbr_email, login_number, mbr_nickname, mbr_point, jdate, grade_number) 
+		insert into mbr
+		(mbr_id, mbr_pw, mbr_name, mbr_gender, mbr_birth, mbr_email, login_number, contact_number, mbr_nickname)
 		values
-		(#{mbr_id}, #{mbr_pw}, #{mbr_name}, #{authority_number}, #{mbr_email}, #{login_number}, #{mbr_nickname}, #{mbr_point}, sysdate, #{grade_number})
+		(#{mbr_id}, #{mbr_pw}, #{mbr_name}, #{mbr_gender}, #{mbr_birth}, #{mbr_email}, #{login_number}, #{contact_number}, #{mbr_nickname})
 	]]>
 	</insert>
 	
+	<insert id="addSocialMbr">
+	<![CDATA[
+		insert into mbr
+		(mbr_id, mbr_pw, mbr_name, mbr_email, login_number, mbr_nickname)
+		values
+		(#{mbr_id}, #{mbr_pw}, #{mbr_name}, #{mbr_email}, #{login_number}, #{mbr_nickname})
+	]]>
+	</insert>
 	
 </mapper>

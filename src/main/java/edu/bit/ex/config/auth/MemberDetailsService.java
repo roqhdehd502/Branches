@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import edu.bit.ex.service.SecurityService;
+import edu.bit.ex.mapper.LoginMapper;
 import edu.bit.ex.vo.MbrVO;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -18,18 +18,16 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberDetailsService implements UserDetailsService {
 
 	@Setter(onMethod_ = @Autowired)
-	private SecurityService securityService; // 자동 로그인할때 기존 mbr데이터 다 지우고 새로 회원가입 시켜서 해야함
-												// SecurityService로 처리하면 순환주기를 형성해서 mapper로 써야한다
+	LoginMapper loginMapper;
 
 	@Override
 	public UserDetails loadUserByUsername(String mbr_id) throws UsernameNotFoundException {
+		log.info("Get User by ID" + mbr_id);
 
-		MbrVO mbr = securityService.getMbr(mbr_id);
-		log.info(mbr_id);
-		log.info(mbr.getMbr_pw());
-		if (mbr.getMbr_id() != null) {
-			return new MemberDetails(mbr);
-		}
+		MbrVO mbr = loginMapper.getMbr(mbr_id);
+
+		log.info("Get Member by MemberMaooer : + mbr");
+
 		return mbr == null ? null : new MemberDetails(mbr);
 	}
 

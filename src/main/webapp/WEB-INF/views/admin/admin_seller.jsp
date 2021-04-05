@@ -142,18 +142,18 @@ $(document).ready(function(){
 				<div class="col-md-3 contact-info" align="center">
 				<div class="single-info" style="margin-bottom: 40px;">
 	                    <h3>업체관리</h3><hr>
-	                    <h5><a href="#">업체등록</a></h5>
-	                    <h5><a href="#">업체목록 조회</a></h5>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/regist/seller">업체등록</a></h5>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/seller">업체목록 조회</a></h5>
 	                </div><br/>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>회원관리</h3><hr>
-	                    <h5><a href="#">회원정보 조회</a></h5>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/member">회원정보 조회</a></h5>
+	               		 <h5><a href="${pageContext.request.contextPath}/admin/mypage/member/adminQnA">고객Q&A 목록</a></h5>
 	                </div><br/>
 	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>고객 Q&A 목록</h3><hr>
-	                    <h5><a href="#">통계</a></h5>
-	                    <h5><a href="#">매출조회</a></h5>
-	                    <h5><a href="#">검색순위 조회</a></h5>
+	                    <h3>매출관리</h3><hr>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/admintotal">매출조회</a></h5>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/adminSearchtotal">검색순위 조회</a></h5>
 	                </div>
 				</div>
 				

@@ -147,40 +147,40 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-3 contact-info" align="center">
-					<div class="single-info" style="margin-bottom: 40px">
-	                    <h3>업체 관리</h3><hr>
-	                    <h5><a href="#">업체등록</a></h5>
-	                    <h5><a href="#">업체목록조회</a></h5>
-	                </div>
+					<div class="single-info" style="margin-bottom: 40px;">
+	                    <h3>업체관리</h3><hr>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/regist/seller">업체등록</a></h5>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/seller">업체목록 조회</a></h5>
+	                </div><br/>
 	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>고객 관리</h3><hr>
-	                    <h5><a href="#">고객정보조회</a></h5>
-	                    <h5><a href="#">고객Q&A목록</a></h5>
-	                </div>
+	                    <h3>회원관리</h3><hr>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/member">회원정보 조회</a></h5>
+	               		 <h5><a href="${pageContext.request.contextPath}/admin/mypage/member/adminQnA">고객Q&A 목록</a></h5>
+	                </div><br/>
 	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>통계</h3><hr>
-	                    <h5><a href="#">매출조회</a></h5>
-	                    <h5><a href="#">검색순위조회</a></h5>
+	                    <h3>매출관리</h3><hr>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/admintotal">매출조회</a></h5>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/adminSearchtotal">검색순위 조회</a></h5>
 	                </div>
-				</div>	
+				</div>
 				
 				<div class="col-md-9 contact-info">
 					<h3 >
 					<strong>업체 등록</strong>
 					</h3><hr>
-					<form action="#" method="post">
+					<form action="${pageContext.request.contextPath}/admin/mypage/regist/seller" method="post">
 						<fieldset>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">업체명</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" placeholder="업체명을 입력해주세요">
+									<input type="text" class="form-control" id="mbr_name" name="mbr_name" placeholder="업체명을 입력해주세요">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">ID</label>
 								<div class="col-sm-10 row">
 									<div class="col-sm-10">
-										<input type="text" class="form-control" placeholder="아이디를 입력해주세요">
+										<input type="text" class="form-control" id="mbr_id" name="mbr_id" placeholder="아이디를 입력해주세요">
 									</div>
 									<!-- 이부분은 추후 스크립트상에서 alert으로 알림띄울것 -->
 									<div class="col-sm-2">
@@ -191,32 +191,26 @@
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">PW</label>
 								<div class="col-sm-10">
-									<input type="password" class="form-control" placeholder="비밀번호를 입력해주세요">
+									<input type="password" class="form-control" id="mbr_pw" name="mbr_pw" placeholder="비밀번호를 입력해주세요">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">e-mail</label>
 								<div class="col-sm-10">
-									<input type="email" class="form-control" placeholder="이메일을 입력해주세요">
+									<input type="email" class="form-control" id="mbr_email" name="mbr_email" placeholder="이메일을 입력해주세요">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">주소</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" placeholder="주소를 입력해주세요">
+									<input type="text" class="form-control" id="shipping_address" name="shipping_address" placeholder="주소를 입력해주세요">
 								</div>
 							</div>
 							<div class="form-group row">
 					    		<label class="col-sm-2 col-form-label">연락처</label>
-					      		<div class="col-sm-2">
-					      			<input type="number" class="form-control">
-					      		</div>
-								<div class="col-sm-4">
-									<input type="number" class="form-control">
-								</div>
-								<div class="col-sm-4">
-									<input type="number" class="form-control">
-								</div>		
+					      		<div class="col-sm-10">
+					      			<input type="number" id="contact_number" name="contact_number" class="form-control">
+					      		</div>		
 					    	</div>
 							<div align="center">
 							<button type="submit" class="btn btn-primary">업체등록</button>

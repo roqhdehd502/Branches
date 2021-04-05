@@ -5,10 +5,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
+import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.CategoryVO;
-import edu.bit.ex.vo.MbrAddressVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.OrderDetailVO;
 import edu.bit.ex.vo.PrdctDetailVO;
@@ -34,9 +34,9 @@ public interface SellerMapper {
 	public ShippingVO getSellerAddress(String m_id);
 
 	// 회원 정보 수정
-	public void sellerInfoUpdate(MbrAddressVO mavo);
+	public void sellerInfoUpdate(MbrShippingVO mavo);
 
-	public void sellerAddressUpdate(MbrAddressVO mavo);
+	public void sellerAddressUpdate(MbrShippingVO mavo);
 
 	// 상품 수정
 	public void prdctUpdate(PrdctRegisterImageVO prvo);

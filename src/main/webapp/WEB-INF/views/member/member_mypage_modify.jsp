@@ -310,8 +310,8 @@ $(document).ready(function(){
 									<input style="width: 14px; height: 14px;" type="radio" class="form-check-input" name="mbr_gender" id="mbr_gender" value="F"
 											<c:if test="${mbr.mbr_gender eq 'F'}"> checked="checked" </c:if>></input></span>
 									</label>
-									<label class="form-check-label" style="margin: 16px;">논바이너리 <span style="position: relative; top: 25px; right: 5px;"> 
-									<input style="width: 14px; height: 14px;" type="radio" class="form-check-input" name="mbr_gender" id="mbr_gender" value="F"
+									<label class="form-check-label" style="margin: 16px;">논 <span style="position: relative; top: 25px; right: 5px;"> 
+									<input style="width: 14px; height: 14px;" type="radio" class="form-check-input" name="mbr_gender" id="mbr_gender" value="N"
 											<c:if test="${mbr.mbr_gender eq 'N'}"> checked="checked" </c:if>></input></span>
 									</label>
 								</div>

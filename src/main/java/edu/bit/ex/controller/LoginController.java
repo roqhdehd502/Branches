@@ -11,8 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -91,8 +91,9 @@ public class LoginController {
 	}
 
 	@PostMapping("/join")
-	public ResponseEntity<String> memberRegister(@RequestBody MbrVO mbrvo) {
-		log.info("Sign Up Member >>> " + mbrvo.getMbr_id());
+	public String memberRegister(@ModelAttribute MbrVO mbrvo) {
+
+		mbrvo.setLogin_number(1);
 
 		ResponseEntity<String> entity = null;
 
@@ -104,7 +105,7 @@ public class LoginController {
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
-		return entity;
+		return "login/login";
 	}
 
 	@GetMapping("/denied")

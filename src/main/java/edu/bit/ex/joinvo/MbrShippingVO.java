@@ -1,4 +1,4 @@
-package edu.bit.ex.vo;
+package edu.bit.ex.joinvo;
 
 import java.sql.Date;
 
@@ -13,7 +13,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class MbrAddressVO {
+public class MbrShippingVO {
 	private String mbr_id; // 회원id pk,fk
 	private String mbr_pw; // 회원pw
 	private String mbr_name; // 회원이름
