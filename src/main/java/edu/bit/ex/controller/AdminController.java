@@ -145,7 +145,7 @@ public class AdminController {
 		log.info("rest_update..");
 		try {
 
-			// adminService.sellerInfoUpdate(mavo);
+			adminService.sellerInfoUpdate(mavo);
 			log.info("update seller info");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 
@@ -186,7 +186,7 @@ public class AdminController {
 		log.info("rest_update..");
 		try {
 
-			// adminService.memberInfoUpdate(mbrvo);
+			adminService.memberInfoUpdate(mbrvo);
 			log.info("update member info");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 

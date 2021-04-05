@@ -22,7 +22,7 @@ public class MemberDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String mbr_id) throws UsernameNotFoundException {
-		log.info("Get User by ID" + mbr_id);
+		log.info("Get User by ID : " + mbr_id);
 
 		MbrVO mbr = loginMapper.getMbr(mbr_id);
 

@@ -20,6 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 @Service
 public class AdminServiceImpl implements AdminService {
+
+	@Autowired
 	private AdminMapper adminMapper;
 
 	@Autowired
@@ -85,6 +87,9 @@ public class AdminServiceImpl implements AdminService {
 	public void sellerInfoUpdate(MbrShippingVO mavo) {
 		// TODO Auto-generated method stub
 		log.info("sellerInfoUpdate");
+		String pw = passEncoder.encode(mavo.getMbr_pw());
+		mavo.setMbr_pw(pw);
+
 		adminMapper.sellerInfoUpdate(mavo);
 		adminMapper.sellerAddressUpdate(mavo);
 	}
@@ -117,6 +122,9 @@ public class AdminServiceImpl implements AdminService {
 	public void memberInfoUpdate(MbrVO mbrvo) {
 		// TODO Auto-generated method stub
 		log.info("memberInfoUpdate");
+		String pw = passEncoder.encode(mbrvo.getMbr_pw());
+		mbrvo.setMbr_pw(pw);
+
 		adminMapper.memberInfoUpdate(mbrvo);
 	}
 
