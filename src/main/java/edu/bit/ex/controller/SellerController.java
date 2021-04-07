@@ -30,6 +30,7 @@ import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.service.SecurityService;
 import edu.bit.ex.service.SellerService;
+import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.ShippingVO;
 import lombok.AllArgsConstructor;
@@ -97,16 +98,17 @@ public class SellerController {
 		log.info("prdct_register...");
 		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
 
-		MultipartFile[] uploadfiles = prdctIVO.getUploadfiles();
+		/* MultipartFile[] uploadfiles = prdctIVO.getUploadfiles(); */
 
 		try {
 			sellerService.prdInsert(prdctIVO);
 			; // 텍스트 등록(1). 우선 텍스트 부분을 선행으로 한다.
 
-			for (MultipartFile f : uploadfiles) {
-
-				sellerService.setPrdctImage(f); // 이미지 등록(N). 텍스트 부분이 선행되면 이미지를 올린다.
-			}
+			/*
+			 * for (MultipartFile f : uploadfiles) {
+			 * 
+			 * sellerService.setPrdctImage(f); // 이미지 등록(N). 텍스트 부분이 선행되면 이미지를 올린다. }
+			 */
 
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
@@ -120,12 +122,13 @@ public class SellerController {
 	// 판매자 상품 조회 seller
 	// 수정 버튼 옮길것! => SellerProductModify
 	@GetMapping("/mypage/prdct")
-	public ModelAndView sellerProductCheck(ModelAndView mav, MbrVO mbr, BoardPrdctImageVO bpvo) throws Exception {
+	public ModelAndView sellerProductCheck(ModelAndView mav, MbrVO mbr, BoardVO bvo, BoardPrdctImageVO bpvo) throws Exception {
 		log.debug("sellerProductCheck");
 		log.info("sellerProductCheck..");
 		mav.setViewName("seller/sellerProductCheck");
 		mav.addObject("prdct", sellerService.getProduct());
 		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
+		mav.addObject("bId", sellerService.getbNum(bvo.getBoard_id()));
 		mav.addObject("filename", sellerService.getFileName(bpvo.getBoard_id()));
 
 		return mav;
@@ -144,7 +147,7 @@ public class SellerController {
 		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
 		mav.addObject("cate", sellerService.getCategory());
 		mav.addObject("bvo", sellerService.getContent(bpvo.getBoard_id()));
-		mav.addObject("filename", sellerService.getFileName(bpvo.getBoard_id()));
+		mav.addObject("id", sellerService.getboardId(board_id));
 
 		return mav;
 	}
@@ -172,14 +175,15 @@ public class SellerController {
 	}
 
 	// 판매자 상품 삭제 ajax
-	@DeleteMapping(value = "/mypage/prdct/{prdct_id}/delete")
-	public ResponseEntity<String> prdctDelete(@PathVariable("prdct_id") String prdct_id) {
+	@DeleteMapping(value = "/mypage/prdct/{prdct_id}/{board_id}/delete")
+	public ResponseEntity<String> prdctDelete(@PathVariable("prdct_id") String prdct_id, @PathVariable("board_id") int board_id) {
 		ResponseEntity<String> entity = null;
 
 		log.info("prdctDelete..");
 		try {
 
 			sellerService.prdctDelete(prdct_id);
+			sellerService.boardDelete(board_id);
 			log.info("delete prdct info");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 

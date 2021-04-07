@@ -111,4 +111,18 @@
 		SELECT COUNT(*)	FROM prdct WHERE mbr_id=#{b_id}
 	]]>
 	</select>
+	
+	<!-- 상품 내용 불러오기 -->
+	<select id="getContent" resultType="edu.bit.ex.joinvo.BoardPrdctImageVO" >
+		<![CDATA[			
+			select board_content from board where board_id = #{board_id}
+		]]>
+	</select>
+	
+	<!-- 상품 수정페이지 board_id 불러오기 -->
+	<select id="getboardId" resultType="edu.bit.ex.vo.BoardVO" >
+		<![CDATA[			
+			select board_id from board where board_id = #{board_id}
+		]]>
+	</select>
 </mapper>

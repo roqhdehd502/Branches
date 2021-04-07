@@ -5,10 +5,24 @@
   
 <mapper namespace="edu.bit.ex.mapper.SellerMapper">
 	
-	<!-- 상품 내용 불러오기 -> 내용이 뒤죽박죽 불러와짐...쿼리 잘못짠건가ㅠㅠ -->
+	<!-- 상품 내용 불러오기 -->
 	<select id="getContent" resultType="edu.bit.ex.joinvo.BoardPrdctImageVO" >
 		<![CDATA[			
 			select board_content from board where board_id = #{board_id}
+		]]>
+	</select>
+	
+	<!-- 상품 게시판 아이디 게시판 유형이 6번인거 불러오기 -->
+	<select id="getbNum" resultType="edu.bit.ex.vo.BoardVO" >
+		<![CDATA[			
+			select board_id,board_date from board where board_id = board_id and board_type_number = 6 order by board_id DESC, board_date DESC
+		]]>
+	</select>
+	
+	<!-- 상품 수정페이지 board_id 불러오기 -->
+	<select id="getboardId" resultType="edu.bit.ex.vo.BoardVO" >
+		<![CDATA[			
+			select board_id from board where board_id = #{board_id}
 		]]>
 	</select>
 	
@@ -57,7 +71,7 @@
 	<!-- 게시글 정보 불러오기 -->
 	<select id="getBoard" resultType="edu.bit.ex.vo.BoardVO">
 		<![CDATA[
-			select * from board
+			select * from board where board_type_number = 4
 		]]>
 	</select>
 	
@@ -120,7 +134,7 @@
 	<!-- 판매자 상품내용 수정 -->
 	<update id="prdctContentUpdate">
 	<![CDATA[
-		update board set board_content=#{prdct_name} where board_id=#{board_id}
+		update board set board_content=#{board_content} where board_id=#{board_id}
 	]]>
 	</update>
 	
@@ -132,13 +146,20 @@
 	]]>
 	</delete>
 	
+	<!-- 판매자 상품정보 삭제... -->
+	<delete id="boardDelete">
+	<![CDATA[
+		delete from board where board_id = #{board_id}
+	]]>
+	</delete>
+	
 	<!-- 상품등록하기 -->
 	<insert id="prdInsert">
 		<![CDATA[
 			insert all into prdct (prdct_id, prdct_name, prdct_price, category_number , mbr_id) values
-				('p7',#{prdct_name}, #{prdct_price}, #{category_number} ,'prism' ) 
+				('ps7',#{prdct_name}, #{prdct_price}, 9 ,'prism' ) 
 					into prdct_detail (prdct_id, prdct_color, prdct_size, prdct_stock) values
-						('p7',#{prdct_color}, #{prdct_size} , #{prdct_stock}) 
+						('ps7',#{prdct_color}, #{prdct_size} , #{prdct_stock}) 
 							into board (board_id, board_name, board_content, board_type_number, board_like, board_hit, mbr_id) 
 								values(board_seq.nextval, 'TEST', #{board_content}, 6, 0, 0, 'prism')
 									select * from dual
@@ -147,16 +168,16 @@
 
 	<!-- 상품등록 첨부사진 작성 -->
 	<!-- 상품등록 작성을 거친뒤 첨부사진을 올리는 상황이므로 업로드하는 board_id의 현재 번호를 가리키는 board_seq.currval을 insert 한다. -->
-	<insert id="setPrdctImage">
+	<!-- <insert id="setPrdctImage">
 		<![CDATA[
 			INSERT INTO prdct_image (image_number, image_name, image_path, board_id) 
 			VALUES (prdct_image_seq.nextval, #{uploadfiles},'C:\tetleaf\Branches\src\main\resources\static\hs', board_seq.currval)
 		]]>
-	</insert>
+	</insert> -->
 	
 	<select id="getFileName" resultType="edu.bit.ex.joinvo.BoardPrdctImageVO" >
 		<![CDATA[			
-			select b.board_id, a.board_id, a.image_number, a.image_name from prdct_image a, board b where a.board_id = b.board_id 
+			select b.board_id, a.board_id, a.image_number, a.image_name from prdct_image a, board b where a.board_id = b.board_id and b.board_type_number = 6 
 		]]>
 	</select>
 	
