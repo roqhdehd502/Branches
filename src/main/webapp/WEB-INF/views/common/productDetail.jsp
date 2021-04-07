@@ -437,8 +437,9 @@ img {
 							<div class="row">
 								<div class="col-md-12 single-gallery">
 									<div class="inner">
-										<div style="padding-top: 7px">
-											<img src="<c:url value="/prdct_img/${prdDetailimg.image_name}"/>">
+										<div style="padding-top: 7px; text-align: center;">
+											<%-- <img src="<c:url value="/prdct_img/${prdDetailimg.image_name}"/>"> --%>
+											${bvo.board_content }
 										</div>
 									</div>
 								</div>

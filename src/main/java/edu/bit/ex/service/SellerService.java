@@ -2,8 +2,6 @@ package edu.bit.ex.service;
 
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
@@ -40,7 +38,10 @@ public interface SellerService {
 
 	public MbrVO getSellerInfo(String mbr_id);
 
+	// 상품삭제
 	public void prdctDelete(String prdct_id);
+
+	public void boardDelete(int board_id);
 
 	public void prdInsert(PrdctRegisterImageVO PrdctImageVO);
 
@@ -48,7 +49,7 @@ public interface SellerService {
 
 	public PrdctDetailVO getPrd(String getPrdct_id);
 
-	public void setPrdctImage(MultipartFile file);
+	/* public void setPrdctImage(MultipartFile file); */
 
 	public ShippingVO getAddress(String getMbr_id);
 
@@ -59,5 +60,9 @@ public interface SellerService {
 	public BoardPrdctImageVO getContent(int getBoard_id);
 
 	public void prdctContentUpdate(PrdctRegisterImageVO prvo);
+
+	public List<BoardVO> getbNum(int board_id);
+
+	public BoardVO getboardId(int board_id);
 
 }

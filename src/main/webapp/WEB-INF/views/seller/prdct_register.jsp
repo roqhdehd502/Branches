@@ -141,13 +141,14 @@
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">내용</label>
 								<div class="col-sm-10">
-									<textarea class="form-control" rows="20" name="board_content" id="board_content"></textarea>
+									<textarea name="board_content" id="board_content"></textarea>
 									<script>
 										//id가 description인 태그에 ckeditor를 적용시킴
 										//CKEDITOR.replace("description"); //이미지 업로드 안됨
 										
 										CKEDITOR.replace("board_content", {
 											filebrowserUploadUrl : "${pageContext.request.contextPath}/seller/imageUpload.do"
+									
 
 										});
 										
@@ -199,7 +200,7 @@
     $(document).ready(function () {
 	    $("#writeForm").submit(function(event){
 	    	event.preventDefault();
-	    		
+	    
 	    	var formData = new FormData();
 	    		
 	    	// 텍스트 입력 영역
@@ -226,14 +227,14 @@
 	        formData.append("prdct_stock", prdct_stock);
 	    		
 	    	// 파일저장 영역
-	        var inputFile = $("#uploadfiles");
+	       /*  var inputFile = $("#uploadfiles");
 	    	console.log(inputFile);
 	        var files = inputFile[0].files;  
                 
 	        for (var i = 0; i < files.length; i++) {
 	        	console.log(files[i]);
 	        	formData.append("uploadfiles", files[i]);
-	        }     
+	        }   */   
 	    		
 	        // 파일 넣을때 JSON.stringify()는 적용이 안된다...
 	        $.ajax({

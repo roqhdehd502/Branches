@@ -2,6 +2,7 @@ package edu.bit.ex.service;
 
 import java.util.List;
 
+import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.page.PrdQnACriteria;
 import edu.bit.ex.page.PrdctListCriteria;
 import edu.bit.ex.vo.BoardCommentVO;
@@ -53,5 +54,9 @@ public interface CommonService {
 
 	// 페이징에 적용되는 브랜드 상품 수
 	public int getBrandTotalCount(PrdctListCriteria cri, String b_id);
+
+	public BoardPrdctImageVO getContent(int board_id);
+
+	public BoardVO getboardId(int board_id);
 
 }

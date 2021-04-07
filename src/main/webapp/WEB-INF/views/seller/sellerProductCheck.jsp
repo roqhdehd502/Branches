@@ -100,30 +100,28 @@
 					<div class="team-area sp">
 						<div class="container">
 							<div class="row">							
-								<table class="table">
+								<table class="table" id="myTable">
 									<thead>
 										<tr>
-											<td><h5>번호</h5></td>
-											<td><h5>상품사진</h5></td>
-											<td><h5>상품ID</h5></td>
-											<td><h5>상품이름</h5></td>
-											<td><h5>상품가격</h5></td>
+											<th onclick="sortTable(0)"><h5>번호</h5></th>
+											<th onclick="sortTable(1)"><h5>상품ID</h5></th>
+											<th onclick="sortTable(2)"><h5>상품이름</h5></th>
+											<th onclick="sortTable(3)"><h5>상품가격</h5></th>
+											<th onclick="sortTable(4)"><h5>등록일</h5></th>
 										</tr>
 									</thead>
 									<tbody>
 										<c:forEach items="${prdct}" var="prdct" varStatus="status">
 										<tr>
-											<td>${filename[status.index].board_id }</td>
-											<td>
-												<img src="/hs/${filename[status.index].image_name }" style="width:100px; height: 100px;">
-											</td>
+											<td>${bId[status.index].board_id }</td>
 											<td>${prdct.prdct_id }</td>
 											<td>
-												<a href="/seller/mypage/prdct/${prdct.prdct_id}/${filename[status.index].board_id }">
+												<a href="/seller/mypage/prdct/${prdct.prdct_id}/${bId[status.index].board_id }">
 													${prdct.prdct_name }
 												</a>
 											</td>
 											<td>${prdct.prdct_price }</td>
+											<td>${bId[status.index].board_date }</td>
 										</tr>
 										</c:forEach>
 									</tbody>
@@ -148,6 +146,65 @@
 <script src="/assets/js/vendor/loopcounter.js"></script>
 <script src="/assets/js/vendor/slicknav.min.js"></script>
 <script src="/assets/js/active.js"></script>
+
+<script>
+		function sortTable(n) {
+			var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+			table = document.getElementById("myTable");
+			switching = true;
+			// Set the sorting direction to ascending:
+			dir = "asc";
+			/* Make a loop that will continue until
+			no switching has been done: */
+			while (switching) {
+				// Start by saying: no switching is done:
+				switching = false;
+				rows = table.rows;
+				/* Loop through all table rows (except the
+				first, which contains table headers): */
+				for (i = 1; i < (rows.length - 1); i++) {
+					// Start by saying there should be no switching:
+					shouldSwitch = false;
+					/* Get the two elements you want to compare,
+					one from current row and one from the next: */
+					x = rows[i].getElementsByTagName("TD")[n];
+					y = rows[i + 1].getElementsByTagName("TD")[n];
+					/* Check if the two rows should switch place,
+					based on the direction, asc or desc: */
+					if (dir == "asc") {
+						if (x.innerHTML.toLowerCase() > y.innerHTML
+								.toLowerCase()) {
+							// If so, mark as a switch and break the loop:
+							shouldSwitch = true;
+							break;
+						}
+					} else if (dir == "desc") {
+						if (x.innerHTML.toLowerCase() < y.innerHTML
+								.toLowerCase()) {
+							// If so, mark as a switch and break the loop:
+							shouldSwitch = true;
+							break;
+						}
+					}
+				}
+				if (shouldSwitch) {
+					/* If a switch has been marked, make the switch
+					and mark that a switch has been done: */
+					rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+					switching = true;
+					// Each time a switch is done, increase this count by 1:
+					switchcount++;
+				} else {
+					/* If no switching has been done AND the direction is "asc",
+					set the direction to "desc" and run the while loop again. */
+					if (switchcount == 0 && dir == "asc") {
+						dir = "desc";
+						switching = true;
+					}
+				}
+			}
+		}
+	</script>
 
 </body>
 </html>
