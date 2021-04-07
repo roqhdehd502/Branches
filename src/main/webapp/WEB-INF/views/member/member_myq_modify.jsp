@@ -7,7 +7,7 @@
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Branches : My User Q&A Write</title>
+	<title>Branches : My User Q&A Modify</title>
 	
 	<!-- Required CSS files -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
@@ -20,27 +20,30 @@
 	<link rel="stylesheet" href="/assets/css/main.css">
 	<link rel="stylesheet" href="/bootstrap.min.css">
 	
-		<!-- AJAX 처리용 JQUERY -->
+	<!-- AJAX 처리용 JQUERY -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
-	<!-- 작성 폼 스크립트 -->
+	<!-- 수정 폼 스크립트 -->
 	<script type="text/javascript">
    	$(document).ready(function(){
-      $("#writeForm").submit(function(event){         
+      $("#updateForm").submit(function(event){         
            event.preventDefault();
            var mbr_id = $("#mbr_id").val();
+           var board_id = $("#board_id").val();
            var inquiry_number = $("#inquiry_number").val();
            var board_name = $("#board_name").val();
            var board_content = $("#board_content").val();           
            
            console.log(mbr_id);
+           console.log(board_id);
            console.log(inquiry_number);
            console.log(board_name);
            console.log(board_content);
            console.log($(this).attr("action"));    
            
            var form = {
-        		 mbr_id: mbr_id,
+        		 mbr_id: mbr_id, 
+        		 board_id: board_id,
         		 inquiry_number: inquiry_number,
                  board_name: board_name,
                  board_content: board_content
@@ -58,12 +61,37 @@
              },
              error: function (e) {
                  console.log(e);
-                 alert('업로드에 실패하였습니다.');
+                 alert('수정에 실패하였습니다.');
                  location.reload(); // 실패시 새로고침하기
              }
          })            
        });       
    	});
+	</script>
+	
+	<!-- QNA 삭제 -->
+	<script type="text/javascript">
+		$(document).ready(function (){
+			$('#delete').click(function(event){
+				event.preventDefault();
+				console.log("QnA Delete...");		
+	 
+				$.ajax({
+					type : 'DELETE',
+					url : $(this).attr("href"),
+					cache : false,
+					success: function(result){
+						console.log(result);
+						if(result=="SUCCESS"){
+							$(location).attr('href', '${pageContext.request.contextPath}/member/mypage/myqna/list') 
+						}
+					},
+					error:function(e){
+						console.log(e);
+					}
+				})
+			});	
+		});	
 	</script>
 </head>
 <body>
@@ -192,13 +220,14 @@
 				<div class="col-md-9 contact-info" style="margin: auto;">
 				<hr>
 					<h3 style="text-align: center;">
-						<strong>고객 Q&A 작성</strong>
+						<strong>고객 Q&A 수정</strong>
 					</h3>
 				<hr>	
 					<!-- 작성 폼 -->
-					<form id="writeForm" method="post" action="${pageContext.request.contextPath}/member/mypage/myqna/write">
+					<form id="updateForm" action="${pageContext.request.contextPath}/member/mypage/myqna/modify/${iBoard.board_id}" method="post">
 						<fieldset>
 							<input type="hidden" id="mbr_id" value="${mbr.mbr_id}">
+							<input type="hidden" id="board_id" value="${iBoard.board_id}">
 							<div class="form-group row">
 								<label class="col-md-2 col-form-label">문의유형</label>
 								<div class="col-sm-10">
@@ -209,40 +238,27 @@
 									</select>
 								</div>
 							</div>
-
-<!-- 							<div class="form-group row">
-								<label for="staticEmail" class="col-sm-2 col-form-label">주문번호</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control col-sm-8" placeholder="주문번호를 입력하세요">		
-									<button type="button" class="btn btn-primary" style="display: inline-block; float: left;">조회</button>
-									<div>
-										<label class="form-check-label"> 
-											<input class="form-check-input" type="checkbox" value="" style="float: left;">주문번호 없이 문의 
-										</label>
-									</div>
-								</div>
-								
-							</div> -->
 							
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">제목</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="board_name" name="board_name" placeholder="제목을 입력하세요">
+									<input type="text" class="form-control" id="board_name" value="${iBoard.board_name}">
 								</div>
 							</div>
 							
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">내용</label>
 								<div class="col-sm-10">
-									<textarea class="form-control" rows="10" id="board_content" name="board_content" placeholder="문의 내용을 입력하세요"></textarea>
+									<textarea class="form-control" rows="10" id="board_content">${iBoard.board_content}</textarea>
 								</div>
 							</div>
 						</fieldset>
 						
 						<div align="center" style="padding: 1% 0px 1% 0px;">
 							<div>
+								<button type="button" id="delete" class="btn btn-danger">삭제하기</button>&nbsp;
 								<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/mypage/myqna/list'">목록보기</button>&nbsp;
-								<button type="submit" class="btn btn-primary">작성하기</button>
+								<button type="submit" class="btn btn-primary">수정하기</button>
 							</div>
 						</div>	
 					</form>

@@ -180,7 +180,7 @@
 			<hr>
 			<div class="container">
 				<form id="writeForm" method="post" action="${pageContext.request.contextPath}/board/notice/write">
-				<input type="hidden" id="mbr_id" value="${notice_write.mbr_id}">
+				<input type="hidden" id="mbr_id" value="${mbr.mbr_id}">
 				<fieldset>
 					<div class="row">
 						<div class="col-md-2 contact-info" align="center">

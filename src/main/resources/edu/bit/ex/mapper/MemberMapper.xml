@@ -90,4 +90,88 @@
 		]]>
 	</select>
 	
+	<!-- 작성한 고객 Q&A 리스트 받아오기 -->
+	<!-- <select id="getMyqList" resultType="edu.bit.ex.joinvo.BoardBoardCommentVO">
+		<![CDATA[	
+			SELECT mbr_id, board_id, board_name, board_date 
+			FROM board 
+			WHERE mbr_id = #{mbr_id} AND 
+			    board_type_number = 5 
+			ORDER BY board_id DESC, board_date DESC
+		]]>
+	</select> -->
+	<select id="getMyqListWithPaging" resultType="edu.bit.ex.joinvo.BoardBoardCommentVO">
+		<![CDATA[
+			SELECT * FROM ( 
+			     SELECT ROWNUM AS RNUM, A.* FROM ( 
+			        		SELECT mbr_id, board_id, board_name, board_date 
+							FROM board 
+							WHERE mbr_id = #{mbr_id} AND 
+							    board_type_number = 5 
+							ORDER BY board_id DESC, board_date DESC 
+			    ) A WHERE ROWNUM <= #{cri.pageNum} * #{cri.amount} 
+			) WHERE RNUM > (#{cri.pageNum}-1) * #{cri.amount}
+		]]>
+	</select>
+	
+	<!-- 페이징 단위에 적용되는 최대 고객 Q&A 게시글 단위 -->
+	<select id="getMyqnaTotalCount" resultType="int">
+	<![CDATA[
+		SELECT COUNT(*) FROM board WHERE board_type_number = 5
+	]]>	
+	</select>
+	
+	<!-- 작성한 고객 Q&A 응답여부 받아오기 -->
+	<select id="getMyqCmntStat" resultType="edu.bit.ex.joinvo.BoardBoardCommentVO">
+	<![CDATA[
+		SELECT COUNT(comment_id) AS comment_count FROM board_comment WHERE board_id = #{board_id}
+	]]>
+	</select>
+	
+	<!-- 고객 Q&A 작성페이지 문의 유형 받아오기 -->
+	<select id="getMyqInquiry" resultType="edu.bit.ex.vo.InquiryVO">
+		<![CDATA[	
+			SELECT inquiry_number, inquiry_name FROM inquiry
+		]]>
+	</select>
+	
+	<!-- 고객 QnA 작성 -->
+	<insert id="setmyqnaWriting" >
+	<![CDATA[
+		INSERT INTO board (board_id, board_name, board_content, mbr_id, board_type_number, inquiry_number, board_hit) 
+		VALUES (board_seq.nextval, #{board_name}, #{board_content}, #{mbr_id}, 5, #{inquiry_number}, 0) 
+	]]>
+	</insert>
+	
+	<!-- 고객 QnA 상세페이지 -->
+	<select id="getMyqContent" resultType="edu.bit.ex.joinvo.InquiryBoardVO">
+	<![CDATA[
+		SELECT i.inquiry_name, b.board_id, b.board_name, b.board_content, b.board_date 
+		FROM inquiry i, board b 
+		WHERE i.inquiry_number = b.inquiry_number AND 
+		    b.board_type_number = 5 AND 
+		    b.board_id = #{board_id}
+	]]>
+	</select>
+	
+	<!-- 고객 QnA 상세페이지 관리자가 작성한 댓글 리스트 받아오기 -->
+	<select id="getMyqComment" resultType="edu.bit.ex.vo.BoardCommentVO">
+	<![CDATA[
+		SELECT * FROM board_comment WHERE board_id = #{board_id}
+	]]>
+	</select>
+	
+	<!-- 고객 QnA 수정 -->
+	<update id="setmyqnaModify">
+	<![CDATA[
+		UPDATE board SET board_name = #{board_name}, board_content = #{board_content}, inquiry_number = #{inquiry_number} WHERE board_id = #{board_id}
+	]]>
+	</update>
+
+	<!-- 고객 QnA 삭제 -->
+	<delete id="myqnaRemove">
+	<![CDATA[
+		DELETE FROM board WHERE board_id = #{board_id}
+	]]>
+	</delete>		 	
 </mapper>

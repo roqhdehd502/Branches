@@ -349,7 +349,7 @@
 											                data: formData, 
 															success: function(result){
 																console.log(result);
-																alert("댓글을 삭제합니다.");
+																//alert("댓글을 삭제합니다.");
 																$(location).attr('href', '${pageContext.request.contextPath}/board/magazine/${magazine_content.board_id}')
 																console.log("COMMENT_REMOVED!")
 															},
@@ -371,29 +371,33 @@
 				
 			</div>
 			
-			<!-- 댓글 페이징 -->
-			<%-- <div class="container">
-				<ul class="pagination justify-content-center">			
-				<c:if test="${pageMaker.prev}">
-				<li class="page-item">
-					<a class="page-link" href="magazine/${magazine_content.board_id}${pageMaker.makeQuery(pageMaker.startPage - 1)}">&laquo;</a>
-				</li>
-				</c:if>
-				
-				<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-					<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
-					<li class="page-item">
-						<a class="page-link" href="magazine/${magazine_content.board_id}${pageMaker.makeQuery(idx)}">${idx}</a>
-					</li>
-				</c:forEach>
-						
-				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-				<li class="page-item">
-					<a class="page-link" href="magazine/${magazine_content.board_id}${pageMaker.makeQuery(pageMaker.endPage +1)}">&raquo;</a>
-				</li>
-				</c:if>
+			<!-- 페이징 -->	
+			<div class="container">
+				<ul class="pagination justify-content-center">
+					<c:choose>
+						<c:when test="${pageMaker.prev}">
+							<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+						</c:otherwise>
+					</c:choose>
+
+					<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+						<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+						<li class="page-item ${pageMaker.cri.pageNum == idx ? 'active' : '' }"><a class="page-link" href="${pageMaker.makeQuery(idx)}">${idx}</a></li>
+					</c:forEach>
+
+					<c:choose>
+						<c:when test="${pageMaker.next && pageMaker.endPage > 0}">
+							<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+						</c:otherwise>
+					</c:choose>
 				</ul>
-			</div> --%>
+			</div>
 		</div>
 	<!-- </div> -->
 

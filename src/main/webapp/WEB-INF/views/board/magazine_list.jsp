@@ -181,29 +181,35 @@
 				</div>		
 			</div>
 			
-			<!-- 매거진 페이징 처리 -->
-			<%-- <div class="container">
-					<ul class="pagination justify-content-center">			
-					<c:if test="${pageMaker.prev}">
-						<li class="page-item">
-							<a class="page-link" href="magazine${pageMaker.makeQuery(pageMaker.startPage - 1)}">&laquo;</a>
-						</li>
-					</c:if>
-				
-					<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+			<hr>
+			
+			<!-- 페이징 -->	
+			<div class="container">
+				<ul class="pagination justify-content-center">
+					<c:choose>
+						<c:when test="${pageMaker.prev}">
+							<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+						</c:otherwise>
+					</c:choose>
+
+					<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
 						<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
-						<li class="page-item">
-							<a class="page-link" href="magazine${pageMaker.makeQuery(idx)}">${idx}</a>
-						</li>
+						<li class="page-item ${pageMaker.cri.pageNum == idx ? 'active' : '' }"><a class="page-link" href="${pageMaker.makeQuery(idx)}">${idx}</a></li>
 					</c:forEach>
-						
-					<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-						<li class="page-item">
-						 	<a class="page-link" href="magazine${pageMaker.makeQuery(pageMaker.endPage +1)}">&raquo;</a>
-						</li>
-					</c:if>
-					</ul>
-			</div> --%>
+
+					<c:choose>
+						<c:when test="${pageMaker.next && pageMaker.endPage > 0}">
+							<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+						</c:otherwise>
+					</c:choose>
+				</ul>
+			</div>
 		</div>	
 	<!-- </div> -->
 	<!-- </div> -->

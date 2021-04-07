@@ -64,27 +64,18 @@
 	<!-- 매거진 게시판 썸네일 -->
 	<select id="getMagazineThumbnail" resultType="edu.bit.ex.joinvo.BoardPrdctImageVO">
 		<![CDATA[
-			SELECT ROWNUM, p.image_name, b.board_id, p.board_id 
-			FROM prdct_image p, board b 
-			WHERE p.board_id = b.board_id AND 
-			    ROWNUM = 1 AND 
-			    #{board_id} = #{board_id}
+			SELECT b.board_id, b.board_name, b.board_date, b.board_like, b.board_hit, p.image_name 
+			FROM board b, prdct_image p 
+			WHERE b.board_id = p.board_id AND 
+			    b.board_type_number = 2 AND 
+			    p.image_number IN (SELECT MIN(image_number) 
+			                       FROM prdct_image 
+			                       GROUP BY board_id) 
+			ORDER BY board_id DESC, board_date DESC
 		]]>
 	</select>
 	
 	<!-- 페이징을 적용한 매거진 게시판 리스트 -->
-	<select id="getMagazineList" resultType="edu.bit.ex.joinvo.BoardPrdctImageVO">
-		<![CDATA[
-			SELECT b.board_id, b.board_name, b.board_date, b.board_like, b.board_hit, p.image_name 
-			FROM board b, prdct_image p 
-			WHERE b.board_id = p.board_id AND 
-				b.board_type_number = 2 AND 
-				p.image_number IN (SELECT MIN(image_number) 
-							       FROM prdct_image 
-							       GROUP BY board_id) 
-			ORDER BY board_id DESC, board_date DESC
-		]]>
-	</select>
 	<select id="getMagazineListWithPaging" resultType="edu.bit.ex.joinvo.BoardPrdctImageVO">
 		<![CDATA[
 			SELECT * FROM (
@@ -177,28 +168,9 @@
 		SELECT COUNT(comment_id) AS comment_count FROM board_comment WHERE board_id = #{board_id}
 	]]>
 	</select>
-	
- 	<!--  매거진 게시글 댓글 리스트 --> 
-	<resultMap id="magazineContentCommentMap" type="edu.bit.ex.joinvo.BoardBoardCommentVO">
-	    <result property="board_id" column="comment_id"/>
-	    <result property="comment_id" column="comment_id"/>
-	    <result property="comment_content" column="comment_content"/>
-	    <result property="comment_date" column="comment_date"/>
-		<collection property="mbr_id" resultMap="magazineCommentMemberMap"></collection>
-	</resultMap>
-	<resultMap id="magazineCommentMemberMap" type="edu.bit.ex.vo.MbrVO">
-		<result property="mbr_id" column="mbr_id"/>
-	</resultMap>	
-	<select id="getMagazineComment" resultMap="magazineContentCommentMap">
-		SELECT c.comment_id, c.comment_content, c.comment_date, b.board_id 
-		FROM board_comment c, mbr m, board b 
-		WHERE c.mbr_id = m.mbr_id AND 
-		    c.board_id = b.board_id AND 
-		    b.board_id = #{board_id} 
-		ORDER BY c.comment_id DESC, c.comment_date DESC
-	</select>
+
 	<!-- 페이징을 적용한 매거진 게시판 댓글 리스트 -->
-	<!-- <resultMap id="magazineContentCommentMap" type="edu.bit.ex.joinvo.BoardBoardCommentVO">
+	<resultMap id="magazineContentCommentMap" type="edu.bit.ex.joinvo.BoardBoardCommentVO">
 	    <result property="board_id" column="comment_id"/>
 	    <result property="comment_id" column="comment_id"/>
 	    <result property="comment_content" column="comment_content"/>
@@ -217,11 +189,11 @@
 							WHERE c.mbr_id = m.mbr_id AND 
 							    c.board_id = b.board_id AND 
 							    b.board_id = #{board_id} 
-							ORDER BY c.comment_id DESC, c.comment_date DESC
+							ORDER BY c.comment_id DESC, c.comment_date DESC 
 			    ) A WHERE ROWNUM <= #{cri.pageNum} * #{cri.amount} 
 			) WHERE RNUM > (#{cri.pageNum}-1) * #{cri.amount}
 		]]>
-	</select> -->
+	</select>
 	
 	<!-- 페이징 단위에 적용되는 최대 매거진 게시글 댓글 단위 -->
 	<select id="getMagazineCommentTotalCount" resultType="int">

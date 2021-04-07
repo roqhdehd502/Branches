@@ -76,7 +76,7 @@
 					cache : false,
 					success: function(result){
 						console.log(result);
-						if(result=="SUCCESS"){
+						if(result == "SUCCESS"){
 							$(location).attr('href', '${pageContext.request.contextPath}/board/notice') 
 						}
 					},

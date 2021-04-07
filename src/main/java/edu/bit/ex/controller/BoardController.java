@@ -14,13 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.bit.ex.controller.validator.MemberValidator;
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.page.MagazineCommentCriteria;
+import edu.bit.ex.page.MagazineCommentPageVO;
 import edu.bit.ex.page.MagazineCriteria;
+import edu.bit.ex.page.MagazinePageVO;
 import edu.bit.ex.page.NoticeCriteria;
 import edu.bit.ex.page.NoticePageVO;
 import edu.bit.ex.service.BoardService;
+import edu.bit.ex.service.SecurityService;
 import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
@@ -33,7 +37,16 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/board/*")
 public class BoardController {
 	@Autowired
+	private SecurityService securityService;
+	private MemberValidator memberValidator;
 	private BoardService boardService;
+
+	// 로그인 페이지
+	@GetMapping("/board")
+	public ModelAndView signUpForm(ModelAndView mv) {
+		mv.setViewName("login/login");
+		return mv;
+	}
 
 	// 페이징을 이용한 공지사항 게시판 리스트
 	@Transactional
@@ -135,11 +148,11 @@ public class BoardController {
 		log.info("magazineList...");
 		mav.setViewName("board/magazine_list");
 		mav.addObject("magazine_list", boardService.getMagazineList(cri));
-		// mav.addObject("magazine_list", boardService.getMagazineList(cri));
 
-		/*
-		 * int total = boardService.getMagazineTotal(cri); log.info("total" + total); mav.addObject("pageMaker", new MagazinePageVO(cri, total));
-		 */
+		int total = boardService.getMagazineTotal(cri);
+		log.info("total" + total);
+		mav.addObject("pageMaker", new MagazinePageVO(cri, total));
+
 		return mav;
 	}
 
@@ -190,13 +203,12 @@ public class BoardController {
 		// 매거진 댓글 수 불러오기
 		mav.addObject("magazine_comment_cnt", boardService.getMagazineCommentCnt(mbrVO.getMbr_id(), boardVO.getBoard_id()));
 		// 페이징을 적용한 매거진 댓글 불러오기
-		mav.addObject("magazine_comment", boardService.getMagazineComment(mbrVO.getMbr_id(), boardVO.getBoard_id()));
-		/* mav.addObject("magazine_comment", boardService.getMagazineComment(mbrVO.getMbr_id(), boardVO.getBoard_id(), cri)); */
+		mav.addObject("magazine_comment", boardService.getMagazineComment(mbrVO.getMbr_id(), boardVO.getBoard_id(), cri));
 
-		/*
-		 * int total = boardService.getMagazineCommentTotal(cri); log.info("total" + total); mav.addObject("pageMaker", new MagazineCommentPageVO(cri,
-		 * total));
-		 */
+		int total = boardService.getMagazineCommentTotal(cri);
+		log.info("total" + total);
+		mav.addObject("pageMaker", new MagazineCommentPageVO(cri, total));
+
 		return mav;
 	}
 
@@ -233,7 +245,7 @@ public class BoardController {
 		return entity;
 	}
 
-	// 매거진 댓글 삭제(오류수정할것)
+	// 매거진 댓글 삭제
 	@DeleteMapping("/magazine/{board_id}")
 	public ResponseEntity<String> magazineCommentDelete(BoardCommentVO boardCommentVO) {
 		ResponseEntity<String> entity = null;

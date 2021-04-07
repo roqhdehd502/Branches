@@ -38,8 +38,6 @@ public interface BoardService {
 	public void setNoticeModify(BoardVO boardVO);
 
 	// 페이징을 적용한 매거진 게시판 리스트
-	public List<BoardPrdctImageVO> getMagazineList();
-
 	public List<BoardPrdctImageVO> getMagazineList(MagazineCriteria cri);
 
 	// 페이징 단위에 적용되는 최대 매거진 게시글 단위
@@ -67,8 +65,7 @@ public interface BoardService {
 	public BoardCommentVO getMagazineCommentCnt(String mbr_id, int board_id);
 
 	// 페이징을 적용한 매거진 게시글 댓글 리스트
-	public List<BoardBoardCommentVO> getMagazineComment(String mbr_id, int board_id);
-	/* public List<BoardBoardCommentVO> getMagazineComment(String mbr_id, int board_id, MagazineCommentCriteria cri); */
+	public List<BoardBoardCommentVO> getMagazineComment(String mbr_id, int board_id, MagazineCommentCriteria cri);
 
 	// 페이징 단위에 적용되는 최대 매거진 게시글 댓글 단위
 	public int getMagazineCommentTotal(MagazineCommentCriteria cri);

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -16,9 +17,14 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import edu.bit.ex.config.auth.MemberDetails;
 import edu.bit.ex.controller.validator.MemberValidator;
+import edu.bit.ex.joinvo.BoardBoardCommentVO;
+import edu.bit.ex.joinvo.InquiryBoardVO;
+import edu.bit.ex.page.MyqnaCriteria;
+import edu.bit.ex.page.MyqnaPageVO;
 import edu.bit.ex.service.MemberService;
 import edu.bit.ex.service.SecurityService;
 import edu.bit.ex.vo.BoardVO;
+import edu.bit.ex.vo.InquiryVO;
 import edu.bit.ex.vo.MbrVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +47,6 @@ public class MemberController {
 	@GetMapping("/member")
 	public ModelAndView signUpForm(ModelAndView mv) {
 		mv.setViewName("login/login");
-
 		return mv;
 	}
 
@@ -89,14 +94,127 @@ public class MemberController {
 		return mav;
 	}
 
-	// 고객 QnA 마이페이지 리스트 - 누르면 member_myq 로 연결
+	// 페이징을 이용한 고객 QnA 마이페이지 리스트 - 누르면 member_myq 로 연결
 	@GetMapping("/mypage/myqna/list")
-	public ModelAndView myqnaList(ModelAndView mav, MbrVO mbrVO) throws Exception {
-		log.info("myqnaList");
-		// mav.setViewName("member/member_question"); 얘가 등록/어디연결?
+	public ModelAndView myqnaList(@AuthenticationPrincipal MemberDetails memberDetails, MyqnaCriteria cri, BoardBoardCommentVO bCommentVO,
+			ModelAndView mav) {
+		log.info("myqnaList...");
 		mav.setViewName("member/member_myq_list");
-		// mav.addObject("member", hsService.getMember());
+
+		// 인증 회원 정보
+		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+		// 회원 정보 받아오기
+		mav.addObject("mbr", getMbr);
+		// 작성한 고객 Q&A 리스트 받아오기
+		mav.addObject("myq_list", memberService.getMyqList(cri, memberDetails.getUserID()));
+		// 작성한 고객 Q&A 응답여부 받아오기
+		mav.addObject("myq_cmnt_stat", memberService.getMyqCmntStat(bCommentVO.getBoard_id()));
+
+		int total = memberService.getMyqnaTotal(cri);
+		log.info("total" + total);
+		mav.addObject("pageMaker", new MyqnaPageVO(cri, total));
+
 		return mav;
+	}
+
+	// 고객 QnA 작성페이지
+	@GetMapping("/mypage/myqna/write")
+	public ModelAndView myqnaWriteView(@AuthenticationPrincipal MemberDetails memberDetails, InquiryVO inquiryVO, ModelAndView mav) {
+		log.info("myqnaWriteView...");
+		mav.setViewName("member/member_question");
+
+		// 인증 회원 정보
+		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+		// 회원 정보 받아오기
+		mav.addObject("mbr", getMbr);
+		// 문의 유형 받아오기
+		mav.addObject("inquiry", memberService.getMyqInquiry());
+
+		return mav;
+	}
+
+	// 고객 QnA 작성
+	@PostMapping("/mypage/myqna/write")
+	public ResponseEntity<String> myqnaWriting(@RequestBody BoardVO boardVO) {
+		ResponseEntity<String> entity = null;
+
+		log.info("myqnaWriting...");
+		try {
+			memberService.setmyqnaWriting(boardVO);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
+
+	// 고객 QnA 상세페이지
+	@GetMapping("/mypage/myqna/{board_id}")
+	public ModelAndView myqnaContentView(@AuthenticationPrincipal MemberDetails memberDetails, InquiryBoardVO iBoardVO, ModelAndView mav) {
+		log.info("myqnaContentView...");
+		mav.setViewName("member/member_myq");
+
+		// 인증 회원 정보
+		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+		// 회원 정보 받아오기
+		mav.addObject("mbr", getMbr);
+		// 문의 유형 및 게시글 정보 받아오기
+		mav.addObject("iBoard", memberService.getMyqContent(iBoardVO.getBoard_id()));
+		// 관리자가 작성한 댓글 리스트 받아오기
+		mav.addObject("comment", memberService.getMyqComment(iBoardVO.getBoard_id()));
+
+		return mav;
+	}
+
+	// 고객 QnA 수정페이지
+	@GetMapping("/mypage/myqna/modify/{board_id}")
+	public ModelAndView myqnaModifyView(@AuthenticationPrincipal MemberDetails memberDetails, InquiryBoardVO iBoardVO, ModelAndView mav) {
+		log.info("myqnaModifyView...");
+		mav.setViewName("member/member_myq_modify");
+
+		// 인증 회원 정보
+		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+		// 회원 정보 받아오기
+		mav.addObject("mbr", getMbr);
+		// 문의 유형 및 게시글 정보 받아오기
+		mav.addObject("iBoard", memberService.getMyqContent(iBoardVO.getBoard_id()));
+
+		return mav;
+	}
+
+	// 고객 QnA 수정
+	@PostMapping("/mypage/myqna/modify/{board_id}")
+	public ResponseEntity<String> myqnaModify(@RequestBody BoardVO boardVO) {
+		ResponseEntity<String> entity = null;
+
+		log.info("myqnaModify...");
+		try {
+			memberService.setmyqnaModify(boardVO);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
+
+	// 고객 QnA 삭제
+	@DeleteMapping("/mypage/myqna/modify/{board_id}")
+	public ResponseEntity<String> myqnaDelete(BoardVO boardVO) {
+		ResponseEntity<String> entity = null;
+		log.info("myqnaDelete...");
+
+		try {
+			memberService.myqnaRemove(boardVO.getBoard_id());
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
 	}
 
 	// 찜하기 목록 페이지
