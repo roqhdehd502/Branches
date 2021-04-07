@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.mapper.CommonMapper;
 import edu.bit.ex.page.PrdQnACriteria;
 import edu.bit.ex.page.PrdctListCriteria;
@@ -118,6 +119,18 @@ public class CommonServiceImpl implements CommonService {
 	public int getBrandTotalCount(PrdctListCriteria cri, String b_id) {
 		log.info(b_id);
 		return commonMapper.getBrandTotalCount(cri, b_id);
+	}
+
+	@Override
+	public BoardPrdctImageVO getContent(int board_id) {
+		log.info("getContent");
+		return commonMapper.getContent(board_id);
+	}
+
+	@Override
+	public BoardVO getboardId(int board_id) {
+		log.info("getboardId");
+		return commonMapper.getboardId(board_id);
 	}
 
 }

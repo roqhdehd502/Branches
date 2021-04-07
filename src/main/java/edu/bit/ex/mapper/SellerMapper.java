@@ -29,11 +29,11 @@ public interface SellerMapper {
 
 	public List<PrdctDetailVO> getPrdctDetail();
 
+	// 회원 정보 수정
 	public MbrVO getMemberInfo(String s_id);
 
 	public ShippingVO getSellerAddress(String m_id);
 
-	// 회원 정보 수정
 	public void sellerInfoUpdate(MbrShippingVO mavo);
 
 	public void sellerAddressUpdate(MbrShippingVO mavo);
@@ -48,6 +48,8 @@ public interface SellerMapper {
 	// 상품 삭제
 	public void prdctDelete(String prdct_id);
 
+	public void boardDelete(int board_id);
+
 	// 상품 등록
 	public void prdInsert(PrdctRegisterImageVO PrdctImageVO);
 
@@ -56,9 +58,10 @@ public interface SellerMapper {
 
 	public PrdctVO getOption(String getPrdct_id);
 
+	// 상품정보 불러오기
 	public PrdctDetailVO getPrd(String getPrdct_id);
 
-	public void setPrdctImage(String saveName);
+	/* public void setPrdctImage(String saveName); */
 
 	public ShippingVO getAddress(String getMbr_id);
 
@@ -67,5 +70,9 @@ public interface SellerMapper {
 	public List<CategoryVO> getCategory();
 
 	public BoardPrdctImageVO getContent(int getBoard_id);
+
+	public List<BoardVO> getbNum(int board_id);
+
+	public BoardVO getboardId(int board_id);
 
 }

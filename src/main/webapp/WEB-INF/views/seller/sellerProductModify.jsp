@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="/assets/css/slicknav.css">
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css">
-
+<script src="/ckeditor/ckeditor.js"></script>
 
 </head>
 <body>
@@ -41,8 +41,6 @@
 						</form>
 						<div class="header-social">
 							<a href="/member/login2">Login</a> 
-							<a href="#" class="fa fa-google"></a> 
-							<a href="#" class="fa fa-facebook"></a>
 						</div>
 					</div>
 				</div>
@@ -103,7 +101,7 @@
 					</h3><hr>
 					<form id="updatePrd" action="/seller/mypage/prdct/{prdct_id}/modify" method="PUT">
 						<input type="hidden" id="prdct_id" value="${pdvo.prdct_id}">
-						<input type="hidden" name="board_id" value="${bvo.board_id }">						
+						<input type="hidden" id="board_id" value="${id.board_id}">					
 						<fieldset>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">상품명</label>
@@ -174,9 +172,19 @@
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">내용</label>
 								<div class="col-sm-10">
-									<textarea class="form-control" rows="20" placeholder="해당 상품에 대한 설명을 입력해주세요" id="board_content">${bvo.board_content }</textarea>
-									<input type="file" class="form-control-file">
-									<small class="form-text text-muted">jpg, png, gif의 사진파일만 적용됩니다.</small>
+									<textarea name="board_content" id="board_content">${bvo.board_content }</textarea>
+									<script>
+										//id가 description인 태그에 ckeditor를 적용시킴
+										//CKEDITOR.replace("description"); //이미지 업로드 안됨
+										
+										var editor2 = CKEDITOR.replace("board_content", {
+											filebrowserUploadUrl : "${pageContext.request.contextPath}/seller/imageUpload.do",
+											height : 500
+										});	
+										 editor2.on('change', function(ev) {;
+										        document.getElementById('board_content').innerHTML = editor2.getData();
+										      });
+									</script>
 								</div>
 							</div>
 							<div class="form-group row">
@@ -194,7 +202,10 @@
 							<div align="center">
 								<button type="submit" class="btn btn-primary">상품수정</button>
 								<button type="button" class="btn btn-primary">
-									<a class="a-delete" href="/seller/mypage/prdct/{prdct_id}/delete" style="color: white;">상품삭제</a>
+									<a id="a-delete" href="/seller/mypage/prdct/${pdvo.prdct_id}/${id.board_id}/delete" style="color: white;">상품삭제</a>
+								</button>
+								<button type="button" class="btn btn-primary">
+									<a href="/prdct/${pdvo.prdct_id}/${id.board_id}" style="color: white;">상품상세</a>
 								</button>
 							</div>
 						</fieldset>
@@ -223,29 +234,31 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#updatePrd").submit(function(event){
-		
 		event.preventDefault();
 		
+		var board_id = $("#board_id").val();
 		var prdct_id = $("#prdct_id").val();
         var prdct_name = $("#prdct_name").val();
         var prdct_price = $("#prdct_price").val();
         var prdct_color = $("#prdct_color").val();
         var prdct_size = $("#prdct_size").val();
-        var board_content = $("#board_content").val();
+        var board_content = CKEDITOR.instances.board_content.getData();
         var prdct_stock = $("#prdct_stock").val();
         
         console.log(prdct_id);
+        console.log(board_id);
         console.log($(this).attr("action"));
         
         var form = {
+        		board_id: board_id,
         		prdct_id: prdct_id,
         		prdct_name: prdct_name,
         		prdct_price: prdct_price,
         		prdct_color: prdct_color,
         		prdct_size: prdct_size,
-        		board_content: board_content,
+        		board_content: CKEDITOR.instances.board_content.getData(),
         		prdct_stock: prdct_stock
-        };
+       	 };
         console.log(form);
 	    //dataType: 'json',
         $.ajax({
@@ -253,7 +266,7 @@ $(document).ready(function(){
 		    url : $(this).attr("action"),
 		    cache : false,
 		    contentType:'application/json; charset=utf-8',
-			    data: JSON.stringify(form), 
+			data: JSON.stringify(form), 
 		    success: function (result) {       
 				if(result == "SUCCESS"){
 					if (confirm("정말 수정하시겠습니까??") == true) { //확인
@@ -277,7 +290,7 @@ $(document).ready(function(){
 
 		<script type="text/javascript">
 			$(document).ready(function() {
-				$('.a-delete').click(function(event) {
+				$('#a-delete').click(function(event) {
 					// 이벤트를 취소할 때 동작을 멈춘다.
 					event.preventDefault();
 					console.log("ajax 호출전");
