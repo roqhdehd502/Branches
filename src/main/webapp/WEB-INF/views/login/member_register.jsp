@@ -20,7 +20,8 @@
 	<link rel="stylesheet" href="/assets/css/main.css">
 	<link rel="stylesheet" href="/bootstrap.min.css">
 	
-	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 	
 </head>
 <body>
@@ -37,11 +38,35 @@
 			      		<div class="col-sm-7">
 			      			<input type="text" class="form-control" id="mbr_id" name="mbr_id" maxlength="20" placeholder="영문 + 숫자 조합 5~11자" required="required">
 			      		</div>
-			      		<button type="button" class="btn btn-primary btn-sm">중복확인</button>
-			      		<!-- 이부분은 추후 스크립트상에서 alert으로 알림띄울것
-						<div class="col-sm-2" style="padding-left: 0px">
-							<button type="button" class="btn btn-primary">중복체크</button>
-						</div>	 -->
+			      		<button type="button" class="btn btn-primary btn-sm" id="idChk" onclick="idChk()">중복체크</button>
+			    		<div class="col-sm-9">
+							<span id="idMsg"></span>
+							<script type="text/javascript">
+								function idChk()) {
+
+									var id = $("#mbr_id").val();
+
+									$.ajax({
+										url : "/join/idCheck?id=" + id,
+										type : "POST",
+										success : function(data) {
+											var result = data;
+											
+											if(result == "SUCCESS") {
+										    	document.getElementById('idMsg').innerHTML='사용가능한 아이디';
+										    	document.getElementById('idMsg').style.color='blue';
+											}
+											else {
+												document.getElementById('idMsg').innerHTML='사용불가능한 아이디';
+										    	document.getElementById('idMsg').style.color='red';
+											}
+										}
+									    
+									})
+
+								})
+							</script>
+						</div>			
 			    	</div>
 			    	<div class="form-group row">
 			    		<label class="col-sm-3 col-form-label">PW</label>
@@ -52,11 +77,16 @@
 			    	<div class="form-group row">
 			    		<label class="col-sm-3 col-form-label">PW확인</label>
 			    		<!-- 이부분은 추후 스크립트상에서 ajax로 알림띄울것 -->
-			      		<div class="col-sm-5">
+			      		<div class="col-sm-9">
 			      			<input type="password" class="form-control" id="pw_c" name="pw_c" placeholder="비밀번호 확인" required="required" onchange="isSame()">
 			      		</div>
-			      		
-								<script type="text/javascript">
+			      							
+			    	</div>
+			    	<div class="form-group row">
+			    		<label class="col-sm-3 col-form-label"></label>
+			    		<div class="col-sm-7">
+			    			<span id="check"></span>
+			    			<script type="text/javascript">
 
 									function isSame() {
 										
@@ -75,7 +105,7 @@
 									    
 									}
 								</script>
-								
+			    		</div>
 			    	</div>
 			    	<div class="form-group row">
 			    		<label class="col-sm-3 col-form-label">닉네임</label>
