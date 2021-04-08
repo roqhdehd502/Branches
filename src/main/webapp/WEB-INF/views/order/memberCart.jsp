@@ -18,6 +18,172 @@
 <link rel="stylesheet" href="/assets/css/slicknav.css">
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css">
+
+<script type="text/javascript">
+	//삭제
+	function removeSelected() {
+		$("input:checkbox[name=select-product]").each(function() {
+			if($(this).is(":checked")) {
+				var prdct_id = $(this).parent().parent().parent().attr("id");
+				remove(prdct_id);
+			}
+		})
+	}
+	
+	function remove(prdct_id) {
+		var data = {
+				prdct_id : prdct_id
+		}
+		$.ajax({
+			type : "DELETE",
+			url : "/cart",
+			data : JSON.stringify(data),
+			contentType : "application/json",
+			cache : false,
+			beforeSend : function(xhr){
+  	            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+			},
+			success : function(result) {
+				if(result == "SUCCESS") {
+					$("#" + prdct_id).remove();
+					getTotal();
+				}
+			},
+			error : function(e) {
+				console.log(e);
+				alert("에러가 발생했습니다.");
+			}
+		});
+	}
+	//
+	//선택된 상품 금액 총 합 구하기
+	function getTotal() {
+		var totalPrice = 0
+		$("input:checkbox[name=select-product]").each(function() {
+			if($(this).is(":checked")) {
+				var prdct_id = $(this).parent().parent().parent().attr("id");
+				var prdct_price = $("#" + prdct_id + " .prdct_price").text();
+				var order_amount = $("#" + prdct_id + " .order_amount").val();
+				totalPrice += prdct_price * order_amount;
+			}
+		})
+		$("#total-price").html(totalPrice);
+	}
+	//
+	//주문하기
+	function buy() {
+		console.log("buy");
+		
+		var prdct_id_arr = [];
+		var order_amount_arr = [];
+		var prdct_price_arr = [];
+		var prdct_name_arr = [];
+		
+		$("input:checkbox[name=select-product]").each(function() {
+			if($(this).is(":checked")) {
+	            var prdct_id = $(this).parent().parent().parent().attr("id");
+	            var order_amount = $("#" + prdct_id + " .order_amount").val();
+	            var prdct_price = $("#" + prdct_id + " .prdct_price").text();
+	            var prdct_name = $("#" + prdct_id + " .prdct_name").text();
+	            
+	            prdct_id_arr.push(prdct_id);
+	            order_amount_arr.push(order_amount);
+	            prdct_price_arr.push(prdct_price);
+	            prdct_name_arr.push(prdct_name);
+			};
+		});
+		if(!prdct_id_arr.length) {
+			return alert("선택된 상품이 없습니다.");
+		}
+		var form = document.createElement("form");
+		form.method = "get";
+		form.action = "/order";
+		
+		var inputId = document.createElement("input");
+		inputId.setAttribute("name", "prdct_id");
+		inputId.setAttribute("value", prdct_id_arr);
+		
+		var inputQuantity = document.createElement("input");
+		inputQuantity.setAttribute("name", "order_amount");
+		inputQuantity.setAttribute("value", order_amount_arr);
+		
+		var inputPrice = document.createElement("input");
+		inputPrice.setAttribute("name", "prdct_price");
+		inputPrice.setAttribute("value", prdct_price_arr);
+		
+		var inputName = document.createElement("input");
+		inputName.setAttribute("name", "prdct_name");
+		inputName.setAttribute("value", prdct_name_arr);
+		
+		form.appendChild(inputId);
+		form.appendChild(inputQuantity);
+		form.appendChild(inputPrice);
+		form.appendChild(inputName);
+		
+		document.body.appendChild(form);
+		form.submit();
+	}
+	//
+	$(document).ready(function() {
+		//상품 금액 표시
+		$(".prdct").each(function() {
+			var prdct_id = $(this).attr("id");
+			var prdct_price = $("#" + prdct_id + " .prdct_price").text();
+			var order_amount = $("#" + prdct_id + " .order_amount").val();
+			var mulPrice = prdct_price * order_amount;
+			$("#" + prdct_id + " .mul-price").html(mulPrice);
+		});
+		//
+		//상품 갯수 변경 금액 표시
+		$(".order_amount").change(function () {
+			var prdct_id = $(this).parent().parent().parent().parent().attr("id");
+			var prdct_price = $("#" + prdct_id + " .prdct_price").text();
+			var order_amount = $("#" + prdct_id + " .order_amount").val();
+			var mulPrice = prdct_price * order_amount;
+			$("#" + prdct_id + " .mul-price").html(mulPrice);
+		})
+		//
+		//전체 선택
+		$("#select-whole-product").change(function() {
+			if($("#select-whole-product").is(":checked")) {
+				$(".select-product").prop("checked", true);
+				getTotal();
+			} else {
+				$(".select-product").prop("checked", false);
+				getTotal();
+			}
+		});
+		//
+		//선택시 전체 가격 변경
+		$(".select-product").change(function() {
+			
+			$("input:checkbox[name=select-product]").each(function() {
+				if(!$(this).is(":checked")) {
+					$("#select-whole-product").prop("checked", false);
+				}
+			});
+			getTotal();
+		});
+		//개수 변경시 전체 가격 변경
+		$(".order_amount").change(function() {
+			getTotal();
+		})
+		//
+		$(".select-product").prop("checked", true);
+		getTotal();
+		
+		if($("tbody").children("tr").length == 1) {
+			var content = ""
+			content += "<tr>";
+			content += "<td colspan='7'>";
+			content += "<p class='cart-empty'>장바구니가 비어있습니다.</p";
+			content += "</td>";
+			content += "</tr>";
+			$("tbody").children("tr").before(content);
+		}
+	})
+	
+</script>
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -111,152 +277,97 @@
 			</nav>
 		</header>
 		<!-- 장바구니	 -->
+		<form id="cart" name="form" method="post" action="${pageContext.request.contextPath}/order/memberOrderCheck">
+		
 		<div class="container" style="text-align: center;">
 
-			<h3>Cart List</h3>
-			<table class="table cart_table n-cart-table">
-				<colgroup>
-					<col width="5%">
-					<col width="4%">
-					<col width="20%">
-					<col width="5%">
-					<col width="16%">
-					<col width="7%">
-					<col width="9%">
-					<col width="12%">
-				</colgroup>
-				<thead>
-					<tr>
-						<th scope="col">번호</th>
-						<th scope="col" style="cursor: pointer"><input type="checkbox" class="chk_all" id="chk_all" checked=""></th>
-						<th scope="col">상품명(옵션)</th>
-						<th scope="col">판매가</th>
-						<th scope="col">수량</th>
-						<th scope="col">주문금액<br></th>
-						<th scope="col">주문관리</th>
-						<th scope="col">배송</th>
-					</tr>
-				</thead>
-				<tbody>
+				<h3>Cart List</h3>
 
-					<tr class="cart-group has_gift">
-						<td colspan="9" class="cart_cont">
-							<table class="table_basic cart_table">
-								<colgroup>
-									<col width="5%">
-									<col width="4%">
-									<col width="8%">
-									<col width="20%">
-									<col width="5%">
-									<col width="16%">
-									<col width="7%">
-									<col width="9%">
-									<col width="12%">
-								</colgroup>
-								<tbody>
-									<c:forEach items="${cart_list}" var="cvo">
-										<tr class="cart_list_no">
-											<td>1</td>
-											<td><input type="checkbox" class="checked_cart" name="cart_no" value="${cvo.cart_number}" checked="checked"></td>
-											<td>
-												<div class="connect_img">
-													<a href=# class="img-block"> <img src="//image.msscdn.net/images/goods_img/20200820/1557658/1557658_2_62.jpg"
-														alt="디스이즈네버댓(THISISNEVERTHAT) INTL. Logo Crewneck Black">
-													</a>
-												</div>
-											</td>
-											<td>
-												<div class="article_info connect_info">
-													<p class="txt_brand"></p>
-													<p class="list_info ">
-														<a href="/app/goods/1557658/0"> [디스이즈네버댓] INTL. Logo Crewneck Black </a>
-													</p>
-													<p class="txt_option">옵션: M
-												</div>
-											</td>
-											<td class="td_price">${cvo.cart_price}</td>
-											<td>
-												<!-- 수량 -->
-												<div class="n-input-amount">
-													<div class="form-group">
-														<select class="form-control" id="exampleSelect1">
-															<option>1</option>
-															<option>2</option>
-															<option>3</option>
-															<option>4</option>
-															<option>5</option>
-														</select>
-													</div>
-												</div>
-											</td>
-											<td>44,400<br>
-											</td>
-											<td><a href=# class="plain-btn btn">삭제하기</a></td>
-											<td>택배 배송<br>
-												<p>2,500</p>
-											</td>
-										</tr>
-										<tr class="cart_list_no">
-											<td>2</td>
-											<td><input type="checkbox" class="checked_cart" name="cart_no" value="521779327" checked="checked"></td>
-											<td>
-												<div class="connect_img">
-													<a href=# class="img-block"> <img src="//image.msscdn.net/images/goods_img/20200820/1557658/1557658_2_62.jpg"
-														alt="디스이즈네버댓(THISISNEVERTHAT) INTL. Logo Crewneck Black">
-													</a>
-												</div>
-											</td>
-											<td>
-												<div class="article_info connect_info">
-													<p class="txt_brand"></p>
-													<p class="list_info ">
-														<a href="/app/goods/1557658/0"> [디스이즈네버댓] INTL. Logo Crewneck Black </a>
-													</p>
-													<p class="txt_option">옵션: M
-												</div>
-											</td>
-											<td class="td_price">44,400</td>
-											<td>
-												<!-- 수량 -->
-												<div class="n-input-amount">
-													<div class="form-group">
-														<select class="form-control" id="exampleSelect1">
-															<option>1</option>
-															<option>2</option>
-															<option>3</option>
-															<option>4</option>
-															<option>5</option>
-														</select>
-													</div>
-												</div>
-											</td>
-											<td>44,400<br>
-											</td>
-											<td><a href="#" class="plain-btn btn">삭제하기</a></td>
-											<td>택배 배송<br>
-												<p>2,500</p>
-											</td>
-										</tr>
-										</c:forEach>
-								</tbody>
+				<table class="table cart_table" style="width:100%">
+					<colgroup >
+						<col width="10%">
+						<col width="20%">
+						<col width="30%">
+						<col width="10%">
+						<col width="10%">
+						<col width="10%">
+						<col width="10%">
+					</colgroup>
+					<thead>
+						<tr style="text-align: center;">
+							<th scope="col"><input type="checkbox" id="select-whole-product"/>
+							<th scope="col">이미지</th>
+							<th scope="col">상품명(옵션)</th>
+							<th scope="col">판매가</th>
+							<th scope="col">수량</th>
+							<th scope="col">주문금액<br></th>
+							<th scope="col">&nbsp;&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${cart}" var="prdct">
+							<colgroup>
+								<col width="10%">
+								<col width="20%">
+								<col width="30%">
+								<col width="10%">
+								<col width="10%">
+								<col width="10%">
+								<col width="10%">
+							</colgroup>
+							<tr id="${prdct.key.prdct_id}" class="product">
+								<td><input type="checkbox" class="select-product" name="select-product" value="${prdct.key.prdct_price}"></td>
+								<td>
+									<div class="connect_img">
+										<img class="product-img" src="/resources/static/ej/view.staff_605be555e83ad.jpg">
+										<!-- 사진불러오기 -->
+									</div>
+								</td>
+								<td>
+									<div class="article_info connect_info">
+										<p class="prdct_name" id="prdct_name">${prdct.key.prdct_name}</p>
+										<p class="prdct_color" id="prdct_color">${prdct.key.prdct_color}</p>
+										<p class="prdct_size" id="prdct_size">${prdct.key.prdct_size}</p>
+									</div>
+								</td>
+								<td class="td_price">${prdct.key.prdct_price}</td>
+								<td>
+									<!-- 수량 -->
+									<div class="n-input-amount">
+										<div class="form-group">
+											<input type="number" id="order_amount" class="order_amount" min="1" value="${prdct.value }" />
+										</div>
+									</div>
+								</td>
+								<td><p class="mul-price"></p>
+									<br></td>
+								<td><button class="btn btn-secondary delete-btn" onclick="remove(${prdct.key.prdct_id})">삭제</button></td>
 
-							</table>
-						</td>
-					</tr>
-					<tr class="gift-division">
-						<td colspan="9"></td>
-					</tr>
-					
-				</tbody>
-			</table>
-			<button type="button" class="btn btn-primary"> <!-- 여기도 비회원 주문확인페이지랑 회원 주문확인 페이지 각각 연결 -->
-				<a class="order-bnt" onclick="location.href='${pageContext.request.contextPath}/ej/order' ">주문하기</a>
-			</button>
+							</tr>
+
+							<tr class="gift-division">
+								<td colspan="3">
+									<button class="btn btn-secondary delete-btn-selected" onclick="removeSelected()">선택삭제</button>
+								</td>
+								<td>
+								<span>총 상품가격</span> 
+								<span id="total-price"></span>
+								</td>
+							</tr>
+						</c:forEach>
+						<tr>
+
+							<td><span>총 상품가격</span> <span id="total-price"></span></td>
+						</tr>
+					</tbody>
+				</table>
+
+			<button type="submit" class="btn btn-primary" onclick="buy()">주문하기</button>
 			<br /> <br />
+	</div>
+	</form>
 
-		</div>
-
-		<!-- footer -->
+	<!-- footer -->
 		<footer>
 			<div class="footer-top">
 				<div class="container">

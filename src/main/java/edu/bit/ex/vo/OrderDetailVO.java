@@ -25,4 +25,5 @@ public class OrderDetailVO { // 주문상세정보
 	private String order_size; // 주문상품사이즈
 	private int order_amount; // 주문상품량
 	private int prdct_price; // 상품금액
+	private String prdct_name; // 상품이름 추가
 }

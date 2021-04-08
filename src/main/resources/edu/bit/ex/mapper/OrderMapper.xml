@@ -5,41 +5,36 @@
   
 <mapper namespace="edu.bit.ex.mapper.OrderMapper">
 
-	<!--  상품 담기 common
-	<resultMap id="getprdDetailCartInMap" type="edu.bit.ex.vo.PrdctVO">
+		
+	<!-- 장바구니 리스트 
+	<resultMap id="prdctMap" type="edu.bit.ex.vo.PrdctVO">
 	    <result property="prdct_id" column="prdct_id"/>
 	    <result property="prdct_name" column="prdct_name"/>
 	    <result property="prdct_price" column="prdct_price"/>
-		<collection property="mbr_id" resultMap="prdmbrMap"></collection>
-	</resultMap>	
-	<resultMap id="prdListMap" type="edu.bit.ex.vo.PrdctDetailVO">
+	    <result property="category_number" column="category_number"/>
+	    <result property="mbr_id" column="mbr_id"/>
+	    <result property="category_name" column="category_name"/>
+	    <collection property="prdctDetailVO" resultMap="prdctDt"></collection>
+	</resultMap>
+	
+	<resultMap id="prdctDMap" type="edu.bit.ex.vo.PrdctDetailVO">
+		<result property="prdct_id" column="prdct_id"/>
 		<result property="prdct_color" column="prdct_color"/>
 		<result property="prdct_size" column="prdct_size"/>
-	</resultMap>
-	<insert id="PrdDetailCartIn">
-		insert into 
-	</insert> -->
-	
-	<!-- 장바구니 리스트  common -->
-	<resultMap id="cartMap" type="edu.bit.ex.vo.CartVO">
-	    <result property="cart_number" column="cart_number"/>
-	    <result property="cart_price" column="cart_price"/>
-	    <result property="cart_date" column="cart_date"/>
-	</resultMap>
-	
-	<resultMap id="mbrMap" type="edu.bit.ex.vo.MbrVO">
+		<result property="prdct_stock" column="prdct_stock"/>
 		<result property="mbr_id" column="mbr_id"/>
-	</resultMap>
+	</resultMap> --> 
 	
-	<resultMap id="cartDMap" type="edu.bit.ex.vo.CartDetailVO">
-		<result property="cart_color" column="cart_color"/>
-		<result property="cart_size" column="cart_size"/>
-		<result property="cart_amount" column="cart_amount"/>
-		<result property="prdct_price" column="prdct_price"/>
-	</resultMap>
-	
-	<select id="getCartList" resultMap="cartMap">
-		select cart_number, cart_price, cart_date from cart
+	<select id="getProduct" resultType="edu.bit.ex.vo.PrdctVO">
+		<![CDATA[
+		select * from prdct where prdct_id = #{prdct_id}
+		]]>
+	</select>
+
+	<select id="getCartList" resultType="edu.bit.ex.vo.PrdctVO">
+		<![CDATA[
+			select * from prdct
+		]]>
 	</select>
 	
 </mapper>
