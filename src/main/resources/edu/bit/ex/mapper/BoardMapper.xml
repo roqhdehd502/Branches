@@ -68,7 +68,7 @@
 			FROM board b, prdct_image p 
 			WHERE b.board_id = p.board_id AND 
 			    b.board_type_number = 2 AND 
-			    p.image_number IN (SELECT MIN(image_number) 
+			    p.image_number = (SELECT MIN(image_number) 
 			                       FROM prdct_image 
 			                       GROUP BY board_id) 
 			ORDER BY board_id DESC, board_date DESC

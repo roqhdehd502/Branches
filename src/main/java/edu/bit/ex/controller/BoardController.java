@@ -162,6 +162,7 @@ public class BoardController {
 		log.info("magazineWriteView...");
 		mav.setViewName("board/magazine_write");
 		mav.addObject("magazine_write", boardService.getMagazineMember(mbrVO.getMbr_id()));
+
 		return mav;
 	}
 

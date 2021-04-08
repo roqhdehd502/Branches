@@ -25,7 +25,7 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 	
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 	    $(document).ready(function () {
 	            $.datepicker.setDefaults($.datepicker.regional['ko']); 
 	            $( "#birthDate" ).datepicker({
@@ -44,7 +44,7 @@
 	            });
 	             
 	    });
-	</script>
+	</script> -->
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -356,5 +356,8 @@
 		<script src="/assets/js/vendor/loopcounter.js"></script>
 		<script src="/assets/js/vendor/slicknav.min.js"></script>
 		<script src="/assets/js/active.js"></script>
+		
+		<!-- 채널 봇 챗봇 -->
+		<script src="/js/channelIO.js"></script>
 </body>
 </html>

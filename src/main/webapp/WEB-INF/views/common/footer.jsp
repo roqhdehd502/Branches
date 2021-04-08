@@ -55,7 +55,7 @@
 						</div>
 						<div class="col-lg-6 text-right">
 							<div class="footer-nav">
-								<a href="/member/main">Home</a> <a href="#">Q&A</a> <a href="#">Notice</a> <a href="#">Magazine</a> <a href="#">Blog</a>
+								<a href="/member/main">Home</a> <a href="#">Q&A</a> <a href="${pageContext.request.contextPath}/board/notice">Notice</a> <a href="${pageContext.request.contextPath}/board/magazine">Magazine</a> <a href="#">Blog</a>
 							</div>
 						</div>
 					</div>

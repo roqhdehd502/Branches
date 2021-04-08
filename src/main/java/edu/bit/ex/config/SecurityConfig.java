@@ -94,7 +94,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// https://goateedev.tistory.com/87 자세한건 이곳 참고하세요!
 		http.headers().frameOptions().disable()
 				.addHeaderWriter(new StaticHeadersWriter("X-FRAME-OPTIONS", "ALLOW-FROM " + "http://localhost:9595/seller/mypage/prdct")).and();
-
 	}
 
 	@Override // ignore except jsp

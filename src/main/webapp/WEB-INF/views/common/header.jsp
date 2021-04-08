@@ -27,7 +27,7 @@
 							</button>
 						</form>
 						<div class="header-social">
-							<a href="/login">Login</a> <a href="#" class="fa fa-google"></a> <a href="#" class="fa fa-facebook"></a>
+							<a href="/login">Login</a> <!-- <a href="#" class="fa fa-google"></a> <a href="#" class="fa fa-facebook"></a> -->
 						</div>
 					</div>
 				</div>
@@ -93,8 +93,8 @@
 					</ul></li>
 				<li><a href="index.html" style="color: white;">|</a></li>
 				<li><a href="index.html" style="color: white;">BRAND</a></li>
-				<li><a href="index.html" style="color: white;">MAGAZINE</a></li>
-				<li><a href="index.html" style="margin-right: 38px; color: white;">NOTICE</a></li>
+				<li><a href="${pageContext.request.contextPath}/board/magazine" style="color: white;">MAGAZINE</a></li>
+				<li><a href="${pageContext.request.contextPath}/board/notice" style="margin-right: 38px; color: white;">NOTICE</a></li>
 			</ul>
 		</nav>
 	</header>
