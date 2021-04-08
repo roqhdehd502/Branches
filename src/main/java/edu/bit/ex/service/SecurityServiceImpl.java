@@ -38,4 +38,14 @@ public class SecurityServiceImpl implements SecurityService {
 		loginMapper.addMbr(mbr);
 	}
 
+	@Override
+	public boolean idChk(String mbr_id) {
+		int cnt = loginMapper.idChk(mbr_id);
+		if (cnt == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 }
