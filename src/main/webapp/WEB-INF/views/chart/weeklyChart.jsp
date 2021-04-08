@@ -53,7 +53,7 @@
           }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div3'));
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div2'));
 
         chart.draw(data, options);
 
@@ -74,7 +74,7 @@
   </head>
   <body>
     <div id="chart">
-		<div id="chart_div3"></div>
+		<div id="chart_div2"></div>
 	</div>	
   </body>
 </body>

@@ -24,28 +24,7 @@
 <body>
 <div style="overflow: hidden;" class="container">
 	<header>
-		<div class="container" style="border-bottom: 1px solid rgba(0, 0, 0, .1);">
-			<div class="row">
-				<div class="col-6 col-sm-3 logo-column">
-					<a href="index.html" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
-					</a>
-				</div>
-				<div class="col-6 col-sm-9 nav-column clearfix">
-					<div class="right-nav">
-						<span class="search-icon fa fa-search"></span>
-						<form action="#" class="search-form">
-							<input type="search" placeholder="search now">
-							<button type="submit">
-								<i class="fa fa-search"></i>
-							</button>
-						</form>
-						<div class="header-social">
-							<a href="/member/login2">Login</a> 
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 	</header>
 		<div class="container">
 			<span style="margin-left: 70px;"> </span> <span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
@@ -181,9 +160,7 @@
 											filebrowserUploadUrl : "${pageContext.request.contextPath}/seller/imageUpload.do",
 											height : 500
 										});	
-										 editor2.on('change', function(ev) {;
-										        document.getElementById('board_content').innerHTML = editor2.getData();
-										      });
+										
 									</script>
 								</div>
 							</div>
