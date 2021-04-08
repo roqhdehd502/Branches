@@ -32,54 +32,48 @@
 				<h2 align="center">로그인</h2><br>
 				<!-- 로그인 실패 시 오류 메세지 -->
 				<c:if test="${error}">
-				<div>
-					<p class="alert alert-danger">${exception}</p>
-				</div>
+					<div>
+						<p class="alert alert-danger">${exception}</p>
+					</div>
 				</c:if>
-				<form action="/login" method="POST">
+				<form action="/login" method="POST" name="form1">
 					<div class="form-check" align="left">
 						<label class="form-check-label">
 							<p>
-							<input type="radio" class="form-check-inline" name="optradio">회원&nbsp;&nbsp;&nbsp;
-							<input type="radio" class="form-check-inline" name="optradio">비회원
+								<input type="radio" class="form-check-inline" name="optradio">회원&nbsp;&nbsp;&nbsp; <input type="radio" class="form-check-inline"
+									name="optradio">비회원
 							</p>
 						</label>
-					</div>	  	
-			  	
-			    	<div class="form-group">
-			      		<input type="text" class="form-control" id="mbr_id" name="mbr_id" placeholder="아이디를 입력하세요" required autofocus>
-			    	</div>
-			    	<div class="form-group">
-			      		<input type="password" class="form-control" id="mbr_pw" name="mbr_pw" placeholder="비밀번호를 입력하세요" required>
-			    	</div>
-			    	
-			    	<button type="submit" class="btn btn-primary btn-block">로그인</button><br>
-			 	
-			 		<div class="form-check-inline">
-					  	<label class="form-check-label">
-					    	<input type="checkbox" id="remember-me" name="remember-me" class="form-check-input" value="true">자동로그인
-					  	</label>
 					</div>
-					
+
+					<div class="form-group">
+						<input type="text" class="form-control" id="mbr_id" name="mbr_id" placeholder="아이디를 입력하세요" required autofocus>
+					</div>
+					<div class="form-group">
+						<input type="password" class="form-control" id="mbr_pw" name="mbr_pw" placeholder="비밀번호를 입력하세요" required>
+					</div>
+					<button id="btnLogin" type="submit" class="btn btn-primary btn-block">로그인</button>
+					<br>
+					<div class="form-check-inline">
+						<label class="form-check-label"> <input type="checkbox" id="remember-me" name="remember-me" class="form-check-input" value="true">자동로그인
+						</label>
+					</div>
+
 					<div class="form-group" align="center">
-						<br>
-			      		<a href="#">회원가입</a>&nbsp;|&nbsp;
-			      		<a href="#">ID찾기</a>&nbsp;|&nbsp;
-			      		<a href="#">PW찾기</a>
-			    	</div>
-			    	
+						<br> <a href="#">회원가입</a>&nbsp;|&nbsp; <a href="#">ID찾기</a>&nbsp;|&nbsp; <a href="#">PW찾기</a>
+					</div>
+
 					<div class="form-group" align="center">
-						<br>
-			      		<a href="/oauth2/authorization/kakao"><img src="<c:url value="/img/kakao_circle.png"/>" width="50" height="50"></a>&nbsp;&nbsp;&nbsp;&nbsp;
-			      		<a href="/oauth2/authorization/naver"><img src="<c:url value="/img/naver-icon-file.jpg"/>" width="50" height="50"></a>&nbsp;&nbsp;&nbsp;&nbsp;
-			      		<a href="/oauth2/authorization/google"><img src="<c:url value="/img/google_logo.jpg"/>" width="50" height="50"></a>
-			    	</div>	    	
-			 	</form>
+						<br> <a href="/oauth2/authorization/kakao"><img src="<c:url value="/img/kakao_circle.png"/>" width="50" height="50"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="/oauth2/authorization/naver"><img src="<c:url value="/img/naver-icon-file.jpg"/>" width="50" height="50"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="/oauth2/authorization/google"><img src="<c:url value="/img/google_logo.jpg"/>" width="50" height="50"></a>
+					</div>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				</form>
 			</div>
   		</div>
   		<div class="col"></div>
 	</div>
-	
 	<!--Required JS files-->
 	<script src="/assets/js/jquery-2.2.4.min.js"></script>
 	<script src="/assets/js/vendor/popper.min.js"></script>

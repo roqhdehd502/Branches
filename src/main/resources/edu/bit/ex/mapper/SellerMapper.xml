@@ -8,14 +8,14 @@
 	<!-- 상품 내용 불러오기 -->
 	<select id="getContent" resultType="edu.bit.ex.joinvo.BoardPrdctImageVO" >
 		<![CDATA[			
-			select board_content from board where board_id = #{board_id}
+			select b.board_content from board b, prdct p where b.prdct_id = p.prdct_id and b.board_id = #{board_id}
 		]]>
 	</select>
 	
 	<!-- 상품 게시판 아이디 게시판 유형이 6번인거 불러오기 -->
 	<select id="getbNum" resultType="edu.bit.ex.vo.BoardVO" >
 		<![CDATA[			
-			select board_id,board_date from board where board_id = board_id and board_type_number = 6 order by board_id DESC, board_date DESC
+			select board_id,board_date,prdct_id from board where board_id = board_id and board_type_number = 6 order by board_id DESC, board_date DESC
 		]]>
 	</select>
 	
@@ -71,7 +71,7 @@
 	<!-- 게시글 정보 불러오기 -->
 	<select id="getBoard" resultType="edu.bit.ex.vo.BoardVO">
 		<![CDATA[
-			select * from board where board_type_number = 4
+			select * from board
 		]]>
 	</select>
 	
@@ -99,7 +99,7 @@
 	<!-- 판매자 정보 불러오기 (수정할 때) -->	
 	<select id="getMemberInfo" resultType="edu.bit.ex.vo.MbrVO">
 		<![CDATA[
-			select * from mbr where mbr_id=#{m_id}
+			select * from mbr where mbr_id='prism'
 		]]>
 	</select>	
 	
@@ -117,21 +117,21 @@
 	]]>
 	</update>
 	
-	<!-- 판매자 상품정보 수정 -->
+	<!-- 판매자 상품정보 수정1 -->
 	<update id="prdctUpdate">
 	<![CDATA[
 		update prdct set prdct_name=#{prdct_name}, prdct_price=#{prdct_price} where prdct_id=#{prdct_id}
 	]]>
 	</update>
 	
-	<!-- 판매자 상품옵션 수정 -->
+	<!-- 판매자 상품옵션 수정2 -->
 	<update id="prdctDetailUpdate">
 	<![CDATA[
 		update prdct_detail set prdct_color=#{prdct_color}, prdct_size=#{prdct_size}, prdct_stock=#{prdct_stock} where prdct_id=#{prdct_id}
 	]]>
 	</update>
 	
-	<!-- 판매자 상품내용 수정 -->
+	<!-- 판매자 상품내용 수정3 -->
 	<update id="prdctContentUpdate">
 	<![CDATA[
 		update board set board_content=#{board_content} where board_id=#{board_id}
@@ -146,7 +146,7 @@
 	]]>
 	</delete>
 	
-	<!-- 판매자 상품정보 삭제... -->
+	<!-- 판매자 상품정보 삭제...2 -->
 	<delete id="boardDelete">
 	<![CDATA[
 		delete from board where board_id = #{board_id}
@@ -157,11 +157,11 @@
 	<insert id="prdInsert">
 		<![CDATA[
 			insert all into prdct (prdct_id, prdct_name, prdct_price, category_number , mbr_id) values
-				('ps7',#{prdct_name}, #{prdct_price}, 9 ,'prism' ) 
+				('p08',#{prdct_name}, #{prdct_price}, 21 ,'prism' ) 
 					into prdct_detail (prdct_id, prdct_color, prdct_size, prdct_stock) values
-						('ps7',#{prdct_color}, #{prdct_size} , #{prdct_stock}) 
-							into board (board_id, board_name, board_content, board_type_number, board_like, board_hit, mbr_id) 
-								values(board_seq.nextval, 'TEST', #{board_content}, 6, 0, 0, 'prism')
+						('p08',#{prdct_color}, #{prdct_size} , #{prdct_stock}) 
+							into board (board_id, board_name, board_content, board_type_number, prdct_id ,board_like, board_hit, mbr_id) 
+								values(board_seq.nextval, 'TEST', #{board_content}, 6, 'p08' ,0, 0, 'prism')
 									select * from dual
 		]]>
 	</insert>

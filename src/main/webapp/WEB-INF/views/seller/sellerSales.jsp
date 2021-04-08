@@ -22,36 +22,13 @@
 <body>
 <div style="overflow: hidden;" class="container">
 	<header>
-		<div class="container" style="border-bottom: 1px solid rgba(0, 0, 0, .1);">
-			<div class="row">
-				<div class="col-6 col-sm-3 logo-column">
-					<a href="index.html" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
-					</a>
-				</div>
-				<div class="col-6 col-sm-9 nav-column clearfix">
-					<div class="right-nav">
-						<span class="search-icon fa fa-search"></span>
-						<form action="#" class="search-form">
-							<input type="search" placeholder="search now">
-							<button type="submit">
-								<i class="fa fa-search"></i>
-							</button>
-						</form>
-						<div class="header-social">
-							<a href="#">Login</a> 
-							<a href="#" class="fa fa-google"></a> 
-							<a href="#" class="fa fa-facebook"></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 	</header>
 	<div class="container">
          <span style="margin-left: 70px;">
          </span> <span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
-            <h3>이름(업체명)</h3>
-            <h3 style="position: relative; top: 15px;">아이디</h3>
+            <h3>${mbr.mbr_name }</h3>
+            	<h3 style="position: relative; top: 15px;">${mbr.mbr_id }</h3>
          </span>
          <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="/seller/mypage/myinfo">정보수정</a></span> 
          <span style="margin-left: 480px;" align="center">
@@ -90,7 +67,7 @@
 				</div>
 
 				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">
-					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px;">
+					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 2px;">
 						<strong style="margin: 10px;">매출조회</strong><hr />
 					</h3>
 					<div class="container">
@@ -99,19 +76,33 @@
 							<div class="faq">
 								<span class="single-item">
 									<h4 style="color: black; margin-left: 46px;">일간</h4>
-									<div class="content"></div>
-								</span> <span class="single-item">
+									<div class="content">
+									<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/chart/dailyChart.jsp"></jsp:include>
+									</div>
+								</span> 
+								<span class="single-item">
 									<h4 style="color: black; margin-left: 46px;">주간</h4>
-									<div class="content"></div>
-								</span> <span class="single-item">
+									<div class="content">
+									<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/chart/weeklyChart.jsp"></jsp:include>
+									</div>
+								</span> 
+								<span class="single-item">
 									<h4 style="color: black; margin-left: 46px;">월간</h4>
-									<div class="content"></div>
-								</span> <span class="single-item">
+									<div class="content">
+									<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/chart/monthChart.jsp"></jsp:include>
+									</div>
+								</span> 
+								<span class="single-item">
 									<h4 style="color: black; margin-left: 46px;">연간</h4>
-									<div class="content"></div>
-								</span> <span class="single-item">
+									<div class="content">
+									<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/chart/yearChart.jsp"></jsp:include>
+									</div>
+								</span> 
+								<span class="single-item">
 									<h4 style="color: black; margin-left: 46px;">전체</h4>
-									<div class="content"></div>
+									<div class="content">
+									<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/chart/allChart.jsp"></jsp:include>
+									</div>
 								</span>
 							</div>
 						</div>

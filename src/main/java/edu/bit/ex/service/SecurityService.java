@@ -7,4 +7,5 @@ public interface SecurityService {
 	public MbrVO getMbr(String mbr_id);
 
 	public void addMbr(MbrVO mbr);
+
 }
