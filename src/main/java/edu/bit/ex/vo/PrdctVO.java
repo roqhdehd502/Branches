@@ -24,4 +24,6 @@ public class PrdctVO { // 상품
 	private int category_number; // 상품카테고리번호 fk
 	private String mbr_id; // 회원id fk
 	private String category_name; // 상품카테고리명
+
+	private PrdctDetailVO prdctDetailVO;
 }

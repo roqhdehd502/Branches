@@ -2,6 +2,7 @@ package edu.bit.ex.config.auth;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ public class MemberDetails implements UserDetails, OAuth2User {
 
 	@Autowired
 	private MbrVO mbrvo;
+
+	private Map<String, Integer> cart = new HashMap<>();
 
 	private Map<String, Object> attributes;
 
@@ -99,5 +102,21 @@ public class MemberDetails implements UserDetails, OAuth2User {
 		return null;
 	}
 
+	public Map<String, Integer> getCart() {
+
+		return cart;
+	}
+
+	public void insertCart(String prdct_id, int order_amount) {
+		if (cart.get(prdct_id) == null) {
+			cart.put(prdct_id, order_amount);
+		} else {
+			cart.put(prdct_id, cart.get(prdct_id) + order_amount);
+		}
+	}
+
+	public void deleteCart(String prdct_id) {
+		cart.remove(prdct_id);
+	}
 
 }

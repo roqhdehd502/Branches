@@ -73,7 +73,7 @@
 							<div class="row justify-content-center">
 								<div class="col-lg-6 text-center">
 									<div class="slide-content">
-										<h2 style="color: white;">COMMING SOON..</h2>
+										<h2 style="color: white;"></h2>
 									</div>
 								</div>
 							</div>
@@ -93,7 +93,7 @@
 			<div class="team-area sp">
 				<div class="container">
 					<div class="row">
-						<c:forEach items="${prdct }" var="prdct" varStatus="status" begin="0" end="7">
+						<c:forEach items="${prdct }" var="prdct" varStatus="status" begin="0" end="3">
 							<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 								<div class="inner">
 									<a href="#" style="text-decoration: none;">
@@ -126,7 +126,7 @@
 			<div class="team-area sp">
 				<div class="container">
 					<div class="row">
-						<c:forEach items="${prdct }" var="prdct" begin="0" end="7" varStatus="status">
+						<c:forEach items="${prdct }" var="prdct" begin="0" end="3" varStatus="status">
 							<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 								<div class="inner">
 									<a href="#" style="text-decoration: none;">
@@ -182,7 +182,7 @@
 					<p>무엇을 입어야 할지 고민이라구요?? Branches MD분들이 매주 여러분들을 위해 Best상품을 추천해드립니다!</p>
 				</div>
 				<div class="row">
-					<c:forEach items="${prdct }" var="prdct" begin="0" end="8" varStatus="status">
+					<c:forEach items="${prdct }" var="prdct" begin="0" end="2" varStatus="status">
 						<div class="col-md-4 single-team">
 							<div class="inner">
 								<a href="#" style="text-decoration: none;">
