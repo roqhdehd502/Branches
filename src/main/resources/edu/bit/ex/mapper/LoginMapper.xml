@@ -53,4 +53,10 @@
 	]]>
 	</insert>
 	
+	<select id="idChk" resultType="int">
+	<![CDATA[
+		select count(*) from mbr where mbr_id=#{mbr_id}
+	]]>
+	</select>
+	
 </mapper>

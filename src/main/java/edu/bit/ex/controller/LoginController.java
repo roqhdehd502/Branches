@@ -91,12 +91,10 @@ public class LoginController {
 	}
 
 	@PostMapping("/join")
-	public String memberRegister(@ModelAttribute MbrVO mbrvo) {
+	public String memberRegister(@ModelAttribute MbrVO mbrvo) throws Exception {
 
 		mbrvo.setLogin_number(1);
-
 		ResponseEntity<String> entity = null;
-
 		try {
 			securityService.addMbr(mbrvo);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
@@ -105,7 +103,20 @@ public class LoginController {
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
-		return "login/login";
+		return "redirect:/";
+	}
+
+	@GetMapping("/join/idCheck")
+	public ResponseEntity<String> idCheck(@RequestParam("mbr_id") String id) {
+		ResponseEntity<String> entity = null;
+
+		if (securityService.idChk(id)) {
+			entity = new ResponseEntity<String>("FAIL", HttpStatus.OK);
+		} else {
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		}
+
+		return entity;
 	}
 
 	@GetMapping("/denied")
