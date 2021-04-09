@@ -33,7 +33,6 @@ public class LoginController {
 	private SecurityService securityService;
 
 	// 로그인페이지
-
 	@GetMapping("/login")
 	public ModelAndView login(@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "exception", required = false) String exception, ModelAndView mav) {
@@ -41,6 +40,7 @@ public class LoginController {
 		mav.setViewName("login/login");
 		mav.addObject("error", error);
 		mav.addObject("exception", exception);
+
 		return mav;
 	}
 

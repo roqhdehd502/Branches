@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="/ej/star-rating-svg.css">
 <!-- AJAX용 JQUERY -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <!-- 사진 슬라이딩 처리 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
@@ -185,6 +185,52 @@ img {
 					})
 				});
 		});
+</script>
+<script>	
+	function insertCart() {
+		var prdct_id = $("#prdct_id").val();
+		var order_amount = $("#order_amount").val();
+		console.log("잘 나오고 있습니다.");
+		
+		data = {
+				prdct_id : prdct_id,
+				order_amount : order_amount
+		};
+		
+		$.ajax({
+			type : "POST",
+			url : "/order/insert_cart",
+			data : JSON.stringify(data),
+			contentType : "application/json",
+			cache : false,
+			success : function(result) {
+				if(result == "SUCCESS") {
+					if(confirm("장바구니에 상품을 담았습니다.\n장바구니로 이동하시겠습니까?")) {
+						location.href="/order/cart";
+					}
+				}
+			},
+			error : function(e) {
+				console.log(e);
+				alert("에러가 발생했습니다.");
+			}
+		});
+	}
+	function getTotal() {
+		var order_amount = $("#order_amount").val();
+		var prdct_price = $("#prdct_price").val();
+		total = parseInt(order_amount) * parseInt(prdct_price);
+		$("#total-price").html(total);
+	}
+
+	$(document).ready(function() {
+		// total 가격 계산
+		getTotal();
+		$(".order_amount").change(function() {
+			getTotal();	
+		})
+		
+	})
 </script>
 
 <body>
@@ -364,12 +410,14 @@ img {
 					</div>
 
 					<!--  상품 정보와 옵션 선택 -->
+					<form action="${pageContext.request.contextPath}/order/insert_cart" method="POST">
 					<div class="row">
 						<div class="contrainer single-service bordered " style="height: 600px; width: 500px;">
 							<div class="inner">
-								<p>${productDetail.prdct_id}</p>
-								<h4>${productDetail.prdct_name}</h4>
-								<h4>${productDetail.prdct_price}원</h4>
+							<input type="hidden" id="prdct_id" value="${productDetail.prdct_id}">
+								<p >${productDetail.prdct_id}</p>
+								<h4 id="prdct_name">${productDetail.prdct_name}</h4>
+								<h4 id="prdct_price">${productDetail.prdct_price}원</h4>
 								<hr>
 
 								<!-- 색상 옵션	 -->
@@ -381,7 +429,8 @@ img {
 									</select>
 								</div>
 								<div class="form-group">
-									<label for="amountSelect" class="col-sm-2 col-form-label">수량</label> <select class="form-control" id="colorSelect">
+									<label for="amountSelect" class="col-sm-2 col-form-label">수량</label> 
+										<select class="form-control" id="order_amount" name="order_amount">
 										<c:forEach begin="1" end="10" var="i">
 											<option value="${i}">${i}</option>
 										</c:forEach>
@@ -400,15 +449,17 @@ img {
 									</div>
 									<div style="float: left; width: 30%; padding-left: 20px">
 										<!-- 상품정보를 저장해서 장바구니로 이동 -->
-										<button type="submit" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/order/cart'">장바구니</button>
+										<button type="button" class="btn btn-primary" onclick="insertCart()">장바구니</button>
 									</div>
 									<div class="icon" style="float: left; padding-left: 20px; padding-top: 10px;">
 										<i class="fa fa-heart-o fa-2x"> 찜하기</i> <!-- 마이페이지 찜하기 이동/ 계속쇼핑 만들어야되나 -->
 									</div>
 								</div>
+								<input type="hidden" name="total-price" id="total-price">
 							</div>
 						</div>
 					</div>
+					</form>
 				</div>
 				</div>
 		
@@ -437,8 +488,9 @@ img {
 							<div class="row">
 								<div class="col-md-12 single-gallery">
 									<div class="inner">
-										<div style="padding-top: 7px">
-											<img src="<c:url value="/prdct_img/${prdDetailimg.image_name}"/>">
+										<div style="padding-top: 7px; text-align: center;">
+											<%-- <img src="<c:url value="/prdct_img/${prdDetailimg.image_name}"/>"> --%>
+											${bvo.board_content }
 										</div>
 									</div>
 								</div>

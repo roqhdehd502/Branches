@@ -61,6 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/seller/**").hasAnyAuthority("ADMIN", "SELLER") //
 				.antMatchers("/member").hasAnyAuthority("ADMIN", "MEMBER") // member/** 경로는 권한 3(=member) 회원만 접속 가능
 				.antMatchers("/member/**").hasAnyAuthority("ADMIN", "MEMBER") //
+				.antMatchers("/order/cart/**").hasAuthority("MEMBER") //
 				.antMatchers("/").permitAll()//
 				.antMatchers("/**").permitAll() //
 				.and().formLogin() //
@@ -87,8 +88,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// CK에디터 이미지 업로드 X-Frame-Option iframe랜더링 설정
 		// https://goateedev.tistory.com/87 자세한건 이곳 참고하세요!
 		http.headers().frameOptions().disable()
-				.addHeaderWriter(new StaticHeadersWriter("X-FRAME-OPTIONS", "ALLOW-FROM " + "http://localhost:9595/seller/*")).and();
-
+				.addHeaderWriter(new StaticHeadersWriter("X-FRAME-OPTIONS", "ALLOW-FROM " + "http://localhost:9595/seller/mypage/prdct")).and();
 	}
 
 	@Override // ignore except jsp

@@ -22,28 +22,7 @@
 <body>
 <div style="overflow: hidden;" class="container">
 	<header>
-		<div class="container">
-			<div class="row">
-				<div class="col-6 col-sm-3 logo-column">
-					<a href="index.html" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
-					</a>
-				</div>
-				<div class="col-6 col-sm-9 nav-column clearfix">
-					<div class="right-nav">
-						<span class="search-icon fa fa-search"></span>
-						<form action="#" class="search-form">
-							<input type="search" placeholder="search now">
-							<button type="submit">
-								<i class="fa fa-search"></i>
-							</button>
-						</form>
-						<div class="header-social">
-							<a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 	</header>
 	<hr style="margin: 5px;">
 	<div class="container">
@@ -52,7 +31,7 @@
             <h3>${mbr.mbr_name }</h3>
             <h3 style="position: relative; top: 15px;">${mbr.mbr_id }</h3>
          </span>
-         <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="/seller/mypage/myinfo">정보수정</a></span> 
+         <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="/seller/mypage/myinfo/${mbr.mbr_id}">정보수정</a></span> 
          <span style="margin-left: 480px;" align="center">
             <h2 style="position: relative; top: 5px;">새주문</h2>
             <h4 style="position: relative; top: 15px;">2건</h4>
@@ -100,30 +79,28 @@
 					<div class="team-area sp">
 						<div class="container">
 							<div class="row">							
-								<table class="table">
+								<table class="table" id="myTable">
 									<thead>
 										<tr>
-											<td><h5>번호</h5></td>
-											<td><h5>상품사진</h5></td>
-											<td><h5>상품ID</h5></td>
-											<td><h5>상품이름</h5></td>
-											<td><h5>상품가격</h5></td>
+											<th><h5>번호</h5></th>
+											<th><h5>상품ID</h5></th>
+											<th><h5>상품이름</h5></th>
+											<th><h5>상품가격</h5></th>
+											<th><h5>등록일</h5></th>
 										</tr>
 									</thead>
 									<tbody>
 										<c:forEach items="${prdct}" var="prdct" varStatus="status">
 										<tr>
-											<td>${filename[status.index].board_id }</td>
+											<td><h5>${bId[status.index].board_id }</h5></td>
+											<td><h5>${bId[status.index].prdct_id }</h5></td>
 											<td>
-												<img src="/hs/${filename[status.index].image_name }" style="width:100px; height: 100px;">
-											</td>
-											<td>${prdct.prdct_id }</td>
-											<td>
-												<a href="/seller/mypage/prdct/${prdct.prdct_id}/${filename[status.index].board_id }">
-													${prdct.prdct_name }
+												<a href="/seller/mypage/prdct/${prdct.prdct_id}/${bId[status.index].board_id }">
+													<h5>${prdct.prdct_name }</h5>
 												</a>
 											</td>
-											<td>${prdct.prdct_price }</td>
+											<td><h5>${prdct.prdct_price }</h5></td>
+											<td><h5>${bId[status.index].board_date }</h5></td>
 										</tr>
 										</c:forEach>
 									</tbody>
@@ -148,6 +125,7 @@
 <script src="/assets/js/vendor/loopcounter.js"></script>
 <script src="/assets/js/vendor/slicknav.min.js"></script>
 <script src="/assets/js/active.js"></script>
+
 
 </body>
 </html>

@@ -84,12 +84,6 @@ public class BoardServiceImpl implements BoardService {
 
 	// 페이징을 적용한 매거진 게시판 리스트
 	@Override
-	public List<BoardPrdctImageVO> getMagazineList() {
-		log.info("getMagazineList");
-		return boardMapper.getMagazineList();
-	}
-
-	@Override
 	public List<BoardPrdctImageVO> getMagazineList(MagazineCriteria cri) {
 		log.info("getMagazineList WITH criteria: " + cri);
 		return boardMapper.getMagazineListWithPaging(cri);
@@ -169,14 +163,10 @@ public class BoardServiceImpl implements BoardService {
 
 	// 페이징을 적용한 매거진 게시글 댓글 리스트
 	@Override
-	public List<BoardBoardCommentVO> getMagazineComment(String mbr_id, int board_id) {
-		log.info("getMagazineComment WITH criteria: ");
-		return boardMapper.getMagazineComment(mbr_id, board_id);
+	public List<BoardBoardCommentVO> getMagazineComment(String mbr_id, int board_id, MagazineCommentCriteria cri) {
+		log.info("getMagazineComment WITH criteria: " + cri);
+		return boardMapper.getMagazineComment(mbr_id, board_id, cri);
 	}
-	/*
-	 * @Override public List<BoardBoardCommentVO> getMagazineComment(String mbr_id, int board_id, MagazineCommentCriteria cri) {
-	 * log.info("getMagazineComment WITH criteria: " + cri); return boardMapper.getMagazineComment(mbr_id, board_id, cri); }
-	 */
 
 	// 페이징 단위에 적용되는 최대 매거진 게시글 댓글 단위
 	@Override

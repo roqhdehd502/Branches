@@ -24,30 +24,7 @@
 <body>
 <div style="overflow: hidden;" class="container">
 	<header>
-		<div class="container" style="border-bottom: 1px solid rgba(0, 0, 0, .1);">
-			<div class="row">
-				<div class="col-6 col-sm-3 logo-column">
-					<a href="index.html" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
-					</a>
-				</div>
-				<div class="col-6 col-sm-9 nav-column clearfix">
-					<div class="right-nav">
-						<span class="search-icon fa fa-search"></span>
-						<form action="#" class="search-form">
-							<input type="search" placeholder="search now">
-							<button type="submit">
-								<i class="fa fa-search"></i>
-							</button>
-						</form>
-						<div class="header-social">
-							<a href="/member/login2">Login</a> 
-							<a href="#" class="fa fa-google"></a> 
-							<a href="#" class="fa fa-facebook"></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 	</header>
 
 		<div class="container">
@@ -141,13 +118,14 @@
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">내용</label>
 								<div class="col-sm-10">
-									<textarea class="form-control" rows="20" name="board_content" id="board_content"></textarea>
+									<textarea name="board_content" id="board_content"></textarea>
 									<script>
 										//id가 description인 태그에 ckeditor를 적용시킴
 										//CKEDITOR.replace("description"); //이미지 업로드 안됨
 										
 										CKEDITOR.replace("board_content", {
 											filebrowserUploadUrl : "${pageContext.request.contextPath}/seller/imageUpload.do"
+									
 
 										});
 										
@@ -199,7 +177,7 @@
     $(document).ready(function () {
 	    $("#writeForm").submit(function(event){
 	    	event.preventDefault();
-	    		
+	    
 	    	var formData = new FormData();
 	    		
 	    	// 텍스트 입력 영역
@@ -226,14 +204,14 @@
 	        formData.append("prdct_stock", prdct_stock);
 	    		
 	    	// 파일저장 영역
-	        var inputFile = $("#uploadfiles");
+	       /*  var inputFile = $("#uploadfiles");
 	    	console.log(inputFile);
 	        var files = inputFile[0].files;  
                 
 	        for (var i = 0; i < files.length; i++) {
 	        	console.log(files[i]);
 	        	formData.append("uploadfiles", files[i]);
-	        }     
+	        }   */   
 	    		
 	        // 파일 넣을때 JSON.stringify()는 적용이 안된다...
 	        $.ajax({

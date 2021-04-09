@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,27 +9,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Branches</title>
 
-<!-- Required CSS files -->
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/owl.carousel.css">
-<link rel="stylesheet" href="/assets/css/barfiller.css">
-<link rel="stylesheet" href="/assets/css/animate.css">
-<link rel="stylesheet" href="/assets/css/font-awesome.min.css">
-<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="/assets/css/slicknav.css">
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/bootstrap.min.css">
 </head>
 <body>
 	<header style="padding-top: 0px;">
 		<div class="container">
 			<div class="row">
 				<div class="col-6 col-sm-3 logo-column">
-					<a href="/member/main" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
+					<a href="/main" class="logo" style="height: 70px;"> 
+						<img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
 					</a>
 				</div>
-				<div class="col-6 col-sm-9 nav-column clearfix">
-					<div class="right-nav">
+				<div class="col-9 col-sm-9 nav-column clearfix">
+					<div class="right-nav" >
 						<span class="search-icon fa fa-search"></span>
 						<form action="#" class="search-form">
 							<input type="search" placeholder="search now">
@@ -36,13 +28,53 @@
 								<i class="fa fa-search"></i>
 							</button>
 						</form>
-						<div class="header-social">
-							<a href="/login">Login</a> <a href="#" class="fa fa-google"></a> <a href="#" class="fa fa-facebook"></a>
-						</div>
+					</div>	
+						 <sec:authorize access="isAnonymous()"> 
+						 <span style="position: relative; top: 18px; left: 640px;">
+			            	<a href="/login">LOGIN</a>&nbsp;&nbsp;
+			            	<a href="/order/cart">CART</a>
+			            </span>	
+						 </sec:authorize>
+
+						<sec:authorize access="hasAuthority('MEMBER')">
+								<a href="${pageContext.request.contextPath}/member/mypage">MYPAGE</a>
+
+								<form action="/logoutsuccess" method="post" id="mlogout">
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+									<a href="#" class="charity-strip-btn charity-bgcolor" onclick="document.getElementById('mlogout').submit();">LOGOUT</a>
+								</form>
+						</sec:authorize>
+						
+						<sec:authorize access="hasAuthority('SELLER')">
+							<span style="position: relative; top: 18px; left: 590px;">
+								<span>
+									<a href="${pageContext.request.contextPath}/seller/mypage">MYPAGE</a>
+								</span>&nbsp;&nbsp;
+								<span>
+									<form action="/logoutsuccess" method="post" id="mlogout">
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+										<a href="#" class="charity-strip-btn charity-bgcolor" onclick="document.getElementById('mlogout').submit();">LOGOUT</a>
+									</form>
+								</span>
+							</span>	
+						</sec:authorize>
+						
+						<sec:authorize access="hasAuthority('ADMIN')">
+							<span style="position: relative; top: 18px; left: 590px;">
+								<span>
+									<a href="${pageContext.request.contextPath}/admin/mypage">MYPAGE</a>
+								</span>&nbsp;&nbsp;
+								<span>
+									<form action="/logoutsuccess" method="post" id="mlogout">
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+										<a href="#" class="charity-strip-btn charity-bgcolor" onclick="document.getElementById('mlogout').submit();">LOGOUT</a>
+									</form>
+								</span>
+							</span>	
+						</sec:authorize>
 					</div>
 				</div>
 			</div>
-		</div>
 		<nav id="menu" class="d-none d-lg-block">
 			<ul style="padding: 10px; background-color: black;">
 				<li class="current-menu-item has-child"><a href="index.html">OUTER</a>
@@ -103,22 +135,10 @@
 					</ul></li>
 				<li><a href="index.html" style="color: white;">|</a></li>
 				<li><a href="index.html" style="color: white;">BRAND</a></li>
-				<li><a href="index.html" style="color: white;">MAGAZINE</a></li>
-				<li><a href="index.html" style="margin-right: 38px; color: white;">NOTICE</a></li>
+				<li><a href="${pageContext.request.contextPath}/board/magazine" style="color: white;">MAGAZINE</a></li>
+				<li><a href="${pageContext.request.contextPath}/board/notice" style="margin-right: 38px; color: white;">NOTICE</a></li>
 			</ul>
 		</nav>
 	</header>
-
-
-	<!--Required JS files-->
-		<script src="/assets/js/jquery-2.2.4.min.js"></script>
-		<script src="/assets/js/vendor/popper.min.js"></script>
-		<script src="/assets/js/vendor/bootstrap.min.js"></script>
-		<script src="/assets/js/vendor/owl.carousel.min.js"></script>
-		<script src="/assets/js/vendor/isotope.pkgd.min.js"></script>
-		<script src="/assets/js/vendor/jquery.barfiller.js"></script>
-		<script src="/assets/js/vendor/loopcounter.js"></script>
-		<script src="/assets/js/vendor/slicknav.min.js"></script>
-		<script src="/assets/js/active.js"></script>
 </body>
 </html>

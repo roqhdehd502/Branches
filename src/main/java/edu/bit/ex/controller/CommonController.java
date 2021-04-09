@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.page.PrdQnACriteria;
 import edu.bit.ex.page.PrdctListCriteria;
 import edu.bit.ex.service.CommonService;
@@ -50,14 +51,19 @@ public class CommonController {
 	}
 
 	// 상품 상세페이지
-	@GetMapping("/prdct/{prdct_id}")
-	public ModelAndView productDetail(@PathVariable("prdct_id") String p_id, PrdQnACriteria cri, ModelAndView mav) throws Exception {
+	@GetMapping("/prdct/{prdct_id}/{board_id}")
+	public ModelAndView productDetail(@PathVariable("prdct_id") String p_id, @PathVariable("board_id") int board_id, PrdQnACriteria cri,
+			ModelAndView mav, BoardPrdctImageVO bpvo) throws Exception {
 
 		log.info("product..");
 		// 상품 정보
 		mav.setViewName("common/productDetail");
+
 		mav.addObject("productDetail", (commonService.getProductDetail(p_id)));
 		mav.addObject("productInfo", (commonService.getProductInfo(p_id)));
+
+		mav.addObject("bvo", commonService.getContent(bpvo.getBoard_id()));
+		mav.addObject("id", commonService.getboardId(board_id));
 
 		// 리뷰 관련
 		log.info("reviewList..");

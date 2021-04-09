@@ -1,20 +1,16 @@
 package edu.bit.ex.mapper;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 
-import edu.bit.ex.vo.CartVO;
+import edu.bit.ex.vo.PrdctVO;
 
 @Mapper
 public interface OrderMapper {
 
-	// 장바구니 common
-	public List<CartVO> getCartList();
+	// 장바구니 리스트
+	// public List<PrdctVO> getCartList();
 
-	// 상품 장바구니 담기 common
-	/*
-	 * public void PrdDetailCartIn(PrdctVO prdctVO);
-	 */
+	// 장바구니 페이지
+	public PrdctVO getProduct(String prdct_id);
 
 }

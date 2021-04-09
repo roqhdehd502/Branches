@@ -1,12 +1,8 @@
 package edu.bit.ex.service;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.joinvo.MbrShippingVO;
@@ -114,6 +110,13 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
+	public void boardDelete(int board_id) {
+		log.info("boardDelete()......");
+		sellerMapper.boardDelete(board_id);
+
+	}
+
+	@Override
 	public PrdctVO getOption(String getPrdct_id) {
 		log.info("getOption()......");
 		return sellerMapper.getOption(getPrdct_id);
@@ -125,27 +128,19 @@ public class SellerServiceImpl implements SellerService {
 		return sellerMapper.getPrd(getPrdct_id);
 	}
 
-	@Override
-	public void setPrdctImage(MultipartFile file) {
-		// 파일 이름 변경(중복방지)
-		UUID uuid = UUID.randomUUID();
-		String saveName = uuid + "_" + file.getOriginalFilename();
-		log.info("image_name: ", saveName);
-
-		// 저장할 File 객체를 생성(껍데기 파일)
-		// 저장할 폴더 이름, 저장할 파일 이름
-		File saveFile = new File("C:\\tetleaf\\Branches\\src\\main\\resources\\static\\hs", saveName);
-
-		try {
-			// 업로드 파일에 saveFile이라는 껍데기 입힘
-			file.transferTo(saveFile);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		sellerMapper.setPrdctImage(saveName);
-
-	}
+	/*
+	 * @Override public void setPrdctImage(MultipartFile file) { // 파일 이름 변경(중복방지) UUID uuid = UUID.randomUUID(); String saveName = uuid + "_" +
+	 * file.getOriginalFilename(); log.info("image_name: ", saveName);
+	 * 
+	 * // 저장할 File 객체를 생성(껍데기 파일) // 저장할 폴더 이름, 저장할 파일 이름 File saveFile = new File("C:\\tetleaf\\Branches\\src\\main\\resources\\static\\hs",
+	 * saveName);
+	 * 
+	 * try { // 업로드 파일에 saveFile이라는 껍데기 입힘 file.transferTo(saveFile); } catch (IOException e) { e.printStackTrace(); }
+	 * 
+	 * sellerMapper.setPrdctImage(saveName);
+	 * 
+	 * }
+	 */
 
 	@Override
 	public ShippingVO getAddress(String getMbr_id) {
@@ -176,6 +171,18 @@ public class SellerServiceImpl implements SellerService {
 		log.info("prdctContentUpdate()......");
 		sellerMapper.prdctContentUpdate(prvo);
 
+	}
+
+	@Override
+	public List<BoardVO> getbNum(int board_id) {
+		log.info("getbId()......");
+		return sellerMapper.getbNum(board_id);
+	}
+
+	@Override
+	public BoardVO getboardId(int board_id) {
+		log.info("getboardId()......");
+		return sellerMapper.getboardId(board_id);
 	}
 
 }
