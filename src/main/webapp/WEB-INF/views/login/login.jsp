@@ -36,7 +36,9 @@
 						<p class="alert alert-danger">${exception}</p>
 					</div>
 				</c:if>
-				<form action="/login" method="POST" name="form1">
+				<form action="/login" method="POST">
+				<!-- <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}" />
+				<form action="/login" method="POST" name="form1"> -->
 					<div class="form-check" align="left">
 						<label class="form-check-label">
 							<p>
@@ -60,9 +62,10 @@
 					</div>
 
 					<div class="form-group" align="center">
-						<br> <a href="#">회원가입</a>&nbsp;|&nbsp; <a href="#">ID찾기</a>&nbsp;|&nbsp; <a href="#">PW찾기</a>
-					</div>
-
+						<br>
+			      <a href="/join">회원가입</a>&nbsp;|&nbsp;
+			      <a href="/find_id_pw">ID / PW 찾기</a>
+			    </div>
 					<div class="form-group" align="center">
 						<br> <a href="/oauth2/authorization/kakao"><img src="<c:url value="/img/kakao_circle.png"/>" width="50" height="50"></a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="/oauth2/authorization/naver"><img src="<c:url value="/img/naver-icon-file.jpg"/>" width="50" height="50"></a>&nbsp;&nbsp;&nbsp;&nbsp;

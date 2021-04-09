@@ -18,4 +18,8 @@ public interface LoginMapper {
 	// ID 중복 체크
 	public int idChk(String mbr_id);
 
+	public String findID(String name, int contact);
+
+	public String findPW(MbrVO mbr);
+
 }
