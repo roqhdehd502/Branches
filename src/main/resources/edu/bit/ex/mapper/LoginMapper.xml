@@ -59,4 +59,16 @@
 	]]>
 	</select>
 	
+	<select id="findID" resultType="string">
+	<![CDATA[
+		select mbr_id from mbr where mbr_name = #{name} and contact_number = ${contact}
+	]]>
+	</select>
+	
+	<select id="findPW" resultType="edu.bit.ex.vo.MbrVO">
+	<![CDATA[
+		select * from mbr where mbr_id = #{mbr_id} and mbr_name = #{mbr_name}
+	]]>
+	</select>
+	
 </mapper>

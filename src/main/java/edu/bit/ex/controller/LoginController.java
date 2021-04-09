@@ -32,9 +32,6 @@ public class LoginController {
 	@Autowired
 	private SecurityService securityService;
 
-	// @Autowired
-	// private MemberDetailsService memberdetailsservice;
-
 	// 로그인페이지
 
 	@GetMapping("/login")
@@ -103,17 +100,17 @@ public class LoginController {
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
-		return "redirect:/";
+		return "login/login";
 	}
 
 	@GetMapping("/join/idCheck")
-	public ResponseEntity<String> idCheck(@RequestParam("mbr_id") String id) {
+	public ResponseEntity<String> idCheck(@RequestParam("id") String id) {
 		ResponseEntity<String> entity = null;
 
 		if (securityService.idChk(id)) {
-			entity = new ResponseEntity<String>("FAIL", HttpStatus.OK);
+			entity = new ResponseEntity<String>("이미 존재하는 ID입니다", HttpStatus.OK);
 		} else {
-			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			entity = new ResponseEntity<String>("사용가능한 ID입니다", HttpStatus.OK);
 		}
 
 		return entity;
@@ -124,6 +121,69 @@ public class LoginController {
 		log.info("denied......");
 		mav.setViewName("denied");
 		return mav;
+	}
+
+	// 아이디, 비번 찾기
+	@GetMapping("/find_id_pw")
+	public ModelAndView find_id_pw(ModelAndView mav) {
+		log.info("find_id_pw");
+		mav.setViewName("login/find_id_pw");
+		return mav;
+	}
+
+	// 이름, 연락처로 ID찾기
+	@GetMapping("/find_id")
+	public ResponseEntity<String> find_id(@RequestParam("name") String name, @RequestParam("contact") int contact) {
+		log.info("find_id");
+		ResponseEntity<String> entity = null;
+
+		if (securityService.findID(name, contact) == null) {
+			entity = new ResponseEntity<String>("정보를 다시 확인해주세요", HttpStatus.OK);
+		} else {
+			entity = new ResponseEntity<String>("ID : " + securityService.findID(name, contact), HttpStatus.OK);
+		}
+
+		return entity;
+	}
+
+	// 이름, 연락처, ID로 PW찾기
+	@PostMapping("/find_pw")
+	public ResponseEntity<String> find_pw(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("email") String email,
+			HttpServletResponse response) {
+		log.info("find_pw");
+
+		MbrVO mbr = new MbrVO();
+		mbr.setMbr_id(id);
+		mbr.setMbr_name(name);
+		mbr.setMbr_email(email);
+
+		ResponseEntity<String> entity = null;
+
+		if (securityService.findPW(mbr) == null) {
+			entity = new ResponseEntity<String>("FAIL", HttpStatus.OK);
+		} else {
+			securityService.sendEmail(response, mbr);
+
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		}
+
+		return entity;
+	}
+
+	@GetMapping("/resetpw")
+	public ModelAndView reset_pw(ModelAndView mav) {
+		log.info("pw reset page======");
+		mav.setViewName("login/resetPW");
+		return mav;
+	}
+
+	@PostMapping("/resetpw/")
+	public ResponseEntity<String> reseting_pw() {
+		log.info("PW now on reseting======");
+
+		ResponseEntity<String> entity = null;
+
+		return entity;
 	}
 
 }

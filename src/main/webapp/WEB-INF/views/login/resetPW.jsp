@@ -10,18 +10,21 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Branches : Login</title>
-	
-	<!-- Required CSS files -->
-	<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
-	<link rel="stylesheet" href="/assets/css/owl.carousel.css">
-	<link rel="stylesheet" href="/assets/css/barfiller.css">
-	<link rel="stylesheet" href="/assets/css/animate.css">
-	<link rel="stylesheet" href="/assets/css/font-awesome.min.css">
-	<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/assets/css/slicknav.css">
-	<link rel="stylesheet" href="/assets/css/main.css">
-	<link rel="stylesheet" href="/bootstrap.min.css">
+	<title>Branches : 비밀번호 변경</title>
+
+<!-- Required CSS files -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/owl.carousel.css">
+<link rel="stylesheet" href="/assets/css/barfiller.css">
+<link rel="stylesheet" href="/assets/css/animate.css">
+<link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/css/slicknav.css">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/bootstrap.min.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 </head>
 <body>
 	<div class="row">
@@ -30,42 +33,30 @@
   			<div class="container">
 				<div align="center"><img src="<c:url value="/img/branches_text.png"/>" width="200"></div>
 				<h2 align="center">로그인</h2><br>
-				<!-- 로그인 실패 시 오류 메세지 -->
-				<c:if test="${error}">
-				<div>
-					<p class="alert alert-danger">${exception}</p>
-				</div>
-				</c:if>
-				<form action="/login" method="POST">
-				<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}" />
-					<div class="form-check" align="left">
-						<label class="form-check-label">
-							<p>
-							<input type="radio" class="form-check-inline" name="optradio">회원&nbsp;&nbsp;&nbsp;
-							<input type="radio" class="form-check-inline" name="optradio">비회원
-							</p>
-						</label>
-					</div>	  	
+				<form action="/resetPW" method="POST">
+  	
 			  	
 			    	<div class="form-group">
 			      		<input type="text" class="form-control" id="mbr_id" name="mbr_id" placeholder="아이디를 입력하세요" required autofocus>
 			    	</div>
+			    	
+			    	<div class="form-group">
+			      		<input type="number" class="form-control" id="contact_number" name="contact_number" placeholder="연락처를 입력하세요" required>
+			    	</div>
+			    	
 			    	<div class="form-group">
 			      		<input type="password" class="form-control" id="mbr_pw" name="mbr_pw" placeholder="비밀번호를 입력하세요" required>
 			    	</div>
 			    	
-			    	<button type="submit" class="btn btn-primary btn-block">로그인</button><br>
-			 	
-			 		<div class="form-check-inline">
-					  	<label class="form-check-label">
-					    	<input type="checkbox" id="remember-me" name="remember-me" class="form-check-input" value="true">자동로그인
-					  	</label>
-					</div>
+			    	<div class="form-group">
+			      		<input type="password" class="form-control" id="pw_check" name="pw_check" placeholder="비밀번호를 확인하세요" required>
+			    	</div>
+			    	
+			    	<button type="submit" class="btn btn-primary btn-block" onclick="">비밀번호 변경</button><br>
 					
 					<div class="form-group" align="center">
 						<br>
-			      		<a href="/join">회원가입</a>&nbsp;|&nbsp;
-			      		<a href="/find_id_pw">ID / PW 찾기</a>
+			      		<a href="/login">로그인 페이지로 이동</a>
 			    	</div>
 			    	
 					<div class="form-group" align="center">

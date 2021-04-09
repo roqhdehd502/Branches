@@ -82,13 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.userService(principalOauth2UserService);
 
 		http.rememberMe() // 자동로그인
-				.userDetailsService(memberDetailsService).tokenValiditySeconds(2592000) // 3일
-		;
-		// .key("Branches") // 쿠키에 사용되는 값을 암호화하기 위한 키(key)값
-		// .rememberMeParameter("remember-Me") //
-		// .rememberMeCookieName("Branches_cookie") //
-		// .userDetailsService(memberDetailsService) //
-		// .tokenValiditySeconds(2592000); // 3일
+				.userDetailsService(memberDetailsService).tokenValiditySeconds(2592000); // 3일
 
 		// CK에디터 이미지 업로드 X-Frame-Option iframe랜더링 설정
 		// https://goateedev.tistory.com/87 자세한건 이곳 참고하세요!

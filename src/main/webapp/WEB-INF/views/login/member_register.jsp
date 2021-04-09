@@ -22,7 +22,8 @@
 	
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-	
+
+
 </head>
 <body>
 	<div class="row">
@@ -38,34 +39,33 @@
 			      		<div class="col-sm-7">
 			      			<input type="text" class="form-control" id="mbr_id" name="mbr_id" maxlength="20" placeholder="영문 + 숫자 조합 5~11자" required="required">
 			      		</div>
-			      		<button type="button" class="btn btn-primary btn-sm" id="idChk" onclick="idChk()">중복체크</button>
-			    		<div class="col-sm-9">
-							<span id="idMsg"></span>
-							<script type="text/javascript">
-								function idChk()) {
-
-									var id = $("#mbr_id").val();
-
+			      		<button type="button" class="btn btn-primary btn-sm" id="idChk" onclick="idCheck()">중복체크</button>
+						<script type="text/javascript">
+							function idCheck() {
+								
+								var isID = /^[a-zA-Z0-9-_!]{8,16}$/;
+								var id = $("#mbr_id").val();
+								
+								if (!isID.test(id)) {
+									alert("아이디 형식을 확인해주세요");
+									$("#mbr_id").focus();
+								} else {
 									$.ajax({
-										url : "/join/idCheck?id=" + id,
-										type : "POST",
+										url : '/join/idCheck',
+										type : 'GET',
+										data : {
+											'id' : $('#mbr_id').val()
+										},
+										dataType : 'html',
 										success : function(data) {
-											var result = data;
-											
-											if(result == "SUCCESS") {
-										    	document.getElementById('idMsg').innerHTML='사용가능한 아이디';
-										    	document.getElementById('idMsg').style.color='blue';
-											}
-											else {
-												document.getElementById('idMsg').innerHTML='사용불가능한 아이디';
-										    	document.getElementById('idMsg').style.color='red';
-											}
+											alert(data);
 										}
-									    
-									})
-
-								})
-							</script>
+									});
+								}
+							}
+						</script>
+						<div class="col-sm-9">
+							<span id="idMsg"></span>
 						</div>			
 			    	</div>
 			    	<div class="form-group row">
@@ -116,19 +116,32 @@
 			    	<div class="form-group row">
 			    		<label class="col-sm-3 col-form-label">이메일</label>
 			      		<div class="col-sm-9">
-			      			<input type="text" class="form-control" id="mbr_email" name="mbr_email" placeholder="이메일">
+			      			<input type="text" class="form-control" id="mbr_email" name="mbr_email" placeholder="이메일" onchange="emailChk()">
 			      		</div>
-						<!-- <div class="col-sm-4">
-							<select class="form-control" name="selectEmail" id="selectEmail">
-								<option value="1" selected>직접입력</option>
-						    	<option value="naver.com">naver.com</option>
-						    	<option value="gmail.com">gmail.com</option>
-						    	<option value="hanmail.com">hanmail.com</option>
-						    	<option value="nate.com">nate.com</option>
-						    	<option value="daum.net">daum.net</option>
-						    </select>
-						    <script type="text/javascript"></script>
-						</div>	 -->	
+						<label class="col-sm-3 col-form-label"></label>
+			      		<div class="col-sm-9">
+			      			<span id="emailCheck"></span>
+			      			<script type="text/javascript">
+
+									function emailChk() {
+										
+										var isEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+										var isHan = /[ㄱ-ㅎ가-힣]/g;
+										var email = $("mbr_email").val();
+									    
+									    if(email != "") {
+									    	if(!isEmail.test(email) \\ isHan.test(email)) {
+									    		document.getElementById('emailCheck').innerHTML='이메일을 확인해주세요';
+									    		document.getElementById('emailCheck').style.color='red';
+									    	} else {
+									        	document.getElementById('emailCheck').innerHTML='사용가능한 이메일';
+									        	document.getElementById('emailCheck').style.color='blue';
+									        }
+									    }
+									    
+									}
+								</script>
+			      		</div>
 			    	</div>
 			    	<div class="form-group row">
 			    		<label class="col-sm-3 col-form-label">이름</label>
