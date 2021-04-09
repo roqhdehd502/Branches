@@ -47,8 +47,8 @@ public class OrderController {
 		Map<String, Integer> cart = memberDetails.getCart();
 		Set<String> idSet = cart.keySet();
 		Map<PrdctVO, Integer> productCart = new HashMap<>();
-		for (String prdct_id : idSet) {
-			productCart.put(orderService.getProduct(prdct_id), cart.get(prdct_id));
+		for (String id : idSet) {
+			productCart.put(orderService.getProduct(id), cart.get(id));
 		}
 
 		mav.addObject("cart", productCart);
@@ -58,13 +58,14 @@ public class OrderController {
 	}
 
 	// 장바구니
-	@PostMapping("/cart")
-	public ResponseEntity<String> insertCart(@RequestBody OrderDetailVO orderDtailVO, @AuthenticationPrincipal MemberDetails memberDetails)
+	@PostMapping("/insert_cart")
+	public ResponseEntity<String> insertCart(@RequestBody OrderDetailVO orderDetailVO, @AuthenticationPrincipal MemberDetails memberDetails)
 			throws Exception {
-		log.info("cart into");
+
 		ResponseEntity<String> entity = null;
 		try {
-			memberDetails.insertCart(orderDtailVO.getPrdct_id(), orderDtailVO.getOrder_amount());
+			log.info("cart into");
+			memberDetails.insertCart(orderDetailVO.getPrdct_id(), orderDetailVO.getOrder_amount());
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -88,7 +89,7 @@ public class OrderController {
 	}
 
 	// 주문 리스트 정보입력
-	@GetMapping("/order")
+	@GetMapping("/cart/orderInput")
 	public ModelAndView order(ModelAndView mav, HttpServletRequest request, @AuthenticationPrincipal MemberDetails memberDetails) {
 		log.info("order");
 		String prdct_id = request.getParameter("prdct_id");

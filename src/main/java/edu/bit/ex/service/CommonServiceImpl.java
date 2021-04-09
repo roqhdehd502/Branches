@@ -123,13 +123,13 @@ public class CommonServiceImpl implements CommonService {
 
 	@Override
 	public BoardPrdctImageVO getContent(int board_id) {
-		log.info("getContent");
+
 		return commonMapper.getContent(board_id);
 	}
 
 	@Override
 	public BoardVO getboardId(int board_id) {
-		log.info("getboardId");
+
 		return commonMapper.getboardId(board_id);
 	}
 
