@@ -132,7 +132,7 @@
 							</c:forEach>
 							
 							<c:choose>
-							<c:when test="${pageMaker.next && pageMaker.endPage > 0}">
+							<c:when test="${pageMaker.next && pageMaker.endPage <= 0}">
 								<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
 							</c:when>
 							<c:otherwise>

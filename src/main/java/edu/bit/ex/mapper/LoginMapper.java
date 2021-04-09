@@ -20,6 +20,8 @@ public interface LoginMapper {
 
 	public String findID(String name, int contact);
 
-	public String findPW(MbrVO mbr);
+	public MbrVO findPW(MbrVO mbr);
+
+	public void setPW(MbrVO mbr);
 
 }

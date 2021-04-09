@@ -299,6 +299,15 @@ public class MemberController {
 	// return mav;
 	// }
 
+	// 회원 정보수정폼 customer
+	// 스프링 시큐리티 적용 중
+	@RequestMapping(value = "/mypage/myinfo", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView login_member_info(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav) {
+		mav.setViewName("member/member_mypage_modify");
+		mav.addObject("mbr", securityService.getMbr(memberDetails.getUserID()));
+		return mav;
+	}
+
 	// 회원정보수정 ajax customer
 	@PutMapping(value = "/mypage/myinfo")
 	public ResponseEntity<String> member_info_modify(@RequestBody MbrVO mbrvo) {
@@ -316,12 +325,4 @@ public class MemberController {
 		return entity;
 	}
 
-	// 회원 정보수정폼 customer
-	// 스프링 시큐리티 적용 중
-	@RequestMapping(value = "/mypage/myinfo", method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView login_member_info(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav) {
-		mav.setViewName("member/member_mypage_modify");
-		mav.addObject("mbr", securityService.getMbr(memberDetails.getUserID()));
-		return mav;
-	}
 }
