@@ -3,17 +3,18 @@ package edu.bit.ex.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.bit.ex.config.auth.MemberDetails;
 import edu.bit.ex.controller.validator.MemberValidator;
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
@@ -34,23 +35,23 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @AllArgsConstructor
 @RestController
-@RequestMapping("/board/*")
+//@RequestMapping("/board/*")
 public class BoardController {
 	@Autowired
 	private SecurityService securityService;
 	private MemberValidator memberValidator;
 	private BoardService boardService;
 
-	// 로그인 페이지
-	@GetMapping("/board")
-	public ModelAndView signUpForm(ModelAndView mv) {
-		mv.setViewName("login/login");
-		return mv;
+	// 로그인 페이지(관리자)
+	@GetMapping("/admin")
+	public ModelAndView signUpForm(ModelAndView mav) {
+		mav.setViewName("login/login");
+		return mav;
 	}
 
 	// 페이징을 이용한 공지사항 게시판 리스트
-	@Transactional
-	@GetMapping("/notice")
+	@Transactional(rollbackFor = Exception.class)
+	@GetMapping("/board/notice")
 	public ModelAndView noticeList(NoticeCriteria cri, ModelAndView mav) {
 		log.info("noticeList...");
 		log.info(cri.toString());
@@ -64,17 +65,21 @@ public class BoardController {
 		return mav;
 	}
 
-	// 공지사항 작성페이지
-	@GetMapping("/notice/write")
-	public ModelAndView noticeWriteView(MbrVO mbrVO, ModelAndView mav) {
+	// 공지사항 작성페이지(관리자)
+	@GetMapping("/admin/board/notice/write")
+	public ModelAndView noticeWriteView(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav) {
 		log.info("noticeWriteView...");
 		mav.setViewName("board/notice_write");
-		mav.addObject("notice_write", boardService.getNoticeMember(mbrVO.getMbr_id()));
+		// 인증 회원 정보
+		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+		// 회원 정보 받아오기
+		mav.addObject("mbr", getMbr);
+		// mav.addObject("notice_write", boardService.getNoticeMember(mbrVO.getMbr_id()));
 		return mav;
 	}
 
-	// 공지사항 작성
-	@PostMapping("/notice/write")
+	// 공지사항 작성(관리자)
+	@PostMapping("/admin/board/notice/write")
 	public ResponseEntity<String> noticeWrite(@RequestBody BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
 
@@ -91,7 +96,7 @@ public class BoardController {
 	}
 
 	// 공지사항 게시글
-	@GetMapping("/notice/{board_id}")
+	@GetMapping("/board/notice/{board_id}")
 	public ModelAndView noticeContent(BoardVO boardVO, ModelAndView mav) {
 		log.info("noticeContent...");
 		mav.setViewName("board/notice_content");
@@ -99,8 +104,8 @@ public class BoardController {
 		return mav;
 	}
 
-	// 공지사항 수정페이지
-	@GetMapping("/notice/modify/{board_id}")
+	// 공지사항 수정페이지(관리자)
+	@GetMapping("/admin/board/notice/modify/{board_id}")
 	public ModelAndView noticeModifyView(BoardVO boardVO, ModelAndView mav) {
 		log.info("noticeModifyView...");
 		mav.setViewName("board/notice_modify");
@@ -108,8 +113,9 @@ public class BoardController {
 		return mav;
 	}
 
-	// 공지사항 수정
-	@PostMapping("/notice/modify/{board_id}")
+	// 공지사항 수정(관리자)
+	@Transactional(rollbackFor = Exception.class)
+	@PostMapping("/admin/board/notice/modify/{board_id}")
 	public ResponseEntity<String> noticeModify(@RequestBody BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
 
@@ -125,8 +131,8 @@ public class BoardController {
 		return entity;
 	}
 
-	// 공지사항 삭제
-	@DeleteMapping("/notice/modify/{board_id}")
+	// 공지사항 삭제(관리자)
+	@DeleteMapping("/admin/board/notice/modify/{board_id}")
 	public ResponseEntity<String> noticeDelete(BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
 		log.info("noticeDelete...");
@@ -142,8 +148,8 @@ public class BoardController {
 	}
 
 	// 페이징을 적용한 매거진 게시판 리스트
-	@Transactional
-	@GetMapping("/magazine")
+	@Transactional(rollbackFor = Exception.class)
+	@GetMapping("/board/magazine")
 	public ModelAndView magazineList(BoardVO boardVO, BoardPrdctImageVO bPrdctImageVO, MagazineCriteria cri, ModelAndView mav) {
 		log.info("magazineList...");
 		mav.setViewName("board/magazine_list");
@@ -156,19 +162,24 @@ public class BoardController {
 		return mav;
 	}
 
-	// 매거진 작성페이지
-	@GetMapping("/magazine/write")
-	public ModelAndView magazineWriteView(MbrVO mbrVO, ModelAndView mav) {
+	// 매거진 작성페이지(관리자)
+	@GetMapping("/admin/board/magazine/write")
+	public ModelAndView magazineWriteView(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav) {
 		log.info("magazineWriteView...");
 		mav.setViewName("board/magazine_write");
-		mav.addObject("magazine_write", boardService.getMagazineMember(mbrVO.getMbr_id()));
+
+		// 인증 회원 정보
+		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+		// 회원 정보 받아오기
+		mav.addObject("mbr", getMbr);
+		// mav.addObject("magazine_write", boardService.getMagazineMember(mbrVO.getMbr_id()));
 
 		return mav;
 	}
 
-	// 매거진 작성
-	@Transactional
-	@PostMapping("/magazine/write")
+	// 매거진 작성(관리자)
+	@Transactional(rollbackFor = Exception.class)
+	@PostMapping("/admin/board/magazine/write")
 	public ResponseEntity<String> magazineWrite(BoardPrdctImageVO bPrdctImageVO) {
 		ResponseEntity<String> entity = null;
 		log.info("magazineWrite..");
@@ -178,8 +189,8 @@ public class BoardController {
 		try {
 			boardService.setMagazineWrite(bPrdctImageVO); // 텍스트 등록(1)
 
-			for (MultipartFile f : uploadfiles) {
-				boardService.setMagazineImage(f); // 이미지 등록(N)
+			for (MultipartFile file : uploadfiles) {
+				boardService.setMagazineImage(file); // 이미지 등록(N)
 			}
 
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
@@ -192,11 +203,22 @@ public class BoardController {
 	}
 
 	// 매거진 게시글
-	@Transactional
-	@GetMapping("/magazine/{board_id}")
-	public ModelAndView magazineContent(MbrVO mbrVO, BoardVO boardVO, MagazineCommentCriteria cri, ModelAndView mav) {
+	@Transactional(rollbackFor = Exception.class)
+	@GetMapping("/board/magazine/{board_id}")
+	public ModelAndView magazineContent(@AuthenticationPrincipal MemberDetails memberDetails, MbrVO mbrVO, BoardVO boardVO,
+			MagazineCommentCriteria cri, ModelAndView mav) {
 		log.info("magazineContent...");
 		mav.setViewName("board/magazine_content");
+
+		// MemberDetails이 null일 때 ModelAndView에 addObject를 하면 예외처리가 된다
+		// 따라서 null일 때(로그인 상태가 아닐때) 해당 정보를 addObject 하지 않고 페이지를 출력한다
+		if (memberDetails != null) {
+			// 인증 회원 정보
+			MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+			// 회원 정보 받아오기
+			mav.addObject("mbr", getMbr);
+		}
+
 		// 매거진 내용
 		mav.addObject("magazine_content", boardService.getMagazineContent(boardVO.getBoard_id()));
 		// 매거진 사진
@@ -214,7 +236,8 @@ public class BoardController {
 	}
 
 	// 매거진 게시글 추천
-	@PutMapping("/magazine/{board_id}")
+	@Transactional(rollbackFor = Exception.class)
+	@PutMapping("/board/magazine/{board_id}")
 	public ResponseEntity<String> magazineUpLike(BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
 		log.info("magazineUpLike...");
@@ -230,7 +253,8 @@ public class BoardController {
 	}
 
 	// 매거진 게시글 댓글 작성
-	@PostMapping("/magazine/{board_id}")
+	@Transactional(rollbackFor = Exception.class)
+	@PostMapping("/admin/board/magazine/{board_id}")
 	public ResponseEntity<String> magazineCommentWrite(@RequestBody BoardBoardCommentVO boardBoardCommentVO) {
 		ResponseEntity<String> entity = null;
 
@@ -247,7 +271,8 @@ public class BoardController {
 	}
 
 	// 매거진 댓글 삭제
-	@DeleteMapping("/magazine/{board_id}")
+	@Transactional(rollbackFor = Exception.class)
+	@DeleteMapping("/admin/board/magazine/{board_id}")
 	public ResponseEntity<String> magazineCommentDelete(BoardCommentVO boardCommentVO) {
 		ResponseEntity<String> entity = null;
 		log.info("magazineCommentDelete...");
@@ -262,8 +287,9 @@ public class BoardController {
 		return entity;
 	}
 
-	// 매거진 수정페이지
-	@GetMapping("/magazine/modify/{board_id}")
+	// 매거진 수정페이지(관리자)
+	@Transactional(rollbackFor = Exception.class)
+	@GetMapping("/admin/board/magazine/modify/{board_id}")
 	public ModelAndView magazineModifyView(BoardPrdctImageVO bPrdctImageVO, ModelAndView mav) {
 		log.info("magazineModifyView...");
 		mav.setViewName("board/magazine_modify");
@@ -274,8 +300,9 @@ public class BoardController {
 		return mav;
 	}
 
-	// 매거진 수정
-	@PostMapping("/magazine/modify/{board_id}")
+	// 매거진 수정(관리자)
+	@Transactional(rollbackFor = Exception.class)
+	@PostMapping("/admin/board/magazine/modify/{board_id}")
 	public ResponseEntity<String> magazineModify(BoardPrdctImageVO bPrdctImageVO) {
 		ResponseEntity<String> entity = null;
 		log.info("magazineModify..");
@@ -302,8 +329,9 @@ public class BoardController {
 		return entity;
 	}
 
-	// 매거진 삭제
-	@DeleteMapping("/magazine/modify/{board_id}")
+	// 매거진 삭제(관리자)
+	@Transactional(rollbackFor = Exception.class)
+	@DeleteMapping("/admin/board/magazine/modify/{board_id}")
 	public ResponseEntity<String> magazineDelete(BoardPrdctImageVO bPrdctImageVO) {
 		ResponseEntity<String> entity = null;
 		log.info("magazineDelete...");

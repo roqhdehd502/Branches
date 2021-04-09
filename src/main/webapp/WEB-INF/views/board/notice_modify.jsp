@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%-- <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%> --%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,6 +49,9 @@
 	             cache : false,
 	             contentType:'application/json; charset=utf-8', // 인코딩 데이터 변환
 	             data: JSON.stringify(form), // 보안 문제 해결을 위해 stringify 메소드를 사용
+	             /* beforeSend : function(xhr) {
+					xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+          		 }, */
 	             success: function (result) {       
 	               if(result == "SUCCESS"){
 	                  // update가 완료되었으면 리스트 페이지로 이동        
@@ -99,7 +104,8 @@
 				<h2>NOTICE</h2>
 			</div>
 			<hr>
-			<form id="updateForm" action="${pageContext.request.contextPath}/board/notice/modify/${notice_modify.board_id}" method="post">
+			<form id="updateForm" action="${pageContext.request.contextPath}/admin/board/notice/modify/${notice_modify.board_id}" method="post">
+				<!-- <s:csrfInput /> -->
 				<input type="hidden" id="board_id" value="${notice_modify.board_id}">
 				<fieldset>
 					<div class="row">

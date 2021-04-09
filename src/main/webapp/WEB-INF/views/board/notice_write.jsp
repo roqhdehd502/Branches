@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%-- <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%> --%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,7 +48,10 @@
              url : $(this).attr("action"),
              cache : false,
              contentType:'application/json; charset=utf-8',
-             data: JSON.stringify(form),
+             data: JSON.stringify(form), 
+             /* beforeSend : function(xhr) {
+				xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+      		 }, */
              success: function (result) {       
                if(result == "SUCCESS"){     
                   $(location).attr('href', '${pageContext.request.contextPath}/board/notice')                            
@@ -74,7 +79,8 @@
 			</div>
 			<hr>
 			<div class="container">
-				<form id="writeForm" method="post" action="${pageContext.request.contextPath}/board/notice/write">
+				<form id="writeForm" method="post" action="${pageContext.request.contextPath}/admin/board/notice/write">
+				<!-- <s:csrfInput /> -->
 				<input type="hidden" id="mbr_id" value="${mbr.mbr_id}">
 				<fieldset>
 					<div class="row">

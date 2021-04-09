@@ -28,10 +28,6 @@ public class BoardServiceImpl implements BoardService {
 	private BoardMapper boardMapper;
 	// 파일 저장 경로
 	private static final String UPLOAD_PATH = "D:/Others/Programming/Project Space/branches/branches_project/src/main/resources/static/board_img/";
-	/*
-	 * private HttpServletRequest request = new HttpServletRequest(); private static final String UPLOAD_PATH =
-	 * request.getSession().getServletContext().getRealPath("/resources/static/prdct_img/");
-	 */
 
 	// 페이징을 적용한 공지사항 게시판 리스트
 	@Override
@@ -48,11 +44,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	// 공지사항 작성 id 가져오기
-	@Override
-	public MbrVO getNoticeMember(String mbr_id) {
-		log.info("getNoticeMember");
-		return boardMapper.getNoticeMember(mbr_id);
-	}
+	/*
+	 * @Override public MbrVO getNoticeMember(String mbr_id) { log.info("getNoticeMember"); return boardMapper.getNoticeMember(mbr_id); }
+	 */
 
 	// 공지사항 작성
 	@Override
@@ -113,6 +107,9 @@ public class BoardServiceImpl implements BoardService {
 	// 매거진 첨부사진 작성
 	@Override
 	public void setMagazineImage(MultipartFile file) {
+		// 파일 경로 설정
+		// String uploadPath = request.getSession().getServletContext().getRealPath("/resources/static/board_img/");
+
 		// 파일 이름 변경(중복방지)
 		UUID uuid = UUID.randomUUID();
 		String saveName = uuid + "_" + file.getOriginalFilename();
@@ -121,6 +118,7 @@ public class BoardServiceImpl implements BoardService {
 		// 저장할 File 객체를 생성(껍데기 파일)
 		// 저장할 폴더 이름, 저장할 파일 이름
 		File saveFile = new File(UPLOAD_PATH, saveName);
+		// File saveFile = new File(uploadPath, saveName);
 
 		try {
 			// 업로드 파일에 saveFile이라는 껍데기 입힘

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,10 +61,34 @@
 			<hr>
 			
 			<div class="container">
-				<div class="row" style="padding: 3% 5% 3% 5%">
-					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/notice'">목록보기</button>&nbsp;
-					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/notice/modify/${notice_content.board_id}'">수정하기</button>&nbsp;
+			
+				<!-- 권한에 따라 버튼을 달리 보이게 한다 -->
+				<!-- 모든 사용자 -->
+				<sec:authorize access="isAnonymous()"> 
+				<div align="center" style="padding: 3% 5% 3% 5%">
+					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/notice'">목록보기</button>
 				</div>
+				</sec:authorize>
+				<!-- 회원일 경우 -->
+				<sec:authorize access="hasAuthority('MEMBER')">  
+				<div align="center" style="padding: 3% 5% 3% 5%">
+					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/notice'">목록보기</button>	
+				</div>
+				</sec:authorize>
+				<!-- 판매자일 경우 -->
+				<sec:authorize access="hasAuthority('SELLER')">  
+				<div align="center" style="padding: 3% 5% 3% 5%">
+					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/notice'">목록보기</button>	
+				</div>
+				</sec:authorize>
+				<!-- 관리자일 경우 -->
+				<sec:authorize access="hasAuthority('ADMIN')"> 
+				<div align="center" style="padding: 3% 5% 3% 5%">
+					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/notice'">목록보기</button>&nbsp;
+					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/admin/board/notice/modify/${notice_content.board_id}'">수정하기</button>
+				</div>
+				</sec:authorize>
+				
 			</div>
 		</div>
 	<!-- </div> -->

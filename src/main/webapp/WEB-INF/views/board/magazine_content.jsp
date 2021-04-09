@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%-- <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%> --%>
 
 <!DOCTYPE html>
 <html>
@@ -74,7 +76,10 @@
 	             url : $(this).attr("action"),
 	             cache : false,
 	             contentType:'application/json; charset=utf-8',
-	             data: JSON.stringify(form),
+	             data: JSON.stringify(form), 
+	             /* beforeSend : function(xhr) {
+						xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+	             }, */
 	             success: function (result) {       
 	               if(result == "SUCCESS"){     
 	                  $(location).attr('href', '${pageContext.request.contextPath}/board/magazine/${magazine_content.board_id}')                            
@@ -149,20 +154,68 @@
 			</div>
 					
 			<hr>
-						
+			
+			<!-- 권한에 따라 버튼을 달리 보이게 한다 -->
+			<!-- 모든 사용자 -->
+			<sec:authorize access="isAnonymous()"> 
+			<div align="center" style="padding: 3% 5% 3% 5%">
+				<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine'">목록보기</button>&nbsp;
+				<button type="button" id="magazine_uplike" class="btn btn-primary">추천하기</button>
+			</div>
+			</sec:authorize>
+			<!-- 회원일 경우 -->
+			<sec:authorize access="hasAuthority('MEMBER')">  
+			<div align="center" style="padding: 3% 5% 3% 5%">
+				<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine'">목록보기</button>&nbsp;
+				<button type="button" id="magazine_uplike" class="btn btn-primary">추천하기</button>	
+			</div>
+			</sec:authorize>
+			<!-- 판매자일 경우 -->
+			<sec:authorize access="hasAuthority('SELLER')">  
+			<div align="center" style="padding: 3% 5% 3% 5%">
+				<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine'">목록보기</button>&nbsp;
+				<button type="button" id="magazine_uplike" class="btn btn-primary">추천하기</button>	
+			</div>
+			</sec:authorize>
+			<!-- 관리자일 경우 -->
+			<sec:authorize access="hasAuthority('ADMIN')">  
 			<div align="center" style="padding: 3% 5% 3% 5%">
 				<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine'">목록보기</button>&nbsp;
 				<button type="button" id="magazine_uplike" class="btn btn-primary">추천하기</button>&nbsp;
-				<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine/modify/${magazine_content.board_id}'">수정하기</button>&nbsp;	
+				<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/admin/board/magazine/modify/${magazine_content.board_id}'">수정하기</button>	
 			</div>
+			</sec:authorize>	
 			
 			<hr>
 			
 			<!-- 댓글 작성 -->
+			<!-- 로그인을 하지 않았을 경우 -->
+			<sec:authorize access="isAnonymous()">
+			<c:choose>
+				<%-- View에서도 null값 이중체크를 한다 --%>
+				<c:when test="${empty mbr.mbr_id}">
+					<form method="post" action="#">		
+						<div class="container">
+							<div class="row" style="padding: 5% 3% 3% 5%">
+								<div class="col-md-10" align="left">
+									<textarea class="form-control" cols="3" placeholder="로그인한 회원만 작성 가능합니다" disabled></textarea>		
+								</div>
+								<div class="col-md-2" align="center">
+									<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/login'">로그인</button>
+								</div>
+							</div>
+						</div>
+					</form>
+			 	</c:when>
+			</c:choose>
+			</sec:authorize>	 
+			<!-- 로그인을 했을 경우 -->
+			<sec:authorize access="isAuthenticated()"> 
 			<form id="commentWriteForm" method="post" action="${pageContext.request.contextPath}/board/magazine/${magazine_content.board_id}">		
-				<!-- 이 부분에서 value="mbr_id"는 스프링 시큐리티때 계정 정보를 가져와야해서 이후에 수정해야함! -->
-				<input type="hidden" id="mbr_id" value="defg1234">
+				<!-- <s:csrfInput /> -->
+				<input type="hidden" id="mbr_id" value="${mbr.mbr_id}">
 				<input type="hidden" id="board_id" value="${magazine_content.board_id}">
+				
 				<div class="container">
 					<div class="row" style="padding: 5% 3% 3% 5%">
 						<div class="col-md-10" align="left">
@@ -174,6 +227,7 @@
 					</div>
 				</div>
 			</form>
+			</sec:authorize>
 			
 			<hr>
 			
@@ -195,71 +249,85 @@
 				<c:forEach items="${magazine_comment}" var="comment" varStatus="cmnt_status">
 				<div class="row" style="margin: 1% 3% 1% 3%; padding: 1% 3% 1% 3%; border: 1px solid #E5E5E5;">
 					<div class="col-md-7" align="left">
-						${comment.comment_content}
+						<%-- <p>${comment.mbr_id}</p> --%>
+						<p>${comment.mbr_nickname}</p>
+						<p class="lead">${comment.comment_content}</p>
 					</div>
 					<div class="col-md-4" align="right">
-						${comment.comment_date}					
+						<p class="lead">${comment.comment_date}</p>				
 					</div>
+					
 					<div class="col-md-1" align="right">
-						<!-- 모달을 열기 위한 버튼 -->
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mdal${comment.comment_id}">
-							...
-						</button>
-						<!-- 모달 영역 -->
-						<div class="modal fade myModal" id="mdal${comment.comment_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&#88;</span></button>
-									</div>
-									<div class="modal-body">
-										<p class="lead" align="left">${comment.comment_content}</p>
-									</div>
-									<div class="modal-footer">
-										<div align="left">
-											<button type="button" class="btn btn-danger cmnt_del" data-rno="${comment.comment_id}">삭제하기</button>
-											<script type="text/javascript">
-												<!-- 매거진 댓글 삭제 -->
-												$(document).ready(function (){
-													$('.cmnt_del').click(function(event){
-														event.preventDefault();
-														
-														// FormData 객체 생성
-														var formData = new FormData(); 
-											     		
-														// button의 data-rno 값을 가져온다
-											     		var cmntInfo = $(this).attr("data-rno");		
-											     		console.log("cmntInfo: " + cmntInfo);
-											     		
-											 			// formData에 해당 값을 append한다
-											 			formData.append("comment_id", cmntInfo);
-											     		console.log("formData: " + formData);
-											 
-														$.ajax({
-															type : 'DELETE', 
-															url : $(this).attr("href"), 
-															cache : false, 
-											                processData: false, 
-												    		contentType: false, 
-											                data: formData, 
-															success: function(result){
-																console.log(result);
-																//alert("댓글을 삭제합니다.");
-																$(location).attr('href', '${pageContext.request.contextPath}/board/magazine/${magazine_content.board_id}')
-																console.log("COMMENT_REMOVED!")
-															},
-															error:function(e){
-																console.log(e);
-															}
-														})
-													});	
-												});	
-											</script>
+						<c:choose>
+							<%-- 댓글 작성자가 로그인 한 회원과 일치하지 않을 때 --%> 
+						    <c:when test="${mbr.mbr_id ne comment.mbr_id}">
+						    	<button type="button" class="btn btn-outline-primary" disabled>
+									...
+								</button>  
+						    </c:when>
+						    <%-- 댓글 작성자가 로그인 한 회원과 일치 할 때 --%> 
+						    <c:otherwise>
+								<%-- 모달을 열기 위한 버튼 --%> 
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mdal${comment.comment_id}">
+									...
+								</button>
+								<%-- 모달 영역 --%> 
+								<div class="modal fade myModal" id="mdal${comment.comment_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&#88;</span></button>
+											</div>
+											<div class="modal-body">
+												<p class="lead" align="left">${comment.comment_content}</p>
+											</div>
+											<div class="modal-footer">
+												<div align="left">
+													<button type="button" class="btn btn-danger cmnt_del" data-rno="${comment.comment_id}">삭제하기</button>
+													<%-- 매거진 댓글 삭제 --%>
+													<script type="text/javascript">
+														$(document).ready(function (){
+															$('.cmnt_del').click(function(event){
+																event.preventDefault();
+																
+																// FormData 객체 생성
+																var formData = new FormData(); 
+													     		
+																// button의 data-rno 값을 가져온다
+													     		var cmntInfo = $(this).attr("data-rno");		
+													     		console.log("cmntInfo: " + cmntInfo);
+													     		
+													 			// formData에 해당 값을 append한다
+													 			formData.append("comment_id", cmntInfo);
+													     		console.log("formData: " + formData);
+													 
+																$.ajax({
+																	type : 'DELETE', 
+																	url : $(this).attr("href"), 
+																	cache : false, 
+													                processData: false, 
+														    		contentType: false, 
+													                data: formData, 
+																	success: function(result){
+																		console.log(result);
+																		//alert("댓글을 삭제합니다.");
+																		$(location).attr('href', '${pageContext.request.contextPath}/board/magazine/${magazine_content.board_id}')
+																		console.log("COMMENT_REMOVED!")
+																	},
+																	error:function(e){
+																		console.log(e);
+																	}
+																})
+															});	
+														});	
+													</script>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						</div>
+						    </c:otherwise>
+						</c:choose>	    
 					</div>
 				</div>
 				</c:forEach>

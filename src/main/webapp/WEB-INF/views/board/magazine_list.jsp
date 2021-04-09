@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html>
@@ -41,9 +42,19 @@
 					<div class="col-md-6 contact-info" align="left">
 						<h2>MAGAZINE</h2>
 					</div>
+					
+					<!-- 권한에 따라 버튼을 달리 보이게 한다 -->
+					<!-- 모든 사용자 -->
+					<sec:authorize access="isAnonymous()"> 
+					<div class="col-md-6 contact-info" align="right"></div>
+					</sec:authorize>
+					<!-- 관리자일 경우 -->
+					<sec:authorize access="hasAuthority('ADMIN')">  
 					<div class="col-md-6 contact-info" align="right">
-						<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/magazine/write'">작성하기</button>
+						<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/admin/board/magazine/write'">작성하기</button>
 					</div>
+					</sec:authorize>
+					
 				</div>
 			</div>
 

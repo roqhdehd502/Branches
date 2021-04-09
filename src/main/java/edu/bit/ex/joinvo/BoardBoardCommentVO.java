@@ -2,6 +2,7 @@ package edu.bit.ex.joinvo;
 
 import java.sql.Date;
 
+import edu.bit.ex.vo.MbrVO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -55,5 +56,7 @@ public class BoardBoardCommentVO {
 	private String comment_content; // 댓글내용
 	private Date comment_date; // 댓글작성일자
 
+	private MbrVO mbrVO; // 회원 VO
 	private int comment_count; // 댓글 개수(Only VO)
+	private String mbr_nickname; // 회원닉네임
 }

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%-- <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%> --%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,6 +75,9 @@
 	                processData: false, 
 		    		contentType: false, 
 	                data: formData, 
+	                /* beforeSend : function(xhr) {
+					xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+             		}, */
 	                success: function (result) {       
 	                	console.log("UPLOAD SUCCESS!");
 	                	alert('수정 성공');
@@ -164,7 +169,8 @@
 			
 			<hr>
 			
-			<form id="updateForm" action="${pageContext.request.contextPath}/board/magazine/modify/${magazine_modify.board_id}" method="post">
+			<form id="updateForm" action="${pageContext.request.contextPath}/admin/board/magazine/modify/${magazine_modify.board_id}" method="post">
+				<!-- <s:csrfInput /> -->
 				<input type="hidden" id="board_id" value="${magazine_modify.board_id}">
 				<fieldset>
 					<div class="row">

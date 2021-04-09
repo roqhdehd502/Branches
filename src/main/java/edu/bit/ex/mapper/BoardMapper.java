@@ -23,7 +23,7 @@ public interface BoardMapper {
 	public int getNoticeTotalCount(NoticeCriteria cri);
 
 	// 공지사항 작성 id 가져오기
-	public MbrVO getNoticeMember(String mbr_id);
+	// public MbrVO getNoticeMember(String mbr_id);
 
 	// 공지사항 작성
 	public void setNoticeWrite(BoardVO boardVO);
