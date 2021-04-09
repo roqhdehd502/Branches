@@ -1,7 +1,5 @@
 package edu.bit.ex.service;
 
-import java.util.List;
-
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +17,9 @@ public class OrderServiceImpl implements OrderService {
 	private OrderMapper orderMapper;
 
 	// 장바구니 리스트
-	@Override
-	public List<PrdctVO> getCartList() {
-		log.info("getCartList()");
-		return orderMapper.getCartList();
-	}
-
+	/*
+	 * @Override public List<PrdctVO> getCartList() { log.info("getCartList()"); return orderMapper.getCartList(); }
+	 */
 	@Override
 	public PrdctVO getProduct(String prdct_id) {
 		return orderMapper.getProduct(prdct_id);

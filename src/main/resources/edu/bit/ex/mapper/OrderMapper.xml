@@ -5,8 +5,6 @@
   
 <mapper namespace="edu.bit.ex.mapper.OrderMapper">
 
-		
-	<!-- 장바구니 리스트 
 	<resultMap id="prdctMap" type="edu.bit.ex.vo.PrdctVO">
 	    <result property="prdct_id" column="prdct_id"/>
 	    <result property="prdct_name" column="prdct_name"/>
@@ -17,24 +15,52 @@
 	    <collection property="prdctDetailVO" resultMap="prdctDt"></collection>
 	</resultMap>
 	
-	<resultMap id="prdctDMap" type="edu.bit.ex.vo.PrdctDetailVO">
+	<resultMap id="prdctDt" type="edu.bit.ex.vo.PrdctDetailVO">
 		<result property="prdct_id" column="prdct_id"/>
 		<result property="prdct_color" column="prdct_color"/>
 		<result property="prdct_size" column="prdct_size"/>
 		<result property="prdct_stock" column="prdct_stock"/>
 		<result property="mbr_id" column="mbr_id"/>
-	</resultMap> --> 
+	</resultMap> 
+	
+	<resultMap id="orderMap" type="edu.bit.ex.vo.PrdctOrderVO">
+		<result property="order_number" column="order_number"/>
+		<result property="order_price" column="order_price"/>
+		<result property="order_date" column="order_date"/>
+		<result property="mbr_id" column="mbr_id"/>
+		<collection property="orderDetailVO" resultMap="orderDt"></collection>
+	</resultMap> 
+	
+	<resultMap id="orderDt" type="edu.bit.ex.vo.OrderDetailVO">
+		<result property="order_number" column="order_number"/>
+		<result property="prdct_id" column="prdct_id"/>
+		<result property="order_color" column="order_color"/>
+		<result property="order_size" column="order_size"/>
+		<result property="order_amount" column="order_amount"/>
+		<result property="prdct_price" column="prdct_price"/>
+	</resultMap> 
+	
+	<resultMap id="boardVO" type="edu.bit.ex.vo.BoardVO">
+		<result property="board_id" column="board_id" />
+		<result property="board_name" column="board_name" />
+		<result property="board_content" column="board_content" />
+		<result property="mbr_id" column="mbr_id" />
+		<result property="board_type_number" column="board_type_number" />
+		<result property="inquiry_number" column="inquiry_number" />
+		<result property="board_date" column="board_date" />
+		<result property="prdct_id" column="prdct_id" />
+		<result property="order_number" column="order_number" />
+		<result property="board_like" column="board_like" />
+		<result property="board_hit" column="board_hit" />
+		<result property="board_starrate" column="board_starrate" />
+	</resultMap>
 	
 	<select id="getProduct" resultType="edu.bit.ex.vo.PrdctVO">
 		<![CDATA[
-		select * from prdct where prdct_id = #{prdct_id}
+		select * from prdct where prdct_id = #{prdct_id} 
 		]]>
 	</select>
 
-	<select id="getCartList" resultType="edu.bit.ex.vo.PrdctVO">
-		<![CDATA[
-			select * from prdct
-		]]>
-	</select>
+	
 	
 </mapper>

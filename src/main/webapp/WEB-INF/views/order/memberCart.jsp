@@ -19,6 +19,9 @@
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css">
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+
 <script type="text/javascript">
 	//삭제
 	function removeSelected() {
@@ -277,7 +280,7 @@
 			</nav>
 		</header>
 		<!-- 장바구니	 -->
-		<form id="cart" name="form" method="post" action="${pageContext.request.contextPath}/order/memberOrderCheck">
+		<form id="cart" name="form" method="post" action="${pageContext.request.contextPath}/order/cart/orderInput">
 		
 		<div class="container" style="text-align: center;">
 
@@ -305,7 +308,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${cart}" var="prdct">
+						
 							<colgroup>
 								<col width="10%">
 								<col width="20%">
@@ -315,8 +318,9 @@
 								<col width="10%">
 								<col width="10%">
 							</colgroup>
-							<tr id="${prdct.key.prdct_id}" class="product">
-								<td><input type="checkbox" class="select-product" name="select-product" value="${prdct.key.prdct_price}"></td>
+							<c:forEach items="${cart}" var="cart">
+							<tr id="${cart.key.prdct_id}" class="product">
+								<td><input type="checkbox" class="select-product" name="select-product" value="${cart.key.prdct_price}"></td>
 								<td>
 									<div class="connect_img">
 										<img class="product-img" src="/resources/static/ej/view.staff_605be555e83ad.jpg">
@@ -325,26 +329,27 @@
 								</td>
 								<td>
 									<div class="article_info connect_info">
-										<p class="prdct_name" id="prdct_name">${prdct.key.prdct_name}</p>
-										<p class="prdct_color" id="prdct_color">${prdct.key.prdct_color}</p>
-										<p class="prdct_size" id="prdct_size">${prdct.key.prdct_size}</p>
+									<p>${cart.key.prdct_id}</p>
+										<%-- <p class="prdct_name" id="prdct_name">${cart.key.prdct_name}</p>
+										<p class="prdct_color" id="prdct_color">${cart.key.prdct_color}</p>
+										<p class="prdct_size" id="prdct_size">${cart.key.prdct_size}</p> --%>
 									</div>
 								</td>
-								<td class="td_price">${prdct.key.prdct_price}</td>
+							<%-- 	<td class="td_price">${cart.key.prdct_price}</td> --%>
 								<td>
 									<!-- 수량 -->
 									<div class="n-input-amount">
 										<div class="form-group">
-											<input type="number" id="order_amount" class="order_amount" min="1" value="${prdct.value }" />
+											<%-- <input type="number" id="order_amount" class="order_amount" min="1" value="${cart.value }" /> --%>
 										</div>
 									</div>
 								</td>
 								<td><p class="mul-price"></p>
 									<br></td>
-								<td><button class="btn btn-secondary delete-btn" onclick="remove(${prdct.key.prdct_id})">삭제</button></td>
+								<td><button class="btn btn-secondary delete-btn" onclick="remove(${cart.key.prdct_id})">삭제</button></td>
 
 							</tr>
-
+							</c:forEach>
 							<tr class="gift-division">
 								<td colspan="3">
 									<button class="btn btn-secondary delete-btn-selected" onclick="removeSelected()">선택삭제</button>
@@ -354,9 +359,9 @@
 								<span id="total-price"></span>
 								</td>
 							</tr>
-						</c:forEach>
+						
 						<tr>
-
+						
 							<td><span>총 상품가격</span> <span id="total-price"></span></td>
 						</tr>
 					</tbody>
