@@ -15,11 +15,12 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-6 col-sm-3 logo-column">
-					<a href="/member/main" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
+					<a href="/main" class="logo" style="height: 70px;"> 
+						<img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
 					</a>
 				</div>
-				<div class="col-6 col-sm-9 nav-column clearfix">
-					<div class="right-nav">
+				<div class="col-9 col-sm-9 nav-column clearfix">
+					<div class="right-nav" >
 						<span class="search-icon fa fa-search"></span>
 						<form action="#" class="search-form">
 							<input type="search" placeholder="search now">
@@ -27,38 +28,53 @@
 								<i class="fa fa-search"></i>
 							</button>
 						</form>
-
-						<div class="header-social">
-							<a href="/login">Login</a> <!-- <a href="#" class="fa fa-google"></a> <a href="#" class="fa fa-facebook"></a> -->
-						</div>
-
+					</div>	
 						 <sec:authorize access="isAnonymous()"> 
-			            	<a href="/login" class="btn btn-primary btn-sm" style="color : white;">LOGIN</a>
+						 <span style="position: relative; top: 18px; left: 640px;">
+			            	<a href="/login">LOGIN</a>&nbsp;&nbsp;
+			            	<a href="/order/cart">CART</a>
+			            </span>	
 						 </sec:authorize>
-						 <br/>
 
-						<sec:authorize access="hasRole('3')">
-							<a class="btn btn-primary btn-sm" style="color : white;" href="${pageContext.request.contextPath}/member/mypage">MYPAGE</a>
+						<sec:authorize access="hasAuthority('MEMBER')">
+								<a href="${pageContext.request.contextPath}/member/mypage">MYPAGE</a>
 
-							<form action="/logoutsuccess" method="post" id="mlogout">
-								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
-								<a  class="btn btn-primary btn-sm" style="color : white;" href="#" class="charity-strip-btn charity-bgcolor" onclick="document.getElementById('mlogout').submit();">LOGOUT</a>
-							</form>
+								<form action="/logoutsuccess" method="post" id="mlogout">
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+									<a href="#" class="charity-strip-btn charity-bgcolor" onclick="document.getElementById('mlogout').submit();">LOGOUT</a>
+								</form>
 						</sec:authorize>
 						
-						<sec:authorize access="hasRole('2')">
-							<a class="btn btn-primary btn-sm" style="color : white;" href="${pageContext.request.contextPath}/seller/mypage">MYPAGE</a>
-
-							<form action="/logoutsuccess" method="post" id="mlogout">
-								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
-								<a class="btn btn-primary btn-sm" style="color : white;" href="#" class="charity-strip-btn charity-bgcolor" onclick="document.getElementById('mlogout').submit();">LOGOUT</a>
-							</form>
+						<sec:authorize access="hasAuthority('SELLER')">
+							<span style="position: relative; top: 18px; left: 590px;">
+								<span>
+									<a href="${pageContext.request.contextPath}/seller/mypage">MYPAGE</a>
+								</span>&nbsp;&nbsp;
+								<span>
+									<form action="/logoutsuccess" method="post" id="mlogout">
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+										<a href="#" class="charity-strip-btn charity-bgcolor" onclick="document.getElementById('mlogout').submit();">LOGOUT</a>
+									</form>
+								</span>
+							</span>	
 						</sec:authorize>
-
+						
+						<sec:authorize access="hasAuthority('ADMIN')">
+							<span style="position: relative; top: 18px; left: 590px;">
+								<span>
+									<a href="${pageContext.request.contextPath}/admin/mypage">MYPAGE</a>
+								</span>&nbsp;&nbsp;
+								<span>
+									<form action="/logoutsuccess" method="post" id="mlogout">
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+										<a href="#" class="charity-strip-btn charity-bgcolor" onclick="document.getElementById('mlogout').submit();">LOGOUT</a>
+									</form>
+								</span>
+							</span>	
+						</sec:authorize>
 					</div>
 				</div>
 			</div>
-		</div>
 		<nav id="menu" class="d-none d-lg-block">
 			<ul style="padding: 10px; background-color: black;">
 				<li class="current-menu-item has-child"><a href="index.html">OUTER</a>
