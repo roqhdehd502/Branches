@@ -8,6 +8,7 @@ import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.mapper.SellerMapper;
+import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.MbrVO;
@@ -44,9 +45,9 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public List<BoardVO> getBoard() {
+	public List<BoardVO> getBoard(SearchCriteria cri) {
 		log.info("getBoard......");
-		return sellerMapper.getBoard();
+		return sellerMapper.getBoard(cri);
 	}
 
 	@Override
@@ -183,6 +184,18 @@ public class SellerServiceImpl implements SellerService {
 	public BoardVO getboardId(int board_id) {
 		log.info("getboardId()......");
 		return sellerMapper.getboardId(board_id);
+	}
+
+	@Override
+	public int getTotal(SearchCriteria cri) {
+		log.info("getTotal()......");
+		return sellerMapper.getTotal(cri);
+	}
+
+	@Override
+	public int getTotal1(SearchCriteria cri) {
+		log.info("getTotal()......");
+		return sellerMapper.getTotal1(cri);
 	}
 
 }

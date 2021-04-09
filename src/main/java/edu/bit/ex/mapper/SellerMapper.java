@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
+import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.MbrVO;
@@ -25,7 +26,7 @@ public interface SellerMapper {
 
 	public List<PrdctOrderVO> getPrdOrder();
 
-	public List<BoardVO> getBoard();
+	public List<BoardVO> getBoard(SearchCriteria cri);
 
 	public List<PrdctDetailVO> getPrdctDetail();
 
@@ -74,5 +75,9 @@ public interface SellerMapper {
 	public List<BoardVO> getbNum(int board_id);
 
 	public BoardVO getboardId(int board_id);
+
+	public int getTotal(SearchCriteria cri);
+
+	public int getTotal1(SearchCriteria cri);
 
 }

@@ -28,7 +28,8 @@ import org.springframework.web.servlet.ModelAndView;
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
-import edu.bit.ex.service.SecurityService;
+import edu.bit.ex.page.SearchCriteria;
+import edu.bit.ex.page.SearchPageVO;
 import edu.bit.ex.service.SellerService;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
@@ -43,9 +44,6 @@ import lombok.extern.slf4j.Slf4j;
 public class SellerController {
 	@Autowired
 	private SellerService sellerService;
-
-	@Autowired
-	private SecurityService securityService;
 
 	// CK 에디터 이미지 서버 전송 컨트롤러
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(SellerController.class);
@@ -289,13 +287,17 @@ public class SellerController {
 
 	// 판매자 상품Q&A조회 페이지...(seller)
 	@GetMapping("/mypage/prdctqna")
-	public ModelAndView sellerQnA(ModelAndView mav, MbrVO mbr) throws Exception {
+	public ModelAndView sellerQnA(ModelAndView mav, MbrVO mbr, SearchCriteria cri) throws Exception {
 		log.info("sellerQnA");
 
 		mav.setViewName("seller/sellerQnA");
-		mav.addObject("board", sellerService.getBoard());
+		mav.addObject("board", sellerService.getBoard(cri));
 		mav.addObject("prd", sellerService.getProduct());
 		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
+
+		int total = sellerService.getTotal(cri);
+		log.info("getTotal");
+		mav.addObject("pageMaker", new SearchPageVO(cri, total));
 
 		return mav;
 	}
@@ -308,7 +310,7 @@ public class SellerController {
 		log.info("sellerReview");
 
 		mav.setViewName("seller/sellerReview");
-		mav.addObject("board", sellerService.getBoard());
+		// mav.addObject("board", sellerService.getBoard());
 		mav.addObject("prd", sellerService.getProduct());
 		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
 
