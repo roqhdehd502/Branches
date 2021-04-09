@@ -125,4 +125,6 @@
 			select board_id from board where board_id = #{board_id}
 		]]>
 	</select>
+	
+
 </mapper>

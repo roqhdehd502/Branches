@@ -301,6 +301,7 @@ public class SellerController {
 	}
 
 	// 판매자 상품리뷰조회 페이지...(seller)
+
 	@GetMapping("/mypage/review")
 	public ModelAndView sellerReview(ModelAndView mav, MbrVO mbr) throws Exception {
 		log.debug("sellerReview");
