@@ -61,7 +61,7 @@
 		]]>
 	</select>
 	
-		<!-- 메인페이지 주문정보 불러오기2-->
+	<!-- 메인페이지 주문정보 불러오기2-->
 	<select id="getOrderDetail" resultType="edu.bit.ex.vo.OrderDetailVO">
 		<![CDATA[
 			select * from order_detail
@@ -69,10 +69,57 @@
 	</select>
 	
 	<!-- 게시글 정보 불러오기 -->
-	<select id="getBoard" resultType="edu.bit.ex.vo.BoardVO">
+	<!-- <select id="getBoard" resultType="edu.bit.ex.vo.BoardVO">
 		<![CDATA[
 			select * from board
 		]]>
+	</select> -->
+	<!-- 게시글 검색기능 + 페이징 -->
+	<sql id="searchCriteria">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							board_name like '%' || #{keyword} || '%'
+						</when>
+						<when test="type == 'C'.toString()">
+							board_id like '%' || #{keyword} || '%'
+						</when>
+						<!-- <when test="type == 'W'.toString()">
+							board_content like '%' || #{keyword} || '%'
+						</when> -->
+					</choose>
+				</trim>
+			</foreach>
+		</trim>	
+	</sql>
+	
+	<select id="getBoard" resultType="edu.bit.ex.vo.BoardVO">
+		<![CDATA[
+			SELECT  
+				board_id, board_name, board_content, mbr_id, board_date
+		 FROM (
+		 	select rownum rn, board_id, board_name, board_content, mbr_id, board_date
+		 	from board
+		 	where
+		]]>
+		
+		<include refid="searchCriteria"></include>
+		
+		<![CDATA[
+			rownum <= #{pageNum} * #{amount}
+			)
+		where rn > (#{pageNum} -1) * #{amount}	
+		]]>
+	</select>
+	
+	<select id="getTotal" resultType="int">
+		select count(*) from board where
+		
+		<include refid="searchCriteria"></include>
+		
+		board_id > 0
 	</select>
 	
 	<!-- 주문상품 정보 불러오기 - 상품번호, 상품명 등...?  -->

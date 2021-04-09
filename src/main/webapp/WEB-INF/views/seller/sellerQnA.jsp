@@ -18,6 +18,26 @@
 <link rel="stylesheet" href="/assets/css/slicknav.css">
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css">
+<script type="text/javascript">						
+	var searchForm = $("#searchForm");
+	$("#searchForm button").on("click", function(e) {
+
+		if (!searchForm.find("option:selected").val()) {
+			alert("검색종류를 선택하세요!");
+			return false;
+		}
+
+		if (!searchForm.find("input[name='keyword']").val()) {
+			alert("키워드를 입력하세요!");
+			return false;
+		}
+
+		searchForm.find("input[name='pageNum']").val("1");
+		e.preventDefault();
+
+		searchForm.submit();
+	});
+</script>
 </head>
 <body>
 <div style="overflow: hidden;" class="container">
@@ -25,10 +45,10 @@
 		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 	</header>
 	<div class="container">
-         <span style="margin-left: 70px;">
+         <span style="margin-left: 150px;">
          </span> <span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
-            <h3>이름(업체명)</h3>
-            <h3 style="position: relative; top: 15px;">아이디</h3>
+            <h3>${mbr.mbr_name }</h3>
+            <h3 style="position: relative; top: 15px;">${mbr.mbr_id }</h3>
          </span>
          <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="/seller/mypage/myinfo">정보수정</a></span> 
          <span style="margin-left: 480px;" align="center">
@@ -96,6 +116,34 @@
 						</c:forEach>
 						</tbody>
 					</table>
+					<div class="row">
+						<div class="col-lg-12">
+							<form id="searchForm" action="/seller/mypage/prdctqna" method="get">
+								<select name="type">
+									<option value="" <c:out value="${pageMaker.cri.type == null?'selected' : '' }" />>---</option>
+									<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ?'selected' : '' }" />>제목</option>
+									<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ?'selected' : '' }" />>번호</option>
+									<%-- <option value="W" <c:out value="${pageMaker.cri.type eq 'W' ?'selected' : '' }" />>작성자</option> --%>
+								</select> <input type="text" name="keyword" value='<c:out value="${pageMaker.cri.keyword}" />' /> <input type="hidden" class="form-control" name="pageNum"
+									value='<c:out value="${pageMaker.cri.pageNum}" />' /> <input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}" />' />
+								<button class="btn btn-primary btn-sm">검색</button>
+							</form>
+							<ul class="pagination justify-content-center">
+								<c:if test="${pageMaker.prev}">
+									<a class="page-link" href="/seller/mypage/prdctqna${pageMaker.makeQuery(pageMaker.startPage - 1)}">«</a>
+								</c:if>
+
+								<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+									<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+									<a class="page-link" href="/seller/mypage/prdctqna${pageMaker.makeQuery(idx)}">${idx}</a>
+								</c:forEach>
+
+								<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+									<a class="page-link" href="/seller/mypage/prdctqna${pageMaker.makeQuery(pageMaker.endPage +1)}">»</a>
+								</c:if>
+							</ul>
+						</div>
+					</div>
 				<hr>
 			</div>
 		</div>

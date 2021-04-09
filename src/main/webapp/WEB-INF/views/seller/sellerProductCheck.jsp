@@ -44,41 +44,68 @@
 			<div class="row">
 				<div class="col-md-2 contact-info" align="center">
 					<div class="single-info" style="margin-bottom: 40px">
-	                    <h3>마이페이지</h3><hr>
-	                    <h5><a href="/seller/mypage">홈 바로가기</a></h5>
-	                </div>
+						<h3>마이페이지</h3>
+						<hr>
+						<h5>
+							<a href="/seller/mypage">홈 바로가기</a>
+						</h5>
+					</div>
 					<div class="single-info" style="margin-bottom: 40px">
-	                    <h3>주문 관리</h3><hr>
-	                   <h5><a href="/seller/mypage/order">주문확인</a></h5>
-	                    <h5><a href="/seller/mypage/release">발송확인</a></h5>
-	                    <h5><a href="/seller/mypage/cancel">취소</a></h5>
-	                    <h5><a href="/seller/mypage/exchange">교환</a></h5>
-	                    <h5><a href="/seller/mypage/refund">환불</a></h5>
-	                </div>
-	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>상품 관리</h3><hr>
-	                    <h5><a href="/seller/mypage/prdct_register">등록</a></h5>
-	                    <h5><a href="/seller/mypage/prdct">조회</a></h5>
-	                </div>
-	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>회원 관리</h3><hr>
-	                    <h5><a href="/seller/mypage/prdctqna">Q&A</a></h5>
-	                    <h5><a href="/seller/mypage/review">리뷰</a></h5>
-	                </div>
-	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>매출 관리</h3><hr>
-	                    <h5><a href="/seller/mypage/sales">매출</a></h5>
-	                </div>
+						<h3>주문 관리</h3>
+						<hr>
+						<h5>
+							<a href="/seller/mypage/order">주문확인</a>
+						</h5>
+						<h5>
+							<a href="/seller/mypage/release">발송확인</a>
+						</h5>
+						<h5>
+							<a href="/seller/mypage/cancel">취소</a>
+						</h5>
+						<h5>
+							<a href="/seller/mypage/exchange">교환</a>
+						</h5>
+						<h5>
+							<a href="/seller/mypage/refund">환불</a>
+						</h5>
+					</div>
+					<div class="single-info" style="margin-bottom: 40px">
+						<h3>상품 관리</h3>
+						<hr>
+						<h5>
+							<a href="/seller/mypage/prdct_register">등록</a>
+						</h5>
+						<h5>
+							<a href="/seller/mypage/prdct">조회</a>
+						</h5>
+					</div>
+					<div class="single-info" style="margin-bottom: 40px">
+						<h3>회원 관리</h3>
+						<hr>
+						<h5>
+							<a href="/seller/mypage/prdctqna">Q&A</a>
+						</h5>
+						<h5>
+							<a href="/seller/mypage/review">리뷰</a>
+						</h5>
+					</div>
+					<div class="single-info" style="margin-bottom: 40px">
+						<h3>매출 관리</h3>
+						<hr>
+						<h5>
+							<a href="/seller/mypage/sales">매출</a>
+						</h5>
+					</div>
 				</div>
-					
+
 				<!-- 등록한 상품 리스트	 -->
-				<div class="col-md-10 contact-info" style="border-left: 1px solid rgba(0,0,0,.1) ;">
+				<div class="col-md-10 contact-info" style="border-left: 1px solid rgba(0, 0, 0, .1);">
 					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, .1);">
 						<strong style="margin: 10px;">등록한 상품 리스트</strong>
 					</h3>
 					<div class="team-area sp">
 						<div class="container">
-							<div class="row">							
+							<div class="row">
 								<table class="table" id="myTable">
 									<thead>
 										<tr>
@@ -91,27 +118,50 @@
 									</thead>
 									<tbody>
 										<c:forEach items="${prdct}" var="prdct" varStatus="status">
-										<tr>
-											<td><h5>${bId[status.index].board_id }</h5></td>
-											<td><h5>${bId[status.index].prdct_id }</h5></td>
-											<td>
-												<a href="/seller/mypage/prdct/${prdct.prdct_id}/${bId[status.index].board_id }">
-													<h5>${prdct.prdct_name }</h5>
-												</a>
-											</td>
-											<td><h5>${prdct.prdct_price }</h5></td>
-											<td><h5>${bId[status.index].board_date }</h5></td>
-										</tr>
+											<tr>
+												<td><h5>${bId[status.index].board_id }</h5></td>
+												<td><h5>${bId[status.index].prdct_id }</h5></td>
+												<td><a href="/seller/mypage/prdct/${prdct.prdct_id}/${bId[status.index].board_id }">
+														<h5>${prdct.prdct_name }</h5>
+												</a></td>
+												<td><h5>${prdct.prdct_price }</h5></td>
+												<td><h5>${bId[status.index].board_date }</h5></td>
+											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
+								<form id="searchForm" action="/seller/mypage/prdct" method="get">
+									<select name="type">
+										<option value="" <c:out value="${pageMake.cri.type == null?'selected' : '' }" />>---</option>
+										<option value="T" <c:out value="${pageMake.cri.type eq 'T' ?'selected' : '' }" />>제목</option>
+										<option value="C" <c:out value="${pageMake.cri.type eq 'C' ?'selected' : '' }" />>번호</option>
+										<%-- <option value="W" <c:out value="${pageMaker.cri.type eq 'W' ?'selected' : '' }" />>작성자</option> --%>
+									</select> <input type="text" name="keyword" value='<c:out value="${pageMake.cri.keyword}" />' /> <input type="hidden" class="form-control"
+										name="pageNum" value='<c:out value="${pageMake.cri.pageNum}" />' /> <input type="hidden" name="amount"
+										value='<c:out value="${pageMake.cri.amount}" />' />
+									<button class="btn btn-primary btn-sm">검색</button>
+								</form>
+								<ul class="pagination justify-content-center">
+									<c:if test="${pageMake.prev}">
+										<a class="page-link" href="/seller/mypage/prdct${pageMake.makeQuery(pageMake.startPage - 1)}">«</a>
+									</c:if>
+
+									<c:forEach begin="${pageMake.startPage}" end="${pageMake.endPage}" var="idx">
+										<c:out value="${pageMake.cri.pageNum == idx?'':''}" />
+										<a class="page-link" href="/seller/mypage/prdct${pageMake.makeQuery(idx)}">${idx}</a>
+									</c:forEach>
+
+									<c:if test="${pageMake.next && pageMake.endPage > 0}">
+										<a class="page-link" href="/seller/mypage/prdct${pageMake.makeQuery(pageMake.endPage +1)}">»</a>
+									</c:if>
+								</ul>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>		
-	<hr> 
+		</div>
+		<hr>
 		<!-- footer -->
 		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
 </div>					
