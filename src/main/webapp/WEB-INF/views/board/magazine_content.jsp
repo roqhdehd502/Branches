@@ -148,7 +148,7 @@
 					</div>
 					</c:forEach>	
 					<div class="col-md-12" style="padding: 2% 3% 3% 3%">
-						<p class="lead">${magazine_content.board_content}</p>
+						<p class="lead" style="white-space:pre;">${magazine_content.board_content}</p>
 					</div>
 				</div>
 			</div>
@@ -330,8 +330,7 @@
 						</c:choose>	    
 					</div>
 				</div>
-				</c:forEach>
-				
+				</c:forEach>		
 			</div>
 			
 			<!-- 페이징 -->	
@@ -362,14 +361,10 @@
 				</ul>
 			</div>
 		</div>
-	<!-- </div> -->
-
-	<hr>
-
+		<hr>
 
       <!-- footer -->
 	  <jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
-
 
       <!--Required JS files-->
       <script src="/assets/js/jquery-2.2.4.min.js"></script>

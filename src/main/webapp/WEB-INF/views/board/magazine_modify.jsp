@@ -153,7 +153,7 @@
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
-	<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
+		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 
 		<hr style="margin: 15px 15px 40px 15px;">
 
@@ -279,11 +279,9 @@
 				</fieldset>
 			</form>
 		</div>
-	<!-- </div> -->
+		<hr>
 
-	<hr>
-
-<!-- footer -->
+	  <!-- footer -->
       <jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
 
       <!--Required JS files-->

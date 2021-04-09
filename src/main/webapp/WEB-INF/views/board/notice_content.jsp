@@ -54,7 +54,7 @@
 			
 			<div class="container">
 				<div class="row" style="padding: 5% 3% 3% 5%">
-					<p class="lead">${notice_content.board_content}</p>
+					<p class="lead" style="white-space:pre;">${notice_content.board_content}</p>
 				</div>
 			</div>
 			

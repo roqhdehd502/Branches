@@ -126,7 +126,6 @@
 				<form id="writeForm" action="${pageContext.request.contextPath}/admin/board/magazine/write" method="post" enctype="multipart/form-data" >
 				<!-- <s:csrfInput /> -->
 				<input type="hidden" id="mbr_id" value="${mbr.mbr_id}">
-				<!-- <input type="hidden" id="mbr_id" value="abcd1234"> -->
 				<fieldset>
 					<div class="row">
 						<div class="col-md-2 contact-info" align="left">
@@ -161,23 +160,22 @@
 				</form>
 			</div>
 		</div>
-	<!-- </div> -->
 
-	<hr>
+		<hr>
 
-	  <!-- footer -->
-      <jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
+	  	<!-- footer -->
+      	<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
 
-      <!--Required JS files-->
-      <script src="/assets/js/jquery-2.2.4.min.js"></script>
-      <script src="/assets/js/vendor/popper.min.js"></script>
-      <script src="/assets/js/vendor/bootstrap.min.js"></script>
-      <script src="/assets/js/vendor/owl.carousel.min.js"></script>
-      <script src="/assets/js/vendor/isotope.pkgd.min.js"></script>
-      <script src="/assets/js/vendor/jquery.barfiller.js"></script>
-      <script src="/assets/js/vendor/loopcounter.js"></script>
-      <script src="/assets/js/vendor/slicknav.min.js"></script>
-      <script src="/assets/js/active.js"></script>
+      	<!--Required JS files-->
+     	<script src="/assets/js/jquery-2.2.4.min.js"></script>
+      	<script src="/assets/js/vendor/popper.min.js"></script>
+      	<script src="/assets/js/vendor/bootstrap.min.js"></script>
+      	<script src="/assets/js/vendor/owl.carousel.min.js"></script>
+      	<script src="/assets/js/vendor/isotope.pkgd.min.js"></script>
+      	<script src="/assets/js/vendor/jquery.barfiller.js"></script>
+      	<script src="/assets/js/vendor/loopcounter.js"></script>
+      	<script src="/assets/js/vendor/slicknav.min.js"></script>
+      	<script src="/assets/js/active.js"></script>
     </div>  
 </body>
 </html>

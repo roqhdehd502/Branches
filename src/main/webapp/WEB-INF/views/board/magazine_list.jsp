@@ -79,7 +79,6 @@
 									<span>${dto.board_date}</span>
 									<span>&nbsp;|&nbsp;</span>
 									<span>${dto.board_hit}</span>
-									<!-- <hr> -->
 								</div>
 							</div>
 						</div>
@@ -117,13 +116,11 @@
 				</ul>
 			</div>
 		</div>
-		<!-- </div> -->
-		<!-- </div> -->
 
 		<hr>
 
 		<!-- footer -->
-	   <jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
+	    <jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
 
 		<!--Required JS files-->
 		<script src="/assets/js/jquery-2.2.4.min.js"></script>

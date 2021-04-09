@@ -16,7 +16,6 @@ import edu.bit.ex.page.MagazineCriteria;
 import edu.bit.ex.page.NoticeCriteria;
 import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
-import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctImageVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,11 +41,6 @@ public class BoardServiceImpl implements BoardService {
 		log.info("getNoticeTotal WITH criteria: " + cri);
 		return boardMapper.getNoticeTotalCount(cri);
 	}
-
-	// 공지사항 작성 id 가져오기
-	/*
-	 * @Override public MbrVO getNoticeMember(String mbr_id) { log.info("getNoticeMember"); return boardMapper.getNoticeMember(mbr_id); }
-	 */
 
 	// 공지사항 작성
 	@Override
@@ -88,13 +82,6 @@ public class BoardServiceImpl implements BoardService {
 	public int getMagazineTotal(MagazineCriteria cri) {
 		log.info("getMagazineTotal WITH criteria: " + cri);
 		return boardMapper.getMagazineTotalCount(cri);
-	}
-
-	// 매거진 작성 id 가져오기
-	@Override
-	public MbrVO getMagazineMember(String mbr_id) {
-		log.info("getMagazineMember");
-		return boardMapper.getMagazineMember(mbr_id);
 	}
 
 	// 매거진 작성
@@ -154,9 +141,9 @@ public class BoardServiceImpl implements BoardService {
 
 	// 매거진 게시글 댓글 수
 	@Override
-	public BoardCommentVO getMagazineCommentCnt(String mbr_id, int board_id) {
+	public BoardCommentVO getMagazineCommentCnt(int board_id) {
 		log.info("getMagazineCommentCnt");
-		return boardMapper.getMagazineCommentCnt(mbr_id, board_id);
+		return boardMapper.getMagazineCommentCnt(board_id);
 	}
 
 	// 페이징을 적용한 매거진 게시글 댓글 리스트
