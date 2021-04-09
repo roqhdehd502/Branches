@@ -24,6 +24,6 @@ public class PrdctOrderVO { // 상품주문
 	private Date order_date; // 상품주문일자
 	private String mbr_id; // 회원id fk
 
-	private OrderDetailVO orderDetailVO;
+	public OrderDetailVO orderDetailVO;
 	private BoardVO boardVO;
 }

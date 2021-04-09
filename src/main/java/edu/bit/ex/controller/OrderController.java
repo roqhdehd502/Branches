@@ -24,6 +24,7 @@ import edu.bit.ex.config.auth.MemberDetails;
 import edu.bit.ex.service.OrderService;
 import edu.bit.ex.service.SecurityService;
 import edu.bit.ex.vo.OrderDetailVO;
+import edu.bit.ex.vo.PrdctOrderVO;
 import edu.bit.ex.vo.PrdctVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -59,13 +60,13 @@ public class OrderController {
 
 	// 장바구니
 	@PostMapping("/insert_cart")
-	public ResponseEntity<String> insertCart(@RequestBody OrderDetailVO orderDetailVO, @AuthenticationPrincipal MemberDetails memberDetails)
+	public ResponseEntity<String> insertCart(@RequestBody PrdctOrderVO prdctOrderVO, @AuthenticationPrincipal MemberDetails memberDetails)
 			throws Exception {
 
 		ResponseEntity<String> entity = null;
 		try {
 			log.info("cart into");
-			memberDetails.insertCart(orderDetailVO.getPrdct_id(), orderDetailVO.getOrder_amount());
+			memberDetails.insertCart(prdctOrderVO.orderDetailVO.getPrdct_id(), prdctOrderVO.orderDetailVO.getOrder_amount());
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

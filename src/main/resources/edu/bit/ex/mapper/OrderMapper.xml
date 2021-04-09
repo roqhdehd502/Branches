@@ -4,24 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="edu.bit.ex.mapper.OrderMapper">
-
-	<resultMap id="prdctMap" type="edu.bit.ex.vo.PrdctVO">
-	    <result property="prdct_id" column="prdct_id"/>
-	    <result property="prdct_name" column="prdct_name"/>
-	    <result property="prdct_price" column="prdct_price"/>
-	    <result property="category_number" column="category_number"/>
-	    <result property="mbr_id" column="mbr_id"/>
-	    <result property="category_name" column="category_name"/>
-	    <collection property="prdctDetailVO" resultMap="prdctDt"></collection>
-	</resultMap>
-	
-	<resultMap id="prdctDt" type="edu.bit.ex.vo.PrdctDetailVO">
-		<result property="prdct_id" column="prdct_id"/>
-		<result property="prdct_color" column="prdct_color"/>
-		<result property="prdct_size" column="prdct_size"/>
-		<result property="prdct_stock" column="prdct_stock"/>
-		<result property="mbr_id" column="mbr_id"/>
-	</resultMap> 
 	
 	<resultMap id="orderMap" type="edu.bit.ex.vo.PrdctOrderVO">
 		<result property="order_number" column="order_number"/>
@@ -40,24 +22,9 @@
 		<result property="prdct_price" column="prdct_price"/>
 	</resultMap> 
 	
-	<resultMap id="boardVO" type="edu.bit.ex.vo.BoardVO">
-		<result property="board_id" column="board_id" />
-		<result property="board_name" column="board_name" />
-		<result property="board_content" column="board_content" />
-		<result property="mbr_id" column="mbr_id" />
-		<result property="board_type_number" column="board_type_number" />
-		<result property="inquiry_number" column="inquiry_number" />
-		<result property="board_date" column="board_date" />
-		<result property="prdct_id" column="prdct_id" />
-		<result property="order_number" column="order_number" />
-		<result property="board_like" column="board_like" />
-		<result property="board_hit" column="board_hit" />
-		<result property="board_starrate" column="board_starrate" />
-	</resultMap>
-	
-	<select id="getProduct" resultType="edu.bit.ex.vo.PrdctVO">
+	<select id="getProduct" resultMap="orderMap">
 		<![CDATA[
-		select * from prdct where prdct_id = #{prdct_id} 
+		select * from prdct_order, order_detail where prdct_order.prdct_id = #{prdct_id} 
 		]]>
 	</select>
 
