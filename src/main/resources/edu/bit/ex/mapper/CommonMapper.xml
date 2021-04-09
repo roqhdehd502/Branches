@@ -26,9 +26,9 @@
 	</select>
 	
 	<!-- 상품 상세페이지 옵션 -->
-	<select id="getProductInfo" resultType="edu.bit.ex.vo.PrdctDetailVO">
+	<select id="getProductInfo" resultType="edu.bit.ex.vo.PrdctVO">
 	<![CDATA[
-		SELECT * FROM prdct_detail WHERE prdct_id = #{prdct_id}
+		SELECT * FROM prdct WHERE prdct_id = #{prdct_id}
 	]]>
 	</select>
 	

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html>
@@ -190,11 +191,18 @@ img {
 	function insertCart() {
 		var prdct_id = $("#prdct_id").val();
 		var order_amount = $("#order_amount").val();
-		console.log("잘 나오고 있습니다.");
-		
+		var order_color = $("#order_color").val();
+		var order_size = $("#order_size").val();
+		var prdct_price = $("#prdct_price").val();
+		var prdct_name = $("#prdct_name").val();
+			
 		data = {
 				prdct_id : prdct_id,
-				order_amount : order_amount
+				order_amount : order_amount,
+				order_color : order_color,
+				order_size : order_size,
+				prdct_price : prdct_price,
+				prdct_name : prdct_name
 		};
 		
 		$.ajax({
@@ -226,7 +234,7 @@ img {
 	$(document).ready(function() {
 		// total 가격 계산
 		getTotal();
-		$(".order_amount").change(function() {
+		$("#order_amount").change(function() {
 			getTotal();	
 		})
 		
@@ -414,17 +422,34 @@ img {
 					<div class="row">
 						<div class="contrainer single-service bordered " style="height: 600px; width: 500px;">
 							<div class="inner">
-							<input type="hidden" id="prdct_id" value="${productDetail.prdct_id}">
+								<input type="hidden" id="prdct_id" value="${productDetail.prdct_id}">
 								<p >${productDetail.prdct_id}</p>
+								<input type="hidden" id="prdct_name" value="${productDetail.prdct_name}">
 								<h4 id="prdct_name">${productDetail.prdct_name}</h4>
+								<input type="hidden" id="prdct_price" value="${productDetail.prdct_price}">
 								<h4 id="prdct_price">${productDetail.prdct_price}원</h4>
 								<hr>
 
-								<!-- 색상 옵션	 -->
+								<!-- 색상/사이즈 옵션	 -->
 								<div class="form-group">
-									<label for="optionSelect" class="col-sm-2 col-form-label">Option</label> <select class="form-control" id="colorSelect">
+									<label for="colorSelect" class="col-sm-2 col-form-label">Color</label> 
+									<select class="form-control" id="colorSelect" name="order_color">
 										<c:forEach items="${productInfo}" var="productInfo">
-											<option value="${productInfo}">${productInfo.prdct_color}/${productInfo.prdct_size}</option>
+											<c:set var="prdct_color" value="${fn:split(productInfo.prdct_color, ',')}" />
+											<c:forEach var="color" items="${prdct_color}">
+												<option value="${prdct_color}">${color}</option>
+											</c:forEach>
+										</c:forEach>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="sizeSelect" class="col-sm-2 col-form-label">Size</label> 
+									<select class="form-control" id="sizeSelect" name="order_size">
+										<c:forEach items="${productInfo}" var="productInfo">
+											<c:set var="prdct_size" value="${fn:split(productInfo.prdct_size, ',')}" />
+											<c:forEach var="size" items="${prdct_size}">
+												<option value="${size}">${size}</option>
+											</c:forEach>
 										</c:forEach>
 									</select>
 								</div>

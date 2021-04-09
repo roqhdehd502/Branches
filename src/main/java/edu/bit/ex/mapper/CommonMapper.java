@@ -10,7 +10,6 @@ import edu.bit.ex.page.PrdctListCriteria;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.MbrVO;
-import edu.bit.ex.vo.PrdctDetailVO;
 import edu.bit.ex.vo.PrdctVO;
 
 @Mapper
@@ -27,7 +26,7 @@ public interface CommonMapper {
 	public PrdctVO getProductDetail(String prdct_id);
 
 	// 상품 상세페이지 옵션
-	public List<PrdctDetailVO> getProductInfo(String p_id);
+	public List<PrdctVO> getProductInfo(String p_id);
 
 	// 리뷰 리스트
 	public List<BoardVO> getReviewList(String p_id);

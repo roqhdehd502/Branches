@@ -320,6 +320,7 @@
 							</colgroup>
 							<c:forEach items="${cart}" var="cart">
 							<tr id="${cart.key.prdct_id}" class="product">
+							
 								<td><input type="checkbox" class="select-product" name="select-product" value="${cart.key.prdct_price}"></td>
 								<td>
 									<div class="connect_img">
@@ -329,18 +330,17 @@
 								</td>
 								<td>
 									<div class="article_info connect_info">
-									<p>${cart.key.prdct_id}</p>
-										<%-- <p class="prdct_name" id="prdct_name">${cart.key.prdct_name}</p>
-										<p class="prdct_color" id="prdct_color">${cart.key.prdct_color}</p>
-										<p class="prdct_size" id="prdct_size">${cart.key.prdct_size}</p> --%>
+										 <p class="prdct_name" id="prdct_name">${cart.key.prdct_name}</p>
+										 <p class="prdct_color" id="order_color">${cart.key.order_color}</p>
+										<p class="order_size" id="order_size">${cart.key.order_size}</p> 
 									</div>
 								</td>
-							<%-- 	<td class="td_price">${cart.key.prdct_price}</td> --%>
+							<td class="td_price">${cart.key.prdct_price}</td> 
 								<td>
 									<!-- 수량 -->
 									<div class="n-input-amount">
 										<div class="form-group">
-											<%-- <input type="number" id="order_amount" class="order_amount" min="1" value="${cart.value }" /> --%>
+										 <input type="number" id="order_amount" class="order_amount" min="1" value="${cart.value }" />
 										</div>
 									</div>
 								</td>
@@ -360,10 +360,6 @@
 								</td>
 							</tr>
 						
-						<tr>
-						
-							<td><span>총 상품가격</span> <span id="total-price"></span></td>
-						</tr>
 					</tbody>
 				</table>
 

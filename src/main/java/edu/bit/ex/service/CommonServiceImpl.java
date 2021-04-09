@@ -12,7 +12,6 @@ import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.MbrVO;
-import edu.bit.ex.vo.PrdctDetailVO;
 import edu.bit.ex.vo.PrdctVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +45,7 @@ public class CommonServiceImpl implements CommonService {
 
 	// 상품 상세페이지 옵션
 	@Override
-	public List<PrdctDetailVO> getProductInfo(String p_id) {
+	public List<PrdctVO> getProductInfo(String p_id) {
 		log.info("getProductInfo");
 		return commonMapper.getProductInfo(p_id);
 	}
