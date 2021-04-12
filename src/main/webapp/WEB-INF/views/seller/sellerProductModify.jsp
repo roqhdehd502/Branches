@@ -27,7 +27,7 @@
 		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 	</header>
 		<div class="container">
-			<span style="margin-left: 70px;"> </span> <span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
+			<span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
 				<h3>${mbr.mbr_name }</h3>
             	<h3 style="position: relative; top: 15px;">${mbr.mbr_id }</h3>
 			</span>
@@ -80,12 +80,6 @@
 					</h3><hr>
 					<form id="updatePrd" action="/seller/mypage/prdct/{prdct_id}/modify" method="PUT">		
 						<fieldset>
-							<div class="form-group row">
-								<label class="col-sm-2 col-form-label">상품ID</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" placeholder="상품ID을 입력해주세요" id="prdct_id" value="${pdvo.prdct_id}">
-								</div>
-							</div>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">상품명</label>
 								<div class="col-sm-10">

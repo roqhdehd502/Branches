@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,15 +23,18 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.bit.ex.config.auth.MemberDetails;
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
+import edu.bit.ex.page.PrdctListCriteria;
+import edu.bit.ex.page.PrdctListPageVO;
 import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.page.SearchPageVO;
+import edu.bit.ex.service.SecurityService;
 import edu.bit.ex.service.SellerService;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
@@ -39,11 +44,14 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @AllArgsConstructor
-@RestController
+@Controller
 @RequestMapping("/seller/*")
 public class SellerController {
 	@Autowired
 	private SellerService sellerService;
+
+	@Autowired
+	private SecurityService securityService;
 
 	// CK 에디터 이미지 서버 전송 컨트롤러
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(SellerController.class);
@@ -79,13 +87,16 @@ public class SellerController {
 
 	// 상품 등록페이지 seller
 	@GetMapping("/mypage/prdct_register")
-	public ModelAndView prdct_register(ModelAndView mav, MbrVO mbr, ShippingVO svo) {
+	public ModelAndView prdct_register(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, ShippingVO svo) {
 		log.info("prdct_register...");
-		mav.setViewName("thymeleaf/prdct_register");
-		// 로그인 된 판매자 정보 불러오기
-		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
-		// 상품 등록시 판매자 주소 불러오기
+		mav.setViewName("seller/prdct_register");
+		// 인증 회원 정보
+		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+
+		// 회원 정보 받아오기
+		mav.addObject("mbr", getMbr);
 		mav.addObject("svo", sellerService.getAddress(svo.getMbr_id()));
+
 		return mav;
 	}
 
@@ -95,7 +106,6 @@ public class SellerController {
 	public ResponseEntity<String> prdct_register(ModelAndView mav, MbrVO mbr, PrdctRegisterImageVO prdctIVO) {
 		ResponseEntity<String> entity = null;
 		log.info("prdct_register...");
-		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
 
 		/* MultipartFile[] uploadfiles = prdctIVO.getUploadfiles(); */
 
@@ -121,28 +131,43 @@ public class SellerController {
 	// 판매자 상품 조회 seller
 	// 수정 버튼 옮길것! => SellerProductModify
 	@GetMapping("/mypage/prdct")
-	public ModelAndView sellerProductCheck(ModelAndView mav, MbrVO mbr, BoardVO bvo, BoardPrdctImageVO bpvo) throws Exception {
+	public ModelAndView sellerProductCheck(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, BoardPrdctImageVO bpvo,
+			PrdctListCriteria cri) throws Exception {
 		log.debug("sellerProductCheck");
 		log.info("sellerProductCheck..");
-		mav.setViewName("thymeleaf/sellerProductCheck");
-		mav.addObject("prdct", sellerService.getProduct());
-		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
-		mav.addObject("bId", sellerService.getbNum(bvo.getBoard_id()));
+		mav.setViewName("seller/sellerProductCheck");
+
+		// 인증 회원 정보
+		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+		// 회원 정보 받아오기
+		mav.addObject("mbr", getMbr);
+		// 상품 조회(게시물 번호, 등록일) - 내림차순
+		mav.addObject("bId", sellerService.getbNumDesc(cri));
+		// 썸네일 불러오기(미구현)
 		mav.addObject("filename", sellerService.getFileName(bpvo.getBoard_id()));
+
+		int total = sellerService.getPrdTotal(cri);
+		log.info("getTotal");
+		mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
 
 		return mav;
 	}
 
 	// 판매자 등록상품 수정페이지 seller // 이 페이지는 상세페이지가 곧 수정페이지입니다
 	@GetMapping("/mypage/prdct/{prdct_id}")
-	public ModelAndView sellerProductModify(@PathVariable("prdct_id") String prdct_id, ModelAndView mav, MbrVO mbr, ShippingVO svo, BoardVO bvo)
-			throws Exception {
+	public ModelAndView sellerProductModify(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable("prdct_id") String prdct_id,
+			ModelAndView mav, MbrVO mbr, ShippingVO svo, BoardVO bvo) throws Exception {
 		log.debug("sellerProductModify");
 		log.info("sellerProductModify..");
-		mav.setViewName("thymeleaf/sellerProductModify");
+		mav.setViewName("seller/sellerProductModify");
+
+		// 인증 회원 정보
+		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+		// 회원 정보 받아오기
+		mav.addObject("mbr", getMbr);
+
 		mav.addObject("pdvo", sellerService.getOption(prdct_id));
 		mav.addObject("svo", sellerService.getAddress(svo.getMbr_id()));
-		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
 		mav.addObject("bContent", sellerService.getContent(bvo.getPrdct_id()));
 
 		return mav;
@@ -191,11 +216,16 @@ public class SellerController {
 
 	// 판매자 마이페이지...(seller)
 	@GetMapping("/mypage")
-	public ModelAndView sellerpage(ModelAndView mav, MbrVO mbr) throws Exception {
+	public ModelAndView sellerpage(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, MbrVO mbr) throws Exception {
 		log.debug("sellerpage");
 		log.info("sellerpage");
-		mav.setViewName("thymeleaf/sellerpage");
-		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
+		mav.setViewName("seller/sellerpage");
+
+		// 인증 회원 정보
+		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+		// 회원 정보 받아오기
+		mav.addObject("mbr", getMbr);
+
 		mav.addObject("prd", sellerService.getProduct());
 		mav.addObject("ord", sellerService.getOrderDetail());
 		mav.addObject("prdor", sellerService.getPrdOrder());
@@ -213,82 +243,107 @@ public class SellerController {
 
 	// 판매자 주문확인 페이지...(seller)
 	@GetMapping("/mypage/order")
-	public ModelAndView sellerorderCheck(ModelAndView mav, MbrVO mbr) throws Exception {
+	public ModelAndView sellerorderCheck(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, MbrVO mbr) throws Exception {
 		log.debug("sellerorderCheck");
 		log.info("sellerorderCheck");
 
 		mav.setViewName("seller/sellerorderCheck");
+
+		// 인증 회원 정보
+		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+		// 회원 정보 받아오기
+		mav.addObject("mbr", getMbr);
 		mav.addObject("prd", sellerService.getProduct());
 		mav.addObject("ord", sellerService.getOrderDetail());
 		mav.addObject("prdor", sellerService.getPrdOrder());
-		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
 		return mav;
 	}
 
 	// 판매자 발송확인 페이지...(seller)
 	@GetMapping("/mypage/release")
-	public ModelAndView sellerdeleCheck(ModelAndView mav, MbrVO mbr) throws Exception {
+	public ModelAndView sellerdeleCheck(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, MbrVO mbr) throws Exception {
 		log.debug("sellerdeleCheck");
 		log.info("sellerdeleCheck");
 		mav.setViewName("seller/sellerdeleCheck");
+
+		// 인증 회원 정보
+		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+		// 회원 정보 받아오기
+		mav.addObject("mbr", getMbr);
 		mav.addObject("prd", sellerService.getProduct());
 		mav.addObject("ord", sellerService.getOrderDetail());
 		mav.addObject("prdor", sellerService.getPrdOrder());
-		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
 
 		return mav;
 	}
 
 	// 판매자 취소 확인 페이지...(seller)
 	@GetMapping("/mypage/cancel")
-	public ModelAndView sellercancelCheck(ModelAndView mav, MbrVO mbr) throws Exception {
+	public ModelAndView sellercancelCheck(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, MbrVO mbr) throws Exception {
 		log.debug("sellercancelCheck");
 		log.info("sellercancelCheck");
 		mav.setViewName("seller/sellercancelCheck");
+
+		// 인증 회원 정보
+		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+		// 회원 정보 받아오기
+		mav.addObject("mbr", getMbr);
 		mav.addObject("prd", sellerService.getProduct());
 		mav.addObject("ord", sellerService.getOrderDetail());
-		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
 
 		return mav;
 	}
 
 	// 판매자 환불 확인 페이지...(seller)
 	@GetMapping("/mypage/refund")
-	public ModelAndView sellerRefund(ModelAndView mav, MbrVO mbr) throws Exception {
+	public ModelAndView sellerRefund(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, MbrVO mbr) throws Exception {
 		log.debug("sellerRefund");
 		log.info("sellerRefund");
 		mav.setViewName("seller/sellerRefund");
+
+		// 인증 회원 정보
+		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+		// 회원 정보 받아오기
+		mav.addObject("mbr", getMbr);
 		mav.addObject("prd", sellerService.getProduct());
 		mav.addObject("ord", sellerService.getOrderDetail());
 		mav.addObject("prdor", sellerService.getPrdOrder());
-		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
 
 		return mav;
 	}
 
 	// 판매자 교환확인 페이지...(seller)
 	@GetMapping("/mypage/exchange")
-	public ModelAndView sellerchangeCheck(ModelAndView mav, MbrVO mbr) throws Exception {
+	public ModelAndView sellerchangeCheck(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, MbrVO mbr) throws Exception {
 		log.debug("sellerchangeCheck");
 		log.info("sellerchangeCheck");
 		mav.setViewName("seller/sellerchangeCheck");
+
+		// 인증 회원 정보
+		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+		// 회원 정보 받아오기
+		mav.addObject("mbr", getMbr);
 		mav.addObject("prd", sellerService.getProduct());
 		mav.addObject("ord", sellerService.getOrderDetail());
 		mav.addObject("prdor", sellerService.getPrdOrder());
-		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
 
 		return mav;
 	}
 
 	// 판매자 상품Q&A조회 페이지...(seller)
 	@GetMapping("/mypage/prdctqna")
-	public ModelAndView sellerQnA(ModelAndView mav, MbrVO mbr, SearchCriteria cri) throws Exception {
+	public ModelAndView sellerQnA(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, MbrVO mbr, SearchCriteria cri)
+			throws Exception {
 		log.info("sellerQnA");
 
 		mav.setViewName("seller/sellerQnA");
+
+		// 인증 회원 정보
+		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+		// 회원 정보 받아오기
+		mav.addObject("mbr", getMbr);
 		mav.addObject("board", sellerService.getBoard(cri));
 		mav.addObject("prd", sellerService.getProduct());
-		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
 
 		int total = sellerService.getTotal(cri);
 		log.info("getTotal");
@@ -300,28 +355,36 @@ public class SellerController {
 	// 판매자 상품리뷰조회 페이지...(seller)
 
 	@GetMapping("/mypage/review")
-	public ModelAndView sellerReview(ModelAndView mav, MbrVO mbr) throws Exception {
+	public ModelAndView sellerReview(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, MbrVO mbr) throws Exception {
 		log.debug("sellerReview");
 		log.info("sellerReview");
 
 		mav.setViewName("seller/sellerReview");
+
+		// 인증 회원 정보
+		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+		// 회원 정보 받아오기
+		mav.addObject("mbr", getMbr);
 		// mav.addObject("board", sellerService.getBoard());
 		mav.addObject("prd", sellerService.getProduct());
-		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
 
 		return mav;
 	}
 
 	// 판매자 매출조회 페이지...(seller)
 	@GetMapping("/mypage/sales")
-	public ModelAndView sellerSales(ModelAndView mav, MbrVO mbr) throws Exception {
+	public ModelAndView sellerSales(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, MbrVO mbr) throws Exception {
 		log.debug("sellerSales");
 		log.info("sellerSales");
 
 		mav.setViewName("seller/sellerSales");
+
+		// 인증 회원 정보
+		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+		// 회원 정보 받아오기
+		mav.addObject("mbr", getMbr);
 		mav.addObject("prdct", sellerService.getProduct());
 		mav.addObject("prdOrder", sellerService.getPrdOrder());
-		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
 
 		return mav;
 	}
@@ -329,7 +392,7 @@ public class SellerController {
 	// 판매자 정보수정폼 seller
 	// 로그인이 되면 member_id 받아오기
 	@RequestMapping(value = "/mypage/myinfo/{seller_id}", method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView seller_info(@PathVariable("seller_id") String m_id, ModelAndView mav) {
+	public ModelAndView seller_info(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable("seller_id") String m_id, ModelAndView mav) {
 		mav.setViewName("seller/seller_mypage_modify");
 		mav.addObject("mbr", sellerService.getMemberInfo(m_id));
 		mav.addObject("adr", sellerService.getSellerAddress(m_id));

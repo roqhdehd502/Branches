@@ -8,6 +8,7 @@ import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.mapper.SellerMapper;
+import edu.bit.ex.page.PrdctListCriteria;
 import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.CategoryVO;
@@ -62,15 +63,6 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public void sellerInfoUpdate(MbrShippingVO mavo) {
-		// TODO Auto-generated method stub
-		log.info("sellerInfoUpdate()......");
-		sellerMapper.sellerInfoUpdate(mavo);
-		sellerMapper.sellerAddressUpdate(mavo);
-
-	}
-
-	@Override
 	public void prdctUpdate(PrdctRegisterImageVO prvo) {
 		log.info("prdctUpdate()......");
 		sellerMapper.prdctUpdate(prvo);
@@ -81,12 +73,6 @@ public class SellerServiceImpl implements SellerService {
 	public void prdInsert(PrdctRegisterImageVO PrdctImageVO) {
 		log.info("prdInsert()......");
 		sellerMapper.prdInsert(PrdctImageVO);
-	}
-
-	@Override
-	public MbrVO getSellerInfo(String mbr_id) {
-		log.info("getSellerInfo()......");
-		return sellerMapper.getSellerInfo(mbr_id);
 	}
 
 	@Override
@@ -148,15 +134,9 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public List<BoardVO> getbNum(int board_id) {
+	public List<BoardVO> getbNumDesc(PrdctListCriteria cri) {
 		log.info("getbId()......");
-		return sellerMapper.getbNum(board_id);
-	}
-
-	@Override
-	public BoardVO getboardId(int board_id) {
-		log.info("getboardId()......");
-		return sellerMapper.getboardId(board_id);
+		return sellerMapper.getbNumDesc(cri);
 	}
 
 	@Override
@@ -166,9 +146,16 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public int getTotal1(SearchCriteria cri) {
-		log.info("getTotal1()......");
-		return sellerMapper.getTotal1(cri);
+	public int getPrdTotal(PrdctListCriteria cri) {
+		log.info("getPrdTotal()......");
+		return sellerMapper.getPrdTotal(cri);
+	}
+
+	@Override
+	public void sellerInfoUpdate(MbrShippingVO mavo) {
+		log.info("sellerInfoUpdate()......");
+		sellerMapper.sellerInfoUpdate(mavo);
+
 	}
 
 }
