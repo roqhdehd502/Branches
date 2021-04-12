@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.page.PrdQnACriteria;
 import edu.bit.ex.page.PrdctListCriteria;
+import edu.bit.ex.page.PrdctListPageVO;
 import edu.bit.ex.service.CommonService;
 import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.PrdctVO;
@@ -102,11 +103,11 @@ public class CommonController {
 	@RequestMapping(value = "/category/{category_id}", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView categoryPrdctList(@PathVariable("category_id") int c_id, PrdctListCriteria cri, ModelAndView mav) {
 		mav.setViewName("common/category_prdct_list");
-		// mav.addObject("prdct", commonService.getCategoryPrdctListWithCri(cri, c_id));
-		// mav.addObject("category", commonService.getCategory(c_id));
-		// int total = commonService.getCategoryTotalCount(cri, c_id);
-		// mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
-		// log.info("total : " + total);
+		mav.addObject("prdct", commonService.getCategoryPrdctListWithCri(cri, c_id));
+		mav.addObject("category", commonService.getCategory(c_id));
+		int total = commonService.getCategoryTotalCount(cri, c_id);
+		mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
+		log.info("total : " + total);
 		return mav;
 	}
 

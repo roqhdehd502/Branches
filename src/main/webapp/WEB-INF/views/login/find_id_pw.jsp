@@ -70,21 +70,21 @@
 				<div class="form-group row" >
 					<input type="text" class="form-control" id="pw_id" name="pw_id" placeholder="ID를 입력하세요"> <br /> <br /> 
 					<input type="text" class="form-control" id="pw_name" name="pw_name" placeholder="이름을 입력하세요"> <br /> <br /> 
-					<input type="number" class="form-control" id="pw_email" name="pw_email" placeholder="연락처를 입력하세요">
+					<input type="text" class="form-control" id="pw_email" name="pw_email" placeholder="이메일을 입력하세요">
 					<button type="button" class="btn btn-primary btn" onclick="getPW()">비밀번호 찾기</button>
 					<script type="text/javascript">
 						function getPW() {
 							
-							var mbr_id = $("#pw_id").val();
-							var mbr_name = $("#pw_name").val();
-							var mbr_email = $("#pw_email").val();
+							var id = $("#pw_id").val();
+							var name = $("#pw_name").val();
+							var email = $("#pw_email").val();
 
-							if(mbr_id != "" || mbr_name != "" || mbr_email != "") {
+							if(id != "" || name != "" || email != "") {
 								$.ajax({
 									url : '/find_pw',
 									type : 'POST',
 									data : {
-										mbr_id, mbr_name, mbr_email
+										id, name, email
 									},
 									dataType : 'html',
 									
@@ -93,8 +93,8 @@
 										var result = data;
 										
 											if(result == "SUCCESS") {
-												alert("임시 비밀번호를 발급완료하였습니다");
-												/* location.href = "resetpw"; */
+												alert("임시 비밀번호를 발급완료하였습니다\n이메일을 확인하세요");
+												location.href = "login"; 
 											} else {
 												alert("존재하지 않는 회원입니다\n입력한 정보를 확인해주세요");
 											}

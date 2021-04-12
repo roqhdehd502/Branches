@@ -1,5 +1,6 @@
 package edu.bit.ex.controller;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.config.auth.MemberDetails;
+import edu.bit.ex.email.MailService;
 import edu.bit.ex.service.SecurityService;
 import edu.bit.ex.vo.MbrVO;
 import lombok.AllArgsConstructor;
@@ -31,6 +33,9 @@ public class LoginController {
 
 	@Autowired
 	private SecurityService securityService;
+
+	@Autowired
+	private MailService mailServie;
 
 	// 로그인페이지
 
@@ -161,7 +166,7 @@ public class LoginController {
 	// 이름, 연락처, ID로 PW찾기
 	@PostMapping("/find_pw")
 	public ResponseEntity<String> find_pw(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("email") String email,
-			HttpServletResponse response) {
+			HttpServletResponse response, ModelAndView mav) {
 		log.info("find_pw");
 
 		MbrVO mbr = new MbrVO();
@@ -174,26 +179,14 @@ public class LoginController {
 		if (securityService.findPW(mbr) == null) {
 			entity = new ResponseEntity<String>("FAIL", HttpStatus.OK);
 		} else {
-			securityService.sendEmail(response, mbr);
-
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			try {
+				mailServie.send(email);
+				securityService.setPW(mbr);
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
 		}
-
-		return entity;
-	}
-
-	@GetMapping("/resetpw")
-	public ModelAndView reset_pw(ModelAndView mav) {
-		log.info("pw reset page======");
-		mav.setViewName("login/resetPW");
-		return mav;
-	}
-
-	@PostMapping("/resetpw/")
-	public ResponseEntity<String> reseting_pw() {
-		log.info("PW now on reseting======");
-
-		ResponseEntity<String> entity = null;
 
 		return entity;
 	}

@@ -54,14 +54,13 @@
 			
 			<div class="container">
 				<div class="row" style="padding: 5% 3% 3% 5%">
-					<p class="lead">${notice_content.board_content}</p>
+					<p class="lead" style="white-space:pre;">${notice_content.board_content}</p>
 				</div>
 			</div>
 			
 			<hr>
 			
-			<div class="container">
-			
+			<div class="container">		
 				<!-- 권한에 따라 버튼을 달리 보이게 한다 -->
 				<!-- 모든 사용자 -->
 				<sec:authorize access="isAnonymous()"> 

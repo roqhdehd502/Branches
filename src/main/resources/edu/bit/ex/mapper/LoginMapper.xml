@@ -71,4 +71,10 @@
 	]]>
 	</select>
 	
+	<update id="setPW">
+	<![CDATA[
+		update mbr set mbr_pw = #{mbr_pw} where mbr_id = #{mbr_id} and mbr_name = #{mbr_name}
+	]]>
+	</update>
+	
 </mapper>

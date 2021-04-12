@@ -52,7 +52,7 @@
          </span> <span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
             <h3>닉네임</h3>
          </span>
-         <span style="margin-left: 22px; position: relative; bottom: 2px;"> <a href="#">정보수정</a></span> 
+         <span style="margin-left: 22px; position: relative; bottom: 2px;"> <a href="/member/mypage/myinfo">정보수정</a></span> 
          <span style="margin-left: 372px;">
             <h4 style="position: relative; top: 10px; margin-left: 10px;">포인트</h4>
             <h2 style="position: relative; top: 30px;">1000p</h2>

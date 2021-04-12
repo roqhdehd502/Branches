@@ -151,6 +151,12 @@
 		<artifactId>commons-email</artifactId>
 		<version>1.2</version>
 	</dependency>
+	<dependency>
+		<groupId>javax.mail</groupId>
+		<artifactId>mail</artifactId>
+		<version>1.4.7</version>
+	</dependency>
+   </dependencies>
 
 	<!-- 타임리프사용 -->
 	<dependency>

@@ -20,17 +20,17 @@
 	
 	<!-- 페이징 단위에 적용되는 최대 공지 게시글 단위 -->
 	<select id="getNoticeTotalCount" resultType="int">
-	<![CDATA[
-		SELECT COUNT(*) FROM board WHERE board_type_number = 1
-	]]>	
+		<![CDATA[
+			SELECT COUNT(*) FROM board WHERE board_type_number = 1
+		]]>	
 	</select>
 	
 	<!-- 공지사항 작성 -->
 	<insert id="setNoticeWrite" >
-	<![CDATA[
-		INSERT INTO board (board_id, board_name, board_content, mbr_id, board_type_number, board_like, board_hit) 
-		VALUES (board_seq.nextval, #{board_name}, #{board_content}, #{mbr_id}, 1, 0, 0) 
-	]]>
+		<![CDATA[
+			INSERT INTO board (board_id, board_name, board_content, mbr_id, board_type_number, board_like, board_hit) 
+			VALUES (board_seq.nextval, #{board_name}, #{board_content}, #{mbr_id}, 1, 0, 0) 
+		]]>
 	</insert>
 	
 	<!-- 공지사항 게시글(동적쿼리 적용) -->
@@ -46,31 +46,17 @@
 	
 	<!-- 공지사항 삭제 -->
 	<delete id="noticeRemove">
-	<![CDATA[
-		DELETE FROM board WHERE board_id = #{board_id}
-	]]>
+		<![CDATA[
+			DELETE FROM board WHERE board_id = #{board_id}
+		]]>
 	</delete>
 	
 	<!-- 공지사항 수정 -->
 	<update id="setNoticeModify">
-	<![CDATA[
-		UPDATE board SET board_name = #{board_name}, board_content = #{board_content} WHERE board_id = #{board_id}
-	]]>
-	</update>
-	
-	<!-- 매거진 게시판 썸네일 -->
-	<select id="getMagazineThumbnail" resultType="edu.bit.ex.joinvo.BoardPrdctImageVO">
 		<![CDATA[
-			SELECT b.board_id, b.board_name, b.board_date, b.board_like, b.board_hit, p.image_name 
-			FROM board b, prdct_image p 
-			WHERE b.board_id = p.board_id AND 
-			    b.board_type_number = 2 AND 
-			    p.image_number = (SELECT MIN(image_number) 
-			                       FROM prdct_image 
-			                       GROUP BY board_id) 
-			ORDER BY board_id DESC, board_date DESC
+			UPDATE board SET board_name = #{board_name}, board_content = #{board_content} WHERE board_id = #{board_id}
 		]]>
-	</select>
+	</update>
 	
 	<!-- 페이징을 적용한 매거진 게시판 리스트 -->
 	<select id="getMagazineListWithPaging" resultType="edu.bit.ex.joinvo.BoardPrdctImageVO">
@@ -92,25 +78,25 @@
 	
 	<!-- 페이징 단위에 적용되는 최대 매거진 게시글 단위 -->
 	<select id="getMagazineTotalCount" resultType="int">
-	<![CDATA[
-		SELECT COUNT(*) FROM board WHERE board_type_number = 2
-	]]>	
+		<![CDATA[
+			SELECT COUNT(*) FROM board WHERE board_type_number = 2
+		]]>	
 	</select>
 	
 	<!-- 매거진 작성 -->
 	<insert id="setMagazineWrite" >
-	<![CDATA[
-		INSERT INTO board (board_id, board_name, board_content, mbr_id, board_type_number, board_like, board_hit) 
-		VALUES (board_seq.nextval, #{board_name}, #{board_content}, #{mbr_id}, 2, 0, 0) 
-	]]>
+		<![CDATA[
+			INSERT INTO board (board_id, board_name, board_content, mbr_id, board_type_number, board_like, board_hit) 
+			VALUES (board_seq.nextval, #{board_name}, #{board_content}, #{mbr_id}, 2, 0, 0) 
+		]]>
 	</insert> 
 	
-	<!-- 매거진 첨부사진 작성 -->
+	<!-- 매거진  첨부 작성 -->
 	<insert id="setMagazineImage" >
-	<![CDATA[
-		INSERT INTO prdct_image (image_number, image_name, image_path, board_id) 
-		VALUES (prdct_image_seq.nextval, #{uploadfiles}, 'D:/Others/Programming/Project Space/branches/branches_project/src/main/resources/static/board_img/', board_seq.currval) 
-	]]>
+		<![CDATA[
+			INSERT INTO prdct_image (image_number, image_name, board_id) 
+			VALUES (prdct_image_seq.nextval, #{uploadfiles}, board_seq.currval) 
+		]]>
 	</insert>	
 	
 	<!-- 매거진 게시글(동적쿼리 적용) -->
@@ -124,7 +110,7 @@
 		</where>
 	</select>
 	
-	<!-- 매거진 게시글 이미지 리스트 -->
+	<!-- 매거진 게시글 썸네일 리스트 -->
 	<resultMap id="magazineContentImageMap" type="edu.bit.ex.vo.PrdctImageVO">
 	    <result property="image_number" column="image_number"/>
 	    <result property="image_name" column="image_name"/>
@@ -144,23 +130,23 @@
 	
 	<!-- 매거진 게시글 조회 -->
 	<update id="upMagazineHit">
-	<![CDATA[
-		UPDATE board SET board_hit = board_hit+1 WHERE board_id = #{board_id}
-	]]>
+		<![CDATA[
+			UPDATE board SET board_hit = board_hit+1 WHERE board_id = #{board_id}
+		]]>
 	</update>
 	
 	<!-- 매거진 게시글 추천 -->
 	<update id="magazineUpLike">
-	<![CDATA[
-		UPDATE board SET board_like = board_like+1 WHERE board_id = #{board_id}
-	]]>
+		<![CDATA[
+			UPDATE board SET board_like = board_like+1 WHERE board_id = #{board_id}
+		]]>
 	</update>
 	
 	<!-- 매거진 게시글 댓글 수 -->
 	<select id="getMagazineCommentCnt" resultType="edu.bit.ex.vo.BoardCommentVO">
-	<![CDATA[
-		SELECT COUNT(comment_id) AS comment_count FROM board_comment WHERE board_id = #{board_id}
-	]]>
+		<![CDATA[
+			SELECT COUNT(comment_id) AS comment_count FROM board_comment WHERE board_id = #{board_id}
+		]]>
 	</select>
 
 	<!-- 페이징을 적용한 매거진 게시판 댓글 리스트 -->
@@ -181,59 +167,59 @@
 	
 	<!-- 페이징 단위에 적용되는 최대 매거진 게시글 댓글 단위 -->
 	<select id="getMagazineCommentTotalCount" resultType="int">
-	<![CDATA[
-		SELECT COUNT(*) FROM board_comment WHERE board_id = #{board_id}
-	]]>	
+		<![CDATA[
+			SELECT COUNT(*) FROM board_comment WHERE board_id = #{board_id}
+		]]>	
 	</select>
 	
 	<!-- 매거진 게시글 댓글 작성 -->
 	<insert id="setMagazineCommentWrite">
-	<![CDATA[
-		INSERT INTO board_comment (comment_id, board_id, mbr_id, comment_content) 
-		VALUES (board_comment_seq.nextval, #{board_id}, #{mbr_id}, #{comment_content}) 
-	]]>
+		<![CDATA[
+			INSERT INTO board_comment (comment_id, board_id, mbr_id, comment_content) 
+			VALUES (board_comment_seq.nextval, #{board_id}, #{mbr_id}, #{comment_content}) 
+		]]>
 	</insert>
 	
 	<!-- 매거진 게시글 댓글 삭제 -->
 	<delete id="magazineCommentRemove">
-	<![CDATA[
-		DELETE FROM board_comment WHERE comment_id = #{comment_id}
-	]]>
+		<![CDATA[
+			DELETE FROM board_comment WHERE comment_id = #{comment_id}
+		]]>
 	</delete>
 	
 	<!-- 매거진 삭제 -->
 	<delete id="magazineRemove">
-	<![CDATA[
-		DELETE FROM board WHERE board_id = #{board_id}
-	]]>
+		<![CDATA[
+			DELETE FROM board WHERE board_id = #{board_id}
+		]]>
 	</delete>
 	
-	<!-- 매거진 이미지 삭제(이미지만 삭제시) -->
+	<!-- 매거진 썸네일 삭제(썸네일만 삭제시) -->
 	<delete id="magazineImageOnlyRemove">
-	<![CDATA[
-		DELETE FROM prdct_image WHERE board_id = #{board_id} AND image_name = #{image_name}
-	]]>
+		<![CDATA[
+			DELETE FROM prdct_image WHERE board_id = #{board_id} AND image_name = #{image_name}
+		]]>
 	</delete>	
 	
-	<!-- 매거진 이미지 삭제(게시판이랑 같이 삭제시) -->
+	<!-- 매거진 썸네일 삭제(게시판이랑 같이 삭제시) -->
 	<delete id="magazineImageRemove">
-	<![CDATA[
-		DELETE FROM prdct_image WHERE board_id = #{board_id} AND image_name = #{image_name}
-	]]>
+		<![CDATA[
+			DELETE FROM prdct_image WHERE board_id = #{board_id} AND image_name = #{image_name}
+		]]>
 	</delete>		
 	
 	<!-- 매거진 수정 -->
 	<update id="setMagazineModify">
-	<![CDATA[
-		UPDATE board SET board_name = #{board_name}, board_content = #{board_content} WHERE board_id = #{board_id}
-	]]>
+		<![CDATA[
+			UPDATE board SET board_name = #{board_name}, board_content = #{board_content} WHERE board_id = #{board_id}
+		]]>
 	</update>
 	
-	<!-- 매거진 수정페이지 이미지 추가 -->
+	<!-- 매거진 수정페이지 썸네일 추가 -->
 	<insert id="setMagazineModifyAddImg" >
-	<![CDATA[
-		INSERT INTO prdct_image (image_number, image_name, image_path, board_id) 
-		VALUES (prdct_image_seq.nextval, #{uploadfiles}, 'D:/Others/Programming/Project Space/branches/branches_project/src/main/resources/static/board_img/', #{board_id}) 
-	]]>
+		<![CDATA[
+			INSERT INTO prdct_image (image_number, image_name, board_id) 
+			VALUES (prdct_image_seq.nextval, #{uploadfiles}, #{board_id}) 
+		]]>
 	</insert>	
 </mapper>

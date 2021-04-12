@@ -1,7 +1,5 @@
 package edu.bit.ex.service;
 
-import javax.servlet.http.HttpServletResponse;
-
 import edu.bit.ex.vo.MbrVO;
 
 public interface SecurityService {
@@ -16,7 +14,8 @@ public interface SecurityService {
 
 	public String findID(String name, int contact);
 
-	public String findPW(MbrVO mbr);
+	public MbrVO findPW(MbrVO mbr);
 
-	public void sendEmail(HttpServletResponse response, MbrVO mbr);
+	public void setPW(MbrVO mbr);
+
 }

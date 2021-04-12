@@ -1,7 +1,5 @@
 package edu.bit.ex.service;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -57,15 +55,18 @@ public class SecurityServiceImpl implements SecurityService {
 	}
 
 	@Override
-	public String findPW(MbrVO mbr) {
+	public MbrVO findPW(MbrVO mbr) {
 		// TODO Auto-generated method stub
 		return loginMapper.findPW(mbr);
 	}
 
 	@Override
-	public void sendEmail(HttpServletResponse response, MbrVO mbr) {
+	public void setPW(MbrVO mbr) {
 		// TODO Auto-generated method stub
-
+		mbr.setMbr_pw("00000000");
+		String pw = passEncoder.encode(mbr.getMbr_pw());
+		mbr.setMbr_pw(pw);
+		loginMapper.setPW(mbr);
 	}
 
 }

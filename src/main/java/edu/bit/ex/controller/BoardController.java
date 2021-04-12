@@ -1,5 +1,8 @@
 package edu.bit.ex.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,12 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.config.auth.MemberDetails;
-import edu.bit.ex.controller.validator.MemberValidator;
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.page.MagazineCommentCriteria;
@@ -35,22 +38,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @AllArgsConstructor
 @RestController
-//@RequestMapping("/board/*")
 public class BoardController {
 	@Autowired
 	private SecurityService securityService;
-	private MemberValidator memberValidator;
 	private BoardService boardService;
 
-	// 로그인 페이지(관리자)
-	@GetMapping("/admin")
-	public ModelAndView signUpForm(ModelAndView mav) {
-		mav.setViewName("login/login");
-		return mav;
-	}
-
 	// 페이징을 이용한 공지사항 게시판 리스트
-	@Transactional(rollbackFor = Exception.class)
 	@GetMapping("/board/notice")
 	public ModelAndView noticeList(NoticeCriteria cri, ModelAndView mav) {
 		log.info("noticeList...");
@@ -74,11 +67,12 @@ public class BoardController {
 		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
-		// mav.addObject("notice_write", boardService.getNoticeMember(mbrVO.getMbr_id()));
+
 		return mav;
 	}
 
 	// 공지사항 작성(관리자)
+	@Transactional(rollbackFor = Exception.class)
 	@PostMapping("/admin/board/notice/write")
 	public ResponseEntity<String> noticeWrite(@RequestBody BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
@@ -101,6 +95,7 @@ public class BoardController {
 		log.info("noticeContent...");
 		mav.setViewName("board/notice_content");
 		mav.addObject("notice_content", boardService.getNoticeContent(boardVO.getBoard_id()));
+
 		return mav;
 	}
 
@@ -110,6 +105,7 @@ public class BoardController {
 		log.info("noticeModifyView...");
 		mav.setViewName("board/notice_modify");
 		mav.addObject("notice_modify", boardService.getNoticeContent(boardVO.getBoard_id()));
+
 		return mav;
 	}
 
@@ -132,6 +128,7 @@ public class BoardController {
 	}
 
 	// 공지사항 삭제(관리자)
+	@Transactional(rollbackFor = Exception.class)
 	@DeleteMapping("/admin/board/notice/modify/{board_id}")
 	public ResponseEntity<String> noticeDelete(BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
@@ -144,13 +141,13 @@ public class BoardController {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
+
 		return entity;
 	}
 
 	// 페이징을 적용한 매거진 게시판 리스트
-	@Transactional(rollbackFor = Exception.class)
 	@GetMapping("/board/magazine")
-	public ModelAndView magazineList(BoardVO boardVO, BoardPrdctImageVO bPrdctImageVO, MagazineCriteria cri, ModelAndView mav) {
+	public ModelAndView magazineList(MagazineCriteria cri, ModelAndView mav) {
 		log.info("magazineList...");
 		mav.setViewName("board/magazine_list");
 		mav.addObject("magazine_list", boardService.getMagazineList(cri));
@@ -172,9 +169,17 @@ public class BoardController {
 		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
-		// mav.addObject("magazine_write", boardService.getMagazineMember(mbrVO.getMbr_id()));
 
 		return mav;
+	}
+
+	// 매거진 첨부사진 업로드(관리자)
+	// CKEditor의 경우 이미지를 첨부할때 서버에 선 등록후 게시글이 submit이 될 때 같이 적용된다
+	@Transactional(rollbackFor = Exception.class)
+	@RequestMapping("/admin/board/magazineImageUpload.do")
+	public void magazineImageUpload(HttpServletRequest request, HttpServletResponse response, MultipartFile upload) throws Exception {
+		log.info("magazineImageUpload...");
+		boardService.magazineImageUpload(request, response, upload);
 	}
 
 	// 매거진 작성(관리자)
@@ -190,7 +195,7 @@ public class BoardController {
 			boardService.setMagazineWrite(bPrdctImageVO); // 텍스트 등록(1)
 
 			for (MultipartFile file : uploadfiles) {
-				boardService.setMagazineImage(file); // 이미지 등록(N)
+				boardService.setMagazineImage(file); // 썸네일 등록(N)
 			}
 
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
@@ -203,7 +208,6 @@ public class BoardController {
 	}
 
 	// 매거진 게시글
-	@Transactional(rollbackFor = Exception.class)
 	@GetMapping("/board/magazine/{board_id}")
 	public ModelAndView magazineContent(@AuthenticationPrincipal MemberDetails memberDetails, MbrVO mbrVO, BoardVO boardVO,
 			MagazineCommentCriteria cri, ModelAndView mav) {
@@ -221,10 +225,8 @@ public class BoardController {
 
 		// 매거진 내용
 		mav.addObject("magazine_content", boardService.getMagazineContent(boardVO.getBoard_id()));
-		// 매거진 사진
-		mav.addObject("magazine_img", boardService.getMagazineImage(boardVO.getBoard_id()));
 		// 매거진 댓글 수 불러오기
-		mav.addObject("magazine_comment_cnt", boardService.getMagazineCommentCnt(mbrVO.getMbr_id(), boardVO.getBoard_id()));
+		mav.addObject("magazine_comment_cnt", boardService.getMagazineCommentCnt(boardVO.getBoard_id()));
 		// 페이징을 적용한 매거진 댓글 불러오기
 		mav.addObject("magazine_comment", boardService.getMagazineComment(mbrVO.getMbr_id(), boardVO.getBoard_id(), cri));
 
@@ -249,12 +251,13 @@ public class BoardController {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
+
 		return entity;
 	}
 
 	// 매거진 게시글 댓글 작성
 	@Transactional(rollbackFor = Exception.class)
-	@PostMapping("/admin/board/magazine/{board_id}")
+	@PostMapping("/board/magazine/{board_id}")
 	public ResponseEntity<String> magazineCommentWrite(@RequestBody BoardBoardCommentVO boardBoardCommentVO) {
 		ResponseEntity<String> entity = null;
 
@@ -272,7 +275,7 @@ public class BoardController {
 
 	// 매거진 댓글 삭제
 	@Transactional(rollbackFor = Exception.class)
-	@DeleteMapping("/admin/board/magazine/{board_id}")
+	@DeleteMapping("/board/magazine/{board_id}")
 	public ResponseEntity<String> magazineCommentDelete(BoardCommentVO boardCommentVO) {
 		ResponseEntity<String> entity = null;
 		log.info("magazineCommentDelete...");
@@ -284,19 +287,20 @@ public class BoardController {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
+
 		return entity;
 	}
 
 	// 매거진 수정페이지(관리자)
-	@Transactional(rollbackFor = Exception.class)
 	@GetMapping("/admin/board/magazine/modify/{board_id}")
 	public ModelAndView magazineModifyView(BoardPrdctImageVO bPrdctImageVO, ModelAndView mav) {
 		log.info("magazineModifyView...");
 		mav.setViewName("board/magazine_modify");
 		// 매거진 게시글 가져오기
 		mav.addObject("magazine_modify", boardService.getMagazineContent(bPrdctImageVO.getBoard_id()));
-		// 매거진 사진 가져오기
+		// 매거진 썸네일 가져오기
 		mav.addObject("magazine_image", boardService.getMagazineImage(bPrdctImageVO.getBoard_id()));
+
 		return mav;
 	}
 
@@ -336,17 +340,16 @@ public class BoardController {
 		ResponseEntity<String> entity = null;
 		log.info("magazineDelete...");
 
-		String onedeletefiles = bPrdctImageVO.getOnedeletefiles(); // 삭제할 한 이미지의 정보
-		String[] deletefiles = bPrdctImageVO.getDeletefiles(); // 삭제할 이미지들 정보
+		String onedeletefiles = bPrdctImageVO.getOnedeletefiles(); // 삭제할 한 썸네일의 정보
+		String[] deletefiles = bPrdctImageVO.getDeletefiles(); // 삭제할 썸네일들 정보
 		int board_id = bPrdctImageVO.getBoard_id(); // 삭제할 게시글 번호
 
 		try {
 			if (onedeletefiles != null && deletefiles == null) { // 사진만 삭제 할 경우
 				boardService.magazineImageOnlyRemove(board_id, onedeletefiles);
-
 			} else if (onedeletefiles == null && deletefiles != null) { // 사진이랑 게시글도 삭제 할 경우
 				// 삭제는 게시글 업로드의 역순으로 진행한다
-				// 이미지 삭제(N)
+				// 썸네일 삭제(N)
 				for (String s : deletefiles) {
 					boardService.magazineImageRemove(board_id, s);
 				}
@@ -359,6 +362,7 @@ public class BoardController {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
+
 		return entity;
 	}
 }
