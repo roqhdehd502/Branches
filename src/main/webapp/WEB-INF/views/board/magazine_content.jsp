@@ -131,7 +131,7 @@
 				<div class="row" style="padding: 3% 3% 5% 3%">
 					
 					<div class="col-md-12" style="padding: 2% 3% 3% 3%">
-						<p>${magazine_content.board_content}</p>
+						<p class="lead" style="white-space:pre;">${magazine_content.board_content}</p>
 					</div>
 				</div>
 			</div>
@@ -237,7 +237,7 @@
 						<p class="lead">${comment.comment_content}</p>
 					</div>
 					<div class="col-md-4" align="right">
-						<p class="lead">${comment.comment_date}</p>				
+						<div class="lead">${comment.comment_date}</div>				
 					</div>
 					
 					<div class="col-md-1" align="right">

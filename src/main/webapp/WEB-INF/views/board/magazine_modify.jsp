@@ -204,7 +204,7 @@
 							<legend>글내용</legend>
 						</div>
 						<div class="col-md-10 contact-info">
-							<textarea class="form-control" cols="50%" rows="10" id="board_content">${magazine_modify.board_content}</textarea>
+							<textarea class="form-control" cols="3" id="board_content">${magazine_modify.board_content}</textarea>
 							<script>
 								//id가 description인 태그에 ckeditor를 적용시킴
 								//CKEDITOR.replace("description"); //이미지 업로드 안됨				
@@ -218,11 +218,13 @@
 					<!-- 수정페이지에서 새로 추가되는 사진 -->
 					<div class="row" style="padding: 5% 3% 3% 5%">
 						<input type="file" accept=".jpg, .png" id="uploadfiles" name="uploadfiles" placeholder="첨부 사진" multiple/>
-						<small class="form-text text-muted">썸네일은 한 장만 적용되고 jpg, png의 사진파일만 업로드됩니다.</small>
+						<small class="form-text text-muted">썸네일은 한 장만 적용되고 jpg, png의 사진파일만 업로드됩니다.<br>또한 세로 길이가 더 긴 사진을 권장합니다.</small>
 					</div>
 					<hr>
 					<div class="container">
-					<div id="image_container" class="row" style="padding: 5% 3% 3% 5%">
+						<h3>THUMBNAIL</h3>
+						<small class="form-text text-muted">썸네일은 최소 한 장이 있어야 합니다.</small>
+					<div id="image_container" class="row" style="padding: 3% 3% 3% 5%">
 						<c:forEach items="${magazine_image}" var="image" varStatus="image_status">
 							<!-- 이미지 컨테이너 -->
 							<div class="col-md-2" align="center">
