@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.csrf.CsrfFilter;
-import org.springframework.security.web.header.writers.StaticHeadersWriter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import edu.bit.ex.config.auth.MemberDetailsService;
@@ -87,8 +86,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		// CK에디터 이미지 업로드 X-Frame-Option iframe랜더링 설정
 		// https://goateedev.tistory.com/87 자세한건 이곳 참고하세요!
-		http.headers().frameOptions().disable()
-				.addHeaderWriter(new StaticHeadersWriter("X-FRAME-OPTIONS", "ALLOW-FROM " + "http://localhost:9595/seller/mypage/prdct")).and();
+		http.headers().frameOptions().disable();
+		/*
+		 * http.headers().frameOptions().disable() .addHeaderWriter(new StaticHeadersWriter("X-FRAME-OPTIONS", "ALLOW-FROM " +
+		 * "http://localhost:9595/seller/mypage/prdct")).and();
+		 */
 	}
 
 	@Override // ignore except jsp

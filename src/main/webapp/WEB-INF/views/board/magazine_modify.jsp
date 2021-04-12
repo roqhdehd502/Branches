@@ -21,7 +21,7 @@
 	<link rel="stylesheet" href="/assets/css/main.css">
 	<link rel="stylesheet" href="/bootstrap.min.css">
 
-	<!-- CKEditor로 작성 모듈 불러오기 -->
+	<!-- CKEditor로 적용 -->
 	<script src="/ckeditor/ckeditor.js"></script>
 	
 	<!-- AJAX 처리용 JQUERY -->
@@ -39,7 +39,7 @@
 	           // 게시글 텍스트 사항
 	           var board_id = $("#board_id").val();
 	           var board_name = $("#board_name").val();
-	           var board_content = $("#board_content").val();              
+	           var board_content = CKEDITOR.instances.board_content.getData();             
 	           
 	           console.log(board_id);
 	           console.log(board_name);
@@ -153,6 +153,7 @@
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
+		<!-- header -->
 		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 
 		<hr style="margin: 15px 15px 40px 15px;">
@@ -204,13 +205,20 @@
 						</div>
 						<div class="col-md-10 contact-info">
 							<textarea class="form-control" cols="50%" rows="10" id="board_content">${magazine_modify.board_content}</textarea>
+							<script>
+								//id가 description인 태그에 ckeditor를 적용시킴
+								//CKEDITOR.replace("description"); //이미지 업로드 안됨				
+								CKEDITOR.replace("board_content", {
+									filebrowserUploadUrl : "${pageContext.request.contextPath}/admin/board/magazineImageUpload.do"
+								});						
+							</script>
 						</div>
 					</div>
 					<hr>
 					<!-- 수정페이지에서 새로 추가되는 사진 -->
 					<div class="row" style="padding: 5% 3% 3% 5%">
 						<input type="file" accept=".jpg, .png" id="uploadfiles" name="uploadfiles" placeholder="첨부 사진" multiple/>
-						<small class="form-text text-muted">jpg, png의 사진파일만 적용됩니다.</small>
+						<small class="form-text text-muted">썸네일은 한 장만 적용되고 jpg, png의 사진파일만 업로드됩니다.</small>
 					</div>
 					<hr>
 					<div class="container">
@@ -223,9 +231,9 @@
 								<span class="uploadimagenumber${image_status.index}" style="display: none;">${image.image_number}</span>
 								<span class="deletefiles${image_status.index}" style="display: none;">${image.image_name}</span>				
 								<div>
-									<img src="/board_img/${image.image_name}" width="100px" height="140px">
+									<img src="/board_img/thumbnail/${image.image_name}" width="100px" height="140px">
 									<button type="button" class="btn btn-danger img_del_only" data-rno="${image.image_name}">&#88;</button>					
-									<!-- 매거진 사진만 삭제 -->
+									<!-- 매거진 썸네일만 삭제 -->
 									<script type="text/javascript">
 									$(document).ready(function (){
 										$('.img_del_only').click(function(event){
@@ -282,7 +290,7 @@
 		<hr>
 
 	  <!-- footer -->
-      <jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
+      <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"></jsp:include>
 
       <!--Required JS files-->
       <script src="/assets/js/jquery-2.2.4.min.js"></script>

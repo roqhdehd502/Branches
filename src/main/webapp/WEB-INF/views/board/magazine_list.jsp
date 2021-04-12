@@ -32,6 +32,7 @@
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
+		<!-- header -->
 		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 
 		<hr style="margin: 15px 15px 40px 15px;">
@@ -67,7 +68,7 @@
 							<div class="thumbnail">
 								<a href="${pageContext.request.contextPath}/board/magazine/${dto.board_id}">
 									<div style="padding-top: 7px">
-										<img class="rounded" src="/board_img/${dto.image_name eq null ? 'none-thumbnail.jpg' : dto.image_name}" width="225px" height="350px">
+										<img class="rounded" src="/board_img/thumbnail/${dto.image_name eq null ? 'none-thumbnail.jpg' : dto.image_name}" width="225px" height="350px">
 									</div>
 									<div>
 										<hr>

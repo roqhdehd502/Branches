@@ -106,11 +106,13 @@
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
+	<!-- header -->
 	<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 
 		<hr style="margin: 15px 15px 40px 15px;">
 
 		<div class="container">
+			<!-- 매거진 기본 정보 -->
 			<div class="container" align="center">
 				<div><h2>${magazine_content.board_name}</h2></div>
 				<div>
@@ -121,34 +123,15 @@
 					</label>
 				</div>
 			</div>
+			
 			<hr>
+			
+			<!-- 매거진 글내용 -->	
 			<div class="container">
 				<div class="row" style="padding: 3% 3% 5% 3%">
-					<c:forEach items="${magazine_img}" var="img">								
-					<div class="col-md-12" style="text-align: center;">
-						<!-- 모달을 열기 위한 a 태그 -->
-						<a href="#imgmodal${img.image_number}" data-toggle="modal" >
-							<!-- 콘텐츠 이미지 -->
-							<img class="rounded con_img" src="<c:url value="/board_img/${img.image_name}"/>" width="400px" height="600px">
-						</a>
-						<!-- 모달 영역 -->
-						<div class="modal fade myModal" id="imgmodal${img.image_number}" tabindex="-1" role="dialog" aria-labelledby="imgModalLabel">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&#88;</span></button>
-									</div>
-									<div class="modal-body">
-										<!-- 원본 이미지 -->
-										<img src="<c:url value="/board_img/${img.image_name}"/>">
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					</c:forEach>	
+					
 					<div class="col-md-12" style="padding: 2% 3% 3% 3%">
-						<p class="lead" style="white-space:pre;">${magazine_content.board_content}</p>
+						<p>${magazine_content.board_content}</p>
 					</div>
 				</div>
 			</div>
@@ -246,10 +229,10 @@
 					</div>
 				</div>
 				
+				<!-- 댓글 리스트 -->
 				<c:forEach items="${magazine_comment}" var="comment" varStatus="cmnt_status">
 				<div class="row" style="margin: 1% 3% 1% 3%; padding: 1% 3% 1% 3%; border: 1px solid #E5E5E5;">
 					<div class="col-md-7" align="left">
-						<%-- <p>${comment.mbr_id}</p> --%>
 						<p>${comment.mbr_nickname}</p>
 						<p class="lead">${comment.comment_content}</p>
 					</div>
@@ -310,7 +293,6 @@
 													                data: formData, 
 																	success: function(result){
 																		console.log(result);
-																		//alert("댓글을 삭제합니다.");
 																		$(location).attr('href', '${pageContext.request.contextPath}/board/magazine/${magazine_content.board_id}')
 																		console.log("COMMENT_REMOVED!")
 																	},

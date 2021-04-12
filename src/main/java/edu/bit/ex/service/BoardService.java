@@ -3,6 +3,9 @@ package edu.bit.ex.service;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
@@ -42,13 +45,16 @@ public interface BoardService {
 	// 매거진 작성
 	public void setMagazineWrite(BoardPrdctImageVO bPrdctImageVO);
 
-	// 매거진 첨부사진 작성
+	// 매거진 썸네일 첨부 작성
 	public void setMagazineImage(MultipartFile file);
+
+	// 매거진 첨부사진 업로드
+	public void magazineImageUpload(HttpServletRequest request, HttpServletResponse response, MultipartFile upload) throws Exception;
 
 	// 매거진 게시글
 	public BoardVO getMagazineContent(int board_id);
 
-	// 매거진 게시글 이미지 리스트
+	// 매거진 게시글 썸네일 리스트
 	public List<PrdctImageVO> getMagazineImage(int board_id);
 
 	// 매거진 게시글 추천
@@ -72,15 +78,15 @@ public interface BoardService {
 	// 매거진 삭제
 	public int magazineRemove(int board_id);
 
-	// 매거진 이미지 삭제(이미지만 삭제시)
+	// 매거진 썸네일 삭제(썸네일만 삭제시)
 	public int magazineImageOnlyRemove(int board_id, String onedeletefiles);
 
-	// 매거진 이미지 삭제(게시판이랑 같이 삭제시)
+	// 매거진 썸네일 삭제(게시판이랑 같이 삭제시)
 	public int magazineImageRemove(int board_id, String deletefiles) throws IOException;
 
 	// 매거진 수정
 	public void setMagazineModify(BoardPrdctImageVO bPrdctImageVO);
 
-	// 매거진 수정페이지 이미지 추가
+	// 매거진 수정페이지 썸네일 추가
 	public void setMagazineModifyAddImg(int board_id, MultipartFile file);
 }

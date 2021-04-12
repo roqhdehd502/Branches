@@ -60,8 +60,7 @@
 			
 			<hr>
 			
-			<div class="container">
-			
+			<div class="container">		
 				<!-- 권한에 따라 버튼을 달리 보이게 한다 -->
 				<!-- 모든 사용자 -->
 				<sec:authorize access="isAnonymous()"> 

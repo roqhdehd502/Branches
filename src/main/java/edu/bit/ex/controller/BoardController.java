@@ -1,5 +1,8 @@
 package edu.bit.ex.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -63,6 +67,7 @@ public class BoardController {
 		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
+
 		return mav;
 	}
 
@@ -90,6 +95,7 @@ public class BoardController {
 		log.info("noticeContent...");
 		mav.setViewName("board/notice_content");
 		mav.addObject("notice_content", boardService.getNoticeContent(boardVO.getBoard_id()));
+
 		return mav;
 	}
 
@@ -99,6 +105,7 @@ public class BoardController {
 		log.info("noticeModifyView...");
 		mav.setViewName("board/notice_modify");
 		mav.addObject("notice_modify", boardService.getNoticeContent(boardVO.getBoard_id()));
+
 		return mav;
 	}
 
@@ -134,6 +141,7 @@ public class BoardController {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
+
 		return entity;
 	}
 
@@ -165,6 +173,15 @@ public class BoardController {
 		return mav;
 	}
 
+	// 매거진 첨부사진 업로드(관리자)
+	// CKEditor의 경우 이미지를 첨부할때 서버에 선 등록후 게시글이 submit이 될 때 같이 적용된다
+	@Transactional(rollbackFor = Exception.class)
+	@RequestMapping("/admin/board/magazineImageUpload.do")
+	public void magazineImageUpload(HttpServletRequest request, HttpServletResponse response, MultipartFile upload) throws Exception {
+		log.info("magazineImageUpload...");
+		boardService.magazineImageUpload(request, response, upload);
+	}
+
 	// 매거진 작성(관리자)
 	@Transactional(rollbackFor = Exception.class)
 	@PostMapping("/admin/board/magazine/write")
@@ -178,7 +195,7 @@ public class BoardController {
 			boardService.setMagazineWrite(bPrdctImageVO); // 텍스트 등록(1)
 
 			for (MultipartFile file : uploadfiles) {
-				boardService.setMagazineImage(file); // 이미지 등록(N)
+				boardService.setMagazineImage(file); // 썸네일 등록(N)
 			}
 
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
@@ -208,8 +225,6 @@ public class BoardController {
 
 		// 매거진 내용
 		mav.addObject("magazine_content", boardService.getMagazineContent(boardVO.getBoard_id()));
-		// 매거진 사진
-		mav.addObject("magazine_img", boardService.getMagazineImage(boardVO.getBoard_id()));
 		// 매거진 댓글 수 불러오기
 		mav.addObject("magazine_comment_cnt", boardService.getMagazineCommentCnt(boardVO.getBoard_id()));
 		// 페이징을 적용한 매거진 댓글 불러오기
@@ -236,6 +251,7 @@ public class BoardController {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
+
 		return entity;
 	}
 
@@ -271,6 +287,7 @@ public class BoardController {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
+
 		return entity;
 	}
 
@@ -281,8 +298,9 @@ public class BoardController {
 		mav.setViewName("board/magazine_modify");
 		// 매거진 게시글 가져오기
 		mav.addObject("magazine_modify", boardService.getMagazineContent(bPrdctImageVO.getBoard_id()));
-		// 매거진 사진 가져오기
+		// 매거진 썸네일 가져오기
 		mav.addObject("magazine_image", boardService.getMagazineImage(bPrdctImageVO.getBoard_id()));
+
 		return mav;
 	}
 
@@ -322,17 +340,16 @@ public class BoardController {
 		ResponseEntity<String> entity = null;
 		log.info("magazineDelete...");
 
-		String onedeletefiles = bPrdctImageVO.getOnedeletefiles(); // 삭제할 한 이미지의 정보
-		String[] deletefiles = bPrdctImageVO.getDeletefiles(); // 삭제할 이미지들 정보
+		String onedeletefiles = bPrdctImageVO.getOnedeletefiles(); // 삭제할 한 썸네일의 정보
+		String[] deletefiles = bPrdctImageVO.getDeletefiles(); // 삭제할 썸네일들 정보
 		int board_id = bPrdctImageVO.getBoard_id(); // 삭제할 게시글 번호
 
 		try {
 			if (onedeletefiles != null && deletefiles == null) { // 사진만 삭제 할 경우
 				boardService.magazineImageOnlyRemove(board_id, onedeletefiles);
-
 			} else if (onedeletefiles == null && deletefiles != null) { // 사진이랑 게시글도 삭제 할 경우
 				// 삭제는 게시글 업로드의 역순으로 진행한다
-				// 이미지 삭제(N)
+				// 썸네일 삭제(N)
 				for (String s : deletefiles) {
 					boardService.magazineImageRemove(board_id, s);
 				}
@@ -345,6 +362,7 @@ public class BoardController {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
+
 		return entity;
 	}
 }

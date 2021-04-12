@@ -21,6 +21,9 @@
 	<link rel="stylesheet" href="/assets/css/main.css">
 	<link rel="stylesheet" href="/bootstrap.min.css">
 	
+	<!-- CKEditor 적용 -->
+	<script src="/ckeditor/ckeditor.js"></script>
+	
 	<!-- AJAX 처리용 JQUERY -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
@@ -36,7 +39,7 @@
 	    		// 텍스트 입력 영역
 	            var mbr_id = $("#mbr_id").val();
 	            var board_name = $("#board_name").val();
-	            var board_content = $("#board_content").val();
+	            var board_content = CKEDITOR.instances.board_content.getData();
 	            
 	            console.log(mbr_id);
 	            console.log(board_name);
@@ -47,16 +50,16 @@
 	            formData.append("board_name", board_name);
 	            formData.append("board_content", board_content);
 	    		
-	    		// 파일저장 영역
+	    		// 썸네일 업로드 영역
                 var inputFile = $("#uploadfiles");
                 
                 function filechk(){
                 	 var fileDir = inputFile;
 
                 	 if(fileDir.substring(fileDir.lastIndexOf(".")+1,fileDir.length).search("jpg") == -1){
-                	 	alert("지정된 확장자의 파일만 업로드 가능합니다!");
+                	 	alert("지정된 확장자의 이미지만 업로드 가능합니다!");
                 	 } else if (fileDir.substring(fileDir.lastIndexOf(".")+1,fileDir.length).search("png") == -1) {
-                		 alert("지정된 확장자의 파일만 업로드 가능합니다!");
+                		 alert("지정된 확장자의 이미지만 업로드 가능합니다!");
 					 }	 
                 } 
 	    		
@@ -71,12 +74,14 @@
                 console.log("formData: " + formData);
                 
                 // upload 체크(파일을 첨부 안하면 업로드를 안한다...)
-                if (!appended) { return; }
+                if (!appended) { 
+                	alert("이미지를 등록해주세요!");
+                	return; 
+                }
                 for (var value of formData.values()) {
 					console.log(value);
 				}
-                
-                
+                 
               	// 파일 넣을때 JSON.stringify()는 적용이 안된다...
 	    		$.ajax({
 	                type : "POST",
@@ -106,6 +111,7 @@
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
+	<!-- header -->
 	<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 
 		<hr style="margin: 15px 15px 40px 15px;">
@@ -141,15 +147,22 @@
 						</div>
 						<div class="col-md-10 contact-info">
 							<textarea class="form-control" cols="3" id="board_content" name="board_content" placeholder="글내용을 입력하세요"></textarea>
+							<script>
+								//id가 description인 태그에 ckeditor를 적용시킴
+								//CKEDITOR.replace("description"); //이미지 업로드 안됨				
+								CKEDITOR.replace("board_content", {
+									filebrowserUploadUrl : "${pageContext.request.contextPath}/admin/board/magazineImageUpload.do"
+								});						
+							</script>
 						</div>
 					</div>
 					<div class="row" style="padding: 3% 0px 3% 0px">
 						<div class="col-md-2 contact-info" align="left">
-							<legend>첨부사진</legend>
+							<legend>썸네일 사진</legend>
 						</div>
 						<div class="col-md-10 contact-info">
 							<input type="file" accept=".jpg, .png" id="uploadfiles" name="uploadfiles" placeholder="첨부 사진" multiple/>
-							<small class="form-text text-muted">jpg, png의 사진파일만 적용됩니다.</small>
+							<small class="form-text text-muted">썸네일은 한 장만 적용되고 jpg, png의 사진파일만 업로드됩니다.</small>
 						</div>
 					</div>
 					<div align="center" style="padding: 3% 3% 3% 3%;">
@@ -164,7 +177,7 @@
 		<hr>
 
 	  	<!-- footer -->
-      	<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
+      	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"></jsp:include>
 
       	<!--Required JS files-->
      	<script src="/assets/js/jquery-2.2.4.min.js"></script>
