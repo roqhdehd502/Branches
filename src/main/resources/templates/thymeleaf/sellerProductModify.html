@@ -1,7 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -23,9 +21,7 @@
 </head>
 <body>
 <div style="overflow: hidden;" class="container">
-	<header>
-		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
-	</header>
+	
 		<div class="container">
 			<span style="margin-left: 70px;"> </span> <span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
 				<h3>${mbr.mbr_name }</h3>
@@ -96,7 +92,7 @@
 								<label class="col-sm-2 col-form-label">카테고리</label>
 								<div class="col-sm-10">
 									<select class="form-control">
-										<option value="0" <c:if test="${pdvo.category_number == 0 }">selected</c:if>>아우터-코트</option>
+										<!-- <option value="0" <c:if test="${pdvo.category_number == 0 }">selected</c:if>>아우터-코트</option>
 										<option value="1" <c:if test="${pdvo.category_number == 1 }">selected</c:if>>아우터-자켓</option>
 										<option value="2" <c:if test="${pdvo.category_number == 2 }">selected</c:if>>아우터-점퍼/무스탕</option>
 										<option value="3" <c:if test="${pdvo.category_number == 3 }">selected</c:if>>아우터-가디건</option>
@@ -130,7 +126,7 @@
 										<option value="31" <c:if test="${pdvo.category_number == 31 }">selected</c:if>>신발-스니커즈</option>
 										<option value="32" <c:if test="${pdvo.category_number == 32 }">selected</c:if>>ETC-가방</option>
 										<option value="33" <c:if test="${pdvo.category_number == 33 }">selected</c:if>>ETC-모자</option>
-										<option value="34" <c:if test="${pdvo.category_number == 34 }">selected</c:if>>ETC-악세서리</option>
+										<option value="34" <c:if test="${pdvo.category_number == 34 }">selected</c:if>>ETC-악세서리</option> -->
 									</select>
 								</div>
 							</div>
@@ -197,7 +193,7 @@
 		<br/><br/><br/>
 		
 		<!-- footer -->
-		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
+		
 </div>
 		
 		<!--Required JS files--> 

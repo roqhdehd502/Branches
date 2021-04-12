@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -68,14 +67,12 @@
 </head>
 <body>
 <div style="overflow: hidden;" class="container">
-	<header>
-		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
-	</header>
+
 	<div class="container">
          <span style="margin-left: 70px;">
          </span> <span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
-            <h3>${mbr.mbr_name }</h3>
-            <h3 style="position: relative; top: 15px;">${mbr.mbr_id }</h3>
+            <h3 th:text="${mbr.mbr_name }"></h3>
+            <h3 style="position: relative; top: 15px;" th:text="${mbr.mbr_id }"></h3>
          </span>
          <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="/seller/mypage/myinfo">정보수정</a></span> 
          <span style="margin-left: 480px;" align="center">

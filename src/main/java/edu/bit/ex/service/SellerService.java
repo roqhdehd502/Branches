@@ -10,7 +10,6 @@ import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.OrderDetailVO;
-import edu.bit.ex.vo.PrdctDetailVO;
 import edu.bit.ex.vo.PrdctOrderVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
@@ -19,13 +18,11 @@ public interface SellerService {
 
 	public List<OrderDetailVO> getOrderDetail();
 
-	public List<PrdctVO> getProduct();
+	public List<PrdctRegisterImageVO> getProduct();
 
 	public List<PrdctOrderVO> getPrdOrder();
 
 	public List<BoardVO> getBoard(SearchCriteria cri);
-
-	public List<PrdctDetailVO> getPrdctDetail();
 
 	public MbrVO getMemberInfo(String s_id);
 
@@ -35,20 +32,14 @@ public interface SellerService {
 
 	public void prdctUpdate(PrdctRegisterImageVO prvo);
 
-	public void prdctDetailUpdate(PrdctRegisterImageVO prvo);
-
 	public MbrVO getSellerInfo(String mbr_id);
 
 	// 상품삭제
 	public void prdctDelete(String prdct_id);
 
-	public void boardDelete(int board_id);
-
 	public void prdInsert(PrdctRegisterImageVO PrdctImageVO);
 
 	public PrdctVO getOption(String getPrdct_id);
-
-	public PrdctDetailVO getPrd(String getPrdct_id);
 
 	/* public void setPrdctImage(MultipartFile file); */
 
@@ -58,7 +49,7 @@ public interface SellerService {
 
 	public List<CategoryVO> getCategory();
 
-	public BoardPrdctImageVO getContent(int getBoard_id);
+	public BoardVO getContent(String getPrdct_id);
 
 	public void prdctContentUpdate(PrdctRegisterImageVO prvo);
 

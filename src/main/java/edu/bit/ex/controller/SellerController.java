@@ -81,10 +81,11 @@ public class SellerController {
 	@GetMapping("/mypage/prdct_register")
 	public ModelAndView prdct_register(ModelAndView mav, MbrVO mbr, ShippingVO svo) {
 		log.info("prdct_register...");
-		mav.setViewName("seller/prdct_register");
+		mav.setViewName("thymeleaf/prdct_register");
+		// 로그인 된 판매자 정보 불러오기
 		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
+		// 상품 등록시 판매자 주소 불러오기
 		mav.addObject("svo", sellerService.getAddress(svo.getMbr_id()));
-		mav.addObject("cate", sellerService.getCategory());
 		return mav;
 	}
 
@@ -123,7 +124,7 @@ public class SellerController {
 	public ModelAndView sellerProductCheck(ModelAndView mav, MbrVO mbr, BoardVO bvo, BoardPrdctImageVO bpvo) throws Exception {
 		log.debug("sellerProductCheck");
 		log.info("sellerProductCheck..");
-		mav.setViewName("seller/sellerProductCheck");
+		mav.setViewName("thymeleaf/sellerProductCheck");
 		mav.addObject("prdct", sellerService.getProduct());
 		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
 		mav.addObject("bId", sellerService.getbNum(bvo.getBoard_id()));
@@ -133,19 +134,16 @@ public class SellerController {
 	}
 
 	// 판매자 등록상품 수정페이지 seller // 이 페이지는 상세페이지가 곧 수정페이지입니다
-	@GetMapping("/mypage/prdct/{prdct_id}/{board_id}")
-	public ModelAndView sellerProductModify(@PathVariable("prdct_id") String prdct_id, @PathVariable("board_id") int board_id, ModelAndView mav,
-			MbrVO mbr, ShippingVO svo, BoardPrdctImageVO bpvo) throws Exception {
+	@GetMapping("/mypage/prdct/{prdct_id}")
+	public ModelAndView sellerProductModify(@PathVariable("prdct_id") String prdct_id, ModelAndView mav, MbrVO mbr, ShippingVO svo, BoardVO bvo)
+			throws Exception {
 		log.debug("sellerProductModify");
 		log.info("sellerProductModify..");
-		mav.setViewName("seller/sellerProductModify");
-		mav.addObject("pvo", sellerService.getPrd(prdct_id));
+		mav.setViewName("thymeleaf/sellerProductModify");
 		mav.addObject("pdvo", sellerService.getOption(prdct_id));
 		mav.addObject("svo", sellerService.getAddress(svo.getMbr_id()));
 		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
-		mav.addObject("cate", sellerService.getCategory());
-		mav.addObject("bvo", sellerService.getContent(bpvo.getBoard_id()));
-		mav.addObject("id", sellerService.getboardId(board_id));
+		mav.addObject("bContent", sellerService.getContent(bvo.getPrdct_id()));
 
 		return mav;
 	}
@@ -159,7 +157,6 @@ public class SellerController {
 		try {
 
 			sellerService.prdctUpdate(prvo);
-			sellerService.prdctDetailUpdate(prvo);
 			sellerService.prdctContentUpdate(prvo);
 			log.info("update prdct info");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
@@ -173,15 +170,14 @@ public class SellerController {
 	}
 
 	// 판매자 상품 삭제 ajax
-	@DeleteMapping(value = "/mypage/prdct/{prdct_id}/{board_id}/delete")
-	public ResponseEntity<String> prdctDelete(@PathVariable("prdct_id") String prdct_id, @PathVariable("board_id") int board_id) {
+	@DeleteMapping(value = "/mypage/prdct/{prdct_id}/delete")
+	public ResponseEntity<String> prdctDelete(@PathVariable("prdct_id") String prdct_id) {
 		ResponseEntity<String> entity = null;
 
 		log.info("prdctDelete..");
 		try {
 
 			sellerService.prdctDelete(prdct_id);
-			sellerService.boardDelete(board_id);
 			log.info("delete prdct info");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 
@@ -198,11 +194,10 @@ public class SellerController {
 	public ModelAndView sellerpage(ModelAndView mav, MbrVO mbr) throws Exception {
 		log.debug("sellerpage");
 		log.info("sellerpage");
-		mav.setViewName("seller/sellerpage");
+		mav.setViewName("thymeleaf/sellerpage");
 		mav.addObject("mbr", sellerService.getSellerInfo(mbr.getMbr_id()));
 		mav.addObject("prd", sellerService.getProduct());
 		mav.addObject("ord", sellerService.getOrderDetail());
-		mav.addObject("pdd", sellerService.getPrdctDetail());
 		mav.addObject("prdor", sellerService.getPrdOrder());
 
 		return mav;
