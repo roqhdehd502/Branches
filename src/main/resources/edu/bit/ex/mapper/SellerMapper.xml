@@ -6,9 +6,9 @@
 <mapper namespace="edu.bit.ex.mapper.SellerMapper">
 	
 	<!-- 상품 내용 불러오기 -->
-	<select id="getContent" resultType="edu.bit.ex.joinvo.BoardPrdctImageVO" >
+	<select id="getContent" resultType="edu.bit.ex.vo.BoardVO" >
 		<![CDATA[			
-			select b.board_content from board b, prdct p where b.prdct_id = p.prdct_id and b.board_id = #{board_id}
+			select board_content from board where prdct_id = #{prdct_id} 
 		]]>
 	</select>
 	
@@ -46,18 +46,11 @@
 			select * from prdct where prdct_id = #{prdct_id}
 		]]>
 	</select>
-	
-	<!-- 상품정보 불러오기2 -->	
-	<select id="getPrd" resultType="edu.bit.ex.vo.PrdctDetailVO">
-		<![CDATA[
-			select * from prdct_detail where prdct_id = #{prdct_id}
-		]]>
-	</select>
 
 	<!-- 메인페이지 주문정보 불러오기 -->
-	<select id="getProduct" resultType="edu.bit.ex.vo.PrdctVO">
+	<select id="getProduct" resultType="edu.bit.ex.joinvo.PrdctRegisterImageVO">
 		<![CDATA[
-			select * from prdct
+			select p.prdct_name,p.prdct_price from prdct p, board b where b.prdct_id = p.prdct_id
 		]]>
 	</select>
 	
@@ -123,13 +116,6 @@
 	</select>
 	
 	<!-- 주문상품 정보 불러오기 - 상품번호, 상품명 등...?  -->
-	<select id="getPrdctDetail" resultType="edu.bit.ex.vo.PrdctDetailVO">
-		<![CDATA[
-			select * from prdct_detail
-		]]>
-	</select>
-	
-	<!-- 주문상품 정보 불러오기 - 상품번호, 상품명 등...?  -->
 	<select id="getPrdOrder" resultType="edu.bit.ex.vo.PrdctOrderVO">
 		<![CDATA[
 			select * from prdct_order
@@ -167,21 +153,14 @@
 	<!-- 판매자 상품정보 수정1 -->
 	<update id="prdctUpdate">
 	<![CDATA[
-		update prdct set prdct_name=#{prdct_name}, prdct_price=#{prdct_price} where prdct_id=#{prdct_id}
+		update prdct set prdct_name=#{prdct_name}, prdct_price=#{prdct_price}, prdct_color=#{prdct_color}, prdct_size=#{prdct_size}, prdct_stock=#{prdct_stock} where prdct_id=#{prdct_id}
 	]]>
 	</update>
 	
-	<!-- 판매자 상품옵션 수정2 -->
-	<update id="prdctDetailUpdate">
-	<![CDATA[
-		update prdct_detail set prdct_color=#{prdct_color}, prdct_size=#{prdct_size}, prdct_stock=#{prdct_stock} where prdct_id=#{prdct_id}
-	]]>
-	</update>
-	
-	<!-- 판매자 상품내용 수정3 -->
+	<!-- 판매자 상품내용 수정2 -->
 	<update id="prdctContentUpdate">
 	<![CDATA[
-		update board set board_content=#{board_content} where board_id=#{board_id}
+		update board set board_content=#{board_content} where prdct_id=#{prdct_id}
 	]]>
 	</update>
 	
@@ -193,23 +172,14 @@
 	]]>
 	</delete>
 	
-	<!-- 판매자 상품정보 삭제...2 -->
-	<delete id="boardDelete">
-	<![CDATA[
-		delete from board where board_id = #{board_id}
-	]]>
-	</delete>
-	
 	<!-- 상품등록하기 -->
 	<insert id="prdInsert">
 		<![CDATA[
-			insert all into prdct (prdct_id, prdct_name, prdct_price, category_number , mbr_id) values
-				('p08',#{prdct_name}, #{prdct_price}, 21 ,'prism' ) 
-					into prdct_detail (prdct_id, prdct_color, prdct_size, prdct_stock) values
-						('p08',#{prdct_color}, #{prdct_size} , #{prdct_stock}) 
-							into board (board_id, board_name, board_content, board_type_number, prdct_id ,board_like, board_hit, mbr_id) 
-								values(board_seq.nextval, 'TEST', #{board_content}, 6, 'p08' ,0, 0, 'prism')
-									select * from dual
+			insert all into prdct (prdct_id, prdct_name, prdct_price, category_number , mbr_id, prdct_color, prdct_size, prdct_stock) values
+				(#{prdct_id},#{prdct_name}, #{prdct_price}, #{category_number} ,'prism',#{prdct_color},#{prdct_size},#{prdct_stock} ) 
+					into board (board_id, board_name, board_content, board_type_number, prdct_id ,board_like, board_hit, mbr_id) 
+						values(board_seq.nextval, 'TEST', #{board_content}, 6, #{prdct_id} ,0, 0, 'prism')
+							select * from dual
 		]]>
 	</insert>
 

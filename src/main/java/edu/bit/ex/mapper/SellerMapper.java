@@ -12,7 +12,6 @@ import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.OrderDetailVO;
-import edu.bit.ex.vo.PrdctDetailVO;
 import edu.bit.ex.vo.PrdctOrderVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
@@ -22,13 +21,11 @@ public interface SellerMapper {
 
 	public List<OrderDetailVO> getOrderDetail();
 
-	public List<PrdctVO> getProduct();
+	public List<PrdctRegisterImageVO> getProduct();
 
 	public List<PrdctOrderVO> getPrdOrder();
 
 	public List<BoardVO> getBoard(SearchCriteria cri);
-
-	public List<PrdctDetailVO> getPrdctDetail();
 
 	// 회원 정보 수정
 	public MbrVO getMemberInfo(String s_id);
@@ -42,25 +39,16 @@ public interface SellerMapper {
 	// 상품 수정
 	public void prdctUpdate(PrdctRegisterImageVO prvo);
 
-	public void prdctDetailUpdate(PrdctRegisterImageVO prvo);
-
 	public void prdctContentUpdate(PrdctRegisterImageVO prvo);
 
 	// 상품 삭제
 	public void prdctDelete(String prdct_id);
-
-	public void boardDelete(int board_id);
 
 	// 상품 등록
 	public void prdInsert(PrdctRegisterImageVO PrdctImageVO);
 
 	// 회원정보 불러오기
 	public MbrVO getSellerInfo(String mbr_id);
-
-	public PrdctVO getOption(String getPrdct_id);
-
-	// 상품정보 불러오기
-	public PrdctDetailVO getPrd(String getPrdct_id);
 
 	/* public void setPrdctImage(String saveName); */
 
@@ -70,7 +58,7 @@ public interface SellerMapper {
 
 	public List<CategoryVO> getCategory();
 
-	public BoardPrdctImageVO getContent(int getBoard_id);
+	public BoardVO getContent(String getPrdct_id);
 
 	public List<BoardVO> getbNum(int board_id);
 
@@ -79,5 +67,9 @@ public interface SellerMapper {
 	public int getTotal(SearchCriteria cri);
 
 	public int getTotal1(SearchCriteria cri);
+
+	public List<PrdctVO> getPrdInfo(String prdct_id);
+
+	public PrdctVO getOption(String getPrdct_id);
 
 }

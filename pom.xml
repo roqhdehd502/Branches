@@ -151,8 +151,25 @@
 		<artifactId>commons-email</artifactId>
 		<version>1.2</version>
 	</dependency>
-   </dependencies>
 
+	<!-- 타임리프사용 -->
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-thymeleaf</artifactId>
+	</dependency>
+	
+	<!-- 스프링 Jpa -->
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-data-jpa</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>com.h2database</groupId>
+		<artifactId>h2</artifactId>
+	</dependency>
+	
+   </dependencies>
+	
    <build>
       <plugins>
          <plugin>

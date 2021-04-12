@@ -1,8 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-<head>
+<head xmlns:th="http://www.thymeleaf.org">
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,9 +21,6 @@
 </head>
 <body>
 <div style="overflow: hidden;" class="container">
-	<header>
-		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
-	</header>
 
 		<div class="container">
 			<span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
@@ -192,7 +187,6 @@
 		<hr>
 			
 		<!-- footer -->
-		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
 </div>
       <!--Required JS files-->
       <script src="/assets/js/jquery-2.2.4.min.js"></script>

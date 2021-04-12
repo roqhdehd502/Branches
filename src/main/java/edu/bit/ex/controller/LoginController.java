@@ -33,8 +33,10 @@ public class LoginController {
 	private SecurityService securityService;
 
 	// 로그인페이지
+
 	@GetMapping("/login")
 	public ModelAndView login(@RequestParam(value = "error", required = false) String error,
+
 			@RequestParam(value = "exception", required = false) String exception, ModelAndView mav) {
 		log.info("login...");
 		mav.setViewName("login/login");
@@ -43,6 +45,16 @@ public class LoginController {
 
 		return mav;
 	}
+
+	// 타임리프 로그인페이지(테스트중...)
+	/*
+	 * @GetMapping("/login") public ModelAndView login(@RequestParam(value = "error", required = false) String error,
+	 * 
+	 * @RequestParam(value = "exception", required = false) String exception, ModelAndView mav) { log.info("login...");
+	 * mav.setViewName("thymeleaf/login"); mav.addObject("error", error); mav.addObject("exception", exception);
+	 * 
+	 * return mav; }
+	 */
 
 	@GetMapping("/test/login")
 	public @ResponseBody String testLogin(Authentication authentication) {

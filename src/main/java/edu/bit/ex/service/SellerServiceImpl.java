@@ -13,7 +13,6 @@ import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.OrderDetailVO;
-import edu.bit.ex.vo.PrdctDetailVO;
 import edu.bit.ex.vo.PrdctOrderVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
@@ -33,7 +32,7 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public List<PrdctVO> getProduct() {
+	public List<PrdctRegisterImageVO> getProduct() {
 		log.info("getProduct......");
 		return sellerMapper.getProduct();
 	}
@@ -79,22 +78,9 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public void prdctDetailUpdate(PrdctRegisterImageVO prvo) {
-		log.info("prdctDetailUpdate()......");
-		sellerMapper.prdctDetailUpdate(prvo);
-
-	}
-
-	@Override
 	public void prdInsert(PrdctRegisterImageVO PrdctImageVO) {
 		log.info("prdInsert()......");
 		sellerMapper.prdInsert(PrdctImageVO);
-	}
-
-	@Override
-	public List<PrdctDetailVO> getPrdctDetail() {
-		log.info("getPrdctDetail()......");
-		return sellerMapper.getPrdctDetail();
 	}
 
 	@Override
@@ -111,22 +97,9 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public void boardDelete(int board_id) {
-		log.info("boardDelete()......");
-		sellerMapper.boardDelete(board_id);
-
-	}
-
-	@Override
 	public PrdctVO getOption(String getPrdct_id) {
 		log.info("getOption()......");
 		return sellerMapper.getOption(getPrdct_id);
-	}
-
-	@Override
-	public PrdctDetailVO getPrd(String getPrdct_id) {
-		log.info("getPrd()......");
-		return sellerMapper.getPrd(getPrdct_id);
 	}
 
 	/*
@@ -162,9 +135,9 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public BoardPrdctImageVO getContent(int getBoard_id) {
+	public BoardVO getContent(String getPrdct_id) {
 		log.info("getContent()......");
-		return sellerMapper.getContent(getBoard_id);
+		return sellerMapper.getContent(getPrdct_id);
 	}
 
 	@Override
@@ -194,7 +167,7 @@ public class SellerServiceImpl implements SellerService {
 
 	@Override
 	public int getTotal1(SearchCriteria cri) {
-		log.info("getTotal()......");
+		log.info("getTotal1()......");
 		return sellerMapper.getTotal1(cri);
 	}
 
