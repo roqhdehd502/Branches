@@ -1,6 +1,5 @@
 package edu.bit.ex.service;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
-import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.page.MagazineCommentCriteria;
 import edu.bit.ex.page.MagazineCriteria;
 import edu.bit.ex.page.NoticeCriteria;
@@ -37,16 +35,13 @@ public interface BoardService {
 	public void setNoticeModify(BoardVO boardVO);
 
 	// 페이징을 적용한 매거진 게시판 리스트
-	public List<BoardPrdctImageVO> getMagazineList(MagazineCriteria cri);
+	public List<BoardVO> getMagazineList(MagazineCriteria cri);
 
 	// 페이징 단위에 적용되는 최대 매거진 게시글 단위
 	public int getMagazineTotal(MagazineCriteria cri);
 
 	// 매거진 작성
-	public void setMagazineWrite(BoardPrdctImageVO bPrdctImageVO);
-
-	// 매거진 썸네일 첨부 작성
-	public void setMagazineImage(MultipartFile file);
+	public void setMagazineWrite(BoardVO boardVO);
 
 	// 매거진 첨부사진 업로드
 	public void magazineImageUpload(HttpServletRequest request, HttpServletResponse response, MultipartFile upload) throws Exception;
@@ -75,18 +70,16 @@ public interface BoardService {
 	// 매거진 게시글 댓글 삭제
 	public int magazineCommentRemove(int comment_id);
 
+	// 매거진 썸네일만 삭제
+	public int magazineImageOnlyRemove(BoardVO boardVO);
+
 	// 매거진 삭제
-	public int magazineRemove(int board_id);
-
-	// 매거진 썸네일 삭제(썸네일만 삭제시)
-	public int magazineImageOnlyRemove(int board_id, String onedeletefiles);
-
-	// 매거진 썸네일 삭제(게시판이랑 같이 삭제시)
-	public int magazineImageRemove(int board_id, String deletefiles) throws IOException;
+	public int magazineRemove(BoardVO boardVO);
 
 	// 매거진 수정
-	public void setMagazineModify(BoardPrdctImageVO bPrdctImageVO);
+	public void setMagazineModify(BoardVO boardVO);
 
-	// 매거진 수정페이지 썸네일 추가
-	public void setMagazineModifyAddImg(int board_id, MultipartFile file);
+	// 매거진 수정페이지 썸네일까지 변경
+	public void setMagazineModifyAddImg(BoardVO boardVO);
+
 }

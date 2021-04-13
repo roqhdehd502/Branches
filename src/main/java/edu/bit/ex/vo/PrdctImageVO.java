@@ -6,10 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/*IMAGE_NUMBER	NUMBER
+/*
+IMAGE_NUMBER	NUMBER
 IMAGE_NAME	VARCHAR2(1000 BYTE)
 IMAGE_PATH	VARCHAR2(2000 BYTE)
-BOARD_ID	NUMBER*/
+BOARD_ID	NUMBER
+PRDCT_ID	VARCHAR2(20 BYTE)
+*/
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,4 +24,5 @@ public class PrdctImageVO { // 상품이미지
 	private String image_name; // 상품이미지명
 	private String image_path; // 상품이미지경로
 	private int board_id; // 게시글번호 fk
+	private String prdct_id; // 상품id fk
 }

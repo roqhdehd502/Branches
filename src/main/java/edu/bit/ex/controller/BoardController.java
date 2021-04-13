@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.config.auth.MemberDetails;
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
-import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.page.MagazineCommentCriteria;
 import edu.bit.ex.page.MagazineCommentPageVO;
 import edu.bit.ex.page.MagazineCriteria;
@@ -185,19 +184,12 @@ public class BoardController {
 	// 매거진 작성(관리자)
 	@Transactional(rollbackFor = Exception.class)
 	@PostMapping("/admin/board/magazine/write")
-	public ResponseEntity<String> magazineWrite(BoardPrdctImageVO bPrdctImageVO) {
+	public ResponseEntity<String> magazineWrite(BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
 		log.info("magazineWrite..");
 
-		MultipartFile[] uploadfiles = bPrdctImageVO.getUploadfiles();
-
 		try {
-			boardService.setMagazineWrite(bPrdctImageVO); // 텍스트 등록(1)
-
-			for (MultipartFile file : uploadfiles) {
-				boardService.setMagazineImage(file); // 썸네일 등록(N)
-			}
-
+			boardService.setMagazineWrite(boardVO);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -293,13 +285,11 @@ public class BoardController {
 
 	// 매거진 수정페이지(관리자)
 	@GetMapping("/admin/board/magazine/modify/{board_id}")
-	public ModelAndView magazineModifyView(BoardPrdctImageVO bPrdctImageVO, ModelAndView mav) {
+	public ModelAndView magazineModifyView(BoardVO boardVO, ModelAndView mav) {
 		log.info("magazineModifyView...");
 		mav.setViewName("board/magazine_modify");
 		// 매거진 게시글 가져오기
-		mav.addObject("magazine_modify", boardService.getMagazineContent(bPrdctImageVO.getBoard_id()));
-		// 매거진 썸네일 가져오기
-		mav.addObject("magazine_image", boardService.getMagazineImage(bPrdctImageVO.getBoard_id()));
+		mav.addObject("magazine_modify", boardService.getMagazineContent(boardVO.getBoard_id()));
 
 		return mav;
 	}
@@ -307,21 +297,23 @@ public class BoardController {
 	// 매거진 수정(관리자)
 	@Transactional(rollbackFor = Exception.class)
 	@PostMapping("/admin/board/magazine/modify/{board_id}")
-	public ResponseEntity<String> magazineModify(BoardPrdctImageVO bPrdctImageVO) {
+	public ResponseEntity<String> magazineModify(BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
 		log.info("magazineModify..");
 
-		MultipartFile[] uploadfiles = bPrdctImageVO.getUploadfiles(); // 추가할 이미지
-		int board_id = bPrdctImageVO.getBoard_id(); // 반영할 게시글 번호
+		MultipartFile[] uploadfiles = boardVO.getUploadfiles(); // 썸네일 파일 가져오기
+		String onedeletefiles = boardVO.getOnedeletefiles(); // 이미지만 삭제
 
 		try {
-			boardService.setMagazineModify(bPrdctImageVO); // 텍스트 수정(1)
-
-			// 수정페이지에서 사진을 새로 추가할 경우 진행한다
-			if (uploadfiles != null) {
-				for (MultipartFile f : uploadfiles) {
-					boardService.setMagazineModifyAddImg(board_id, f); // 이미지 새로 추가(N)
-				}
+			if (uploadfiles != null && onedeletefiles == null) {
+				// 수정페이지에서 사진을 새로 추가할 경우 진행한다
+				boardService.setMagazineModifyAddImg(boardVO);
+			} else if (uploadfiles == null && onedeletefiles != null) {
+				// 이미지만 삭제할 경우 진행한다
+				boardService.magazineImageOnlyRemove(boardVO);
+			} else {
+				// 사진을 새로 추가하지 않고 내용만 변경된 경우 진행한다
+				boardService.setMagazineModify(boardVO);
 			}
 
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
@@ -336,27 +328,12 @@ public class BoardController {
 	// 매거진 삭제(관리자)
 	@Transactional(rollbackFor = Exception.class)
 	@DeleteMapping("/admin/board/magazine/modify/{board_id}")
-	public ResponseEntity<String> magazineDelete(BoardPrdctImageVO bPrdctImageVO) {
+	public ResponseEntity<String> magazineDelete(BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
 		log.info("magazineDelete...");
 
-		String onedeletefiles = bPrdctImageVO.getOnedeletefiles(); // 삭제할 한 썸네일의 정보
-		String[] deletefiles = bPrdctImageVO.getDeletefiles(); // 삭제할 썸네일들 정보
-		int board_id = bPrdctImageVO.getBoard_id(); // 삭제할 게시글 번호
-
 		try {
-			if (onedeletefiles != null && deletefiles == null) { // 사진만 삭제 할 경우
-				boardService.magazineImageOnlyRemove(board_id, onedeletefiles);
-			} else if (onedeletefiles == null && deletefiles != null) { // 사진이랑 게시글도 삭제 할 경우
-				// 삭제는 게시글 업로드의 역순으로 진행한다
-				// 썸네일 삭제(N)
-				for (String s : deletefiles) {
-					boardService.magazineImageRemove(board_id, s);
-				}
-				// 텍스트 삭제(1)
-				boardService.magazineRemove(board_id);
-			}
-
+			boardService.magazineRemove(boardVO);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

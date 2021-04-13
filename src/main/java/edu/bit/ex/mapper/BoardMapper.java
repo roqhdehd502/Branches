@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
-import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.page.MagazineCommentCriteria;
 import edu.bit.ex.page.MagazineCriteria;
 import edu.bit.ex.page.NoticeCriteria;
@@ -40,16 +39,13 @@ public interface BoardMapper {
 	public void setNoticeModify(BoardVO boardVO);
 
 	// 페이징을 적용한 매거진 게시판 리스트
-	public List<BoardPrdctImageVO> getMagazineListWithPaging(MagazineCriteria cri);
+	public List<BoardVO> getMagazineListWithPaging(MagazineCriteria cri);
 
 	// 페이징 단위에 적용되는 최대 매거진 게시글 단위
 	public int getMagazineTotalCount(MagazineCriteria cri);
 
 	// 매거진 작성
-	public void setMagazineWrite(BoardPrdctImageVO bPrdctImageVO);
-
-	// 매거진 썸네일 첨부 작성
-	public void setMagazineImage(String saveName);
+	public void setMagazineWrite(BoardVO boardVO);
 
 	// 매거진 게시글
 	public BoardVO getMagazineContent(int board_id);
@@ -78,19 +74,16 @@ public interface BoardMapper {
 	// 매거진 게시글 댓글 삭제
 	public int magazineCommentRemove(int comment_id);
 
+	// 매거진 썸네일만 삭제
+	public int magazineImageOnlyRemove(int board_id, String image_name);
+
 	// 매거진 삭제
 	public int magazineRemove(int board_id);
 
-	// 매거진 썸네일 삭제(썸네일만 삭제시)
-	public int magazineImageOnlyRemove(int board_id, String image_name);
-
-	// 매거진 썸네일 삭제(게시판이랑 같이 삭제시)
-	public int magazineImageRemove(int board_id, String image_name);
-
 	// 매거진 수정
-	public void setMagazineModify(BoardPrdctImageVO bPrdctImageVO);
+	public void setMagazineModify(BoardVO boardVO);
 
-	// 매거진 수정페이지 썸네일 추가
-	public void setMagazineModifyAddImg(int board_id, String uploadfiles);
+	// 매거진 수정페이지 썸네일까지 변경
+	public void setMagazineModifyAddImg(BoardVO boardVO);
 
 }

@@ -8,9 +8,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/*PRDCT_ID	VARCHAR2(20 BYTE)
+/*
+PRDCT_ID	VARCHAR2(20 BYTE)
 SUPPLY_DATE	DATE
-SUPPLY_AMOUNT	NUMBER*/
+SUPPLY_AMOUNT	NUMBER
+*/
 
 @AllArgsConstructor
 @NoArgsConstructor

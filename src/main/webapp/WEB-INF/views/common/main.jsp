@@ -1,88 +1,66 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Branches</title>
-
-<!-- Required CSS files -->
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/owl.carousel.css">
-<link rel="stylesheet" href="/assets/css/barfiller.css">
-<link rel="stylesheet" href="/assets/css/animate.css">
-<link rel="stylesheet" href="/assets/css/font-awesome.min.css">
-<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="/assets/css/slicknav.css">
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/bootstrap.min.css">
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Branches : Main</title>
+	
+	<!-- Required CSS files -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/css/owl.carousel.css">
+	<link rel="stylesheet" href="/assets/css/barfiller.css">
+	<link rel="stylesheet" href="/assets/css/animate.css">
+	<link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/assets/css/slicknav.css">
+	<link rel="stylesheet" href="/assets/css/main.css">
+	<link rel="stylesheet" href="/bootstrap.min.css">
 </head>
 <body>
-<div style="overflow: hidden;" class="container">
-<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
+	<div style="overflow: hidden;" class="container">
+		<!-- header -->
+		<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp"></jsp:include>
+		
 		<div class="container">
 			<div class="hero-slider">
-				<div class="single-slide" style="background-image: url(/hs/1.jpg)">
+				<!-- 슬라이드 바 -->
+				<c:forEach var="i" begin="1" end="4">		
+				<div class="single-slide" style="background-image: url(/hs/${i}.jpg)"> 
 					<div class="inner">
 						<div class="container">
 							<div class="row justify-content-center">
 								<div class="col-lg-6 text-center">
 									<div class="slide-content">
 										<h2 style="color: white;">Balenciaga</h2>
-										<p style="color: white;">
-											21/22 SS 오직 Branches에서만<br /> [단독] 판매 시작!
-										</p>
+										<c:choose>
+											<c:when test="${i eq 1}">
+												<p style="color: white;">21/22 SS 오직 Branches에서만<br />[단독] 판매 시작!</p>
+											</c:when>
+											<c:when test="${i eq 2}">
+												<p style="color: white;">2021.03.20.00:00</p>
+											</c:when>
+											<c:when test="${i eq 3}">
+												<p style="color: white;"></p>
+											</c:when>
+											<c:otherwise>
+												<p style="color: white;"></p>
+											</c:otherwise>
+										</c:choose>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="single-slide" style="background-image: url(/hs/6.jpg)">
-					<div class="inner">
-						<div class="container">
-							<div class="row justify-content-center">
-								<div class="col-lg-6 text-center">
-									<div class="slide-content">
-										<h2 style="color: white;">Balenciaga</h2>
-										<p style="color: white;">2021.03.20.00:00</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="single-slide" style="background-image: url(/hs/7.jpg)">
-					<div class="inner">
-						<div class="container">
-							<div class="row justify-content-center">
-								<div class="col-lg-6 text-center">
-									<div class="slide-content">
-										<h2 style="color: white;">Balenciaga</h2>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="single-slide" style="background-image: url(/hs/9.jpg)">
-					<div class="inner">
-						<div class="container">
-							<div class="row justify-content-center">
-								<div class="col-lg-6 text-center">
-									<div class="slide-content">
-										<h2 style="color: white;"></h2>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				</c:forEach>
+						
 			</div>
 		</div>
-		<br /> <br /> <br /> <br /> <br /> <br />
+		<br/><br/><br/><br/><br/><br/>
 
 		<article>
 			<!-- 상품소개 1 -->
@@ -93,7 +71,8 @@
 			<div class="team-area sp">
 				<div class="container">
 					<div class="row">
-						<c:forEach items="${prdct }" var="prdct" varStatus="status" begin="0" end="3">
+
+						<c:forEach items="${prdct}" var="prdct" varStatus="status" begin="0" end="3">
 							<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 								<div class="inner">
 									<a href="#" style="text-decoration: none;">
@@ -112,6 +91,7 @@
 								</div>
 							</div>
 						</c:forEach>
+						
 					</div>
 				</div>
 			</div>
@@ -201,23 +181,23 @@
 							</div>
 						</div>
 					</c:forEach>
-				  </div>
 				</div>
 			</div>
-			</section>
-
-			<!-- footer -->
-			<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
 		</div>
-		<!--Required JS files-->
-		<script src="/assets/js/jquery-2.2.4.min.js"></script>
-		<script src="/assets/js/vendor/popper.min.js"></script>
-		<script src="/assets/js/vendor/bootstrap.min.js"></script>
-		<script src="/assets/js/vendor/owl.carousel.min.js"></script>
-		<script src="/assets/js/vendor/isotope.pkgd.min.js"></script>
-		<script src="/assets/js/vendor/jquery.barfiller.js"></script>
-		<script src="/assets/js/vendor/loopcounter.js"></script>
-		<script src="/assets/js/vendor/slicknav.min.js"></script>
-		<script src="/assets/js/active.js"></script>
+		</section>
+
+		<!-- footer -->
+		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
+	</div>
+	<!--Required JS files-->
+	<script src="/assets/js/jquery-2.2.4.min.js"></script>
+	<script src="/assets/js/vendor/popper.min.js"></script>
+	<script src="/assets/js/vendor/bootstrap.min.js"></script>
+	<script src="/assets/js/vendor/owl.carousel.min.js"></script>
+	<script src="/assets/js/vendor/isotope.pkgd.min.js"></script>
+	<script src="/assets/js/vendor/jquery.barfiller.js"></script>
+	<script src="/assets/js/vendor/loopcounter.js"></script>
+	<script src="/assets/js/vendor/slicknav.min.js"></script>
+	<script src="/assets/js/active.js"></script>
 </body>
 </html>

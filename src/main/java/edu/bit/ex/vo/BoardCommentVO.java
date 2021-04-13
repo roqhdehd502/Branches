@@ -8,11 +8,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/*COMMENT_ID	NUMBER
+/*
+COMMENT_ID	NUMBER
 BOARD_ID	NUMBER
-MBR_ID	VARCHAR2(15 BYTE)
+MBR_ID	VARCHAR2(50 BYTE)
 COMMENT_CONTENT	VARCHAR2(600 BYTE)
-COMMENT_DATE	DATE*/
+COMMENT_DATE	DATE
+*/
 
 @AllArgsConstructor
 @NoArgsConstructor
