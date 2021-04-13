@@ -157,7 +157,7 @@
 			<div class="container">
 				<div class="row">
 					<c:forEach items="${prdct}" var="prdct">
-						<div class="col-sm-2 col-md-2 col-lg-2 single-team">
+						<div class="col-sm-2 col-md-2 col-lg-2 single-team" onclick="location.href='/admin/mypage/seller/${mbr.mbr_id}/prdct/${prdct.prdct_id}'">
 						<div class="inner">
 							<div class="team-img">
 								<img src="/ksp/th-ex.jpg" alt="Member Photo">
@@ -174,6 +174,37 @@
 				</div>
 			</div>
 		</div>
+		
+		<br />
+		<hr>
+
+		<div>
+			<ul class="pagination">
+				<c:choose>
+					<c:when test="${pageMaker.prev}">
+						<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+					</c:otherwise>
+				</c:choose>
+
+				<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+					<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+					<li class="page-item ${pageMaker.cri.pageNum == idx ? 'active' : '' }"><a class="page-link" href="${pageMaker.makeQuery(idx)}">${idx}</a></li>
+				</c:forEach>
+
+				<c:choose>
+					<c:when test="${pageMaker.next && pageMaker.endPage > 0}">
+						<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+					</c:otherwise>
+				</c:choose>
+			</ul>
+		</div>
+
 		<!-- footer -->
 		<footer>
 			<div class="footer-top">

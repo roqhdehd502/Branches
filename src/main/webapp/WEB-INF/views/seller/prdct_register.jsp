@@ -245,17 +245,6 @@
 	        formData.append("board_content", board_content);
 	        formData.append("prdct_stock", prdct_stock);
 	    		
-	    	// 파일저장 영역
-	       /*  var inputFile = $("#uploadfiles");
-	    	console.log(inputFile);
-	        var files = inputFile[0].files;  
-                
-	        for (var i = 0; i < files.length; i++) {
-	        	console.log(files[i]);
-	        	formData.append("uploadfiles", files[i]);
-	        }   */   
-	    		
-	        // 파일 넣을때 JSON.stringify()는 적용이 안된다...
 	        $.ajax({
 	        	type : "POST",
 		        url : $(this).attr("action"),

@@ -21,6 +21,7 @@ ORDER_NUMBER	NUMBER
 BOARD_LIKE	NUMBER
 BOARD_HIT	NUMBER
 BOARD_STARRATE	NUMBER
+BOARD_CONTENT	VARCHAR2(1000 BYTE)
 */
 
 @AllArgsConstructor
@@ -41,4 +42,5 @@ public class BoardVO { // 게시판
 	private int board_like; // 게시글추천수
 	private int board_hit; // 게시글조회수
 	private int board_starrate; // 게시글별점수
+	private String board_thumbnail; // 게시글썸네일
 }

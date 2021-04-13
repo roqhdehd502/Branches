@@ -1,5 +1,13 @@
 package edu.bit.ex.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,12 +20,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.joinvo.MbrShippingVO;
+import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.MemberCriteria;
 import edu.bit.ex.page.MemberPageVO;
 import edu.bit.ex.page.PrdctListCriteria;
+import edu.bit.ex.page.PrdctListPageVO;
 import edu.bit.ex.service.AdminService;
 import edu.bit.ex.vo.MbrVO;
 import lombok.AllArgsConstructor;
@@ -129,32 +140,102 @@ public class AdminController {
 	@RequestMapping(value = "/mypage/seller/{seller_id}/prdct", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView admin_seller_prdctlist(@PathVariable("seller_id") String m_id, PrdctListCriteria cri, ModelAndView mav) {
 		mav.setViewName("admin/brand_prdct_list");
-		// mav.addObject("mbr", adminService.getMemberInfo(m_id));
-		// mav.addObject("prdct", adminService.getSellerPrdctListWithCri(cri, m_id));
-		// int total = adminService.getSellerPrdctTotalCount(cri, m_id);
-		// mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
-		// log.info("total : " + total);
+		mav.addObject("mbr", adminService.getMemberInfo(m_id));
+		mav.addObject("prdct", adminService.getSellerPrdctListWithCri(cri, m_id));
+		int total = adminService.getSellerPrdctTotalCount(cri, m_id);
+		mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
+		log.info("total : " + total);
 		return mav;
 	}
 
-	// 관리자 판매자 정보수정 admin
-	@PutMapping(value = "/mypage/seller/{seller_id}")
-	public ResponseEntity<String> admin_seller_update(@RequestBody MbrShippingVO mavo) {
+	// 관리자 판매자 상품 수정페이지 admin
+	@RequestMapping(value = "/mypage/seller/{seller_id}/prdct/{prdct_id}", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView admin_seller_prdct(@PathVariable("seller_id") String m_id, @PathVariable("prdct_id") String p_id, PrdctListCriteria cri,
+			ModelAndView mav) {
+		mav.setViewName("admin/seller_product_modify");
+		mav.addObject("prdct", adminService.getPrdctInfo(p_id));
+		mav.addObject("pBoard", adminService.getPrdctContent(p_id));
+		mav.addObject("pCategory", adminService.getCategory());
+		return mav;
+	}
+
+	// 상품 수정
+	@PutMapping(value = "/mypage/seller/{seller_id}/prdct/{prdct_id}/modify")
+	public ResponseEntity<String> admin_seller_prdct_modify(@RequestBody PrdctRegisterImageVO prvo, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		ResponseEntity<String> entity = null;
 
-		log.info("rest_update..");
+		log.info("admin prdct modify");
 		try {
-
-			adminService.sellerInfoUpdate(mavo);
-			log.info("update seller info");
+			adminService.updatePrdctInfo(prvo);
+			log.info("admin prdct modify success");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
 		return entity;
+	}
+
+	/* 상품 thumbnail 수정 */
+	@RequestMapping("/mypage/seller/{s_id}/prdct/{p_id}/modify/prdct_thumb")
+	public void prdct_thumb_update(HttpServletRequest request, HttpServletResponse response, MultipartFile upload) throws Exception {
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+
+		// 업로드한 파일 이름
+		String fileName = upload.getOriginalFilename();
+
+		// 파일을 바이트 배열로 변환
+		byte[] bytes = upload.getBytes();
+
+		// 이미지를 업로드할 디렉토리(배포 디렉토리로 설정)
+		String uploadPath = "C:\\tetleaf\\Branches\\src\\main\\resources\\static\\prdct_img\\prdct_thumbnail\\";
+		OutputStream out = new FileOutputStream(new File(uploadPath + fileName));
+
+		// 서버로 업로드
+		out.write(bytes);
+		// 클라이언트에 결과 표시
+		String callback = request.getParameter("CKEditorFuncNum");
+
+		// 서버=>클라이언트로 텍스트 전송(자바스크립트 실행)
+		PrintWriter printWriter = response.getWriter();
+
+		String fileUrl = request.getContextPath() + "/prdct_img/prdct_thumbnail/" + fileName;
+
+		printWriter.println("<script>window.parent.CKEDITOR.tools.callFunction(" + callback + ",'" + fileUrl + "','이미지가 업로드되었습니다.')" + "</script>");
+		printWriter.flush();
+	}
+
+	/* 상품 content image 수정 */
+	@RequestMapping("/mypage/seller/{s_id}/prdct/{p_id}/modify/prdct_img")
+	public void prdct_img_update(HttpServletRequest request, HttpServletResponse response, MultipartFile upload) throws Exception {
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+
+		// 업로드한 파일 이름
+		String fileName = upload.getOriginalFilename();
+
+		// 파일을 바이트 배열로 변환
+		byte[] bytes = upload.getBytes();
+
+		// 이미지를 업로드할 디렉토리(배포 디렉토리로 설정)
+		String uploadPath = "C:\\tetleaf\\Branches\\src\\main\\resources\\static\\prdct_img\\";
+		OutputStream out = new FileOutputStream(new File(uploadPath + fileName));
+
+		// 서버로 업로드
+		out.write(bytes);
+		// 클라이언트에 결과 표시
+		String callback = request.getParameter("CKEditorFuncNum");
+
+		// 서버=>클라이언트로 텍스트 전송(자바스크립트 실행)
+		PrintWriter printWriter = response.getWriter();
+
+		String fileUrl = request.getContextPath() + "/prdct_img/" + fileName;
+
+		printWriter.println("<script>window.parent.CKEDITOR.tools.callFunction(" + callback + ",'" + fileUrl + "','이미지가 업로드되었습니다.')" + "</script>");
+		printWriter.flush();
 	}
 
 	// 관리자 판매자 삭제 admin

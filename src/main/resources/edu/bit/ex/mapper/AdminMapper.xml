@@ -147,4 +147,36 @@
 	]]>
 	</insert>
 	
+	<!-- 판매자 상품 정보 불러오기 -->
+	<select id="getPrdctInfo" resultType="edu.bit.ex.vo.PrdctVO">
+	<![CDATA[
+		select * from prdct where prdct_id = #{p_id}
+	]]>
+	</select>
+	
+	<select id="getPrdctContent" resultType="edu.bit.ex.vo.BoardVO">
+	<![CDATA[
+		select * from board where prdct_id = #{p_id} and board_type_number=6
+	]]>
+	</select>
+	
+	<update id="updatePrdctInfo">
+	<![CDATA[
+		update prdct set prdct_name=#{prdct_name}, category_number=#{category_number}, prdct_color=#{prdct_color}, prdct_size = #{prdct_size}
+							,prdct_price=#{prdct_price}, prdct_stock=#{prdct_stock} where prdct_id=#{prdct_id}
+	]]>
+	</update>
+	
+	<update id="updatePrdctBoardInfo">
+	<![CDATA[
+		update board set board_thumbnail=#{board_thumbnail}, board_content=#{board_content} where board_id=#{board_id}
+	]]>
+	</update>
+	
+	<select id="getCategory" resultType="edu.bit.ex.vo.CategoryVO">
+	<![CDATA[
+		select * from category
+	]]>
+	</select>
+	
 </mapper>
