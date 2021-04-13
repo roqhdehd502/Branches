@@ -9,7 +9,6 @@ import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.MemberCriteria;
 import edu.bit.ex.page.PrdctListCriteria;
 import edu.bit.ex.vo.BoardVO;
-import edu.bit.ex.vo.CategoryListVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
@@ -37,6 +36,8 @@ public interface AdminMapper {
 
 	// 판매자 별 등록상품 페이징 리스트
 	public List<PrdctVO> getSellerPrdctListWithCri(PrdctListCriteria cri, String m_id);
+
+	public List<BoardVO> getPrdctImg(String mbr_id);
 
 	public int getSellerPrdctTotalCount(PrdctListCriteria cri, String m_id);
 
@@ -69,6 +70,6 @@ public interface AdminMapper {
 
 	public void updatePrdctBoardInfo(PrdctRegisterImageVO prvo);
 
-	public List<CategoryListVO> getCategory();
+	public List<PrdctRegisterImageVO> getSellerPrdctList(String mbr_id);
 
 }

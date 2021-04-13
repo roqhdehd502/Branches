@@ -12,7 +12,6 @@ import edu.bit.ex.mapper.AdminMapper;
 import edu.bit.ex.page.MemberCriteria;
 import edu.bit.ex.page.PrdctListCriteria;
 import edu.bit.ex.vo.BoardVO;
-import edu.bit.ex.vo.CategoryListVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
@@ -76,6 +75,13 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		log.info("getSellerPrdctListWithCri");
 		return adminMapper.getSellerPrdctListWithCri(cri, m_id);
+	}
+
+	@Override
+	public List<BoardVO> getPrdctImg(String m_id) {
+		// TODO Auto-generated method stub
+		log.info("getSellerPrdctListWithCri");
+		return adminMapper.getPrdctImg(m_id);
 	}
 
 	@Override
@@ -171,9 +177,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<CategoryListVO> getCategory() {
+	public List<PrdctRegisterImageVO> getSellerPrdctList(String m_id) {
 		// TODO Auto-generated method stub
-		return adminMapper.getCategory();
+		return adminMapper.getSellerPrdctList(m_id);
 	}
 
 }

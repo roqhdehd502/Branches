@@ -69,9 +69,16 @@
 			        		select
 			                    *
 			                from
-			                    prdct  
+			                    prdct
 			    ) a where rownum <= #{cri.pageNum} * #{cri.amount}
 			) where rnum > (#{cri.pageNum}-1) * #{cri.amount} and mbr_id=#{m_id}
+	]]>
+	</select>
+	
+	<select id="getPrdctImg" resultType="edu.bit.ex.vo.BoardVO">
+	<![CDATA[
+		select * from board where mbr_id=#{mbr_id} and board_type_number=6
+			     
 	]]>
 	</select>
 	
@@ -163,19 +170,19 @@
 	<update id="updatePrdctInfo">
 	<![CDATA[
 		update prdct set prdct_name=#{prdct_name}, category_number=#{category_number}, prdct_color=#{prdct_color}, prdct_size = #{prdct_size}
-							,prdct_price=#{prdct_price}, prdct_stock=#{prdct_stock} where prdct_id=#{prdct_id}
+							,prdct_price=#{prdct_price}, prdct_stock=#{prdct_stock}, prdct_thumbnail=#{prdct_thumbnail} where prdct_id=#{prdct_id}
 	]]>
 	</update>
 	
 	<update id="updatePrdctBoardInfo">
 	<![CDATA[
-		update board set board_thumbnail=#{board_thumbnail}, board_content=#{board_content} where board_id=#{board_id}
+		update board set board_content=#{board_content} where board_id=#{board_id}
 	]]>
 	</update>
 	
-	<select id="getCategory" resultType="edu.bit.ex.vo.CategoryVO">
-	<![CDATA[
-		select * from category
+	<select id="getSellerPrdctList" resultType="edu.bit.ex.joinvo.PrdctRegisterImageVO">
+		<![CDATA[
+		select * from board where mbr_id=#{mbr_id} and board_type_number=6
 	]]>
 	</select>
 	

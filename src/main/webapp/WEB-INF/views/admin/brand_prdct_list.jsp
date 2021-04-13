@@ -131,25 +131,6 @@
 		
 		<hr style="margin: 15px 15px 40px 15px;">
 		
-		<%-- <div class="container">
-			<div class="row">
-				<div class="col-md-3 contact-info"style="padding-left: 40px">
-					<h2>${mbr.mbr_name}</h2>
-					<p style="float: left;">${category.category_name}</p>
-				</div>
-				<hr style="margin: 15px 15px 40px 15px;">
-				<div class="col-md-6 contact-info"></div>
-				<div class="col-md-2 contact-info" align="center" style="padding-right: 10px">
-					
-				</div>
-			</div>
-			<span style="margin-left: 14px;"> </span> <span style="margin-left: 400px;" align="center"> </span>
-		</div> --%>
-		
-		<!-- <div class="page-title sp">
-			
-		</div> -->
-		
 		<div class="container text-left" >
 				<h4>${mbr.mbr_name }</h4>
 			</div>
@@ -157,11 +138,12 @@
 			<div class="container">
 				<div class="row">
 					<c:forEach items="${prdct}" var="prdct">
-						<div class="col-sm-2 col-md-2 col-lg-2 single-team" onclick="location.href='/admin/mypage/seller/${mbr.mbr_id}/prdct/${prdct.prdct_id}'">
+						<div class="col-sm-2 col-md-2 col-lg-2 single-team" style="height: 100%" onclick="location.href='/admin/mypage/seller/${mbr.mbr_id}/prdct/${prdct.prdct_id}'">
 						<div class="inner">
-							<div class="team-img">
-								<img src="/ksp/th-ex.jpg" alt="Member Photo">
+							<div class="team-img" style="height: 10%;">
+								${prdct.prdct_thumbnail}
 							</div>
+							
 							<div class="team-content">
 								<h4>${prdct.prdct_name}</h4>
 								<h5>${mbr.mbr_name}</h5>
