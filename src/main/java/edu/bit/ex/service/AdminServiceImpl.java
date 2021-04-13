@@ -7,9 +7,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import edu.bit.ex.joinvo.MbrShippingVO;
+import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.mapper.AdminMapper;
 import edu.bit.ex.page.MemberCriteria;
 import edu.bit.ex.page.PrdctListCriteria;
+import edu.bit.ex.vo.BoardVO;
+import edu.bit.ex.vo.CategoryListVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
@@ -146,6 +149,31 @@ public class AdminServiceImpl implements AdminService {
 
 		adminMapper.addSellerInfo(mbrShippingVO);
 		adminMapper.addSellerAddress(mbrShippingVO);
+	}
+
+	@Override
+	public PrdctVO getPrdctInfo(String p_id) {
+		// TODO Auto-generated method stub
+		return adminMapper.getPrdctInfo(p_id);
+	}
+
+	@Override
+	public BoardVO getPrdctContent(String p_id) {
+		// TODO Auto-generated method stub
+		return adminMapper.getPrdctContent(p_id);
+	}
+
+	@Override
+	public void updatePrdctInfo(PrdctRegisterImageVO prvo) {
+		// TODO Auto-generated method stub
+		adminMapper.updatePrdctInfo(prvo);
+		adminMapper.updatePrdctBoardInfo(prvo);
+	}
+
+	@Override
+	public List<CategoryListVO> getCategory() {
+		// TODO Auto-generated method stub
+		return adminMapper.getCategory();
 	}
 
 }

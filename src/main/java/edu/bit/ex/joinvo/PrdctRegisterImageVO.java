@@ -65,6 +65,7 @@ public class PrdctRegisterImageVO { // 게시판 이미지 VO
 	private Date board_date; // 게시글작성일자
 	private int board_like; // 게시글추천수
 	private int board_hit; // 게시글조회수
+	private String board_thumbnail; // 게시글내용
 
 	private int image_number; // 상품이미지번호
 	private String image_name; // 상품이미지명

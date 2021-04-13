@@ -5,8 +5,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import edu.bit.ex.joinvo.MbrShippingVO;
+import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.MemberCriteria;
 import edu.bit.ex.page.PrdctListCriteria;
+import edu.bit.ex.vo.BoardVO;
+import edu.bit.ex.vo.CategoryListVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
@@ -56,6 +59,16 @@ public interface AdminMapper {
 
 	public void addSellerAddress(MbrShippingVO mbrShippingVO);
 
+	public PrdctVO getPrdctInfo(String p_id);
+
+	public BoardVO getPrdctContent(String p_id);
+
 	// 회원 삭제(탈퇴)======보류
+
+	public void updatePrdctInfo(PrdctRegisterImageVO prvo);
+
+	public void updatePrdctBoardInfo(PrdctRegisterImageVO prvo);
+
+	public List<CategoryListVO> getCategory();
 
 }

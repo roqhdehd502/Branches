@@ -123,7 +123,7 @@
 									<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
 								</c:when>
 								<c:otherwise>
-									<li class="page-item  disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+									<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
 								</c:otherwise>
 							</c:choose>
 
@@ -133,11 +133,11 @@
 							</c:forEach>
 							
 							<c:choose>
-							<c:when test="${pageMaker.next && pageMaker.endPage > 0}">
-								<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+							<c:when test="${pageMaker.next && pageMaker.endPage <= 0}">
+								<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
 							</c:when>
 							<c:otherwise>
-								<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+								<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
 							</c:otherwise>
 							</c:choose>
 						</ul>
