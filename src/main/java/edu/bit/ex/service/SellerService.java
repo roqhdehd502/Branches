@@ -5,6 +5,7 @@ import java.util.List;
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
+import edu.bit.ex.page.PrdctListCriteria;
 import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.CategoryVO;
@@ -16,49 +17,61 @@ import edu.bit.ex.vo.ShippingVO;
 
 public interface SellerService {
 
+	// 주문상세 정보불러오기
 	public List<OrderDetailVO> getOrderDetail();
 
+	// 상품 정보 불러오기
 	public List<PrdctRegisterImageVO> getProduct();
 
+	// 상품 주문 정보 불러오기
 	public List<PrdctOrderVO> getPrdOrder();
 
+	// 게시판 정보 불러오기
 	public List<BoardVO> getBoard(SearchCriteria cri);
 
+	// 판매자 정보 불러오기
 	public MbrVO getMemberInfo(String s_id);
 
 	public ShippingVO getSellerAddress(String m_id);
 
+	// 판매자 정보 수정
 	public void sellerInfoUpdate(MbrShippingVO mavo);
 
+	// 상품 정보수정
 	public void prdctUpdate(PrdctRegisterImageVO prvo);
 
-	public MbrVO getSellerInfo(String mbr_id);
+	// 게시글 내용 수정
+	public void prdctContentUpdate(PrdctRegisterImageVO prvo);
 
 	// 상품삭제
 	public void prdctDelete(String prdct_id);
 
+	// 상품 등록
 	public void prdInsert(PrdctRegisterImageVO PrdctImageVO);
 
 	public PrdctVO getOption(String getPrdct_id);
 
 	/* public void setPrdctImage(MultipartFile file); */
 
+	// 판매자 주소 불러오기(상품 등록시)
 	public ShippingVO getAddress(String getMbr_id);
 
+	// 썸네일 불러오기
 	public List<BoardPrdctImageVO> getFileName(int getBoard_id);
 
+	// 카테고리 목록 불러오기
 	public List<CategoryVO> getCategory();
 
+	// 게시글 내용 불러오기(상품 수정시)
 	public BoardVO getContent(String getPrdct_id);
 
-	public void prdctContentUpdate(PrdctRegisterImageVO prvo);
+	// 상품 등록글 내림차순 불러오기 (상품 조회시)
+	public List<BoardVO> getbNumDesc(PrdctListCriteria cri);
 
-	public List<BoardVO> getbNum(int board_id);
-
-	public BoardVO getboardId(int board_id);
-
+	// 상품q&a 게시글 총 수 불러오기
 	public int getTotal(SearchCriteria cri);
 
-	public int getTotal1(SearchCriteria cri);
+	// 상품조회 게시글 총 수 불러오기
+	public int getPrdTotal(PrdctListCriteria cri);
 
 }

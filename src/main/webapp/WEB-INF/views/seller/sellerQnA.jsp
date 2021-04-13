@@ -45,8 +45,7 @@
 		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 	</header>
 	<div class="container">
-         <span style="margin-left: 150px;">
-         </span> <span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
+         <span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
             <h3>${mbr.mbr_name }</h3>
             <h3 style="position: relative; top: 15px;">${mbr.mbr_id }</h3>
          </span>
@@ -90,12 +89,16 @@
 					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px;">
 						<strong style="margin: 10px;">상품 Q & A</strong>
 					</h3>
-					<table class="table" style="text-align: center;">
+					<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(0)">번호순</button>&nbsp;&nbsp;
+					<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(1)">제목순</button>&nbsp;&nbsp;
+					<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(2)">작성자순</button>&nbsp;&nbsp;
+					<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(5)">일자순</button>
+					<table class="table" style="text-align: center;" id="myTable">
 						<thead>
 							<tr>
 								<th><h5>No.</h5></th>
 								<th><h5>제목</h5></th>
-								<th ><h5>작성자</h5></th>
+								<th><h5>작성자</h5></th>
 								<th><h5>문의</h5></th>
 								<th><h5>상품명</h5></th>
 								<th><h5>일자</h5></th>
@@ -113,7 +116,7 @@
 								<td><h6 >${prdct[status.index].prdct_name }</h6></td>
 								<td><h6>${board.board_date }</h6></td>
 							</tr>
-						</c:forEach>
+							</c:forEach>						
 						</tbody>
 					</table>
 					<div class="row">
@@ -123,7 +126,7 @@
 									<option value="" <c:out value="${pageMaker.cri.type == null?'selected' : '' }" />>---</option>
 									<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ?'selected' : '' }" />>제목</option>
 									<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ?'selected' : '' }" />>번호</option>
-									<%-- <option value="W" <c:out value="${pageMaker.cri.type eq 'W' ?'selected' : '' }" />>작성자</option> --%>
+									<option value="W" <c:out value="${pageMaker.cri.type eq 'W' ?'selected' : '' }" />>작성자</option>
 								</select> <input type="text" name="keyword" value='<c:out value="${pageMaker.cri.keyword}" />' /> <input type="hidden" class="form-control" name="pageNum"
 									value='<c:out value="${pageMaker.cri.pageNum}" />' /> <input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}" />' />
 								<button class="btn btn-primary btn-sm">검색</button>
@@ -139,7 +142,7 @@
 								</c:forEach>
 
 								<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-									<a class="page-link" href="/seller/mypage/prdctqna${pageMaker.makeQuery(pageMaker.endPage +1)}">»</a>
+									<a class="page-link" href="/seller/mypage/prdctqna${pageMaker.makeQuery(pageMaker.endPage +1)}?sort">»</a>
 								</c:if>
 							</ul>
 						</div>
@@ -150,65 +153,7 @@
 	
 	<hr>
 		<!-- footer -->
-		<footer>
-			<div class="footer-top">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>회사소개</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>제휴문의</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>채용정보</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>고객센터</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>이용약관</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>개인정보처리</h5></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="footer-bottom">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="copyright-txt">Copyright© 2021 Branches. All Rights Reserved.</div>
-						</div>
-						<div class="col-lg-6 text-right">
-							<div class="footer-nav">
-								<a href="/member/main">Home</a> <a href="#">Q&A</a> <a href="#">Notice</a> <a href="#">Magazine</a> <a href="#">Blog</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</footer>
-		<div class="container">
-			<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 | <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 | <strong>팩스 :</strong>
-				000-0000-0000 |<strong>사업자등록번호 :</strong> 000-00-000000 | <strong>통신판매업신고 :</strong> 0000-서울종로-00000 | 
-			</small> <br /> <small style="color: black;"><strong>고객센터</strong> 0000-0000 | 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) | <strong>이메일</strong>
-				admin@branches.co.kr | <strong>개인정보책임자</strong> 000 | <strong>호스팅서비스</strong> (주)00000 | </small>
-		</div><br/><br/>
+			<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
 		<!--Required JS files-->
 	<script src="/assets/js/jquery-2.2.4.min.js"></script>
 	<script src="/assets/js/vendor/popper.min.js"></script>
@@ -219,6 +164,64 @@
 	<script src="/assets/js/vendor/loopcounter.js"></script>
 	<script src="/assets/js/vendor/slicknav.min.js"></script>
 	<script src="/assets/js/active.js"></script>
+	<script>
+		function sortTable(n) {
+			var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+			table = document.getElementById("myTable");
+			switching = true;
+			// Set the sorting direction to ascending:
+			dir = "asc";
+			/* Make a loop that will continue until
+			no switching has been done: */
+			while (switching) {
+				// Start by saying: no switching is done:
+				switching = false;
+				rows = table.rows;
+				/* Loop through all table rows (except the
+				first, which contains table headers): */
+				for (i = 1; i < (rows.length - 1); i++) {
+					// Start by saying there should be no switching:
+					shouldSwitch = false;
+					/* Get the two elements you want to compare,
+					one from current row and one from the next: */
+					x = rows[i].getElementsByTagName("TD")[n];
+					y = rows[i + 1].getElementsByTagName("TD")[n];
+					/* Check if the two rows should switch place,
+					based on the direction, asc or desc: */
+					if (dir == "asc") {
+						if (x.innerHTML.toLowerCase() > y.innerHTML
+								.toLowerCase()) {
+							// If so, mark as a switch and break the loop:
+							shouldSwitch = true;
+							break;
+						}
+					} else if (dir == "desc") {
+						if (x.innerHTML.toLowerCase() < y.innerHTML
+								.toLowerCase()) {
+							// If so, mark as a switch and break the loop:
+							shouldSwitch = true;
+							break;
+						}
+					}
+				}
+				if (shouldSwitch) {
+					/* If a switch has been marked, make the switch
+					and mark that a switch has been done: */
+					rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+					switching = true;
+					// Each time a switch is done, increase this count by 1:
+					switchcount++;
+				} else {
+					/* If no switching has been done AND the direction is "asc",
+					set the direction to "desc" and run the while loop again. */
+					if (switchcount == 0 && dir == "asc") {
+						dir = "desc";
+						switching = true;
+					}
+				}
+			}
+		}
+	</script>
 </div>
 </body>
 </html>

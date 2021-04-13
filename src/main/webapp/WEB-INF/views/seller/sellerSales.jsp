@@ -18,6 +18,28 @@
 <link rel="stylesheet" href="/assets/css/slicknav.css">
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css">
+<style>
+     *{margin:0;padding:0;}
+    ul,li{list-style:none;}
+    .slide{height:300px;overflow:hidden;}
+    .slide ul{position:relative;height:100%;}
+    .slide li{position:absolute;left:0;right:0;top:0;bottom:0;opacity:0;animation:fade 12s infinite;}
+    .slide li:nth-child(1){background:#ffa;animation-delay:0s}
+    .slide li:nth-child(2){background:#faa;animation-delay:3s}
+    .slide li:nth-child(3){background:#afa;animation-delay:6s}
+    .slide li:nth-child(4){background:#aaf;animation-delay:9s}
+     /* 100 / 8 = 12.5 */
+    @keyframes fade {
+      0% {opacity:0;}
+      5% {opacity:1;}
+      25% {opacity:1;}
+      30% {opacity:0;}
+      100% {opacity:0;}
+    }
+  </style>
+
+
+
 </head>
 <body>
 <div style="overflow: hidden;" class="container">
@@ -25,14 +47,25 @@
 		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 	</header>
 	<div class="container">
-         <span style="margin-left: 70px;">
-         </span> <span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
+		<span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
             <h3>${mbr.mbr_name }</h3>
-            	<h3 style="position: relative; top: 15px;">${mbr.mbr_id }</h3>
+            <h3 style="position: relative; top: 15px;">${mbr.mbr_id }</h3>
          </span>
          <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="/seller/mypage/myinfo">정보수정</a></span> 
-         <span style="margin-left: 480px;" align="center">
-            <h2 style="position: relative; top: 5px;">새주문</h2>
+           <span style="margin-left: 300px;" align="center">
+            <h2 style="position: relative; top: 5px;">새 주문</h2>
+            <h4 style="position: relative; top: 15px;">2건</h4>
+         </span>
+         <span style="margin-left: 80px;" align="center">
+            <h2 style="position: relative; top: 5px;">취소</h2>
+            <h4 style="position: relative; top: 15px;">2건</h4>
+         </span>
+         <span style="margin-left: 80px;" align="center">
+            <h2 style="position: relative; top: 5px;">교환</h2>
+            <h4 style="position: relative; top: 15px;">2건</h4>
+         </span>
+         <span style="margin-left: 80px;" align="center">
+            <h2 style="position: relative; top: 5px;">환불</h2>
             <h4 style="position: relative; top: 15px;">2건</h4>
          </span>
       </div>
@@ -113,95 +146,22 @@
 				<h3 style="margin-top: 25px; margin-left: 15px;">
 					<strong style="margin: 10px;">검색어 순위 조회</strong><hr>
 				</h3>
-				<div style="margin-bottom: 20px;">
-					<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">ㄱㄴㄷ순</button></span>
-					<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">abc순</button></span>
-					<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">매출순</button></span>
-					<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">최근등록순</button></span>
+				<div class="slide">
+					<c:forEach items="${prdct }" var="prdct" varStatus="status" begin="0" end="4">
+						<ul>
+							<li ><h5>1</h5></li>
+							<li><h5>${prdct.prdct_name }</h5></li>
+							<li><h5>${prdOrder[status.index].order_date }</h5></li>
+							<li><h5>${prdct.prdct_price }₩</h5></li>
+						</ul>
+					</c:forEach>
 				</div>
-				<table class="table">
-					<thead>
-						<tr>
-							<th><h5>순위</h5></th>
-							<th><h5>상품명</h5></th>
-							<th><h5>등록일</h5></th>
-							<th><h5>가격</h5></th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${prdct }" var="prdct" varStatus="status" begin="0" end="4">
-							<tr>
-								<td><h5>1</h5></td>
-								<td><h5>${prdct.prdct_name }</h5></td>
-								<td><h5>${prdOrder[status.index].order_date }</h5></td>
-								<td><h5>${prdct.prdct_price }₩</h5></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
 				</span>
 			</div>
 		</div>
 
 		<!-- footer -->
-		<footer>
-			<div class="footer-top">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>회사소개</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>제휴문의</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>채용정보</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>고객센터</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>이용약관</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>개인정보처리</h5></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="footer-bottom">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="copyright-txt">Copyright© 2021 Branches. All Rights Reserved.</div>
-						</div>
-						<div class="col-lg-6 text-right">
-							<div class="footer-nav">
-								<a href="/member/main">Home</a> <a href="#">Q&A</a> <a href="#">Notice</a> <a href="#">Magazine</a> <a href="#">Blog</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</footer>
-		<div class="container">
-			<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 | <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 | <strong>팩스 :</strong>
-				000-0000-0000 |<strong>사업자등록번호 :</strong> 000-00-000000 | <strong>통신판매업신고 :</strong> 0000-서울종로-00000 | 
-			</small> <br /> <small style="color: black;"><strong>고객센터</strong> 0000-0000 | 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) | <strong>이메일</strong>
-				admin@branches.co.kr | <strong>개인정보책임자</strong> 000 | <strong>호스팅서비스</strong> (주)00000 | </small>
-		</div><br/><br/>
+			<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
 		<!--Required JS files-->
 	<script src="/assets/js/jquery-2.2.4.min.js"></script>
 	<script src="/assets/js/vendor/popper.min.js"></script>
@@ -212,6 +172,65 @@
 	<script src="/assets/js/vendor/loopcounter.js"></script>
 	<script src="/assets/js/vendor/slicknav.min.js"></script>
 	<script src="/assets/js/active.js"></script>
+	
+	<script>
+		function sortTable(n) {
+			var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+			table = document.getElementById("myTable");
+			switching = true;
+			// Set the sorting direction to ascending:
+			dir = "asc";
+			/* Make a loop that will continue until
+			no switching has been done: */
+			while (switching) {
+				// Start by saying: no switching is done:
+				switching = false;
+				rows = table.rows;
+				/* Loop through all table rows (except the
+				first, which contains table headers): */
+				for (i = 1; i < (rows.length - 1); i++) {
+					// Start by saying there should be no switching:
+					shouldSwitch = false;
+					/* Get the two elements you want to compare,
+					one from current row and one from the next: */
+					x = rows[i].getElementsByTagName("TD")[n];
+					y = rows[i + 1].getElementsByTagName("TD")[n];
+					/* Check if the two rows should switch place,
+					based on the direction, asc or desc: */
+					if (dir == "asc") {
+						if (x.innerHTML.toLowerCase() > y.innerHTML
+								.toLowerCase()) {
+							// If so, mark as a switch and break the loop:
+							shouldSwitch = true;
+							break;
+						}
+					} else if (dir == "desc") {
+						if (x.innerHTML.toLowerCase() < y.innerHTML
+								.toLowerCase()) {
+							// If so, mark as a switch and break the loop:
+							shouldSwitch = true;
+							break;
+						}
+					}
+				}
+				if (shouldSwitch) {
+					/* If a switch has been marked, make the switch
+					and mark that a switch has been done: */
+					rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+					switching = true;
+					// Each time a switch is done, increase this count by 1:
+					switchcount++;
+				} else {
+					/* If no switching has been done AND the direction is "asc",
+					set the direction to "desc" and run the while loop again. */
+					if (switchcount == 0 && dir == "asc") {
+						dir = "desc";
+						switching = true;
+					}
+				}
+			}
+		}
+	</script>
 </div>
 </body>
 </html>

@@ -21,8 +21,8 @@ public class SearchPageVO {
 		this.total = total;
 
 		// 최대 10페이지 단위로 보여주어 페이징을 처리한다.(100개 기준)
-		this.endPage = (int) (Math.ceil(cri.getPageNum() / 10.0)) * 10;
-		this.startPage = this.endPage - 9;
+		this.endPage = (int) (Math.ceil(cri.getPageNum() / 5.0)) * 5;
+		this.startPage = this.endPage - 4;
 
 		// 만약 전체 게시글 수가 100개 미만이면 해당 페이지까지만 보여준다.
 		int realEnd = (int) (Math.ceil((total * 1.0) / cri.getAmount()));

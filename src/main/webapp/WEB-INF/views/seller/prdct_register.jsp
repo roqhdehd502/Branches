@@ -35,10 +35,22 @@
 			<span style="margin-left: 22px; position: relative; bottom: 10px;">
 				<a href="/seller/mypage/myinfo">정보수정</a>
 			</span>
-			<span style="margin-left: 480px;" align="center">
-				<h2 style="position: relative; top: 5px;">새주문</h2>
-				<h4 style="position: relative; top: 15px;">2건</h4>
-			</span>
+			<span style="margin-left: 300px;" align="center">
+            <h2 style="position: relative; top: 5px;">새 주문</h2>
+            <h4 style="position: relative; top: 15px;">2건</h4>
+         </span>
+         <span style="margin-left: 80px;" align="center">
+            <h2 style="position: relative; top: 5px;">취소</h2>
+            <h4 style="position: relative; top: 15px;">2건</h4>
+         </span>
+         <span style="margin-left: 80px;" align="center">
+            <h2 style="position: relative; top: 5px;">교환</h2>
+            <h4 style="position: relative; top: 15px;">2건</h4>
+         </span>
+         <span style="margin-left: 80px;" align="center">
+            <h2 style="position: relative; top: 5px;">환불</h2>
+            <h4 style="position: relative; top: 15px;">2건</h4>
+         </span>
 		</div>
 
 		<hr style="margin: 15px 15px 20px 15px;">
@@ -180,6 +192,7 @@
 									<input type="number" class="form-control" placeholder="공급량을 입력해주세요" id="prdct_stock">
 								</div>
 							</div><br/><br/>
+							
 							<div align="center">
 								<button type="submit" class="btn btn-primary">상품등록</button>
 							</div>
