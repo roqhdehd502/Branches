@@ -68,7 +68,7 @@
 							<div class="thumbnail">
 								<a href="${pageContext.request.contextPath}/board/magazine/${dto.board_id}">
 									<div style="padding-top: 7px">
-										<img class="rounded" src="/board_img/thumbnail/${dto.image_name eq null ? 'none-thumbnail.jpg' : dto.image_name}" width="225px" height="350px">
+										<img class="rounded" src="/board_img/thumbnail/${dto.board_thumbnail eq null ? 'none-thumbnail.png' : dto.board_thumbnail}" width="225px" height="350px">
 									</div>
 									<div>
 										<hr>

@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/*MBR_ID	VARCHAR2(15 BYTE)
+/*
+MBR_ID	VARCHAR2(50 BYTE)
 MBR_PW	VARCHAR2(64 BYTE)
 MBR_NAME	VARCHAR2(20 BYTE)
 AUTHORITY_NUMBER	NUMBER
@@ -20,7 +21,9 @@ CONTACT_NUMBER	VARCHAR2(30 BYTE)
 MBR_NICKNAME	VARCHAR2(20 BYTE)
 MBR_POINT	NUMBER
 JDATE	DATE
-GRADE_NUMBER	NUMBER*/
+GRADE_NUMBER	NUMBER
+LOGIN_FAILED	NUMBER(20,0)
+*/
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -41,6 +44,7 @@ public class MbrVO { // 회원
 	private int mbr_point; // 회원포인트
 	private Date jdate; // 회원가입일
 	private int grade_number; // 회원등급번호 fk
+	// private int login_failed // 로그인 실패
 
 	private AuthorityVO authorityVO; // join Authority
 	private ShippingVO shippingVO; // regist seller shipping address

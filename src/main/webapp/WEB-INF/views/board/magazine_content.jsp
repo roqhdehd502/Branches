@@ -128,10 +128,9 @@
 			
 			<!-- 매거진 글내용 -->	
 			<div class="container">
-				<div class="row" style="padding: 3% 3% 5% 3%">
-					
+				<div class="row" style="padding: 3% 3% 5% 3%">		
 					<div class="col-md-12" style="padding: 2% 3% 3% 3%">
-						<p>${magazine_content.board_content}</p>
+						<p class="lead" style="white-space:pre;">${magazine_content.board_content}</p>
 					</div>
 				</div>
 			</div>
@@ -234,10 +233,10 @@
 				<div class="row" style="margin: 1% 3% 1% 3%; padding: 1% 3% 1% 3%; border: 1px solid #E5E5E5;">
 					<div class="col-md-7" align="left">
 						<p>${comment.mbr_nickname}</p>
-						<p class="lead">${comment.comment_content}</p>
+						<p class="lead" style="white-space:pre;">${comment.comment_content}</p>
 					</div>
 					<div class="col-md-4" align="right">
-						<p class="lead">${comment.comment_date}</p>				
+						<div class="lead">${comment.comment_date}</div>				
 					</div>
 					
 					<div class="col-md-1" align="right">

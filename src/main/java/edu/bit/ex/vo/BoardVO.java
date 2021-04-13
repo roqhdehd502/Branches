@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
 /*
 BOARD_ID	NUMBER
 BOARD_NAME	VARCHAR2(100 BYTE)

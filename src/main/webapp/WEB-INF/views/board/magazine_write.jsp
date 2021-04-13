@@ -55,7 +55,6 @@
                 
                 function filechk(){
                 	 var fileDir = inputFile;
-
                 	 if(fileDir.substring(fileDir.lastIndexOf(".")+1,fileDir.length).search("jpg") == -1){
                 	 	alert("지정된 확장자의 이미지만 업로드 가능합니다!");
                 	 } else if (fileDir.substring(fileDir.lastIndexOf(".")+1,fileDir.length).search("png") == -1) {
@@ -162,7 +161,7 @@
 						</div>
 						<div class="col-md-10 contact-info">
 							<input type="file" accept=".jpg, .png" id="uploadfiles" name="uploadfiles" placeholder="첨부 사진" multiple/>
-							<small class="form-text text-muted">썸네일은 한 장만 적용되고 jpg, png의 사진파일만 업로드됩니다.</small>
+							<small class="form-text text-muted">썸네일은 한 장만 적용되고 jpg, png의 사진파일만 업로드됩니다.<br>또한 세로 길이가 더 긴 사진을 권장합니다.</small>
 						</div>
 					</div>
 					<div align="center" style="padding: 3% 3% 3% 3%;">

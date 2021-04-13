@@ -4,6 +4,26 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="edu.bit.ex.mapper.BoardMapper">
+	<!-- 테스트용 공지사항 게시판 리스트 -->
+	<select id="getNoticeList" resultType="edu.bit.ex.vo.BoardVO">
+		<![CDATA[
+			SELECT * 
+			FROM board 
+			WHERE board_type_number = 1 
+			ORDER BY board_id DESC, board_date DESC
+		]]>
+	</select>
+	
+	<!-- 테스트용 매거진 게시판 리스트 -->
+	<select id="getMagazineList" resultType="edu.bit.ex.vo.BoardVO">
+		<![CDATA[
+			SELECT * 
+			FROM board 
+			WHERE board_type_number = 2 
+			ORDER BY board_id DESC, board_date DESC
+		]]>
+	</select>	
+
 	<!-- 페이징을 적용한 공지사항 게시판 리스트 -->
 	<select id="getNoticeListWithPaging" resultType="edu.bit.ex.vo.BoardVO">
 		<![CDATA[
@@ -59,18 +79,14 @@
 	</update>
 	
 	<!-- 페이징을 적용한 매거진 게시판 리스트 -->
-	<select id="getMagazineListWithPaging" resultType="edu.bit.ex.joinvo.BoardPrdctImageVO">
+	<select id="getMagazineListWithPaging" resultType="edu.bit.ex.vo.BoardVO">
 		<![CDATA[
 			SELECT * FROM (
 			     SELECT ROWNUM AS RNUM, A.* FROM ( 
-			        		SELECT b.board_id, b.board_name, b.board_date, b.board_like, b.board_hit, p.image_name 
-							FROM board b, prdct_image p 
-							WHERE b.board_id = p.board_id AND 
-							    b.board_type_number = 2 AND 
-							    p.image_number IN (SELECT MIN(image_number) 
-							                       FROM prdct_image 
-							                       GROUP BY board_id) 
-							ORDER BY board_id DESC, board_date DESC
+			        		SELECT board_id, board_name, board_date, board_like, board_hit, board_thumbnail 
+							FROM board 
+							WHERE board_type_number = 2  
+							ORDER BY board_id DESC, board_date DESC 
 			    ) A WHERE ROWNUM <= #{pageNum} * #{amount} 
 			) WHERE RNUM > (#{pageNum}-1) * #{amount}
 		]]> 
@@ -86,18 +102,10 @@
 	<!-- 매거진 작성 -->
 	<insert id="setMagazineWrite" >
 		<![CDATA[
-			INSERT INTO board (board_id, board_name, board_content, mbr_id, board_type_number, board_like, board_hit) 
-			VALUES (board_seq.nextval, #{board_name}, #{board_content}, #{mbr_id}, 2, 0, 0) 
+			INSERT INTO board (board_id, board_name, board_content, mbr_id, board_type_number, board_like, board_hit, board_thumbnail) 
+			VALUES (board_seq.nextval, #{board_name}, #{board_content}, #{mbr_id}, 2, 0, 0, #{board_thumbnail}) 
 		]]>
 	</insert> 
-	
-	<!-- 매거진  첨부 작성 -->
-	<insert id="setMagazineImage" >
-		<![CDATA[
-			INSERT INTO prdct_image (image_number, image_name, board_id) 
-			VALUES (prdct_image_seq.nextval, #{uploadfiles}, board_seq.currval) 
-		]]>
-	</insert>	
 	
 	<!-- 매거진 게시글(동적쿼리 적용) -->
 	<select id="getMagazineContent" resultType="edu.bit.ex.vo.BoardVO">
@@ -108,24 +116,6 @@
 				board_id = #{board_id} 
 			</if> 
 		</where>
-	</select>
-	
-	<!-- 매거진 게시글 썸네일 리스트 -->
-	<resultMap id="magazineContentImageMap" type="edu.bit.ex.vo.PrdctImageVO">
-	    <result property="image_number" column="image_number"/>
-	    <result property="image_name" column="image_name"/>
-	    <result property="image_path" column="image_path"/>
-		<collection property="board_id" resultMap="magazineContentMap"></collection>
-	</resultMap>	
-	<resultMap id="magazineContentMap" type="edu.bit.ex.vo.BoardVO">
-		<result property="board_id" column="board_id"/>
-	</resultMap>
-	<select id="getMagazineImage" resultMap="magazineContentImageMap">
-		SELECT p.image_number, p.image_name 
-		FROM prdct_image p, board b 
-		WHERE p.board_id = b.board_id AND 
-		    b.board_id = #{board_id} 
-		ORDER BY p.image_number ASC
 	</select>
 	
 	<!-- 매거진 게시글 조회 -->
@@ -187,24 +177,17 @@
 		]]>
 	</delete>
 	
+	<!-- 매거진 썸네일만 삭제 -->
+	<update id="magazineImageOnlyRemove">
+		<![CDATA[
+			UPDATE board SET board_thumbnail = null WHERE board_id = #{board_id}
+		]]>
+	</update>
+	
 	<!-- 매거진 삭제 -->
 	<delete id="magazineRemove">
 		<![CDATA[
 			DELETE FROM board WHERE board_id = #{board_id}
-		]]>
-	</delete>
-	
-	<!-- 매거진 썸네일 삭제(썸네일만 삭제시) -->
-	<delete id="magazineImageOnlyRemove">
-		<![CDATA[
-			DELETE FROM prdct_image WHERE board_id = #{board_id} AND image_name = #{image_name}
-		]]>
-	</delete>	
-	
-	<!-- 매거진 썸네일 삭제(게시판이랑 같이 삭제시) -->
-	<delete id="magazineImageRemove">
-		<![CDATA[
-			DELETE FROM prdct_image WHERE board_id = #{board_id} AND image_name = #{image_name}
 		]]>
 	</delete>		
 	
@@ -215,11 +198,10 @@
 		]]>
 	</update>
 	
-	<!-- 매거진 수정페이지 썸네일 추가 -->
-	<insert id="setMagazineModifyAddImg" >
+	<!-- 매거진 수정페이지 썸네일까지 변경 -->
+	<update id="setMagazineModifyAddImg" >
 		<![CDATA[
-			INSERT INTO prdct_image (image_number, image_name, board_id) 
-			VALUES (prdct_image_seq.nextval, #{uploadfiles}, #{board_id}) 
+			UPDATE board SET board_name = #{board_name}, board_content = #{board_content}, board_thumbnail = #{board_thumbnail} WHERE board_id = #{board_id}
 		]]>
-	</insert>	
+	</update>	
 </mapper>

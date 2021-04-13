@@ -6,8 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/*MBR_ID	VARCHAR2(15 BYTE)
-BOARD_ID	NUMBER*/
+/*
+MBR_ID	VARCHAR2(50 BYTE)
+BOARD_ID	NUMBER
+*/
 
 @AllArgsConstructor
 @NoArgsConstructor

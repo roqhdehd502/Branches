@@ -8,10 +8,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/*ORDER_NUMBER	NUMBER
+/*
+ORDER_NUMBER	NUMBER
 ORDER_PRICE	NUMBER
 ORDER_DATE	DATE
-MBR_ID	VARCHAR2(15 BYTE)*/
+MBR_ID	VARCHAR2(50 BYTE)
+*/
 
 @AllArgsConstructor
 @NoArgsConstructor

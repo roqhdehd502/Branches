@@ -6,8 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/*MBR_ID	VARCHAR2(15 BYTE)
-SHIPPING_ADDRESS	VARCHAR2(200 BYTE)*/
+/*
+MBR_ID	VARCHAR2(15 BYTE)
+SHIPPING_ADDRESS	VARCHAR2(200 BYTE)
+*/
 
 @AllArgsConstructor
 @NoArgsConstructor

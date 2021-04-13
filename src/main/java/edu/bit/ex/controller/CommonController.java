@@ -42,7 +42,7 @@ public class CommonController {
 	}
 
 	// 전체 상품리스트
-	@RequestMapping(value = "/prdct", method = { RequestMethod.POST, RequestMethod.GET })
+	@GetMapping("/prdct")
 	public ModelAndView prdctList(ModelAndView mav, PrdctListCriteria cri) {
 		mav.setViewName("common/prdct_list");
 		// mav.addObject("prdct", commonService.getPrdctListWithCri(cri));

@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="/assets/css/slicknav.css">
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css">
+
 </head>
 <body>
 <div style="overflow: hidden;" class="container">
@@ -26,14 +27,25 @@
 	</header>
 	<hr style="margin: 5px;">
 	<div class="container">
-         <span style="margin-left: 70px;">
-         </span> <span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
+       <span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
             <h3>${mbr.mbr_name }</h3>
             <h3 style="position: relative; top: 15px;">${mbr.mbr_id }</h3>
          </span>
          <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="/seller/mypage/myinfo/${mbr.mbr_id}">정보수정</a></span> 
-         <span style="margin-left: 480px;" align="center">
-            <h2 style="position: relative; top: 5px;">새주문</h2>
+         <span style="margin-left: 300px;" align="center">
+            <h2 style="position: relative; top: 5px;">새 주문</h2>
+            <h4 style="position: relative; top: 15px;">2건</h4>
+         </span>
+         <span style="margin-left: 80px;" align="center">
+            <h2 style="position: relative; top: 5px;">취소</h2>
+            <h4 style="position: relative; top: 15px;">2건</h4>
+         </span>
+         <span style="margin-left: 80px;" align="center">
+            <h2 style="position: relative; top: 5px;">교환</h2>
+            <h4 style="position: relative; top: 15px;">2건</h4>
+         </span>
+         <span style="margin-left: 80px;" align="center">
+            <h2 style="position: relative; top: 5px;">환불</h2>
             <h4 style="position: relative; top: 15px;">2건</h4>
          </span>
       </div>
@@ -101,35 +113,53 @@
 				<!-- 등록한 상품 리스트	 -->
 				<div class="col-md-10 contact-info" style="border-left: 1px solid rgba(0, 0, 0, .1);">
 					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, .1);">
-						<strong style="margin: 10px;">등록한 상품 리스트</strong>
+						<strong style="margin: 10px;">등록한 상품 리스트</strong><br/>
+						<strong>이슈 - prdct로 데이터를 불러오면 for문에서 prdct_id와 일치하지 않은 정보를 불러옴</strong><br/>
+						<strong>그래서 이 포맷으로 일단 진행생각중..</strong>
 					</h3>
 					<div class="team-area sp">
 						<div class="container">
 							<div class="row">
+								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(0)">번호순</button>&nbsp;&nbsp;
+								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(2)">ID순</button>&nbsp;&nbsp;
+								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(3)">일자순</button>
 								<table class="table" id="myTable" style="text-align: center;">
 									<thead>
 										<tr>
-											<th><h5>번호</h5></th>
-											<th><h5>상품ID</h5></th>
-											<th><h5>상품이름</h5></th>
-											<th><h5>상품가격</h5></th>
-											<th><h5>등록일</h5></th>
+											<th onclick="sortTable(0)"><h5>번호</h5></th>
+											<th><h5>상품사진</h5></th>
+											<th onclick="sortTable(2)"><h5>상품ID</h5></th>
+											<th onclick="sortTable(3)"><h5>등록일</h5></th>
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach items="${prdct}" var="prdct" varStatus="status">
+										<c:forEach items="${bId}" var="bId" varStatus="status">
 											<tr>
-												<td><h5>${bId[status.index].board_id }</h5></td>
-												<td><h5>${bId[status.index].prdct_id }</h5></td>
-												<td><a href="/seller/mypage/prdct/${bId[status.index].prdct_id }">
-														<h5>${prdct.prdct_name }</h5>
-												</a></td>
-												<td><h5>${prdct.prdct_price }</h5></td>
-												<td><h5>${bId[status.index].board_date }</h5></td>
+												<td><h5>${bId.board_id }</h5></td>
+												<td><h5>${filename[status.index].image_name }</h5></td>
+												<td><a href="/seller/mypage/prdct/${bId.prdct_id }">
+													<h5>${bId.prdct_id }</h5>
+													</a>	
+												</td>
+												<td><h5>${bId.board_date }</h5></td>
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
+								<ul class="pagination" style="margin: auto;">
+									<c:if test="${pageMaker.prev}">
+										<a class="page-link" href="/seller/mypage/prdct${pageMaker.makeQuery(pageMaker.startPage - 1)}">PREV</a>
+									</c:if>
+
+									<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+										<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+										<a class="page-link" href="/seller/mypage/prdct${pageMaker.makeQuery(idx)}">${idx}</a>
+									</c:forEach>
+
+									<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+										<a class="page-link" href="/seller/mypage/prdct${pageMaker.makeQuery(pageMaker.endPage +1)}">NEXT</a>
+									</c:if>
+								</ul>
 							</div>
 						</div>
 					</div>
@@ -150,6 +180,64 @@
 <script src="/assets/js/vendor/loopcounter.js"></script>
 <script src="/assets/js/vendor/slicknav.min.js"></script>
 <script src="/assets/js/active.js"></script>
+	<script>
+		function sortTable(n) {
+			var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+			table = document.getElementById("myTable");
+			switching = true;
+			// Set the sorting direction to ascending:
+			dir = "asc";
+			/* Make a loop that will continue until
+			no switching has been done: */
+			while (switching) {
+				// Start by saying: no switching is done:
+				switching = false;
+				rows = table.rows;
+				/* Loop through all table rows (except the
+				first, which contains table headers): */
+				for (i = 1; i < (rows.length - 1); i++) {
+					// Start by saying there should be no switching:
+					shouldSwitch = false;
+					/* Get the two elements you want to compare,
+					one from current row and one from the next: */
+					x = rows[i].getElementsByTagName("TD")[n];
+					y = rows[i + 1].getElementsByTagName("TD")[n];
+					/* Check if the two rows should switch place,
+					based on the direction, asc or desc: */
+					if (dir == "asc") {
+						if (x.innerHTML.toLowerCase() > y.innerHTML
+								.toLowerCase()) {
+							// If so, mark as a switch and break the loop:
+							shouldSwitch = true;
+							break;
+						}
+					} else if (dir == "desc") {
+						if (x.innerHTML.toLowerCase() < y.innerHTML
+								.toLowerCase()) {
+							// If so, mark as a switch and break the loop:
+							shouldSwitch = true;
+							break;
+						}
+					}
+				}
+				if (shouldSwitch) {
+					/* If a switch has been marked, make the switch
+					and mark that a switch has been done: */
+					rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+					switching = true;
+					// Each time a switch is done, increase this count by 1:
+					switchcount++;
+				} else {
+					/* If no switching has been done AND the direction is "asc",
+					set the direction to "desc" and run the while loop again. */
+					if (switchcount == 0 && dir == "asc") {
+						dir = "desc";
+						switching = true;
+					}
+				}
+			}
+		}
+	</script>
 
 
 </body>

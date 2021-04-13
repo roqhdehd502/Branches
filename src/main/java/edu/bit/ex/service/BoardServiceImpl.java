@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
-import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.mapper.BoardMapper;
 import edu.bit.ex.page.MagazineCommentCriteria;
 import edu.bit.ex.page.MagazineCriteria;
@@ -80,7 +79,7 @@ public class BoardServiceImpl implements BoardService {
 
 	// 페이징을 적용한 매거진 게시판 리스트
 	@Override
-	public List<BoardPrdctImageVO> getMagazineList(MagazineCriteria cri) {
+	public List<BoardVO> getMagazineList(MagazineCriteria cri) {
 		log.info("getMagazineList WITH criteria: " + cri);
 		return boardMapper.getMagazineListWithPaging(cri);
 	}
@@ -94,35 +93,31 @@ public class BoardServiceImpl implements BoardService {
 
 	// 매거진 작성
 	@Override
-	public void setMagazineWrite(BoardPrdctImageVO bPrdctImageVO) {
+	public void setMagazineWrite(BoardVO boardVO) {
 		log.info("setMagazineWrite");
-		boardMapper.setMagazineWrite(bPrdctImageVO);
-	}
 
-	// 매거진 썸네일 첨부 작성
-	@Override
-	public void setMagazineImage(MultipartFile file) {
-		// 파일 경로 설정
-		// String uploadPath = request.getSession().getServletContext().getRealPath("/resources/static/board_img/");
+		MultipartFile[] uploadfiles = boardVO.getUploadfiles();
 
 		// 파일 이름 변경(중복방지)
 		UUID uuid = UUID.randomUUID();
-		String saveName = uuid + "_" + file.getOriginalFilename();
-		log.info("image_name: ", saveName);
+		String saveName = uuid + "_" + uploadfiles[0].getOriginalFilename();
+		log.info("image_name: " + saveName);
 
-		// 저장할 File 객체를 생성(껍데기 파일)
+		// 저장할 File 객체를 생성
 		// 저장할 폴더 이름, 저장할 파일 이름
 		File saveFile = new File(MGZ_THUMBNAIL_PATH, saveName);
-		// File saveFile = new File(uploadPath, saveName);
 
 		try {
-			// 업로드 파일에 saveFile이라는 껍데기 입힘
-			file.transferTo(saveFile);
+			// 업로드 파일에 saveFile 입힘
+			uploadfiles[0].transferTo(saveFile);
+			// 썸네일 파일명 지정
+			boardVO.setBoard_thumbnail(saveName);
+			log.info("board_thumbnail: " + boardVO.getBoard_thumbnail());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		boardMapper.setMagazineImage(saveName);
+		boardMapper.setMagazineWrite(boardVO);
 	}
 
 	// 매거진 첨부사진 업로드
@@ -213,75 +208,72 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.magazineCommentRemove(comment_id);
 	}
 
+	// 매거진 썸네일만 삭제
+	@Override
+	public int magazineImageOnlyRemove(BoardVO boardVO) {
+		String image_name = boardVO.getOnedeletefiles();
+		log.info("image_name: " + image_name);
+
+		// 삭제할 File 객체를 생성(껍데기 파일)
+		// 삭제할 폴더 이름, 삭제할 파일 이름
+		File deleteFile = new File(MGZ_THUMBNAIL_PATH, image_name);
+
+		// 해당 파일이 존재하면 삭제
+		if (deleteFile.exists() == true) {
+			deleteFile.delete();
+		}
+
+		return boardMapper.magazineImageOnlyRemove(boardVO.getBoard_id(), image_name);
+	}
+
 	// 매거진 삭제
 	@Override
-	public int magazineRemove(int board_id) {
-		log.info("magazineRemove: " + board_id);
-		return boardMapper.magazineRemove(board_id);
-	}
+	public int magazineRemove(BoardVO boardVO) {
+		log.info("magazineRemove: " + boardVO.getBoard_id());
 
-	// 매거진 썸네일 삭제(썸네일만 삭제시)
-	@Override
-	public int magazineImageOnlyRemove(int board_id, String onedeletefiles) {
-		String image_name = onedeletefiles;
-		log.info("image_name: ", image_name);
-
-		// 삭제할 File 객체를 생성(껍데기 파일)
+		// 삭제할 File 객체를 생성
 		// 삭제할 폴더 이름, 삭제할 파일 이름
-		File deleteFile = new File(MGZ_THUMBNAIL_PATH, image_name);
+		File deleteFile = new File(MGZ_THUMBNAIL_PATH, boardVO.getDeletefiles());
 
 		// 해당 파일이 존재하면 삭제
 		if (deleteFile.exists() == true) {
 			deleteFile.delete();
 		}
 
-		return boardMapper.magazineImageOnlyRemove(board_id, image_name);
-	}
-
-	// 매거진 썸네일 삭제(게시판이랑 같이 삭제시)
-	@Override
-	public int magazineImageRemove(int board_id, String deletefiles) throws IOException {
-		String image_name = deletefiles;
-		log.info("image_name: ", image_name);
-
-		// 삭제할 File 객체를 생성(껍데기 파일)
-		// 삭제할 폴더 이름, 삭제할 파일 이름
-		File deleteFile = new File(MGZ_THUMBNAIL_PATH, image_name);
-
-		// 해당 파일이 존재하면 삭제
-		if (deleteFile.exists() == true) {
-			deleteFile.delete();
-		}
-
-		return boardMapper.magazineImageRemove(board_id, image_name);
+		return boardMapper.magazineRemove(boardVO.getBoard_id());
 	}
 
 	// 매거진 수정
 	@Override
-	public void setMagazineModify(BoardPrdctImageVO bPrdctImageVO) {
+	public void setMagazineModify(BoardVO boardVO) {
 		log.info("setMagazineModify");
-		boardMapper.setMagazineModify(bPrdctImageVO);
+		boardMapper.setMagazineModify(boardVO);
 	}
 
-	// 매거진 수정페이지 썸네일 추가
+	// 매거진 수정페이지 썸네일까지 변경
 	@Override
-	public void setMagazineModifyAddImg(int board_id, MultipartFile file) {
+	public void setMagazineModifyAddImg(BoardVO boardVO) {
+		MultipartFile[] uploadfiles = boardVO.getUploadfiles();
+
 		// 파일 이름 변경(중복방지)
 		UUID uuid = UUID.randomUUID();
-		String uploadfiles = uuid + "_" + file.getOriginalFilename();
-		log.info("image_name: ", uploadfiles);
+		String saveName = uuid + "_" + uploadfiles[0].getOriginalFilename();
+		log.info("image_name: " + saveName);
 
 		// 저장할 File 객체를 생성(껍데기 파일)
 		// 저장할 폴더 이름, 저장할 파일 이름
-		File saveFile = new File(MGZ_THUMBNAIL_PATH, uploadfiles);
+		File saveFile = new File(MGZ_THUMBNAIL_PATH, saveName);
 
 		try {
-			// 업로드 파일에 saveFile이라는 껍데기 입힘
-			file.transferTo(saveFile);
+			// 업로드 파일에 saveFile 입힘
+			uploadfiles[0].transferTo(saveFile);
+			// 썸네일 파일명 지정
+			boardVO.setBoard_thumbnail(saveName);
+			log.info("board_thumbnail: " + boardVO.getBoard_thumbnail());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		boardMapper.setMagazineModifyAddImg(board_id, uploadfiles);
+		boardMapper.setMagazineModifyAddImg(boardVO);
 	}
 }
