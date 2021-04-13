@@ -23,6 +23,164 @@
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 
 <script type="text/javascript">
+
+$(document)
+	.ready(
+		//장바구니 목록 불러오기
+		function() {
+			//배열 선언
+			var data = JSON.parse(sessionStorage.getItem("cartList"));
+		
+			var html = "";
+			for(var i = 1; i <= data.length; i++) {
+								
+				html += "<tr id='tr"+i+"'>"
+				+ "<td><input onclick='summary()' id='ck"
+				+ i
+				+ "' type='checkbox' name='prdct_id' value='"
+				+ data[i - 1].prdct_id
+				+ "'></input></td>"
+				+ "<td class='cart-pic first-row'> <a href='${pageContext.request.contextPath}/prdct/"+data[i-1].prdct_id+"'> <img src='https://image.msscdn.net/images/goods_img/20200205/1291017/1291017_1_500.jpg' class='pimg'> </a></td> "
+				+ "<td class='cart-title first-row'>"
+				+ "<h5>"
+				+ "<a href='${pageContext.request.contextPath}/prdct/"+data[i-1].prdct_id+"' style='color:#000000'>"
+				+ data[i - 1].prdct_name
+				+ "</h5>"
+				+"<br /> <div style='color:#000000'>"+data[i - 1].order_color+"/"+data[i - 1].order_size
+				+ "</div></a>"
+				+ "</td>"
+				+ "<td class='p-price first-row' style='color:#000000'>"
+				+ "<input style='border:none; text-align:right; ' type='text' id='a"+i+"' value='"+data[i-1].prdct_price+"' readonly size='7px' >"
+				+ "원</td>"
+				+ "<td class='qua-col first-row'>"
+				+ "	<div class='quantity'> <div class='pro-qty'> <span class='dec qtybtn' onclick='total"
+				+ i
+				+ "(-1)'>-</span> <input name='order_amount' type='text' id='b"
+				+ i
+				+ "' value='"+data[i - 1].order_amount+"' readonly > <span class='inc qtybtn' onclick='total"
+				+ i
+				+ "(1)'>+</span> </div> </div>"
+				+ "</td> <td class='total-price first-row' style='color:#000000'> </td><td class='total-price first-row' style='color:#000000'>"
+				+ "<input style='border:none; text-align:right;' type='text' id='sum"
+				+ i
+				+ "' value='' readonly size='7px' name='sum' >원</td>"
+				+ "<td class='close-td first-row'><i class='ti-close' onclick='cartDelete("
+				+ i
+				+ ")' > <input type='hidden' name='prdct_name' value='"+data[i - 1].prdct_name+"' ><input type='hidden' name='order_size' value='"+data[i - 1].order_size+"' ><input type='hidden' name='order_color' value='"+data[i - 1].order_color+"' > </td>"
+				+ "</tr>"
+				
+				// 상품 별 합 계산() ready
+				html += "<script DEFER>"
+						+ "$(document).ready(function total"
+						+ i
+						+ "()"
+						+ "{  var num1 = document.getElementById('a"
+						+ i
+						+ "');"
+						+ "var num1s = num1.value; "
+						+ "var num1b = parseInt(num1s); var num2 = document.getElementById('b"
+						+ i
+						+ "'); "
+						+ "var num2s = num2.value; var num2b = parseInt(num2s) ;"
+						+ "var num3t; var ops = 'mul'; "
+						+ " switch (ops) { "
+						+ " case 'plus': num3t = num1b + num2b; document.getElementById('sum"
+						+ i
+						+ "').value = num3t; break;"
+						+ "case 'mul': num3t = num1b * num2b; document.getElementById('sum"
+						+ i
+						+ "').value = num3t; break; } }); "
+						+ "</script"+">"
+				// 상품 별 합 계산()		
+				html += "<script DEFER> function total"
+						+ i
+						+ "(v)"
+						+ "{ var num1 = document.getElementById('a"
+						+ i
+						+ "');"
+						+ "var num1s = num1.value; "
+						+ "var num1b = parseInt(num1s); var num2 = document.getElementById('b"
+						+ i
+						+ "'); "
+						+ "var num2s = num2.value; var num2b = parseInt(num2s) + v;"
+						+ "var num3t; var ops = 'mul'; "
+						+ " switch (ops) { "
+						+ " case 'plus': num3t = num1b + num2b; document.getElementById('sum"
+						+ i
+						+ "').value = num3t; break;"
+						+ "case 'mul': num3t = num1b * num2b; document.getElementById('sum"
+						+ i
+						+ "').value = num3t;  break; } summary() }; "
+						+ "</script"+">"
+
+			}
+			$("#getCart").append(html);
+			//ajax 호출
+			/* $.ajax({
+						url : "/order/cartList",
+						type : "post",
+						dataType : 'json',
+						contentType : 'application/json; charset=UTF-8',
+						data : cartList,
+						success : function(data) {
+							var cartList = JSON
+									.parse(sessionStorage
+											.getItem("cartList"));
+							var html="";
+							for (var i = 1; i <= data.length; i++) {
+								
+								
+								html += "<tr id='tr"+i+"'>"
+								+ "<td><input onclick='summary()' id='ck"
+								+ i
+								+ "' type='checkbox' name='prdct_id' value='"
+								+ data[i - 1].prdct_id
+								+ "'></input></td>"
+								+ "<td class='cart-pic first-row'> <a href='${pageContext.request.contextPath}/prdct/"+data[i-1].prdct_id+"'> <img src='https://image.msscdn.net/images/goods_img/20200205/1291017/1291017_1_500.jpg' class='pimg'> </a></td> "
+								+ "<td class='cart-title first-row'>"
+								+ "<h5>"
+								+ "<a href='${pageContext.request.contextPath}/prdct/"+data[i-1].prdct_id+"' style='color:#000000'>"
+								+ data[i - 1].prdct_name
+								+ "</a>"
+								+ "</h5>"
+								+ "</td>"
+								+ "<td class='p-price first-row' style='color:#000000'>"
+								+ "<input style='border:none; text-align:right; ' type='text' id='a"+i+"' value='"+data[i-1].prdct_price+"' readonly size='7px' >"
+								+ "원</td>"
+								+ "<td class='qua-col first-row'>"
+								+ "	<div class='quantity'> <div class='pro-qty'> <span class='dec qtybtn' onclick='total"
+								+ i
+								+ "(-1)'>-</span> <input name='order_amount' type='text' id='b"
+								+ i
+								+ "' value='"+data[i - 1].order_amount+"' readonly > <span class='inc qtybtn' onclick='total"
+								+ i
+								+ "(1)'>+</span> </div> </div>"
+								+ "</td> <td class='total-price first-row' style='color:#000000'> "+data[i - 1].order_color+" / "+data[i - 1].order_size+"</td><td class='total-price first-row' style='color:#000000'>"
+								+ "<input style='border:none; text-align:right;' type='text' id='sum"
+								+ i
+								+ "' value='' readonly size='7px' name='sum' >원</td>"
+								+ "<td class='close-td first-row'><i class='ti-close' onclick='cartDelete("
+								+ i
+								+ ")' > <input type='hidden' name='prdct_name' value='"+data[i - 1].prdct_name+"' ><input type='hidden' name='order_size' value='"+data[i - 1].order_size+"' ><input type='hidden' name='order_color' value='"+data[i - 1].order_color+"' > </td>"
+								+ "</tr>"
+
+								
+							}
+							
+							$("#goods").append(html);
+							if (cartList.length == 0) {
+								alert("카트가 비었습니다.")
+							}
+						}, //ajax 성공 시 end
+						error : function(request, status, error) {
+							//alert("code:" + request.status
+							//+ "\n" + "message:"
+							//+ request.responseText
+							//+ "\n" + "error:" + error);
+							alert("error")
+						} // ajax 에러 시 end
+					});// 장바구니 목록 함수 end */
+		});
 	//삭제
 	function removeSelected() {
 		$("input:checkbox[name=select-product]").each(function() {
@@ -35,7 +193,7 @@
 	
 	function remove(prdct_id) {
 		var data = {
-				prdct_id : prdct_id
+				prdct_id : prdct_id 
 		}
 		$.ajax({
 			type : "DELETE",
@@ -189,96 +347,9 @@
 </script>
 </head>
 <body>
-	<div style="overflow: hidden;" class="container">
-		<header style="padding-bottom: 10px;">
-			<div class="container">
-				<div class="row">
-					<div class="col-6 col-sm-3 logo-column">
-						<a href="index.html" class="logo"> <img src="/img/branches_text.png" alt="logo">
-						</a>
-					</div>
-					<div class="col-6 col-sm-9 nav-column clearfix">
-						<div class="right-nav">
-							<span class="search-icon fa fa-search"></span>
-							<form action="#" class="search-form">
-								<input type="search" placeholder="search now">
-								<button type="submit">
-									<i class="fa fa-search"></i>
-								</button>
-							</form>
-							<div class="header-social">
-								<a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<nav id="menu" class="d-none d-lg-block">
-				<ul style="padding: 10px;">
-					<li class="current-menu-item has-child"><a href="index.html">OUTER</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Home - 01</a></li>
-							<li><a href="index-2.html">Home - 02</a></li>
-							<li><a href="index-3.html">Home - 03</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">TOP</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Home - 01</a></li>
-							<li><a href="index-2.html">Home - 02</a></li>
-							<li><a href="index-3.html">Home - 03</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">BOTTOM</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Home - 01</a></li>
-							<li><a href="index-2.html">Home - 02</a></li>
-							<li><a href="index-3.html">Home - 03</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">SHOES</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Home - 01</a></li>
-							<li><a href="index-2.html">Home - 02</a></li>
-							<li><a href="index-3.html">Home - 03</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">ACC</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Home - 01</a></li>
-							<li><a href="index-2.html">Home - 02</a></li>
-							<li><a href="index-3.html">Home - 03</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">BRAND</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Home - 01</a></li>
-							<li><a href="index-2.html">Home - 02</a></li>
-							<li><a href="index-3.html">Home - 03</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">SALE</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Home - 01</a></li>
-							<li><a href="index-2.html">Home - 02</a></li>
-							<li><a href="index-3.html">Home - 03</a></li>
-						</ul></li>
-					<li><a href="index.html">|</a></li>
-					<li class="current-menu-item has-child"><a href="index.html">NOTICE</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Home - 01</a></li>
-							<li><a href="index-2.html">Home - 02</a></li>
-							<li><a href="index-3.html">Home - 03</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">MAGAZINE</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Home - 01</a></li>
-							<li><a href="index-2.html">Home - 02</a></li>
-							<li><a href="index-3.html">Home - 03</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html" style="margin-right: 38px;">Q&A</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Home - 01</a></li>
-							<li><a href="index-2.html">Home - 02</a></li>
-							<li><a href="index-3.html">Home - 03</a></li>
-						</ul></li>
-				</ul>
-			</nav>
-		</header>
+<div class="container">
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	
 		<!-- 장바구니	 -->
 		<form id="cart" name="form" method="post" action="${pageContext.request.contextPath}/order/cart/orderInput">
 		
@@ -307,50 +378,12 @@
 							<th scope="col">&nbsp;&nbsp;</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="getCart">
+					
+					</tbody>
+					<tfoot>
 						
-							<colgroup>
-								<col width="10%">
-								<col width="20%">
-								<col width="30%">
-								<col width="10%">
-								<col width="10%">
-								<col width="10%">
-								<col width="10%">
-							</colgroup>
-							<c:forEach items="${cart}" var="cart">
-							<tr id="${cart.key.prdct_id}" class="product">
-							
-								<td><input type="checkbox" class="select-product" name="select-product" value="${cart.key.prdct_price}"></td>
-								<td>
-									<div class="connect_img">
-										<img class="product-img" src="/resources/static/ej/view.staff_605be555e83ad.jpg">
-										<!-- 사진불러오기 -->
-									</div>
-								</td>
-								<td>
-									<div class="article_info connect_info">
-										 <p class="prdct_name" id="prdct_name">${cart.key.prdct_name}</p>
-										 <p class="prdct_color" id="order_color">${cart.key.order_color}</p>
-										<p class="order_size" id="order_size">${cart.key.order_size}</p> 
-									</div>
-								</td>
-							<td class="td_price">${cart.key.prdct_price}</td> 
-								<td>
-									<!-- 수량 -->
-									<div class="n-input-amount">
-										<div class="form-group">
-										 <input type="number" id="order_amount" class="order_amount" min="1" value="${cart.value }" />
-										</div>
-									</div>
-								</td>
-								<td><p class="mul-price"></p>
-									<br></td>
-								<td><button class="btn btn-secondary delete-btn" onclick="remove(${cart.key.prdct_id})">삭제</button></td>
-
-							</tr>
-							</c:forEach>
-							<tr class="gift-division">
+								<tr class="gift-division">
 								<td colspan="3">
 									<button class="btn btn-secondary delete-btn-selected" onclick="removeSelected()">선택삭제</button>
 								</td>
@@ -360,7 +393,7 @@
 								</td>
 							</tr>
 						
-					</tbody>
+					</tfoot>
 				</table>
 
 			<button type="submit" class="btn btn-primary" onclick="buy()">주문하기</button>
@@ -418,6 +451,7 @@
 				000-0000-0000 <strong>사업자등록번호 :</strong> 000-00-000000 <strong>통신판매업신고 :</strong> 0000-서울종로-00000
 			</small> <br /> <small style="color: black;"><strong>고객센터</strong> 0000-0000 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) <strong>이메일</strong>
 				customer@29cm.co.kr <strong>대표이사</strong> 000 <strong>개인정보책임자</strong> 000 <strong>호스팅서비스</strong> (주)00000</small>
+		</div>
 		</div>
 
 		<!--Required JS files-->

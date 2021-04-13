@@ -52,7 +52,7 @@ public class CommonController {
 	}
 
 	// 상품 상세페이지
-	@GetMapping("/prdct/{prdct_id}/{board_id}")
+	@RequestMapping(value = "/prdct/{prdct_id}/{board_id}", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView productDetail(@PathVariable("prdct_id") String p_id, @PathVariable("board_id") int board_id, PrdQnACriteria cri,
 			ModelAndView mav, BoardPrdctImageVO bpvo) throws Exception {
 

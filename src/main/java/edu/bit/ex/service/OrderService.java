@@ -1,6 +1,6 @@
 package edu.bit.ex.service;
 
-import edu.bit.ex.vo.PrdctVO;
+import edu.bit.ex.joinvo.PrdctOrderDetailVO;
 
 public interface OrderService {
 
@@ -8,6 +8,8 @@ public interface OrderService {
 	// public List<PrdctVO> getCartList();
 
 	// 장바구니 페이지
-	public PrdctVO getProduct(String prdct_id);
+	// public PrdctVO getProduct(String prdct_id);
+
+	public PrdctOrderDetailVO getPrdctCart(String prdct_id);
 
 }

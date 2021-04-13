@@ -2,7 +2,7 @@ package edu.bit.ex.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import edu.bit.ex.vo.PrdctVO;
+import edu.bit.ex.joinvo.PrdctOrderDetailVO;
 
 @Mapper
 public interface OrderMapper {
@@ -11,6 +11,6 @@ public interface OrderMapper {
 	// public List<PrdctVO> getCartList();
 
 	// 장바구니 페이지
-	public PrdctVO getProduct(String prdct_id);
+	public PrdctOrderDetailVO getProduct(String prdct_id);
 
 }
