@@ -25,7 +25,7 @@
         var options = {
           title: 'Branches 상품 주문 비율',
           fontSize : 15,
-          width : 630,
+          width : 720,
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -35,7 +35,7 @@
     </script>
   </head>
   <body>
-    <div id="piechart" style="height: 236px;"></div>
+    <div id="piechart" style="height: 412px;"></div>
   </body>
 </body>
 </html>

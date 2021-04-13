@@ -114,38 +114,56 @@
 				<div class="col-md-10 contact-info" style="border-left: 1px solid rgba(0, 0, 0, .1);">
 					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, .1);">
 						<strong style="margin: 10px;">등록한 상품 리스트</strong><br/>
-						<strong>이슈 - prdct로 데이터를 불러오면 for문에서 prdct_id와 일치하지 않은 정보를 불러옴</strong><br/>
-						<strong>그래서 이 포맷으로 일단 진행생각중..</strong>
 					</h3>
 					<div class="team-area sp">
 						<div class="container">
 							<div class="row">
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(0)">번호순</button>&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(2)">ID순</button>&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(3)">일자순</button>
+								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(0)">내림차순</button>&nbsp;&nbsp;
+								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(2)">오름차순</button>&nbsp;&nbsp;
+								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(4)">ㄱㄴㄷ순</button>&nbsp;&nbsp;
+								<form id="searchForm" action="/seller/mypage/prdct" method="get" style="position: relative; left: 270px;">
+									<span style="position: relative; top: 6px;">
+										<select name="type" class="form-control" style="width: 100px; border: 3px solid black;">
+											<option value="" <c:out value="${pageMaker.cri.type == null?'selected' : '' }" />>---</option>
+											<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ?'selected' : '' }" />>상품명</option>
+											<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ?'selected' : '' }" />>ID</option>
+										</select>
+									</span>&nbsp;&nbsp;
+									<span>
+									<input type="text" class="form-control" name="keyword" style="width: 200px; border: 3px solid black;" value='<c:out value="${pageMaker.cri.keyword}" />' /> 
+										<input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum}" />' /> 
+										<input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}" />' />
+									</span>
+									<button class="btn btn-primary btn-sm">검색</button>
+								</form>
 								<table class="table" id="myTable" style="text-align: center;">
 									<thead>
 										<tr>
-											<th onclick="sortTable(0)"><h5>번호</h5></th>
-											<th><h5>상품사진</h5></th>
-											<th onclick="sortTable(2)"><h5>상품ID</h5></th>
-											<th onclick="sortTable(3)"><h5>등록일</h5></th>
+											<th><h5>번호</h5></th>
+											<th><h5>카테고리</h5></th>
+											<th><h5>상품ID</h5></th>
+											<th><h5>상품명</h5></th>
+											<th><h5>가격</h5></th>
+											<th><h5>등록일</h5></th>
 										</tr>
 									</thead>
 									<tbody>
 										<c:forEach items="${bId}" var="bId" varStatus="status">
 											<tr>
 												<td><h5>${bId.board_id }</h5></td>
-												<td><h5>${filename[status.index].image_name }</h5></td>
+												<td><h5>${cate[status.index].category_name}</h5></td>
+												<td><h5>${bId.prdct_id }</h5></td>
 												<td><a href="/seller/mypage/prdct/${bId.prdct_id }">
-													<h5>${bId.prdct_id }</h5>
+													<h5>${bId.prdct_name }</h5>
 													</a>	
 												</td>
+												<td><h5>${bId.prdct_price }</h5></td>
 												<td><h5>${bId.board_date }</h5></td>
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
+									
 								<ul class="pagination" style="margin: auto;">
 									<c:if test="${pageMaker.prev}">
 										<a class="page-link" href="/seller/mypage/prdct${pageMaker.makeQuery(pageMaker.startPage - 1)}">PREV</a>

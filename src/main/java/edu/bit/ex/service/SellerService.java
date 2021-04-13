@@ -5,7 +5,6 @@ import java.util.List;
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
-import edu.bit.ex.page.PrdctListCriteria;
 import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.CategoryVO;
@@ -66,12 +65,12 @@ public interface SellerService {
 	public BoardVO getContent(String getPrdct_id);
 
 	// 상품 등록글 내림차순 불러오기 (상품 조회시)
-	public List<BoardVO> getbNumDesc(PrdctListCriteria cri);
+	public List<PrdctRegisterImageVO> getbNumDesc(SearchCriteria cri);
 
 	// 상품q&a 게시글 총 수 불러오기
 	public int getTotal(SearchCriteria cri);
 
 	// 상품조회 게시글 총 수 불러오기
-	public int getPrdTotal(PrdctListCriteria cri);
+	public int getPrdTotal(SearchCriteria cri);
 
 }

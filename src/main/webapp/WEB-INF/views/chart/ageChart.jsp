@@ -24,11 +24,12 @@
 
           var options = {
             title: '나이별 선호도',
-            chartArea: {width: '70%'},
-            width : 620,
-            height : 242,
+            chartArea: {width: '75%', height : '300'},
+            fontSize : 14,
+            width : 720,
+            height : 400,
             hAxis: {
-              title: '선호도',
+
               minValue: 0
             },
           };

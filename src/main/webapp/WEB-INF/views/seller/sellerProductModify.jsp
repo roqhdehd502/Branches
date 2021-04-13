@@ -78,7 +78,8 @@
 					<h3 >
 					<strong>상품 정보 수정</strong>
 					</h3><hr>
-					<form id="updatePrd" action="/seller/mypage/prdct/{prdct_id}/modify" method="PUT">		
+					<form id="updatePrd" action="/seller/mypage/prdct/${pdvo.prdct_id}/modify" method="PUT">
+					<input type="hidden" value="${pdvo.prdct_id}" id="prdct_id">
 						<fieldset>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">상품명</label>
@@ -90,41 +91,41 @@
 								<label class="col-sm-2 col-form-label">카테고리</label>
 								<div class="col-sm-10">
 									<select class="form-control">
-										<option value="0" <c:if test="${pdvo.category_number == 0 }">selected</c:if>>아우터-코트</option>
-										<option value="1" <c:if test="${pdvo.category_number == 1 }">selected</c:if>>아우터-자켓</option>
-										<option value="2" <c:if test="${pdvo.category_number == 2 }">selected</c:if>>아우터-점퍼/무스탕</option>
-										<option value="3" <c:if test="${pdvo.category_number == 3 }">selected</c:if>>아우터-가디건</option>
-										<option value="4" <c:if test="${pdvo.category_number == 4 }">selected</c:if>>아우터-패딩</option>
-										<option value="5" <c:if test="${pdvo.category_number == 5 }">selected</c:if>>상의-티셔츠</option>
-										<option value="6" <c:if test="${pdvo.category_number == 6 }">selected</c:if>>상의-블라우스/셔츠</option>
-										<option value="7" <c:if test="${pdvo.category_number == 7 }">selected</c:if>>상의-니트/스웨터</option>
-										<option value="8" <c:if test="${pdvo.category_number == 8 }">selected</c:if>>상의-후드티</option>
-										<option value="9" <c:if test="${pdvo.category_number == 9 }">selected</c:if>>상의-맨투맨</option>
-										<option value="10" <c:if test="${pdvo.category_number == 10 }">selected</c:if>>상의-슬리브리스</option>
-										<option value="11" <c:if test="${pdvo.category_number == 11 }">selected</c:if>>하의-데님</option>
-										<option value="12" <c:if test="${pdvo.category_number == 12 }">selected</c:if>>하의-코튼</option>
-										<option value="13" <c:if test="${pdvo.category_number == 13 }">selected</c:if>>하의-숏</option>
-										<option value="14" <c:if test="${pdvo.category_number == 14 }">selected</c:if>>하의-슬랙스</option>
-										<option value="15" <c:if test="${pdvo.category_number == 15 }">selected</c:if>>하의-트레이닝/조거</option>
-										<option value="16" <c:if test="${pdvo.category_number == 16 }">selected</c:if>>하의-레깅스</option>
-										<option value="17" <c:if test="${pdvo.category_number == 17 }">selected</c:if>>하의-스커트</option>
-										<option value="18" <c:if test="${pdvo.category_number == 18 }">selected</c:if>>드레스-미니</option>
-										<option value="19" <c:if test="${pdvo.category_number == 19 }">selected</c:if>>드레스-미디</option>
-										<option value="20" <c:if test="${pdvo.category_number == 20 }">selected</c:if>>드레스-맥시</option>
-										<option value="21" <c:if test="${pdvo.category_number == 21 }">selected</c:if>>드레스-오버롤</option>
-										<option value="22" <c:if test="${pdvo.category_number == 22 }">selected</c:if>>가방-백팩</option>
-										<option value="23" <c:if test="${pdvo.category_number == 23 }">selected</c:if>>가방-메신저/크로스</option>
-										<option value="24" <c:if test="${pdvo.category_number == 24 }">selected</c:if>>가방-숄더/토트</option>
-										<option value="25" <c:if test="${pdvo.category_number == 25 }">selected</c:if>>가방-에코백</option>
-										<option value="26" <c:if test="${pdvo.category_number == 26 }">selected</c:if>>가방-클러치</option>
-										<option value="27" <c:if test="${pdvo.category_number == 27 }">selected</c:if>>신발-구두</option>
-										<option value="28" <c:if test="${pdvo.category_number == 28 }">selected</c:if>>신발-부츠</option>
-										<option value="29" <c:if test="${pdvo.category_number == 29 }">selected</c:if>>신발-샌들</option>
-										<option value="30" <c:if test="${pdvo.category_number == 30 }">selected</c:if>>신발-슬리퍼</option>
-										<option value="31" <c:if test="${pdvo.category_number == 31 }">selected</c:if>>신발-스니커즈</option>
-										<option value="32" <c:if test="${pdvo.category_number == 32 }">selected</c:if>>ETC-가방</option>
-										<option value="33" <c:if test="${pdvo.category_number == 33 }">selected</c:if>>ETC-모자</option>
-										<option value="34" <c:if test="${pdvo.category_number == 34 }">selected</c:if>>ETC-악세서리</option>
+										<option value="1" <c:if test="${pdvo.category_number == 1 }">selected</c:if>>아우터-코트</option>
+										<option value="2" <c:if test="${pdvo.category_number == 2 }">selected</c:if>>아우터-자켓</option>
+										<option value="3" <c:if test="${pdvo.category_number == 3 }">selected</c:if>>아우터-점퍼/무스탕</option>
+										<option value="4" <c:if test="${pdvo.category_number == 4 }">selected</c:if>>아우터-가디건</option>
+										<option value="5" <c:if test="${pdvo.category_number == 5 }">selected</c:if>>아우터-패딩</option>
+										<option value="6" <c:if test="${pdvo.category_number == 6 }">selected</c:if>>상의-티셔츠</option>
+										<option value="7" <c:if test="${pdvo.category_number == 7 }">selected</c:if>>상의-블라우스/셔츠</option>
+										<option value="8" <c:if test="${pdvo.category_number == 8 }">selected</c:if>>상의-니트/스웨터</option>
+										<option value="9" <c:if test="${pdvo.category_number == 9 }">selected</c:if>>상의-후드티</option>
+										<option value="10" <c:if test="${pdvo.category_number == 10 }">selected</c:if>>상의-맨투맨</option>
+										<option value="11" <c:if test="${pdvo.category_number == 11 }">selected</c:if>>상의-슬리브리스</option>
+										<option value="12" <c:if test="${pdvo.category_number == 12 }">selected</c:if>>하의-데님</option>
+										<option value="13" <c:if test="${pdvo.category_number == 13 }">selected</c:if>>하의-코튼</option>
+										<option value="14" <c:if test="${pdvo.category_number == 14 }">selected</c:if>>하의-숏</option>
+										<option value="15" <c:if test="${pdvo.category_number == 15 }">selected</c:if>>하의-슬랙스</option>
+										<option value="16" <c:if test="${pdvo.category_number == 16 }">selected</c:if>>하의-트레이닝/조거</option>
+										<option value="17" <c:if test="${pdvo.category_number == 17 }">selected</c:if>>하의-레깅스</option>
+										<option value="18" <c:if test="${pdvo.category_number == 18 }">selected</c:if>>하의-스커트</option>
+										<option value="19" <c:if test="${pdvo.category_number == 19 }">selected</c:if>>드레스-미니</option>
+										<option value="20" <c:if test="${pdvo.category_number == 20 }">selected</c:if>>드레스-미디</option>
+										<option value="21" <c:if test="${pdvo.category_number == 21 }">selected</c:if>>드레스-맥시</option>
+										<option value="22" <c:if test="${pdvo.category_number == 22 }">selected</c:if>>드레스-오버롤</option>
+										<option value="23" <c:if test="${pdvo.category_number == 23 }">selected</c:if>>가방-백팩</option>
+										<option value="24" <c:if test="${pdvo.category_number == 24 }">selected</c:if>>가방-메신저/크로스</option>
+										<option value="25" <c:if test="${pdvo.category_number == 25 }">selected</c:if>>가방-숄더/토트</option>
+										<option value="26" <c:if test="${pdvo.category_number == 26 }">selected</c:if>>가방-에코백</option>
+										<option value="27" <c:if test="${pdvo.category_number == 27 }">selected</c:if>>가방-클러치</option>
+										<option value="28" <c:if test="${pdvo.category_number == 28 }">selected</c:if>>신발-구두</option>
+										<option value="29" <c:if test="${pdvo.category_number == 29 }">selected</c:if>>신발-부츠</option>
+										<option value="30" <c:if test="${pdvo.category_number == 30 }">selected</c:if>>신발-샌들</option>
+										<option value="31" <c:if test="${pdvo.category_number == 31 }">selected</c:if>>신발-슬리퍼</option>
+										<option value="32" <c:if test="${pdvo.category_number == 32 }">selected</c:if>>신발-스니커즈</option>
+										<option value="33" <c:if test="${pdvo.category_number == 33 }">selected</c:if>>ETC-가방</option>
+										<option value="34" <c:if test="${pdvo.category_number == 34 }">selected</c:if>>ETC-모자</option>
+										<option value="35" <c:if test="${pdvo.category_number == 35 }">selected</c:if>>ETC-악세서리</option>
 									</select>
 								</div>
 							</div>
@@ -211,7 +212,6 @@ $(document).ready(function(){
 	$("#updatePrd").submit(function(event){
 		event.preventDefault();
 		
-		var prdct_id = $("#prdct_id").val();
         var prdct_name = $("#prdct_name").val();
         var prdct_price = $("#prdct_price").val();
         var prdct_color = $("#prdct_color").val();
@@ -219,11 +219,10 @@ $(document).ready(function(){
         var board_content = CKEDITOR.instances.board_content.getData();
         var prdct_stock = $("#prdct_stock").val();
         
-        console.log(prdct_id);
+        console.log("#prdct_id");
         console.log($(this).attr("action"));
         
         var form = {
-        		prdct_id: prdct_id,
         		prdct_name: prdct_name,
         		prdct_price: prdct_price,
         		prdct_color: prdct_color,

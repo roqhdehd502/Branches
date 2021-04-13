@@ -8,7 +8,6 @@ import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.mapper.SellerMapper;
-import edu.bit.ex.page.PrdctListCriteria;
 import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.CategoryVO;
@@ -134,7 +133,7 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public List<BoardVO> getbNumDesc(PrdctListCriteria cri) {
+	public List<PrdctRegisterImageVO> getbNumDesc(SearchCriteria cri) {
 		log.info("getbId()......");
 		return sellerMapper.getbNumDesc(cri);
 	}
@@ -146,7 +145,7 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public int getPrdTotal(PrdctListCriteria cri) {
+	public int getPrdTotal(SearchCriteria cri) {
 		log.info("getPrdTotal()......");
 		return sellerMapper.getPrdTotal(cri);
 	}
