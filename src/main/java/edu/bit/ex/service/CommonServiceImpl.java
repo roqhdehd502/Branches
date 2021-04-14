@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import edu.bit.ex.joinvo.BoardPrdctImageVO;
+import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.mapper.CommonMapper;
 import edu.bit.ex.page.PrdQnACriteria;
 import edu.bit.ex.page.PrdctListCriteria;
@@ -121,15 +121,9 @@ public class CommonServiceImpl implements CommonService {
 	}
 
 	@Override
-	public BoardPrdctImageVO getContent(int board_id) {
-
-		return commonMapper.getContent(board_id);
-	}
-
-	@Override
-	public BoardVO getboardId(int board_id) {
-
-		return commonMapper.getboardId(board_id);
+	public PrdctRegisterImageVO getPrdctBoard(String p_id) {
+		// TODO Auto-generated method stub
+		return commonMapper.getPrdctBoard(p_id);
 	}
 
 }
