@@ -146,7 +146,7 @@ img {
 		.ready(
 			function() {
 				$('#modalForm')
-					.sbmit(
+					.submit(
 						function(event) {
 						event.preventDefault();
 						console.log("ajax 호출전");
@@ -347,66 +347,18 @@ img {
 					<!-- 	상품 카테고리 분류  -->
 					<div class="item categories">
 						<a>카테고리 분류</a>
+						${prdct.category_name}
 					</div>
 
-					<!-- 상품 상세 이미지 -->
+					<!-- 상품 썸네일 -->
 					<div class="left-container">
 						<!-- 사진 슬라이딩 처리 -->
-						<div style="float: left; margin-right: 20px; margin-left: 100px;">
-							<div class="container">
-								<div class="mySlides" style="width: 400px; height: 600px;">
-									<img src="https://image.msscdn.net/images/goods_img/20200205/1291017/1291017_1_500.jpg" style="width: 100%">
+						<div style="float: left; margin-right: 20px; margin-left: 50px;">
+							<div class="container" style="margin-top: 50px; margin-bottom: 50px; margin-right: 50px; width: 500px; height: 600px;">
+								<div style="height: 100%; align-content: center;">
+								${prdct.prdct_thumbnail}
 								</div>
-
-								<div class="mySlides" style="width: 400px; height: 600px;">
-									<img src="https://image.msscdn.net/images/goods_img/20200820/1557508/1557508_1_500.jpg" style="width: 100%">
-								</div>
-
-								<div class="mySlides" style="width: 400px; height: 600px;">
-									<img src="https://image.msscdn.net/images/prd_img/20200820/1557508/detail_1557508_2_500.jpg" style="width: 100%">
-								</div>
-
-								<a class="prev" onclick="plusSlides(-1)">❮</a> <a class="next" onclick="plusSlides(1)">❯</a>
-								<script>
-									var slideIndex = 1;
-									showSlides(slideIndex);
-
-									function plusSlides(n) {
-										showSlides(slideIndex += n);
-									}
-
-									function currentSlide(n) {
-										showSlides(slideIndex = n);
-									}
-
-									function showSlides(n) {
-										var i;
-										var slides = document
-												.getElementsByClassName("mySlides");
-										var dots = document
-												.getElementsByClassName("demo");
-										var captionText = document
-												.getElementById("caption");
-										if (n > slides.length) {
-											slideIndex = 1
-										}
-										if (n < 1) {
-											slideIndex = slides.length
-										}
-										for (i = 0; i < slides.length; i++) {
-											slides[i].style.display = "none";
-										}
-										for (i = 0; i < dots.length; i++) {
-											dots[i].className = dots[i].className
-													.replace(" active", "");
-										}
-										slides[slideIndex - 1].style.display = "block";
-										dots[slideIndex - 1].className += " active";
-										captionText.innerHTML = dots[slideIndex - 1].alt;
-									}
-								</script>
 							</div>
-
 						</div>
 					</div>
 
@@ -422,28 +374,23 @@ img {
 								<input type="hidden" id="prdct_price" value="${prdct.prdct_price}">
 								<h4 id="prdct_price">${prdct.prdct_price}원</h4>
 								<hr>
-								<%-- <input type="hidden" id="prdct_thumbnail" value="${prdct.prdct_thumbnail}"> --%>
 								<!-- 색상/사이즈 옵션	 -->
 								<div class="form-group">
 									<label for="colorSelect" class="col-sm-2 col-form-label">Color</label> 
 									<select class="form-control" id="colorSelect" name="order_color">
-										<%-- <c:forEach items="${prdct}" var="prdct"> --%>
 											<c:set var="prdct_color" value="${fn:split(prdct.prdct_color, ',')}" />
 											<c:forEach var="color" items="${prdct_color}">
 												<option id="order_color"value="${prdct_color}">${color}</option>
 											</c:forEach>
-										<%-- </c:forEach> --%>
 									</select>
 								</div>
 								<div class="form-group">
 									<label for="sizeSelect" class="col-sm-2 col-form-label">Size</label> 
 									<select class="form-control" id="sizeSelect" name="order_size">
-										<%-- <c:forEach items="${prdct}" var="prdct"> --%>
 											<c:set var="prdct_size" value="${fn:split(prdct.prdct_size, ',')}" />
 											<c:forEach var="size" items="${prdct_size}">
 												<option id="order_size" value="${size}">${size}</option>
 											</c:forEach>
-										<%-- </c:forEach> --%>
 									</select>
 								</div>
 								<div class="form-group">
@@ -508,7 +455,7 @@ img {
 									<div class="inner">
 										<div style="padding-top: 7px; text-align: center;">
 											<%-- <img src="<c:url value="/prdct_img/${prdDetailimg.image_name}"/>"> --%>
-											${bvo.board_content }
+											${prdct.board_content }
 										</div>
 									</div>
 								</div>
@@ -747,7 +694,38 @@ img {
 										</div>
 									</form>
 								</c:forEach>
+								
+								
+								<div>
+			<ul class="pagination">
+				<c:choose>
+					<c:when test="${pageMaker.prev}">
+						<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+					</c:otherwise>
+				</c:choose>
+
+				<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+					<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+					<li class="page-item ${pageMaker.cri.pageNum == idx ? 'active' : '' }"><a class="page-link" href="${pageMaker.makeQuery(idx)}">${idx}</a></li>
+				</c:forEach>
+
+				<c:choose>
+					<c:when test="${pageMaker.next && pageMaker.endPage > 0}">
+						<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+					</c:otherwise>
+				</c:choose>
+			</ul>
+		</div>
 							</div>
+							
+							
+							
 						</div>
 					</div>
 				</div>

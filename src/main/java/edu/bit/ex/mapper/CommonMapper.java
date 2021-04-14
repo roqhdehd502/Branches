@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.PrdQnACriteria;
+import edu.bit.ex.page.PrdReviewCriteria;
 import edu.bit.ex.page.PrdctListCriteria;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.CategoryVO;
@@ -29,7 +30,9 @@ public interface CommonMapper {
 	public List<PrdctVO> getProductInfo(String p_id);
 
 	// 리뷰 리스트
-	public List<BoardVO> getReviewList(String p_id);
+	public List<BoardVO> getReviewList(PrdReviewCriteria rcri, String p_id);
+
+	public int getPrdctReviewTotal(PrdReviewCriteria rcri, String p_id);
 
 	// 페이징을 적용한 상품 Q&A 게시판 리스트
 	public List<BoardVO> getPrdQnAListWithPaging(PrdQnACriteria cri, String p_id);
@@ -57,5 +60,7 @@ public interface CommonMapper {
 	public int getBrandTotalCount(PrdctListCriteria cri, String b_id);
 
 	public PrdctRegisterImageVO getPrdctBoard(String p_id);
+
+	public String getCategoryName(int category_number);
 
 }

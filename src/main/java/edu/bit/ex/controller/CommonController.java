@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.PrdQnACriteria;
+import edu.bit.ex.page.PrdReviewCriteria;
+import edu.bit.ex.page.PrdReviewPageVO;
 import edu.bit.ex.page.PrdctListCriteria;
 import edu.bit.ex.page.PrdctListPageVO;
 import edu.bit.ex.service.CommonService;
@@ -53,10 +55,11 @@ public class CommonController {
 
 	// 상품 상세페이지
 	@RequestMapping(value = "/prdct/{prdct_id}", method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView productDetail(@PathVariable("prdct_id") String p_id, PrdQnACriteria cri, ModelAndView mav) throws Exception {
+	public ModelAndView productDetail(@PathVariable("prdct_id") String p_id, PrdReviewCriteria rcri, PrdQnACriteria qacri, ModelAndView mav)
+			throws Exception {
 
 		PrdctRegisterImageVO prdctvo = commonService.getPrdctBoard(p_id);
-
+		prdctvo.setCategory_name(commonService.getCategoryName(prdctvo.getCategory_number()));
 		log.info("product..");
 		// 상품 정보
 		mav.setViewName("common/productDetail");
@@ -67,12 +70,13 @@ public class CommonController {
 
 		// 리뷰 관련
 		log.info("reviewList..");
-		mav.addObject("reviewList", (commonService.getReviewList(p_id)));
+		mav.addObject("reviewList", commonService.getReviewList(rcri, p_id));
+		int r_total = commonService.getPrdctReviewTotal(rcri, p_id);
+		mav.addObject("PageMaker", new PrdReviewPageVO(rcri, r_total));
 
 		// 큐앤에이 관련
 		log.info("prdQnAList...");
-		log.info(cri.toString());
-		// mav.addObject("prdQnAList", commonService.getPrdQnAList(cri, p_id));
+		mav.addObject("prdQnAList", commonService.getPrdQnAList(qacri, p_id));
 		// int total = commonService.getPrdQnATotal(cri);
 		// log.info("total" + total);
 		// mav.addObject("pageMaker", new PrdQnAPageVO(cri, total));

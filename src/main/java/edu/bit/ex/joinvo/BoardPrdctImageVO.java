@@ -50,7 +50,7 @@ public class BoardPrdctImageVO { // 게시판 이미지 VO
 	private int board_like; // 게시글추천수
 	private int board_hit; // 게시글조회수
 	private int board_starrate; // 게시글별점수
-	private String board_thumbnail; // 게시글썸네일
+	private String prdct_thumbnail; // 게시글썸네일
 
 	private int board_id; // 게시글번호 부모pk, 자식fk
 	private String prdct_id; // 상품id fk
