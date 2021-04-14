@@ -189,41 +189,34 @@ img {
 </script>
 <script>	
 	function insertCart() {
-		var prdct_id = $("#prdct_id").val();
-		var order_amount = $("#order_amount").val();
-		var order_color = $("#order_color").val();
-		var order_size = $("#order_size").val();
-		var prdct_price = $("#prdct_price").val();
-		var prdct_name = $("#prdct_name").val();
-			
-		data = {
-				prdct_id : prdct_id,
-				order_amount : order_amount,
-				order_color : order_color,
-				order_size : order_size,
-				prdct_price : prdct_price,
-				prdct_name : prdct_name
-		};
+		var cart = JSON.parse(sessionStorage.getItem("cartList"));
+		if (!cart) {
+			console.log("카트생성");
+			cart = new Array();
+		}
 		
-		$.ajax({
-			type : "POST",
-			url : "/order/insert_cart",
-			data : JSON.stringify(data),
-			contentType : "application/json",
-			cache : false,
-			success : function(result) {
-				if(result == "SUCCESS") {
-					if(confirm("장바구니에 상품을 담았습니다.\n장바구니로 이동하시겠습니까?")) {
-						location.href="/order/cart";
-					}
-				}
-			},
-			error : function(e) {
-				console.log(e);
-				alert("에러가 발생했습니다.");
-			}
-		});
+		var prdct = new Object();
+		prdct.prdct_id = $("#prdct_id").val();  
+		prdct.order_amount = $("#order_amount").val();
+		prdct.order_color = $("#order_color").val();
+		prdct.order_size = $("#order_size").val();
+		prdct.prdct_price = $("#prdct_price").val();
+		prdct.prdct_name = $("#prdct_name").val();
+		prdct.prdct_thumbnail = $("#prdct_thumbnail").val();
+			
+		console.log(prdct);
+		cart.push(prdct);
+		console.log(prdct);
+		
+		sessionStorage.setItem("cartList", JSON.stringify(cart));
+		
+		if (confirm("상품이 장바구니에 담겼습니다. 장바구니로 이동하시겠습니까?") == true) { 
+			window.location.assign("/order/cart");
+		} else { //취소
+			return false;
+		}
 	}
+	
 	function getTotal() {
 		var order_amount = $("#order_amount").val();
 		var prdct_price = $("#prdct_price").val();
@@ -429,7 +422,7 @@ img {
 								<input type="hidden" id="prdct_price" value="${productDetail.prdct_price}">
 								<h4 id="prdct_price">${productDetail.prdct_price}원</h4>
 								<hr>
-
+								<%-- <input type="hidden" id="prdct_thumbnail" value="${productDetail.prdct_thumbnail}"> --%>
 								<!-- 색상/사이즈 옵션	 -->
 								<div class="form-group">
 									<label for="colorSelect" class="col-sm-2 col-form-label">Color</label> 
@@ -437,7 +430,7 @@ img {
 										<c:forEach items="${productInfo}" var="productInfo">
 											<c:set var="prdct_color" value="${fn:split(productInfo.prdct_color, ',')}" />
 											<c:forEach var="color" items="${prdct_color}">
-												<option value="${prdct_color}">${color}</option>
+												<option id="order_color"value="${prdct_color}">${color}</option>
 											</c:forEach>
 										</c:forEach>
 									</select>
@@ -448,7 +441,7 @@ img {
 										<c:forEach items="${productInfo}" var="productInfo">
 											<c:set var="prdct_size" value="${fn:split(productInfo.prdct_size, ',')}" />
 											<c:forEach var="size" items="${prdct_size}">
-												<option value="${size}">${size}</option>
+												<option id="order_size" value="${size}">${size}</option>
 											</c:forEach>
 										</c:forEach>
 									</select>

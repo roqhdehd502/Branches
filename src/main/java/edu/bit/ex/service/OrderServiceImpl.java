@@ -3,8 +3,8 @@ package edu.bit.ex.service;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import edu.bit.ex.joinvo.PrdctOrderDetailVO;
 import edu.bit.ex.mapper.OrderMapper;
-import edu.bit.ex.vo.PrdctVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,8 +20,13 @@ public class OrderServiceImpl implements OrderService {
 	/*
 	 * @Override public List<PrdctVO> getCartList() { log.info("getCartList()"); return orderMapper.getCartList(); }
 	 */
+	/*
+	 * @Override public PrdctVO getProduct(String prdct_id) { return orderMapper.getProduct(prdct_id); }
+	 */
+
 	@Override
-	public PrdctVO getProduct(String prdct_id) {
+	public PrdctOrderDetailVO getPrdctCart(String prdct_id) {
+		log.info("getPrdctCart()");
 		return orderMapper.getProduct(prdct_id);
 	}
 
