@@ -391,11 +391,11 @@ public class SellerController {
 
 	// 판매자 정보수정폼 seller
 	// 로그인이 되면 member_id 받아오기
-	@RequestMapping(value = "/mypage/myinfo/{seller_id}", method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView seller_info(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable("seller_id") String m_id, ModelAndView mav) {
+	@RequestMapping(value = "/mypage/myinfo/{mbr_id}", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView seller_info(@PathVariable("mbr_id") String mbr_id, ModelAndView mav) {
 		mav.setViewName("seller/seller_mypage_modify");
-		mav.addObject("mbr", sellerService.getMemberInfo(m_id));
-		mav.addObject("adr", sellerService.getSellerAddress(m_id));
+		mav.addObject("mbr", sellerService.getMemberInfo(mbr_id));
+		mav.addObject("adr", sellerService.getAddress(mbr_id));
 		return mav;
 	}
 

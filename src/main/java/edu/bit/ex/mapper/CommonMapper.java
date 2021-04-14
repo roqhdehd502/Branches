@@ -17,7 +17,7 @@ import edu.bit.ex.vo.PrdctVO;
 public interface CommonMapper {
 	// 상품 리스트
 	// @Select("select * from prdct")
-	public List<PrdctVO> getProduct();
+	public List<PrdctRegisterImageVO> getProduct();
 
 	// 회원 리스트
 	// @Select("select * from mbr")

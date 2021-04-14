@@ -56,12 +56,6 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public ShippingVO getSellerAddress(String m_id) {
-		// TODO Auto-generated method stub
-		return sellerMapper.getSellerAddress(m_id);
-	}
-
-	@Override
 	public void prdctUpdate(PrdctRegisterImageVO prvo) {
 		log.info("prdctUpdate()......");
 		sellerMapper.prdctUpdate(prvo);

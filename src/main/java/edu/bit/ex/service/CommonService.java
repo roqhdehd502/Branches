@@ -14,7 +14,7 @@ import edu.bit.ex.vo.PrdctVO;
 
 public interface CommonService {
 	// 상품 리스트
-	public List<PrdctVO> getProduct();
+	public List<PrdctRegisterImageVO> getProduct();
 
 	// 회원 리스트
 	public List<MbrVO> getMember();
