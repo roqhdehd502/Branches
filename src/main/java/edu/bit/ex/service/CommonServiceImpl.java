@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.mapper.CommonMapper;
 import edu.bit.ex.page.PrdQnACriteria;
+import edu.bit.ex.page.PrdReviewCriteria;
 import edu.bit.ex.page.PrdctListCriteria;
 import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
@@ -52,9 +53,15 @@ public class CommonServiceImpl implements CommonService {
 
 	// 리뷰 리스트
 	@Override
-	public List<BoardVO> getReviewList(String p_id) {
+	public List<BoardVO> getReviewList(PrdReviewCriteria rcri, String p_id) {
 		log.info("getreviewList");
-		return commonMapper.getReviewList(p_id);
+		return commonMapper.getReviewList(rcri, p_id);
+	}
+
+	@Override
+	public int getPrdctReviewTotal(PrdReviewCriteria rcri, String p_id) {
+		// TODO Auto-generated method stub
+		return commonMapper.getPrdctReviewTotal(rcri, p_id);
 	}
 
 	// 페이징을 적용한 상품 Q&A 게시판 리스트
@@ -124,6 +131,12 @@ public class CommonServiceImpl implements CommonService {
 	public PrdctRegisterImageVO getPrdctBoard(String p_id) {
 		// TODO Auto-generated method stub
 		return commonMapper.getPrdctBoard(p_id);
+	}
+
+	@Override
+	public String getCategoryName(int category_number) {
+		// TODO Auto-generated method stub
+		return commonMapper.getCategoryName(category_number);
 	}
 
 }

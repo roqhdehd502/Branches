@@ -21,7 +21,19 @@
 	<!-- 리뷰 게시판 리스트 -->
 	<select id="getReviewList" resultType="edu.bit.ex.vo.BoardVO">
 		<![CDATA[
-			SELECT * FROM board where board_type_number = 3 and prdct_id = #{p_id} ORDER BY board_date DESC 
+			SELECT * FROM ( 
+			     SELECT ROWNUM AS rnum, a.* FROM ( 
+			        		SELECT * 
+			                FROM board 
+			    ) a WHERE ROWNUM <= #{rcri.pageNum} * #{rcri.amount} 
+			) WHERE rnum > (#{rcri.pageNum}-1) * #{rcri.amount} and prdct_id=#{p_id} and board_type_number=3
+			 ORDER BY board_date DESC 
+		]]>
+	</select>
+	
+	<select id="getPrdctReviewTotal" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) FROM board WHERE board_type_number = 3 and prdct_id=#{p_id}
 		]]>
 	</select>
 	
@@ -102,6 +114,12 @@
 	<select id="getPrdctBoard" resultType="edu.bit.ex.joinvo.PrdctRegisterImageVO" >
 		<![CDATA[			
 			select * from prdct p, board b where p.prdct_id=#{p_id} and p.prdct_id=b.prdct_id and b.board_type_number=6
+		]]>
+	</select>
+	
+	<select id="getCategoryName" resultType="String">
+		<![CDATA[			
+			select category_name from category where category_number=#{category_number}
 		]]>
 	</select>
 

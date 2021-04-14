@@ -19,6 +19,13 @@
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css">
 
+<style type="text/css">
+
+.team-img {
+	height: 60%
+}
+
+</style>
 </head>
 <body>
 <div style="overflow: hidden;" class="container">
@@ -138,9 +145,9 @@
 			<div class="container">
 				<div class="row">
 					<c:forEach items="${prdct}" var="prdct">
-						<div class="col-sm-2 col-md-2 col-lg-2 single-team" style="height: 100%" onclick="location.href='/admin/mypage/seller/${mbr.mbr_id}/prdct/${prdct.prdct_id}'">
-						<div class="inner">
-							<div class="team-img" style="height: 10%;">
+						<div class="col-sm-2 col-md-2 col-lg-2 single-team" style="height: 300px; width: 150px;" onclick="location.href='/admin/mypage/seller/${mbr.mbr_id}/prdct/${prdct.prdct_id}'">
+						<div class="inner" style="height: 100%;">
+							<div class="team-img" style="overflow: inherit;">
 								${prdct.prdct_thumbnail}
 							</div>
 							

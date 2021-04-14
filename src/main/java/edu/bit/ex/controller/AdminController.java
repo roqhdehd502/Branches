@@ -179,7 +179,7 @@ public class AdminController {
 	}
 
 	/* 상품 thumbnail 수정 */
-	@RequestMapping("/mypage/seller/{s_id}/prdct/{p_id}/modify/prdct_thumb")
+	@RequestMapping(value = "/mypage/seller/{s_id}/prdct/{p_id}/modify/prdct_thumb", method = { RequestMethod.POST, RequestMethod.GET })
 	public void prdct_thumb_update(HttpServletRequest request, HttpServletResponse response, MultipartFile upload) throws Exception {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
@@ -209,7 +209,7 @@ public class AdminController {
 	}
 
 	/* 상품 content image 수정 */
-	@RequestMapping("/mypage/seller/{s_id}/prdct/{p_id}/modify/prdct_img")
+	@RequestMapping(value = "/mypage/seller/{s_id}/prdct/{p_id}/modify/prdct_img", method = { RequestMethod.POST, RequestMethod.GET })
 	public void prdct_img_update(HttpServletRequest request, HttpServletResponse response, MultipartFile upload) throws Exception {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");

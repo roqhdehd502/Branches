@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="/assets/css/slicknav.css">
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css">
-<script src="/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
 
 </head>
 <body>
@@ -97,13 +97,13 @@
 							</div>
 							<!-- thumbnail ckeditor -->
 							<div class="form-group row">
-								<label class="col-sm-2 col-form-label">대표이미지(Thumbnail)<br />높이 150!</label>
+								<label class="col-sm-2 col-form-label">대표이미지(Thumbnail)</label>
 								<div class="col-sm-10">
 									<textarea name="prdct_thumbnail" id="prdct_thumbnail">${prdct.prdct_thumbnail }</textarea>
 									<script>
 									var editor2 = CKEDITOR.replace("prdct_thumbnail", {
 										filebrowserUploadUrl : "${pageContext.request.contextPath}/admin/mypage/seller/${prdct.mbr_id}/prdct/${prdct.prdct_id}/modify/prdct_thumb",
-										height : 150
+										height : 250
 									});	
 									</script>
 								</div>
