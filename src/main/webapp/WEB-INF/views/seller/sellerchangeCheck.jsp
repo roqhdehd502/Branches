@@ -122,15 +122,18 @@
 								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(2)">작성자순</button>
 								&nbsp;&nbsp;
 								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(5)">일자순</button>
-								<form id="searchForm" action="/seller/mypage/prdct" method="get" style="position: relative; left: 270px;">
-									<span style="position: relative; top: 6px;"> <select name="type" class="form-control" style="width: 100px; border: 3px solid black;">
+								<form id="searchForm" action="/seller/mypage/prdct" method="get" style="position: relative; left: 260px;">
+									<span>
+										<select name="type" style="width: 100px; border: 3px solid black;">
 											<option value="" <c:out value="${pageMaker.cri.type == null?'selected' : '' }" />>---</option>
 											<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ?'selected' : '' }" />>상품명</option>
 											<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ?'selected' : '' }" />>ID</option>
-									</select>
-									</span>&nbsp;&nbsp; <span> <input type="text" class="form-control" name="keyword" style="width: 200px; border: 3px solid black;"
-										value='<c:out value="${pageMaker.cri.keyword}" />' /> <input type="hidden" name="pageNum"
-										value='<c:out value="${pageMaker.cri.pageNum}" />' /> <input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}" />' />
+										</select>
+									</span>&nbsp;&nbsp;
+									<span>
+									<input type="text" name="keyword" style="width: 200px; border: 3px solid black;" value='<c:out value="${pageMaker.cri.keyword}" />' /> 
+										<input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum}" />' /> 
+										<input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}" />' />
 									</span>
 									<button class="btn btn-primary btn-sm">검색</button>
 								</form>
@@ -175,66 +178,7 @@
 
 		<hr>
 		<!-- footer -->
-		<footer>
-			<div class="footer-top">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>회사소개</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>제휴문의</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>채용정보</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>고객센터</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>이용약관</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>개인정보처리</h5></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="footer-bottom">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="copyright-txt">Copyright© 2021 Branches. All Rights Reserved.</div>
-						</div>
-						<div class="col-lg-6 text-right">
-							<div class="footer-nav">
-								<a href="/member/main">Home</a> <a href="#">Q&A</a> <a href="#">Notice</a> <a href="#">Magazine</a> <a href="#">Blog</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</footer>
-		<div class="container">
-			<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 | <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 | <strong>팩스 :</strong>
-				000-0000-0000 |<strong>사업자등록번호 :</strong> 000-00-000000 | <strong>통신판매업신고 :</strong> 0000-서울종로-00000 |
-			</small> <br /> <small style="color: black;"><strong>고객센터</strong> 0000-0000 | 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) | <strong>이메일</strong>
-				admin@branches.co.kr | <strong>개인정보책임자</strong> 000 | <strong>호스팅서비스</strong> (주)00000 | </small>
-		</div>
-		<br /> <br />
+		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
 		<!--Required JS files-->
 	<script src="/assets/js/jquery-2.2.4.min.js"></script>
 	<script src="/assets/js/vendor/popper.min.js"></script>

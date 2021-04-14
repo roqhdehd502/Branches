@@ -80,7 +80,7 @@
 											<img src="/hs/5.jpg">
 										</div>
 										<div class="team-content">
-											<h4>${member[status.index].mbr_name }</h4>
+											<h4>${prdct.mbr_id }</h4>
 											<h5>${prdct.prdct_name}</h5>
 											<h5>${prdct.prdct_price}₩</h5>
 											<h6>
@@ -114,7 +114,7 @@
 											<img src="/hs/8.jpg" alt="Member Photo">
 										</div>
 										<div class="team-content">
-											<h4>${member[status.index].mbr_name }</h4>
+											<h4>${prdct.mbr_id }</h4>
 											<h5>${prdct.prdct_name}</h5>
 											<h5>${prdct.prdct_price}₩</h5>
 											<h6>
@@ -162,7 +162,7 @@
 					<p>무엇을 입어야 할지 고민이라구요?? Branches MD분들이 매주 여러분들을 위해 Best상품을 추천해드립니다!</p>
 				</div>
 				<div class="row">
-					<c:forEach items="${prdct }" var="prdct" begin="0" end="2" varStatus="status">
+					<c:forEach items="${prdct }" var="prdct" begin="0" end="2">
 						<div class="col-md-4 single-team">
 							<div class="inner">
 								<a href="#" style="text-decoration: none;">
@@ -170,12 +170,13 @@
 										<img src="/hs/7.jpg" alt="Member Photo">
 									</div>
 									<div class="team-content">
-										<h4>${member[status.index].mbr_name }</h4>
+										<h4>${prdct.mbr_id }</h4>
 										<h5>${prdct.prdct_name}</h5>
 										<h5>${prdct.prdct_price}₩</h5>
 										<h6>
 											<del>${prdct.prdct_price *2}₩</del>
 										</h6>
+
 									</div>
 								</a>
 							</div>

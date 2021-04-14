@@ -24,7 +24,7 @@ public class CommonServiceImpl implements CommonService {
 
 	// 상품 리스트
 	@Override
-	public List<PrdctVO> getProduct() {
+	public List<PrdctRegisterImageVO> getProduct() {
 		log.info("getProduct......");
 		return commonMapper.getProduct();
 	}

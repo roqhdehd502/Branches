@@ -34,8 +34,6 @@ public interface SellerMapper {
 	// 판매자 정보 불러오기
 	public MbrVO getMemberInfo(String s_id);
 
-	public ShippingVO getSellerAddress(String m_id);
-
 	// 판매자 정보 수정
 	public void sellerInfoUpdate(MbrShippingVO mavo);
 

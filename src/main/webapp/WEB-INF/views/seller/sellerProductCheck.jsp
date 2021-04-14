@@ -118,19 +118,19 @@
 					<div class="team-area sp">
 						<div class="container">
 							<div class="row">
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(0)">내림차순</button>&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(2)">오름차순</button>&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(4)">ㄱㄴㄷ순</button>&nbsp;&nbsp;
-								<form id="searchForm" action="/seller/mypage/prdct" method="get" style="position: relative; left: 270px;">
-									<span style="position: relative; top: 6px;">
-										<select name="type" class="form-control" style="width: 100px; border: 3px solid black;">
+								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(0)">번호순</button>&nbsp;&nbsp;
+								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(2)">ID순</button>&nbsp;&nbsp;
+								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(5)">일자순</button>&nbsp;&nbsp;
+								<form id="searchForm" action="/seller/mypage/prdct" method="get" style="position: relative; left: 320px;">
+									<span>
+										<select name="type" style="width: 100px; border: 3px solid black;">
 											<option value="" <c:out value="${pageMaker.cri.type == null?'selected' : '' }" />>---</option>
 											<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ?'selected' : '' }" />>상품명</option>
 											<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ?'selected' : '' }" />>ID</option>
 										</select>
 									</span>&nbsp;&nbsp;
 									<span>
-									<input type="text" class="form-control" name="keyword" style="width: 200px; border: 3px solid black;" value='<c:out value="${pageMaker.cri.keyword}" />' /> 
+									<input type="text" name="keyword" style="width: 200px; border: 3px solid black;" value='<c:out value="${pageMaker.cri.keyword}" />' /> 
 										<input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum}" />' /> 
 										<input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}" />' />
 									</span>

@@ -76,7 +76,7 @@
             <h3>${mbr.mbr_id }</h3>
             <h3 style="position: relative; top: 15px;">${mbr.mbr_name }</h3>
          </span>
-         <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="/seller/mypage/myinfo">정보수정</a></span> 
+         <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="/seller/mypage/myinfo/${mbr.mbr_id }">정보수정</a></span> 
            <span style="margin-left: 300px;" align="center">
             <h2 style="position: relative; top: 5px;">새 주문</h2>
             <h4 style="position: relative; top: 15px;">2건</h4>

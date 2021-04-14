@@ -9,6 +9,8 @@
 <title>Branches</title>
 </head>
 <body>
+<!-- 채널 봇 챗봇 -->
+		<script src="/js/channelIO.js"></script>
 <!-- footer -->
 		<footer>
 			<div class="footer-top">

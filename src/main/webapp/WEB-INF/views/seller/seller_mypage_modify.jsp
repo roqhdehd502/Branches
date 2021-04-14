@@ -75,34 +75,44 @@ $(document).ready(function(){
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 	<div style="overflow: hidden;" class="container">
 		<header>
-		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
-	</header>
+			<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
+		</header>
 
 		<hr style="margin: 15px 15px 40px 15px;">
 
 		<div class="container">
-			<div class="row">
-				<div class="col-md-3 contact-info" align="left" style="padding-left: 40px">
-					<h2>${mbr.mbr_name}</h2>
-					<h2>${mbr.mbr_id}</h2>
-				</div>
-				<div class="col-md-1 contact-info" align="center" style="padding-top: 20px">
-					<a href="#">정보수정</a>
-				</div>
-				<div class="col-md-6 contact-info"></div>
-				<div class="col-md-2 contact-info" align="center" style="padding-right: 10px">
-					<h2>새주문</h2>
-					<h3>2건</h3>
-				</div>
-			</div>
-			<span style="margin-left: 14px;"> </span> <span style="margin-left: 400px;" align="center"> </span>
-		</div>
+         <span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
+            <h3>${mbr.mbr_id }</h3>
+            <h3 style="position: relative; top: 15px;">${mbr.mbr_name }</h3>
+         </span>
+         <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="/seller/mypage/myinfo/${mbr.mbr_id }">정보수정</a></span> 
+           <span style="margin-left: 300px;" align="center">
+            <h2 style="position: relative; top: 5px;">새 주문</h2>
+            <h4 style="position: relative; top: 15px;">2건</h4>
+         </span>
+         <span style="margin-left: 80px;" align="center">
+            <h2 style="position: relative; top: 5px;">취소</h2>
+            <h4 style="position: relative; top: 15px;">2건</h4>
+         </span>
+         <span style="margin-left: 80px;" align="center">
+            <h2 style="position: relative; top: 5px;">교환</h2>
+            <h4 style="position: relative; top: 15px;">2건</h4>
+         </span>
+         <span style="margin-left: 80px;" align="center">
+            <h2 style="position: relative; top: 5px;">환불</h2>
+            <h4 style="position: relative; top: 15px;">2건</h4>
+         </span>
+      </div>
 		
 		<hr style="margin: 15px 15px 40px 15px;">
 
 		<div class="container">
 			<div class="row">
 				<div class="col-md-3 contact-info" align="center">
+				<div class="single-info" style="margin-bottom: 40px">
+	                    <h3>마이페이지</h3><hr>
+	                    <h5><a href="/seller/mypage">홈 바로가기</a></h5>
+	            </div>
 				<div class="single-info" style="margin-bottom: 40px">
 	                    <h3>주문 관리</h3><hr>
 	                    <h5><a href="#">전체</a></h5>
@@ -215,59 +225,7 @@ $(document).ready(function(){
 		<hr>
 		
 		<!-- footer -->
-		<div>
-			<div class="footer-top">
-				<div class="container" align="center">
-					<div class="row">
-						<div class="col-md-6 col-lg-3 footer_widget">
-							<div class="inner">
-								<h4>About</h4>
-							</div>
-						</div>
-						<div class="col-md-6 col-lg-3 footer_widget">
-							<div class="inner">
-								<h4>Company</h4>
-
-							</div>
-						</div>
-						<div class="col-md-6 col-lg-3 footer_widget">
-							<div class="inner">
-								<h4>Recent Posts</h4>
-							</div>
-						</div>
-						<div class="col-md-6 col-lg-3 footer_widget">
-							<div class="inner">
-								<h4>Address</h4>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<hr>
-			<div class="footer-bottom">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="copyright-txt">© 2017 Flat Pro. All Rights Reserved.</div>
-						</div>
-						<div class="col-lg-6 text-right">
-							<div class="footer-nav">
-								<a href="#">Home</a> <a href="#">Portfolio</a> <a href="#">Pages</a> <a href="#">Shortcode</a> <a href="#">Blog</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		
-		<div class="container-fluid">
-			<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 <strong>팩스 :</strong>
-				000-0000-0000 <strong>사업자등록번호 :</strong> 000-00-000000 <strong>통신판매업신고 :</strong> 0000-서울종로-00000
-			</small> <br /> <small style="color: black;"><strong>고객센터</strong> 0000-0000 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) <strong>이메일</strong>
-				customer@29cm.co.kr <strong>대표이사</strong> 000 <strong>개인정보책임자</strong> 000 <strong>호스팅서비스</strong> (주)00000</small>
-		</div>
-		<br /><br />
+		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
 		<!--Required JS files-->
 		<script src="/assets/js/jquery-2.2.4.min.js"></script>
 		<script src="/assets/js/vendor/popper.min.js"></script>

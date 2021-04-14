@@ -37,7 +37,6 @@ public class CommonController {
 		// mav.addObject("prdct", commonService.getProduct("테스트"));
 		/* 하나씩 불러올때 ("해당 컬럼속성의 db값을 적기") */
 		mav.addObject("prdct", commonService.getProduct());
-		mav.addObject("member", commonService.getMember());
 		return mav;
 	}
 
