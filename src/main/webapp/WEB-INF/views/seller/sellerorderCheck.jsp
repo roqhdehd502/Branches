@@ -54,72 +54,125 @@
 			<div class="row">
 				<div class="col-md-2 contact-info" align="center">
 					<div class="single-info" style="margin-bottom: 40px">
-	                    <h3>마이페이지</h3><hr>
-	                    <h5><a href="/seller/mypage">홈 바로가기</a></h5>
-	                </div>
+						<h3>마이페이지</h3>
+						<hr>
+						<h5>
+							<a href="/seller/mypage">홈 바로가기</a>
+						</h5>
+					</div>
 					<div class="single-info" style="margin-bottom: 40px">
-	                    <h3>주문 관리</h3><hr>
-	                    <h5><a href="/seller/mypage/order">주문확인</a></h5>
-	                    <h5><a href="/seller/mypage/release">발송확인</a></h5>
-	                    <h5><a href="/seller/mypage/cancel">취소</a></h5>
-	                    <h5><a href="/seller/mypage/exchange">교환</a></h5>
-	                    <h5><a href="/seller/mypage/refund">환불</a></h5>
-	                </div>
-	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>상품 관리</h3><hr>
-	                   <h5><a href="/seller/mypage/prdct_register">등록</a></h5>
-	                    <h5><a href="/seller/mypage/prdct">조회</a></h5>
-	                </div>
-	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>회원 관리</h3><hr>
-	                    <h5><a href="/seller/mypage/prdctqna">Q&A</a></h5>
-	                    <h5><a href="/seller/mypage/review">리뷰</a></h5>
-	                </div>
-	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>매출 관리</h3><hr>
-	                    <h5><a href="/seller/mypage/sales">매출</a></h5>
-	                </div>
+						<h3>주문 관리</h3>
+						<hr>
+						<h5>
+							<a href="/seller/mypage/order">주문확인</a>
+						</h5>
+						<h5>
+							<a href="/seller/mypage/release">발송확인</a>
+						</h5>
+						<h5>
+							<a href="/seller/mypage/cancel">취소</a>
+						</h5>
+						<h5>
+							<a href="/seller/mypage/exchange">교환</a>
+						</h5>
+						<h5>
+							<a href="/seller/mypage/refund">환불</a>
+						</h5>
+					</div>
+					<div class="single-info" style="margin-bottom: 40px">
+						<h3>상품 관리</h3>
+						<hr>
+						<h5>
+							<a href="/seller/mypage/prdct_register">등록</a>
+						</h5>
+						<h5>
+							<a href="/seller/mypage/prdct">조회</a>
+						</h5>
+					</div>
+					<div class="single-info" style="margin-bottom: 40px">
+						<h3>회원 관리</h3>
+						<hr>
+						<h5>
+							<a href="/seller/mypage/prdctqna">Q&A</a>
+						</h5>
+						<h5>
+							<a href="/seller/mypage/review">리뷰</a>
+						</h5>
+					</div>
+					<div class="single-info" style="margin-bottom: 40px">
+						<h3>매출 관리</h3>
+						<hr>
+						<h5>
+							<a href="/seller/mypage/sales">매출</a>
+						</h5>
+					</div>
 				</div>
 
 				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">
 					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px;">
 						<strong style="margin: 10px;">주문 확인</strong>
 					</h3>
-					<table class="table">
-						<thead style="text-align: center;">
-							<tr>
-								<th><h5>상품정보</h5></th>
-								<th><h5>주문일</h5></th>
-								<th><h5>주문번호</h5></th>
-								<th><h5>주문금액</h5></th>
-								<th><h5>상태</h5></th>
-							</tr>
-						</thead>
-						<tbody style="text-align: center;">
-							<c:forEach items="${ord}" var="ord" begin="0" end="2" varStatus="status">
-								<tr style="text-align: center;">
-									<td>
-										<h6>${prd[status.index].prdct_name}</h6>
-										<h6>${prd[status.index].prdct_id}</h6>
-										<h6>${ord.order_size}</h6>
-										<h6>${ord.order_color}</h6>
-										<h6>${ord.order_amount}</h6>
-									</td>
-									<td><h6 style="position: relative; top: 34px;">${prdor[status.index].order_date}</h6></td>
-									<td><h6 style="position: relative; top: 34px;">${ord.order_number}</h6></td>
-									<td><h6 style="position: relative; top: 34px; text-align: center;">${ord.prdct_price}₩</h6></td>
-									<td><h6 style="position: relative; top: 34px; margin-left: 14px;">결제요청</h6>
-										<h6 style="position: relative; top: 38px; margin-left: 10px;"><button class="btn btn-primary btn-sm">결제처리</button></h6>
-									</td>
-								</tr>
-							</c:forEach>		
-						</tbody>
-					</table>		
-				<hr>
+					<div class="team-area sp">
+						<div class="container">
+							<div class="row">
+								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(0)">번호순</button>
+								&nbsp;&nbsp;
+								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(1)">제목순</button>
+								&nbsp;&nbsp;
+								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(2)">작성자순</button>
+								&nbsp;&nbsp;
+								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(5)">일자순</button>
+								<form id="searchForm" action="/seller/mypage/prdct" method="get" style="position: relative; left: 270px;">
+									<span style="position: relative; top: 6px;"> <select name="type" class="form-control" style="width: 100px; border: 3px solid black;">
+											<option value="" <c:out value="${pageMaker.cri.type == null?'selected' : '' }" />>---</option>
+											<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ?'selected' : '' }" />>상품명</option>
+											<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ?'selected' : '' }" />>ID</option>
+									</select>
+									</span>&nbsp;&nbsp; <span> <input type="text" class="form-control" name="keyword" style="width: 200px; border: 3px solid black;"
+										value='<c:out value="${pageMaker.cri.keyword}" />' /> <input type="hidden" name="pageNum"
+										value='<c:out value="${pageMaker.cri.pageNum}" />' /> <input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}" />' />
+									</span>
+									<button class="btn btn-primary btn-sm">검색</button>
+								</form>
+								<table class="table">
+									<thead style="text-align: center;">
+										<tr>
+											<th><h5>상품정보</h5></th>
+											<th><h5>주문일</h5></th>
+											<th><h5>주문번호</h5></th>
+											<th><h5>주문금액</h5></th>
+											<th><h5>상태</h5></th>
+										</tr>
+									</thead>
+									<tbody style="text-align: center;">
+										<c:forEach items="${ord}" var="ord" begin="0" end="2" varStatus="status">
+											<tr style="text-align: center;">
+												<td>
+													<h6>${prd[status.index].prdct_name}</h6>
+													<h6>${prd[status.index].prdct_id}</h6>
+													<h6>${ord.order_size}</h6>
+													<h6>${ord.order_color}</h6>
+													<h6>${ord.order_amount}</h6>
+												</td>
+												<td><h6 style="position: relative; top: 34px;">${prdor[status.index].order_date}</h6></td>
+												<td><h6 style="position: relative; top: 34px;">${ord.order_number}</h6></td>
+												<td><h6 style="position: relative; top: 34px; text-align: center;">${ord.prdct_price}₩</h6></td>
+												<td><h6 style="position: relative; top: 34px; margin-left: 14px;">결제요청</h6>
+													<h6 style="position: relative; top: 38px; margin-left: 10px;">
+														<button class="btn btn-primary btn-sm">결제처리</button>
+													</h6></td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<hr>
 			</div>
 		</div>
-	
-	<hr>
+
+		<hr>
 		<!-- footer -->
 		<footer>
 			<div class="footer-top">

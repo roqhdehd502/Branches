@@ -22,10 +22,10 @@
 /* Style the tab */
 .tab {
   float: left;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   background-color: black;
-  width: 30%;
-  height: 300px;
+  width: 20%;
+  height: 470px;
 }
 
 /* Style the buttons inside the tab */
@@ -57,10 +57,10 @@
 .tabcontent {
   float: left;
   padding: 0px 12px;
-  border: 1px solid #ccc;
-  width: 70%;
+  border: 2px solid #ccc;
+  width: 80%;
   border-left: none;
-  height: 300px;
+  height: 470px;
 }
 </style>
 
@@ -142,23 +142,21 @@
 								<th><h5>상태</h5></th>
 							</tr>
 						</thead>
-						<tbody >
-							
-								<tr style="text-align: center;">
-									<td>
-										<h6> </h6>
-										<h6> </h6>
-										<h6> </h6>
-										<h6> </h6>
-										<h6> </h6>
-										<h6> </h6>
-									</td>
-									<td><h6 style="position: relative; top: 34px;"> </h6></td>
-									<td><h6 style="position: relative; top: 34px;"></h6></td>
-									<td><h6 style="position: relative; top: 34px; text-align: center;">₩</h6></td>
-									<td><h6 style="position: relative; top: 34px; margin-left: 14px;">결제요청</h6></td>
-								</tr>
-							
+						<tbody>
+							<tr style="text-align: center;">
+								<td>
+									<h6></h6>
+									<h6></h6>
+									<h6></h6>
+									<h6></h6>
+									<h6></h6>
+									<h6></h6>
+								</td>
+								<td><h6 style="position: relative; top: 34px;"></h6></td>
+								<td><h6 style="position: relative; top: 34px;"></h6></td>
+								<td><h6 style="position: relative; top: 34px; text-align: center;">₩</h6></td>
+								<td><h6 style="position: relative; top: 34px; margin-left: 14px;">결제요청</h6></td>
+							</tr>
 						</tbody>
 					</table>
 			
@@ -170,7 +168,7 @@
 					<div class="tab">
 						<button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen"><h4 style="color: white;">상품</h4></button>
 						<button class="tablinks" onclick="openCity(event, 'Paris')"><h4 style="color: white;">판매량</h4></button>
-						<button class="tablinks" onclick="openCity(event, 'Tokyo')"><h4 style="color: white;">인기</h4></button>
+						<button class="tablinks" onclick="openCity(event, 'Tokyo')"><h4 style="color: white;">선호도</h4></button>
 					</div>
 
 					<div id="London" class="tabcontent">
@@ -184,73 +182,14 @@
 					</div>
 
 					<div id="Tokyo" class="tabcontent">
-						<h3 style="margin-top: 16px;">인기</h3>
+						<h3 style="margin-top: 16px;">선호도</h3>
 						<jsp:include page="/WEB-INF/views/chart/ageChart.jsp"></jsp:include>
 					</div>
 				</span>
 			</div>
 		</div><br/><br/><br/>
 	<!-- footer -->
-		<footer>
-			<div class="footer-top">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>회사소개</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>제휴문의</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>채용정보</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>고객센터</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>이용약관</h5></a>
-							</div>
-						</div>
-						<div class="col-md-2 footer_widget">
-							<div class="inner">
-								<a href="#"><h5>개인정보처리</h5></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="footer-bottom">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="copyright-txt">Copyright© 2021 Branches. All Rights Reserved.</div>
-						</div>
-						<div class="col-lg-6 text-right">
-							<div class="footer-nav">
-								<a href="/member/main">Home</a> <a href="#">Q&A</a> <a href="#">Notice</a> <a href="#">Magazine</a> <a href="#">Blog</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</footer>
-		<div class="container">
-			<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 | <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 | <strong>팩스 :</strong>
-				000-0000-0000 |<strong>사업자등록번호 :</strong> 000-00-000000 | <strong>통신판매업신고 :</strong> 0000-서울종로-00000 |
-			</small> <br /> <small style="color: black;"><strong>고객센터</strong> 0000-0000 | 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) | <strong>이메일</strong>
-				admin@branches.co.kr | <strong>개인정보책임자</strong> 000 | <strong>호스팅서비스</strong> (주)00000 | </small>
-		</div>
-		<br /> <br />
+		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
 	<!--Required JS files-->
 	<script src="/assets/js/jquery-2.2.4.min.js"></script>
 	<script src="/assets/js/vendor/popper.min.js"></script>

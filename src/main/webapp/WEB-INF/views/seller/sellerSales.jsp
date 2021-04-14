@@ -18,27 +18,6 @@
 <link rel="stylesheet" href="/assets/css/slicknav.css">
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css">
-<style>
-     *{margin:0;padding:0;}
-    ul,li{list-style:none;}
-    .slide{height:300px;overflow:hidden;}
-    .slide ul{position:relative;height:100%;}
-    .slide li{position:absolute;left:0;right:0;top:0;bottom:0;opacity:0;animation:fade 12s infinite;}
-    .slide li:nth-child(1){background:#ffa;animation-delay:0s}
-    .slide li:nth-child(2){background:#faa;animation-delay:3s}
-    .slide li:nth-child(3){background:#afa;animation-delay:6s}
-    .slide li:nth-child(4){background:#aaf;animation-delay:9s}
-     /* 100 / 8 = 12.5 */
-    @keyframes fade {
-      0% {opacity:0;}
-      5% {opacity:1;}
-      25% {opacity:1;}
-      30% {opacity:0;}
-      100% {opacity:0;}
-    }
-  </style>
-
-
 
 </head>
 <body>
@@ -76,27 +55,58 @@
 			<div class="row">
 				<div class="col-md-2 contact-info" align="center">
 					<div class="single-info" style="margin-bottom: 40px">
-	                    <h3>주문 관리</h3><hr>
-	                     <h5><a href="/seller/mypage/order">주문확인</a></h5>
-	                    <h5><a href="/seller/mypage/release">발송확인</a></h5>
-	                    <h5><a href="/seller/mypage/cancel">취소</a></h5>
-	                    <h5><a href="/seller/mypage/exchange">교환</a></h5>
-	                    <h5><a href="/seller/mypage/refund">환불</a></h5>
-	                </div>
-	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>상품 관리</h3><hr>
-	                    <h5><a href="/seller/mypage/prdct_register">등록</a></h5>
-	                    <h5><a href="/seller/mypage/prdct">조회</a></h5>
-	                </div>
-	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>회원 관리</h3><hr>
-	                    <h5><a href="/seller/mypage/prdctqna">Q&A</a></h5>
-	                    <h5><a href="/seller/mypage/review">리뷰</a></h5>
-	                </div>
-	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>매출 관리</h3><hr>
-	                    <h5><a href="/seller/mypage/sales">매출</a></h5>
-	                </div>
+						<h3>마이페이지</h3>
+						<hr>
+						<h5>
+							<a href="/seller/mypage">홈 바로가기</a>
+						</h5>
+					</div>
+					<div class="single-info" style="margin-bottom: 40px">
+						<h3>주문 관리</h3>
+						<hr>
+						<h5>
+							<a href="/seller/mypage/order">주문확인</a>
+						</h5>
+						<h5>
+							<a href="/seller/mypage/release">발송확인</a>
+						</h5>
+						<h5>
+							<a href="/seller/mypage/cancel">취소</a>
+						</h5>
+						<h5>
+							<a href="/seller/mypage/exchange">교환</a>
+						</h5>
+						<h5>
+							<a href="/seller/mypage/refund">환불</a>
+						</h5>
+					</div>
+					<div class="single-info" style="margin-bottom: 40px">
+						<h3>상품 관리</h3>
+						<hr>
+						<h5>
+							<a href="/seller/mypage/prdct_register">등록</a>
+						</h5>
+						<h5>
+							<a href="/seller/mypage/prdct">조회</a>
+						</h5>
+					</div>
+					<div class="single-info" style="margin-bottom: 40px">
+						<h3>회원 관리</h3>
+						<hr>
+						<h5>
+							<a href="/seller/mypage/prdctqna">Q&A</a>
+						</h5>
+						<h5>
+							<a href="/seller/mypage/review">리뷰</a>
+						</h5>
+					</div>
+					<div class="single-info" style="margin-bottom: 40px">
+						<h3>매출 관리</h3>
+						<hr>
+						<h5>
+							<a href="/seller/mypage/sales">매출</a>
+						</h5>
+					</div>
 				</div>
 
 				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">
@@ -146,16 +156,7 @@
 				<h3 style="margin-top: 25px; margin-left: 15px;">
 					<strong style="margin: 10px;">검색어 순위 조회</strong><hr>
 				</h3>
-				<div class="slide">
-					<c:forEach items="${prdct }" var="prdct" varStatus="status" begin="0" end="4">
-						<ul>
-							<li ><h5>1</h5></li>
-							<li><h5>${prdct.prdct_name }</h5></li>
-							<li><h5>${prdOrder[status.index].order_date }</h5></li>
-							<li><h5>${prdct.prdct_price }₩</h5></li>
-						</ul>
-					</c:forEach>
-				</div>
+				
 				</span>
 			</div>
 		</div>
@@ -172,65 +173,7 @@
 	<script src="/assets/js/vendor/loopcounter.js"></script>
 	<script src="/assets/js/vendor/slicknav.min.js"></script>
 	<script src="/assets/js/active.js"></script>
-	
-	<script>
-		function sortTable(n) {
-			var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-			table = document.getElementById("myTable");
-			switching = true;
-			// Set the sorting direction to ascending:
-			dir = "asc";
-			/* Make a loop that will continue until
-			no switching has been done: */
-			while (switching) {
-				// Start by saying: no switching is done:
-				switching = false;
-				rows = table.rows;
-				/* Loop through all table rows (except the
-				first, which contains table headers): */
-				for (i = 1; i < (rows.length - 1); i++) {
-					// Start by saying there should be no switching:
-					shouldSwitch = false;
-					/* Get the two elements you want to compare,
-					one from current row and one from the next: */
-					x = rows[i].getElementsByTagName("TD")[n];
-					y = rows[i + 1].getElementsByTagName("TD")[n];
-					/* Check if the two rows should switch place,
-					based on the direction, asc or desc: */
-					if (dir == "asc") {
-						if (x.innerHTML.toLowerCase() > y.innerHTML
-								.toLowerCase()) {
-							// If so, mark as a switch and break the loop:
-							shouldSwitch = true;
-							break;
-						}
-					} else if (dir == "desc") {
-						if (x.innerHTML.toLowerCase() < y.innerHTML
-								.toLowerCase()) {
-							// If so, mark as a switch and break the loop:
-							shouldSwitch = true;
-							break;
-						}
-					}
-				}
-				if (shouldSwitch) {
-					/* If a switch has been marked, make the switch
-					and mark that a switch has been done: */
-					rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-					switching = true;
-					// Each time a switch is done, increase this count by 1:
-					switchcount++;
-				} else {
-					/* If no switching has been done AND the direction is "asc",
-					set the direction to "desc" and run the while loop again. */
-					if (switchcount == 0 && dir == "asc") {
-						dir = "desc";
-						switching = true;
-					}
-				}
-			}
-		}
-	</script>
+
 </div>
 </body>
 </html>

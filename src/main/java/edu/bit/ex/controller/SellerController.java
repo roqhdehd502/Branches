@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,8 +30,6 @@ import edu.bit.ex.config.auth.MemberDetails;
 import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
-import edu.bit.ex.page.PrdctListCriteria;
-import edu.bit.ex.page.PrdctListPageVO;
 import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.page.SearchPageVO;
 import edu.bit.ex.service.SecurityService;
@@ -44,7 +42,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @AllArgsConstructor
-@Controller
+@RestController
 @RequestMapping("/seller/*")
 public class SellerController {
 	@Autowired
@@ -132,7 +130,7 @@ public class SellerController {
 	// 수정 버튼 옮길것! => SellerProductModify
 	@GetMapping("/mypage/prdct")
 	public ModelAndView sellerProductCheck(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, BoardPrdctImageVO bpvo,
-			PrdctListCriteria cri) throws Exception {
+			SearchCriteria cri) throws Exception {
 		log.debug("sellerProductCheck");
 		log.info("sellerProductCheck..");
 		mav.setViewName("seller/sellerProductCheck");
@@ -141,14 +139,15 @@ public class SellerController {
 		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
-		// 상품 조회(게시물 번호, 등록일) - 내림차순
+		// 상품 조회 - 내림차순
 		mav.addObject("bId", sellerService.getbNumDesc(cri));
+		mav.addObject("cate", sellerService.getCategory());
 		// 썸네일 불러오기(미구현)
 		mav.addObject("filename", sellerService.getFileName(bpvo.getBoard_id()));
 
 		int total = sellerService.getPrdTotal(cri);
 		log.info("getTotal");
-		mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
+		mav.addObject("pageMaker", new SearchPageVO(cri, total));
 
 		return mav;
 	}
@@ -174,6 +173,7 @@ public class SellerController {
 	}
 
 	// 판매자 상품 수정 ajax
+	@Transactional
 	@PutMapping(value = "/mypage/prdct/{prdct_id}/modify")
 	public ResponseEntity<String> prdctUpdate(@RequestBody PrdctRegisterImageVO prvo) {
 		ResponseEntity<String> entity = null;

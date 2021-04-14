@@ -62,109 +62,151 @@
 			<div class="row">
 				<div class="col-md-2 contact-info" align="center">
 					<div class="single-info" style="margin-bottom: 40px">
-	                    <h3>주문 관리</h3><hr>
-	                    <h5><a href="/seller/mypage/order">주문확인</a></h5>
-	                    <h5><a href="/seller/mypage/release">발송확인</a></h5>
-	                    <h5><a href="/seller/mypage/cancel">취소</a></h5>
-	                    <h5><a href="/seller/mypage/exchange">교환</a></h5>
-	                    <h5><a href="/seller/mypage/refund">환불</a></h5>
-	                </div>
-	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>상품 관리</h3><hr>
-	                    <h5><a href="/seller/mypage/prdct_register">등록</a></h5>
-	                    <h5><a href="/seller/mypage/prdct">조회</a></h5>
-	                </div>
-	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>회원 관리</h3><hr>
-	                    <h5><a href="/seller/mypage/prdctqna">Q&A</a></h5>
-	                    <h5><a href="/seller/mypage/review">리뷰</a></h5>
-	                </div>
-	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>매출 관리</h3><hr>
-	                    <h5><a href="/seller/mypage/sales">매출</a></h5>
-	                </div>
+						<h3>마이페이지</h3>
+						<hr>
+						<h5>
+							<a href="/seller/mypage">홈 바로가기</a>
+						</h5>
+					</div>
+					<div class="single-info" style="margin-bottom: 40px">
+						<h3>주문 관리</h3>
+						<hr>
+						<h5>
+							<a href="/seller/mypage/order">주문확인</a>
+						</h5>
+						<h5>
+							<a href="/seller/mypage/release">발송확인</a>
+						</h5>
+						<h5>
+							<a href="/seller/mypage/cancel">취소</a>
+						</h5>
+						<h5>
+							<a href="/seller/mypage/exchange">교환</a>
+						</h5>
+						<h5>
+							<a href="/seller/mypage/refund">환불</a>
+						</h5>
+					</div>
+					<div class="single-info" style="margin-bottom: 40px">
+						<h3>상품 관리</h3>
+						<hr>
+						<h5>
+							<a href="/seller/mypage/prdct_register">등록</a>
+						</h5>
+						<h5>
+							<a href="/seller/mypage/prdct">조회</a>
+						</h5>
+					</div>
+					<div class="single-info" style="margin-bottom: 40px">
+						<h3>회원 관리</h3>
+						<hr>
+						<h5>
+							<a href="/seller/mypage/prdctqna">Q&A</a>
+						</h5>
+						<h5>
+							<a href="/seller/mypage/review">리뷰</a>
+						</h5>
+					</div>
+					<div class="single-info" style="margin-bottom: 40px">
+						<h3>매출 관리</h3>
+						<hr>
+						<h5>
+							<a href="/seller/mypage/sales">매출</a>
+						</h5>
+					</div>
 				</div>
 
-				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">
+				<div style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">
 					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px;">
 						<strong style="margin: 10px;">상품 Q & A</strong>
 					</h3>
-					<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(0)">번호순</button>&nbsp;&nbsp;
-					<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(1)">제목순</button>&nbsp;&nbsp;
-					<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(2)">작성자순</button>&nbsp;&nbsp;
-					<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(5)">일자순</button>
-					<table class="table" style="text-align: center;" id="myTable">
-						<thead>
-							<tr>
-								<th><h5>No.</h5></th>
-								<th><h5>제목</h5></th>
-								<th><h5>작성자</h5></th>
-								<th><h5>문의</h5></th>
-								<th><h5>상품명</h5></th>
-								<th><h5>일자</h5></th>
-							</tr>
-						</thead>
-						<tbody>
-						<c:forEach items="${board}" var="board" varStatus="status">
-							<tr>
-								<td>
-									<h6>${board.board_id }</h6>
-								</td>
-								<td><h6><a href="#">${board.board_name }</a></h6></td>
-								<td><h6>${board.mbr_id }</h6></td>
-								<td><h6>${board.inquiry_number }</h6></td>
-								<td><h6 >${prdct[status.index].prdct_name }</h6></td>
-								<td><h6>${board.board_date }</h6></td>
-							</tr>
-							</c:forEach>						
-						</tbody>
-					</table>
-					<div class="row">
-						<div class="col-lg-12">
-							<form id="searchForm" action="/seller/mypage/prdctqna" method="get">
-								<select name="type">
-									<option value="" <c:out value="${pageMaker.cri.type == null?'selected' : '' }" />>---</option>
-									<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ?'selected' : '' }" />>제목</option>
-									<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ?'selected' : '' }" />>번호</option>
-									<option value="W" <c:out value="${pageMaker.cri.type eq 'W' ?'selected' : '' }" />>작성자</option>
-								</select> <input type="text" name="keyword" value='<c:out value="${pageMaker.cri.keyword}" />' /> <input type="hidden" class="form-control" name="pageNum"
-									value='<c:out value="${pageMaker.cri.pageNum}" />' /> <input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}" />' />
-								<button class="btn btn-primary btn-sm">검색</button>
-							</form>
-							<ul class="pagination justify-content-center">
-								<c:if test="${pageMaker.prev}">
-									<a class="page-link" href="/seller/mypage/prdctqna${pageMaker.makeQuery(pageMaker.startPage - 1)}">«</a>
-								</c:if>
+					<div class="team-area sp">
+						<div class="container">
+							<div class="row">
+								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(0)">번호순</button>
+								&nbsp;&nbsp;
+								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(1)">제목순</button>
+								&nbsp;&nbsp;
+								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(2)">작성자순</button>
+								&nbsp;&nbsp;
+								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(5)">일자순</button>
+								<form id="searchForm" action="/seller/mypage/prdct" method="get" style="position: relative; left: 270px;">
+									<span style="position: relative; top: 6px;">
+										<select name="type" class="form-control" style="width: 100px; border: 3px solid black;">
+											<option value="" <c:out value="${pageMaker.cri.type == null?'selected' : '' }" />>---</option>
+											<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ?'selected' : '' }" />>상품명</option>
+											<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ?'selected' : '' }" />>ID</option>
+										</select>
+									</span>&nbsp;&nbsp;
+									<span>
+									<input type="text" class="form-control" name="keyword" style="width: 200px; border: 3px solid black;" value='<c:out value="${pageMaker.cri.keyword}" />' /> 
+										<input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum}" />' /> 
+										<input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}" />' />
+									</span>
+									<button class="btn btn-primary btn-sm">검색</button>
+								</form>
+								<table class="table" style="text-align: center;" id="myTable">
+                           <thead>
+                              <tr>
+                                 <th><h5>No.</h5></th>
+                                 <th><h5>제목</h5></th>
+                                 <th><h5>작성자</h5></th>
+                                 <th><h5>문의</h5></th>
+                                 <th><h5>상품명</h5></th>
+                                 <th><h5>일자</h5></th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <c:forEach items="${board}" var="board" varStatus="status">
+                                 <tr>
+                                    <td>
+                                       <h6>${board.board_id }</h6>
+                                    </td>
+                                    <td><h6>
+                                          <a href="#">${board.board_name }</a>
+                                       </h6></td>
+                                    <td><h6>${board.mbr_id }</h6></td>
+                                    <td><h6>${board.inquiry_number }</h6></td>
+                                    <td><h6>${prdct[status.index].prdct_name }</h6></td>
+                                    <td><h6>${board.board_date }</h6></td>
+                                 </tr>
+                              </c:forEach>
+                           </tbody>
+                        </table>
+                        <ul class="pagination" style="margin: auto;">
+                           <c:if test="${pageMaker.prev}">
+                              <a class="page-link" href="/seller/mypage/prdctqna${pageMaker.makeQuery(pageMaker.startPage - 1)}">«</a>
+                           </c:if>
 
-								<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-									<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
-									<a class="page-link" href="/seller/mypage/prdctqna${pageMaker.makeQuery(idx)}">${idx}</a>
-								</c:forEach>
+                           <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+                              <c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+                              <a class="page-link" href="/seller/mypage/prdctqna${pageMaker.makeQuery(idx)}">${idx}</a>
+                           </c:forEach>
 
-								<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-									<a class="page-link" href="/seller/mypage/prdctqna${pageMaker.makeQuery(pageMaker.endPage +1)}?sort">»</a>
-								</c:if>
-							</ul>
+                           <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+                              <a class="page-link" href="/seller/mypage/prdctqna${pageMaker.makeQuery(pageMaker.endPage +1)}?sort">»</a>
+                           </c:if>
+                        </ul>
 						</div>
 					</div>
-				<hr>
+				</div>
 			</div>
 		</div>
-	
-	<hr>
-		<!-- footer -->
+
+			<hr>
+			<!-- footer -->
 			<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
-		<!--Required JS files-->
-	<script src="/assets/js/jquery-2.2.4.min.js"></script>
-	<script src="/assets/js/vendor/popper.min.js"></script>
-	<script src="/assets/js/vendor/bootstrap.min.js"></script>
-	<script src="/assets/js/vendor/owl.carousel.min.js"></script>
-	<script src="/assets/js/vendor/isotope.pkgd.min.js"></script>
-	<script src="/assets/js/vendor/jquery.barfiller.js"></script>
-	<script src="/assets/js/vendor/loopcounter.js"></script>
-	<script src="/assets/js/vendor/slicknav.min.js"></script>
-	<script src="/assets/js/active.js"></script>
-	<script>
+			<!--Required JS files-->
+			<script src="/assets/js/jquery-2.2.4.min.js"></script>
+			<script src="/assets/js/vendor/popper.min.js"></script>
+			<script src="/assets/js/vendor/bootstrap.min.js"></script>
+			<script src="/assets/js/vendor/owl.carousel.min.js"></script>
+			<script src="/assets/js/vendor/isotope.pkgd.min.js"></script>
+			<script src="/assets/js/vendor/jquery.barfiller.js"></script>
+			<script src="/assets/js/vendor/loopcounter.js"></script>
+			<script src="/assets/js/vendor/slicknav.min.js"></script>
+			<script src="/assets/js/active.js"></script>
+			<script>
 		function sortTable(n) {
 			var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
 			table = document.getElementById("myTable");
@@ -222,6 +264,5 @@
 			}
 		}
 	</script>
-</div>
-</body>
+		</div></body>
 </html>

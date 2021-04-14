@@ -25,8 +25,9 @@
           var options = {
             title: '총 매출 현황',
             fontSize : 14,
-            width: 620,
-            chartArea: {width: '70%'},
+            width: 720,
+            height : 400,
+            chartArea: {width: '77%', height : '300'},
             hAxis: {
               minValue: 0
             },
