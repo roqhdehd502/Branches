@@ -155,7 +155,7 @@ public class AdminController {
 		mav.setViewName("admin/seller_product_modify");
 		mav.addObject("prdct", adminService.getPrdctInfo(p_id));
 		mav.addObject("pBoard", adminService.getPrdctContent(p_id));
-		mav.addObject("pCategory", adminService.getCategory());
+		// mav.addObject("pCategory", adminService.getCategory());
 		return mav;
 	}
 

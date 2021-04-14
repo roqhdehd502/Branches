@@ -32,5 +32,6 @@ public class PrdctVO { // 상품
 	private String prdct_color; // 상품색상
 	private String prdct_size; // 상품사이즈
 	private int prdct_stock; // 상품재고량
+	private String prdct_thumbnail; // 게시글썸네일
 
 }

@@ -51,12 +51,12 @@ public class PrdctRegisterImageVO { // 게시판 이미지 VO
 	private String prdct_name; // 상품명
 	private int prdct_price; // 상품가격
 	private int category_number; // 상품카테고리번호 fk
-	private String mbr_id; // 회원id fk
 	private String category_name; // 상품카테고리명
-
+	private String mbr_id; // 회원id 브랜드id fk
 	private String prdct_color; // 상품색상
 	private String prdct_size; // 상품사이즈
 	private int prdct_stock; // 상품재고량
+	private String prdct_thumbnail; // 게시글썸네일
 
 	private int board_id; // 게시글번호 부모pk, 자식fk
 	private String board_name; // 게시글제목
