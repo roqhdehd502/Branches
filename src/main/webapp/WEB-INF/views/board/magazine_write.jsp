@@ -53,7 +53,7 @@
 	    		// 썸네일 업로드 영역
                 var inputFile = $("#uploadfiles");
                 
-                function filechk(){
+                function filechk() {
                 	 var fileDir = inputFile;
                 	 if(fileDir.substring(fileDir.lastIndexOf(".")+1,fileDir.length).search("jpg") == -1){
                 	 	alert("지정된 확장자의 이미지만 업로드 가능합니다!");

@@ -259,7 +259,15 @@ public class BoardServiceImpl implements BoardService {
 	// 매거진 수정페이지 썸네일까지 변경
 	@Override
 	public void setMagazineModifyAddImg(BoardVO boardVO) {
+		log.info("setMagazineModifyAddImg");
+
 		MultipartFile[] uploadfiles = boardVO.getUploadfiles();
+
+		// 이미지 파일만 업로드 가능
+		if (uploadfiles[0].getContentType().startsWith("image") == false) {
+			log.warn("this file is not image type: " + uploadfiles[0]);
+			return;
+		}
 
 		// 파일 이름 변경(중복방지)
 		UUID uuid = UUID.randomUUID();
