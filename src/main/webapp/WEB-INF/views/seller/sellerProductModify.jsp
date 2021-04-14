@@ -87,10 +87,23 @@
 									<input type="text" class="form-control" placeholder="상품명을 입력해주세요" id="prdct_name" value="${pdvo.prdct_name}">
 								</div>
 							</div>
+							<!-- thumbnail ckeditor -->
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">대표이미지(Thumbnail)</label>
+								<div class="col-sm-10">
+									<textarea name="prdct_thumbnail" id="prdct_thumbnail">${pdvo.prdct_thumbnail }</textarea>
+									<script>
+									var editor2 = CKEDITOR.replace("prdct_thumbnail", {
+										filebrowserUploadUrl : "${pageContext.request.contextPath}/seller/thumbnailModify.do",
+										height : 250
+									});	
+									</script>
+								</div>
+							</div>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">카테고리</label>
 								<div class="col-sm-10">
-									<select class="form-control">
+									<select class="form-control" id="category_number">
 										<option value="1" <c:if test="${pdvo.category_number == 1 }">selected</c:if>>아우터-코트</option>
 										<option value="2" <c:if test="${pdvo.category_number == 2 }">selected</c:if>>아우터-자켓</option>
 										<option value="3" <c:if test="${pdvo.category_number == 3 }">selected</c:if>>아우터-점퍼/무스탕</option>
@@ -177,11 +190,16 @@
 							</div><br/><br/>
 							<div align="center">
 								<button type="submit" class="btn btn-primary">상품수정</button>
-								<button type="button" class="btn btn-primary">
-									<a id="a-delete" href="/seller/mypage/prdct/${pdvo.prdct_id}/delete" style="color: white;">상품삭제</a>
+								<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/seller/mypage/prdct/${pdvo.prdct_id}'">
+								<!-- 나중에 수정하기 -->
+									상품상세
 								</button>
-								<button type="button" class="btn btn-primary">
-									<a href="/prdct/${pdvo.prdct_id}" style="color: white;">상품상세</a>
+								<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/seller/mypage/prdct'">
+								<!-- 나중에 수정하기 -->
+									목록보기
+								</button>
+								<button class="btn btn-danger">
+									<a id="a-delete" href="/seller/mypage/prdct/${pdvo.prdct_id}/delete">상품삭제</a>
 								</button>
 							</div>
 						</fieldset>
@@ -213,21 +231,24 @@ $(document).ready(function(){
 		event.preventDefault();
 		
         var prdct_name = $("#prdct_name").val();
+        var prdct_thumbnail = CKEDITOR.instances.prdct_thumbnail.getData();
+        var category_number = $("#category_number option:selected").val();
         var prdct_price = $("#prdct_price").val();
         var prdct_color = $("#prdct_color").val();
         var prdct_size = $("#prdct_size").val();
         var board_content = CKEDITOR.instances.board_content.getData();
         var prdct_stock = $("#prdct_stock").val();
         
-        console.log("#prdct_id");
         console.log($(this).attr("action"));
         
         var form = {
         		prdct_name: prdct_name,
+        		prdct_thumbnail: prdct_thumbnail,
+        		category_number: category_number,
         		prdct_price: prdct_price,
         		prdct_color: prdct_color,
         		prdct_size: prdct_size,
-        		board_content: CKEDITOR.instances.board_content.getData(),
+        		board_content: board_content,
         		prdct_stock: prdct_stock
        	 };
         console.log(form);
@@ -253,7 +274,6 @@ $(document).ready(function(){
 		        console.log(e);
 		    }
 		})	       
-
     }); // end submit()
     
 }); // end ready() 
@@ -265,7 +285,6 @@ $(document).ready(function(){
 					// 이벤트를 취소할 때 동작을 멈춘다.
 					event.preventDefault();
 					console.log("ajax 호출전");
-
 					// <a>의 parent(<td>)의 parent 즉, <tr>를 지칭한다.(클로저)
 					/*
 						어떻게 제이쿼리는 this가 <a>인 것을 알고있을까?
@@ -273,18 +292,14 @@ $(document).ready(function(){
 						: $('.a-delete').click(function(event)
 					 */
 					var deObj = $(this).parent();
-
 					$.ajax({
 						// AJAX의 타입(삭제)
 						type : 'DELETE',
-
 						// <a>의(this) 속성(href)을 가져온다.(attr)
 						url : $(this).attr("href"),
-
 						// 캐시를 false 설정하여 페이지가 새로 고쳐질때
 						// 데이터를 남기지 않는다(?)
 						cache : false,
-
 						success : function(result) {
 							console.log(result);
 							if (result == "SUCCESS") {

@@ -139,9 +139,9 @@
 								<table class="table" id="myTable" style="text-align: center;">
 									<thead>
 										<tr>
-											<th><h5>번호</h5></th>
-											<th><h5>카테고리</h5></th>
+											
 											<th><h5>상품ID</h5></th>
+											<th><h5>상품사진</h5></th>
 											<th><h5>상품명</h5></th>
 											<th><h5>가격</h5></th>
 											<th><h5>등록일</h5></th>
@@ -150,10 +150,10 @@
 									<tbody>
 										<c:forEach items="${bId}" var="bId" varStatus="status">
 											<tr>
-												<td><h5>${bId.board_id }</h5></td>
-												<td><h5>${cate[status.index].category_name}</h5></td>
 												<td><h5>${bId.prdct_id }</h5></td>
-												<td><a href="/seller/mypage/prdct/${bId.prdct_id }">
+												<td style="width: 100px; height: 80px;">${pt[status.index].prdct_thumbnail}</td>
+												
+												<td><a href="/seller/mypage/prdct/${bId.prdct_id}">
 													<h5>${bId.prdct_name }</h5>
 													</a>	
 												</td>
