@@ -221,8 +221,6 @@
 		<script src="/assets/js/vendor/jquery.barfiller.js"></script>
 		<script src="/assets/js/vendor/loopcounter.js"></script>
 		<script src="/assets/js/vendor/slicknav.min.js"></script>
-		<script src="/assets/js/active.js"></script>
-		<!-- 채널 봇 챗봇 -->
-		<script src="/js/channelIO.js"></script>		
+		<script src="/assets/js/active.js"></script>		
 </body>
 </html>

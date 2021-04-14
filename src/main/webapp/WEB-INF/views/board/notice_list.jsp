@@ -116,8 +116,5 @@
       <script src="/assets/js/active.js"></script>
       
       </div>
-      
-      <!-- 채널 봇 챗봇 -->
-	  <script src="/js/channelIO.js"></script>
 </body>
 </html>
