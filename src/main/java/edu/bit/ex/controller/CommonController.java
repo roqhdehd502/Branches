@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import edu.bit.ex.joinvo.BoardPrdctImageVO;
+import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.PrdQnACriteria;
 import edu.bit.ex.page.PrdctListCriteria;
 import edu.bit.ex.page.PrdctListPageVO;
@@ -41,7 +41,7 @@ public class CommonController {
 		return mav;
 	}
 
-	// 전체 상품리스트
+	// 전체 상품리스트 필요없을
 	@GetMapping("/prdct")
 	public ModelAndView prdctList(ModelAndView mav, PrdctListCriteria cri) {
 		mav.setViewName("common/prdct_list");
@@ -52,19 +52,18 @@ public class CommonController {
 	}
 
 	// 상품 상세페이지
-	@RequestMapping(value = "/prdct/{prdct_id}/{board_id}", method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView productDetail(@PathVariable("prdct_id") String p_id, @PathVariable("board_id") int board_id, PrdQnACriteria cri,
-			ModelAndView mav, BoardPrdctImageVO bpvo) throws Exception {
+	@RequestMapping(value = "/prdct/{prdct_id}", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView productDetail(@PathVariable("prdct_id") String p_id, PrdQnACriteria cri, ModelAndView mav) throws Exception {
+
+		PrdctRegisterImageVO prdctvo = commonService.getPrdctBoard(p_id);
 
 		log.info("product..");
 		// 상품 정보
 		mav.setViewName("common/productDetail");
 
-		mav.addObject("productDetail", (commonService.getProductDetail(p_id)));
-		mav.addObject("productInfo", (commonService.getProductInfo(p_id)));
-
-		mav.addObject("bvo", commonService.getContent(bpvo.getBoard_id()));
-		mav.addObject("id", commonService.getboardId(board_id));
+		// 상품정보 뿌리기
+		mav.addObject("prdct", prdctvo);
+		// mav.addObject("id", commonService.getboardId(board_id));
 
 		// 리뷰 관련
 		log.info("reviewList..");

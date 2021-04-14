@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import edu.bit.ex.joinvo.BoardPrdctImageVO;
+import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.PrdQnACriteria;
 import edu.bit.ex.page.PrdctListCriteria;
 import edu.bit.ex.vo.BoardVO;
@@ -56,8 +56,6 @@ public interface CommonMapper {
 	// 페이징에 적용되는 브랜드 상품 수
 	public int getBrandTotalCount(PrdctListCriteria cri, String b_id);
 
-	public BoardPrdctImageVO getContent(int board_id);
-
-	public BoardVO getboardId(int board_id);
+	public PrdctRegisterImageVO getPrdctBoard(String p_id);
 
 }

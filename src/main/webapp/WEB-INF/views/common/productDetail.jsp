@@ -415,35 +415,35 @@ img {
 					<div class="row">
 						<div class="contrainer single-service bordered " style="height: 600px; width: 500px;">
 							<div class="inner">
-								<input type="hidden" id="prdct_id" value="${productDetail.prdct_id}">
-								<p >${productDetail.prdct_id}</p>
-								<input type="hidden" id="prdct_name" value="${productDetail.prdct_name}">
-								<h4 id="prdct_name">${productDetail.prdct_name}</h4>
-								<input type="hidden" id="prdct_price" value="${productDetail.prdct_price}">
-								<h4 id="prdct_price">${productDetail.prdct_price}원</h4>
+								<input type="hidden" id="prdct_id" value="${prdct.prdct_id}">
+								<p >${prdct.prdct_id}</p>
+								<input type="hidden" id="prdct_name" value="${prdct.prdct_name}">
+								<h4 id="prdct_name">${prdct.prdct_name}</h4>
+								<input type="hidden" id="prdct_price" value="${prdct.prdct_price}">
+								<h4 id="prdct_price">${prdct.prdct_price}원</h4>
 								<hr>
-								<%-- <input type="hidden" id="prdct_thumbnail" value="${productDetail.prdct_thumbnail}"> --%>
+								<%-- <input type="hidden" id="prdct_thumbnail" value="${prdct.prdct_thumbnail}"> --%>
 								<!-- 색상/사이즈 옵션	 -->
 								<div class="form-group">
 									<label for="colorSelect" class="col-sm-2 col-form-label">Color</label> 
 									<select class="form-control" id="colorSelect" name="order_color">
-										<c:forEach items="${productInfo}" var="productInfo">
-											<c:set var="prdct_color" value="${fn:split(productInfo.prdct_color, ',')}" />
+										<%-- <c:forEach items="${prdct}" var="prdct"> --%>
+											<c:set var="prdct_color" value="${fn:split(prdct.prdct_color, ',')}" />
 											<c:forEach var="color" items="${prdct_color}">
 												<option id="order_color"value="${prdct_color}">${color}</option>
 											</c:forEach>
-										</c:forEach>
+										<%-- </c:forEach> --%>
 									</select>
 								</div>
 								<div class="form-group">
 									<label for="sizeSelect" class="col-sm-2 col-form-label">Size</label> 
 									<select class="form-control" id="sizeSelect" name="order_size">
-										<c:forEach items="${productInfo}" var="productInfo">
-											<c:set var="prdct_size" value="${fn:split(productInfo.prdct_size, ',')}" />
+										<%-- <c:forEach items="${prdct}" var="prdct"> --%>
+											<c:set var="prdct_size" value="${fn:split(prdct.prdct_size, ',')}" />
 											<c:forEach var="size" items="${prdct_size}">
 												<option id="order_size" value="${size}">${size}</option>
 											</c:forEach>
-										</c:forEach>
+										<%-- </c:forEach> --%>
 									</select>
 								</div>
 								<div class="form-group">
@@ -693,7 +693,7 @@ img {
 
 
 									<!-- 리뷰 모달창  -->
-									<form id="modalForm" action="${pageContext.request.contextPath}/common/product/${productDetail.prdct_id}" method="post">
+									<form id="modalForm" action="${pageContext.request.contextPath}/common/product/${prdct.prdct_id}" method="post">
 										<div class="modal fade " id="myModal${list.board_id}" role="dialog">
 											<div class="modal-dialog modal-xl">
 												<div class="modal-content">
