@@ -16,7 +16,7 @@
       function drawChart() {
 
         var data = new google.visualization.DataTable();
-        data.addColumn('date', '월간');
+        data.addColumn('date', '주간');
         data.addColumn('number', '판매량');
 
         data.addRows([
@@ -36,7 +36,7 @@
 
 
         var options = {
-          title: '월간매출 그래프',
+          title: '주간매출 그래프',
           width: 900,
           height: 500,
           hAxis: {
