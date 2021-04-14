@@ -98,6 +98,12 @@ public class BoardServiceImpl implements BoardService {
 
 		MultipartFile[] uploadfiles = boardVO.getUploadfiles();
 
+		// 이미지 파일만 업로드 가능
+		if (uploadfiles[0].getContentType().startsWith("image") == false) {
+			log.warn("this file is not image type: " + uploadfiles[0]);
+			return;
+		}
+
 		// 파일 이름 변경(중복방지)
 		UUID uuid = UUID.randomUUID();
 		String saveName = uuid + "_" + uploadfiles[0].getOriginalFilename();

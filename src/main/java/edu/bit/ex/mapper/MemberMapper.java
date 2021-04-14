@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.InquiryBoardVO;
 import edu.bit.ex.page.MyqnaCriteria;
+import edu.bit.ex.page.PrdQnACriteria;
 import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.InquiryVO;
@@ -15,7 +16,6 @@ import edu.bit.ex.vo.PrdctOrderVO;
 
 @Mapper
 public interface MemberMapper {
-
 	// 상품 Q&A 등록 페이지
 	public MbrVO getPrdctQnaInfo(String mbr_id);
 
@@ -23,7 +23,14 @@ public interface MemberMapper {
 	public void prdctQnaWrite(BoardVO boardVO);
 
 	// 상품 QnA 마이페이지 리스트
-	public List<BoardVO> prdctqMyList(String member_id);
+	/* public List<BoardVO> prdctqMyList(String mbr_id); */
+	public List<BoardVO> getPrdctqMyListWithPaging(PrdQnACriteria cri, String mbr_id);
+
+	// 페이징 단위에 적용되는 최대 상품 Q&A 게시글 단위
+	public int getPrdctqTotalCount(PrdQnACriteria cri);
+
+	// 작성한 상품 Q&A 응답여부 받아오기
+	public BoardBoardCommentVO getPrdctqCmntStat(int board_id);
 
 	// 판매자 마이페이지
 	public MbrVO getMemberInfo(String s_id);
@@ -67,5 +74,4 @@ public interface MemberMapper {
 
 	// 고객 QnA 삭제
 	public int myqnaRemove(int board_id);
-
 }

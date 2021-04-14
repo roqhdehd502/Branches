@@ -20,7 +20,7 @@
 	<link rel="stylesheet" href="/assets/css/main.css">
 	<link rel="stylesheet" href="/bootstrap.min.css">
 	
-		<!-- AJAX 처리용 JQUERY -->
+	<!-- AJAX 처리용 JQUERY -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
 	<!-- 작성 폼 스크립트 -->
@@ -73,24 +73,19 @@
 
 		<div class="container">
 
-			<span style="margin-left: 14px;">
-				
-			</span>
-			<span style="margin-left: 400px;" align="center">
-				
-			</span>
+			<span style="margin-left: 14px;"> </span> <span style="margin-left: 400px;" align="center"> </span>
 		</div>
-		
+
 
 		<div class="container" style="">
-			<div class="row" >
-				
+			<div class="row">
+
 				<div class="col-md-9 contact-info" style="margin: auto;">
-				<hr>
+					<hr>
 					<h3 style="text-align: center;">
 						<strong>고객 Q&A 작성</strong>
 					</h3>
-				<hr>	
+					<hr>
 					<!-- 작성 폼 -->
 					<form id="writeForm" method="post" action="${pageContext.request.contextPath}/member/mypage/myqna/write">
 						<fieldset>
@@ -98,7 +93,7 @@
 							<div class="form-group row">
 								<label class="col-md-2 col-form-label">문의유형</label>
 								<div class="col-sm-10">
-									<select id="inquiry_number" class="form-control" title="유형을 선택하세요"  style="height: 45px;">
+									<select id="inquiry_number" class="form-control" title="유형을 선택하세요" style="height: 45px;">
 										<option value="8" <c:if test="${inquiry_number eq 8}">selected</c:if>>포인트</option>
 										<option value="9" <c:if test="${inquiry_number eq 9}">selected</c:if>>회원관련</option>
 										<option value="10" <c:if test="${inquiry_number eq 10}">selected</c:if>>기타</option>
@@ -106,7 +101,7 @@
 								</div>
 							</div>
 
-<!-- 							<div class="form-group row">
+							<!-- 							<div class="form-group row">
 								<label for="staticEmail" class="col-sm-2 col-form-label">주문번호</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control col-sm-8" placeholder="주문번호를 입력하세요">		
@@ -119,14 +114,14 @@
 								</div>
 								
 							</div> -->
-							
+
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">제목</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="board_name" name="board_name" placeholder="제목을 입력하세요">
 								</div>
 							</div>
-							
+
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">내용</label>
 								<div class="col-sm-10">
@@ -134,23 +129,24 @@
 								</div>
 							</div>
 						</fieldset>
-						
+
 						<div align="center" style="padding: 1% 0px 1% 0px;">
 							<div>
-								<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/mypage/myqna/list'">목록보기</button>&nbsp;
+								<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/mypage/myqna/list'">목록보기</button>
+								&nbsp;
 								<button type="submit" class="btn btn-primary">작성하기</button>
 							</div>
-						</div>	
+						</div>
 					</form>
-							
+
 				</div>
 			</div>
 		</div>
-		
+
 		<hr>
-		
-      	<!-- footer -->
-	  	<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
+
+		<!-- footer -->
+		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
 
 		<!--Required JS files-->
 		<script src="/assets/js/jquery-2.2.4.min.js"></script>
@@ -162,8 +158,9 @@
 		<script src="/assets/js/vendor/loopcounter.js"></script>
 		<script src="/assets/js/vendor/slicknav.min.js"></script>
 		<script src="/assets/js/active.js"></script>
-		
+
 		<!-- 채널 봇 챗봇 -->
 		<script src="/js/channelIO.js"></script>
+	</div>
 </body>
 </html>

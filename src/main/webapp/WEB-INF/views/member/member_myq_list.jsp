@@ -24,22 +24,22 @@
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-</head>
+	</head>
 <body>
 	<div style="overflow: hidden;" class="container">
 		<!-- header -->
 		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 
 		<hr style="margin: 15px 15px 40px 15px;">
-
+		
+		<!-- 상단 회원 정보 요약 -->
 		<div class="container">
-			<div class="row">
-				<div class="col-md-3 contact-info" align="left" style="padding-left: 40px">
+			<div class="row" style="height: 50px;">
+				<div class="col-md-3 contact-info" align="left" style="padding-left: 15px; margin-top: 10px; text-align: center;">
 					<h2>${mbr.mbr_name}</h2>
-					<h2>${mbr.mbr_id}</h2>
 				</div>
-				<div class="col-md-1 contact-info" align="center" style="padding-top: 20px">
-					<a href="#">정보수정</a>
+				<div class="col-md-1 contact-info" style="padding-top: 20px;">
+					<a href="${pageContext.request.contextPath}/member/mypage/myinfo">정보수정</a>
 				</div>
 				<div class="col-md-6 contact-info"></div>
 				<div class="col-md-2 contact-info" align="center" style="padding-right: 10px">
@@ -54,18 +54,19 @@
 
 		<div class="container">
 			<div class="row">
+				<!-- 왼쪽 사이드 메뉴  -->
 				<div class="col-md-3 contact-info" align="center">
 					<div class="single-info" style="margin-bottom: 40px">
 						<h3>나의 쇼핑활동</h3>
 						<hr>
 						<h5>
-							<a href="#">주문내역 조회</a>
+							<a href="${pageContext.request.contextPath}/member/mypage/order">주문내역 조회</a>
 						</h5>
 						<h5>
-							<a href="#">최근 본 상품보기</a>
+							<a href="${pageContext.request.contextPath}/member/mypage/recently">최근 본 상품보기</a>
 						</h5>
 						<h5>
-							<a href="#">찜한 목록</a>
+							<a href="${pageContext.request.contextPath}/member/mypage/like">찜한 목록</a>
 						</h5>
 					</div>
 					<div class="single-info" style="margin-bottom: 40px">
@@ -79,13 +80,13 @@
 						<h3>내가 쓴 글보기</h3>
 						<hr>
 						<h5>
-							<a href="#">구매후기</a>
+							<a href="${pageContext.request.contextPath}/member/mypage/review/list">구매후기</a>
 						</h5>
 						<h5>
-							<a href="#">상품문의</a>
+							<a href="${pageContext.request.contextPath}/member/mypage/prdctq/list">상품문의</a>
 						</h5>
 						<h5>
-							<a href="#">고객Q&A</a>
+							<a href="${pageContext.request.contextPath}/member/mypage/myqna/list">고객Q&A</a>
 						</h5>
 					</div>
 				</div>
@@ -94,7 +95,9 @@
 				<div class="col-md-9 contact-info">
 					<div class="row" style="padding: 0px 2% 0px 2%">
 						<div class="col-md-6" align="left">
-							<h3><strong>내가 쓴 문의</strong></h3>
+							<h3>
+								<strong>내가 쓴 문의</strong>
+							</h3>
 						</div>
 						<div class="col-md-6" align="right">
 							<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/mypage/myqna/write'">작성하기</button>
@@ -102,7 +105,7 @@
 					</div>
 
 					<hr>
-					
+
 					<div class="row" style="padding: 0px 2% 0px 2%">
 						<table class="table table-hover" style="text-align: center;">
 							<thead>
@@ -115,19 +118,19 @@
 							</thead>
 							<tbody>
 								<c:forEach items="${myq_list}" var="myq_list">
-								<tr>
-									<td>${myq_list.board_id}</td>
-									<td><a href="${pageContext.request.contextPath}/member/mypage/myqna/${myq_list.board_id}">${myq_list.board_name}</a></td>
-									<td>${myq_list.board_date}</td>
-									<td>${myq_cmnt_stat.comment_count > 0 ? '답변완료' : '답변대기'}</td>							
-								</tr>
+									<tr>
+										<td>${myq_list.board_id}</td>
+										<td><a href="${pageContext.request.contextPath}/member/mypage/myqna/${myq_list.board_id}">${myq_list.board_name}</a></td>
+										<td>${myq_list.board_date}</td>
+										<td>${myq_cmnt_stat.comment_count > 0 ? '답변완료' : '답변대기'}</td>
+									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
 					</div>
-					
-					<!-- 페이징 -->	
-					<div class="container">
+
+					<!-- 페이징 -->
+					<%-- <div class="container">
 						<ul class="pagination justify-content-center">
 							<c:choose>
 								<c:when test="${pageMaker.prev}">
@@ -137,12 +140,12 @@
 									<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
 								</c:otherwise>
 							</c:choose>
-		
+
 							<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
 								<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
 								<li class="page-item ${pageMaker.cri.pageNum == idx ? 'active' : '' }"><a class="page-link" href="${pageMaker.makeQuery(idx)}">${idx}</a></li>
 							</c:forEach>
-		
+
 							<c:choose>
 								<c:when test="${pageMaker.next && pageMaker.endPage > 0}">
 									<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
@@ -152,16 +155,16 @@
 								</c:otherwise>
 							</c:choose>
 						</ul>
-					</div>
-								
-				</div>	
-			<hr>
+					</div> --%>
+
+				</div>
+				<hr>
 			</div>
 		</div>
 		<hr>
 
-      	<!-- footer -->
-	  	<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
+		<!-- footer -->
+		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
 
 		<!--Required JS files-->
 		<script src="/assets/js/jquery-2.2.4.min.js"></script>
@@ -173,7 +176,7 @@
 		<script src="/assets/js/vendor/loopcounter.js"></script>
 		<script src="/assets/js/vendor/slicknav.min.js"></script>
 		<script src="/assets/js/active.js"></script>
-		
+
 		<!-- 채널 봇 챗봇 -->
 		<script src="/js/channelIO.js"></script>
 </body>

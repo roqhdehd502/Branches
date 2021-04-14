@@ -8,6 +8,7 @@ import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.InquiryBoardVO;
 import edu.bit.ex.mapper.MemberMapper;
 import edu.bit.ex.page.MyqnaCriteria;
+import edu.bit.ex.page.PrdQnACriteria;
 import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.InquiryVO;
@@ -38,22 +39,35 @@ public class MemberServiceImpl implements MemberService {
 
 	// 상품 Q&A 마이페이지 리스트
 	@Override
-	public List<BoardVO> getPrdctqMyList(String member_id) {
-		log.info("getPrdctqMyList()......");
-		return memberMapper.prdctqMyList(member_id);
+	public List<BoardVO> getPrdctqMyList(PrdQnACriteria cri, String mbr_id) {
+		log.info("getMyqList()......");
+		return memberMapper.getPrdctqMyListWithPaging(cri, mbr_id);
+	}
+
+	// 페이징 단위에 적용되는 최대 상품 Q&A 게시글 단위
+	@Override
+	public int getPrdctqTotal(PrdQnACriteria cri) {
+		log.info("getPrdctqTotal WITH criteria: " + cri);
+		return memberMapper.getPrdctqTotalCount(cri);
+	}
+
+	// 작성한 상품 Q&A 응답여부 받아오기
+	@Override
+	public BoardBoardCommentVO getPrdctqCmntStat(int board_id) {
+		log.info("getPrdctqCmntStat()......");
+		return memberMapper.getPrdctqCmntStat(board_id);
 	}
 
 	// 판매자 마이페이지
 	@Override
 	public MbrVO getMemberInfo(String s_id) {
-
+		log.info("getMemberInfo()......");
 		return memberMapper.getMemberInfo(s_id);
 	}
 
-	// member info update
+	// 회원 정보 수정
 	@Override
 	public void memberInfoUpdate(MbrVO mbrvo) { // admin seller member
-		// TODO Auto-generated method stub
 		log.info("memberInfoUpdate()......");
 		memberMapper.memberInfoUpdate(mbrvo);
 	}

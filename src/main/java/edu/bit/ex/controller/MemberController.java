@@ -4,13 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -21,6 +20,8 @@ import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.InquiryBoardVO;
 import edu.bit.ex.page.MyqnaCriteria;
 import edu.bit.ex.page.MyqnaPageVO;
+import edu.bit.ex.page.PrdQnACriteria;
+import edu.bit.ex.page.PrdQnAPageVO;
 import edu.bit.ex.service.MemberService;
 import edu.bit.ex.service.SecurityService;
 import edu.bit.ex.vo.BoardVO;
@@ -45,9 +46,10 @@ public class MemberController {
 	private MemberService memberService;
 
 	@GetMapping("/member")
-	public ModelAndView signUpForm(ModelAndView mv) {
-		mv.setViewName("login/login");
-		return mv;
+	public ModelAndView signUpForm(ModelAndView mav) {
+		mav.setViewName("login/login");
+
+		return mav;
 	}
 
 	// 상품 Q&A 등록 페이지
@@ -62,6 +64,7 @@ public class MemberController {
 	}
 
 	// 상품 Q&A 작성
+	@Transactional(rollbackFor = Exception.class)
 	@PostMapping("/prdct/{prdct_id}/qna/writing")
 	public RedirectView prdctQnaWriting(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, BoardVO boardVO) throws Exception {
 		log.debug("prdctQnaWriting");
@@ -73,24 +76,41 @@ public class MemberController {
 		return new RedirectView("/member/mypage/prdctq/list");
 	}
 
-	// 상품 Q&A 마이페이지 리스트 - 누르면 member_myprdctq 연결
+	// 페이징을 이용한 상품 Q&A 마이페이지 리스트 - 누르면 member_myprdctq 연결
 	@GetMapping("/mypage/prdctq/list")
-	public ModelAndView prdctQnAList(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav) throws Exception {
+	public ModelAndView prdctQnAList(@AuthenticationPrincipal MemberDetails memberDetails, PrdQnACriteria cri, BoardBoardCommentVO bCommentVO,
+			ModelAndView mav) throws Exception {
 		log.debug("prdctQnAList");
 		log.info("prdctQnAList..");
-		String member_id = memberDetails.getUserID();
 		mav.setViewName("member/member_myprdctq_list");
-		mav.addObject("mem", securityService.getMbr(member_id));
-		mav.addObject("prdctqMyList", memberService.getPrdctqMyList(member_id));
+
+		// 인증된 회원 정보 받아오기
+		String member_id = memberDetails.getUserID();
+		mav.addObject("mbr", securityService.getMbr(member_id));
+		// 작성한 상품 QNA 리스트 받아오기
+		mav.addObject("prdctq_my_list", memberService.getPrdctqMyList(cri, member_id));
+		// 작성한 상품 Q&A 응답여부 받아오기
+		mav.addObject("prdctq_cmnt_stat", memberService.getPrdctqCmntStat(bCommentVO.getBoard_id()));
+
+		int total = memberService.getPrdctqTotal(cri);
+		log.info("total" + total);
+		mav.addObject("pageMaker", new PrdQnAPageVO(cri, total));
+
 		return mav;
 	}
 
 	// 회원 마이페이지...(custom)
 	@GetMapping("/mypage")
-	public ModelAndView mypage(ModelAndView mav, MbrVO mbrVO) throws Exception {
+	public ModelAndView mypage(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, MbrVO mbrVO) throws Exception {
 		log.info("mypage.......");
 		mav.setViewName("member/mypage");
 		// mav.addObject("member", hsService.getMember());
+
+		// 인증 회원 정보
+		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+		// 회원 정보 받아오기
+		mav.addObject("mbr", getMbr);
+
 		return mav;
 	}
 
@@ -134,6 +154,7 @@ public class MemberController {
 	}
 
 	// 고객 QnA 작성
+	@Transactional(rollbackFor = Exception.class)
 	@PostMapping("/mypage/myqna/write")
 	public ResponseEntity<String> myqnaWriting(@RequestBody BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
@@ -185,6 +206,7 @@ public class MemberController {
 	}
 
 	// 고객 QnA 수정
+	@Transactional(rollbackFor = Exception.class)
 	@PostMapping("/mypage/myqna/modify/{board_id}")
 	public ResponseEntity<String> myqnaModify(@RequestBody BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
@@ -202,6 +224,7 @@ public class MemberController {
 	}
 
 	// 고객 QnA 삭제
+	@Transactional(rollbackFor = Exception.class)
 	@DeleteMapping("/mypage/myqna/modify/{board_id}")
 	public ResponseEntity<String> myqnaDelete(BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
@@ -219,19 +242,32 @@ public class MemberController {
 
 	// 찜하기 목록 페이지
 	@GetMapping("/mypage/like")
-	public ModelAndView likeProduct(ModelAndView mav) throws Exception {
+	public ModelAndView likeProduct(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav) throws Exception {
 		log.debug("like");
 		log.info("like..");
-		mav.setViewName("customer/likeProduct");
+		// mav.setViewName("customer/likeProduct");
+		mav.setViewName("member/likeProduct");
+
+		// 인증 회원 정보
+		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+		// 회원 정보 받아오기
+		mav.addObject("mbr", getMbr);
+		// mav.addObject("like_prdct_list", memberService.getLikePrdctList());
 		return mav;
 	}
 
 	// 최근본상품
 	@GetMapping("/mypage/recently")
-	public ModelAndView recentlyProduct(ModelAndView mav) throws Exception {
+	public ModelAndView recentlyProduct(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav) throws Exception {
 		log.debug("recently");
 		log.info("recently..");
 		mav.setViewName("member/recentlyProduct");
+
+		// 인증 회원 정보
+		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+		// 회원 정보 받아오기
+		mav.addObject("mbr", getMbr);
+
 		return mav;
 	}
 
@@ -249,6 +285,7 @@ public class MemberController {
 	}
 
 	// 상품 리뷰 작성
+	@Transactional(rollbackFor = Exception.class)
 	@PostMapping("/mypage/review/writing")
 	public RedirectView reviewWriting(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, BoardVO boardVO) throws Exception {
 		log.debug("reviewRegister");
@@ -267,17 +304,24 @@ public class MemberController {
 		log.info("reviewList..");
 		String member_id = memberDetails.getUserID();
 		mav.setViewName("member/member_myreview_list");
-		mav.addObject("mem", securityService.getMbr(member_id));
+		mav.addObject("mbr", securityService.getMbr(member_id));
 		mav.addObject("reviewMyList", memberService.getReviewMyList(member_id));
+
 		return mav;
 	}
 
 	// 회원 주문내역 조회페이지...(custom)
 	@GetMapping("/mypage/order")
-	public ModelAndView myOrderList(ModelAndView mav) throws Exception {
+	public ModelAndView myOrderList(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav) throws Exception {
 		log.debug("myOrderList");
 		log.info("myOrderList");
 		mav.setViewName("member/myOrderList");
+
+		// 인증 회원 정보
+		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+		// 회원 정보 받아오기
+		mav.addObject("mbr", getMbr);
+
 		return mav;
 	}
 	// 회원 브랜드 조회페이지...(custom)
@@ -301,20 +345,22 @@ public class MemberController {
 
 	// 회원 정보수정폼 customer
 	// 스프링 시큐리티 적용 중
-	@RequestMapping(value = "/mypage/myinfo", method = { RequestMethod.POST, RequestMethod.GET })
+	@GetMapping("/mypage/myinfo")
 	public ModelAndView login_member_info(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav) {
 		mav.setViewName("member/member_mypage_modify");
 		mav.addObject("mbr", securityService.getMbr(memberDetails.getUserID()));
+
 		return mav;
 	}
 
 	// 회원정보수정 ajax customer
-	@PutMapping(value = "/mypage/myinfo")
+	@Transactional(rollbackFor = Exception.class)
+	@PostMapping("/mypage/myinfo")
 	public ResponseEntity<String> member_info_modify(@RequestBody MbrVO mbrvo) {
 		ResponseEntity<String> entity = null;
 		log.info("rest_update..");
 		try {
-			// customerService.memberInfoUpdate(mbrvo);
+			memberService.memberInfoUpdate(mbrvo);
 			log.info("update member info");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
@@ -324,5 +370,4 @@ public class MemberController {
 
 		return entity;
 	}
-
 }

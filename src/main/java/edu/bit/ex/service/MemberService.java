@@ -5,6 +5,7 @@ import java.util.List;
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.InquiryBoardVO;
 import edu.bit.ex.page.MyqnaCriteria;
+import edu.bit.ex.page.PrdQnACriteria;
 import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.InquiryVO;
@@ -19,8 +20,14 @@ public interface MemberService {
 	// 상품 Q&A 등록 작성
 	public void setPrdctQnaWrite(BoardVO boardVO);
 
-	// 상품 Q&A 마이페이지 리스트
-	public List<BoardVO> getPrdctqMyList(String member_id);
+	// 페이징을 적용한 상품 Q&A 마이페이지 리스트
+	public List<BoardVO> getPrdctqMyList(PrdQnACriteria cri, String mbr_id);
+
+	// 페이징 단위에 적용되는 최대 상품 Q&A 게시글 단위
+	public int getPrdctqTotal(PrdQnACriteria cri);
+
+	// 작성한 상품 Q&A 응답여부 받아오기
+	public BoardBoardCommentVO getPrdctqCmntStat(int board_id);
 
 	// 판매자 마이페이지
 	public MbrVO getMemberInfo(String s_id);
@@ -63,5 +70,4 @@ public interface MemberService {
 
 	// 고객 QnA 삭제
 	public int myqnaRemove(int board_id);
-
 }
