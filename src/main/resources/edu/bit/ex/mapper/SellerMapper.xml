@@ -5,7 +5,7 @@
   
 <mapper namespace="edu.bit.ex.mapper.SellerMapper">
 
-<!-- 게시글 검색기능 + 페이징 -->
+<!-- 상품조회 검색기능 + 페이징 -->
 	<sql id="criteria">
 		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
 			<foreach item='type' collection="typeArr">
@@ -197,41 +197,39 @@
 		]]>
 	</insert>
 	
-	<!-- 판매자 상품정보 수정1 -->
-	<update id="prdctUpdate">
-	<![CDATA[
-		update prdct set prdct_name=#{prdct_name}, prdct_price=#{prdct_price}, prdct_color=#{prdct_color}, prdct_size=#{prdct_size}, prdct_stock=#{prdct_stock} where prdct_id=#{prdct_id}
-	]]>
-	</update>
-	
-	<!-- 판매자 상품내용 수정2 -->
-	<update id="prdctContentUpdate">
-	<![CDATA[
-		update board set board_content=#{board_content} where prdct_id=#{prdct_id}
-	]]>
-	</update>
-	
-	
 	<!-- 판매자 상품정보 삭제... -->
 	<delete id="prdctDelete">
 	<![CDATA[
 		delete from prdct where prdct_id = #{prdct_id}
 	]]>
 	</delete>
-
-	<!-- 상품등록 첨부사진 작성 -->
-	<!-- 상품등록 작성을 거친뒤 첨부사진을 올리는 상황이므로 업로드하는 board_id의 현재 번호를 가리키는 board_seq.currval을 insert 한다. -->
-	<!-- <insert id="setPrdctImage">
-		<![CDATA[
-			INSERT INTO prdct_image (image_number, image_name, image_path, board_id) 
-			VALUES (prdct_image_seq.nextval, #{uploadfiles},'C:\tetleaf\Branches\src\main\resources\static\hs', board_seq.currval)
-		]]>
-	</insert> -->
+	
 	<!-- 썸네일 불러오기 -->
-	<select id="getFileName" resultType="edu.bit.ex.joinvo.BoardPrdctImageVO" >
-		<![CDATA[			
-			select b.board_id, a.board_id, a.image_number, a.image_name from prdct_image a, board b where a.board_id = b.board_id and b.board_type_number = 6 
-		]]>
+	<select id="prdctThumbnail" resultType="edu.bit.ex.vo.PrdctVO">
+	<![CDATA[
+		select * from prdct
+	]]>
 	</select>
+	
+	<!-- 판매자 등록상품 불러오기 (수정페이지) -->
+	<select id="getPrdctInfo" resultType="edu.bit.ex.vo.PrdctVO">
+	<![CDATA[
+		select * from prdct where prdct_id = #{prdct_id}
+	]]>
+	</select>
+	
+	<update id="updatePrdctInfo">
+	<![CDATA[
+		update prdct set prdct_name=#{prdct_name}, category_number=#{category_number}, prdct_color=#{prdct_color}, prdct_size = #{prdct_size}
+							,prdct_price=#{prdct_price}, prdct_stock=#{prdct_stock}, prdct_thumbnail=#{prdct_thumbnail} where prdct_id=#{prdct_id}
+	]]>
+	</update>
+	
+	<!-- 판매자 상품내용 수정2 -->
+	<update id="prdctContentUpdate">
+	<![CDATA[
+		update board set board_content=#{board_content} where board_id=#{board_id}
+	]]>
+	</update>
 	
 </mapper>
