@@ -202,7 +202,8 @@ img {
 		prdct.order_size = $("#order_size").val();
 		prdct.prdct_price = $("#prdct_price").val();
 		prdct.prdct_name = $("#prdct_name").val();
-		prdct.prdct_thumbnail = $("#prdct_thumbnail").val();
+		prdct.thumbnail = $("#prdct_thumbnail").val();
+		
 			
 		console.log(prdct);
 		cart.push(prdct);
@@ -357,6 +358,7 @@ img {
 							<div class="container" style="margin-top: 50px; margin-bottom: 50px; margin-right: 50px; width: 500px; height: 600px;">
 								<div style="height: 100%; align-content: center;">
 								${prdct.prdct_thumbnail}
+								<input type="hidden" name="prdct_thumbnail" id="prdct_thumbnail" value="${prdct.prdct_thumbnail}"/>
 								</div>
 							</div>
 						</div>
@@ -377,16 +379,16 @@ img {
 								<!-- 색상/사이즈 옵션	 -->
 								<div class="form-group">
 									<label for="colorSelect" class="col-sm-2 col-form-label">Color</label> 
-									<select class="form-control" id="colorSelect" name="order_color">
+									<select class="form-control" id="colorSelect">
 											<c:set var="prdct_color" value="${fn:split(prdct.prdct_color, ',')}" />
 											<c:forEach var="color" items="${prdct_color}">
-												<option id="order_color"value="${prdct_color}">${color}</option>
+												<option id="order_color"value="${color}">${color}</option>
 											</c:forEach>
 									</select>
 								</div>
 								<div class="form-group">
 									<label for="sizeSelect" class="col-sm-2 col-form-label">Size</label> 
-									<select class="form-control" id="sizeSelect" name="order_size">
+									<select class="form-control" id="sizeSelect">
 											<c:set var="prdct_size" value="${fn:split(prdct.prdct_size, ',')}" />
 											<c:forEach var="size" items="${prdct_size}">
 												<option id="order_size" value="${size}">${size}</option>
@@ -454,7 +456,6 @@ img {
 								<div class="col-md-12 single-gallery">
 									<div class="inner">
 										<div style="padding-top: 7px; text-align: center;">
-											<%-- <img src="<c:url value="/prdct_img/${prdDetailimg.image_name}"/>"> --%>
 											${prdct.board_content }
 										</div>
 									</div>
