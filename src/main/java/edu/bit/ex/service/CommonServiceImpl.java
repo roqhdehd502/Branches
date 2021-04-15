@@ -13,6 +13,7 @@ import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.MbrVO;
+import edu.bit.ex.vo.PrdctLikeVO;
 import edu.bit.ex.vo.PrdctVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -139,4 +140,24 @@ public class CommonServiceImpl implements CommonService {
 		return commonMapper.getCategoryName(category_number);
 	}
 
+	// 상품 상세 페이지 찜하기
+	@Override
+	public void setPrdctLike(PrdctLikeVO prdctLikeVO) {
+		log.info("setPrdctLike...");
+		commonMapper.setPrdctLike(prdctLikeVO);
+	}
+
+	// 해당 상품 찜 여부 확인용 데이터 가져오기
+	@Override
+	public PrdctLikeVO getPrdLikeVal(String prdct_id) {
+		log.info("getPrdLikeVal...");
+		return commonMapper.getPrdLikeVal(prdct_id);
+	}
+
+	// 상품 상세페이지 찜취소 기능
+	@Override
+	public int prdctLikeCancel(PrdctLikeVO prdctLikeVO) {
+		log.info("prdctLikeCancel...");
+		return commonMapper.prdctLikeCancel(prdctLikeVO);
+	}
 }

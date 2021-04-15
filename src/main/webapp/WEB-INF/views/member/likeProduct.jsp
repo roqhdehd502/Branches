@@ -19,6 +19,15 @@
 	<link rel="stylesheet" href="/assets/css/slicknav.css">
 	<link rel="stylesheet" href="/assets/css/main.css">
 	<link rel="stylesheet" href="/bootstrap.min.css">
+	
+	<!-- thumbnail image hover -->
+	<style type="text/css">
+		.thumbnail:hover {
+			background-color: #e0e0e0;
+			border: 1px solid #e0e0e0;
+			border-radius: 5px;
+		}
+	</style>
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -106,106 +115,25 @@
 					<div class="team-area sp">
 						<div class="container">
 							<div class="row">
-								<%-- <c:forEach var="${like_prdct_list}" items="like"> --%>
+								<c:forEach items="${like_prdct_list}" var="like">
 								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/ksp/th-ex.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>상품명</h4>
-											<h5>브랜드</h5>
-											<h5>$100</h5>
-										</div>
+									<div class="inner thumbnail">
+										<!-- 썸네일을 누르면 해당 상품 상세페이지로 이동 -->
+										<a href="${pageContext.request.contextPath}/prdct/${like.prdct_id}">
+											<div class="team-img">
+												<!-- 해당 썸네일 유무에 따라 사진 가져오기 -->
+												<img class="rounded" src="/prdct_img/prdct_thumbnail/${like.prdct_thumbnail}" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" width="150px" height="200px">
+											</div>
+											<div class="team-content">
+												<h4>${like.prdct_name}</h4>
+												<h5>${like.mbr_id}</h5>
+												<h5>&#36;${like.prdct_price}</h5>
+											</div>
+										</a>
 									</div>
 								</div>
-								<%-- </c:forEach> --%>
-								
+								</c:forEach>
 								<!-- <div class="col-sm-6 col-md-4 col-lg-3 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/ksp/th-ex.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>상품명</h4>
-											<h5>브랜드</h5>
-											<h5>$100</h5>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/ksp/th-ex.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>상품명</h4>
-											<h5>브랜드</h5>
-											<h5>$100</h5>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/ksp/th-ex.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>상품명</h4>
-											<h5>브랜드</h5>
-											<h5>$100</h5>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/ksp/th-ex.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>상품명</h4>
-											<h5>브랜드</h5>
-											<h5>$100</h5>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/ksp/th-ex.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>상품명</h4>
-											<h5>브랜드</h5>
-											<h5>$100</h5>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/ksp/th-ex.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>상품명</h4>
-											<h5>브랜드</h5>
-											<h5>$100</h5>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/ksp/th-ex.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>상품명</h4>
-											<h5>브랜드</h5>
-											<h5>$100</h5>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 									<div class="inner">
 										<div class="team-img">
 											<img src="/ksp/th-ex.jpg" alt="Member Photo">

@@ -107,6 +107,9 @@
 	    	});
 	    })
 	</script>
+
+	<!-- 반응형 사이즈 조절 -->
+	<link rel="stylesheet" href="/css/reactive_size.css">		
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -150,7 +153,7 @@
 								//id가 description인 태그에 ckeditor를 적용시킴
 								//CKEDITOR.replace("description"); //이미지 업로드 안됨				
 								CKEDITOR.replace("board_content", {
-									filebrowserUploadUrl : "${pageContext.request.contextPath}/admin/board/magazineImageUpload.do"
+									filebrowserUploadUrl : "${pageContext.request.contextPath}/admin/board/boardImageUpload.do"
 								});						
 							</script>
 						</div>

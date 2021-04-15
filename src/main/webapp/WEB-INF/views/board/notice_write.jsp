@@ -21,6 +21,9 @@
 	<link rel="stylesheet" href="/assets/css/main.css">
 	<link rel="stylesheet" href="/bootstrap.min.css">
 	
+	<!-- CKEditor 적용 -->
+	<script src="/ckeditor/ckeditor.js"></script>	
+	
 	<!-- AJAX 처리용 JQUERY -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
@@ -31,7 +34,8 @@
            event.preventDefault();
            var mbr_id = $("#mbr_id").val();
            var board_name = $("#board_name").val();
-           var board_content = $("#board_content").val();           
+           var board_content = CKEDITOR.instances.board_content.getData();
+           /* var board_content = $("#board_content").val();       */     
            
            console.log(mbr_id);
            console.log(board_name);
@@ -53,19 +57,23 @@
 				xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
       		 }, */
              success: function (result) {       
-               if(result == "SUCCESS"){     
+               if(result == "SUCCESS") {
+            	  alert('업로드 성공'); 
                   $(location).attr('href', '${pageContext.request.contextPath}/board/notice')                            
                }                       
              },
              error: function (e) {
                  console.log(e);
-                 alert('업로드에 실패하였습니다.');
+                 alert('업로드 실패');
                  location.reload(); // 실패시 새로고침하기
              }
          })            
        });       
    	});
 	</script>
+	
+	<!-- 반응형 사이즈 조절 -->
+	<link rel="stylesheet" href="/css/reactive_size.css">		
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -97,6 +105,13 @@
 						</div>
 						<div class="col-md-10 contact-info">
 							<textarea class="form-control" cols="3" id="board_content" name="board_content" placeholder="글내용을 입력하세요"></textarea>
+							<script>
+								//id가 description인 태그에 ckeditor를 적용시킴
+								//CKEDITOR.replace("description"); //이미지 업로드 안됨				
+								CKEDITOR.replace("board_content", {
+									filebrowserUploadUrl : "${pageContext.request.contextPath}/admin/board/boardImageUpload.do"
+								});						
+							</script>
 						</div>
 					</div>	
 					<div align="center" style="padding: 3% 0px 3% 0px;">
@@ -107,9 +122,8 @@
 				</form>
 			</div>
 		</div>
-	<!-- </div> -->
 
-	<hr>
+	  <hr>
 
 	  <!-- footer -->
       <jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>

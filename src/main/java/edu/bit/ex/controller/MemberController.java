@@ -252,7 +252,8 @@ public class MemberController {
 		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
-		// mav.addObject("like_prdct_list", memberService.getLikePrdctList());
+		// 찜했던 상품 리스트 받아오기
+		mav.addObject("like_prdct_list", memberService.getLikePrdctList(getMbr.getMbr_id()));
 		return mav;
 	}
 

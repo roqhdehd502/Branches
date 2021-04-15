@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+@media (max-width: 540px) {
+	.container {
+		padding: 0px;
+	}
+		
+	img {
+		width: auto;
+		height: auto;
+		max-width: 285px;
+		max-height: 400px;
+	}
+			
+	iframe {
+		width: auto;
+		height: auto;
+		max-width: 285px;
+		max-height: 400px;
+	}
+	
+	/* 매거진 게시글 댓글에 있는 폰트 조절 */
+	.comment_font {
+		font-size: 13px;
+		text-align: left;
+	}
+}

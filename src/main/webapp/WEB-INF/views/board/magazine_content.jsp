@@ -95,23 +95,17 @@
 	   	});
 	</script>	
 	
-	<!-- content image hover -->
-	<style type="text/css">
-		.con_img:hover {
-			background-color: #e0e0e0;
-			border: 15px solid #e0e0e0;
-			border-radius: 5px;
-		}
-	</style>	
+	<!-- 반응형 사이즈 조절 -->
+	<link rel="stylesheet" href="/css/reactive_size.css">	
 </head>
 <body>
-	<div style="overflow: hidden;" class="container">
+	<div style="overflow: hidden;" class="container contpadding">
 	<!-- header -->
 	<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 
 		<hr style="margin: 15px 15px 40px 15px;">
 
-		<div class="container">
+		<div class="container contpadding">
 			<!-- 매거진 기본 정보 -->
 			<div class="container" align="center">
 				<div><h2>${magazine_content.board_name}</h2></div>
@@ -127,10 +121,10 @@
 			<hr>
 			
 			<!-- 매거진 글내용 -->	
-			<div class="container">
+			<div class="container" style="overflow: auto;">
 				<div class="row" style="padding: 3% 3% 5% 3%">		
-					<div class="col-md-12" style="padding: 2% 3% 3% 3%">
-						<p class="lead" style="white-space:pre;">${magazine_content.board_content}</p>
+					<div class="col-md-12 mgzcntnt" style="padding: 2% 3% 3% 3%">
+						<p class="lead" style="white-space: normal;">${magazine_content.board_content}</p>
 					</div>
 				</div>
 			</div>
@@ -230,16 +224,16 @@
 				
 				<!-- 댓글 리스트 -->
 				<c:forEach items="${magazine_comment}" var="comment" varStatus="cmnt_status">
-				<div class="row" style="margin: 1% 3% 1% 3%; padding: 1% 3% 1% 3%; border: 1px solid #E5E5E5;">
+				<div class="row" style="margin: 1% 3% 1% 3%; padding: 1% 3% 1% 3%; border: 1px solid #E5E5E5; overflow: auto;">
 					<div class="col-md-7" align="left">
 						<p>${comment.mbr_nickname}</p>
-						<p class="lead" style="white-space:pre;">${comment.comment_content}</p>
+						<p class="lead comment_font" style="white-space: normal;">${comment.comment_content}</p>
 					</div>
 					<div class="col-md-4" align="right">
-						<div class="lead">${comment.comment_date}</div>				
+						<div class="lead comment_font">${comment.comment_date}</div>				
 					</div>
 					
-					<div class="col-md-1" align="right">
+					<div class="col-md-1 comment_font" align="right">
 						<c:choose>
 							<%-- 댓글 작성자가 로그인 한 회원과 일치하지 않을 때 --%> 
 						    <c:when test="${mbr.mbr_id ne comment.mbr_id}">

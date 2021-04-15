@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
+import edu.bit.ex.joinvo.BoardPrdctPrdctLikeVO;
 import edu.bit.ex.joinvo.InquiryBoardVO;
 import edu.bit.ex.mapper.MemberMapper;
 import edu.bit.ex.page.MyqnaCriteria;
@@ -157,4 +158,10 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.myqnaRemove(board_id);
 	}
 
+	// 찜했던 상품 리스트 받아오기
+	@Override
+	public List<BoardPrdctPrdctLikeVO> getLikePrdctList(String mbr_id) {
+		log.info("getLikePrdctList()......");
+		return memberMapper.getLikePrdctList(mbr_id);
+	}
 }

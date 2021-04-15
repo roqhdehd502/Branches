@@ -23,7 +23,9 @@
 	
 	<!-- AJAX용 JQUERY -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	
+
+	<!-- 반응형 사이즈 조절 -->
+	<link rel="stylesheet" href="/css/reactive_size.css">		
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -36,26 +38,26 @@
 				<h2>NOTICE</h2>
 			</div>
 			<div class="container">
-				<table class="table table-hover" style="text-align: center;">
-					<tr class="table-primary">
-						<th>번호</th>
-						<th>제목</th>
-						<th>등록일</th>
-					</tr>
-					<tr>
-						<td>${notice_content.board_id}</td>
-						<td>${notice_content.board_name}</td>
-						<td>${notice_content.board_date}</td>
-					</tr>
-				</table>
-			</div>
-			
-			<hr>
-			
-			<div class="container">
+				<div class="row">
+					<table class="table table-hover" style="text-align: center;">
+						<tr class="table-primary">
+							<th>번호</th>
+							<th>제목</th>
+							<th>등록일</th>
+						</tr>
+						<tr>
+							<td>${notice_content.board_id}</td>
+							<td>${notice_content.board_name}</td>
+							<td>${notice_content.board_date}</td>
+						</tr>
+					</table>
+				</div>
+				
+				<hr>
+				
 				<div class="row" style="padding: 5% 3% 3% 5%">
 					<p class="lead" style="white-space:pre;">${notice_content.board_content}</p>
-				</div>
+				</div>			
 			</div>
 			
 			<hr>
@@ -86,15 +88,13 @@
 					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/notice'">목록보기</button>&nbsp;
 					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/admin/board/notice/modify/${notice_content.board_id}'">수정하기</button>
 				</div>
-				</sec:authorize>
-				
+				</sec:authorize>		
 			</div>
 		</div>
-	<!-- </div> -->
 
-	<hr>
+      <hr>
 
-<!-- footer -->
+	  <!-- footer -->
       <jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
 
       <!--Required JS files-->

@@ -172,10 +172,10 @@ public class BoardController {
 		return mav;
 	}
 
-	// 매거진 첨부사진 업로드(관리자)
+	// 첨부사진 업로드(관리자)
 	// CKEditor의 경우 이미지를 첨부할때 서버에 선 등록후 게시글이 submit이 될 때 같이 적용된다
 	@Transactional(rollbackFor = Exception.class)
-	@RequestMapping("/admin/board/magazineImageUpload.do")
+	@RequestMapping("/admin/board/boardImageUpload.do")
 	public void magazineImageUpload(HttpServletRequest request, HttpServletResponse response, MultipartFile upload) throws Exception {
 		log.info("magazineImageUpload...");
 		boardService.magazineImageUpload(request, response, upload);

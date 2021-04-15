@@ -119,8 +119,29 @@
 	
 	<select id="getCategoryName" resultType="String">
 		<![CDATA[			
-			select category_name from category where category_number=#{category_number}
+			select category_number, category_name from category where category_number=#{category_number}
 		]]>
 	</select>
-
+	
+	<!-- 상품 상세 페이지 찜하기 -->
+	<insert id="setPrdctLike">
+		<![CDATA[
+			INSERT INTO prdct_like (prdct_like_number, mbr_id, prdct_id, board_id) 
+			VALUES (prdct_like_seq.nextval, #{mbr_id}, #{prdct_id}, #{board_id}) 
+		]]>
+	</insert>
+	
+	<!-- 해당 상품 찜 여부 확인용 데이터 가져오기 -->
+	<select id="getPrdLikeVal" resultType="edu.bit.ex.vo.PrdctLikeVO">
+		<![CDATA[			
+			SELECT * FROM prdct_like WHERE prdct_id = #{prdct_id}
+		]]>
+	</select>
+	
+	<!-- 상품 상세페이지 찜취소 기능 -->
+	<delete id="prdctLikeCancel">
+		<![CDATA[
+			DELETE FROM prdct_like WHERE prdct_like_number = #{prdct_like_number}
+		]]>
+	</delete>
 </mapper>

@@ -214,5 +214,17 @@
 	<![CDATA[
 		SELECT COUNT(comment_id) AS comment_count FROM board_comment WHERE board_id = #{board_id}
 	]]>
+	</select>
+	
+	<!-- 찜했던 상품 리스트 받아오기 -->
+	<select id="getLikePrdctList" resultType="edu.bit.ex.joinvo.BoardPrdctPrdctLikeVO">
+	<![CDATA[
+		SELECT p.prdct_thumbnail, p.prdct_name, p.mbr_id, p.prdct_price, p.prdct_id 
+		FROM board b, prdct p, prdct_like l 
+		WHERE l.prdct_id = p.prdct_id AND 
+		    l.board_id = b.board_id AND 
+		    b.board_type_number = 6 AND 
+		    l.mbr_id = #{mbr_id}
+	]]>
 	</select>			 	
 </mapper>

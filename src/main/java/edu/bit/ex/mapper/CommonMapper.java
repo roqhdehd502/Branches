@@ -11,6 +11,7 @@ import edu.bit.ex.page.PrdctListCriteria;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.MbrVO;
+import edu.bit.ex.vo.PrdctLikeVO;
 import edu.bit.ex.vo.PrdctVO;
 
 @Mapper
@@ -63,4 +64,12 @@ public interface CommonMapper {
 
 	public String getCategoryName(int category_number);
 
+	// 상품 상세 페이지 찜하기
+	public void setPrdctLike(PrdctLikeVO prdctLikeVO);
+
+	// 해당 상품 찜 여부 확인용 데이터 가져오기
+	public PrdctLikeVO getPrdLikeVal(String prdct_id);
+
+	// 상품 상세페이지 찜취소 기능
+	public int prdctLikeCancel(PrdctLikeVO prdctLikeVO);
 }

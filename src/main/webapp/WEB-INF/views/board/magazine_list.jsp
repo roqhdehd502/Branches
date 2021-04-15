@@ -29,6 +29,9 @@
 			border-radius: 5px;
 		}
 	</style>
+	
+	<!-- 반응형 사이즈 조절 -->
+	<link rel="stylesheet" href="/css/reactive_size.css">	
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -42,8 +45,7 @@
 				<div class="row">
 					<div class="col-md-6 contact-info" align="left">
 						<h2>MAGAZINE</h2>
-					</div>
-					
+					</div>				
 					<!-- 권한에 따라 버튼을 달리 보이게 한다 -->
 					<!-- 모든 사용자 -->
 					<sec:authorize access="isAnonymous()"> 
@@ -68,7 +70,8 @@
 							<div class="thumbnail">
 								<a href="${pageContext.request.contextPath}/board/magazine/${dto.board_id}">
 									<div style="padding-top: 7px">
-										<img class="rounded" src="/board_img/thumbnail/${dto.board_thumbnail eq null ? 'none-thumbnail.png' : dto.board_thumbnail}" width="225px" height="350px">
+										<img class="rounded" src="/board_img/thumbnail/${dto.board_thumbnail}" onerror="this.src='/board_img/thumbnail/none-thumbnail.png'" width="225px" height="350px"> 
+										<%-- <img class="rounded" src="/board_img/thumbnail/${dto.board_thumbnail eq null ? 'none-thumbnail.png' : dto.board_thumbnail}" width="225px" height="350px"> --%>
 									</div>
 									<div>
 										<hr>

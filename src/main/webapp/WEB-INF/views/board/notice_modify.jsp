@@ -21,6 +21,9 @@
 	<link rel="stylesheet" href="/assets/css/main.css">
 	<link rel="stylesheet" href="/bootstrap.min.css">
 	
+	<!-- CKEditor 적용 -->
+	<script src="/ckeditor/ckeditor.js"></script>
+	
 	<!-- AJAX 처리용 JQUERY -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
@@ -31,7 +34,8 @@
 	           event.preventDefault();     
 	           var board_id = $("#board_id").val();
 	           var board_name = $("#board_name").val();
-	           var board_content = $("#board_content").val();              
+	           /* var board_content = $("#board_content").val(); */
+	           var board_content = CKEDITOR.instances.board_content.getData();
 	           
 	           console.log(board_id);
 	           console.log(board_name);
@@ -54,13 +58,13 @@
           		 }, */
 	             success: function (result) {       
 	               if(result == "SUCCESS"){
-	                  // update가 완료되었으면 리스트 페이지로 이동        
-	                  $(location).attr('href', '${pageContext.request.contextPath}/board/notice')                            
+	            	   alert('수정 성공'); 
+	                   $(location).attr('href', '${pageContext.request.contextPath}/board/notice')                             
 	               }                       
 	             },
 	             error: function (e) {
 	                 console.log(e);
-	                 alert('수정에 실패하였습니다.');
+	                 alert('수정 실패');
 	                 location.reload(); // 실패시 새로고침하기
 	             }
 	         })            
@@ -82,16 +86,22 @@
 					success: function(result){
 						console.log(result);
 						if(result == "SUCCESS"){
+							alert('삭제 완료'); 
 							$(location).attr('href', '${pageContext.request.contextPath}/board/notice') 
 						}
 					},
 					error:function(e){
 						console.log(e);
+		                alert('삭제 실패');
+		                location.reload(); // 실패시 새로고침하기
 					}
 				})
 			});	
 		});	
 	</script>
+	
+	<!-- 반응형 사이즈 조절 -->
+	<link rel="stylesheet" href="/css/reactive_size.css">		
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -139,6 +149,13 @@
 						</div>
 						<div class="col-md-10 contact-info">
 							<textarea class="form-control" cols="50%" rows="10" id="board_content">${notice_modify.board_content}</textarea>
+							<script>
+								//id가 description인 태그에 ckeditor를 적용시킴
+								//CKEDITOR.replace("description"); //이미지 업로드 안됨				
+								CKEDITOR.replace("board_content", {
+									filebrowserUploadUrl : "${pageContext.request.contextPath}/admin/board/boardImageUpload.do"
+								});						
+							</script>
 						</div>
 					</div>
 					<hr>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
+import edu.bit.ex.joinvo.BoardPrdctPrdctLikeVO;
 import edu.bit.ex.joinvo.InquiryBoardVO;
 import edu.bit.ex.page.MyqnaCriteria;
 import edu.bit.ex.page.PrdQnACriteria;
@@ -74,4 +75,7 @@ public interface MemberMapper {
 
 	// 고객 QnA 삭제
 	public int myqnaRemove(int board_id);
+
+	// 찜했던 상품 리스트 받아오기
+	public List<BoardPrdctPrdctLikeVO> getLikePrdctList(String mbr_id);
 }
