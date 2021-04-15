@@ -39,6 +39,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/admin/*")
 public class AdminController {
+
 	@Autowired
 	private AdminService adminService;
 
@@ -161,13 +162,19 @@ public class AdminController {
 
 	// 상품 수정
 	@PutMapping(value = "/mypage/seller/{seller_id}/prdct/{prdct_id}/modify")
-	public ResponseEntity<String> admin_seller_prdct_modify(@RequestBody PrdctRegisterImageVO prvo, HttpServletRequest request,
+	public ResponseEntity<String> admin_seller_prdct_modify(@RequestBody PrdctRegisterImageVO prvo, MultipartFile file, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		ResponseEntity<String> entity = null;
 
-		log.info("admin prdct modify");
+		log.info("원본파일명 : " + file.getOriginalFilename());
+		log.info("파일크기 : " + file.getSize());
+		log.info("컨텐트타입 : " + file.getContentType());
+
+		String savedName = prvo.getPrdct_id();
+		log.info("admin prdct info modify");
 		try {
 			adminService.updatePrdctInfo(prvo);
+			// adminService.updatePrdctThumb(prvo);
 			log.info("admin prdct modify success");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {

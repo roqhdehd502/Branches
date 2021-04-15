@@ -99,13 +99,10 @@
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">대표이미지(Thumbnail)</label>
 								<div class="col-sm-10">
-									<textarea name="prdct_thumbnail" id="prdct_thumbnail">${prdct.prdct_thumbnail }</textarea>
-									<script>
-									var editor2 = CKEDITOR.replace("prdct_thumbnail", {
-										filebrowserUploadUrl : "${pageContext.request.contextPath}/admin/mypage/seller/${prdct.mbr_id}/prdct/${prdct.prdct_id}/modify/prdct_thumb",
-										height : 250
-									});	
-									</script>
+									<div class="custom-file" id="inputFile">
+										<input name="file" type="file" class="prdct_thumbnail" id="prdct_thumbnail"> 
+										<label class="custom-file-label" for="prdct_thumbnail">${prdct.prdct_thumbnail }</label>
+									</div>
 								</div>
 							</div>
 							<div class="form-group row">

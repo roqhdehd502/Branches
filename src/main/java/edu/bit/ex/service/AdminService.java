@@ -66,4 +66,7 @@ public interface AdminService {
 
 	public List<PrdctRegisterImageVO> getSellerPrdctList(String m_id);
 
+	// 상품 thumbnail 수정
+	public void updateThumbnail(PrdctRegisterImageVO prvo);
+
 }

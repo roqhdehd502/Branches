@@ -47,6 +47,8 @@ BOARD_ID	NUMBER
 @Getter
 @ToString
 public class PrdctRegisterImageVO { // 게시판 이미지 VO
+
+	// 상품VO
 	private String prdct_id; // 상품id pk
 	private String prdct_name; // 상품명
 	private int prdct_price; // 상품가격
@@ -58,6 +60,7 @@ public class PrdctRegisterImageVO { // 게시판 이미지 VO
 	private int prdct_stock; // 상품재고량
 	private String prdct_thumbnail; // 게시글썸네일
 
+	// 보드VO
 	private int board_id; // 게시글번호 부모pk, 자식fk
 	private String board_name; // 게시글제목
 	private String board_content; // 게시글내용
@@ -67,7 +70,8 @@ public class PrdctRegisterImageVO { // 게시판 이미지 VO
 	private int board_hit; // 게시글조회수
 	private String board_thumbnail; // 게시글내용
 
-	private int image_number; // 상품이미지번호
+	// 이미지VO
+	private int image_number; // 상품이미지번호 pk
 	private String image_name; // 상품이미지명
 	private String image_path; // 상품이미지경로
 
