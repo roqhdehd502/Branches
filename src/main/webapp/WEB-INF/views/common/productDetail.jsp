@@ -455,7 +455,7 @@ img {
 											 21.04.14 나민우: 해당 기능 자바 스크립트로 기능 추가했습니다-->
 										<!-- 찜하기 기능은 고객(MEMBER 권한)만 이용할 수 있게 설정 -->	 
 										<sec:authorize access="isAnonymous()">
-											<!-- 로그인 상태가 아니므로 자동으로 로그인 comfirm창이 뜨게 설정 -->
+											<%-- 로그인 상태가 아니므로 자동으로 로그인 comfirm창이 뜨게 설정 --%>
 											<i id="prdct_like_dis" class="fa fa-heart-o fa-2x" onclick="location.href='${pageContext.request.contextPath}/prdct/{prdct_id}'">찜하기</i>
 										</sec:authorize>
 										<sec:authorize access="hasAuthority('ADMIN')">
@@ -466,11 +466,11 @@ img {
 										</sec:authorize>	 		
 										<sec:authorize access="hasAuthority('MEMBER')">
 											<c:choose>
-												<!-- prdct_like 테이블을 가져와 비교후 예전에 찜하기를 했었다면 찜취소로 활성화가 된다 -->
+												<%-- prdct_like 테이블을 가져와 비교후 예전에 찜하기를 했었다면 찜취소로 활성화가 된다 --%>
 												<c:when test="${(prdLikeVal.prdct_id eq prdct.prdct_id) and (prdLikeVal.mbr_id eq mbr.mbr_id)}">
 													<i id="prdct_like_ena" class="fa fa-heart fa-2x" onclick="location.href='${pageContext.request.contextPath}/prdct/{prdct_id}'">찜취소</i>
 												</c:when>
-												<!-- prdct_like 테이블을 가져와 비교후 예전에 찜하기를 안했다면(혹은 찜취소를 했었다면) 찜하기로 활성화가 된다 -->
+												<%-- prdct_like 테이블을 가져와 비교후 예전에 찜하기를 안했다면(혹은 찜취소를 했었다면) 찜하기로 활성화가 된다 --%>
 												<c:otherwise>
 													<i id="prdct_like_dis" class="fa fa-heart-o fa-2x" onclick="location.href='${pageContext.request.contextPath}/prdct/{prdct_id}'">찜하기</i>
 												</c:otherwise>
