@@ -182,4 +182,10 @@ public class AdminServiceImpl implements AdminService {
 		return adminMapper.getSellerPrdctList(m_id);
 	}
 
+	@Override
+	public void updateThumbnail(PrdctRegisterImageVO prvo) {
+		// TODO Auto-generated method stub
+
+	}
+
 }
