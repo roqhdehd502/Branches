@@ -78,9 +78,7 @@ public class CommonController {
 		}
 
 		PrdctRegisterImageVO prdctvo = commonService.getPrdctBoard(p_id);
-		// == (나민우) 찜하기 하는데 해당 라인 때문에 에러가 나서... 이거 뭔가요 ㅠ ==
-		// prdctvo.setCategory_name(commonService.getCategoryName(prdctvo.getCategory_number()));
-		// ============================================================
+		prdctvo.setCategory_name(commonService.getCategoryName(prdctvo.getCategory_number()));
 		log.info("product..");
 		// 상품 정보
 		mav.setViewName("common/productDetail");

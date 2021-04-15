@@ -119,7 +119,7 @@
 	
 	<select id="getCategoryName" resultType="String">
 		<![CDATA[			
-			select category_number, category_name from category where category_number=#{category_number}
+			select category_name from category where category_number=#{category_number}
 		]]>
 	</select>
 	
