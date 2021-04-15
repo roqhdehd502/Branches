@@ -368,12 +368,8 @@ img {
 					</div>
 				</div>
 
-<%--		 <header style="padding-bottom: 10px; padding-top: 5px;">
-			<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp"></jsp:include>
-		</header> --%>
-
-<%--		 <!--  상품 정보와 옵션 선택 -->
-		<form action="${pageContext.request.contextPath}/order/insert_cart" method="POST"> --%>
+	 <!--  상품 정보와 옵션 선택 -->
+		<form action="${pageContext.request.contextPath}/order/insert_cart" method="POST">
 
 		<!-- 상세페이지 내용	 -->
 			<div class="detail-area sp">
@@ -413,12 +409,6 @@ img {
 								<!-- 색상/사이즈 옵션	 -->
 								<div class="form-group">
 
-<%--									 <label for="colorSelect" class="col-sm-2 col-form-label">Color</label> <select class="form-control" id="colorSelect" name="order_color">
-										<c:set var="prdct_color" value="${fn:split(prdct.prdct_color, ',')}" />
-										<c:forEach var="color" items="${prdct_color}">
-											<option id="order_color" value="${prdct_color}">${color}</option>
-										</c:forEach> --%>
-
 									<label for="colorSelect" class="col-sm-2 col-form-label">Color</label> 
 									<select class="form-control" id="colorSelect">
 											<c:set var="prdct_color" value="${fn:split(prdct.prdct_color, ',')}" />
@@ -428,11 +418,6 @@ img {
 									</select>
 								</div>
 								<div class="form-group">
-<%--									 <label for="sizeSelect" class="col-sm-2 col-form-label">Size</label> <select class="form-control" id="sizeSelect" name="order_size">
-										<c:set var="prdct_size" value="${fn:split(prdct.prdct_size, ',')}" />
-										<c:forEach var="size" items="${prdct_size}">
-											<option id="order_size" value="${size}">${size}</option>
-										</c:forEach> --%>
 									<label for="sizeSelect" class="col-sm-2 col-form-label">Size</label> 
 									<select class="form-control" id="sizeSelect">
 											<c:set var="prdct_size" value="${fn:split(prdct.prdct_size, ',')}" />
@@ -468,9 +453,9 @@ img {
 										<span id="prd_like_num" style="display: none;">${prdLikeVal.prdct_like_number}</span>
 										<!-- 마이페이지 찜하기 이동/ 계속쇼핑 만들어야되나 
 											 21.04.14 나민우: 해당 기능 자바 스크립트로 기능 추가했습니다-->
-										<%-- 찜하기 기능은 고객(MEMBER 권한)만 이용할 수 있게 설정 --%>	 
+										<!-- 찜하기 기능은 고객(MEMBER 권한)만 이용할 수 있게 설정 -->	 
 										<sec:authorize access="isAnonymous()">
-											<%-- 로그인 상태가 아니므로 자동으로 로그인 comfirm창이 뜨게 설정 --%>
+											<!-- 로그인 상태가 아니므로 자동으로 로그인 comfirm창이 뜨게 설정 -->
 											<i id="prdct_like_dis" class="fa fa-heart-o fa-2x" onclick="location.href='${pageContext.request.contextPath}/prdct/{prdct_id}'">찜하기</i>
 										</sec:authorize>
 										<sec:authorize access="hasAuthority('ADMIN')">
@@ -481,11 +466,11 @@ img {
 										</sec:authorize>	 		
 										<sec:authorize access="hasAuthority('MEMBER')">
 											<c:choose>
-												<%-- prdct_like 테이블을 가져와 비교후 예전에 찜하기를 했었다면 찜취소로 활성화가 된다 --%>
+												<!-- prdct_like 테이블을 가져와 비교후 예전에 찜하기를 했었다면 찜취소로 활성화가 된다 -->
 												<c:when test="${(prdLikeVal.prdct_id eq prdct.prdct_id) and (prdLikeVal.mbr_id eq mbr.mbr_id)}">
 													<i id="prdct_like_ena" class="fa fa-heart fa-2x" onclick="location.href='${pageContext.request.contextPath}/prdct/{prdct_id}'">찜취소</i>
 												</c:when>
-												<%-- prdct_like 테이블을 가져와 비교후 예전에 찜하기를 안했다면(혹은 찜취소를 했었다면) 찜하기로 활성화가 된다 --%>
+												<!-- prdct_like 테이블을 가져와 비교후 예전에 찜하기를 안했다면(혹은 찜취소를 했었다면) 찜하기로 활성화가 된다 -->
 												<c:otherwise>
 													<i id="prdct_like_dis" class="fa fa-heart-o fa-2x" onclick="location.href='${pageContext.request.contextPath}/prdct/{prdct_id}'">찜하기</i>
 												</c:otherwise>
@@ -529,8 +514,8 @@ img {
 								<div class="col-md-12 single-gallery">
 									<div class="inner">
 										<div style="padding-top: 7px; text-align: center;">
-<%--											 <img src="<c:url value="/prdct_img/${prdDetailimg.image_name}"/>"> --%>
-<%--											 ${prdct.board_content} --%>
+											 <img src="<c:url value="/prdct_img/${prdDetailimg.image_name}"/>"> 
+											 ${prdct.board_content} 
 											${prdct.board_content }
 										</div>
 									</div>
@@ -867,17 +852,6 @@ img {
 									</div>
 								</div>
 							</div>
-<%--						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		환불 배송 안내 페이지 tab
-		<div class="container">
-			<br>
-			<div align="center">
-				<ul class="nav nav-tabs" role="tablist"> --%>
 					</div>
 				</div>
 			</div>
