@@ -60,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/seller/**").hasAnyAuthority("ADMIN", "SELLER") //
 				.antMatchers("/member").hasAnyAuthority("ADMIN", "MEMBER") // member/** 경로는 권한 3(=member) 회원만 접속 가능
 				.antMatchers("/member/**").hasAnyAuthority("ADMIN", "MEMBER") //
-				.antMatchers("/order/cart/orderInput/**").hasAuthority("MEMBER") //
+				.antMatchers("/order/cart/**").hasAuthority("MEMBER") //
 				.antMatchers("/").permitAll()//
 				.antMatchers("/**").permitAll() //
 				.and().formLogin() //

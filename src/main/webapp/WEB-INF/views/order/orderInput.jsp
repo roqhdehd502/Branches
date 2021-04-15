@@ -19,120 +19,103 @@
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css">
 </head>
+<script type="text/javascript">
+$(document)
+.ready(
+		//상품 가져오기 
+		function getOrder() {
+			var buy = JSON.parse(sessionStorage.getItem("buy"));
+			var html = "";
+			for (var i = 0; i < buy.length; i++) {
+				html += "<li class='fw-normal'>"
+						+ "<a href='${pageContext.request.contextPath}/prdct/"+buy[i].prdct_id+"'> "+buy[i].prdct_thumbnail+" </a>"
+						+ buy[i].prdct_name
+						+ "&nbsp x &nbsp "
+						+ buy[i].order_amount
+						+ "<input type='hidden' name='order_amount' value='"+buy[i].order_amount+"'>"
+						+ " <span>"
+						+ buy[i].sum
+						+ "원</span> <br> "+buy[i].order_color+" / "+buy[i].order_size
+						+ "<input type='hidden' name='goodsSum' value='"+ buy[i].sum+"'><input type='hidden' name='goodsName' value='"+ buy[i].name+"'>"
+						+"<input type='hidden' name='psize' value='"+ buy[i].order_size+"'>"
+						+"<input type='hidden' name='pcolor' value='"+ buy[i].order_color+"'>"
+						+ "<input type='hidden' name='board_id' value='"+ buy[i].prdct_id+"'></li>"
+			}
+			html += "<li class='total-price'>총 상품 금액 <span id='goodsTotal1'></span><input type='hidden' id='goodsTotal'></li>"
+					+ "<li class='fw-normal'>배송비  <span id='deliveryPay1'></span><input type='hidden' id='deliveryPay'></li>"
+					+ "<li class='fw-normal'>포인트 사용  <span id='payPoint1'></span><input type='hidden' id='payPoint' name='usepoint'></li>"
+					+ "<li class='total-price'>최종 결제 금액 <span id='lastTotal1'></span><input type='hidden' id='lastTotal' name='payprice'></li>"
+					+ "<li class='fw-normal'>적립 포인트 <span id='earningPoint1'></span><input type='hidden' id='earningPoint' name='earningpoint'></li>"
+			$('#pay').append(html);
+			// 총 상품 금액 계산 
+			var sumCount = this.form.goodsSum.length
+			var total = 0;
+			for (var i = 1; i < sumCount; i++) {
+				total += parseInt(this.form.goodsSum[i].value);
+			}
+			$("#goodsTotal1").text(total + "원");
+			$("#goodsTotal").val(total);
+			// 배송비 계산
+			if (total < 30000) {
+				$("#deliveryPay1").text(2500 + "원")
+				$("#deliveryPay").val(2500)
+			} else {
+				$("#deliveryPay1").text(0 + "원")
+				$("#deliveryPay").val(0)
+			}
+			// 최초 포인트 설정
+			$('#payPoint').val(0);
+			$('#payPoint1').text(0 + "P");
+			// 최종 결제 금액 계산
+			lastTotal();
+		}
+);
+
+</script>
 <body>
-<div style="overflow: hidden;" class="container">
-	<header style="padding-bottom: 10px; padding-top: 5px;">
-		<div class="container">
-			<div class="row">
-				<div class="col-6 col-sm-3 logo-column">
-					<a href="index.html" class="logo" style="height: 70px;"> <img src="/img/branches_text.png" alt="logo" style="width: 160px; height: 70px;">
-					</a>
-				</div>
-				<div class="col-6 col-sm-9 nav-column clearfix">
-					<div class="right-nav">
-						<span class="search-icon fa fa-search"></span>
-						<form action="#" class="search-form">
-							<input type="search" placeholder="search now">
-							<button type="submit">
-								<i class="fa fa-search"></i>
-							</button>
-						</form>
-						<div class="header-social">
-							<a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-			<nav id="menu" class="d-none d-lg-block">
-				<ul style="padding: 10px; background-color: black;">
-					<li class="current-menu-item has-child"><a href="index.html">OUTER</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Coat</a></li>
-							<li><a href="index-2.html">Jarket</a></li>
-							<li><a href="index-3.html">Jumper / Mustang</a></li>
-							<li><a href="index-3.html">Cardigan</a></li>
-							<li><a href="index-3.html">Padding</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">TOP</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">T-shirt</a></li>
-							<li><a href="index-2.html">Blouse / Shirt</a></li>
-							<li><a href="index-3.html">Neat / Sweater</a></li>
-							<li><a href="index-3.html">Hoddie</a></li>
-							<li><a href="index-3.html">Sweater shirt</a></li>
-							<li><a href="index-3.html">Sleeveless</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">BOTTOM</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Denim</a></li>
-							<li><a href="index-2.html">Cotten</a></li>
-							<li><a href="index-3.html">Short</a></li>
-							<li><a href="index-3.html">Slacks</a></li>
-							<li><a href="index-3.html">Training / Jogger</a></li>
-							<li><a href="index-3.html">Leggings</a></li>
-							<li><a href="index-3.html">Skirt</a></li>	
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">Dress</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Mini</a></li>
-							<li><a href="index-2.html">Midi</a></li>
-							<li><a href="index-3.html">Maxi</a></li>
-							<li><a href="index-3.html">Overrall</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">Back</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Backpack</a></li>
-							<li><a href="index-2.html">Messenger / Cross</a></li>
-							<li><a href="index-3.html">Shoulder / Tod</a></li>
-							<li><a href="index-2.html">Eco back</a></li>
-							<li><a href="index-3.html">Clutch</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">Shoes</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Dress shoes</a></li>
-							<li><a href="index-2.html">Boots</a></li>
-							<li><a href="index-3.html">Sandal</a></li>
-							<li><a href="index-2.html">slipper</a></li>
-							<li><a href="index-3.html">Sneakers</a></li>
-						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">ETC</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Socks</a></li>
-							<li><a href="index-2.html">Cap</a></li>
-							<li><a href="index-3.html">Acc</a></li>
-						</ul></li>
-					<li>
-						<a href="index.html" style="color: white;">|</a>
-					</li>
-					<li class="current-menu-item has-child"><a href="index.html">BRAND</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Nike</a></li>
-							<li><a href="index-2.html">Thisisneverthat</a></li>
-							<li><a href="index-3.html">Covernat</a></li>
-							<li><a href="index-3.html">AnderssonBell</a></li>
-							<li><a href="index-3.html">Vans</a></li>
-						</ul>
-					</li>
-					<li class="current-menu-item has-child"><a href="index.html">MAGAZINE</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">바로가기</a></li>
-						</ul>
-					</li>
-					<li class="current-menu-item has-child"><a href="index.html" style="margin-right: 38px;">NOTICE</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">바로가기</a></li>
-						</ul>
-					</li>
-				</ul>
-			</nav>
-		</header>
+
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 		
-		<!-- 비회원 주문 정보 입력 페이지 --> <!-- 결제할 상품 목록 주문입력 후에 보이게 할지 같이 보이고 입력하면서 결제로 바로 넘길지 정하기 -->
 		<form>
 		<br/>
 			<br/>
 			<fieldset>
+			<table class="table cart_table" style="width:100%">
+					<colgroup >
+						<col width="20%">
+						<col width="30%">
+						<col width="15%">
+						<col width="15%">
+						<col width="20%">
+					</colgroup>
+					<thead>
+						<tr style="text-align: center;">
+							<th scope="col">이미지</th>
+							<th scope="col">상품명(옵션)</th>
+							<th scope="col">판매가</th>
+							<th scope="col">수량</th>
+							<th scope="col">주문금액<br></th>
+						</tr>
+					</thead>
+					<tbody id="getOrder">
+					
+					</tbody>
+					<tfoot>
+						
+								<tr class="gift-division">
+								<td>
+								</td>
+								<td colspan="4">
+									
+								</td>
+								<td colspan="2">
+								<span class="cart-total">총 상품가격<span class="total">0원</span></span> 
+								<span id="total-price"></span>
+								</td>
+							</tr>
+						
+					</tfoot>
+				</table>
 				<legend style="text-align: center;">주문 정보 입력</legend>
 				<br/>
 				

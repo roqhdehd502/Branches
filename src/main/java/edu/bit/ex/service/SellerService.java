@@ -2,7 +2,6 @@ package edu.bit.ex.service;
 
 import java.util.List;
 
-import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.SearchCriteria;
@@ -35,7 +34,7 @@ public interface SellerService {
 	public void sellerInfoUpdate(MbrShippingVO mavo);
 
 	// 상품 정보수정
-	public void prdctUpdate(PrdctRegisterImageVO prvo);
+	/* public void prdctUpdate(PrdctRegisterImageVO prvo); */
 
 	// 게시글 내용 수정
 	public void prdctContentUpdate(PrdctRegisterImageVO prvo);
@@ -48,13 +47,8 @@ public interface SellerService {
 
 	public PrdctVO getOption(String getPrdct_id);
 
-	/* public void setPrdctImage(MultipartFile file); */
-
 	// 판매자 주소 불러오기(상품 등록시)
 	public ShippingVO getAddress(String getMbr_id);
-
-	// 썸네일 불러오기
-	public List<BoardPrdctImageVO> getFileName(int getBoard_id);
 
 	// 카테고리 목록 불러오기
 	public List<CategoryVO> getCategory();
@@ -70,5 +64,11 @@ public interface SellerService {
 
 	// 상품조회 게시글 총 수 불러오기
 	public int getPrdTotal(SearchCriteria cri);
+
+	public PrdctVO getPrdctInfo(String prdct_id);
+
+	public void updatePrdctInfo(PrdctRegisterImageVO prvo);
+
+	public List<PrdctVO> prdctThumbnail();
 
 }

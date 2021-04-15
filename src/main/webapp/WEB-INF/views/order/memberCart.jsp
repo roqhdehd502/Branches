@@ -30,43 +30,45 @@ $(document)
 		function() {
 			//배열 선언
 			var data = JSON.parse(sessionStorage.getItem("cartList"));
-		
+			for (var i =0;i<data.length;i++){
+				console.log(data[i]);
+			}
 			var html = "";
-			for(var i = 1; i <= data.length; i++) {
-								
+			for(var i = 0; i < data.length; i++) {
+							
 				html += "<tr id='tr"+i+"'>"
-				+ "<td><input onclick='summary()' id='ck"
+				+ "<td scope='col'><input onclick='summary()' id='ck"
 				+ i
 				+ "' type='checkbox' name='prdct_id' value='"
-				+ data[i - 1].prdct_id
+				+ data[i].prdct_id
 				+ "'></input></td>"
-				+ "<td class='cart-pic first-row'> <a href='${pageContext.request.contextPath}/prdct/"+data[i-1].prdct_id+"'> <img src='https://image.msscdn.net/images/goods_img/20200205/1291017/1291017_1_500.jpg' class='pimg'> </a></td> "
-				+ "<td class='cart-title first-row'>"
+				+ "<td scope='col' class='cart-pic first-row'> <a href='${pageContext.request.contextPath}/prdct/"+data[i].prdct_id+"'> "+data[i].prdct_thumbnail+" </a></td> "
+				+ "<td scope='col' class='cart-title first-row'>"
 				+ "<h5>"
-				+ "<a href='${pageContext.request.contextPath}/prdct/"+data[i-1].prdct_id+"' style='color:#000000'>"
-				+ data[i - 1].prdct_name
+				+ "<a href='${pageContext.request.contextPath}/prdct/"+data[i].prdct_id+"' style='color:#000000'>"
+				+ data[i].prdct_name
 				+ "</h5>"
-				+"<br /> <div style='color:#000000'>"+data[i - 1].order_color+"/"+data[i - 1].order_size
+				+"<br /> <div style='color:#000000'>"+data[i].order_color+"/"+data[i].order_size
 				+ "</div></a>"
 				+ "</td>"
-				+ "<td class='p-price first-row' style='color:#000000'>"
-				+ "<input style='border:none; text-align:right; ' type='text' id='a"+i+"' value='"+data[i-1].prdct_price+"' readonly size='7px' >"
+				+ "<td scope='col' class='p-price first-row' style='color:#000000'>"
+				+ "<input style='border:none; text-align:right; ' type='text' id='a"+i+"' value='"+data[i].prdct_price+"' readonly size='7px' >"
 				+ "원</td>"
-				+ "<td class='qua-col first-row'>"
+				+ "<td scope='col' class='qua-col first-row'>"
 				+ "	<div class='quantity'> <div class='pro-qty'> <span class='dec qtybtn' onclick='total"
 				+ i
-				+ "(-1)'>-</span> <input name='order_amount' type='text' id='b"
+				+ "(-1)'>-</span><br /><input style='width:40px; text-align:center;' name='order_amount' type='number' id='b"
 				+ i
-				+ "' value='"+data[i - 1].order_amount+"' readonly > <span class='inc qtybtn' onclick='total"
+				+ "' value='"+data[i].order_amount+"'><br/><span class='inc qtybtn' onclick='total"
 				+ i
 				+ "(1)'>+</span> </div> </div>"
-				+ "</td> <td class='total-price first-row' style='color:#000000'> </td><td class='total-price first-row' style='color:#000000'>"
+				+ "</td> <td scope='col' class='total-price first-row' style='color:#000000'>"
 				+ "<input style='border:none; text-align:right;' type='text' id='sum"
 				+ i
 				+ "' value='' readonly size='7px' name='sum' >원</td>"
-				+ "<td class='close-td first-row'><i class='ti-close' onclick='cartDelete("
+				+ "<td scope='col' class='close-td first-row'><i onclick='cartDelete("
 				+ i
-				+ ")' > <input type='hidden' name='prdct_name' value='"+data[i - 1].prdct_name+"' ><input type='hidden' name='order_size' value='"+data[i - 1].order_size+"' ><input type='hidden' name='order_color' value='"+data[i - 1].order_color+"' > </td>"
+				+ ")' >삭제<input type='hidden' name='prdct_name' value='"+data[i].prdct_name+"' ><input type='hidden' name='order_size' value='"+data[i].order_size+"' ><input type='hidden' name='order_color' value='"+data[i].order_color+"' > </td>"
 				+ "</tr>"
 				
 				// 상품 별 합 계산() ready
@@ -115,234 +117,66 @@ $(document)
 
 			}
 			$("#getCart").append(html);
-			//ajax 호출
-			/* $.ajax({
-						url : "/order/cartList",
-						type : "post",
-						dataType : 'json',
-						contentType : 'application/json; charset=UTF-8',
-						data : cartList,
-						success : function(data) {
-							var cartList = JSON
-									.parse(sessionStorage
-											.getItem("cartList"));
-							var html="";
-							for (var i = 1; i <= data.length; i++) {
-								
-								
-								html += "<tr id='tr"+i+"'>"
-								+ "<td><input onclick='summary()' id='ck"
-								+ i
-								+ "' type='checkbox' name='prdct_id' value='"
-								+ data[i - 1].prdct_id
-								+ "'></input></td>"
-								+ "<td class='cart-pic first-row'> <a href='${pageContext.request.contextPath}/prdct/"+data[i-1].prdct_id+"'> <img src='https://image.msscdn.net/images/goods_img/20200205/1291017/1291017_1_500.jpg' class='pimg'> </a></td> "
-								+ "<td class='cart-title first-row'>"
-								+ "<h5>"
-								+ "<a href='${pageContext.request.contextPath}/prdct/"+data[i-1].prdct_id+"' style='color:#000000'>"
-								+ data[i - 1].prdct_name
-								+ "</a>"
-								+ "</h5>"
-								+ "</td>"
-								+ "<td class='p-price first-row' style='color:#000000'>"
-								+ "<input style='border:none; text-align:right; ' type='text' id='a"+i+"' value='"+data[i-1].prdct_price+"' readonly size='7px' >"
-								+ "원</td>"
-								+ "<td class='qua-col first-row'>"
-								+ "	<div class='quantity'> <div class='pro-qty'> <span class='dec qtybtn' onclick='total"
-								+ i
-								+ "(-1)'>-</span> <input name='order_amount' type='text' id='b"
-								+ i
-								+ "' value='"+data[i - 1].order_amount+"' readonly > <span class='inc qtybtn' onclick='total"
-								+ i
-								+ "(1)'>+</span> </div> </div>"
-								+ "</td> <td class='total-price first-row' style='color:#000000'> "+data[i - 1].order_color+" / "+data[i - 1].order_size+"</td><td class='total-price first-row' style='color:#000000'>"
-								+ "<input style='border:none; text-align:right;' type='text' id='sum"
-								+ i
-								+ "' value='' readonly size='7px' name='sum' >원</td>"
-								+ "<td class='close-td first-row'><i class='ti-close' onclick='cartDelete("
-								+ i
-								+ ")' > <input type='hidden' name='prdct_name' value='"+data[i - 1].prdct_name+"' ><input type='hidden' name='order_size' value='"+data[i - 1].order_size+"' ><input type='hidden' name='order_color' value='"+data[i - 1].order_color+"' > </td>"
-								+ "</tr>"
-
-								
-							}
-							
-							$("#goods").append(html);
-							if (cartList.length == 0) {
-								alert("카트가 비었습니다.")
-							}
-						}, //ajax 성공 시 end
-						error : function(request, status, error) {
-							//alert("code:" + request.status
-							//+ "\n" + "message:"
-							//+ request.responseText
-							//+ "\n" + "error:" + error);
-							alert("error")
-						} // ajax 에러 시 end
-					});// 장바구니 목록 함수 end */
-		});
-	//삭제
-	function removeSelected() {
-		$("input:checkbox[name=select-product]").each(function() {
-			if($(this).is(":checked")) {
-				var prdct_id = $(this).parent().parent().parent().attr("id");
-				remove(prdct_id);
-			}
-		})
-	}
-	
-	function remove(prdct_id) {
-		var data = {
-				prdct_id : prdct_id 
-		}
-		$.ajax({
-			type : "DELETE",
-			url : "/cart",
-			data : JSON.stringify(data),
-			contentType : "application/json",
-			cache : false,
-			beforeSend : function(xhr){
-  	            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-			},
-			success : function(result) {
-				if(result == "SUCCESS") {
-					$("#" + prdct_id).remove();
-					getTotal();
-				}
-			},
-			error : function(e) {
-				console.log(e);
-				alert("에러가 발생했습니다.");
-			}
-		});
-	}
-	//
-	//선택된 상품 금액 총 합 구하기
-	function getTotal() {
-		var totalPrice = 0
-		$("input:checkbox[name=select-product]").each(function() {
-			if($(this).is(":checked")) {
-				var prdct_id = $(this).parent().parent().parent().attr("id");
-				var prdct_price = $("#" + prdct_id + " .prdct_price").text();
-				var order_amount = $("#" + prdct_id + " .order_amount").val();
-				totalPrice += prdct_price * order_amount;
-			}
-		})
-		$("#total-price").html(totalPrice);
-	}
-	//
-	//주문하기
-	function buy() {
-		console.log("buy");
-		
-		var prdct_id_arr = [];
-		var order_amount_arr = [];
-		var prdct_price_arr = [];
-		var prdct_name_arr = [];
-		
-		$("input:checkbox[name=select-product]").each(function() {
-			if($(this).is(":checked")) {
-	            var prdct_id = $(this).parent().parent().parent().attr("id");
-	            var order_amount = $("#" + prdct_id + " .order_amount").val();
-	            var prdct_price = $("#" + prdct_id + " .prdct_price").text();
-	            var prdct_name = $("#" + prdct_id + " .prdct_name").text();
-	            
-	            prdct_id_arr.push(prdct_id);
-	            order_amount_arr.push(order_amount);
-	            prdct_price_arr.push(prdct_price);
-	            prdct_name_arr.push(prdct_name);
-			};
-		});
-		if(!prdct_id_arr.length) {
-			return alert("선택된 상품이 없습니다.");
-		}
-		var form = document.createElement("form");
-		form.method = "get";
-		form.action = "/order";
-		
-		var inputId = document.createElement("input");
-		inputId.setAttribute("name", "prdct_id");
-		inputId.setAttribute("value", prdct_id_arr);
-		
-		var inputQuantity = document.createElement("input");
-		inputQuantity.setAttribute("name", "order_amount");
-		inputQuantity.setAttribute("value", order_amount_arr);
-		
-		var inputPrice = document.createElement("input");
-		inputPrice.setAttribute("name", "prdct_price");
-		inputPrice.setAttribute("value", prdct_price_arr);
-		
-		var inputName = document.createElement("input");
-		inputName.setAttribute("name", "prdct_name");
-		inputName.setAttribute("value", prdct_name_arr);
-		
-		form.appendChild(inputId);
-		form.appendChild(inputQuantity);
-		form.appendChild(inputPrice);
-		form.appendChild(inputName);
-		
-		document.body.appendChild(form);
-		form.submit();
-	}
-	//
-	$(document).ready(function() {
-		//상품 금액 표시
-		$(".prdct").each(function() {
-			var prdct_id = $(this).attr("id");
-			var prdct_price = $("#" + prdct_id + " .prdct_price").text();
-			var order_amount = $("#" + prdct_id + " .order_amount").val();
-			var mulPrice = prdct_price * order_amount;
-			$("#" + prdct_id + " .mul-price").html(mulPrice);
-		});
-		//
-		//상품 갯수 변경 금액 표시
-		$(".order_amount").change(function () {
-			var prdct_id = $(this).parent().parent().parent().parent().attr("id");
-			var prdct_price = $("#" + prdct_id + " .prdct_price").text();
-			var order_amount = $("#" + prdct_id + " .order_amount").val();
-			var mulPrice = prdct_price * order_amount;
-			$("#" + prdct_id + " .mul-price").html(mulPrice);
-		})
-		//
-		//전체 선택
-		$("#select-whole-product").change(function() {
-			if($("#select-whole-product").is(":checked")) {
-				$(".select-product").prop("checked", true);
-				getTotal();
-			} else {
-				$(".select-product").prop("checked", false);
-				getTotal();
-			}
-		});
-		//
-		//선택시 전체 가격 변경
-		$(".select-product").change(function() {
 			
-			$("input:checkbox[name=select-product]").each(function() {
-				if(!$(this).is(":checked")) {
-					$("#select-whole-product").prop("checked", false);
-				}
-			});
-			getTotal();
 		});
-		//개수 변경시 전체 가격 변경
-		$(".order_amount").change(function() {
-			getTotal();
-		})
-		//
-		$(".select-product").prop("checked", true);
-		getTotal();
-		
-		if($("tbody").children("tr").length == 1) {
-			var content = ""
-			content += "<tr>";
-			content += "<td colspan='7'>";
-			content += "<p class='cart-empty'>장바구니가 비어있습니다.</p";
-			content += "</td>";
-			content += "</tr>";
-			$("tbody").children("tr").before(content);
+// 전체 선택
+$('#allCk').click(function() {
+	var checked = $('#allCk').is(':checked');
+	if (checked)
+		$('input:checkbox').prop('checked', true);
+	if (!checked)
+		$('input:checkbox').prop('checked', false);
+	summary();
+});
+// 해당 상품 삭제
+function cartDelete(i) {
+	var tr = '#tr' + i;
+	$(tr).remove();
+	cartList = JSON.parse(sessionStorage.getItem('cartList'));
+	cartList.splice(i - 1, 1);
+	sessionStorage.setItem('cartList', JSON.stringify(cartList));
+	summary();
+}
+// 카트 총 합 계산
+function summary() {
+	var sum = 0;
+	var count = this.form.prdct_id.length;
+	for (var i = 0; i < count; i++) {
+		if (this.form.prdct_id[i].checked == true) {
+			sum += parseInt(this.form.sum[i-1].value);
+			console.log(sum)
+			console.log(typeof(sum))
 		}
-	})
+	}
+	$('.total').html(sum + '원');
+}
+// 전체 카트 삭제
+function allCartDelete() {
+	$('#getCart').remove();
+	var cartList = new Array();
+	sessionStorage.setItem('cartList', JSON.stringify(cartList));
+	summary();
+}
+// 결제 페이지 이동
+function buy() {
+	var buy = new Array();
+	var count = this.form.prdct_id.length;
+	for (var i = 0; i < count; i++) {
+		if (this.form.prdct_id[i].checked == true) {
+			var prdct = new Object();
+			prdct.prdct_id = parseInt(this.form.prdct_id[i].value);
+			prdct.order_amount = parseInt(this.form.order_amount[i].value);
+			prdct.order_size = this.form.order_size[i].value;
+			prdct.order_color = this.form.order_color[i].value;
+			prdct.prdct_name = this.form.prdct_name[i].value;
+			prdct.sum = parseInt(this.form.sum[i].value);
+			prdct.prdct_thumbnail = this.form.prdct_thumbnail[i].value;
+			buy.push(prdct);
+		}
+	}
+	sessionStorage.setItem("buy", JSON.stringify(buy));
+	window.location.assign("/order/cart/orderInput");
+}
 	
 </script>
 </head>
@@ -354,9 +188,9 @@ $(document)
 		<form id="cart" name="form" method="post" action="${pageContext.request.contextPath}/order/cart/orderInput">
 		
 		<div class="container" style="text-align: center;">
-
+				<br />
 				<h3>Cart List</h3>
-
+				<br />
 				<table class="table cart_table" style="width:100%">
 					<colgroup >
 						<col width="10%">
@@ -364,31 +198,39 @@ $(document)
 						<col width="30%">
 						<col width="10%">
 						<col width="10%">
-						<col width="10%">
-						<col width="10%">
+						<col width="20%">
 					</colgroup>
 					<thead>
 						<tr style="text-align: center;">
-							<th scope="col"><input type="checkbox" id="select-whole-product"/>
+							<th scope="col"><input type="checkbox" id="allCk">
 							<th scope="col">이미지</th>
 							<th scope="col">상품명(옵션)</th>
 							<th scope="col">판매가</th>
 							<th scope="col">수량</th>
 							<th scope="col">주문금액<br></th>
-							<th scope="col">&nbsp;&nbsp;</th>
+							<th><i  onclick="allCartDelete()"
+											style='cursor: pointer'>삭제</i></th>
 						</tr>
 					</thead>
 					<tbody id="getCart">
-					
+						<input type="hidden" name="prdct_id" />
+						<input type="hidden" name="order_amount" />
+						<input type="hidden" name="order_color" />
+						<input type="hidden" name="order_size" />
+						<input type="hidden" name="prdct_price" />
+						<input type="hidden" name="prdct_name" />
+						<input type="hidden" name="prdct_thumbnail" />
 					</tbody>
 					<tfoot>
 						
 								<tr class="gift-division">
-								<td colspan="3">
-									<button class="btn btn-secondary delete-btn-selected" onclick="removeSelected()">선택삭제</button>
-								</td>
 								<td>
-								<span>총 상품가격</span> 
+								</td>
+								<td colspan="4">
+									
+								</td>
+								<td colspan="2">
+								<span class="cart-total">총 상품가격<span class="total">0원</span></span> 
 								<span id="total-price"></span>
 								</td>
 							</tr>

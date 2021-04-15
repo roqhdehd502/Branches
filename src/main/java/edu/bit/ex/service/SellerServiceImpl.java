@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.mapper.SellerMapper;
@@ -56,13 +55,6 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public void prdctUpdate(PrdctRegisterImageVO prvo) {
-		log.info("prdctUpdate()......");
-		sellerMapper.prdctUpdate(prvo);
-
-	}
-
-	@Override
 	public void prdInsert(PrdctRegisterImageVO PrdctImageVO) {
 		log.info("prdInsert()......");
 		sellerMapper.prdInsert(PrdctImageVO);
@@ -99,12 +91,6 @@ public class SellerServiceImpl implements SellerService {
 	public ShippingVO getAddress(String getMbr_id) {
 		log.info("getAddress()......");
 		return sellerMapper.getAddress(getMbr_id);
-	}
-
-	@Override
-	public List<BoardPrdctImageVO> getFileName(int getBoard_id) {
-		log.info("getFileName()......");
-		return sellerMapper.getFileName(getBoard_id);
 	}
 
 	@Override
@@ -149,6 +135,24 @@ public class SellerServiceImpl implements SellerService {
 		log.info("sellerInfoUpdate()......");
 		sellerMapper.sellerInfoUpdate(mavo);
 
+	}
+
+	@Override
+	public PrdctVO getPrdctInfo(String prdct_id) {
+		// TODO Auto-generated method stub
+		return sellerMapper.getPrdctInfo(prdct_id);
+	}
+
+	@Override
+	public void updatePrdctInfo(PrdctRegisterImageVO prvo) {
+		// TODO Auto-generated method stub
+		sellerMapper.updatePrdctInfo(prvo);
+	}
+
+	@Override
+	public List<PrdctVO> prdctThumbnail() {
+		// TODO Auto-generated method stub
+		return sellerMapper.prdctThumbnail();
 	}
 
 }
