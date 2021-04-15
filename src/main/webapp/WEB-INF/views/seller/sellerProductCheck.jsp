@@ -118,9 +118,8 @@
 					<div class="team-area sp">
 						<div class="container">
 							<div class="row">
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(0)">번호순</button>&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(2)">ID순</button>&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(5)">일자순</button>&nbsp;&nbsp;
+								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(0)">ID순</button>&nbsp;&nbsp;
+								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(4)">일자순</button>&nbsp;&nbsp;
 								<form id="searchForm" action="/seller/mypage/prdct" method="get" style="position: relative; left: 320px;">
 									<span>
 										<select name="type" style="width: 100px; border: 3px solid black;">
@@ -151,7 +150,7 @@
 										<c:forEach items="${bId}" var="bId" varStatus="status">
 											<tr>
 												<td><h5>${bId.prdct_id }</h5></td>
-												<td style="width: 100px; height: 80px;">${pt[status.index].prdct_thumbnail}</td>
+												<td style="width: 100px; height: 70px; ">${pt[status.index].prdct_thumbnail}</td>
 												
 												<td><a href="/seller/mypage/prdct/${bId.prdct_id}">
 													<h5>${bId.prdct_name }</h5>

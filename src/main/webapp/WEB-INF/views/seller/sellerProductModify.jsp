@@ -82,6 +82,12 @@
 					<input type="hidden" value="${pdvo.prdct_id}" id="prdct_id">
 						<fieldset>
 							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">상품ID</label>
+								<div class="col-sm-10">
+									<label class="col-sm-2 col-form-label">${pdvo.prdct_id}</label>
+								</div>
+							</div>
+							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">상품명</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" placeholder="상품명을 입력해주세요" id="prdct_name" value="${pdvo.prdct_name}">
@@ -230,6 +236,7 @@ $(document).ready(function(){
 	$("#updatePrd").submit(function(event){
 		event.preventDefault();
 		
+		var prdct_id = $("#prdct_id").val();
         var prdct_name = $("#prdct_name").val();
         var prdct_thumbnail = CKEDITOR.instances.prdct_thumbnail.getData();
         var category_number = $("#category_number option:selected").val();
@@ -239,9 +246,11 @@ $(document).ready(function(){
         var board_content = CKEDITOR.instances.board_content.getData();
         var prdct_stock = $("#prdct_stock").val();
         
+        console.log(prdct_id)
         console.log($(this).attr("action"));
         
         var form = {
+        		prdct_id: prdct_id,
         		prdct_name: prdct_name,
         		prdct_thumbnail: prdct_thumbnail,
         		category_number: category_number,

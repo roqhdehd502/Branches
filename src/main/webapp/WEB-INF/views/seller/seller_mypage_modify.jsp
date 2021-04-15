@@ -82,8 +82,8 @@ $(document).ready(function(){
 
 		<div class="container">
          <span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
-            <h3>${mbr.mbr_id }</h3>
-            <h3 style="position: relative; top: 15px;">${mbr.mbr_name }</h3>
+            <h3>${mbr.mbr_name }</h3>
+            <h3 style="position: relative; top: 15px;">${mbr.mbr_id }</h3>
          </span>
          <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="/seller/mypage/myinfo/${mbr.mbr_id }">정보수정</a></span> 
            <span style="margin-left: 300px;" align="center">
