@@ -394,8 +394,7 @@ img {
 						</div>
 					</div>
 
-					<!--  상품 정보와 옵션 선택 -->
-					<form action="${pageContext.request.contextPath}/order/insert_cart" method="POST">
+
 					<div class="row">
 						<div class="contrainer single-service bordered " style="height: 600px; width: 500px;">
 							<div class="inner">
