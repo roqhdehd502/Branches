@@ -28,25 +28,38 @@
 
 		<div class="hero-slider">
 			<!-- 슬라이드 바 -->
-			<c:forEach var="i" begin="1" end="4">
-				<div class="single-slide" style="background-image: url(/hs/${i}.jpg)">
+			<c:forEach var="i" begin="40" end="44">
+				<div class="single-slide" style="background-image: url(/hs/${i}.jpg); background-size : 100% 100%;">
 					<div class="inner">
 						<div class="container">
 							<div class="row justify-content-center">
 								<div class="col-lg-6 text-center">
 									<div class="slide-content">
-										<h2 style="color: white;">Balenciaga</h2>
 										<c:choose>
-											<c:when test="${i eq 1}">
-												<p style="color: white;">
-													21/22 SS 오직 Branches에서만<br />[단독] 판매 시작!
-												</p>
+											<c:when test="${i eq 40}">
+												<h4 style="color: white;">
+													최소라 X As I am 2021 S/S<br />오직 Branches에서만 [단독] 판매 시작!
+												</h4>
+												<button type="button" onclick="location.href=#" class="btn btn-primary">더보기
 											</c:when>
-											<c:when test="${i eq 2}">
-												<p style="color: white;">2021.03.20.00:00</p>
+											<c:when test="${i eq 41}">
+												<h2 style="color: white;">BALENCIAGA</h2>
+												<p style="color: white;">NEW 21S/S 2021.05.07 00:00:00 출시</p>
+												<button type="button" onclick="location.href=#" class="btn btn-primary">더보기
 											</c:when>
-											<c:when test="${i eq 3}">
-												<p style="color: white;"></p>
+											<c:when test="${i eq 42}">
+												<h2 style="color: red;">남들과 다른 스트릿 패션 보여줄게!</h2><br/>
+												<h3 style="color: red;">Noiseless 신상품 출시</h3>
+												<button type="button" onclick="location.href=#" class="btn btn-primary">더보기
+											</c:when>
+											<c:when test="${i eq 43}">
+												<h2 style="color: white;">PRISM</h2>
+												<h3 style="color: white;">PRISM과 함께 옷 하나로 여러가지 룩을<br/> 소화하세요</h3>
+												<button type="button" onclick="location.href=#" class="btn btn-primary">더보기
+											</c:when>
+											<c:when test="${i eq 44}">
+												<h3 style="color: black;">Generic NEW 2021 S/S</h3>
+												<button type="button" onclick="location.href=#" class="btn btn-primary">더보기
 											</c:when>
 											<c:otherwise>
 												<p style="color: white;"></p>
@@ -76,8 +89,7 @@
 			<div class="team-area sp">
 				<div class="container">
 					<div class="row">
-
-						<c:forEach items="${prdct}" var="prdct" varStatus="status" begin="0" end="3">
+						<c:forEach items="${prdct}" var="prdct" begin="6" end="9">
 							<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 								<div class="inner">
 									<a href="/prdct/${prdct.prdct_id}" style="text-decoration: none;">
@@ -100,6 +112,7 @@
 			</div>
 		</article>
 		<br /> <br />
+		
 		<article>
 			<!-- 상품소개 2 -->
 			<div class="section-title">
@@ -167,7 +180,7 @@
 						<p>무엇을 입어야 할지 고민이라구요?? Branches MD분들이 매주 여러분들을 위해 Best상품을 추천해드립니다!</p>
 					</div>
 					<div class="row">
-						<c:forEach items="${prdct }" var="prdct" begin="0" end="2">
+						<c:forEach items="${prdct }" var="prdct" begin="11" end="13">
 							<div class="col-md-4 single-team">
 								<div class="inner">
 									<a href="/prdct/${prdct.prdct_id}" style="text-decoration: none;">
@@ -196,29 +209,39 @@
 				<div class="row">
 					<div class="col-md-6 single-gallery">
 						<div class="inner">
-							<img src="/hs/51.jpg" style="object-fit : cover; height: 670px;">
+							<a href="#">
+								<img id="a-hover" src="/hs/51.jpg" style="object-fit : cover; height: 330px;">
+							</a>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="row">
 							<div class="col-sm-6 single-gallery">
 								<div class="inner">
-									<img src="/hs/12.jpg" style="object-fit : cover; height: 320px;">
+									<a href="#">
+										<img src="/hs/50.jpg" style="object-fit : cover; height: 150px;">
+									</a>								
 								</div>
 							</div>
 							<div class="col-sm-6 single-gallery">
 								<div class="inner">
-									<img src="/hs/13.jpg" style="object-fit : cover; height: 320px;">
+									<a href="#">
+										<img src="/hs/49.jpg" style="object-fit : cover; height: 150px;">
+									</a>
 								</div>
 							</div>
 							<div class="col-sm-6 single-gallery">
 								<div class="inner">
-									<img src="/hs/14.jpg" style="object-fit : cover; height: 320px;">
+									<a href="#">
+										<img src="/hs/52.jpg" style="object-fit : cover; height: 150px;">
+									</a>
 								</div>
 							</div>
 							<div class="col-sm-6 single-gallery">
 								<div class="inner">
-									<img src="/hs/11.jpg" style="object-fit : cover; height: 320px;">
+									<a href="#">
+										<img src="/hs/54.jpg" style="object-fit : cover; height: 150px;">
+									</a>
 								</div>
 							</div>
 						</div>

@@ -94,7 +94,8 @@ img {
 
 a,
 span {
-  display: inline-block; }
+  display: inline-block;
+  text-decoration: none; }
 
 .no-padding {
   padding: 0; }

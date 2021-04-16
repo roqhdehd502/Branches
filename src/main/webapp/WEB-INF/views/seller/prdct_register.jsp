@@ -91,6 +91,7 @@
 					<strong>상품 등록</strong>
 					</h3><hr>
 					<form action="/seller/mypage/prdct" method="post" role="form" id="writeForm" enctype="multipart/form-data">
+						<input type="hidden" id="mbr_id" value="${mbr.mbr_id }">
 						<fieldset>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">상품ID</label>
@@ -230,6 +231,7 @@
 	    	var formData = new FormData();
 	    		
 	    	// 텍스트 입력 영역
+	    	var mbr_id = $("#mbr_id").val();
 	    	var prdct_id = $("#prdct_id").val();
 	        var prdct_name = $("#prdct_name").val();
 	        var category_number = $("#category_number").val();
@@ -238,7 +240,8 @@
 	        var prdct_price = $("#prdct_price").val();
 	        var board_content = CKEDITOR.instances.board_content.getData();
 	        var prdct_stock = $("#prdct_stock").val();
-	            
+	        
+	        console.log(mbr_id);
 	        console.log(prdct_id);
 	        console.log(prdct_name);
 	        console.log(category_number);
@@ -249,6 +252,7 @@
 	        console.log(board_content);
 	        console.log($(this).attr("action"));   
 	         
+	        formData.append("mbr_id", mbr_id);
 	        formData.append("prdct_id", prdct_id);
 	        formData.append("prdct_name", prdct_name);
 	        formData.append("category_number", category_number);

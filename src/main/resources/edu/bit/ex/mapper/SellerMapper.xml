@@ -189,10 +189,10 @@
 	<!-- 상품등록하기 -->
 	<insert id="prdInsert">
 		<![CDATA[
-			insert all into prdct (prdct_id, prdct_name, prdct_price, category_number , mbr_id, prdct_color, prdct_size, prdct_stock) values
-				(#{prdct_id},#{prdct_name}, #{prdct_price}, #{category_number} ,'prism',#{prdct_color},#{prdct_size},#{prdct_stock} ) 
+			insert all into prdct (prdct_id, prdct_name, prdct_price, category_number, prdct_color, prdct_size, prdct_stock, mbr_id) values
+				(#{prdct_id},#{prdct_name}, #{prdct_price}, #{category_number},#{prdct_color},#{prdct_size},#{prdct_stock}, #{mbr_id}) 
 					into board (board_id, board_name, board_content, board_type_number, prdct_id ,board_like, board_hit, mbr_id) 
-						values(board_seq.nextval, 'TEST', #{board_content}, 6, #{prdct_id} ,0, 0, 'prism')
+						values(board_seq.nextval, 'TEST', #{board_content}, 6, #{prdct_id} ,0, 0, #{mbr_id})
 							select * from dual
 		]]>
 	</insert>
@@ -218,6 +218,7 @@
 	]]>
 	</select>
 	
+	<!-- 판매자 등록상품 수정(상품내용) -->
 	<update id="updatePrdctInfo">
 	<![CDATA[
 		update prdct set prdct_name=#{prdct_name}, category_number=#{category_number}, prdct_color=#{prdct_color}, prdct_size = #{prdct_size}
@@ -225,10 +226,10 @@
 	]]>
 	</update>
 	
-	<!-- 판매자 상품내용 수정2 -->
+	<!-- 판매자 상품내용 수정2 (board_content내용)-->
 	<update id="prdctContentUpdate">
 	<![CDATA[
-		update board set board_content=#{board_content} where board_id=#{board_id}
+		update board set board_content=#{board_content} where prdct_id=#{prdct_id}
 	]]>
 	</update>
 	
