@@ -252,8 +252,8 @@ public class BoardController {
 	@PostMapping("/board/magazine/{board_id}")
 	public ResponseEntity<String> magazineCommentWrite(@RequestBody BoardBoardCommentVO boardBoardCommentVO) {
 		ResponseEntity<String> entity = null;
-
 		log.info("magazineCommentWrite...");
+
 		try {
 			boardService.setMagazineCommentWrite(boardBoardCommentVO);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);

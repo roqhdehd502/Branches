@@ -41,7 +41,9 @@
 	<!-- 페이징 단위에 적용되는 최대 공지 게시글 단위 -->
 	<select id="getNoticeTotalCount" resultType="int">
 		<![CDATA[
-			SELECT COUNT(*) FROM board WHERE board_type_number = 1
+			SELECT COUNT(*) 
+			FROM board 
+			WHERE board_type_number = 1
 		]]>	
 	</select>
 	
@@ -67,14 +69,17 @@
 	<!-- 공지사항 삭제 -->
 	<delete id="noticeRemove">
 		<![CDATA[
-			DELETE FROM board WHERE board_id = #{board_id}
+			DELETE FROM board 
+			WHERE board_id = #{board_id}
 		]]>
 	</delete>
 	
 	<!-- 공지사항 수정 -->
 	<update id="setNoticeModify">
 		<![CDATA[
-			UPDATE board SET board_name = #{board_name}, board_content = #{board_content} WHERE board_id = #{board_id}
+			UPDATE board 
+			SET board_name = #{board_name}, board_content = #{board_content} 
+			WHERE board_id = #{board_id}
 		]]>
 	</update>
 	
@@ -95,7 +100,9 @@
 	<!-- 페이징 단위에 적용되는 최대 매거진 게시글 단위 -->
 	<select id="getMagazineTotalCount" resultType="int">
 		<![CDATA[
-			SELECT COUNT(*) FROM board WHERE board_type_number = 2
+			SELECT COUNT(*) 
+			FROM board 
+			WHERE board_type_number = 2
 		]]>	
 	</select>
 	
@@ -121,21 +128,27 @@
 	<!-- 매거진 게시글 조회 -->
 	<update id="upMagazineHit">
 		<![CDATA[
-			UPDATE board SET board_hit = board_hit+1 WHERE board_id = #{board_id}
+			UPDATE board 
+			SET board_hit = board_hit+1 
+			WHERE board_id = #{board_id}
 		]]>
 	</update>
 	
 	<!-- 매거진 게시글 추천 -->
 	<update id="magazineUpLike">
 		<![CDATA[
-			UPDATE board SET board_like = board_like+1 WHERE board_id = #{board_id}
+			UPDATE board 
+			SET board_like = board_like+1 
+			WHERE board_id = #{board_id}
 		]]>
 	</update>
 	
 	<!-- 매거진 게시글 댓글 수 -->
 	<select id="getMagazineCommentCnt" resultType="edu.bit.ex.vo.BoardCommentVO">
 		<![CDATA[
-			SELECT COUNT(comment_id) AS comment_count FROM board_comment WHERE board_id = #{board_id}
+			SELECT COUNT(comment_id) AS comment_count 
+			FROM board_comment 
+			WHERE board_id = #{board_id}
 		]]>
 	</select>
 
@@ -158,7 +171,9 @@
 	<!-- 페이징 단위에 적용되는 최대 매거진 게시글 댓글 단위 -->
 	<select id="getMagazineCommentTotalCount" resultType="int">
 		<![CDATA[
-			SELECT COUNT(*) FROM board_comment WHERE board_id = #{board_id}
+			SELECT COUNT(*) 
+			FROM board_comment 
+			WHERE board_id = #{board_id}
 		]]>	
 	</select>
 	
@@ -173,35 +188,43 @@
 	<!-- 매거진 게시글 댓글 삭제 -->
 	<delete id="magazineCommentRemove">
 		<![CDATA[
-			DELETE FROM board_comment WHERE comment_id = #{comment_id}
+			DELETE FROM board_comment 
+			WHERE comment_id = #{comment_id}
 		]]>
 	</delete>
 	
 	<!-- 매거진 썸네일만 삭제 -->
 	<update id="magazineImageOnlyRemove">
 		<![CDATA[
-			UPDATE board SET board_thumbnail = null WHERE board_id = #{board_id}
+			UPDATE board 
+			SET board_thumbnail = null 
+			WHERE board_id = #{board_id}
 		]]>
 	</update>
 	
 	<!-- 매거진 삭제 -->
 	<delete id="magazineRemove">
 		<![CDATA[
-			DELETE FROM board WHERE board_id = #{board_id}
+			DELETE FROM board 
+			WHERE board_id = #{board_id}
 		]]>
 	</delete>		
 	
 	<!-- 매거진 수정 -->
 	<update id="setMagazineModify">
 		<![CDATA[
-			UPDATE board SET board_name = #{board_name}, board_content = #{board_content} WHERE board_id = #{board_id}
+			UPDATE board 
+			SET board_name = #{board_name}, board_content = #{board_content} 
+			WHERE board_id = #{board_id}
 		]]>
 	</update>
 	
 	<!-- 매거진 수정페이지 썸네일까지 변경 -->
 	<update id="setMagazineModifyAddImg" >
 		<![CDATA[
-			UPDATE board SET board_name = #{board_name}, board_content = #{board_content}, board_thumbnail = #{board_thumbnail} WHERE board_id = #{board_id}
+			UPDATE board 
+			SET board_name = #{board_name}, board_content = #{board_content}, board_thumbnail = #{board_thumbnail} 
+			WHERE board_id = #{board_id}
 		]]>
 	</update>	
 </mapper>

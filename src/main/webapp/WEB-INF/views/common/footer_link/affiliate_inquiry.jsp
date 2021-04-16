@@ -7,7 +7,7 @@
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Branches : Affiliate_Inquiry</title>
+	<title>Branches : Affiliate Inquiry</title>
 	
 	<!-- Required CSS files -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
@@ -22,6 +22,9 @@
 	
 	<!-- AJAX용 JQUERY -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
+	<!-- 반응형 사이즈 조절 -->
+	<link rel="stylesheet" href="/css/reactive_size.css">
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -29,20 +32,24 @@
 
 		<hr style="margin: 15px 15px 40px 15px;">
 
-		<div class="row">
-			<div class="col-md-2"></div>
-			<div class="col-md-8">
-				<div align="center">
-					<h2>제휴문의</h2>
-				</div>
-				
-				<hr>
-				
+		<div class="container">
+			<div class="container">
 				<div class="row">
-					<div class="lead">
-						<p>브랜치스는 서브컬처, 디자이너, 하우스 브랜드 등 다양한 패션 상품을 다루는 온라인 셀렉트숍입니다. 브랜드 입점을 원하시는 분들은 아래 내용을 참고하신 후, 상담 요청을 각 항목에 맞게 작성 부탁드립니다.</p>	
+					<div class="col-md-6 contact-info subheading_font" align="left">
+						<h2>제휴문의</h2>
 					</div>
-					<div>
+					<div class="col-md-6 contact-info" align="right"></div>
+				</div>
+			</div>
+
+			<hr>
+
+			<div class="container">
+				<div class="row">
+					<div class="row">
+						<p class="lead">브랜치스는 서브컬처, 디자이너, 하우스 브랜드 등 다양한 패션 상품을 다루는 온라인 셀렉트숍입니다. 브랜드 입점을 원하시는 분들은 아래 내용을 참고하신 후, 상담 요청을 각 항목에 맞게 작성 부탁드립니다.</p>
+					</div>
+					<div class="row">
 						<ol class="list-group">
 							<li class="list-group-item">브랜치스는 정품을 판매하고 취급하는 업체 및 브랜드만 입점이 가능합니다.</li>
 							<li class="list-group-item">입점 문의 상으로 기재해주신 내용을 토대로, 내부 검토 후에 입점 가능 여부 및 절차를 안내해드립니다. (고객센터, 별도 메일을 통한 문의 및 접수 불가)</li>
@@ -52,84 +59,84 @@
 						</ol>
 					</div>
 				</div>
-				
-				<hr>
-				
-				<div class="row">
-					<form method="post" action="#">
+			</div>
+
+			<hr>
+
+			<div class="container">
+				<form method="post" action="#">
 					<fieldset>
 						<div class="row">
-							<div class="col" align="center">
-								업체명
+							<div class="col-md-2 contact-info" align="left">
+								<p class="lead">업체명</p>
 							</div>
-							<div class="col">
-								<input class="form-control">
-							</div>
-						</div>
-						<hr>
-						<div class="row">
-							<div class="col" align="center">
-								<p>브랜드</p>
-							</div>
-							<div class="col">
-								<input class="form-control">
+							<div class="col-md-10 contact-info">
+								<input type="text" class="form-control">
 							</div>
 						</div>
 						<hr>
 						<div class="row">
-							<div class="col" align="center">
-								<p>담당자명</p>
+							<div class="col-md-2 contact-info" align="left">
+								<p class="lead">브랜드</p>
 							</div>
-							<div class="col">
-								<input class="form-control">
-							</div>
-						</div>
-						<hr>
-						<div class="row">
-							<div class="col" align="center">
-								<p>이메일</p>
-							</div>
-							<div class="col">
-								<input class="form-control">
+							<div class="col-md-10 contact-info">
+								<input type="text" class="form-control">
 							</div>
 						</div>
 						<hr>
 						<div class="row">
-							<div class="col" align="center">
-								<p>전화번호</p>
+							<div class="col-md-2 contact-info" align="left">
+								<p class="lead">담당자명</p>
 							</div>
-							<div class="col">
-								<input class="form-control">
-							</div>
-						</div>
-						<hr>
-						<div class="row">
-							<div class="col" align="center">
-								<p>휴대전화</p>
-							</div>
-							<div class="col">
-								<input class="form-control">
+							<div class="col-md-10 contact-info">
+								<input type="text" class="form-control">
 							</div>
 						</div>
 						<hr>
 						<div class="row">
-							<div class="col" align="center">
-								<p>업체주소</p>
+							<div class="col-md-2 contact-info" align="left">
+								<p class="lead">이메일</p>
 							</div>
-							<div class="col">
-								<input class="form-control">
+							<div class="col-md-10 contact-info">
+								<input type="email" class="form-control">
 							</div>
 						</div>
-						<hr>	
+						<hr>
+						<div class="row">
+							<div class="col-md-2 contact-info" align="left">
+								<p class="lead">전화번호</p>
+							</div>
+							<div class="col-md-10 contact-info">
+								<input type="number" class="form-control">
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-md-2 contact-info" align="left">
+								<p class="lead">휴대전화</p>
+							</div>
+							<div class="col-md-10 contact-info">
+								<input type="number" class="form-control">
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-md-2 contact-info" align="left">
+								<p class="lead">업체주소</p>
+							</div>
+							<div class="col-md-10 contact-info">
+								<input type="text" class="form-control">
+							</div>
+						</div>
+						<hr>
 						<div align="center" style="padding: 3% 0px 3% 0px;">
-							<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/main'">메인페이지</button>&nbsp;
+							<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/main'">메인페이지</button>
+							&nbsp;
 							<button type="submit" class="btn btn-primary">작성하기</button>
-						</div>	
+						</div>
 					</fieldset>
-					</form>
-				</div>
+				</form>
 			</div>
-			<div class="col-md-2"></div>
 		</div>
 
 		<hr>

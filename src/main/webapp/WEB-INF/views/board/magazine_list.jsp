@@ -28,6 +28,10 @@
 			border: 1px solid #e0e0e0;
 			border-radius: 5px;
 		}
+		
+		a:hover { 
+			text-decoration: none;
+		}
 	</style>
 	
 	<!-- 반응형 사이즈 조절 -->
