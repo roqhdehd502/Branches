@@ -2,7 +2,7 @@
 
 @media (max-width: 540px) {
 	.container {
-		padding: 0px;
+		padding: 1%;
 	}
 		
 	img {
@@ -17,6 +17,11 @@
 		height: auto;
 		max-width: 285px;
 		max-height: 400px;
+	}
+	
+	/* 소제목 폰트 조절 */
+	.subheading_font {
+		text-align: center;
 	}
 	
 	/* 매거진 게시글 댓글에 있는 폰트 조절 */

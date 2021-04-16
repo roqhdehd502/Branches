@@ -43,7 +43,7 @@
 		<div class="container">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-6 contact-info" align="left">
+					<div class="col-md-6 contact-info subheading_font" align="left">
 						<h2>MAGAZINE</h2>
 					</div>				
 					<!-- 권한에 따라 버튼을 달리 보이게 한다 -->
