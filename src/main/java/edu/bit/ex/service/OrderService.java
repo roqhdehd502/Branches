@@ -12,4 +12,6 @@ public interface OrderService {
 
 	public PrdctOrderDetailVO getPrdctCart(String prdct_id);
 
+	public void insertOrder(PrdctOrderDetailVO prdVO);
+
 }

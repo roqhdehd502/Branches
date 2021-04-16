@@ -18,16 +18,50 @@
 <link rel="stylesheet" href="/assets/css/slicknav.css">
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+
 </head>
 <script type="text/javascript">
 $(document)
-.ready(
+	.ready(
 		//상품 가져오기 
 		function getOrder() {
-			var buy = JSON.parse(sessionStorage.getItem("buy"));
+			var buy = JSON.parse(sessionStorage.getItem("order"));
+			console.log(buy);
 			var html = "";
 			for (var i = 0; i < buy.length; i++) {
-				html += "<li class='fw-normal'>"
+				html += "<tr id='tr"+i+"'>"
+				+ "<td scope='col' class='cart-pic first-row'> <a href='${pageContext.request.contextPath}/prdct/"+data[i].prdct_id+"'> "+data[i].prdct_thumbnail+" </a></td> "
+				+ "<td scope='col' class='cart-title first-row'>"
+				+ "<h5>"
+				+ "<a href='${pageContext.request.contextPath}/prdct/"+data[i].prdct_id+"' style='color:#000000'>"
+				+ data[i].prdct_name
+				+ "</h5>"
+				+"<br /> <div style='color:#000000'>"+data[i].order_color+"/"+data[i].order_size
+				+ "</div></a>"
+				+ "</td>"
+				+ "<td scope='col' class='p-price first-row' style='color:#000000'>"
+				+ "<input style='border:none; text-align:right; ' type='text' id='a"+i+"' value='"+data[i].prdct_price+"' readonly size='7px' >"
+				+ "원</td>"
+				+ "<td scope='col' class='qua-col first-row'>"
+				+ "	<div class='quantity'> <div class='pro-qty'> <span class='dec qtybtn' onclick='total"
+				+ i
+				+ "(-1)'>-</span><br /><input style='width:40px; text-align:center;' name='order_amount' type='number' id='b"
+				+ i
+				+ "' value='"+data[i].order_amount+"'><br/><span class='inc qtybtn' onclick='total"
+				+ i
+				+ "(1)'>+</span> </div> </div>"
+				+ "</td> <td scope='col' class='total-price first-row' style='color:#000000'>"
+				+ "<input style='border:none; text-align:right;' type='text' id='sum"
+				+ i
+				+ "' value='' readonly size='7px' name='sum' >원</td>"
+				+ "<td scope='col' class='close-td first-row'><i onclick='cartDelete("
+				+ i
+				+ ")' >삭제<input type='hidden' name='prdct_name' value='"+data[i].prdct_name+"' ><input type='hidden' name='order_size' value='"+data[i].order_size+"' ><input type='hidden' name='order_color' value='"+data[i].order_color+"' > </td>"
+				+ "</tr>"
+				
 						+ "<a href='${pageContext.request.contextPath}/prdct/"+buy[i].prdct_id+"'> "+buy[i].prdct_thumbnail+" </a>"
 						+ buy[i].prdct_name
 						+ "&nbsp x &nbsp "
@@ -36,25 +70,25 @@ $(document)
 						+ " <span>"
 						+ buy[i].sum
 						+ "원</span> <br> "+buy[i].order_color+" / "+buy[i].order_size
-						+ "<input type='hidden' name='goodsSum' value='"+ buy[i].sum+"'><input type='hidden' name='goodsName' value='"+ buy[i].name+"'>"
-						+"<input type='hidden' name='psize' value='"+ buy[i].order_size+"'>"
-						+"<input type='hidden' name='pcolor' value='"+ buy[i].order_color+"'>"
-						+ "<input type='hidden' name='board_id' value='"+ buy[i].prdct_id+"'></li>"
+						+ "<input type='hidden' name='orderSum' value='"+ buy[i].sum+"'><input type='hidden' name='prdct_name' value='"+ buy[i].prdct_name+"'>"
+						+"<input type='hidden' name='order_size' value='"+ buy[i].order_size+"'>"
+						+"<input type='hidden' name='order_color' value='"+ buy[i].order_color+"'>"
+						+ "<input type='hidden' name='prdct_id' value='"+ buy[i].prdct_id+"'></li>"
 			}
-			html += "<li class='total-price'>총 상품 금액 <span id='goodsTotal1'></span><input type='hidden' id='goodsTotal'></li>"
+			html += "<li class='total-price'>총 상품 금액 <span id='prdctTotal1'></span><input type='hidden' id='prdctTotal'></li>"
 					+ "<li class='fw-normal'>배송비  <span id='deliveryPay1'></span><input type='hidden' id='deliveryPay'></li>"
 					+ "<li class='fw-normal'>포인트 사용  <span id='payPoint1'></span><input type='hidden' id='payPoint' name='usepoint'></li>"
 					+ "<li class='total-price'>최종 결제 금액 <span id='lastTotal1'></span><input type='hidden' id='lastTotal' name='payprice'></li>"
 					+ "<li class='fw-normal'>적립 포인트 <span id='earningPoint1'></span><input type='hidden' id='earningPoint' name='earningpoint'></li>"
 			$('#pay').append(html);
 			// 총 상품 금액 계산 
-			var sumCount = this.form.goodsSum.length
+			var sumCount = this.form.orderSum.length
 			var total = 0;
 			for (var i = 1; i < sumCount; i++) {
-				total += parseInt(this.form.goodsSum[i].value);
+				total += parseInt(this.form.sum[i].value);
 			}
-			$("#goodsTotal1").text(total + "원");
-			$("#goodsTotal").val(total);
+			$("#prdctTotal1").text(total + "원");
+			$("#prdctTotal").val(total);
 			// 배송비 계산
 			if (total < 30000) {
 				$("#deliveryPay1").text(2500 + "원")
@@ -71,17 +105,119 @@ $(document)
 		}
 );
 
+//주소 검색 팝업
+function goPopup() {
+	// 주소검색을 수행할 팝업 페이지를 호출합니다.
+	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+	var pop = window.open("/popup/jusoPopup.jsp", "pop",
+			"width=570,height=420, scrollbars=yes, resizable=yes");
+	// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+	//var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
+}
+// 주소 콜백 
+function jusoCallBack(roadFullAddr, zipNo) {
+	// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.	
+	$('#deliveryaddress').val("(" + zipNo + ")" + roadFullAddr);
+}
+// 전체 포인트 사용
+function usePoint() {
+	event.preventDefault();
+	var goodsprice = parseInt($("#goodsprice").val());
+	if("${point.sum}" > goodsprice){
+	    $("#point").val(goodsprice);
+	    $('#payPoint').val("-" + $("#point").val());
+		$('#payPoint1').text("-" + $("#point").val() + "P");
+		lastTotal();
+	} else if("${point.sum}">999){
+		$("#point").val("${point.sum}");
+		$('#payPoint').val("-" + $("#point").val());
+		$('#payPoint1').text("-" + $("#point").val() + "P");
+		lastTotal();
+	} else{
+		alert("1000포인트 이상부터 사용가능합니다.");
+	}
+	
+}
+
+// 최종 결제 금액 계산
+function lastTotal() {
+	var lastTotal = 0;
+	lastTotal = parseInt($("#goodsprice").val())
+			+ parseInt($("#payPoint").val())
+			+ parseInt($("#deliveryPay").val());
+	$("#lastTotal").val(lastTotal)
+	$("#lastTotal1").text(lastTotal + "원")
+	// 적립 포인트 계산
+	var innerPoint = Math.floor(lastTotal * 0.01);
+	$("#earningPoint1").text(innerPoint + "P");
+	$("#earningPoint").val(innerPoint);
+}
+
+// 초기화
+function reset(){
+	$('#deliveryname').val("");
+	$('#deliveryaddress').val("");
+	$('#deliverytel').val("");
+}
+
+// 포인트 값 체인지
+$("#point").on("change keyup paste", function() {
+	var val = $("#point").val();
+	var valInt = parseInt($("#point").val());
+	var goodsprice = $("#goodsprice").val();
+	
+	if(valInt>goodsprice){
+		 alert("포인트 사용액이 상품금액보다 큽니다.");
+	     $("#point").val('');
+	     $('#payPoint').val('0');
+		 $('#payPoint1').text('0P');
+		lastTotal();
+	}
+	else if(val.replace(/[0-9]/g, "").length > 0) {
+        alert("숫자만 입력해 주십시오.");
+        $("#point").val('');
+        $('#payPoint').val('0');
+		 $('#payPoint1').text('0P');
+		 lastTotal();
+    } else if("${point.sum}"<1000){
+		 alert("1000P 이상 부터 사용가능합니다.");
+		 $("#point").val('');
+		 $('#payPoint').val('0');
+		 $('#payPoint1').text('0P');
+		 lastTotal();
+	} else if(valInt < 1 || valInt > "${point.sum}") {
+		console.log(val)
+        alert("1~${point.sum} 사이로 사용 가능합니다.");
+        $("#point").val('');
+        $('#payPoint').val('0');
+		 $('#payPoint1').text('0P');
+		 lastTotal();
+    } else{
+    	$('#payPoint').val("-" + $("#point").val());
+		$('#payPoint1').text("-" + $("#point").val() + "P");
+		lastTotal();
+    }
+})
+
+// 고유값 생성
+function guid() {
+function s4() {
+  return ((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1);
+}
+return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
 </script>
 <body>
+	<div class="container">
+		<%@ include file="/WEB-INF/views/common/header.jsp"%>
 
-	<%@ include file="/WEB-INF/views/common/header.jsp"%>
-		
 		<form>
-		<br/>
-			<br/>
+
+			<br /> <br />
 			<fieldset>
-			<table class="table cart_table" style="width:100%">
-					<colgroup >
+				<table class="table cart_table" style="width: 100%">
+					<colgroup>
 						<col width="20%">
 						<col width="30%">
 						<col width="15%">
@@ -97,28 +233,29 @@ $(document)
 							<th scope="col">주문금액<br></th>
 						</tr>
 					</thead>
-					<tbody id="getOrder">
-					
+					<tbody id="pay">
+						<input type="hidden" name="prdctSum">
+						<input type="hidden" name="prdct_name">
+						<input type="hidden" name="order_amount">
+						<input type="hidden" name="prdct_id">
+						<input type="hidden" name="receipt_id" id="receipt_id">
+						<input type="hidden" name="paydate" id="paydate">
+						<input type="hidden" name="order_size">
+						<input type="hidden" name="order_color">
 					</tbody>
 					<tfoot>
-						
-								<tr class="gift-division">
-								<td>
-								</td>
-								<td colspan="4">
-									
-								</td>
-								<td colspan="2">
-								<span class="cart-total">총 상품가격<span class="total">0원</span></span> 
-								<span id="total-price"></span>
-								</td>
-							</tr>
-						
+
+						<tr class="gift-division">
+							<td></td>
+							<td colspan="4"></td>
+							<td colspan="2"><span class="cart-total">총 상품가격<span class="total">0원</span></span> <span id="total-price"></span></td>
+						</tr>
+
 					</tfoot>
 				</table>
 				<legend style="text-align: center;">주문 정보 입력</legend>
-				<br/>
-				
+				<br />
+
 				<!-- 주문자 이름 -->
 				<div class="form-group row">
 					<label for="orderName" class="col-sm-2 col-form-label">Oder Name</label>
@@ -126,7 +263,7 @@ $(document)
 						<input type="text" class="form-control" id="orderName" placeholder="주문자의 이름을 입력하세요.">
 					</div>
 				</div>
-				
+
 				<!-- 주문자 연락처 -->
 				<div class="form-group row">
 					<label for="phoneNumber1" class="col-sm-2 col-form-label">Phone Number</label>
@@ -142,7 +279,7 @@ $(document)
 							class="form-control col-sm-2" id="phoneNumber3">
 					</div>
 				</div>
-				
+
 				<!-- 주문자 이메일 -->
 				<div class="form-group row">
 					<label for="orderEmail" class="col-sm-2 col-form-label">Email</label>
@@ -150,17 +287,17 @@ $(document)
 						<input type="text" class="form-control" id="orderEmail" placeholder="email@example.com">
 					</div>
 				</div>
-				
+
 				<!-- 배송 주소 -->
 				<div class="form-group row">
 					<label for="shippingAd" class="col-sm-2 col-form-label">Shipping Address</label>
 					<div class="form-group row col-sm-10" style="margin-left: 1px">
-						<input type="text" class="form-control col-sm-4" id="shippingAd" value="" readonly="">&nbsp; <a class="btn btn-primary" onclick="#">주소
-							찾기</a> <input type="text" class="form-control" id="shippingAd" value="" readonly="" style="margin-bottom: 3px"> <input type="text"
-							class="form-control" id="shippingAd" placeholder="상세 주소를 입력해주세요">
+						<input type="text" class="form-control col-sm-8" id="deliveryaddress" name="deliveryaddress" style="margin-bottom: 3px"> <input
+							type="button" class="form-control col-sm-2" onClick="goPopup();" value="주소찾기"> <input type="text" class="form-control" id="shippingAd"
+							placeholder="상세 주소를 입력해주세요">
 					</div>
 				</div>
-				
+
 				<!-- 배송 메모 -->
 				<div class="form-group row">
 					<label for="shipMemo" class="col-sm-2 col-form-label">Shipping Memo</label>
@@ -177,8 +314,22 @@ $(document)
 					      <textarea name="etc_textarea" class="form-control" style="" value="" maxlength="50" onkeyup="return textarea_maxlength(this)" placeholder="최대 50자까지 입력 가능합니다."></textarea> -->
 					</div>
 				</div>
+
+				<div class="form-group row ">
+					<label for="point" class="col-sm-2 col-form-label">Point</label>
+					<div class="form-group col-sm-10">
+
+						<input type="text" class="form-control" id="point" placeholder="1000포인트 이상부터 사용가능합니다.">
+						<div class="col-sm-4 ">
+							<button onclick="usePoint()">전액사용</button>
+							사용 가능 포인트 ${point.sum}P
+						</div>
+					</div>
+				</div>
+
+
 				<div style="text-align: center;">
-					<button type="submit" class="btn btn-primary"><a class="order-bnt" onclick="location.href='${pageContext.request.contextPath}/ej/nmcheck' ">결제하기</a></button>
+					<button type="submit" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/ej/nmcheck' ">결제하기</button>
 				</div>
 				<br /> <br />
 			</fieldset>
@@ -246,5 +397,6 @@ $(document)
 		<script src="/assets/js/vendor/loopcounter.js"></script>
 		<script src="/assets/js/vendor/slicknav.min.js"></script>
 		<script src="/assets/js/active.js"></script>
+		</div>
 </body>
 </html>
