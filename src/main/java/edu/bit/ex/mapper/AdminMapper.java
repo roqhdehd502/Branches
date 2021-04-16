@@ -1,5 +1,6 @@
 package edu.bit.ex.mapper;
 
+import java.io.File;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -71,5 +72,7 @@ public interface AdminMapper {
 	public void updatePrdctBoardInfo(PrdctRegisterImageVO prvo);
 
 	public List<PrdctRegisterImageVO> getSellerPrdctList(String mbr_id);
+
+	public void updatePrdctThumb(File saveFile);
 
 }
