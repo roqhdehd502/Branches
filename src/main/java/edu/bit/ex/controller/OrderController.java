@@ -58,10 +58,25 @@ public class OrderController {
 
 	// 주문 리스트 정보입력
 	@RequestMapping(value = "/cart/orderInput", method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView orderInput(ModelAndView mav, @AuthenticationPrincipal MemberDetails memberDetails) {
+	public ModelAndView order(ModelAndView mav, @AuthenticationPrincipal MemberDetails memberDetails) {
 		log.info("order");
 		String id = memberDetails.getUserID();
 		mav.addObject("member", securityService.getMbr(id));
+		mav.setViewName("order/orderInput");
+		return mav;
+	}
+
+	// 주문 리스트 정보입력
+	@RequestMapping(value = "/cart/orderInput/insert", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView orderInput(ModelAndView mav, PrdctOrderDetailVO prdVO, HttpServletRequest request,
+			@AuthenticationPrincipal MemberDetails memberDetails) {
+		log.info("order insert");
+		String[] order_amounts = request.getParameterValues("order_amount");
+		String[] prdct_ids = request.getParameterValues("prdct_id");
+		String[] order_sizes = request.getParameterValues("order_size");
+		String[] order_colors = request.getParameterValues("order_color");
+		orderService.insertOrder(prdVO);
+
 		mav.setViewName("order/orderInput");
 		return mav;
 	}

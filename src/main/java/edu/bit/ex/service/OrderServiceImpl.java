@@ -16,18 +16,16 @@ public class OrderServiceImpl implements OrderService {
 
 	private OrderMapper orderMapper;
 
-	// 장바구니 리스트
-	/*
-	 * @Override public List<PrdctVO> getCartList() { log.info("getCartList()"); return orderMapper.getCartList(); }
-	 */
-	/*
-	 * @Override public PrdctVO getProduct(String prdct_id) { return orderMapper.getProduct(prdct_id); }
-	 */
-
 	@Override
 	public PrdctOrderDetailVO getPrdctCart(String prdct_id) {
 		log.info("getPrdctCart()");
 		return orderMapper.getProduct(prdct_id);
+	}
+
+	@Override
+	public void insertOrder(PrdctOrderDetailVO prdVO) {
+		log.info("insertOrder()");
+		orderMapper.insertOrder(prdVO);
 	}
 
 }

@@ -143,7 +143,7 @@ function summary() {
 	var count = this.form.prdct_id.length;
 	for (var i = 0; i < count; i++) {
 		if (this.form.prdct_id[i].checked == true) {
-			sum += parseInt(this.form.sum[i-1].value);
+			sum += parseInt(this.form.sum[i].value);
 			console.log(sum)
 			console.log(typeof(sum))
 		}
@@ -159,25 +159,26 @@ function allCartDelete() {
 }
 // 결제 페이지 이동
 function buy() {
-	var buy = new Array();
+	var order = new Array();
 	var count = this.form.prdct_id.length;
-	for (var i = 0; i < count; i++) {
+	for (var i = 1; i < count; i++) {
 		if (this.form.prdct_id[i].checked == true) {
 			var prdct = new Object();
-			prdct.prdct_id = parseInt(this.form.prdct_id[i].value);
+			prdct.prdct_id = this.form.prdct_id[i].value;
 			prdct.order_amount = parseInt(this.form.order_amount[i].value);
 			prdct.order_size = this.form.order_size[i].value;
 			prdct.order_color = this.form.order_color[i].value;
 			prdct.prdct_name = this.form.prdct_name[i].value;
 			prdct.sum = parseInt(this.form.sum[i].value);
-			prdct.prdct_thumbnail = this.form.prdct_thumbnail[i].value;
-			buy.push(prdct);
+			console.log(prdct);
+			//prdct.prdct_thumbnail = this.form.prdct_thumbnail[i].value;
+			console.log(prdct);
+			order.push(prdct);
 		}
 	}
-	sessionStorage.setItem("buy", JSON.stringify(buy));
+	sessionStorage.setItem("order", JSON.stringify(order));
 	window.location.assign("/order/cart/orderInput");
 }
-	
 </script>
 </head>
 <body>
@@ -202,7 +203,7 @@ function buy() {
 					</colgroup>
 					<thead>
 						<tr style="text-align: center;">
-							<th scope="col"><input type="checkbox" id="allCk">
+							<th scope="col"><input type="checkbox" id="allCk" >
 							<th scope="col">이미지</th>
 							<th scope="col">상품명(옵션)</th>
 							<th scope="col">판매가</th>
@@ -217,9 +218,10 @@ function buy() {
 						<input type="hidden" name="order_amount" />
 						<input type="hidden" name="order_color" />
 						<input type="hidden" name="order_size" />
-						<input type="hidden" name="prdct_price" />
+						<input type='hidden' name="sum" />
 						<input type="hidden" name="prdct_name" />
 						<input type="hidden" name="prdct_thumbnail" />
+						
 					</tbody>
 					<tfoot>
 						
