@@ -58,7 +58,7 @@
 												<button type="button" onclick="location.href=#" class="btn btn-primary">더보기
 											</c:when>
 											<c:when test="${i eq 44}">
-												<h3 style="color: black;">Generic NEW 2021 S/S</h3>
+												<h3 style="color: black;">GENERIC NEW 2021 S/S</h3>
 												<button type="button" onclick="location.href=#" class="btn btn-primary">더보기
 											</c:when>
 											<c:otherwise>
