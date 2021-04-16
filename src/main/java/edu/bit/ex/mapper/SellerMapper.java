@@ -68,10 +68,13 @@ public interface SellerMapper {
 	// 상품조회 게시글 총 수 불러오기
 	public int getPrdTotal(SearchCriteria cri);
 
+	// 상품 수정하기
 	public void updatePrdctInfo(PrdctRegisterImageVO prvo);
 
+	// 썸네일 수정
 	public List<PrdctVO> prdctThumbnail();
 
+	// 상품 수정시 상품정보 불러오기
 	public PrdctVO getPrdctInfo(String prdct_id);
 
 }

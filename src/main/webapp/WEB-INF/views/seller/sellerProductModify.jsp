@@ -196,7 +196,7 @@
 							</div><br/><br/>
 							<div align="center">
 								<button type="submit" class="btn btn-primary">상품수정</button>
-								<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/seller/mypage/prdct/${pdvo.prdct_id}'">
+								<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/prdct/${pdvo.prdct_id}'">
 								<!-- 나중에 수정하기 -->
 									상품상세
 								</button>

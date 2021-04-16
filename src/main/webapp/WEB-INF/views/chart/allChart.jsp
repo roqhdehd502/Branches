@@ -8,40 +8,36 @@
 
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-    google.charts.load('current', {packages: ['corechart', 'bar']});
-    google.charts.setOnLoadCallback(drawBasic);
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawVisualization);
 
-    function drawBasic() {
+      function drawVisualization() {
+        // Some raw data (not necessarily accurate)
+        var data = google.visualization.arrayToDataTable([
+          ['Years', 'Outer', 'Top', 'bottom', 'Shoes', 'ETC', 'AVG'],
+          ['2017',  165,      938,         522,             998,           450,      614.6],
+          ['2018',  135,      1120,        599,             1268,          288,      682],
+          ['2019',  157,      1167,        587,             807,           397,      623],
+          ['2020',  139,      1110,        615,             968,           215,      609.4],
+          ['2021',  136,      691,         629,             1026,          366,      569.6]
+        ]);
 
-          var data = google.visualization.arrayToDataTable([
-            ['sell', '수익',],
-            ['아우터', 8175000],
-            ['상의', 3792000],
-            ['하의', 2695000],
-            ['신발', 2099000],
-            ['악세사리', 1526000]
-          ]);
+        var options = {
+          title : '카테고리별 전체상품 매출',
+          fontSize : 14,
+          hAxis: {title: '지난 5년간 매출'},
+          seriesType: 'bars',
+          width : 900,
+          height : 500,
+          series: {5: {type: 'line'}}
+        };
 
-          var options = {
-            title: '총 매출 현황',
-            fontSize : 14,
-            width: 900,
-            chartArea: {width: '80%'},
-            hAxis: {
-              minValue: 0
-            },
-            vAxis: {
-
-            }
-          };
-
-          var chart = new google.visualization.BarChart(document.getElementById('chart_div6'));
-
-          chart.draw(data, options);
-        }
+        var chart = new google.visualization.ComboChart(document.getElementById('chart_div6'));
+        chart.draw(data, options);
+      }
     </script>
 </head>
 <body>
-	<div id="chart_div6" style="height: 400px;"></div>
+	<div id="chart_div6" style="width: 900px; height: 500px;"></div>
 </body>
 </html>

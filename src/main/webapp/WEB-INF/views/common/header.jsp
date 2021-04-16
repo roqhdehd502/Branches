@@ -77,66 +77,66 @@
 			</div>
 		<nav id="menu" class="d-none d-lg-block">
 			<ul style="padding: 10px; background-color: black;">
-				<li class="current-menu-item has-child"><a href="index.html">OUTER</a>
+				<li class="current-menu-item has-child"><a href="#" style="text-decoration: none;">OUTER</a>
 					<ul class="sub-menu">
-						<li><a href="index.html">Coat</a></li>
-						<li><a href="index-2.html">Jarket</a></li>
-						<li><a href="index-3.html">Jumper / Mustang</a></li>
-						<li><a href="index-3.html">Cardigan</a></li>
-						<li><a href="index-3.html">Padding</a></li>
+						<li><a href="/category/1">Coat</a></li>
+						<li><a href="/category/2">Jarket</a></li>
+						<li><a href="/category/3">Jumper / Mustang</a></li>
+						<li><a href="/category/4">Cardigan</a></li>
+						<li><a href="/category/5">Padding</a></li>
 					</ul></li>
-				<li class="current-menu-item has-child"><a href="index.html">TOP</a>
+				<li class="current-menu-item has-child"><a href="#" style="text-decoration: none;">TOP</a>
 					<ul class="sub-menu">
-						<li><a href="index.html">T-shirt</a></li>
-						<li><a href="index-2.html">Blouse / Shirt</a></li>
-						<li><a href="index-3.html">Neat / Sweater</a></li>
-						<li><a href="index-3.html">Hoddie</a></li>
-						<li><a href="index-3.html">Sweater shirt</a></li>
-						<li><a href="index-3.html">Sleeveless</a></li>
+						<li><a href="/category/6">T-Shirt</a></li>
+						<li><a href="/category/7">Blouse / Shirt</a></li>
+						<li><a href="/category/8">Knit / Sweater</a></li>
+						<li><a href="/category/9">Hoddie</a></li>
+						<li><a href="/category/10">Sweat Shirt</a></li>
+						<li><a href="/category/11">Sleeveless</a></li>
 					</ul></li>
-				<li class="current-menu-item has-child"><a href="index.html">BOTTOM</a>
+				<li class="current-menu-item has-child"><a href="#" style="text-decoration: none;">BOTTOM</a>
 					<ul class="sub-menu">
-						<li><a href="index.html">Denim</a></li>
-						<li><a href="index-2.html">Cotten</a></li>
-						<li><a href="index-3.html">Short</a></li>
-						<li><a href="index-3.html">Slacks</a></li>
-						<li><a href="index-3.html">Training / Jogger</a></li>
-						<li><a href="index-3.html">Leggings</a></li>
-						<li><a href="index-3.html">Skirt</a></li>
+						<li><a href="/category/12">Denim</a></li>
+						<li><a href="/category/13">Cotten</a></li>
+						<li><a href="/category/14">Short</a></li>
+						<li><a href="/category/15">Slacks</a></li>
+						<li><a href="/category/16">Training / Jogger</a></li>
+						<li><a href="/category/17">Leggings</a></li>
+						<li><a href="/category/18">Skirt</a></li>
 					</ul></li>
-				<li class="current-menu-item has-child"><a href="index.html">DRESS</a>
+				<li class="current-menu-item has-child"><a href="#" style="text-decoration: none;">DRESS</a>
 					<ul class="sub-menu">
-						<li><a href="index.html">Mini</a></li>
-						<li><a href="index-2.html">Midi</a></li>
-						<li><a href="index-3.html">Maxi</a></li>
-						<li><a href="index-3.html">Overrall</a></li>
+						<li><a href="/category/19">Mini</a></li>
+						<li><a href="/category/20">Midi</a></li>
+						<li><a href="/category/21">Maxi</a></li>
+						<li><a href="/category/22">Overrall</a></li>
 					</ul></li>
-				<li class="current-menu-item has-child"><a href="index.html">BAG</a>
+				<li class="current-menu-item has-child"><a href="#" style="text-decoration: none;">BAG</a>
 					<ul class="sub-menu">
-						<li><a href="index.html">Backpack</a></li>
-						<li><a href="index-2.html">Messenger / Cross</a></li>
-						<li><a href="index-3.html">Shoulder / Tod</a></li>
-						<li><a href="index-2.html">Eco Bag</a></li>
-						<li><a href="index-3.html">Clutch</a></li>
+						<li><a href="/category/23">Backpack</a></li>
+						<li><a href="/category/24">Messenger / Cross</a></li>
+						<li><a href="/category/25">Shoulder / Tod</a></li>
+						<li><a href="/category/26">Eco Bag</a></li>
+						<li><a href="/category/27">Clutch</a></li>
 					</ul></li>
-				<li class="current-menu-item has-child"><a href="index.html">SHOES</a>
+				<li class="current-menu-item has-child"><a href="#" style="text-decoration: none;">SHOES</a>
 					<ul class="sub-menu">
-						<li><a href="index.html">Dress Shoes</a></li>
-						<li><a href="index-2.html">Boots</a></li>
-						<li><a href="index-3.html">Sandal</a></li>
-						<li><a href="index-2.html">slipper</a></li>
-						<li><a href="index-3.html">Sneakers</a></li>
+						<li><a href="/category/28">Dress Shoes</a></li>
+						<li><a href="/category/29">Boots</a></li>
+						<li><a href="/category/30">Sandal</a></li>
+						<li><a href="/category/31">slipper</a></li>
+						<li><a href="/category/32">Sneakers</a></li>
 					</ul></li>
-				<li class="current-menu-item has-child"><a href="index.html">ETC</a>
+				<li class="current-menu-item has-child"><a href="#" style="text-decoration: none;">ETC</a>
 					<ul class="sub-menu">
-						<li><a href="index.html">Socks</a></li>
-						<li><a href="index-2.html">Cap</a></li>
-						<li><a href="index-3.html">Acc</a></li>
+						<li><a href="/category/36">Socks</a></li>
+						<li><a href="/category/34">Cap</a></li>
+						<li><a href="/category/35">Acc</a></li>
 					</ul></li>
-				<li><a href="index.html" style="color: white;">|</a></li>
-				<li><a href="index.html" style="color: white;">BRAND</a></li>
-				<li><a href="${pageContext.request.contextPath}/board/magazine" style="color: white;">MAGAZINE</a></li>
-				<li><a href="${pageContext.request.contextPath}/board/notice" style="margin-right: 38px; color: white;">NOTICE</a></li>
+				<li><a href="#" style="color: white;">|</a></li>
+				<li><a href="index.html" style="color: white; text-decoration: none;">BRAND</a></li>
+				<li><a href="${pageContext.request.contextPath}/board/magazine" style="color: white; text-decoration: none;">MAGAZINE</a></li>
+				<li><a href="${pageContext.request.contextPath}/board/notice" style="margin-right: 38px; color: white; text-decoration: none;">NOTICE</a></li>
 			</ul>
 		</nav>
 	</header>

@@ -34,7 +34,6 @@ import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.page.SearchPageVO;
 import edu.bit.ex.service.SecurityService;
 import edu.bit.ex.service.SellerService;
-import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.ShippingVO;
 import lombok.AllArgsConstructor;
@@ -90,9 +89,9 @@ public class SellerController {
 		mav.setViewName("seller/prdct_register");
 		// 인증 회원 정보
 		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
-
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
+		// 판매자 주소 불러오기
 		mav.addObject("svo", sellerService.getAddress(svo.getMbr_id()));
 
 		return mav;
@@ -154,7 +153,7 @@ public class SellerController {
 	// 판매자 등록상품 수정페이지 seller // 이 페이지는 상세페이지가 곧 수정페이지입니다
 	@GetMapping("/mypage/prdct/{prdct_id}")
 	public ModelAndView sellerProductModify(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable("prdct_id") String prdct_id,
-			ModelAndView mav, MbrVO mbr, ShippingVO svo, BoardVO bvo) throws Exception {
+			ModelAndView mav, MbrVO mbr, ShippingVO svo) throws Exception {
 		log.debug("sellerProductModify");
 		log.info("sellerProductModify..");
 		mav.setViewName("seller/sellerProductModify");
@@ -166,7 +165,7 @@ public class SellerController {
 
 		mav.addObject("pdvo", sellerService.getPrdctInfo(prdct_id));
 		mav.addObject("svo", sellerService.getAddress(svo.getMbr_id()));
-		mav.addObject("bContent", sellerService.getContent(bvo.getPrdct_id()));
+		mav.addObject("bContent", sellerService.getContent(prdct_id));
 
 		return mav;
 	}

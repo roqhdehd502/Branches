@@ -33,9 +33,6 @@ public interface SellerService {
 	// 판매자 정보 수정
 	public void sellerInfoUpdate(MbrShippingVO mavo);
 
-	// 상품 정보수정
-	/* public void prdctUpdate(PrdctRegisterImageVO prvo); */
-
 	// 게시글 내용 수정
 	public void prdctContentUpdate(PrdctRegisterImageVO prvo);
 
@@ -65,10 +62,13 @@ public interface SellerService {
 	// 상품조회 게시글 총 수 불러오기
 	public int getPrdTotal(SearchCriteria cri);
 
+	// 수정페이지에서 상품 정보 불러오기
 	public PrdctVO getPrdctInfo(String prdct_id);
 
+	// 상품정보 수정하기
 	public void updatePrdctInfo(PrdctRegisterImageVO prvo);
 
+	// 썸네일 수정하기
 	public List<PrdctVO> prdctThumbnail();
 
 }
