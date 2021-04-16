@@ -79,7 +79,7 @@
 					<h3 >
 					<strong>상품 정보 수정</strong>
 					</h3><hr>
-					<form id="updatePrd" action="${pageContext.request.contextPath}/admin/mypage/seller/${prdct.mbr_id}/prdct/${prdct.prdct_id}/modify" method="POST">		
+					<form id="updatePrd" enctype="multipart/form-data" action="${pageContext.request.contextPath}/admin/mypage/seller/${prdct.mbr_id}/prdct/${prdct.prdct_id}/modify" method="POST">		
 						<input type="hidden" id="mbr_id" value="${prdct.mbr_id}">
 						<input type="hidden" id="board_id" value="${pBoard.board_id}">
 						<fieldset>
@@ -95,20 +95,20 @@
 									<input type="text" class="form-control" placeholder="상품명을 입력해주세요" id="prdct_name" value="${prdct.prdct_name}">
 								</div>
 							</div>
-							<!-- thumbnail ckeditor -->
-							<div class="form-group row">
+							<div class="form-group row"  style="height: 210px;">
 								<label class="col-sm-2 col-form-label">대표이미지(Thumbnail)</label>
 								<div class="col-sm-10">
 									<div class="custom-file" id="inputFile">
-										<input name="file" type="file" class="prdct_thumbnail" id="prdct_thumbnail"> 
-										<label class="custom-file-label" for="prdct_thumbnail">${prdct.prdct_thumbnail }</label>
+										<%-- <img src="/resources/static/prdct_img/prdct_thumbnail/${prdct.prdct_thumbnail }"  height="200px" width="200px"/> --%>
+										<input name="file" type="file" class="prdct_thumbnail" id="prdct_thumbnail" style="height"> 
+										
 									</div>
 								</div>
 							</div>
-							<div class="form-group row">
-								<label class="col-sm-2 col-form-label">카테고리</label>
-								<div class="col-sm-10">
-									<select class="form-control" id="category_number">
+							<div class="form-group row" style="height: 55px;">
+								<label class="col-sm-2 col-form-label" >카테고리</label>
+								<div class="col-sm-10" >
+									<select class="form-control" id="category_number" style="height: 50px;">
 									<option value="1" <c:if test="${prdct.category_number == 1 }">selected</c:if>>아우터-코트</option>
                               <option value="2" <c:if test="${prdct.category_number == 2 }">selected</c:if>>아우터-자켓</option>
                               <option value="3" <c:if test="${prdct.category_number == 3 }">selected</c:if>>아우터-점퍼/무스탕</option>
@@ -250,10 +250,9 @@ $(document).ready(function(){
         var board_id = $("#board_id").val();
         var board_content = CKEDITOR.instances.board_content.getData();
         var prdct_stock = $("#prdct_stock").val();
-        var prdct_thumbnail = CKEDITOR.instances.prdct_thumbnail.getData();
+        //var prdct_thumbnail = $("#prdct_thumbnail").val();
+        var uploadfile = $("#prdct_thumbnail").val();
         
-        console.log(prdct_id);
-        console.log(category_number);
         console.log($(this).attr("action"));
         
         var form = {
@@ -267,7 +266,7 @@ $(document).ready(function(){
         		board_id: board_id,
         		board_content: board_content,
         		prdct_stock: prdct_stock,
-        		prdct_thumbnail: prdct_thumbnail,
+        		uploadfile: uploadfile
        	 };
         console.log(form);
 	    //dataType: 'json',

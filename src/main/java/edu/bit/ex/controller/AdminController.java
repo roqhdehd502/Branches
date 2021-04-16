@@ -2,6 +2,7 @@ package edu.bit.ex.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
@@ -162,19 +163,29 @@ public class AdminController {
 
 	// 상품 수정
 	@PutMapping(value = "/mypage/seller/{seller_id}/prdct/{prdct_id}/modify")
-	public ResponseEntity<String> admin_seller_prdct_modify(@RequestBody PrdctRegisterImageVO prvo, MultipartFile file, HttpServletRequest request,
+	public ResponseEntity<String> admin_seller_prdct_modify(@RequestBody PrdctRegisterImageVO prvo, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		ResponseEntity<String> entity = null;
 
-		log.info("원본파일명 : " + file.getOriginalFilename());
-		log.info("파일크기 : " + file.getSize());
-		log.info("컨텐트타입 : " + file.getContentType());
+		String fileName = "";
+		String path = "C:\\tetleaf\\Branches\\src\\main\\resources\\static\\prdct_img\\prdct_thumbnail\\";
 
-		String savedName = prvo.getPrdct_id();
+		fileName = prvo.getPrdct_id() + "_" + prvo.getUploadfile().getOriginalFilename();
+		prvo.setPrdct_thumbnail(fileName);
+		try {
+			new File(path).mkdirs();
+			prvo.getUploadfile().transferTo(new File(path + fileName));
+
+		} catch (IOException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+		prvo.setPrdct_thumbnail(fileName);
+
 		log.info("admin prdct info modify");
 		try {
 			adminService.updatePrdctInfo(prvo);
-			// adminService.updatePrdctThumb(prvo);
 			log.info("admin prdct modify success");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
@@ -183,36 +194,6 @@ public class AdminController {
 		}
 
 		return entity;
-	}
-
-	/* 상품 thumbnail 수정 */
-	@RequestMapping(value = "/mypage/seller/{s_id}/prdct/{p_id}/modify/prdct_thumb", method = { RequestMethod.POST, RequestMethod.GET })
-	public void prdct_thumb_update(HttpServletRequest request, HttpServletResponse response, MultipartFile upload) throws Exception {
-		response.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset=utf-8");
-
-		// 업로드한 파일 이름
-		String fileName = upload.getOriginalFilename();
-
-		// 파일을 바이트 배열로 변환
-		byte[] bytes = upload.getBytes();
-
-		// 이미지를 업로드할 디렉토리(배포 디렉토리로 설정)
-		String uploadPath = "C:\\tetleaf\\Branches\\src\\main\\resources\\static\\prdct_img\\prdct_thumbnail\\";
-		OutputStream out = new FileOutputStream(new File(uploadPath + fileName));
-
-		// 서버로 업로드
-		out.write(bytes);
-		// 클라이언트에 결과 표시
-		String callback = request.getParameter("CKEditorFuncNum");
-
-		// 서버=>클라이언트로 텍스트 전송(자바스크립트 실행)
-		PrintWriter printWriter = response.getWriter();
-
-		String fileUrl = request.getContextPath() + "/prdct_img/prdct_thumbnail/" + fileName;
-
-		printWriter.println("<script>window.parent.CKEDITOR.tools.callFunction(" + callback + ",'" + fileUrl + "','이미지가 업로드되었습니다.')" + "</script>");
-		printWriter.flush();
 	}
 
 	/* 상품 content image 수정 */
