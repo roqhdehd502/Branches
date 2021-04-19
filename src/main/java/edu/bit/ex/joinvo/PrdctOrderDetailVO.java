@@ -13,8 +13,8 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class PrdctOrderDetailVO { // 상품주문
-	private int order_number; // 상품주문번호 pk
+public class PrdctOrderDetailVO { // 결제 후 정보 저장
+	private int order_number; // 상품주문번호
 	private int order_price; // 상품주문가격
 	private Date order_date; // 상품주문일자
 	private String mbr_id; // 회원id fk
@@ -24,5 +24,14 @@ public class PrdctOrderDetailVO { // 상품주문
 	private int order_amount; // 주문상품량
 	private int prdct_price; // 상품금액
 	private String prdct_name; // 상품이름 추가
+	private String shipping_name; // 받는사람
+	private int shipping_tel; // 받는사람 연락처
+	private String order_mail; // 주문자 이메일
+	private String shipping_address; // 배송지
+	private int usepoint; // 사용 포인트
+	private int earningpoint; // 적립 포인트
+	private String receipt_id; // 영수증id
+	private String t_key; // 택배키
+	private String t_invoice; // 택배 운송장번호
 
 }

@@ -30,6 +30,7 @@ $(document)
 		function() {
 			//배열 선언
 			var data = JSON.parse(sessionStorage.getItem("cartList"));
+			console.log(data);
 			for (var i =0;i<data.length;i++){
 				console.log(data[i]);
 			}
@@ -148,6 +149,8 @@ function summary() {
 			console.log(typeof(sum))
 		}
 	}
+	
+	
 	$('.total').html(sum + '원');
 }
 // 전체 카트 삭제

@@ -106,6 +106,12 @@
 								</div>
 							</div>
 							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">썸네일</label>
+								<div class="col-sm-10">
+									<input type="file" id="uploadfiles" name="uploadfiles" placeholder="첨부 사진" multiple/>
+								</div>
+							</div>
+							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">카테고리</label>
 								<div class="col-sm-10">
 									<select class="form-control" name="category" id="category_number">
@@ -261,6 +267,15 @@
 	        formData.append("prdct_price", prdct_price);
 	        formData.append("board_content", board_content);
 	        formData.append("prdct_stock", prdct_stock);
+	        
+	     	// 파일저장 영역
+	        var inputFile = $("#uploadfiles");
+	        var files = inputFile[0].files;  
+                
+	        for (var i = 0; i < files.length; i++) {
+	        	console.log(files[i]);
+	        	formData.append("uploadfiles", files[i]);
+	        } 
 	    		
 	        $.ajax({
 	        	type : "POST",

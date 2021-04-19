@@ -19,6 +19,8 @@ import edu.bit.ex.config.auth.MemberDetails;
 import edu.bit.ex.joinvo.PrdctOrderDetailVO;
 import edu.bit.ex.service.OrderService;
 import edu.bit.ex.service.SecurityService;
+import edu.bit.ex.vo.OrderDetailVO;
+import edu.bit.ex.vo.PrdctOrderVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -68,16 +70,32 @@ public class OrderController {
 
 	// 주문 리스트 정보입력
 	@RequestMapping(value = "/cart/orderInput/insert", method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView orderInput(ModelAndView mav, PrdctOrderDetailVO prdVO, HttpServletRequest request,
+	public ModelAndView orderInput(ModelAndView mav, PrdctOrderVO po, HttpServletRequest request,
 			@AuthenticationPrincipal MemberDetails memberDetails) {
 		log.info("order insert");
 		String[] order_amounts = request.getParameterValues("order_amount");
 		String[] prdct_ids = request.getParameterValues("prdct_id");
 		String[] order_sizes = request.getParameterValues("order_size");
 		String[] order_colors = request.getParameterValues("order_color");
-		orderService.insertOrder(prdVO);
+		orderService.insertOrder(po);
 
-		mav.setViewName("order/orderInput");
+		// 해당아이디의 최신 결제내역을 가져옴
+		PrdctOrderVO poVO = orderService.getPayInfo(po.getMbr_id());
+
+		OrderDetailVO odVO = new OrderDetailVO();
+
+		for (int i = 1; i < order_amounts.length; i++) {
+			odVO.setOrder_amount(Integer.parseInt(order_amounts[i]));
+			odVO.setOrder_color(order_colors[i]);
+			odVO.setOrder_size(order_sizes[i]);
+			odVO.setPrdct_id(prdct_ids[i]);
+			odVO.setOrder_number(poVO.getOrder_number());
+			orderService.insertOrderDetail(odVO);
+
+		}
+
+		mav.setViewName("order/member_order_complete");
+		mav.addObject("povo", poVO);
 		return mav;
 	}
 }

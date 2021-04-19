@@ -43,12 +43,10 @@ public interface SellerMapper {
 	// 상품 삭제
 	public void prdctDelete(String prdct_id);
 
-	// 상품 등록
-	public void prdInsert(PrdctRegisterImageVO PrdctImageVO);
-
 	public PrdctVO getOption(String getPrdct_id);
 
-	/* public void setPrdctImage(String saveName); */
+	// 상품 등록
+	public void setPrdctImage(PrdctRegisterImageVO pvo);
 
 	// 판매자 주소 불러오기 (상품 등록시)
 	public ShippingVO getAddress(String getMbr_id);
@@ -71,10 +69,14 @@ public interface SellerMapper {
 	// 상품 수정하기
 	public void updatePrdctInfo(PrdctRegisterImageVO prvo);
 
-	// 썸네일 수정
-	public List<PrdctVO> prdctThumbnail();
-
 	// 상품 수정시 상품정보 불러오기
 	public PrdctVO getPrdctInfo(String prdct_id);
+
+	// 상품 등록
+	public void prdInsert(PrdctRegisterImageVO pvo);
+
+	public void magazineImageOnlyRemove(String image_name, String prdct_id);
+
+	public void setMagazineModifyAddImg(PrdctRegisterImageVO prvo);
 
 }
