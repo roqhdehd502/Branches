@@ -348,25 +348,6 @@ img {
 		<!-- header -->
 		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 
-		<!-- 상세페이지 내용	 -->
-
-		<div class="detail-area sp">
-			<div class="container" style="align-content: center;">
-
-				<!-- 	상품 카테고리 분류  -->
-				<div class="item categories">
-					<a>카테고리 분류</a> ${prdct.category_name}
-				</div>
-
-				<!-- 상품 썸네일 -->
-				<div class="left-container">
-					<!-- 사진 슬라이딩 처리 -->
-					<div style="float: left; margin-right: 20px; margin-left: 50px;">
-						<div class="container" style="margin-top: 50px; margin-bottom: 50px; margin-right: 50px; width: 500px; height: 600px;">
-							<div style="height: 100%; align-content: center;">${prdct.prdct_thumbnail}</div>
-						</div>
-					</div>
-				</div>
 
 	 <!--  상품 정보와 옵션 선택 -->
 		<form action="${pageContext.request.contextPath}/order/insert_cart" method="POST">
@@ -385,7 +366,7 @@ img {
 					<div class="left-container">
 						<!-- 사진 슬라이딩 처리 -->
 						<div style="float: left; margin-right: 20px; margin-left: 50px;">
-							<div class="container" style="margin-top: 50px; margin-bottom: 50px; margin-right: 50px; width: 500px; height: 600px;">
+							<div class="container" style="margin-top: 50px; margin-bottom: 50px; margin-right: 50px; width: 500px; height: 500px;">
 								<div style="height: 100%; align-content: center;">
 								${prdct.prdct_thumbnail}
 								<input type="hidden" name="prdct_thumbnail" id="prdct_thumbnail" value="${prdct.prdct_thumbnail}"/>
@@ -484,7 +465,7 @@ img {
 					</div>
 				</form>
 			</div>
-		</div>
+		
 
 		<!--제품 상세페이지 tab -->
 		<div class="container">
@@ -507,7 +488,7 @@ img {
 						<div class="container">
 							<div class="section-title" data-margin="0 0 40px">
 								<h2>상품 상세 정보</h2>
-								<p>아래쪽은 이미지로 생성된 상품 상세 정보를 입력하는 페이지 입니다.</p>
+								<br/>
 							</div>
 							<div class="row">
 								<div class="col-md-12 single-gallery">

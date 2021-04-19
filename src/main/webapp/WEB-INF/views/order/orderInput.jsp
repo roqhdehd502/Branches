@@ -21,6 +21,8 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<!-- 결제모듈 CDN -->
+<script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.1.min.js" type="application/javascript"></script>
 
 </head>
 <script type="text/javascript">
@@ -32,63 +34,39 @@ $(document)
 			console.log(buy);
 			var html = "";
 			for (var i = 0; i < buy.length; i++) {
-				html += "<tr id='tr"+i+"'>"
-				+ "<td scope='col' class='cart-pic first-row'> <a href='${pageContext.request.contextPath}/prdct/"+data[i].prdct_id+"'> "+data[i].prdct_thumbnail+" </a></td> "
-				+ "<td scope='col' class='cart-title first-row'>"
-				+ "<h5>"
-				+ "<a href='${pageContext.request.contextPath}/prdct/"+data[i].prdct_id+"' style='color:#000000'>"
-				+ data[i].prdct_name
-				+ "</h5>"
-				+"<br /> <div style='color:#000000'>"+data[i].order_color+"/"+data[i].order_size
-				+ "</div></a>"
-				+ "</td>"
-				+ "<td scope='col' class='p-price first-row' style='color:#000000'>"
-				+ "<input style='border:none; text-align:right; ' type='text' id='a"+i+"' value='"+data[i].prdct_price+"' readonly size='7px' >"
-				+ "원</td>"
-				+ "<td scope='col' class='qua-col first-row'>"
-				+ "	<div class='quantity'> <div class='pro-qty'> <span class='dec qtybtn' onclick='total"
-				+ i
-				+ "(-1)'>-</span><br /><input style='width:40px; text-align:center;' name='order_amount' type='number' id='b"
-				+ i
-				+ "' value='"+data[i].order_amount+"'><br/><span class='inc qtybtn' onclick='total"
-				+ i
-				+ "(1)'>+</span> </div> </div>"
-				+ "</td> <td scope='col' class='total-price first-row' style='color:#000000'>"
-				+ "<input style='border:none; text-align:right;' type='text' id='sum"
-				+ i
-				+ "' value='' readonly size='7px' name='sum' >원</td>"
-				+ "<td scope='col' class='close-td first-row'><i onclick='cartDelete("
-				+ i
-				+ ")' >삭제<input type='hidden' name='prdct_name' value='"+data[i].prdct_name+"' ><input type='hidden' name='order_size' value='"+data[i].order_size+"' ><input type='hidden' name='order_color' value='"+data[i].order_color+"' > </td>"
-				+ "</tr>"
-				
-						+ "<a href='${pageContext.request.contextPath}/prdct/"+buy[i].prdct_id+"'> "+buy[i].prdct_thumbnail+" </a>"
-						+ buy[i].prdct_name
-						+ "&nbsp x &nbsp "
-						+ buy[i].order_amount
+				html += "<tr id='tr"+i+"' style='text-align: center;'>"	
+						+ "<td scope='col'><a href='${pageContext.request.contextPath}/prdct/"+buy[i].prdct_id+"'> "+buy[i].prdct_thumbnail+" </a>"
+						+ "</td>"
+						+ "<td scope='col'>"+buy[i].prdct_name+""
+						+ "<br/>"+buy[i].order_color+" / "+buy[i].order_size+""
+						+ "</td>"
+						+ "<td scope='col'>"+buy[i].order_amount+""
 						+ "<input type='hidden' name='order_amount' value='"+buy[i].order_amount+"'>"
-						+ " <span>"
-						+ buy[i].sum
-						+ "원</span> <br> "+buy[i].order_color+" / "+buy[i].order_size
-						+ "<input type='hidden' name='orderSum' value='"+ buy[i].sum+"'><input type='hidden' name='prdct_name' value='"+ buy[i].prdct_name+"'>"
-						+"<input type='hidden' name='order_size' value='"+ buy[i].order_size+"'>"
-						+"<input type='hidden' name='order_color' value='"+ buy[i].order_color+"'>"
-						+ "<input type='hidden' name='prdct_id' value='"+ buy[i].prdct_id+"'></li>"
+						+ "</td>"
+						+ "<td scope='col'>"+buy[i].sum+""
+						+ "원</td><br/>"
+						+ "<input type='hidden' name='sum' value='"+ buy[i].sum+"'>"
+						+ "<input type='hidden' name='prdct_name' value='"+ buy[i].prdct_name+"'>"
+						+ "<input type='hidden' name='order_size' value='"+ buy[i].order_size+"'>"
+						+ "<input type='hidden' name='order_color' value='"+ buy[i].order_color+"'>"
+						+ "<input type='hidden' name='prdct_id' value='"+ buy[i].prdct_id+"'>"
+						+ "</tr>"
 			}
-			html += "<li class='total-price'>총 상품 금액 <span id='prdctTotal1'></span><input type='hidden' id='prdctTotal'></li>"
-					+ "<li class='fw-normal'>배송비  <span id='deliveryPay1'></span><input type='hidden' id='deliveryPay'></li>"
-					+ "<li class='fw-normal'>포인트 사용  <span id='payPoint1'></span><input type='hidden' id='payPoint' name='usepoint'></li>"
-					+ "<li class='total-price'>최종 결제 금액 <span id='lastTotal1'></span><input type='hidden' id='lastTotal' name='payprice'></li>"
-					+ "<li class='fw-normal'>적립 포인트 <span id='earningPoint1'></span><input type='hidden' id='earningPoint' name='earningpoint'></li>"
+			
 			$('#pay').append(html);
+					
 			// 총 상품 금액 계산 
-			var sumCount = this.form.orderSum.length
+			var sumCount = this.form.prdct_id.length;
 			var total = 0;
-			for (var i = 1; i < sumCount; i++) {
+			for (var i = 0; i < sumCount-1; i++) {
+				
 				total += parseInt(this.form.sum[i].value);
-			}
-			$("#prdctTotal1").text(total + "원");
-			$("#prdctTotal").val(total);
+				console.log(typeof(total))
+			} 
+			
+			console.log(total);
+			$('#prdctPrice1').html(total + '원');
+			$('#prdctPrice').val(total);
 			// 배송비 계산
 			if (total < 30000) {
 				$("#deliveryPay1").text(2500 + "원")
@@ -105,26 +83,12 @@ $(document)
 		}
 );
 
-//주소 검색 팝업
-function goPopup() {
-	// 주소검색을 수행할 팝업 페이지를 호출합니다.
-	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
-	var pop = window.open("/popup/jusoPopup.jsp", "pop",
-			"width=570,height=420, scrollbars=yes, resizable=yes");
-	// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
-	//var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
-}
-// 주소 콜백 
-function jusoCallBack(roadFullAddr, zipNo) {
-	// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.	
-	$('#deliveryaddress').val("(" + zipNo + ")" + roadFullAddr);
-}
 // 전체 포인트 사용
 function usePoint() {
 	event.preventDefault();
-	var goodsprice = parseInt($("#goodsprice").val());
-	if("${point.sum}" > goodsprice){
-	    $("#point").val(goodsprice);
+	var prdctPrice = parseInt($("#prdctPrice").val());
+	if("${point.sum}" > prdctPrice){
+	    $("#point").val(prdctPrice);
 	    $('#payPoint').val("-" + $("#point").val());
 		$('#payPoint1').text("-" + $("#point").val() + "P");
 		lastTotal();
@@ -142,7 +106,7 @@ function usePoint() {
 // 최종 결제 금액 계산
 function lastTotal() {
 	var lastTotal = 0;
-	lastTotal = parseInt($("#goodsprice").val())
+	lastTotal = parseInt($("#prdctPrice").val())
 			+ parseInt($("#payPoint").val())
 			+ parseInt($("#deliveryPay").val());
 	$("#lastTotal").val(lastTotal)
@@ -151,6 +115,152 @@ function lastTotal() {
 	var innerPoint = Math.floor(lastTotal * 0.01);
 	$("#earningPoint1").text(innerPoint + "P");
 	$("#earningPoint").val(innerPoint);
+}
+
+//결제 모듈 실행
+function payNow(method) {
+	event.preventDefault();
+	if($("#point").val() <1000 && $("#point").val() >0 ){
+		alert("1000포인트 이상부터 사용가능합니다.")
+		return;
+	}
+	
+	var email = "${member.member_id}";
+	var name = "${member.name}";
+	var tel = "0${member.tel}";
+	var address = "${member.address}";
+	//결제 정보
+	var lastTotal = $("#lastTotal").val();
+	var nameCount = this.form.goodsName.length - 2;
+	console.log(nameCount)
+	var goodsName = this.form.goodsName[1].value;
+	if (nameCount > 0) {
+		goodsName += " 외 " + nameCount + "개"
+	}
+BootPay.request({
+	price: lastTotal, //실제 결제되는 가격
+	application_id: "6076c93a5b2948001d07b41b",
+	name: goodsName, //결제창에서 보여질 이름
+	pg: 'inicis',
+	method: method, //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
+	show_agree_window: 0, // 부트페이 정보 동의 창 보이기 여부
+	user_info: {
+		username: name,
+		email: email,
+		addr: address,
+		phone: tel
+	},
+	order_id: guid(), //고유 주문번호로, 생성하신 값을 보내주셔야 합니다.
+	extra: {
+	  
+		theme: 'purple', // [ red, purple(기본), custom ]
+		custom_background: '#00a086', // [ theme가 custom 일 때 background 색상 지정 가능 ]
+		custom_font_color: '#ffffff' // [ theme가 custom 일 때 font color 색상 지정 가능 ]
+	}
+}).error(function (data) {
+	//결제 진행시 에러가 발생하면 수행됩니다.
+	console.log(data);
+}).cancel(function (data) {
+	var msg = '결제에 실패하였습니다.';
+	msg += '에러내용 : '+data.message;
+	alert(msg);
+	console.log(data);
+}).ready(function (data) {
+	// 가상계좌 입금 계좌번호가 발급되면 호출되는 함수입니다.
+	console.log(data);
+}).confirm(function (data) {
+	//결제가 실행되기 전에 수행되며, 주로 재고를 확인하는 로직이 들어갑니다.
+	//주의 - 카드 수기결제일 경우 이 부분이 실행되지 않습니다.
+	console.log(data);
+	var enable = true; // 재고 수량 관리 로직 혹은 다른 처리
+	if (enable) {
+		BootPay.transactionConfirm(data); // 조건이 맞으면 승인 처리를 한다.
+	} else {
+		BootPay.removePaymentWindow(); // 조건이 맞지 않으면 결제 창을 닫고 결제를 승인하지 않는다.
+	}
+}).close(function (data) {
+    // 결제창이 닫힐때 수행됩니다. (성공,실패,취소에 상관없이 모두 수행됨)
+ 
+}).done(function (data) {
+	//결제가 정상적으로 완료되면 수행됩니다
+	
+	// 유효성 체크
+	$.ajax({
+		url : "/myPage/orderList/payCheck/"+data.receipt_id,
+		type : "post",
+		success : function(verify) {
+			if(verify.status=="200"){
+				console.log(verify);
+				//카트 초기화 
+				var cartList = new Array();
+				sessionStorage.setItem("cartList", JSON.stringify(cartList));
+				
+				var msg = '결제가 완료되었습니다.';
+				msg += '영수증ID : ' + verify.data.receipt_id;
+				msg += '상점 거래ID : ' + verify.data.order_id;
+				msg += '결제 금액 : ' + verify.data.price;
+				$("#paydate").val(verify.data.purchased_at)
+				$("#receipt_id").val(verify.data.receipt_id);
+				alert(msg);
+				document.form.submit();
+			}
+			else{
+				//유효성 체크 실피시 결제취소
+				alert("결제가 정상적으로 진행되지 않았습니다. 결제를 취소합니다.");
+				$.ajax({
+					url : "/myPage/orderList/payCancel/"+data.receipt_id,
+					type : "post",
+					data :{
+						name : $("#memberName").val(),
+						reason : "개인사유"
+						
+					},
+					success : function(data) {
+						alert("정상적으로 취소되었습니다.");
+						
+					},
+					error : function(request, status, error){
+						
+						
+					}
+				
+				})
+				
+				
+			}
+			
+		},
+		error : function(request, status, error){
+			
+			//유효성 체크 실피시 결제취소
+		
+		$.ajax({
+			url : "/myPage/orderList/payCancel/"+data.receipt_id,
+		type : "post",
+		data :{
+			name : $("#memberName").val(),
+			reason : "개인사유"
+			
+		},
+		success : function(data) {
+			alert("정상적으로 취소되었습니다.");
+			
+		},
+		error : function(request, status, error){
+			
+			
+		}
+	
+	})
+	
+
+			
+		}
+	
+	})
+	
+	
+});
 }
 
 // 초기화
@@ -207,30 +317,44 @@ function s4() {
 return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
 
+
+//주소 검색 팝업
+function goPopup() {
+	// 주소검색을 수행할 팝업 페이지를 호출합니다.
+	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+	var pop = window.open("/popup/jusoPopup.jsp", "pop",
+			"width=570,height=420, scrollbars=yes, resizable=yes");
+	// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+	//var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
+}
+// 주소 콜백 
+function jusoCallBack(roadFullAddr, zipNo) {
+	// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.	
+	$('#shipping_address').val("(" + zipNo + ")" + roadFullAddr);
+}
+
 </script>
 <body>
 	<div class="container">
 		<%@ include file="/WEB-INF/views/common/header.jsp"%>
 
-		<form>
+		<form name="form" action="/cart/orderInput/insert" method="post">
 
 			<br /> <br />
 			<fieldset>
-				<table class="table cart_table" style="width: 100%">
+				<table class="table cart_table" style="width: 100%;">
 					<colgroup>
-						<col width="20%">
 						<col width="30%">
+						<col width="40%">
 						<col width="15%">
 						<col width="15%">
-						<col width="20%">
 					</colgroup>
 					<thead>
 						<tr style="text-align: center;">
 							<th scope="col">이미지</th>
 							<th scope="col">상품명(옵션)</th>
-							<th scope="col">판매가</th>
 							<th scope="col">수량</th>
-							<th scope="col">주문금액<br></th>
+							<th scope="col">주문금액</th>
 						</tr>
 					</thead>
 					<tbody id="pay">
@@ -243,14 +367,22 @@ return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + 
 						<input type="hidden" name="order_size">
 						<input type="hidden" name="order_color">
 					</tbody>
-					<tfoot>
-
-						<tr class="gift-division">
-							<td></td>
-							<td colspan="4"></td>
-							<td colspan="2"><span class="cart-total">총 상품가격<span class="total">0원</span></span> <span id="total-price"></span></td>
-						</tr>
-
+					<tfoot class="table table-borderless " style="text-align: right;  ">
+						<tr>
+							<td colspan="3"></td>
+							<td>총 상품 금액 <span id="prdctPrice1"></span><input type="hidden" id="prdctPrice"></td>
+						<tr>
+							<td colspan="3"></td>
+							<td>배송비 <span id="deliveryPay1"></span><input type="hidden" id="deliveryPay"></td>
+						<tr>
+							<td colspan="3"></td>
+							<td>포인트 사용 <span id="payPoint1"></span><input type="hidden" id="payPoint" name="usepoint"></td>
+						<tr>
+							<td colspan="3"></td>
+							<td class="total-price">최종 결제 금액 <span id="lastTotal1"></span><input type="hidden" id="lastTotal" name="payprice"></td>
+						<tr>
+							<td colspan="3"></td>
+							<td>적립 포인트 <span id="earningPoint1"></span><input type="hidden" id="earningPoint" name="earningpoint"></td>
 					</tfoot>
 				</table>
 				<legend style="text-align: center;">주문 정보 입력</legend>
@@ -258,7 +390,7 @@ return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + 
 
 				<!-- 주문자 이름 -->
 				<div class="form-group row">
-					<label for="orderName" class="col-sm-2 col-form-label">Oder Name</label>
+					<label for="orderName" class="col-sm-2 col-form-label">Order Name</label>
 					<div class="col-sm-10">
 						<input type="text" class="form-control" id="orderName" placeholder="주문자의 이름을 입력하세요.">
 					</div>
@@ -266,20 +398,12 @@ return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + 
 
 				<!-- 주문자 연락처 -->
 				<div class="form-group row">
-					<label for="phoneNumber1" class="col-sm-2 col-form-label">Phone Number</label>
-					<div class="form-group row col-sm-10">
-						<select class="form-control col-sm-2" id="phoneNumber1" style="margin-left: 15px">
-							<option>010</option>
-							<option>011</option>
-							<option>016</option>
-							<option>017</option>
-							<option>018</option>
-							<option>019</option>
-						</select>&nbsp;-&nbsp; <input type="text" class="form-control col-sm-2" id="phoneNumber2">&nbsp;-&nbsp; <input type="text"
-							class="form-control col-sm-2" id="phoneNumber3">
+					<label for="orderTel" class="col-sm-2 col-form-label">Phone Number</label>
+					<div class="col-sm-10">
+					<input type="text" class="form-control" id="orderTel" placeholder="배송받을 연락처를 입력하세요.(-제외)">
 					</div>
 				</div>
-
+ 
 				<!-- 주문자 이메일 -->
 				<div class="form-group row">
 					<label for="orderEmail" class="col-sm-2 col-form-label">Email</label>
@@ -292,9 +416,8 @@ return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + 
 				<div class="form-group row">
 					<label for="shippingAd" class="col-sm-2 col-form-label">Shipping Address</label>
 					<div class="form-group row col-sm-10" style="margin-left: 1px">
-						<input type="text" class="form-control col-sm-8" id="deliveryaddress" name="deliveryaddress" style="margin-bottom: 3px"> <input
-							type="button" class="form-control col-sm-2" onClick="goPopup();" value="주소찾기"> <input type="text" class="form-control" id="shippingAd"
-							placeholder="상세 주소를 입력해주세요">
+						<input type="text" class="form-control col-sm-8" id="shipping_address" name="shipping_address" style="margin-bottom: 3px"> <input
+							type="button" class="form-control col-sm-2" onClick="goPopup();" value="주소찾기"> 
 					</div>
 				</div>
 
@@ -329,7 +452,7 @@ return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + 
 
 
 				<div style="text-align: center;">
-					<button type="submit" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/ej/nmcheck' ">결제하기</button>
+					<button type="submit" class="btn btn-primary" onclick="payNow('card')">결제하기</button>
 				</div>
 				<br /> <br />
 			</fieldset>

@@ -19,4 +19,6 @@ SHIPPING_ADDRESS	VARCHAR2(200 BYTE)
 public class ShippingVO { // 배송
 	private String mbr_id; // 회원id fk
 	private String shipping_address; // 배송지
+	private String shipping_name; // 받는사람
+	private int shipping_tel; // 받는사람 연락처
 }
