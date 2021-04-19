@@ -7,6 +7,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,9 +20,9 @@ public class CommonControllerTests {
 	@Autowired
 	private MockMvc mockMvc;
 
-	// GetMapping 테스트
 	@Test
 	public void getMappingTest() throws Exception {
-
+		// 메인 페이지
+		mockMvc.perform(MockMvcRequestBuilders.get("/main")).andExpect(MockMvcResultMatchers.status().isOk());
 	}
 }

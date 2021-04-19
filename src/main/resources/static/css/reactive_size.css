@@ -2,7 +2,8 @@
 
 @media (max-width: 540px) {
 	.container {
-		padding: 1%;
+		margin: none;
+		padding: 0px 1% 0px 1%;
 	}
 		
 	img {
@@ -28,5 +29,23 @@
 	.comment_font {
 		font-size: 13px;
 		text-align: left;
+	}
+	
+	/* 좌우 공백 처리 */
+	.side_blank {
+	 	display: none;
+	}
+	
+	/* 가운데 공백 처리 */
+	.mid_blank {
+		padding-right: 5px;
+	}
+	
+	/* 소셜로그인 버튼 로고 처리 */
+	.social_logo {
+		width: auto;
+		height: auto;
+		max-width: 50px;
+		max-height: 50px;
 	}
 }

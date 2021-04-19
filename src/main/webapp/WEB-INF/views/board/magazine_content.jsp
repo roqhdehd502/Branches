@@ -266,33 +266,37 @@
 															$('.cmnt_del').click(function(event){
 																event.preventDefault();
 																
-																// FormData 객체 생성
-																var formData = new FormData(); 
-													     		
-																// button의 data-rno 값을 가져온다
-													     		var cmntInfo = $(this).attr("data-rno");		
-													     		console.log("cmntInfo: " + cmntInfo);
-													     		
-													 			// formData에 해당 값을 append한다
-													 			formData.append("comment_id", cmntInfo);
-													     		console.log("formData: " + formData);
-													 
-																$.ajax({
-																	type : 'DELETE', 
-																	url : $(this).attr("href"), 
-																	cache : false, 
-													                processData: false, 
-														    		contentType: false, 
-													                data: formData, 
-																	success: function(result){
-																		console.log(result);
-																		$(location).attr('href', '${pageContext.request.contextPath}/board/magazine/${magazine_content.board_id}')
-																		console.log("COMMENT_REMOVED!")
-																	},
-																	error:function(e){
-																		console.log(e);
-																	}
-																})
+																if (confirm("댓글을 삭제하시겠습니까?")) {
+																	// FormData 객체 생성
+																	var formData = new FormData(); 
+														     		
+																	// button의 data-rno 값을 가져온다
+														     		var cmntInfo = $(this).attr("data-rno");		
+														     		console.log("cmntInfo: " + cmntInfo);
+														     		
+														 			// formData에 해당 값을 append한다
+														 			formData.append("comment_id", cmntInfo);
+														     		console.log("formData: " + formData);
+														 
+																	$.ajax({
+																		type : 'DELETE', 
+																		url : $(this).attr("href"), 
+																		cache : false, 
+														                processData: false, 
+															    		contentType: false, 
+														                data: formData, 
+																		success: function(result){
+																			console.log(result);
+																			$(location).attr('href', '${pageContext.request.contextPath}/board/magazine/${magazine_content.board_id}')
+																			console.log("COMMENT_REMOVED!")
+																		},
+																		error:function(e){
+																			console.log(e);
+																		}
+																	})
+																} else {
+																	location.reload();
+																}
 															});	
 														});	
 													</script>

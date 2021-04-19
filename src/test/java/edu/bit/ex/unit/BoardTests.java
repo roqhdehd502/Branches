@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import edu.bit.ex.mapper.BoardMapper;
+import edu.bit.ex.mapper.TestBoardMapper;
 import edu.bit.ex.vo.BoardVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootTest
 public class BoardTests { // 게시판 테스트
 	@Autowired
-	private BoardMapper boardMapper;
+	private TestBoardMapper mapper;
 
 	@Autowired
 	private DataSource ds;
@@ -51,17 +51,17 @@ public class BoardTests { // 게시판 테스트
 	// 게시판 리스트
 	@Test
 	public void testGetBoardList() {
-		System.out.println("Board Mapper: " + boardMapper);
-		System.out.println("Board Notice List: " + boardMapper.getNoticeList().size());
-		System.out.println("Board Magazine List: " + boardMapper.getMagazineList().size());
+		System.out.println("Board Mapper: " + mapper);
+		System.out.println("Board Notice List: " + mapper.getNoticeList().size());
+		System.out.println("Board Magazine List: " + mapper.getMagazineList().size());
 
 		// 반복문으로 공지사항 게시판 제목 불러오기
-		for (BoardVO vo : boardMapper.getNoticeList()) {
+		for (BoardVO vo : mapper.getNoticeList()) {
 			System.out.println("Board Notice Name: " + vo.getBoard_name());
 		}
 
 		// 반복문으로 매거진 게시판 제목 불러오기
-		for (BoardVO vo : boardMapper.getMagazineList()) {
+		for (BoardVO vo : mapper.getMagazineList()) {
 			System.out.println("Board Magazine Name: " + vo.getBoard_name());
 		}
 	}

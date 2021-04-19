@@ -77,25 +77,30 @@
 		$(document).ready(function (){
 			$('#delete').click(function(event){
 				event.preventDefault();
-				console.log("ajax 호출전");		
-	 
-				$.ajax({
-					type : 'DELETE',
-					url : $(this).attr("href"),
-					cache : false,
-					success: function(result){
-						console.log(result);
-						if(result == "SUCCESS"){
-							alert('삭제 완료'); 
-							$(location).attr('href', '${pageContext.request.contextPath}/board/notice') 
+				
+				if (confirm("게시글을 삭제하시겠습니까?")) {
+					console.log("ajax 호출전");		
+					 
+					$.ajax({
+						type : 'DELETE',
+						url : $(this).attr("href"),
+						cache : false,
+						success: function(result){
+							console.log(result);
+							if(result == "SUCCESS"){
+								alert('삭제 완료'); 
+								$(location).attr('href', '${pageContext.request.contextPath}/board/notice') 
+							}
+						},
+						error:function(e){
+							console.log(e);
+			                alert('삭제 실패');
+			                location.reload(); // 실패시 새로고침하기
 						}
-					},
-					error:function(e){
-						console.log(e);
-		                alert('삭제 실패');
-		                location.reload(); // 실패시 새로고침하기
-					}
-				})
+					})
+				} else {
+					location.reload();
+				}	
 			});	
 		});	
 	</script>

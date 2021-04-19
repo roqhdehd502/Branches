@@ -1,10 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
-    
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,14 +20,26 @@
 	<link rel="stylesheet" href="/assets/css/slicknav.css">
 	<link rel="stylesheet" href="/assets/css/main.css">
 	<link rel="stylesheet" href="/bootstrap.min.css">
+	
+	<!-- 반응형 사이즈 조절 -->
+	<link rel="stylesheet" href="/css/reactive_size.css">
 </head>
 <body>
-	<div class="row">
-  		<div class="col"></div>
-  		<div class="col">
-  			<div class="container">
-				<div align="center"><img src="<c:url value="/img/branches_text.png"/>" width="200"></div>
-				<h2 align="center">로그인</h2><br>
+	<div class="container">
+		<div class="row">
+			<div class="col side_blank"></div>
+
+			<div class="col">
+				<div align="center">
+					<img src="<c:url value="/img/branches_text.png"/>" style="width: 200px;">
+				</div>
+
+				<div align="center">
+					<h2>로그인</h2>
+				</div>
+
+				<br>
+
 				<!-- 로그인 실패 시 오류 메세지 -->
 				<c:if test="${error}">
 					<div>
@@ -37,8 +47,8 @@
 					</div>
 				</c:if>
 				<form action="/login" method="POST">
-				<!-- <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}" />
-				<form action="/login" method="POST" name="form1"> -->
+					<!-- <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}" />
+					<form action="/login" method="POST" name="form1"> -->
 					<div class="form-check" align="left">
 						<label class="form-check-label">
 							<p>
@@ -62,21 +72,24 @@
 					</div>
 
 					<div class="form-group" align="center">
-						<br>
-			      <a href="/join">회원가입</a>&nbsp;|&nbsp;
-			      <a href="/find_id_pw">ID / PW 찾기</a>
-			    </div>
-					<div class="form-group" align="center">
-						<br> <a href="/oauth2/authorization/kakao"><img src="<c:url value="/img/kakao_circle.png"/>" width="50" height="50"></a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="/oauth2/authorization/naver"><img src="<c:url value="/img/naver-icon-file.jpg"/>" width="50" height="50"></a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="/oauth2/authorization/google"><img src="<c:url value="/img/google_logo.jpg"/>" width="50" height="50"></a>
+						<br> <a href="/join">회원가입</a>&nbsp;|&nbsp; <a href="/find_id_pw">ID / PW 찾기</a>
+					</div>
+					<div align="center">
+						<br> <a href="/oauth2/authorization/kakao"><img class="social_logo" src="<c:url value="/img/kakao_circle.png"/>" style="width: 50px; height: 50px"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="/oauth2/authorization/naver"><img class="social_logo" src="<c:url value="/img/naver-icon-file.jpg"/>" style="width: 50px; height: 50px"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="/oauth2/authorization/google"><img class="social_logo" src="<c:url value="/img/google_logo.jpg"/>" style="width: 50px; height: 50px"></a>
 					</div>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				</form>
+
 			</div>
-  		</div>
-  		<div class="col"></div>
+
+			<div class="col side_blank"></div>
+		</div>
 	</div>
+
+	<div style="margin-bottom: 5%"></div>
+
 	<!--Required JS files-->
 	<script src="/assets/js/jquery-2.2.4.min.js"></script>
 	<script src="/assets/js/vendor/popper.min.js"></script>

@@ -20,7 +20,6 @@ public class BoardControllerTests { // 게시판 컨트롤러 테스트
 	@Autowired
 	private MockMvc mockMvc;
 
-	// GetMapping 테스트
 	@Test
 	public void getMappingTest() throws Exception {
 		// 공지사항 게시판 리스트

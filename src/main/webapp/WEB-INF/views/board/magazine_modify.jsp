@@ -99,42 +99,46 @@
 			$('#magazine_delete').click(function(event) {
 				event.preventDefault();
 				
-	    		var formData = new FormData(); // FormData 객체 생성
-	     		
-	     		// upload_image 키워드가 붙은 class를 조회한다
-	     		var imageCnt = $("[class='upload_image']").length;
-	     		console.log("imageCnt: " + imageCnt);
-	     		
-	     		// 해당 이미지의 html 정보를 가져온다
-	     		var fileInfo = $('.upload_image').html();
-	     		
-	     		// 가져온 데이터 확인
-	     		console.log("fileInfo: " + fileInfo);
-	     		
-     			// formData에 해당 데이터를 append한다
-     			formData.append("deletefiles", fileInfo);
-	     		
-	     		console.log("formData: " + formData);
-	 
-				$.ajax({
-					type : 'DELETE', 
-					url : $(this).attr("href"), 
-					cache : false, 
-	                processData: false, 
-		    		contentType: false, 
-	                data: formData, 
-					success: function(result) {
-						console.log(result);
-						if(result == "SUCCESS") {
-							alert("게시글을 삭제합니다.");
-							$(location).attr('href', '${pageContext.request.contextPath}/board/magazine')
+				if (confirm("게시글을 삭제하시겠습니까?")) {
+					var formData = new FormData(); // FormData 객체 생성
+		     		
+		     		// upload_image 키워드가 붙은 class를 조회한다
+		     		var imageCnt = $("[class='upload_image']").length;
+		     		console.log("imageCnt: " + imageCnt);
+		     		
+		     		// 해당 이미지의 html 정보를 가져온다
+		     		var fileInfo = $('.upload_image').html();
+		     		
+		     		// 가져온 데이터 확인
+		     		console.log("fileInfo: " + fileInfo);
+		     		
+	     			// formData에 해당 데이터를 append한다
+	     			formData.append("deletefiles", fileInfo);
+		     		
+		     		console.log("formData: " + formData);
+		 
+					$.ajax({
+						type : 'DELETE', 
+						url : $(this).attr("href"), 
+						cache : false, 
+		                processData: false, 
+			    		contentType: false, 
+		                data: formData, 
+						success: function(result) {
+							console.log(result);
+							if(result == "SUCCESS") {
+								alert("게시글을 삭제합니다.");
+								$(location).attr('href', '${pageContext.request.contextPath}/board/magazine')
+							}
+						},
+						error:function(e) {
+							alert("게시글을 삭제할 수 없습니다.");
+							console.log(e);
 						}
-					},
-					error:function(e) {
-						alert("게시글을 삭제할 수 없습니다.");
-						console.log(e);
-					}
-				})
+					})	
+				} else {
+					location.reload();
+				}
 			});	
 		});
 	</script>
@@ -232,44 +236,48 @@
 										$('.img_del_only').click(function(event){
 											event.preventDefault();
 											
-											// FormData 객체 생성
-											var formData = new FormData(); 
-											
-											// 해당 이미지를 감싸는 태그를 불러온다
-											var trObj = $(this).parent().parent(); 
-											console.log(trObj);
-											
-											// upload_image 키워드가 붙은 class를 조회한다
-								     		var imageCnt = $("[class='upload_image']").length;
-								     		console.log("imageCnt: " + imageCnt);
-								     		
-								     		// 해당 이미지의 html 정보를 가져온다
-								     		var fileInfo = $('.upload_image').html();
-								     		
-								     		// 가져온 데이터 확인
-								     		console.log("fileInfo: " + fileInfo);
-								     		
-							     			// formData에 해당 데이터를 append한다
-							     			formData.append("onedeletefiles", fileInfo);
-								     		
-								     		console.log("formData: " + formData);
-								 
-											$.ajax({
-												type : 'POST', 
-												url : $(this).attr("href"), 
-												cache : false, 
-								                processData: false, 
-									    		contentType: false, 
-								                data: formData, 
-												success: function(result){
-													console.log(result);
-													$(trObj).remove(); // 해당 이미지 컨테이너 삭제
-													console.log("IMAGE_REMOVED!")
-												},
-												error:function(e){
-													console.log(e);
-												}
-											})
+											if (confirm("썸네일을 삭제하시겠습니까?")) {
+												// FormData 객체 생성
+												var formData = new FormData(); 
+												
+												// 해당 이미지를 감싸는 태그를 불러온다
+												var trObj = $(this).parent().parent(); 
+												console.log(trObj);
+												
+												// upload_image 키워드가 붙은 class를 조회한다
+									     		var imageCnt = $("[class='upload_image']").length;
+									     		console.log("imageCnt: " + imageCnt);
+									     		
+									     		// 해당 이미지의 html 정보를 가져온다
+									     		var fileInfo = $('.upload_image').html();
+									     		
+									     		// 가져온 데이터 확인
+									     		console.log("fileInfo: " + fileInfo);
+									     		
+								     			// formData에 해당 데이터를 append한다
+								     			formData.append("onedeletefiles", fileInfo);
+									     		
+									     		console.log("formData: " + formData);
+									 
+												$.ajax({
+													type : 'POST', 
+													url : $(this).attr("href"), 
+													cache : false, 
+									                processData: false, 
+										    		contentType: false, 
+									                data: formData, 
+													success: function(result){
+														console.log(result);
+														$(trObj).remove(); // 해당 이미지 컨테이너 삭제
+														console.log("IMAGE_REMOVED!")
+													},
+													error:function(e){
+														console.log(e);
+													}
+												})
+											} else {
+												location.reload();
+											}
 										});	
 									});	
 									</script>

@@ -14,12 +14,6 @@ import edu.bit.ex.vo.PrdctImageVO;
 
 @Mapper
 public interface BoardMapper {
-	// 테스트용 공지사항 게시판 리스트
-	public List<BoardVO> getNoticeList();
-
-	// 테스트용 매거진 게시판 리스트
-	public List<BoardVO> getMagazineList();
-
 	// 페이징을 적용한 공지사항 게시판 리스트
 	public List<BoardVO> getNoticeListWithPaging(NoticeCriteria cri);
 
@@ -85,5 +79,4 @@ public interface BoardMapper {
 
 	// 매거진 수정페이지 썸네일까지 변경
 	public void setMagazineModifyAddImg(BoardVO boardVO);
-
 }
