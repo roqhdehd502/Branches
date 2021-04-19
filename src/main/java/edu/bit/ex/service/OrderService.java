@@ -1,17 +1,20 @@
 package edu.bit.ex.service;
 
 import edu.bit.ex.joinvo.PrdctOrderDetailVO;
+import edu.bit.ex.vo.OrderDetailVO;
+import edu.bit.ex.vo.PrdctOrderVO;
 
 public interface OrderService {
 
-	// 장바구니 리스트
-	// public List<PrdctVO> getCartList();
-
-	// 장바구니 페이지
-	// public PrdctVO getProduct(String prdct_id);
-
+	// 장바구니
 	public PrdctOrderDetailVO getPrdctCart(String prdct_id);
 
-	public void insertOrder(PrdctOrderDetailVO prdVO);
+	// 한 결제 내역 저장
+	public void insertOrder(PrdctOrderVO po);
+
+	// 아이디로 결제정보 조회
+	public PrdctOrderVO getPayInfo(String mbr_id);
+
+	public void insertOrderDetail(OrderDetailVO odVO);
 
 }

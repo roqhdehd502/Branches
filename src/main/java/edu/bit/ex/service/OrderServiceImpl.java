@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import edu.bit.ex.joinvo.PrdctOrderDetailVO;
 import edu.bit.ex.mapper.OrderMapper;
+import edu.bit.ex.vo.OrderDetailVO;
+import edu.bit.ex.vo.PrdctOrderVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,9 +25,21 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void insertOrder(PrdctOrderDetailVO prdVO) {
-		log.info("insertOrder()");
-		orderMapper.insertOrder(prdVO);
+	public void insertOrder(PrdctOrderVO po) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public PrdctOrderVO getPayInfo(String mbr_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void insertOrderDetail(OrderDetailVO odVO) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
