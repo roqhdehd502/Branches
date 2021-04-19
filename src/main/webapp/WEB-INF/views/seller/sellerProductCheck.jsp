@@ -140,15 +140,17 @@
 										<tr>
 											
 											<th><h5>상품ID</h5></th>
+											<th><h5>상품사진</h5></th>
 											<th><h5>상품명</h5></th>
 											<th><h5>가격</h5></th>
 											<th><h5>등록일</h5></th>
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach items="${bId}" var="bId" varStatus="status">
+										<c:forEach items="${bId}" var="bId">
 											<tr>
 												<td><h5>${bId.prdct_id }</h5></td>
+												<td><img src="/hs/${bId.prdct_thumbnail }" style="width: 100px; height: 120px;"></img></td>
 												
 												<td><a href="/seller/mypage/prdct/${bId.prdct_id}">
 													<h5>${bId.prdct_name }</h5>
