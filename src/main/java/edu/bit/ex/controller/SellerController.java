@@ -100,22 +100,13 @@ public class SellerController {
 	// 상품 등록
 	@Transactional
 	@PostMapping("/mypage/prdct")
-	public ResponseEntity<String> prdct_register(ModelAndView mav, MbrVO mbr, PrdctRegisterImageVO prdctIVO) {
+	public ResponseEntity<String> prdct_register(PrdctRegisterImageVO prdctIVO, ModelAndView mav, MbrVO mbr) {
 		ResponseEntity<String> entity = null;
 		log.info("prdct_register...");
 
-		/* MultipartFile[] uploadfiles = prdctIVO.getUploadfiles(); */
-
 		try {
+			/* sellerService.prdInsert(prdctIVO); */
 			sellerService.prdInsert(prdctIVO);
-			; // 텍스트 등록(1). 우선 텍스트 부분을 선행으로 한다.
-
-			/*
-			 * for (MultipartFile f : uploadfiles) {
-			 * 
-			 * sellerService.setPrdctImage(f); // 이미지 등록(N). 텍스트 부분이 선행되면 이미지를 올린다. }
-			 */
-
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -141,7 +132,6 @@ public class SellerController {
 		// 상품 조회 - 내림차순
 		mav.addObject("bId", sellerService.getbNumDesc(cri));
 		mav.addObject("cate", sellerService.getCategory());
-		mav.addObject("pt", sellerService.prdctThumbnail());
 
 		int total = sellerService.getPrdTotal(cri);
 		log.info("getTotal");
@@ -163,23 +153,38 @@ public class SellerController {
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
 
+		// 상품 정보 불러오기
 		mav.addObject("pdvo", sellerService.getPrdctInfo(prdct_id));
+		// 판매자 주소 불러오기
 		mav.addObject("svo", sellerService.getAddress(svo.getMbr_id()));
+		// 상품 내용 불러오기
 		mav.addObject("bContent", sellerService.getContent(prdct_id));
 
 		return mav;
 	}
 
 	// 판매자 상품 수정 ajax
+	@Transactional
 	@PutMapping(value = "/mypage/prdct/{prdct_id}/modify")
 	public ResponseEntity<String> prdctUpdate(@RequestBody PrdctRegisterImageVO prvo) {
 		ResponseEntity<String> entity = null;
 
 		log.info("prdct_update..");
-		try {
+		MultipartFile[] uploadfiles = prvo.getUploadfiles(); // 썸네일 파일 가져오기
+		String onedeletefiles = prvo.getOnedeletefiles(); // 이미지만 삭제
 
-			sellerService.updatePrdctInfo(prvo);
-			sellerService.prdctContentUpdate(prvo);
+		try {
+			if (uploadfiles != null && onedeletefiles == null) {
+				// 수정페이지에서 사진을 새로 추가할 경우 진행한다
+				sellerService.setMagazineModifyAddImg(prvo);
+			} else if (uploadfiles == null && onedeletefiles != null) {
+				// 이미지만 삭제할 경우 진행한다
+				sellerService.magazineImageOnlyRemove(prvo);
+			} else {
+				// 사진을 새로 추가하지 않고 내용만 변경된 경우 진행한다
+				sellerService.updatePrdctInfo(prvo);
+				sellerService.prdctContentUpdate(prvo);
+			}
 			log.info("update prdct info");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 

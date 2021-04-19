@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css">
 <script src="/ckeditor/ckeditor.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
 <body>
@@ -93,20 +94,22 @@
 									<input type="text" class="form-control" placeholder="상품명을 입력해주세요" id="prdct_name" value="${pdvo.prdct_name}">
 								</div>
 							</div>
-							<!-- thumbnail ckeditor -->
 							<div class="form-group row">
-								<label class="col-sm-2 col-form-label">대표이미지(Thumbnail)</label>
+								<label class="col-sm-2 col-form-label">썸네일</label>
 								<div class="col-sm-10">
-									<textarea name="prdct_thumbnail" id="prdct_thumbnail">${pdvo.prdct_thumbnail }</textarea>
-									<script>
-									var editor2 = CKEDITOR.replace("prdct_thumbnail", {
-										filebrowserUploadUrl : "${pageContext.request.contextPath}/seller/thumbnailModify.do",
-										height : 250
-									});	
-									</script>
+									<input type="file" id="prdct_thumbnail" name="prdct_thumbnail" placeholder="첨부 사진" multiple />
+									<!-- 이미지 컨테이너 -->
+									<div id="image_container" class="row" style="padding: 3% 3% 3% 5%">
+										<div class="col-md-2" align="center">
+											<!-- 게시글을 삭제할 때 이미지도 삭제하기 위한 이미지 정보 -->
+											<span class="upload_image" style="display: none;">${pdvo.prdct_thumbnail}</span> 
+												<img src="/hs/${pdvo.prdct_thumbnail}" width="100px" height="140px">
+											<button type="button" class="btn btn-danger img_del_only" data-rno="1">&#88;</button>
+										</div>
+									</div>
 								</div>
 							</div>
-							<div class="form-group row">
+								<div class="form-group row">
 								<label class="col-sm-2 col-form-label">카테고리</label>
 								<div class="col-sm-10">
 									<select class="form-control" id="category_number">
@@ -229,7 +232,6 @@
 		<script src="/assets/js/vendor/loopcounter.js"></script> 
 		<script src="/assets/js/vendor/slicknav.min.js"></script>
 		<script src="/assets/js/active.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -238,7 +240,7 @@ $(document).ready(function(){
 		
 		var prdct_id = $("#prdct_id").val();
         var prdct_name = $("#prdct_name").val();
-        var prdct_thumbnail = CKEDITOR.instances.prdct_thumbnail.getData();
+        var prdct_thumbnail = $("#prdct_thumbnail").value();
         var category_number = $("#category_number option:selected").val();
         var prdct_price = $("#prdct_price").val();
         var prdct_color = $("#prdct_color").val();
@@ -246,13 +248,14 @@ $(document).ready(function(){
         var board_content = CKEDITOR.instances.board_content.getData();
         var prdct_stock = $("#prdct_stock").val();
         
-        console.log(prdct_id)
+        console.log(prdct_id);
+        console.log(prdct_thumbnail);
         console.log($(this).attr("action"));
         
         var form = {
         		prdct_id: prdct_id,
         		prdct_name: prdct_name,
-        		prdct_thumbnail: prdct_thumbnail,
+        		prdct_thumbnail : prdct_thumbnail,
         		category_number: category_number,
         		prdct_price: prdct_price,
         		prdct_color: prdct_color,
@@ -261,6 +264,20 @@ $(document).ready(function(){
         		prdct_stock: prdct_stock
        	 };
         console.log(form);
+        
+     	// 파일 업로드 체크(게시글 내용만 수정하는 것 대비...)
+        var inputFile = $("#uploadfiles");
+        var files = inputFile[0].files;
+        
+        // 파일을 담는 배열이 비어 있지 않으면(파일 업로드 시) FormData에 파일 정보를 추가한다
+        if (files != null) {    
+     	   for (var i = 0; i < files.length; i++) {
+			       console.log(files[i]);
+			       formData.append("uploadfiles", files[i]);
+			       appended = true;
+		   	   }
+		   }
+        
 	    //dataType: 'json',
         $.ajax({
 		    type : "PUT",

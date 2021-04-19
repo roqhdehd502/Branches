@@ -26,7 +26,7 @@
 	<select id="getbNumDesc" resultType="edu.bit.ex.joinvo.PrdctRegisterImageVO">
 		<![CDATA[
 			SELECT * FROM (
-		 	select rownum rn, b.board_id, b.board_date, b.prdct_id, p.prdct_name, p.prdct_price
+		 	select rownum rn, b.board_id, b.board_date, b.prdct_id, p.prdct_name, p.prdct_price, p.prdct_thumbnail
 		 	from board b, prdct p
 		 	where (b.board_type_number = 6 and b.prdct_id = p.prdct_id) and
 		]]>
@@ -47,25 +47,6 @@
 		
 		board_id > 0 and b.prdct_id = p.prdct_id
 	</select>
-	
-	<!-- 상품 게시판 아이디 게시판 유형이 6번인거 불러오기 및 페이징-->
-	<!-- <select id="getbNumDesc" resultType="edu.bit.ex.joinvo.PrdctRegisterImageVO" >
-		<![CDATA[
-			SELECT * FROM (
-			     SELECT ROWNUM AS RNUM, A.* FROM (
-			        	select b.board_id, b.board_date, b.prdct_id, p.prdct_name, p.prdct_price from board b, prdct p
-							where b.board_type_number = 6 and b.prdct_id = p.prdct_id order by b.board_id DESC
-			    ) A WHERE ROWNUM <= #{pageNum} * #{amount}
-			) WHERE RNUM > (#{pageNum}-1) * #{amount}
-	
-		]]>
-	</select>
-	
-	<select id="getPrdTotal" resultType="int" >
-		<![CDATA[			
-			select count(*) from board b, prdct p where b.prdct_id = p.prdct_id
-		]]>
-	</select> -->
 	
 	<!-- 상품 카테고리 불러오기 -->
 	<select id="getCategory" resultType="edu.bit.ex.vo.CategoryVO">
@@ -116,12 +97,7 @@
 		]]>
 	</select>
 	
-	<!-- 게시글 정보 불러오기 -->
-	<!-- <select id="getBoard" resultType="edu.bit.ex.vo.BoardVO">
-		<![CDATA[
-			select * from board
-		]]>
-	</select> -->
+
 	<!-- 게시글 검색기능 + 페이징 -->
 	<sql id="searchCriteria">
 		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
@@ -187,10 +163,22 @@
 	</update>
 	
 	<!-- 상품등록하기 -->
-	<insert id="prdInsert">
+	<!-- <insert id="prdInsert">
 		<![CDATA[
-			insert all into prdct (prdct_id, prdct_name, prdct_price, category_number, prdct_color, prdct_size, prdct_stock, mbr_id) values
-				(#{prdct_id},#{prdct_name}, #{prdct_price}, #{category_number},#{prdct_color},#{prdct_size},#{prdct_stock}, #{mbr_id}) 
+			insert all into prdct (prdct_id, prdct_name, prdct_thumbnail, prdct_price, category_number, prdct_color, prdct_size, prdct_stock, mbr_id) values
+				(#{prdct_id}, #{prdct_name}, #{uploadfiles}, #{prdct_price}, #{category_number},#{prdct_color},#{prdct_size},#{prdct_stock}, #{mbr_id}) 
+					into board (board_id, board_name, board_content, board_type_number, prdct_id ,board_like, board_hit, mbr_id) 
+						values(board_seq.nextval, 'TEST', #{board_content}, 6, #{prdct_id} ,0, 0, #{mbr_id})
+							select * from dual
+		]]>
+	</insert> -->
+
+	<!-- 매거진 첨부사진 작성 -->
+	<!-- 매거진 작성을 거친뒤 첨부사진을 올리는 상황이므로 업로드하는 board_id의 현재 번호를 가리키는 board_seq.currval을 insert 한다. -->
+	<insert id="setPrdctImage">
+	<![CDATA[
+			insert all into prdct (prdct_id, prdct_name, prdct_thumbnail, prdct_price, category_number, prdct_color, prdct_size, prdct_stock, mbr_id) values
+				(#{prdct_id}, #{prdct_name}, #{prdct_thumbnail}, #{prdct_price}, #{category_number},#{prdct_color},#{prdct_size},#{prdct_stock}, #{mbr_id}) 
 					into board (board_id, board_name, board_content, board_type_number, prdct_id ,board_like, board_hit, mbr_id) 
 						values(board_seq.nextval, 'TEST', #{board_content}, 6, #{prdct_id} ,0, 0, #{mbr_id})
 							select * from dual
@@ -204,13 +192,6 @@
 	]]>
 	</delete>
 	
-	<!-- 썸네일 불러오기 -->
-	<select id="prdctThumbnail" resultType="edu.bit.ex.vo.PrdctVO">
-	<![CDATA[
-		select * from prdct
-	]]>
-	</select>
-	
 	<!-- 판매자 등록상품 불러오기 (수정페이지) -->
 	<select id="getPrdctInfo" resultType="edu.bit.ex.vo.PrdctVO">
 	<![CDATA[
@@ -222,7 +203,7 @@
 	<update id="updatePrdctInfo">
 	<![CDATA[
 		update prdct set prdct_name=#{prdct_name}, category_number=#{category_number}, prdct_color=#{prdct_color}, prdct_size = #{prdct_size}
-							,prdct_price=#{prdct_price}, prdct_stock=#{prdct_stock}, prdct_thumbnail=#{prdct_thumbnail} where prdct_id=#{prdct_id}
+				,prdct_price=#{prdct_price}, prdct_stock=#{prdct_stock}, prdct_thumbnail=#{prdct_thumbnail} where prdct_id=#{prdct_id}
 	]]>
 	</update>
 	
@@ -231,6 +212,15 @@
 	<![CDATA[
 		update board set board_content=#{board_content} where prdct_id=#{prdct_id}
 	]]>
+	</update>
+	
+	<!-- 매거진 썸네일만 삭제 -->
+	<update id="magazineImageOnlyRemove">
+		<![CDATA[
+			UPDATE prdct 
+			SET prdct_thumbnail = null 
+			WHERE prdct_id = #{prdct_id}
+		]]>
 	</update>
 	
 </mapper>

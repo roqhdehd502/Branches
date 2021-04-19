@@ -40,7 +40,7 @@ public interface SellerService {
 	public void prdctDelete(String prdct_id);
 
 	// 상품 등록
-	public void prdInsert(PrdctRegisterImageVO PrdctImageVO);
+	/* public void prdInsert(PrdctRegisterImageVO PrdctImageVO); */
 
 	public PrdctVO getOption(String getPrdct_id);
 
@@ -68,7 +68,10 @@ public interface SellerService {
 	// 상품정보 수정하기
 	public void updatePrdctInfo(PrdctRegisterImageVO prvo);
 
-	// 썸네일 수정하기
-	public List<PrdctVO> prdctThumbnail();
+	// 상품 등록
+	public void prdInsert(PrdctRegisterImageVO prdctIVO);
 
+	public void setMagazineModifyAddImg(PrdctRegisterImageVO prvo);
+
+	public void magazineImageOnlyRemove(PrdctRegisterImageVO prvo);
 }
