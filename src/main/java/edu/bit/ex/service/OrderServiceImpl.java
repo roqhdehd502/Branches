@@ -26,20 +26,19 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public void insertOrder(PrdctOrderVO po) {
-		// TODO Auto-generated method stub
+		orderMapper.insertOrder(po);
 
 	}
 
 	@Override
-	public PrdctOrderVO getPayInfo(String mbr_id) {
-		// TODO Auto-generated method stub
-		return null;
+	public PrdctOrderVO getOrderInfo(String mbr_id) {
+
+		return orderMapper.getOrderInfo(mbr_id);
 	}
 
 	@Override
 	public void insertOrderDetail(OrderDetailVO odVO) {
-		// TODO Auto-generated method stub
-
+		orderMapper.insertOrderDetail(odVO);
 	}
 
 }

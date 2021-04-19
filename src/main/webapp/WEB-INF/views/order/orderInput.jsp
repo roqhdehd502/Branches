@@ -125,30 +125,30 @@ function payNow(method) {
 		return;
 	}
 	
-	var email = "${member.member_id}";
-	var name = "${member.name}";
-	var tel = "0${member.tel}";
-	var address = "${member.address}";
+	var name = "${member.mbr_name}";
+	var order_mail = $("#order_mail").val();
+	var shipping_tel =  $("#shipping_tel").val();
+	var shipping_address = $("#shipping_address").val();
 	//결제 정보
 	var lastTotal = $("#lastTotal").val();
-	var nameCount = this.form.goodsName.length - 2;
+	var nameCount = this.form.prdct_name.length - 2;
 	console.log(nameCount)
-	var goodsName = this.form.goodsName[1].value;
+	var prdct_name = this.form.prdct_name[1].value;
 	if (nameCount > 0) {
-		goodsName += " 외 " + nameCount + "개"
+		prdct_name += " 외 " + nameCount + "개"
 	}
 BootPay.request({
 	price: lastTotal, //실제 결제되는 가격
-	application_id: "6076c93a5b2948001d07b41b",
-	name: goodsName, //결제창에서 보여질 이름
+	application_id: "607d15825b2948002e07b945",
+	name: prdct_name, //결제창에서 보여질 이름
 	pg: 'inicis',
 	method: method, //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
 	show_agree_window: 0, // 부트페이 정보 동의 창 보이기 여부
 	user_info: {
 		username: name,
-		email: email,
-		addr: address,
-		phone: tel
+		email: order_mail,
+		addr: shipping_address,
+		phone: shipping_tel
 	},
 	order_id: guid(), //고유 주문번호로, 생성하신 값을 보내주셔야 합니다.
 	extra: {
@@ -186,7 +186,7 @@ BootPay.request({
 	
 	// 유효성 체크
 	$.ajax({
-		url : "/myPage/orderList/payCheck/"+data.receipt_id,
+		url : "${pageContext.request.contextPath}/orderInput/check/"+data.receipt_id,
 		type : "post",
 		success : function(verify) {
 			if(verify.status=="200"){
@@ -197,7 +197,7 @@ BootPay.request({
 				
 				var msg = '결제가 완료되었습니다.';
 				msg += '영수증ID : ' + verify.data.receipt_id;
-				msg += '상점 거래ID : ' + verify.data.order_id;
+				msg += '상점 거래ID : ' + verify.data.order_number;
 				msg += '결제 금액 : ' + verify.data.price;
 				$("#paydate").val(verify.data.purchased_at)
 				$("#receipt_id").val(verify.data.receipt_id);
@@ -338,7 +338,7 @@ function jusoCallBack(roadFullAddr, zipNo) {
 	<div class="container">
 		<%@ include file="/WEB-INF/views/common/header.jsp"%>
 
-		<form name="form" action="/cart/orderInput/insert" method="post">
+		<form name="form" action="${pageContext.request.contextPath}/order/orderInput/insert" method="post">
 
 			<br /> <br />
 			<fieldset>
@@ -398,23 +398,23 @@ function jusoCallBack(roadFullAddr, zipNo) {
 
 				<!-- 주문자 연락처 -->
 				<div class="form-group row">
-					<label for="orderTel" class="col-sm-2 col-form-label">Phone Number</label>
+					<label for="shipping_tel" class="col-sm-2 col-form-label">Phone Number</label>
 					<div class="col-sm-10">
-					<input type="text" class="form-control" id="orderTel" placeholder="배송받을 연락처를 입력하세요.(-제외)">
+					<input type="text" class="form-control" id="shipping_tel" name="shipping_tel" placeholder="배송받을 연락처를 입력하세요.(-제외)">
 					</div>
 				</div>
  
 				<!-- 주문자 이메일 -->
 				<div class="form-group row">
-					<label for="orderEmail" class="col-sm-2 col-form-label">Email</label>
+					<label for="order_mail" class="col-sm-2 col-form-label">Email</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" id="orderEmail" placeholder="email@example.com">
+						<input type="text" class="form-control" id="order_mail" name="order_mail" placeholder="email@example.com">
 					</div>
 				</div>
 
 				<!-- 배송 주소 -->
 				<div class="form-group row">
-					<label for="shippingAd" class="col-sm-2 col-form-label">Shipping Address</label>
+					<label for="shipping_address" class="col-sm-2 col-form-label">Shipping Address</label>
 					<div class="form-group row col-sm-10" style="margin-left: 1px">
 						<input type="text" class="form-control col-sm-8" id="shipping_address" name="shipping_address" style="margin-bottom: 3px"> <input
 							type="button" class="form-control col-sm-2" onClick="goPopup();" value="주소찾기"> 
@@ -423,9 +423,9 @@ function jusoCallBack(roadFullAddr, zipNo) {
 
 				<!-- 배송 메모 -->
 				<div class="form-group row">
-					<label for="shipMemo" class="col-sm-2 col-form-label">Shipping Memo</label>
+					<label for="shipping_memo" class="col-sm-2 col-form-label">Shipping Memo</label>
 					<div class="form-group col-sm-10">
-						<select class="form-control" id="shipMemo">
+						<select class="form-control" id="shipping_memo">
 							<option>배송 시 요청사항을 선택해주세요.</option>
 							<option>부재 시 경비실에 맡겨주세요.</option>
 							<option>부재 시 택배함에 넣어주세요.</option>

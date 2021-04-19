@@ -180,7 +180,7 @@ function buy() {
 		}
 	}
 	sessionStorage.setItem("order", JSON.stringify(order));
-	window.location.assign("/order/cart/orderInput");
+	window.location.assign("/order/orderInput");
 }
 </script>
 </head>
@@ -189,7 +189,7 @@ function buy() {
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	
 		<!-- 장바구니	 -->
-		<form id="cart" name="form" method="post" action="${pageContext.request.contextPath}/order/cart/orderInput">
+		<form id="cart" name="form" method="post" action="${pageContext.request.contextPath}/order/orderInput">
 		
 		<div class="container" style="text-align: center;">
 				<br />
