@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css">
 <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
 <body>
@@ -100,8 +101,9 @@
 								<div class="col-sm-10">
 									<div class="custom-file" id="inputFile">
 										<%-- <img src="/resources/static/prdct_img/prdct_thumbnail/${prdct.prdct_thumbnail }"  height="200px" width="200px"/> --%>
-										<input name="file" type="file" class="prdct_thumbnail" id="prdct_thumbnail" style="height"> 
-										
+										<input type="file" class="prdct_thumbnail" id="prdct_thumbnail" name="prdct_thumbnail" multiple > 
+										<span class="upload_image" style="display: none;">${prdct.prdct_thumbnail}</span> 
+												<img src="/resources/static/prdct_img/prdct_thumbnail/${prdct.prdct_thumbnail}" width="100px" height="140px">
 									</div>
 								</div>
 							</div>
@@ -250,8 +252,7 @@ $(document).ready(function(){
         var board_id = $("#board_id").val();
         var board_content = CKEDITOR.instances.board_content.getData();
         var prdct_stock = $("#prdct_stock").val();
-        //var prdct_thumbnail = $("#prdct_thumbnail").val();
-        var uploadfile = $("#prdct_thumbnail").val();
+        var prdct_thumbnail = $("#prdct_thumbnail").val();
         
         console.log($(this).attr("action"));
         
@@ -266,9 +267,21 @@ $(document).ready(function(){
         		board_id: board_id,
         		board_content: board_content,
         		prdct_stock: prdct_stock,
-        		uploadfile: uploadfile
+        		prdct_thumbnail: prdct_thumbnail
        	 };
         console.log(form);
+        
+        var inputFile = $("#prdct_thumbnail");
+        var files = inputFile[0].files;
+        
+        if (files != null) {
+        	for(var i=0; i<files.length; i++) {
+        		console.log(files[i]);
+        		formData.append("uploadfiles", files[i]);
+        		appended = true;
+        		
+        	}
+        }
 	    //dataType: 'json',
         $.ajax({
 		    type : "PUT",

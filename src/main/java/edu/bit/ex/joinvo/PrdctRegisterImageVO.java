@@ -60,8 +60,6 @@ public class PrdctRegisterImageVO { // 게시판 이미지 VO
 	private int prdct_stock; // 상품재고량
 	private String prdct_thumbnail; // 게시글썸네일
 
-	private MultipartFile uploadfile; // 썸네일파일
-
 	// 보드VO
 	private int board_id; // 게시글번호 부모pk, 자식fk
 	private String board_name; // 게시글제목

@@ -1,10 +1,14 @@
 package edu.bit.ex.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
@@ -28,6 +32,9 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	PasswordEncoder passEncoder;
+
+	// 매거진 썸네일 저장 경로
+	private static final String PRDCT_THUMBNAIL_PATH = "C:/tetleaf/Branches/src/main/resources/static/prdct_img/prdct_thumbnail";
 
 	// 고객 Q&A 페이징 리스트
 	/*
@@ -177,9 +184,32 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<PrdctRegisterImageVO> getSellerPrdctList(String m_id) {
+	public void updatePrdctThumb(PrdctRegisterImageVO prvo) {
 		// TODO Auto-generated method stub
-		return adminMapper.getSellerPrdctList(m_id);
+		log.info("======service update prdct with thumb======");
+
+		MultipartFile[] uploadfile = prvo.getUploadfiles();
+
+		if (uploadfile[0].getContentType().startsWith("image") == false) {
+			log.warn("======thumbnail file contenttype is not img======");
+		}
+
+		UUID uuid = UUID.randomUUID();
+		String saveName = uuid + "_" + uploadfile[0].getOriginalFilename();
+		log.info("img name : " + saveName);
+
+		File saveFile = new File(PRDCT_THUMBNAIL_PATH, saveName);
+
+		try {
+			uploadfile[0].transferTo(saveFile);
+			prvo.setPrdct_thumbnail(saveName);
+			log.info("======prdct_thumbnail : " + prvo.getPrdct_thumbnail());
+		} catch (IOException e) {
+			// TODO: handle exceptio
+			e.printStackTrace();
+		}
+
+		adminMapper.updatePrdctThumb(prvo);
 	}
 
 }

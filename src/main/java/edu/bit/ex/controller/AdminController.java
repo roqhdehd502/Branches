@@ -2,7 +2,6 @@ package edu.bit.ex.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
@@ -12,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -162,33 +162,24 @@ public class AdminController {
 	}
 
 	// 상품 수정
+	@Transactional
 	@PutMapping(value = "/mypage/seller/{seller_id}/prdct/{prdct_id}/modify")
-	public ResponseEntity<String> admin_seller_prdct_modify(@RequestBody PrdctRegisterImageVO prvo, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ResponseEntity<String> admin_seller_prdct_modify(@RequestBody PrdctRegisterImageVO prvo) throws Exception {
 		ResponseEntity<String> entity = null;
 
-		String fileName = "";
-		String path = "C:\\tetleaf\\Branches\\src\\main\\resources\\static\\prdct_img\\prdct_thumbnail\\";
+		log.info("======prdct updating======");
+		MultipartFile[] uploadfile = prvo.getUploadfiles();
 
-		fileName = prvo.getPrdct_id() + "_" + prvo.getUploadfile().getOriginalFilename();
-		prvo.setPrdct_thumbnail(fileName);
 		try {
-			new File(path).mkdirs();
-			prvo.getUploadfile().transferTo(new File(path + fileName));
-
-		} catch (IOException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-
-		prvo.setPrdct_thumbnail(fileName);
-
-		log.info("admin prdct info modify");
-		try {
-			adminService.updatePrdctInfo(prvo);
-			log.info("admin prdct modify success");
+			if (uploadfile != null) {
+				adminService.updatePrdctThumb(prvo); // 썸네일 이미지와 함께 update
+			} else {
+				adminService.updatePrdctInfo(prvo); // 썸네일 이미지없이 update
+			}
+			log.info("======update prdct info success======");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
+			// TODO: handle exception
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}

@@ -35,7 +35,7 @@ public class PrdctVO { // 상품
 	private String prdct_size; // 상품사이즈
 	private int prdct_stock; // 상품재고량
 	private String prdct_thumbnail; // 게시글썸네일
-
+	private int prv; // 비공개여부 =private default 0
 	private MultipartFile[] uploadfiles; // 파일 업로드
 
 }

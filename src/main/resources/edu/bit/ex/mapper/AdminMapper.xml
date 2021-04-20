@@ -169,8 +169,15 @@
 	
 	<update id="updatePrdctInfo">
 	<![CDATA[
-		update prdct set prdct_name=#{prdct_name}, category_number=#{category_number}, prdct_color=#{prdct_color}, prdct_size = #{prdct_size}
-							,prdct_price=#{prdct_price}, prdct_stock=#{prdct_stock}, prdct_thumbnail=#{prdct_thumbnail} where prdct_id=#{prdct_id}
+		update prdct set prdct_name=#{prdct_name}, category_number=#{category_number}, prdct_color=#{prdct_color}, prdct_size = #{prdct_size},
+		prdct_price=#{prdct_price}, prdct_stock=#{prdct_stock} where prdct_id=#{prdct_id}
+	]]>
+	</update>
+	
+	<update id="updatePrdctThumb">
+	<![CDATA[
+		update prdct set prdct_name=#{prdct_name}, category_number=#{category_number}, prdct_color=#{prdct_color}, prdct_size = #{prdct_size},
+		prdct_price=#{prdct_price}, prdct_stock=#{prdct_stock}, prdct_thumbnail=#{prdct_thumbnail} where prdct_id=#{prdct_id}
 	]]>
 	</update>
 	

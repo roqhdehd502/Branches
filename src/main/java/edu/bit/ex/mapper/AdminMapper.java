@@ -1,6 +1,5 @@
 package edu.bit.ex.mapper;
 
-import java.io.File;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -67,12 +66,15 @@ public interface AdminMapper {
 
 	// 회원 삭제(탈퇴)======보류
 
+	// 썸네일 제외 상품수정
 	public void updatePrdctInfo(PrdctRegisterImageVO prvo);
 
+	// 썸네일 포함 상품수정
+	public void updatePrdctThumb(PrdctRegisterImageVO prvo);
+
+	// 상품 보드 수정
 	public void updatePrdctBoardInfo(PrdctRegisterImageVO prvo);
 
 	public List<PrdctRegisterImageVO> getSellerPrdctList(String mbr_id);
-
-	public void updatePrdctThumb(File saveFile);
 
 }

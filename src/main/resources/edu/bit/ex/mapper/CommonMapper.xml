@@ -66,7 +66,7 @@
 			        		SELECT * 
 			                FROM prdct 
 			    ) a WHERE ROWNUM <= #{cri.pageNum} * #{cri.amount} 
-			) WHERE rnum > (#{cri.pageNum}-1) * #{cri.amount} AND category_number=#{c_id}
+			) WHERE rnum > (#{cri.pageNum}-1) * #{cri.amount} AND category_number=#{c_id} and prv=0
 	]]>
 	</select>
 	
