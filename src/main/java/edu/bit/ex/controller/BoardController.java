@@ -40,6 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardController {
 	@Autowired
 	private SecurityService securityService;
+	@Autowired
 	private BoardService boardService;
 
 	// 페이징을 이용한 공지사항 게시판 리스트
