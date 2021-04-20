@@ -7,8 +7,14 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpResponse;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.config.auth.MemberDetails;
 import edu.bit.ex.joinvo.PrdctOrderDetailVO;
+import edu.bit.ex.pay.BootpayApi;
 import edu.bit.ex.service.OrderService;
 import edu.bit.ex.service.SecurityService;
 import edu.bit.ex.vo.OrderDetailVO;
@@ -59,7 +66,7 @@ public class OrderController {
 	}
 
 	// 주문 리스트 정보입력
-	@RequestMapping(value = "/cart/orderInput", method = { RequestMethod.POST, RequestMethod.GET })
+	@RequestMapping(value = "/orderInput", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView order(ModelAndView mav, @AuthenticationPrincipal MemberDetails memberDetails) {
 		log.info("order");
 		String id = memberDetails.getUserID();
@@ -69,7 +76,7 @@ public class OrderController {
 	}
 
 	// 주문 리스트 정보입력
-	@RequestMapping(value = "/cart/orderInput/insert", method = { RequestMethod.POST, RequestMethod.GET })
+	@RequestMapping(value = "/orderInput/insert", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView orderInput(ModelAndView mav, PrdctOrderVO po, HttpServletRequest request,
 			@AuthenticationPrincipal MemberDetails memberDetails) {
 		log.info("order insert");
@@ -80,7 +87,7 @@ public class OrderController {
 		orderService.insertOrder(po);
 
 		// 해당아이디의 최신 결제내역을 가져옴
-		PrdctOrderVO poVO = orderService.getPayInfo(po.getMbr_id());
+		PrdctOrderVO poVO = orderService.getOrderInfo(po.getMbr_id());
 
 		OrderDetailVO odVO = new OrderDetailVO();
 
@@ -97,5 +104,25 @@ public class OrderController {
 		mav.setViewName("order/member_order_complete");
 		mav.addObject("povo", poVO);
 		return mav;
+	}
+
+	// 결제 유효성 체크(ajax)
+	@PostMapping("/orderInput/check/{receipt_id}")
+	public JSONObject payCheck(@PathVariable("receipt_id") String receipt_id, String name, String reason) throws Exception {
+		BootpayApi api = new BootpayApi("6076c93a5b2948001d07b41e", "n1PS3ICdEr1e8ndCigcSJ7yDrKEYqI4SQWDjc9QZhOM=");
+		api.getAccessToken();
+		String str = null;
+		try {
+			HttpResponse res = api.verify(receipt_id);
+			str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
+			System.out.println(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(str);
+		JSONObject jsonObj = (JSONObject) obj;
+
+		return jsonObj;
 	}
 }

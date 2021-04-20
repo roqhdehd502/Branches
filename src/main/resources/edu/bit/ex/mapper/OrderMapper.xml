@@ -10,6 +10,30 @@
 		select * from prdct where prdct_id = #{prdct_id} 
 		]]>
 	</select>
+	
+	<insert id="insertOrder">
+		<![CDATA[
+		insert into prdct_order
+		(mbr_id) 
+		values
+		(#{mbr_id})
+		]]>
+	</insert>
+	
+	<select id="getOrderInfo" resultType="edu.bit.ex.vo.PrdctOrderVO">
+		<![CDATA[
+			select * from prdct_order where mbr_id=#{mbr_id}
+		]]>
+	</select>
+	
+	<insert id="insertOrderDetail">
+		<![CDATA[
+			insert into order_detail
+			(prdct_id)
+			values
+			(#{prdct_id})
+		]]>
+	</insert>
 
 	
 	

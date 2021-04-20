@@ -13,7 +13,7 @@ public interface OrderService {
 	public void insertOrder(PrdctOrderVO po);
 
 	// 아이디로 결제정보 조회
-	public PrdctOrderVO getPayInfo(String mbr_id);
+	public PrdctOrderVO getOrderInfo(String mbr_id);
 
 	public void insertOrderDetail(OrderDetailVO odVO);
 
