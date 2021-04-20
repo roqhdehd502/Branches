@@ -9,36 +9,47 @@
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
     google.charts.load('current', {packages: ['corechart', 'bar']});
-    google.charts.setOnLoadCallback(drawBasic);
+    google.charts.setOnLoadCallback(drawMaterial);
 
-    function drawBasic() {
+    function drawMaterial() {
+          var data = new google.visualization.DataTable();
+          data.addColumn('timeofday', 'Time of Day');
+          data.addColumn('number', '어제');
+          data.addColumn('number', '오늘');
 
-          var data = google.visualization.arrayToDataTable([
-            ['sell', '수익',],
-            ['아우터', 8175000],
-            ['상의', 3792000],
-            ['하의', 2695000],
-            ['신발', 2099000],
-            ['악세사리', 1526000]
+          data.addRows([
+            [{v: [8, 0, 0], f: '9 am'}, 1, .25],
+            [{v: [9, 0, 0], f: '10 am'}, 2, .5],
+            [{v: [10, 0, 0], f:'11 am'}, 3, 1],
+            [{v: [11, 0, 0], f: '12 am'}, 4, 2.25],
+            [{v: [12, 0, 0], f: '13 pm'}, 5, 2.25],
+            [{v: [13, 0, 0], f: '14 pm'}, 6, 3],
+            [{v: [14, 0, 0], f: '15 pm'}, 7, 4],
+            [{v: [15, 0, 0], f: '16 pm'}, 8, 5.25],
+            [{v: [16, 0, 0], f: '17 pm'}, 9, 7.5],
+            [{v: [17, 0, 0], f: '18 pm'}, 10, 10],
           ]);
 
           var options = {
-            title: '총 매출 현황',
-            fontSize : 14,
-            width: 720,
+            title: 'Motivation and Energy Level Throughout the Day',
+            fontSize : 15,
+            width : 700,
             height : 400,
-            chartArea: {width: '77%', height : '300'},
             hAxis: {
-              minValue: 0
+              title: 'Time of Day',
+              format: 'h:mm a',
+              viewWindow: {
+                min: [9, 00, 0],
+                max: [18, 00, 0]
+              }
             },
             vAxis: {
-
+              title: 'Rating (scale of 1-10)'
             }
           };
 
-          var chart = new google.visualization.BarChart(document.getElementById('chart_div6'));
-
-          chart.draw(data, options);
+          var materialChart = new google.charts.Bar(document.getElementById('chart_div6'));
+          materialChart.draw(data, options);
         }
     </script>
 </head>

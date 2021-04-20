@@ -120,7 +120,8 @@
 							<div class="row">
 								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(0)">ID순</button>&nbsp;&nbsp;
 								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(4)">일자순</button>&nbsp;&nbsp;
-								<form id="searchForm" action="/seller/mypage/prdct" method="get" style="position: relative; left: 390px;">
+								<button class="btn btn-primary btn-sm" type="button" onclick="/seller/mypage/prdct">초기화</button>
+								<form id="searchForm" action="/seller/mypage/prdct" method="get" style="position: relative; left: 320px;">
 									<span>
 										<select name="type" style="width: 100px; border: 3px solid black;">
 											<option value="" <c:out value="${pageMaker.cri.type == null?'selected' : '' }" />>---</option>
@@ -150,7 +151,7 @@
 										<c:forEach items="${bId}" var="bId">
 											<tr>
 												<td><h5>${bId.prdct_id }</h5></td>
-												<td><img src="/hs/${bId.prdct_thumbnail }" style="width: 100px; height: 120px;"></img></td>
+												<td><img src="${bId.prdct_thumbnail }" style="width: 100px; height: 120px;"></img></td>
 												
 												<td><a href="/seller/mypage/prdct/${bId.prdct_id}">
 													<h5>${bId.prdct_name }</h5>

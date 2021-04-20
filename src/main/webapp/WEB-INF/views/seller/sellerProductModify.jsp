@@ -21,6 +21,107 @@
 <script src="/ckeditor/ckeditor.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#updatePrd").submit(function(event){
+		event.preventDefault();
+		
+		var prdct_id = $("#prdct_id").val();
+        var prdct_name = $("#prdct_name").val();
+        var prdct_thumbnail = $("#prdct_thumbnail").val().replace ( "C:\\fakepath\\" ,  "/hs/" );
+        var category_number = $("#category_number option:selected").val();
+        var prdct_price = $("#prdct_price").val();
+        var prdct_color = $("#prdct_color").val();
+        var prdct_size = $("#prdct_size").val();
+        var board_content = CKEDITOR.instances.board_content.getData();
+        var prdct_stock = $("#prdct_stock").val();
+        
+        console.log(prdct_id);
+        console.log(prdct_thumbnail);
+        console.log($(this).attr("action"));
+        
+        var form = {
+        		prdct_id: prdct_id,
+        		prdct_name: prdct_name,
+        		prdct_thumbnail : prdct_thumbnail,
+        		category_number: category_number,
+        		prdct_price: prdct_price,
+        		prdct_color: prdct_color,
+        		prdct_size: prdct_size,
+        		board_content: board_content,
+        		prdct_stock: prdct_stock
+       	 };
+        console.log(form);
+        
+	    //dataType: 'json',
+        $.ajax({
+		    type : "PUT",
+		    url : $(this).attr("action"),
+		    cache : false,
+		    contentType:'application/json; charset=utf-8',
+			data: JSON.stringify(form), 
+		    success: function (result) {       
+				if(result == "SUCCESS"){
+					if (confirm("정말 수정하시겠습니까??") == true) { //확인
+						//(게시글 수정)
+						console.log("Modify!")
+						$(location).attr('href', '${pageContext.request.contextPath}/seller/mypage/prdct')
+					} else { //취소
+						return;
+					}			      	       
+				}					        
+		    },
+		    error: function (e) {
+		        console.log(e);
+		    }
+		})	       
+    }); // end submit()
+    
+}); // end ready() 
+</script>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('#a-delete').click(function(event) {
+					// 이벤트를 취소할 때 동작을 멈춘다.
+					event.preventDefault();
+					console.log("ajax 호출전");
+					// <a>의 parent(<td>)의 parent 즉, <tr>를 지칭한다.(클로저)
+					/*
+						어떻게 제이쿼리는 this가 <a>인 것을 알고있을까?
+						: a 태그내 .a-delete 클릭 이벤트가 발생 되었으므로!
+						: $('.a-delete').click(function(event)
+					 */
+					var deObj = $(this).parent();
+					$.ajax({
+						// AJAX의 타입(삭제)
+						type : 'DELETE',
+						// <a>의(this) 속성(href)을 가져온다.(attr)
+						url : $(this).attr("href"),
+						// 캐시를 false 설정하여 페이지가 새로 고쳐질때
+						// 데이터를 남기지 않는다(?)
+						cache : false,
+						success : function(result) {
+							console.log(result);
+							if (result == "SUCCESS") {
+								if (confirm("정말 삭제하시겠습니까??") == true) { //확인
+									// trObj 변수를 삭제한다.(게시글 삭제)
+									$(deObj).remove();
+									console.log("REMOVED!")
+									$(location).attr('href', '${pageContext.request.contextPath}/seller/mypage/prdct')
+								} else { //취소
+									return;
+								}
+							}
+						},
+						error : function(e) {
+							console.log(e);
+						}
+					})
+				});
+			});
+	</script>
+
 </head>
 <body>
 <div style="overflow: hidden;" class="container">
@@ -97,14 +198,14 @@
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">썸네일</label>
 								<div class="col-sm-10">
-									<input type="file" id="prdct_thumbnail" name="prdct_thumbnail" placeholder="첨부 사진" multiple />
+									<input class="btn" type="file" id="prdct_thumbnail" accept=".jpg, .png" name="prdct_thumbnail" placeholder="첨부 사진" multiple />
 									<!-- 이미지 컨테이너 -->
 									<div id="image_container" class="row" style="padding: 3% 3% 3% 5%">
 										<div class="col-md-2" align="center">
-											<!-- 게시글을 삭제할 때 이미지도 삭제하기 위한 이미지 정보 -->
-											<span class="upload_image" style="display: none;">${pdvo.prdct_thumbnail}</span> 
-												<img src="/hs/${pdvo.prdct_thumbnail}" width="100px" height="140px">
-											<button type="button" class="btn btn-danger img_del_only" data-rno="1">&#88;</button>
+											<!-- 이미지 정보 -->
+											<h5>등록 사진</h5>
+											<img src="${pdvo.prdct_thumbnail}" width="100px" height="140px">
+											<p>${pdvo.prdct_thumbnail}</p>
 										</div>
 									</div>
 								</div>
@@ -232,119 +333,5 @@
 		<script src="/assets/js/vendor/loopcounter.js"></script> 
 		<script src="/assets/js/vendor/slicknav.min.js"></script>
 		<script src="/assets/js/active.js"></script>
-
-<script type="text/javascript">
-$(document).ready(function(){
-	$("#updatePrd").submit(function(event){
-		event.preventDefault();
-		
-		var prdct_id = $("#prdct_id").val();
-        var prdct_name = $("#prdct_name").val();
-        var prdct_thumbnail = $("#prdct_thumbnail").value();
-        var category_number = $("#category_number option:selected").val();
-        var prdct_price = $("#prdct_price").val();
-        var prdct_color = $("#prdct_color").val();
-        var prdct_size = $("#prdct_size").val();
-        var board_content = CKEDITOR.instances.board_content.getData();
-        var prdct_stock = $("#prdct_stock").val();
-        
-        console.log(prdct_id);
-        console.log(prdct_thumbnail);
-        console.log($(this).attr("action"));
-        
-        var form = {
-        		prdct_id: prdct_id,
-        		prdct_name: prdct_name,
-        		prdct_thumbnail : prdct_thumbnail,
-        		category_number: category_number,
-        		prdct_price: prdct_price,
-        		prdct_color: prdct_color,
-        		prdct_size: prdct_size,
-        		board_content: board_content,
-        		prdct_stock: prdct_stock
-       	 };
-        console.log(form);
-        
-     	// 파일 업로드 체크(게시글 내용만 수정하는 것 대비...)
-        var inputFile = $("#uploadfiles");
-        var files = inputFile[0].files;
-        
-        // 파일을 담는 배열이 비어 있지 않으면(파일 업로드 시) FormData에 파일 정보를 추가한다
-        if (files != null) {    
-     	   for (var i = 0; i < files.length; i++) {
-			       console.log(files[i]);
-			       formData.append("uploadfiles", files[i]);
-			       appended = true;
-		   	   }
-		   }
-        
-	    //dataType: 'json',
-        $.ajax({
-		    type : "PUT",
-		    url : $(this).attr("action"),
-		    cache : false,
-		    contentType:'application/json; charset=utf-8',
-			data: JSON.stringify(form), 
-		    success: function (result) {       
-				if(result == "SUCCESS"){
-					if (confirm("정말 수정하시겠습니까??") == true) { //확인
-						//(게시글 수정)
-						console.log("Modify!")
-						$(location).attr('href', '${pageContext.request.contextPath}/seller/mypage/prdct')
-					} else { //취소
-						return;
-					}			      	       
-				}					        
-		    },
-		    error: function (e) {
-		        console.log(e);
-		    }
-		})	       
-    }); // end submit()
-    
-}); // end ready() 
-</script>
-
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$('#a-delete').click(function(event) {
-					// 이벤트를 취소할 때 동작을 멈춘다.
-					event.preventDefault();
-					console.log("ajax 호출전");
-					// <a>의 parent(<td>)의 parent 즉, <tr>를 지칭한다.(클로저)
-					/*
-						어떻게 제이쿼리는 this가 <a>인 것을 알고있을까?
-						: a 태그내 .a-delete 클릭 이벤트가 발생 되었으므로!
-						: $('.a-delete').click(function(event)
-					 */
-					var deObj = $(this).parent();
-					$.ajax({
-						// AJAX의 타입(삭제)
-						type : 'DELETE',
-						// <a>의(this) 속성(href)을 가져온다.(attr)
-						url : $(this).attr("href"),
-						// 캐시를 false 설정하여 페이지가 새로 고쳐질때
-						// 데이터를 남기지 않는다(?)
-						cache : false,
-						success : function(result) {
-							console.log(result);
-							if (result == "SUCCESS") {
-								if (confirm("정말 삭제하시겠습니까??") == true) { //확인
-									// trObj 변수를 삭제한다.(게시글 삭제)
-									$(deObj).remove();
-									console.log("REMOVED!")
-									$(location).attr('href', '${pageContext.request.contextPath}/seller/mypage/prdct')
-								} else { //취소
-									return;
-								}
-							}
-						},
-						error : function(e) {
-							console.log(e);
-						}
-					})
-				});
-			});
-		</script>
 </body>
 </html>

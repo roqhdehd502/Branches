@@ -27,7 +27,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.config.auth.MemberDetails;
-import edu.bit.ex.joinvo.BoardPrdctImageVO;
 import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.SearchCriteria;
@@ -119,8 +118,8 @@ public class SellerController {
 	// 판매자 상품 조회 seller
 	// 수정 버튼 옮길것! => SellerProductModify
 	@GetMapping("/mypage/prdct")
-	public ModelAndView sellerProductCheck(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, BoardPrdctImageVO bpvo,
-			SearchCriteria cri) throws Exception {
+	public ModelAndView sellerProductCheck(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, SearchCriteria cri)
+			throws Exception {
 		log.debug("sellerProductCheck");
 		log.info("sellerProductCheck..");
 		mav.setViewName("seller/sellerProductCheck");
@@ -129,9 +128,8 @@ public class SellerController {
 		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
-		// 상품 조회 - 내림차순
-		mav.addObject("bId", sellerService.getbNumDesc(cri));
-		mav.addObject("cate", sellerService.getCategory());
+		// 상품 조회
+		mav.addObject("bId", sellerService.getSellerPrdct(cri));
 
 		int total = sellerService.getPrdTotal(cri);
 		log.info("getTotal");
@@ -171,20 +169,10 @@ public class SellerController {
 
 		log.info("prdct_update..");
 		MultipartFile[] uploadfiles = prvo.getUploadfiles(); // 썸네일 파일 가져오기
-		String onedeletefiles = prvo.getOnedeletefiles(); // 이미지만 삭제
 
 		try {
-			if (uploadfiles != null && onedeletefiles == null) {
-				// 수정페이지에서 사진을 새로 추가할 경우 진행한다
-				sellerService.setMagazineModifyAddImg(prvo);
-			} else if (uploadfiles == null && onedeletefiles != null) {
-				// 이미지만 삭제할 경우 진행한다
-				sellerService.magazineImageOnlyRemove(prvo);
-			} else {
-				// 사진을 새로 추가하지 않고 내용만 변경된 경우 진행한다
-				sellerService.updatePrdctInfo(prvo);
-				sellerService.prdctContentUpdate(prvo);
-			}
+			sellerService.updatePrdctInfo(prvo);
+			sellerService.prdctContentUpdate(prvo);
 			log.info("update prdct info");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 
@@ -196,35 +184,28 @@ public class SellerController {
 		return entity;
 	}
 
-	/* 상품 thumbnail 수정 */
-	@RequestMapping("/thumbnailModify.do")
-	public void prdct_thumb_update(HttpServletRequest request, HttpServletResponse response, MultipartFile upload) throws Exception {
-		response.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset=utf-8");
-
-		// 업로드한 파일 이름
-		String fileName = upload.getOriginalFilename();
-
-		// 파일을 바이트 배열로 변환
-		byte[] bytes = upload.getBytes();
-
-		// 이미지를 업로드할 디렉토리(배포 디렉토리로 설정)
-		String uploadPath = "C:\\tetleaf\\Branches\\src\\main\\resources\\static\\hs";
-		OutputStream out = new FileOutputStream(new File(uploadPath + fileName));
-
-		// 서버로 업로드
-		out.write(bytes);
-		// 클라이언트에 결과 표시
-		String callback = request.getParameter("CKEditorFuncNum");
-
-		// 서버=>클라이언트로 텍스트 전송(자바스크립트 실행)
-		PrintWriter printWriter = response.getWriter();
-
-		String fileUrl = request.getContextPath() + "/hs/" + fileName;
-
-		printWriter.println("<script>window.parent.CKEDITOR.tools.callFunction(" + callback + ",'" + fileUrl + "','이미지가 업로드되었습니다.')" + "</script>");
-		printWriter.flush();
-	}
+	/*
+	 * 상품 thumbnail 수정
+	 * 
+	 * @RequestMapping("/thumbnailModify.do") public void prdct_thumb_update(HttpServletRequest request, HttpServletResponse response, MultipartFile
+	 * upload) throws Exception { response.setCharacterEncoding("utf-8"); response.setContentType("text/html; charset=utf-8");
+	 * 
+	 * // 업로드한 파일 이름 String fileName = upload.getOriginalFilename();
+	 * 
+	 * // 파일을 바이트 배열로 변환 byte[] bytes = upload.getBytes();
+	 * 
+	 * // 이미지를 업로드할 디렉토리(배포 디렉토리로 설정) String uploadPath = "C:\\tetleaf\\Branches\\src\\main\\resources\\static\\hs"; OutputStream out = new
+	 * FileOutputStream(new File(uploadPath + fileName));
+	 * 
+	 * // 서버로 업로드 out.write(bytes); // 클라이언트에 결과 표시 String callback = request.getParameter("CKEditorFuncNum");
+	 * 
+	 * // 서버=>클라이언트로 텍스트 전송(자바스크립트 실행) PrintWriter printWriter = response.getWriter();
+	 * 
+	 * String fileUrl = request.getContextPath() + "/hs/" + fileName;
+	 * 
+	 * printWriter.println("<script>window.parent.CKEDITOR.tools.callFunction(" + callback + ",'" + fileUrl + "','이미지가 업로드되었습니다.')" + "</script>");
+	 * printWriter.flush(); }
+	 */
 
 	// 판매자 상품 삭제 ajax
 	@DeleteMapping(value = "/mypage/prdct/{prdct_id}/delete")
