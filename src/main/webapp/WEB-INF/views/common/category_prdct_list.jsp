@@ -37,7 +37,7 @@
          <div class="container">
             <div class="row">
                <c:forEach items="${prdct}" var="prdct">
-                  <div class="col-sm-3 col-md-3 col-lg-3 single-team">
+                  <div class="col-sm-3 col-md-3 col-lg-3 single-team" onclick="location.href='${pageContext.request.contextPath}/prdct/${prdct.prdct_id}'">
                   <div class="inner">
                      <div class="team-img">
                         ${prdct.prdct_thumbnail}
