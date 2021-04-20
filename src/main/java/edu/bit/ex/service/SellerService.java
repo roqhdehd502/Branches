@@ -6,7 +6,6 @@ import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardVO;
-import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.OrderDetailVO;
 import edu.bit.ex.vo.PrdctOrderVO;
@@ -33,28 +32,19 @@ public interface SellerService {
 	// 판매자 정보 수정
 	public void sellerInfoUpdate(MbrShippingVO mavo);
 
-	// 게시글 내용 수정
-	public void prdctContentUpdate(PrdctRegisterImageVO prvo);
-
 	// 상품삭제
 	public void prdctDelete(String prdct_id);
-
-	// 상품 등록
-	/* public void prdInsert(PrdctRegisterImageVO PrdctImageVO); */
 
 	public PrdctVO getOption(String getPrdct_id);
 
 	// 판매자 주소 불러오기(상품 등록시)
 	public ShippingVO getAddress(String getMbr_id);
 
-	// 카테고리 목록 불러오기
-	public List<CategoryVO> getCategory();
-
 	// 게시글 내용 불러오기(상품 수정시)
 	public BoardVO getContent(String getPrdct_id);
 
-	// 상품 등록글 내림차순 불러오기 (상품 조회시)
-	public List<PrdctRegisterImageVO> getbNumDesc(SearchCriteria cri);
+	// 상품 등록글 불러오기 (상품 조회시)
+	public List<PrdctRegisterImageVO> getSellerPrdct(SearchCriteria cri);
 
 	// 상품q&a 게시글 총 수 불러오기
 	public int getTotal(SearchCriteria cri);
@@ -62,16 +52,15 @@ public interface SellerService {
 	// 상품조회 게시글 총 수 불러오기
 	public int getPrdTotal(SearchCriteria cri);
 
-	// 수정페이지에서 상품 정보 불러오기
+	// 상품 정보 불러오기(수정페이지)
 	public PrdctVO getPrdctInfo(String prdct_id);
 
-	// 상품정보 수정하기
+	// 상품정보 수정하기(수정페이지)
 	public void updatePrdctInfo(PrdctRegisterImageVO prvo);
+
+	// 상품등록 내용 수정(수정페이지)
+	public void prdctContentUpdate(PrdctRegisterImageVO prvo);
 
 	// 상품 등록
 	public void prdInsert(PrdctRegisterImageVO prdctIVO);
-
-	public void setMagazineModifyAddImg(PrdctRegisterImageVO prvo);
-
-	public void magazineImageOnlyRemove(PrdctRegisterImageVO prvo);
 }

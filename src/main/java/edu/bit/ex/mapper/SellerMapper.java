@@ -8,7 +8,6 @@ import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardVO;
-import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.OrderDetailVO;
 import edu.bit.ex.vo.PrdctOrderVO;
@@ -37,7 +36,6 @@ public interface SellerMapper {
 	public void sellerInfoUpdate(MbrShippingVO mavo);
 
 	// 상품 수정
-
 	public void prdctContentUpdate(PrdctRegisterImageVO prvo);
 
 	// 상품 삭제
@@ -51,19 +49,16 @@ public interface SellerMapper {
 	// 판매자 주소 불러오기 (상품 등록시)
 	public ShippingVO getAddress(String getMbr_id);
 
-	// 카테고리 목록 불러오기
-	public List<CategoryVO> getCategory();
-
 	// 게시글 내용 불러오기(상품 수정시)
 	public BoardVO getContent(String getPrdct_id);
 
 	// 상품 등록글 불러오기 - 내림차순 (상품 조회시)
-	public List<PrdctRegisterImageVO> getbNumDesc(SearchCriteria cri);
+	public List<PrdctRegisterImageVO> getSellerPrdct(SearchCriteria cri);
 
 	// 상품q&a 게시글 총 수 불러오기
 	public int getTotal(SearchCriteria cri);
 
-	// 상품조회 게시글 총 수 불러오기
+	// 상품조회 게시글 총 수 불러오기(상품조회시)
 	public int getPrdTotal(SearchCriteria cri);
 
 	// 상품 수정하기
@@ -74,9 +69,5 @@ public interface SellerMapper {
 
 	// 상품 등록
 	public void prdInsert(PrdctRegisterImageVO pvo);
-
-	public void magazineImageOnlyRemove(String image_name, String prdct_id);
-
-	public void setMagazineModifyAddImg(PrdctRegisterImageVO prvo);
 
 }

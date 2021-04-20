@@ -130,7 +130,7 @@
 
 				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;" >
 					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px;">
-						<strong style="margin: 10px;">새 주문 내역 미리보기</strong>
+						<strong style="margin: 10px;">주문 내역 미리보기</strong>
 					</h3>
 					<table class="table">
 						<thead style="text-align: center;">
@@ -162,29 +162,36 @@
 			
 					<hr>
 					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, .1);">
-						<strong style="margin: 20px;">총 수익 현황</strong>
+						<strong style="margin: 20px;">${mbr.mbr_id}의 통계</strong>
 					</h3>
 
 					<div class="tab">
-						<button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen"><h4 style="color: white;">상품</h4></button>
-						<button class="tablinks" onclick="openCity(event, 'Paris')"><h4 style="color: white;">판매량</h4></button>
-						<button class="tablinks" onclick="openCity(event, 'Tokyo')"><h4 style="color: white;">선호도</h4></button>
+						<button class="tablinks" onclick="openCity(event, 'prdct')" id="defaultOpen"><h4 style="color: white;">상품</h4></button>
+						<button class="tablinks" onclick="openCity(event, 'order')"><h4 style="color: white;">주문</h4></button>
+						<button class="tablinks" onclick="openCity(event, 'sale')"><h4 style="color: white;">판매량</h4></button>
+						<button class="tablinks" onclick="openCity(event, 'preference')"><h4 style="color: white;">선호도</h4></button>
 					</div>
 
-					<div id="London" class="tabcontent">
+					<div id="prdct" class="tabcontent">
 						<h3 style="margin-top: 16px;">상품</h3>
 						<jsp:include page="/WEB-INF/views/chart/prdorderChart.jsp"></jsp:include>
 					</div>
+					
+					<div id="order" class="tabcontent">
+						<h3 style="margin-top: 16px;">주문</h3>
+						<jsp:include page="/WEB-INF/views/chart/OrderChart.jsp"></jsp:include>
+					</div>
 
-					<div id="Paris" class="tabcontent">
+					<div id="sale" class="tabcontent">
 						<h3 style="margin-top: 16px;">판매량</h3>
 						<jsp:include page="/WEB-INF/views/chart/sellChart.jsp"></jsp:include>
 					</div>
 
-					<div id="Tokyo" class="tabcontent">
+					<div id="preference" class="tabcontent">
 						<h3 style="margin-top: 16px;">선호도</h3>
 						<jsp:include page="/WEB-INF/views/chart/ageChart.jsp"></jsp:include>
 					</div>
+					
 				</span>
 			</div>
 		</div><br/><br/><br/>

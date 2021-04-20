@@ -13,7 +13,6 @@ import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.mapper.SellerMapper;
 import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardVO;
-import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.OrderDetailVO;
 import edu.bit.ex.vo.PrdctOrderVO;
@@ -118,12 +117,6 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public List<CategoryVO> getCategory() {
-		log.info("getCategory()......");
-		return sellerMapper.getCategory();
-	}
-
-	@Override
 	public BoardVO getContent(String getPrdct_id) {
 		log.info("getContent()......");
 		return sellerMapper.getContent(getPrdct_id);
@@ -137,9 +130,9 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public List<PrdctRegisterImageVO> getbNumDesc(SearchCriteria cri) {
-		log.info("getbId()......");
-		return sellerMapper.getbNumDesc(cri);
+	public List<PrdctRegisterImageVO> getSellerPrdct(SearchCriteria cri) {
+		log.info("getSellerPrdct()......");
+		return sellerMapper.getSellerPrdct(cri);
 	}
 
 	@Override
@@ -151,6 +144,7 @@ public class SellerServiceImpl implements SellerService {
 	@Override
 	public int getPrdTotal(SearchCriteria cri) {
 		log.info("getPrdTotal()......");
+
 		return sellerMapper.getPrdTotal(cri);
 	}
 
@@ -173,55 +167,4 @@ public class SellerServiceImpl implements SellerService {
 		sellerMapper.updatePrdctInfo(prvo);
 	}
 
-	// 매거진 수정페이지 썸네일까지 변경
-	@Override
-	public void setMagazineModifyAddImg(PrdctRegisterImageVO prvo) {
-		log.info("setMagazineModifyAddImg");
-
-		MultipartFile[] uploadfiles = prvo.getUploadfiles();
-
-		// 이미지 파일만 업로드 가능
-		if (uploadfiles[0].getContentType().startsWith("image") == false) {
-			log.warn("this file is not image type: " + uploadfiles[0]);
-			return;
-		}
-
-		// 파일 이름 변경(중복방지)
-		UUID uuid = UUID.randomUUID();
-		String saveName = uuid + "_" + uploadfiles[0].getOriginalFilename();
-		log.info("image_name: " + saveName);
-
-		// 저장할 File 객체를 생성(껍데기 파일)
-		// 저장할 폴더 이름, 저장할 파일 이름
-		File saveFile = new File(PRDCT_THUMBNAIL_PATH, saveName);
-
-		try {
-			// 업로드 파일에 saveFile 입힘
-			uploadfiles[0].transferTo(saveFile);
-			// 썸네일 파일명 지정
-			prvo.setPrdct_thumbnail(saveName);
-			log.info("prdct_thumbnail: " + prvo.getPrdct_thumbnail());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		sellerMapper.setMagazineModifyAddImg(prvo);
-	}
-
-	// 이미지만 삭제할 경우 진행한다
-	@Override
-	public void magazineImageOnlyRemove(PrdctRegisterImageVO prvo) {
-		String image_name = prvo.getOnedeletefiles();
-		log.info("image_name: " + image_name);
-
-		// 삭제할 File 객체를 생성(껍데기 파일)
-		// 삭제할 폴더 이름, 삭제할 파일 이름
-		File deleteFile = new File(PRDCT_THUMBNAIL_PATH, image_name);
-
-		// 해당 파일이 존재하면 삭제
-		if (deleteFile.exists() == true) {
-			deleteFile.delete();
-		}
-		sellerMapper.magazineImageOnlyRemove(prvo.getPrdct_id(), image_name);
-	}
 }
