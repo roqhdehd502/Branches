@@ -62,8 +62,10 @@ public interface AdminService {
 
 	public BoardVO getPrdctContent(String p_id);
 
+	// 상품정보수정(이미지 x)
 	public void updatePrdctInfo(PrdctRegisterImageVO prvo);
 
-	public List<PrdctRegisterImageVO> getSellerPrdctList(String m_id);
+	// 상품정보수정(이미지 o)
+	public void updatePrdctThumb(PrdctRegisterImageVO prvo);
 
 }
