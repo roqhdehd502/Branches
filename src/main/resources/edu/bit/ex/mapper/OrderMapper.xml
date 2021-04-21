@@ -14,7 +14,7 @@
 	<insert id="insertOrder">
 		<![CDATA[
 		insert into prdct_order
-		(mbr_id) 
+		(mbr_id)
 		values
 		(#{mbr_id})
 		]]>

@@ -2,6 +2,7 @@ package edu.bit.ex.joinvo;
 
 import java.sql.Date;
 
+import edu.bit.ex.vo.OrderDetailVO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,5 +34,7 @@ public class PrdctOrderDetailVO { // 결제 후 정보 저장
 	private String receipt_id; // 영수증id
 	private String t_key; // 택배키
 	private String t_invoice; // 택배 운송장번호
+
+	private OrderDetailVO[] orderDetailVO;
 
 }
