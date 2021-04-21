@@ -1,8 +1,11 @@
 package edu.bit.ex.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -28,7 +31,6 @@ import edu.bit.ex.service.OrderService;
 import edu.bit.ex.service.SecurityService;
 import edu.bit.ex.vo.OrderDetailVO;
 import edu.bit.ex.vo.PrdctOrderVO;
-import edu.bit.ex.vo.PrdctVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -77,29 +79,42 @@ public class OrderController {
 	}
 
 	// 주문 리스트 정보입력
-	@RequestMapping(value = "/orderInput/insert", method = { RequestMethod.POST, RequestMethod.GET })
+	// @RequestMapping(value = "/orderInput/insert", method = { RequestMethod.POST, RequestMethod.GET })
+	@PostMapping("/orderInput/insert")
 	public ModelAndView orderInput(ModelAndView mav, PrdctOrderVO po, HttpServletRequest request,
 			@AuthenticationPrincipal MemberDetails memberDetails) {
 		log.info("order insert");
+
+		SimpleDateFormat dFormat = new SimpleDateFormat("yyyyMMdd");
+		String fOrderNum = "";
+		Random rand = new Random();
+		Date tday = new Date();
+		fOrderNum = dFormat.format(tday) + "-" + rand.nextInt(10) + rand.nextInt(10) + rand.nextInt(10);
+
 		String[] order_amounts = request.getParameterValues("order_amount");
 		String[] prdct_ids = request.getParameterValues("prdct_id");
+		String[] prdct_names = request.getParameterValues("prdct_name");
 		String[] order_sizes = request.getParameterValues("order_size");
 		String[] order_colors = request.getParameterValues("order_color");
 		po.setMbr_id(memberDetails.getUserID());
+		po.setOrder_number(fOrderNum);
+
 		orderService.insertOrder(po);
+		log.info("orderService.insertOrder");
 
 		// 해당아이디의 최신 결제내역을 가져옴
 		PrdctOrderVO poVO = orderService.getOrderInfo(po.getMbr_id());
 
 		OrderDetailVO odVO = new OrderDetailVO();
-		PrdctVO prdct = new PrdctVO();
+		odVO.setOrder_number(poVO.getOrder_number());
 
 		for (int i = 1; i < order_amounts.length; i++) {
+			log.info("orderService.insertOrderDetail");
 			odVO.setOrder_amount(Integer.parseInt(order_amounts[i]));
 			odVO.setOrder_color(order_colors[i]);
 			odVO.setOrder_size(order_sizes[i]);
 			odVO.setPrdct_id(prdct_ids[i]);
-
+			odVO.setPrdct_name(prdct_names[i]);
 			odVO.setPrdct_price(orderService.getPrdctPrice(odVO.getPrdct_id()));
 
 			orderService.insertOrderDetail(odVO);

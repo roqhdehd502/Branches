@@ -40,7 +40,7 @@ public class BoardVO { // 게시판
 	private int inquiry_number; // 문의유형번호 fk
 	private Date board_date; // 게시글작성일자
 	private String prdct_id; // 상품id fk
-	private int order_number; // 주문번호 fk
+	private String order_number; // 주문번호 fk
 	private int board_like; // 게시글추천수
 	private int board_hit; // 게시글조회수
 	private int board_starrate; // 게시글별점수

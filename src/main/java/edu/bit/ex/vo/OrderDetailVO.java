@@ -22,7 +22,7 @@ PRDCT_NAME	VARCHAR2(300 BYTE)
 @Getter
 @ToString
 public class OrderDetailVO { // 주문상세정보
-	private int order_number; // 주문번호 fk
+	private String order_number; // 주문번호 fk
 	private String prdct_id; // 상품id fk
 	private String order_color; // 주문상품색상
 	private String order_size; // 주문상품사이즈
