@@ -183,10 +183,10 @@ BootPay.request({
  
 }).done(function (data) {
 	//결제가 정상적으로 완료되면 수행됩니다
-	
+	document.form.submit();
 	// 유효성 체크
 	$.ajax({
-		url : "${pageContext.request.contextPath}/orderInput/check/"+data.receipt_id,
+		url : "${pageContext.request.contextPath}/order/orderInput/check/"+data.receipt_id,
 		type : "post",
 		success : function(verify) {
 			if(verify.status=="200"){
@@ -322,7 +322,7 @@ return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + 
 function goPopup() {
 	// 주소검색을 수행할 팝업 페이지를 호출합니다.
 	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
-	var pop = window.open("/popup/jusoPopup.jsp", "pop",
+	var pop = window.open("${pageContext.request.contextPath}/popup/jusoPopup.jsp", "pop",
 			"width=570,height=420, scrollbars=yes, resizable=yes");
 	// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
 	//var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 

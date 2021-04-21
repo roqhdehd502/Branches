@@ -84,10 +84,11 @@ public class OrderController {
 		String[] prdct_ids = request.getParameterValues("prdct_id");
 		String[] order_sizes = request.getParameterValues("order_size");
 		String[] order_colors = request.getParameterValues("order_color");
+		po.setMbr_id(memberDetails.getUserID());
 		orderService.insertOrder(po);
 
 		// 해당아이디의 최신 결제내역을 가져옴
-		PrdctOrderVO poVO = orderService.getOrderInfo(po.getMbr_id());
+		// PrdctOrderVO poVO = orderService.getOrderInfo(po.getMbr_id());
 
 		OrderDetailVO odVO = new OrderDetailVO();
 
@@ -96,13 +97,13 @@ public class OrderController {
 			odVO.setOrder_color(order_colors[i]);
 			odVO.setOrder_size(order_sizes[i]);
 			odVO.setPrdct_id(prdct_ids[i]);
-			odVO.setOrder_number(poVO.getOrder_number());
+			odVO.setOrder_number(po.getOrder_number());
 			orderService.insertOrderDetail(odVO);
 
 		}
 
 		mav.setViewName("order/member_order_complete");
-		mav.addObject("povo", poVO);
+		mav.addObject("povo", po);
 		return mav;
 	}
 
