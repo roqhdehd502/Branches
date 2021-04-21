@@ -32,21 +32,21 @@
             <h3 style="position: relative; top: 15px;">${mbr.mbr_id }</h3>
          </span>
          <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="/seller/mypage/myinfo/${mbr.mbr_id }">정보수정</a></span> 
-         <span style="margin-left: 300px;" align="center">
+        <span style="margin-left: 300px;" align="center">
             <h2 style="position: relative; top: 5px;">새 주문</h2>
-            <h4 style="position: relative; top: 15px;">2건</h4>
+            <h4 style="position: relative; top: 15px;">${newOrder.order_state_number } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">취소</h2>
-            <h4 style="position: relative; top: 15px;">2건</h4>
+            <h4 style="position: relative; top: 15px;">${cancel.order_state_number } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">교환</h2>
-            <h4 style="position: relative; top: 15px;">2건</h4>
+            <h4 style="position: relative; top: 15px;">${change.order_state_number } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">환불</h2>
-            <h4 style="position: relative; top: 15px;">2건</h4>
+            <h4 style="position: relative; top: 15px;">${refund.order_state_number } 건</h4>
          </span>
       </div>
 		
@@ -143,10 +143,10 @@
 										</tr>
 									</thead>
 									<tbody style="text-align: center;">
-										<c:forEach items="${prdct}" var="prdct" begin="0" end="9">
+										<c:forEach items="${orderCheck}" var="prdct" begin="0" end="9">
 											<tr style="text-align: center;">
 												<td>
-													<h6>${mbr.mbr_id}</h6>
+													<h6>${prdct.mbr_id}</h6>
 													<h6>${prdct.prdct_name}</h6>
 													<h6>${prdct.order_size}</h6>
 													<h6>${prdct.order_color}</h6>
@@ -154,7 +154,9 @@
 												<td><h6 style="position: relative; top: 34px;">${prdct.order_date}</h6></td>
 												<td><h6 style="position: relative; top: 34px;">${prdct.order_number}</h6></td>
 												<td><h6 style="position: relative; top: 34px; text-align: center;">${prdct.order_price}₩ (${prdct.order_amount})</h6></td>
-												<td><h6 style="position: relative; top: 18px; margin-left: 14px;"></h6></td>
+												<td>
+													${prdct.order_state_number }
+												</td>
 											</tr>
 										</c:forEach>
 									</tbody>

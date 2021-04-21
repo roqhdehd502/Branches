@@ -79,19 +79,19 @@
          <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="/seller/mypage/myinfo/${mbr.mbr_id }">정보수정</a></span> 
            <span style="margin-left: 300px;" align="center">
             <h2 style="position: relative; top: 5px;">새 주문</h2>
-            <h4 style="position: relative; top: 15px;">2건</h4>
+            <h4 style="position: relative; top: 15px;">${newOrder.order_state_number } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">취소</h2>
-            <h4 style="position: relative; top: 15px;">2건</h4>
+            <h4 style="position: relative; top: 15px;">${cancel.order_state_number } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">교환</h2>
-            <h4 style="position: relative; top: 15px;">2건</h4>
+            <h4 style="position: relative; top: 15px;">${change.order_state_number } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">환불</h2>
-            <h4 style="position: relative; top: 15px;">2건</h4>
+            <h4 style="position: relative; top: 15px;">${refund.order_state_number } 건</h4>
          </span>
       </div>
 		
@@ -138,19 +138,19 @@
 								<th><h5>상품정보</h5></th>
 								<th><h5>주문일</h5></th>
 								<th><h5>주문번호</h5></th>
-								<th><h5>주문금액</h5></th>
-								<th><h5>주문수량</h5></th>
+								<th><h5>금액</h5></th>
+								<th><h5>수량</h5></th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach items="${prdct }" var="prdct" begin="0" end="4" varStatus="status">
 							<tr style="text-align: center;">
 								<td>
-									<h5>${prdct.prdct_id}</h5>
-									<h5>${prdct.mbr_id }</h5>
-									<h5>${prdct.prdct_name }</h5>
-									<h5>${prdct.order_size }</h5>
-									<h5>${prdct.order_color }</h5>
+									<h6>${prdct.prdct_id}</h6>
+									<h6>${prdct.mbr_id }</h6>
+									<h6>${prdct.prdct_name }</h6>
+									<h6>${prdct.order_size }</h6>
+									<h6>${prdct.order_color }</h6>
 								</td>
 								<td><h5 style="position: relative; top: 34px;">${prdct.order_date }</h5></td>
 								<td><h5 style="position: relative; top: 34px;">${prdct.order_number}</h5></td>

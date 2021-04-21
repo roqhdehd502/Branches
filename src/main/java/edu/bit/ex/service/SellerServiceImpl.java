@@ -15,6 +15,7 @@ import edu.bit.ex.mapper.SellerMapper;
 import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
+import edu.bit.ex.vo.OrderStateVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
 import lombok.AllArgsConstructor;
@@ -33,6 +34,12 @@ public class SellerServiceImpl implements SellerService {
 	public List<PrdctOrderDetailVO> getProduct() {
 		log.info("getProduct......");
 		return sellerMapper.getProduct();
+	}
+
+	@Override
+	public List<PrdctOrderDetailVO> OrderCheck() {
+		// TODO Auto-generated method stub
+		return sellerMapper.OrderCheck();
 	}
 
 	@Override
@@ -152,6 +159,54 @@ public class SellerServiceImpl implements SellerService {
 	public void updatePrdctInfo(PrdctRegisterImageVO prvo) {
 		// TODO Auto-generated method stub
 		sellerMapper.updatePrdctInfo(prvo);
+	}
+
+	@Override
+	public OrderStateVO newOrderAlarm() {
+		// TODO Auto-generated method stub
+		return sellerMapper.newOrderAlarm();
+	}
+
+	@Override
+	public OrderStateVO cancelAlarm() {
+		// TODO Auto-generated method stub
+		return sellerMapper.cancelAlarm();
+	}
+
+	@Override
+	public OrderStateVO changeAlarm() {
+		// TODO Auto-generated method stub
+		return sellerMapper.changeAlarm();
+	}
+
+	@Override
+	public OrderStateVO refundAlarm() {
+		// TODO Auto-generated method stub
+		return sellerMapper.refundAlarm();
+	}
+
+	@Override
+	public List<PrdctOrderDetailVO> PrdShipping() {
+		// TODO Auto-generated method stub
+		return sellerMapper.PrdShipping();
+	}
+
+	@Override
+	public List<PrdctOrderDetailVO> getCancel() {
+		// TODO Auto-generated method stub
+		return sellerMapper.getCancel();
+	}
+
+	@Override
+	public List<PrdctOrderDetailVO> getRefund() {
+		// TODO Auto-generated method stub
+		return sellerMapper.getRefund();
+	}
+
+	@Override
+	public List<PrdctOrderDetailVO> exchange() {
+		// TODO Auto-generated method stub
+		return sellerMapper.exchange();
 	}
 
 }

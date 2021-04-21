@@ -64,7 +64,6 @@
    				       appended = true;
    			   	   }
 			   }
-               
                console.log("formData: " + formData); 
 	           
 	    		$.ajax({

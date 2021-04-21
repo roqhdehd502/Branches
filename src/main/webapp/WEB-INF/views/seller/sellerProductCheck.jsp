@@ -32,21 +32,21 @@
             <h3 style="position: relative; top: 15px;">${mbr.mbr_id }</h3>
          </span>
          <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="/seller/mypage/myinfo/${mbr.mbr_id}">정보수정</a></span> 
-         <span style="margin-left: 300px;" align="center">
+        <span style="margin-left: 300px;" align="center">
             <h2 style="position: relative; top: 5px;">새 주문</h2>
-            <h4 style="position: relative; top: 15px;">2건</h4>
+            <h4 style="position: relative; top: 15px;">${newOrder.order_state_number } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">취소</h2>
-            <h4 style="position: relative; top: 15px;">2건</h4>
+            <h4 style="position: relative; top: 15px;">${cancel.order_state_number } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">교환</h2>
-            <h4 style="position: relative; top: 15px;">2건</h4>
+            <h4 style="position: relative; top: 15px;">${change.order_state_number } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">환불</h2>
-            <h4 style="position: relative; top: 15px;">2건</h4>
+            <h4 style="position: relative; top: 15px;">${refund.order_state_number } 건</h4>
          </span>
       </div>
 		

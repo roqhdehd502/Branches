@@ -37,19 +37,19 @@
 			</span>
 			<span style="margin-left: 300px;" align="center">
             <h2 style="position: relative; top: 5px;">새 주문</h2>
-            <h4 style="position: relative; top: 15px;">2건</h4>
+            <h4 style="position: relative; top: 15px;">${newOrder.order_state_number } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">취소</h2>
-            <h4 style="position: relative; top: 15px;">2건</h4>
+            <h4 style="position: relative; top: 15px;">${cancel.order_state_number } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">교환</h2>
-            <h4 style="position: relative; top: 15px;">2건</h4>
+            <h4 style="position: relative; top: 15px;">${change.order_state_number } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">환불</h2>
-            <h4 style="position: relative; top: 15px;">2건</h4>
+            <h4 style="position: relative; top: 15px;">${refund.order_state_number } 건</h4>
          </span>
 		</div>
 
@@ -268,14 +268,27 @@
 	        formData.append("board_content", board_content);
 	        formData.append("prdct_stock", prdct_stock);
 	        
-	     	// 파일저장 영역
-	        var inputFile = $("#uploadfiles");
-	        var files = inputFile[0].files;  
-                
-	        for (var i = 0; i < files.length; i++) {
-	        	console.log(files[i]);
-	        	formData.append("uploadfiles", files[i]);
-	        } 
+	     // 썸네일 업로드 영역
+            var inputFile = $("#uploadfiles");
+            
+            function filechk() {
+            	 var fileDir = inputFile;
+            	 if(fileDir.substring(fileDir.lastIndexOf(".")+1,fileDir.length).search("jpg") == -1){
+            	 	alert("지정된 확장자의 이미지만 업로드 가능합니다!");
+            	 } else if (fileDir.substring(fileDir.lastIndexOf(".")+1,fileDir.length).search("png") == -1) {
+            		 alert("지정된 확장자의 이미지만 업로드 가능합니다!");
+				 }	 
+            } 
+    		
+            var files = inputFile[0].files;  
+            
+            for (var i = 0; i < files.length; i++) {
+				console.log(files[i]);
+				formData.append("uploadfiles", files[i]);
+				appended = true;
+			}
+            
+            console.log("formData: " + formData);
 	    		
 	        $.ajax({
 	        	type : "POST",

@@ -69,15 +69,47 @@
 		]]>
 	</select>
 	
-
 	<!-- 메인페이지 주문정보 불러오기 -->
 	<select id="getProduct" resultType="edu.bit.ex.joinvo.PrdctOrderDetailVO">
 		<![CDATA[
 			select * from prdct_order p, order_detail o where p.order_number = o.order_number
 		]]>
 	</select>
-
 	
+	<!-- 주문확인 페이지 주문정보불러오기 -->
+	<select id="OrderCheck" resultType="edu.bit.ex.joinvo.PrdctOrderDetailVO">
+		<![CDATA[
+			select * from prdct_order p,order_detail d, order_state s where p.order_number = d.order_number and s.order_state_number = 3
+		]]>
+	</select>
+	
+	<!-- 발송처리 페이지 발송정보 불러오기  -->
+	<select id="PrdShipping" resultType="edu.bit.ex.joinvo.PrdctOrderDetailVO">
+		<![CDATA[
+			select * from prdct_order p, order_state s where s.order_state_number = 4
+		]]>
+	</select>
+	
+	<!-- 취소처리 페이지 취소주문 불러오기  -->
+	<select id="getCancel" resultType="edu.bit.ex.joinvo.PrdctOrderDetailVO">
+		<![CDATA[
+			select * from prdct_order p, order_state s where s.order_state_number = 8
+		]]>
+	</select>
+	
+	<!-- 처리 페이지 취소주문 불러오기  -->
+	<select id="getRefund" resultType="edu.bit.ex.joinvo.PrdctOrderDetailVO">
+		<![CDATA[
+			select * from prdct_order p, order_state s where s.order_state_number = 10
+		]]>
+	</select>
+	
+	<!-- 처리 페이지 취소주문 불러오기  -->
+	<select id="exchange" resultType="edu.bit.ex.joinvo.PrdctOrderDetailVO">
+		<![CDATA[
+			select * from prdct_order p, order_state s, order_detail o where s.order_state_number = 9 and o.order_number = p.order_number
+		]]>
+	</select>
 
 	<!-- 게시글 검색기능 + 페이징 -->
 	<sql id="searchCriteria">
@@ -184,7 +216,33 @@
 		update board set board_content=#{board_content} where prdct_id=#{prdct_id}
 	]]>
 	</update>
-
-
-
+	
+	<!-- 새주문 카운트 -->
+	<select id="newOrderAlarm" resultType="edu.bit.ex.vo.OrderStateVO">
+		<![CDATA[
+			select count(order_state_number) from order_state where order_state_number = 3
+		]]>
+	</select>
+	
+	<!-- 취소요청 카운트 -->
+	<select id="cancelAlarm" resultType="edu.bit.ex.vo.OrderStateVO">
+		<![CDATA[
+			select count(order_state_number) from order_state where order_state_number = 8
+		]]>
+	</select>
+	
+	<!-- 교환요청 카운트 -->
+	<select id="changeAlarm" resultType="edu.bit.ex.vo.OrderStateVO">
+		<![CDATA[
+			select count(order_state_number) from order_state where order_state_number = 9
+		]]>
+	</select>
+	
+	<!-- 환불요청 카운트 -->
+	<select id="refundAlarm" resultType="edu.bit.ex.vo.OrderStateVO">
+		<![CDATA[
+			select count(order_state_number) from order_state where order_state_number = 10
+		]]>
+	</select>
+	
 </mapper>
