@@ -14,26 +14,32 @@
 	<insert id="insertOrder">
 		<![CDATA[
 		insert into prdct_order
-		(mbr_id)
+		(order_number, order_price, order_date, mbr_id, order_state_number)
 		values
-		(#{mbr_id})
+		(#{order_number}, #{order_price}, #{order_date}, #{mbr_id}, 2 )
 		]]>
 	</insert>
 	
 	<select id="getOrderInfo" resultType="edu.bit.ex.vo.PrdctOrderVO">
 		<![CDATA[
-			select * from prdct_order where mbr_id=#{mbr_id}
+			select * from (select * from prdct_order where mbr_id=#{mbr_id} order by order_date desc) where rownum = 1 
 		]]>
 	</select>
 	
 	<insert id="insertOrderDetail">
 		<![CDATA[
 			insert into order_detail
-			(prdct_id)
+			(order_number, prdct_id, order_color, order_size, order_amount, prdct_price, prdct_name)
 			values
-			(#{prdct_id})
+			(#{order_number}, #{prdct_id}, #{order_color}, #{order_size}, #{order_amount}, #{prdct_price}, #{prdct_name})
 		]]>
 	</insert>
+	
+	<select id="getPrdctPrice" resultType="int">
+		<![CDATA[
+			select prdct_price from prdct where prdct_id= #{prdct_id}
+		]]>
+	</select>
 
 	
 	

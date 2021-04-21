@@ -28,6 +28,7 @@ import edu.bit.ex.service.OrderService;
 import edu.bit.ex.service.SecurityService;
 import edu.bit.ex.vo.OrderDetailVO;
 import edu.bit.ex.vo.PrdctOrderVO;
+import edu.bit.ex.vo.PrdctVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -88,16 +89,19 @@ public class OrderController {
 		orderService.insertOrder(po);
 
 		// 해당아이디의 최신 결제내역을 가져옴
-		// PrdctOrderVO poVO = orderService.getOrderInfo(po.getMbr_id());
+		PrdctOrderVO poVO = orderService.getOrderInfo(po.getMbr_id());
 
 		OrderDetailVO odVO = new OrderDetailVO();
+		PrdctVO prdct = new PrdctVO();
 
 		for (int i = 1; i < order_amounts.length; i++) {
 			odVO.setOrder_amount(Integer.parseInt(order_amounts[i]));
 			odVO.setOrder_color(order_colors[i]);
 			odVO.setOrder_size(order_sizes[i]);
 			odVO.setPrdct_id(prdct_ids[i]);
-			odVO.setOrder_number(po.getOrder_number());
+
+			odVO.setPrdct_price(orderService.getPrdctPrice(odVO.getPrdct_id()));
+
 			orderService.insertOrderDetail(odVO);
 
 		}

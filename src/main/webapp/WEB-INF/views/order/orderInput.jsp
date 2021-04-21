@@ -183,6 +183,8 @@ BootPay.request({
  
 }).done(function (data) {
 	//결제가 정상적으로 완료되면 수행됩니다
+	formData.append("order_number",order_id);
+    appended = true;
 	document.form.submit();
 	// 유효성 체크
 	$.ajax({

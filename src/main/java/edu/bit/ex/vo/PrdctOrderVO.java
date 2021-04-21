@@ -35,6 +35,7 @@ public class PrdctOrderVO { // 상품주문
 	private String receipt_id; // 영수증id
 	private String t_key; // 택배키
 	private String t_invoice; // 택배 운송장번호
+	private int order_state_number; // 주문상태 번호
 
 	public OrderDetailVO orderDetailVO;
 	public List<OrderDetailVO> listOrderDetailVO;
