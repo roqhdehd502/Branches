@@ -46,7 +46,7 @@ public class BoardPrdctImageVO { // 게시판 이미지 VO
 	private int board_type_number; // 게시판유형번호
 	private int inquiry_number; // 문의유형번호
 	private Date board_date; // 게시글작성일자
-	private int order_number; // 주문번호
+	private String order_number; // 주문번호
 	private int board_like; // 게시글추천수
 	private int board_hit; // 게시글조회수
 	private int board_starrate; // 게시글별점수

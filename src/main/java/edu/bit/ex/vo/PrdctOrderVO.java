@@ -3,6 +3,7 @@ package edu.bit.ex.vo;
 import java.sql.Date;
 import java.util.List;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,7 @@ MBR_ID	VARCHAR2(50 BYTE)
 @Getter
 @ToString
 public class PrdctOrderVO { // 상품주문
-	private int order_number; // 상품주문번호 pk
+	private String order_number; // 상품주문번호 pk
 	private int order_price; // 상품주문가격
 	private Date order_date; // 상품주문일자
 	private String mbr_id; // 회원id fk

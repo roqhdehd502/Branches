@@ -134,6 +134,7 @@ function payNow(method) {
 	var nameCount = this.form.prdct_name.length - 2;
 	console.log(nameCount)
 	var prdct_name = this.form.prdct_name[1].value;
+	var order_price = $("#lastTotal").val();
 	if (nameCount > 0) {
 		prdct_name += " 외 " + nameCount + "개"
 	}
@@ -183,8 +184,8 @@ BootPay.request({
  
 }).done(function (data) {
 	//결제가 정상적으로 완료되면 수행됩니다
-	formData.append("order_number",order_id);
-    appended = true;
+	
+	console.log(form);
 	document.form.submit();
 	// 유효성 체크
 	$.ajax({
@@ -365,7 +366,7 @@ function jusoCallBack(roadFullAddr, zipNo) {
 						<input type="hidden" name="order_amount">
 						<input type="hidden" name="prdct_id">
 						<input type="hidden" name="receipt_id" id="receipt_id">
-						<input type="hidden" name="paydate" id="paydate">
+						<!-- <input type="hidden" name="order_date" id="order_date"> -->
 						<input type="hidden" name="order_size">
 						<input type="hidden" name="order_color">
 					</tbody>
@@ -381,7 +382,7 @@ function jusoCallBack(roadFullAddr, zipNo) {
 							<td>포인트 사용 <span id="payPoint1"></span><input type="hidden" id="payPoint" name="usepoint"></td>
 						<tr>
 							<td colspan="3"></td>
-							<td class="total-price">최종 결제 금액 <span id="lastTotal1"></span><input type="hidden" id="lastTotal" name="payprice"></td>
+							<td class="total-price">최종 결제 금액 <span id="lastTotal1"></span><input type="hidden" id="lastTotal" name="order_price"></td>
 						<tr>
 							<td colspan="3"></td>
 							<td>적립 포인트 <span id="earningPoint1"></span><input type="hidden" id="earningPoint" name="earningpoint"></td>

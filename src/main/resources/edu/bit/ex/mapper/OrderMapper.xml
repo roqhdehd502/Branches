@@ -16,7 +16,7 @@
 		insert into prdct_order
 		(order_number, order_price, order_date, mbr_id, order_state_number)
 		values
-		(#{order_number}, #{order_price}, #{order_date}, #{mbr_id}, 2 )
+		(#{order_number}, #{order_price}, sysdate, #{mbr_id}, 2 )
 		]]>
 	</insert>
 	

@@ -15,7 +15,7 @@ import lombok.ToString;
 @Getter
 @ToString
 public class PrdctOrderDetailVO { // 결제 후 정보 저장
-	private int order_number; // 상품주문번호
+	private String order_number; // 상품주문번호
 	private int order_price; // 상품주문가격
 	private Date order_date; // 상품주문일자
 	private String mbr_id; // 회원id fk
