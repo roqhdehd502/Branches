@@ -10,6 +10,7 @@ import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
+import edu.bit.ex.vo.OrderStateVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
 
@@ -62,5 +63,27 @@ public interface SellerMapper {
 
 	// 상품 등록
 	public void prdInsert(PrdctRegisterImageVO pvo);
+
+	// 새주문 알림
+	public OrderStateVO newOrderAlarm();
+
+	// 주문 취소 알림
+	public OrderStateVO cancelAlarm();
+
+	// 교환요청 알림
+	public OrderStateVO changeAlarm();
+
+	// 환불요청 알림
+	public OrderStateVO refundAlarm();
+
+	public List<PrdctOrderDetailVO> OrderCheck();
+
+	public List<PrdctOrderDetailVO> PrdShipping();
+
+	public List<PrdctOrderDetailVO> getCancel();
+
+	public List<PrdctOrderDetailVO> getRefund();
+
+	public List<PrdctOrderDetailVO> exchange();
 
 }

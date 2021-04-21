@@ -28,7 +28,7 @@ $(document).ready(function(){
 		
 		var prdct_id = $("#prdct_id").val();
         var prdct_name = $("#prdct_name").val();
-        var prdct_thumbnail = $("#prdct_thumbnail").val().replace ( "C:\\fakepath\\" ,  "/hs/" );
+	    var prdct_thumbnail = $("#prdct_thumbnail").val().replace('C:\\fakepath\\', '/hs/');
         var category_number = $("#category_number option:selected").val();
         var prdct_price = $("#prdct_price").val();
         var prdct_color = $("#prdct_color").val();
@@ -37,13 +37,12 @@ $(document).ready(function(){
         var prdct_stock = $("#prdct_stock").val();
         
         console.log(prdct_id);
-        console.log(prdct_thumbnail);
         console.log($(this).attr("action"));
         
         var form = {
         		prdct_id: prdct_id,
         		prdct_name: prdct_name,
-        		prdct_thumbnail : prdct_thumbnail,
+        		prdct_thumbnail: prdct_thumbnail,
         		category_number: category_number,
         		prdct_price: prdct_price,
         		prdct_color: prdct_color,
@@ -52,7 +51,7 @@ $(document).ready(function(){
         		prdct_stock: prdct_stock
        	 };
         console.log(form);
-        
+
 	    //dataType: 'json',
         $.ajax({
 		    type : "PUT",
@@ -136,10 +135,22 @@ $(document).ready(function(){
 			<span style="margin-left: 22px; position: relative; bottom: 10px;">
 				<a href="/seller/mypage/myinfo">정보수정</a>
 			</span>
-			<span style="margin-left: 480px;" align="center">
-				<h2 style="position: relative; top: 5px;">새주문</h2>
-				<h4 style="position: relative; top: 15px;">2건</h4>
-			</span>
+			<span style="margin-left: 300px;" align="center">
+            <h2 style="position: relative; top: 5px;">새 주문</h2>
+            <h4 style="position: relative; top: 15px;">${newOrder.order_state_number } 건</h4>
+         </span>
+         <span style="margin-left: 80px;" align="center">
+            <h2 style="position: relative; top: 5px;">취소</h2>
+            <h4 style="position: relative; top: 15px;">${cancel.order_state_number } 건</h4>
+         </span>
+         <span style="margin-left: 80px;" align="center">
+            <h2 style="position: relative; top: 5px;">교환</h2>
+            <h4 style="position: relative; top: 15px;">${change.order_state_number } 건</h4>
+         </span>
+         <span style="margin-left: 80px;" align="center">
+            <h2 style="position: relative; top: 5px;">환불</h2>
+            <h4 style="position: relative; top: 15px;">${refund.order_state_number } 건</h4>
+         </span>
 		</div>
 		
 		<hr style="margin: 15px 15px 24px 15px;">
@@ -198,13 +209,13 @@ $(document).ready(function(){
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">썸네일</label>
 								<div class="col-sm-10">
-									<input class="btn" type="file" id="prdct_thumbnail" accept=".jpg, .png" name="prdct_thumbnail" placeholder="첨부 사진" multiple />
+									<input class="btn" type="file" accept=".jpg, .png" name="prdct_thumbnail" id="prdct_thumbnail" placeholder="첨부 사진" multiple />
 									<!-- 이미지 컨테이너 -->
 									<div id="image_container" class="row" style="padding: 3% 3% 3% 5%">
 										<div class="col-md-2" align="center">
-											<!-- 이미지 정보 -->
-											<h5>등록 사진</h5>
-											<a href="${pdvo.prdct_thumbnail}">미리보기</a>
+											<!-- 게시글을 삭제할 때 이미지도 삭제하기 위한 이미지 정보 -->
+											<span class="upload_image" style="display: none;">${pdvo.prdct_thumbnail}</span> 
+											<img src="${pdvo.prdct_thumbnail}" width="100px" height="140px">
 										</div>
 									</div>
 								</div>
