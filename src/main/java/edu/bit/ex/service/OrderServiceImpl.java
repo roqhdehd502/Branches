@@ -41,4 +41,10 @@ public class OrderServiceImpl implements OrderService {
 		orderMapper.insertOrderDetail(odVO);
 	}
 
+	@Override
+	public int getPrdctPrice(String prdct_id) {
+		// TODO Auto-generated method stub
+		return orderMapper.getPrdctPrice(prdct_id);
+	}
+
 }
