@@ -188,7 +188,7 @@
 			<!-- 로그인을 했을 경우 -->
 			<sec:authorize access="isAuthenticated()"> 
 			<form id="commentWriteForm" method="post" action="${pageContext.request.contextPath}/board/magazine/${magazine_content.board_id}">		
-				<!-- <s:csrfInput /> -->
+				<%-- <sec:csrfInput/> --%>
 				<input type="hidden" id="mbr_id" value="${mbr.mbr_id}">
 				<input type="hidden" id="board_id" value="${magazine_content.board_id}">
 				
