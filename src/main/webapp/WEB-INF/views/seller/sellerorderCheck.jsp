@@ -18,6 +18,8 @@
 <link rel="stylesheet" href="/assets/css/slicknav.css">
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css">
+
+
 </head>
 <body>
 <div style="overflow: hidden;" class="container">
@@ -115,14 +117,7 @@
 					<div class="team-area sp">
 						<div class="container">
 							<div class="row">
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(0)">번호순</button>
-								&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(1)">제목순</button>
-								&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(2)">작성자순</button>
-								&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(5)">일자순</button>
-								<form id="searchForm" action="/seller/mypage/prdct" method="get" style="position: relative; left: 260px;">
+								<form id="searchForm" action="/seller/mypage/prdct" method="get" style="position: relative; left: 540px; bottom: 20px;">
 									<span>
 										<select name="type" style="width: 100px; border: 3px solid black;">
 											<option value="" <c:out value="${pageMaker.cri.type == null?'selected' : '' }" />>---</option>
@@ -148,20 +143,20 @@
 										</tr>
 									</thead>
 									<tbody style="text-align: center;">
-										<c:forEach items="${ord}" var="ord" begin="0" end="2" varStatus="status">
+										<c:forEach items="${prdct}" var="prdct" begin="0" end="9">
 											<tr style="text-align: center;">
 												<td>
-													<h6>${prd[status.index].prdct_name}</h6>
-													<h6>${prd[status.index].prdct_id}</h6>
-													<h6>${ord.order_size}</h6>
-													<h6>${ord.order_color}</h6>
-													<h6>${ord.order_amount}</h6>
+													<h6>${prdct.prdct_name}</h6>
+													<h6>${prdct.prdct_id}</h6>
+													<h6>${prdct.order_size}</h6>
+													<h6>${prdct.order_color}</h6>
+													<h6>${prdct.order_amount}</h6>
 												</td>
-												<td><h6 style="position: relative; top: 34px;">${prdor[status.index].order_date}</h6></td>
-												<td><h6 style="position: relative; top: 34px;">${ord.order_number}</h6></td>
-												<td><h6 style="position: relative; top: 34px; text-align: center;">${ord.prdct_price}₩</h6></td>
-												<td><h6 style="position: relative; top: 34px; margin-left: 14px;">결제요청</h6>
-													<h6 style="position: relative; top: 38px; margin-left: 10px;">
+												<td><h6 style="position: relative; top: 34px;">${prdct.order_date}</h6></td>
+												<td><h6 style="position: relative; top: 34px;">${prdct.order_number}</h6></td>
+												<td><h6 style="position: relative; top: 34px; text-align: center;">${prdct.order_price}₩</h6></td>
+												<td><h6 style="position: relative; top: 18px; margin-left: 14px;">결제요청</h6>
+													<h6 style="position: relative; top: 18px; margin-left: 10px;">
 														<button class="btn btn-primary btn-sm">결제처리</button>
 													</h6></td>
 											</tr>

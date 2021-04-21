@@ -28,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.config.auth.MemberDetails;
 import edu.bit.ex.joinvo.MbrShippingVO;
+import edu.bit.ex.joinvo.PrdctOrderDetailVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.page.SearchPageVO;
@@ -239,9 +240,7 @@ public class SellerController {
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
 
-		mav.addObject("prd", sellerService.getProduct());
-		mav.addObject("ord", sellerService.getOrderDetail());
-		mav.addObject("prdor", sellerService.getPrdOrder());
+		mav.addObject("prdct", sellerService.getProduct());
 
 		return mav;
 	}
@@ -266,9 +265,7 @@ public class SellerController {
 		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
-		mav.addObject("prd", sellerService.getProduct());
-		mav.addObject("ord", sellerService.getOrderDetail());
-		mav.addObject("prdor", sellerService.getPrdOrder());
+		mav.addObject("prdct", sellerService.getProduct());
 		return mav;
 	}
 
@@ -283,16 +280,14 @@ public class SellerController {
 		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
-		mav.addObject("prd", sellerService.getProduct());
-		mav.addObject("ord", sellerService.getOrderDetail());
-		mav.addObject("prdor", sellerService.getPrdOrder());
+		mav.addObject("prdct", sellerService.getProduct());
 
 		return mav;
 	}
 
 	// 판매자 취소 확인 페이지...(seller)
 	@GetMapping("/mypage/cancel")
-	public ModelAndView sellercancelCheck(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, MbrVO mbr) throws Exception {
+	public ModelAndView sellercancel(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, MbrVO mbr) throws Exception {
 		log.debug("sellercancelCheck");
 		log.info("sellercancelCheck");
 		mav.setViewName("seller/sellercancelCheck");
@@ -301,10 +296,29 @@ public class SellerController {
 		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
-		mav.addObject("prd", sellerService.getProduct());
-		mav.addObject("ord", sellerService.getOrderDetail());
+		mav.addObject("prdct", sellerService.getProduct());
 
 		return mav;
+	}
+
+	// 판매자 상품 삭제 확인
+	@DeleteMapping(value = "/mypage/cancel/delete/{order_number}")
+	public ResponseEntity<String> prdctCancle(@PathVariable("order_number") Long order_number) {
+		ResponseEntity<String> entity = null;
+
+		log.info("prdctCancle..");
+		try {
+
+			sellerService.prdctCancle(order_number);
+			log.info("delete prdct info");
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
 	}
 
 	// 판매자 환불 확인 페이지...(seller)
@@ -318,9 +332,7 @@ public class SellerController {
 		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
-		mav.addObject("prd", sellerService.getProduct());
-		mav.addObject("ord", sellerService.getOrderDetail());
-		mav.addObject("prdor", sellerService.getPrdOrder());
+		mav.addObject("prdct", sellerService.getProduct());
 
 		return mav;
 	}
@@ -336,11 +348,30 @@ public class SellerController {
 		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
-		mav.addObject("prd", sellerService.getProduct());
-		mav.addObject("ord", sellerService.getOrderDetail());
-		mav.addObject("prdor", sellerService.getPrdOrder());
+		mav.addObject("prdct", sellerService.getProduct());
 
 		return mav;
+	}
+
+	// 판매자 교환상품 수정 ajax
+	@Transactional
+	@PutMapping(value = "/mypage/exchange/modify/{order_number}")
+	public ResponseEntity<String> prdctcChange(@RequestBody PrdctOrderDetailVO povo) {
+		ResponseEntity<String> entity = null;
+
+		log.info("prdctChange..");
+
+		try {
+			sellerService.prdctChange(povo);
+			log.info("update prdct info");
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
 	}
 
 	// 판매자 상품Q&A조회 페이지...(seller)
@@ -366,7 +397,6 @@ public class SellerController {
 	}
 
 	// 판매자 상품리뷰조회 페이지...(seller)
-
 	@GetMapping("/mypage/review")
 	public ModelAndView sellerReview(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, MbrVO mbr) throws Exception {
 		log.debug("sellerReview");

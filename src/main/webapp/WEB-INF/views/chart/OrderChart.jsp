@@ -26,7 +26,7 @@
         title : '${mbr.mbr_id} 상품별 주문비율',
         fontSize : 15,
         width : 710,
-        height : 390,
+        height : 410,
         vAxis: {title: 'Prdct'},
         hAxis: {title: '최근 5년 기준'},
         seriesType: 'bars',
@@ -39,6 +39,6 @@
     </script>
 </head>
 <body>
-	<div id="chart_div7" style="width: 720px; height: 400px;"></div>
+	<div id="chart_div7" style="width: 720px; height: 420px;"></div>
 </body>
 </html>

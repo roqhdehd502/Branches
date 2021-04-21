@@ -18,6 +18,56 @@
 <link rel="stylesheet" href="/assets/css/slicknav.css">
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".changePrd").submit(function(event){
+		event.preventDefault();
+		
+		var order_number = $("#order_number").val();
+        var order_color = $("#order_color").val();
+        var order_size = $("#order_size").val();
+
+        
+        console.log(order_number);
+        console.log($(this).attr("action"));
+        
+        var form = {
+        		order_number: order_number,
+        		order_color: order_color,
+        		order_size : order_size
+       	 };
+        console.log(form);
+        
+	    //dataType: 'json',
+        $.ajax({
+		    type : "PUT",
+		    url : $(this).attr("action"),
+		    cache : false,
+		    contentType:'application/json; charset=utf-8',
+			data: JSON.stringify(form), 
+		    success: function (result) {       
+				if(result == "SUCCESS"){
+					if (confirm("정말 수정하시겠습니까??") == true) { //확인
+						//(게시글 수정)
+						console.log("Modify!")
+						$(location).attr('href', '${pageContext.request.contextPath}/seller/mypage/exchange')
+					} else { //취소
+						return;
+					}			      	       
+				}					        
+		    },
+		    error: function (e) {
+		        console.log(e);
+		    }
+		})	       
+    }); // end submit()
+    
+}); // end ready() 
+</script>
+
 </head>
 <body>
 <div style="overflow: hidden;" class="container">
@@ -115,14 +165,7 @@
 					<div class="team-area sp">
 						<div class="container">
 							<div class="row">
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(0)">번호순</button>
-								&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(1)">제목순</button>
-								&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(2)">작성자순</button>
-								&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(5)">일자순</button>
-								<form id="searchForm" action="/seller/mypage/prdct" method="get" style="position: relative; left: 260px;">
+								<form id="searchForm" action="/seller/mypage/prdct" method="get" style="position: relative; left: 520px; bottom: 20px;">
 									<span>
 										<select name="type" style="width: 100px; border: 3px solid black;">
 											<option value="" <c:out value="${pageMaker.cri.type == null?'selected' : '' }" />>---</option>
@@ -148,21 +191,67 @@
 										</tr>
 									</thead>
 									<tbody style="text-align: center;">
-										<c:forEach items="${order }" var="order" varStatus="status">
+										<c:forEach items="${prdct }" var="prdct" varStatus="status">
 											<tr>
 												<td>
-													<h6>${prdct[status.index].prdct_name }</h6>
-													<h6>${order.order_size }</h6>
-													<h6>${order.order_color }</h6>
-													<h6>${order.prdct_price }</h6>
+													<h6>${prdct.prdct_name}</h6>
+													<h6>${prdct.prdct_id}</h6>
+													<h6>${prdct.order_size}</h6>
+													<h6>${prdct.order_color}</h6>
+													<h6>${prdct.order_amount}</h6>
 												</td>
-												<td><h6 style="position: relative; top: 34px;">${prdOrder[status.index].order_date }</h6></td>
-												<td><h6 style="position: relative; top: 34px;">${order.order_number }</h6></td>
-												<td><h6 style="position: relative; top: 34px; text-align: center;">상의 S -> M 변경요청</h6></td>
+												<td><h6 style="position: relative; top: 34px;">${prdct.order_date}</h6></td>
+												<td><h6 style="position: relative; top: 34px;">${prdct.order_number}</h6></td>
+												<td><h6 style="position: relative; top: 34px; text-align: center;">사이즈 S -> M 변경요청</h6></td>
 												<td>
-													<h6 style="position: relative; top: 22px; margin-left: 14px;">교환요청</h6>
+													
 													<h6 style="position: relative; top: 24px; margin-left: 10px;">
-														<button class="btn btn-primary btn-sm">교환처리</button>
+														<form class="changePrd" action="/mypage/exchange/modify/${prdct.order_number}" method="PUT">
+														<button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#myModal">
+															교환처리
+														</button>
+														
+													
+														<!-- The Modal -->
+														<div class="modal" id="myModal">
+															<div class="modal-dialog">
+																<div class="modal-content">
+																	<!-- Modal Header -->
+																	<div class="modal-header">
+																		<h4 class="modal-title">교환처리</h4>
+																		<button type="button" class="close" data-dismiss="modal">&times;</button>
+																	</div>
+																	<!-- Modal body -->
+																	<div class="modal-body">
+																		<div class="form-group row">
+																			<label class="col-sm-2 col-form-label">상품번호</label>
+																			<div class="col-sm-10">
+																				<input type="text" class="form-control" placeholder="ex) 상품번호를 입력하세요" id="order_number" value="${prdct.order_number}">
+																			</div>
+																		</div>
+																		<div class="form-group row">
+																			<label class="col-sm-2 col-form-label">색상</label>
+																			<div class="col-sm-10">
+																				<input type="text" class="form-control" placeholder="ex) BLOWN, DARK, NAVY" id="order_color" value="${prdct.order_color}">
+																			</div>
+																		</div>
+																		<div class="form-group row">
+																			<label class="col-sm-2 col-form-label">사이즈</label>
+																			<div class="col-sm-10">
+																				<input type="text" class="form-control" placeholder="ex) XL (혹은) 105" id="order_size" value="${prdct.order_size}">
+																			</div>
+																		</div>
+																	</div>
+
+																	<!-- Modal footer -->
+																	<div class="modal-footer">
+																		<button type="submit" class="btn btn-success">확인</button>
+																		<button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+																	</div>
+																</div>
+															</div>
+														</div>
+														</form>
 													</h6>
 												</td>
 											</tr>
