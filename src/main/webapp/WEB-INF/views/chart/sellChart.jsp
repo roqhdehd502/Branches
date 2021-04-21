@@ -33,7 +33,7 @@
           var options = {
             title: 'Motivation and Energy Level Throughout the Day',
             fontSize : 15,
-            width : 700,
+            width : 680,
             height : 400,
             hAxis: {
               title: 'Time of Day',
@@ -54,6 +54,6 @@
     </script>
 </head>
 <body>
-	<div id="chart_div6" style="height: 400px;"></div>
+	<div id="chart_div6" style="width:720px; height: 400px;"></div>
 </body>
 </html>

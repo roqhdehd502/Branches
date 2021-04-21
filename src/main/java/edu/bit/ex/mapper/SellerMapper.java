@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import edu.bit.ex.joinvo.MbrShippingVO;
+import edu.bit.ex.joinvo.PrdctOrderDetailVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardVO;
@@ -21,7 +22,7 @@ public interface SellerMapper {
 	public List<OrderDetailVO> getOrderDetail();
 
 	// 상품 정보 불러오기
-	public List<PrdctRegisterImageVO> getProduct();
+	public List<PrdctOrderDetailVO> getProduct();
 
 	// 상품 주문 정보 불러오기
 	public List<PrdctOrderVO> getPrdOrder();
@@ -69,5 +70,11 @@ public interface SellerMapper {
 
 	// 상품 등록
 	public void prdInsert(PrdctRegisterImageVO pvo);
+
+	// 상품 취소 처리
+	public void prdctCancle(Long order_number);
+
+	// 상품 교환상품 처리
+	public void prdctChange(PrdctOrderDetailVO povo);
 
 }

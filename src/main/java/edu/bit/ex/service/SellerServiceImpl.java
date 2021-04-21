@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.bit.ex.joinvo.MbrShippingVO;
+import edu.bit.ex.joinvo.PrdctOrderDetailVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.mapper.SellerMapper;
 import edu.bit.ex.page.SearchCriteria;
@@ -37,7 +38,7 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public List<PrdctRegisterImageVO> getProduct() {
+	public List<PrdctOrderDetailVO> getProduct() {
 		log.info("getProduct......");
 		return sellerMapper.getProduct();
 	}
@@ -165,6 +166,19 @@ public class SellerServiceImpl implements SellerService {
 	public void updatePrdctInfo(PrdctRegisterImageVO prvo) {
 		// TODO Auto-generated method stub
 		sellerMapper.updatePrdctInfo(prvo);
+	}
+
+	@Override
+	public void prdctCancle(Long order_number) {
+		log.info("prdctCancle()......");
+		sellerMapper.prdctCancle(order_number);
+
+	}
+
+	@Override
+	public void prdctChange(PrdctOrderDetailVO povo) {
+		// TODO Auto-generated method stub
+		sellerMapper.prdctChange(povo);
 	}
 
 }

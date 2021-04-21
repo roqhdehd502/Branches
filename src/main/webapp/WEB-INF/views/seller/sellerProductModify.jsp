@@ -204,8 +204,7 @@ $(document).ready(function(){
 										<div class="col-md-2" align="center">
 											<!-- 이미지 정보 -->
 											<h5>등록 사진</h5>
-											<img src="${pdvo.prdct_thumbnail}" width="100px" height="140px">
-											<p>${pdvo.prdct_thumbnail}</p>
+											<a href="${pdvo.prdct_thumbnail}">미리보기</a>
 										</div>
 									</div>
 								</div>

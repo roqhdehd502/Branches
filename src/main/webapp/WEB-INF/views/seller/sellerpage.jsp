@@ -139,24 +139,25 @@
 								<th><h5>주문일</h5></th>
 								<th><h5>주문번호</h5></th>
 								<th><h5>주문금액</h5></th>
-								<th><h5>상태</h5></th>
+								<th><h5>주문수량</h5></th>
 							</tr>
 						</thead>
 						<tbody>
+							<c:forEach items="${prdct }" var="prdct" begin="0" end="4" varStatus="status">
 							<tr style="text-align: center;">
 								<td>
-									<h6></h6>
-									<h6></h6>
-									<h6></h6>
-									<h6></h6>
-									<h6></h6>
-									<h6></h6>
+									<h5>${prdct.prdct_id}</h5>
+									<h5>${prdct.mbr_id }</h5>
+									<h5>${prdct.prdct_name }</h5>
+									<h5>${prdct.order_size }</h5>
+									<h5>${prdct.order_color }</h5>
 								</td>
-								<td><h6 style="position: relative; top: 34px;"></h6></td>
-								<td><h6 style="position: relative; top: 34px;"></h6></td>
-								<td><h6 style="position: relative; top: 34px; text-align: center;">₩</h6></td>
-								<td><h6 style="position: relative; top: 34px; margin-left: 14px;">결제요청</h6></td>
+								<td><h5 style="position: relative; top: 34px;">${prdct.order_date }</h5></td>
+								<td><h5 style="position: relative; top: 34px;">${prdct.order_number}</h5></td>
+								<td><h5 style="position: relative; top: 34px; text-align: center;">${prdct.order_price }₩</h5></td>
+								<td><h5 style="position: relative; top: 34px; text-align: center;">${prdct.order_amount }</h5></td>
 							</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 			
