@@ -115,14 +115,7 @@
 					<div class="team-area sp">
 						<div class="container">
 							<div class="row">
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(0)">번호순</button>
-								&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(1)">제목순</button>
-								&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(2)">작성자순</button>
-								&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(5)">일자순</button>
-								<form id="searchForm" action="/seller/mypage/prdct" method="get" style="position: relative; left: 260px;">
+								<form id="searchForm" action="/seller/mypage/prdct" method="get" style="position: relative; left: 520px; bottom: 20px;">
 									<span>
 										<select name="type" style="width: 100px; border: 3px solid black;">
 											<option value="" <c:out value="${pageMaker.cri.type == null?'selected' : '' }" />>---</option>
@@ -148,17 +141,18 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach items="${order }" var="order" varStatus="status">
+										<c:forEach items="${prdct }" var="prdct" varStatus="status">
 											<tr style="text-align: center;">
 												<td>
-													<h6>${prdct[status.index].prdct_name }</h6>
-													<h6>${order.order_size }</h6>
-													<h6>${order.order_color }</h6>
+													<h6>${mbr.mbr_id}</h6>
+													<h6>${prdct.prdct_name}</h6>
+													<h6>${prdct.order_size}</h6>
+													<h6>${prdct.order_color}</h6>
 												</td>
-												<td><h6 style="position: relative; top: 22px;">${prdOrder[status.index].order_date }</h6></td>
-												<td style="text-align: center;"><h6 style="position: relative; top: 22px;">${order.order_number }</h6></td>
+												<td><h6 style="position: relative; top: 22px;">${prdct.order_date}</h6></td>
+												<td style="text-align: center;"><h6 style="position: relative; top: 22px;">${prdct.order_number}</h6></td>
 												<td>
-													<h6 style="position: relative; top: 22px; text-align: center;">발송전</h6>
+													<h6 style="position: relative; top: 22px; text-align: center;"></h6>
 												</td>
 												<td><input class="form-control" type="text" placeholder="송장번호 입력">
 													<h6 style="position: relative; top: 24px; text-align: center;">

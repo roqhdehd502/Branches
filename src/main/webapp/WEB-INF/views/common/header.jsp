@@ -38,16 +38,18 @@
 
 						<sec:authorize access="hasAuthority('MEMBER')">
 							<span style="position: relative; top: 18px; left: 520px;">
-								<a href="${pageContext.request.contextPath}/member/mypage">MYPAGE</a>
-							</span>&nbsp;&nbsp;
-							<span>
-								<a href="${pageContext.request.contextPath}/order/cart">CART</a>
-							</span>&nbsp;&nbsp;
-							<span>
-								<form action="/logoutsuccess" method="post" id="mlogout">
-									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
-									<a href="#" class="charity-strip-btn charity-bgcolor" onclick="document.getElementById('mlogout').submit();">LOGOUT</a>
-								</form>
+								<span>
+									<a href="${pageContext.request.contextPath}/member/mypage">MYPAGE</a>
+								</span>&nbsp;&nbsp;
+								<span>
+									<a href="${pageContext.request.contextPath}/order/cart">CART</a>
+								</span>&nbsp;&nbsp;
+								<span>
+									<form action="/logoutsuccess" method="post" id="mlogout">
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+										<a href="#" class="charity-strip-btn charity-bgcolor" onclick="document.getElementById('mlogout').submit();">LOGOUT</a>
+									</form>
+								</span>
 							</span>
 						</sec:authorize>
 						

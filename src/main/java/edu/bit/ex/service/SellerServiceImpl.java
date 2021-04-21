@@ -15,8 +15,6 @@ import edu.bit.ex.mapper.SellerMapper;
 import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
-import edu.bit.ex.vo.OrderDetailVO;
-import edu.bit.ex.vo.PrdctOrderVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
 import lombok.AllArgsConstructor;
@@ -32,21 +30,9 @@ public class SellerServiceImpl implements SellerService {
 	private static final String PRDCT_THUMBNAIL_PATH = "C:/tetleaf/Branches/src/main/resources/static/hs";
 
 	@Override
-	public List<OrderDetailVO> getOrderDetail() {
-		log.info("getOrderDetail......");
-		return sellerMapper.getOrderDetail();
-	}
-
-	@Override
 	public List<PrdctOrderDetailVO> getProduct() {
 		log.info("getProduct......");
 		return sellerMapper.getProduct();
-	}
-
-	@Override
-	public List<PrdctOrderVO> getPrdOrder() {
-		log.info("getPrdOrder......");
-		return sellerMapper.getPrdOrder();
 	}
 
 	@Override
@@ -166,19 +152,6 @@ public class SellerServiceImpl implements SellerService {
 	public void updatePrdctInfo(PrdctRegisterImageVO prvo) {
 		// TODO Auto-generated method stub
 		sellerMapper.updatePrdctInfo(prvo);
-	}
-
-	@Override
-	public void prdctCancle(Long order_number) {
-		log.info("prdctCancle()......");
-		sellerMapper.prdctCancle(order_number);
-
-	}
-
-	@Override
-	public void prdctChange(PrdctOrderDetailVO povo) {
-		// TODO Auto-generated method stub
-		sellerMapper.prdctChange(povo);
 	}
 
 }

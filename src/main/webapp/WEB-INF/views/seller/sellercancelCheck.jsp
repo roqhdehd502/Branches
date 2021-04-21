@@ -20,48 +20,6 @@
 <link rel="stylesheet" href="/bootstrap.min.css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script type="text/javascript">
-			$(document).ready(function() {
-				$('.acancle').click(function(event) {
-					// 이벤트를 취소할 때 동작을 멈춘다.
-					event.preventDefault();
-					console.log("ajax 호출전");
-					// <a>의 parent(<td>)의 parent 즉, <tr>를 지칭한다.(클로저)
-					/*
-						어떻게 제이쿼리는 this가 <a>인 것을 알고있을까?
-						: a 태그내 .a-delete 클릭 이벤트가 발생 되었으므로!
-						: $('.a-delete').click(function(event)
-					 */
-					var deObj = $(this).parent();
-					console.log("ajax 실행");
-					$.ajax({
-						// AJAX의 타입(삭제)
-						type : 'DELETE',
-						// <a>의(this) 속성(href)을 가져온다.(attr)
-						url : $(this).attr("href"),
-						// 캐시를 false 설정하여 페이지가 새로 고쳐질때
-						// 데이터를 남기지 않는다(?)
-						cache : false,
-						success : function(result) {
-							console.log(result);
-							if (result == "SUCCESS") {
-								if (confirm("취소하시겠습니까??") == true) { //확인
-									// trObj 변수를 삭제한다.(게시글 삭제)
-									$(deObj).remove();
-									console.log("REMOVED!")
-									$(location).attr('href', '${pageContext.request.contextPath}/seller/mypage/cancel')
-								} else { //취소
-									return;
-								}
-							}
-						},
-						error : function(e) {
-							console.log(e);
-						}
-					})
-				});
-			});
-	</script>
 
 </head>
 <body>
@@ -182,28 +140,23 @@
 											<th><h5>상품정보</h5></th>
 											<th><h5>주문일</h5></th>
 											<th><h5>주문번호</h5></th>
-											<th><h5>주문금액</h5></th>
+											<th><h5>주문금액(수량)</h5></th>
 											<th><h5>상태</h5></th>
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach items="${prdct }" var="prdct">
+										<c:forEach items="${prdct }" var="prdct" varStatus="status">
 											<tr style="text-align: center;">
 												<td>
+													<h6>${mbr.mbr_id}</h6>
 													<h6>${prdct.prdct_name}</h6>
-													<h6>${prdct.prdct_id}</h6>
 													<h6>${prdct.order_size}</h6>
 													<h6>${prdct.order_color}</h6>
-													<h6>${prdct.order_amount}</h6>
 												</td>
 												<td style="text-align: center;"><h6 style="position: relative; top: 34px;">${prdct.order_date}</h6></td>
 												<td style="text-align: center;"><h6 style="position: relative; top: 34px;">${prdct.order_number}</h6></td>
-												<td><h6 style="position: relative; top: 34px; text-align: center;">${prdct.order_price}₩</h6></td>
-												<td>
-													<button class="btn btn-danger btn-sm" style="position: relative; top: 26px;">
-														<a class="acancle" href="/seller/mypage/cancel/delete/${prdct.order_number}">취소처리</a>
-													</button>												
-												</td>
+												<td><h6 style="position: relative; top: 34px; text-align: center;">${prdct.order_price}₩ (${prdct.order_amount})</h6></td>
+												<td> </td>
 											</tr>
 										</c:forEach>
 									</tbody>

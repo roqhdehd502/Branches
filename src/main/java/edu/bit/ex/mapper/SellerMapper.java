@@ -10,22 +10,14 @@ import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
-import edu.bit.ex.vo.OrderDetailVO;
-import edu.bit.ex.vo.PrdctOrderVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
 
 @Mapper
 public interface SellerMapper {
 
-	// 주문상세 정보 불러오기
-	public List<OrderDetailVO> getOrderDetail();
-
 	// 상품 정보 불러오기
 	public List<PrdctOrderDetailVO> getProduct();
-
-	// 상품 주문 정보 불러오기
-	public List<PrdctOrderVO> getPrdOrder();
 
 	// 게시판 정보 불러오기
 	public List<BoardVO> getBoard(SearchCriteria cri);
@@ -70,11 +62,5 @@ public interface SellerMapper {
 
 	// 상품 등록
 	public void prdInsert(PrdctRegisterImageVO pvo);
-
-	// 상품 취소 처리
-	public void prdctCancle(Long order_number);
-
-	// 상품 교환상품 처리
-	public void prdctChange(PrdctOrderDetailVO povo);
 
 }
