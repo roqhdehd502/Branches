@@ -8,7 +8,6 @@ import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
-import edu.bit.ex.vo.OrderStateVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
 
@@ -57,18 +56,6 @@ public interface SellerService {
 
 	// 상품 등록
 	public void prdInsert(PrdctRegisterImageVO prdctIVO);
-
-	// 새 주문 알림
-	public OrderStateVO newOrderAlarm();
-
-	// 취소요청 알림
-	public OrderStateVO cancelAlarm();
-
-	// 교환요청 알림
-	public OrderStateVO changeAlarm();
-
-	// 환불요청 알림
-	public OrderStateVO refundAlarm();
 
 	public List<PrdctOrderDetailVO> OrderCheck();
 

@@ -65,7 +65,7 @@ public interface SellerMapper {
 	public void prdInsert(PrdctRegisterImageVO pvo);
 
 	// 새주문 알림
-	public OrderStateVO newOrderAlarm();
+	public List<PrdctOrderDetailVO> newOrderAlarm();
 
 	// 주문 취소 알림
 	public OrderStateVO cancelAlarm();

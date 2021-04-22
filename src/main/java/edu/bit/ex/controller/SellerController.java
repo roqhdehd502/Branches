@@ -93,11 +93,6 @@ public class SellerController {
 		// 판매자 주소 불러오기
 		mav.addObject("svo", sellerService.getAddress(svo.getMbr_id()));
 
-		mav.addObject("newOrder", sellerService.newOrderAlarm());
-		mav.addObject("cancel", sellerService.cancelAlarm());
-		mav.addObject("change", sellerService.changeAlarm());
-		mav.addObject("refund", sellerService.refundAlarm());
-
 		return mav;
 	}
 
@@ -140,11 +135,6 @@ public class SellerController {
 		log.info("getTotal");
 		mav.addObject("pageMaker", new SearchPageVO(cri, total));
 
-		mav.addObject("newOrder", sellerService.newOrderAlarm());
-		mav.addObject("cancel", sellerService.cancelAlarm());
-		mav.addObject("change", sellerService.changeAlarm());
-		mav.addObject("refund", sellerService.refundAlarm());
-
 		return mav;
 	}
 
@@ -167,11 +157,6 @@ public class SellerController {
 		mav.addObject("svo", sellerService.getAddress(svo.getMbr_id()));
 		// 상품 내용 불러오기
 		mav.addObject("bContent", sellerService.getContent(prdct_id));
-
-		mav.addObject("newOrder", sellerService.newOrderAlarm());
-		mav.addObject("cancel", sellerService.cancelAlarm());
-		mav.addObject("change", sellerService.changeAlarm());
-		mav.addObject("refund", sellerService.refundAlarm());
 
 		return mav;
 	}
@@ -255,10 +240,6 @@ public class SellerController {
 		mav.addObject("mbr", getMbr);
 
 		mav.addObject("prdct", sellerService.getProduct());
-		mav.addObject("newOrder", sellerService.newOrderAlarm());
-		mav.addObject("cancel", sellerService.cancelAlarm());
-		mav.addObject("change", sellerService.changeAlarm());
-		mav.addObject("refund", sellerService.refundAlarm());
 
 		return mav;
 	}
@@ -284,10 +265,6 @@ public class SellerController {
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
 		mav.addObject("orderCheck", sellerService.OrderCheck());
-		mav.addObject("newOrder", sellerService.newOrderAlarm());
-		mav.addObject("cancel", sellerService.cancelAlarm());
-		mav.addObject("change", sellerService.changeAlarm());
-		mav.addObject("refund", sellerService.refundAlarm());
 
 		return mav;
 	}
@@ -304,10 +281,6 @@ public class SellerController {
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
 		mav.addObject("shipping", sellerService.PrdShipping());
-		mav.addObject("newOrder", sellerService.newOrderAlarm());
-		mav.addObject("cancel", sellerService.cancelAlarm());
-		mav.addObject("change", sellerService.changeAlarm());
-		mav.addObject("refund", sellerService.refundAlarm());
 
 		return mav;
 	}
@@ -324,10 +297,6 @@ public class SellerController {
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
 		mav.addObject("cancel", sellerService.getCancel());
-		mav.addObject("newOrder", sellerService.newOrderAlarm());
-		mav.addObject("cancel", sellerService.cancelAlarm());
-		mav.addObject("change", sellerService.changeAlarm());
-		mav.addObject("refund", sellerService.refundAlarm());
 
 		return mav;
 	}
@@ -344,10 +313,6 @@ public class SellerController {
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
 		mav.addObject("refund", sellerService.getRefund());
-		mav.addObject("newOrder", sellerService.newOrderAlarm());
-		mav.addObject("cancel", sellerService.cancelAlarm());
-		mav.addObject("change", sellerService.changeAlarm());
-		mav.addObject("refund", sellerService.refundAlarm());
 
 		return mav;
 	}
@@ -364,10 +329,6 @@ public class SellerController {
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
 		mav.addObject("exchange", sellerService.exchange());
-		mav.addObject("newOrder", sellerService.newOrderAlarm());
-		mav.addObject("cancel", sellerService.cancelAlarm());
-		mav.addObject("change", sellerService.changeAlarm());
-		mav.addObject("refund", sellerService.refundAlarm());
 
 		return mav;
 	}
@@ -390,10 +351,6 @@ public class SellerController {
 		int total = sellerService.getTotal(cri);
 		log.info("getTotal");
 		mav.addObject("pageMaker", new SearchPageVO(cri, total));
-		mav.addObject("newOrder", sellerService.newOrderAlarm());
-		mav.addObject("cancel", sellerService.cancelAlarm());
-		mav.addObject("change", sellerService.changeAlarm());
-		mav.addObject("refund", sellerService.refundAlarm());
 
 		return mav;
 	}
@@ -412,10 +369,6 @@ public class SellerController {
 		mav.addObject("mbr", getMbr);
 		// mav.addObject("board", sellerService.getBoard());
 		mav.addObject("prd", sellerService.getProduct());
-		mav.addObject("newOrder", sellerService.newOrderAlarm());
-		mav.addObject("cancel", sellerService.cancelAlarm());
-		mav.addObject("change", sellerService.changeAlarm());
-		mav.addObject("refund", sellerService.refundAlarm());
 
 		return mav;
 	}
@@ -433,10 +386,6 @@ public class SellerController {
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
 		mav.addObject("prdct", sellerService.getProduct());
-		mav.addObject("newOrder", sellerService.newOrderAlarm());
-		mav.addObject("cancel", sellerService.cancelAlarm());
-		mav.addObject("change", sellerService.changeAlarm());
-		mav.addObject("refund", sellerService.refundAlarm());
 
 		return mav;
 	}
