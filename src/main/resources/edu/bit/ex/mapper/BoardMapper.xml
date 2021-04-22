@@ -46,6 +46,15 @@
 		</where>
 	</select>
 	
+	<!-- 매거진 게시글 조회 -->
+	<update id="upNoticeHit">
+		<![CDATA[
+			UPDATE board 
+			SET board_hit = board_hit+1 
+			WHERE board_id = #{board_id}
+		]]>
+	</update>
+	
 	<!-- 공지사항 삭제 -->
 	<delete id="noticeRemove">
 		<![CDATA[

@@ -104,7 +104,7 @@
 		<![CDATA[
 			SELECT * FROM ( 
 			     SELECT ROWNUM AS RNUM, A.* FROM ( 
-			        		SELECT mbr_id, board_id, board_name, board_date 
+			        		SELECT mbr_id, board_id, board_name, board_date, inquiry_number 
 							FROM board 
 							WHERE mbr_id = #{mbr_id} AND 
 							    board_type_number = 5 
@@ -192,7 +192,7 @@
 		<![CDATA[
 			SELECT * FROM ( 
 			     SELECT ROWNUM AS RNUM, A.* FROM ( 
-			        		SELECT mbr_id, board_id, board_name, board_date 
+			        		SELECT mbr_id, board_id, board_name, board_date, inquiry_number 
 							FROM board 
 							WHERE mbr_id = #{mbr_id} AND 
 							    board_type_number = 4 

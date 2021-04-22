@@ -79,7 +79,7 @@
 							<a href="${pageContext.request.contextPath}/member/mypage/order">주문내역 조회</a>
 						</h5>
 						<h5>
-							<a href="${pageContext.request.contextPath}/member/mypage/recently">최근 본 상품보기</a>
+							<a href="${pageContext.request.contextPath}/member/mypage/recently">최근 본 상품</a>
 						</h5>
 						<h5>
 							<a href="${pageContext.request.contextPath}/member/mypage/like">찜한 목록</a>
@@ -106,49 +106,54 @@
 						</h5>
 					</div>
 				</div>
-
+				
 				<!-- 오른쪽 컨텐츠 내용 -->
-				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 822px;">
-					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, .1);">
-						<strong style="margin: 10px;">찜한 목록</strong>
-					</h3>
-					<div class="team-area sp">
-						<div class="container">
-							<div class="row">
-								<c:forEach items="${like_prdct_list}" var="like">
-								<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-									<div class="inner thumbnail">
-										<!-- 썸네일을 누르면 해당 상품 상세페이지로 이동 -->
-										<a href="${pageContext.request.contextPath}/prdct/${like.prdct_id}">
+				<div class="col-md-9 contact-info">
+					<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 822px;">
+						<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, .1);">
+							<strong style="margin: 10px;">찜한 목록</strong>
+						</h3>
+						<div class="team-area sp">
+							<div class="container">
+								<div class="row">
+									<c:forEach items="${like_prdct_list}" var="like">
+									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
+										<div class="inner thumbnail">
+											<!-- 썸네일을 누르면 해당 상품 상세페이지로 이동 -->
+											<a href="${pageContext.request.contextPath}/prdct/${like.prdct_id}">
+												<div class="team-img">
+													<!-- 해당 썸네일 유무에 따라 사진 가져오기 -->
+													<img class="rounded" src="/prdct_img/prdct_thumbnail/${like.prdct_thumbnail}" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" width="150px" height="200px">
+												</div>
+												<div class="team-content">
+													<h4>${like.prdct_name}</h4>
+													<h5>${like.mbr_id}</h5>
+													<h5>&#36;${like.prdct_price}</h5>
+												</div>
+											</a>
+										</div>
+									</div>
+									</c:forEach>
+									<!-- <div class="col-sm-6 col-md-4 col-lg-3 single-team">
+										<div class="inner">
 											<div class="team-img">
-												<!-- 해당 썸네일 유무에 따라 사진 가져오기 -->
-												<img class="rounded" src="/prdct_img/prdct_thumbnail/${like.prdct_thumbnail}" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" width="150px" height="200px">
+												<img src="/ksp/th-ex.jpg" alt="Member Photo">
 											</div>
 											<div class="team-content">
-												<h4>${like.prdct_name}</h4>
-												<h5>${like.mbr_id}</h5>
-												<h5>&#36;${like.prdct_price}</h5>
+												<h4>상품명</h4>
+												<h5>브랜드</h5>
+												<h5>$100</h5>
 											</div>
-										</a>
-									</div>
+										</div>
+									</div> -->
 								</div>
-								</c:forEach>
-								<!-- <div class="col-sm-6 col-md-4 col-lg-3 single-team">
-									<div class="inner">
-										<div class="team-img">
-											<img src="/ksp/th-ex.jpg" alt="Member Photo">
-										</div>
-										<div class="team-content">
-											<h4>상품명</h4>
-											<h5>브랜드</h5>
-											<h5>$100</h5>
-										</div>
-									</div>
-								</div> -->
 							</div>
 						</div>
-					</div>
-				</span>
+					</span>
+				</div>
+
+				
+				
 			</div>
 		</div>
 

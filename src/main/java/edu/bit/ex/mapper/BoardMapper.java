@@ -26,6 +26,9 @@ public interface BoardMapper {
 	// 공지사항 게시글
 	public BoardVO getNoticeContent(int board_id);
 
+	// 매거진 게시글 조회
+	public void upNoticeHit(int board_id);
+
 	// 공지사항 삭제
 	public int noticeRemove(int board_id);
 

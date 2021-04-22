@@ -74,22 +74,27 @@
 		$(document).ready(function (){
 			$('#delete').click(function(event){
 				event.preventDefault();
-				console.log("QnA Delete...");		
-	 
-				$.ajax({
-					type : 'DELETE',
-					url : $(this).attr("href"),
-					cache : false,
-					success: function(result){
-						console.log(result);
-						if(result=="SUCCESS"){
-							$(location).attr('href', '${pageContext.request.contextPath}/member/mypage/myqna/list') 
+				
+				if (confirm("작성한 Q&A를 삭제하시겠습니까?")) {
+					console.log("QnA Delete...");
+					
+					$.ajax({
+						type : 'DELETE',
+						url : $(this).attr("href"),
+						cache : false,
+						success: function(result){
+							console.log(result);
+							if(result=="SUCCESS"){
+								$(location).attr('href', '${pageContext.request.contextPath}/member/mypage/myqna/list') 
+							}
+						},
+						error:function(e){
+							console.log(e);
 						}
-					},
-					error:function(e){
-						console.log(e);
-					}
-				})
+					})
+				} else {
+					location.reload();
+				}
 			});	
 		});	
 	</script>
@@ -111,7 +116,7 @@
 				<div class="col-md-9 contact-info" style="margin: auto;">
 					<hr>
 					<h3 style="text-align: center;">
-						<strong>고객 Q&A 수정</strong>
+						<strong>내가 쓴 고객 Q&A</strong>
 					</h3>
 					<hr>
 					<!-- 작성 폼 -->

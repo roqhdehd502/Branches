@@ -33,31 +33,27 @@
 
 		<hr style="margin: 15px 15px 40px 15px;">
 
-		<div class="container">
-			<div class="container">
-				<h2>NOTICE</h2>
-			</div>
-			<div class="container">
-				<div class="row">
-					<table class="table table-hover" style="text-align: center;">
-						<tr class="table-primary">
-							<th>번호</th>
-							<th>제목</th>
-							<th>등록일</th>
-						</tr>
-						<tr>
-							<td>${notice_content.board_id}</td>
-							<td>${notice_content.board_name}</td>
-							<td>${notice_content.board_date}</td>
-						</tr>
-					</table>
+		<div class="container contpadding">
+			<!-- 공지사항 기본 정보 -->
+			<div class="container" align="center">
+				<div><h2>${notice_content.board_name}</h2></div>
+				<div>
+					<label>
+						${notice_content.board_date}&nbsp;|&nbsp;
+						조회수: ${notice_content.board_hit}
+					</label>
 				</div>
-				
-				<hr>
-				
-				<div class="row" style="padding: 5% 3% 3% 5%; overflow: auto;">
-					<p class="lead" style="white-space:pre;">${notice_content.board_content}</p>
-				</div>			
+			</div>
+			
+			<hr>
+			
+			<!-- 공지사항 글내용 -->		
+			<div class="container" style="overflow: auto;">
+				<div class="row" style="padding: 3% 3% 5% 3%">		
+					<div class="col-md-12 mgzcntnt" style="padding: 2% 3% 3% 3%">
+						<p class="lead" style="white-space: normal;">${notice_content.board_content}</p>
+					</div>
+				</div>
 			</div>
 			
 			<hr>

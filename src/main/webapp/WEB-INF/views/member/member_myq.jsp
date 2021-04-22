@@ -63,7 +63,7 @@
 							<a href="${pageContext.request.contextPath}/member/mypage/order">주문내역 조회</a>
 						</h5>
 						<h5>
-							<a href="${pageContext.request.contextPath}/member/mypage/recently">최근 본 상품보기</a>
+							<a href="${pageContext.request.contextPath}/member/mypage/recently">최근 본 상품</a>
 						</h5>
 						<h5>
 							<a href="${pageContext.request.contextPath}/member/mypage/like">찜한 목록</a>
@@ -91,77 +91,64 @@
 					</div>
 				</div>
 
-
+				<!-- 오른쪽 본문 -->
 				<div class="col-md-9 contact-info">
-					<div class="row" style="padding: 0px 2% 0px 2%">
-						<div class="col-md-6" align="left">
-							<h3>
-								<strong>문의 상세</strong>
-							</h3>
-							<hr>
-						</div>
-						<div class="col-md-6" align="right"></div>
-					</div>
-
-					<!-- QNA 제목 -->
 					<div class="container">
-						<table class="table table-hover" style="text-align: center;">
-							<tr class="table-primary">
-								<th>번호</th>
-								<th>제목</th>
-								<th>문의유형</th>
-								<th>등록일</th>
-							</tr>
-							<tr>
-								<td>${iBoard.board_id}</td>
-								<td>${iBoard.board_name}</td>
-								<td><c:choose>
-										<c:when test="${iBoard.inquiry_name eq 'POINT'}">
-								        포인트
-								    </c:when>
-										<c:when test="${iBoard.inquiry_name eq 'MEMBER'}">
-								        회원관련
-								    </c:when>
-										<c:otherwise>
-								        기타
-								    </c:otherwise>
-									</c:choose></td>
-								<td>${iBoard.board_date}</td>
-							</tr>
-						</table>
-					</div>
-
-					<hr>
-
-					<!-- QNA 본문 -->
-					<div class="container">
-						<div class="row" style="padding: 5% 3% 3% 5%">
-							<p class="lead" style="white-space: pre;">${iBoard.board_content}</p>
-						</div>
-					</div>
-
-					<hr>
-
-					<!-- 페이지 이동 -->
-					<div class="container">
-						<div class="row" style="padding: 3% 5% 3% 5%">
-							<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/mypage/myqna/list'">목록보기</button>
-							&nbsp;
-							<button type="button" class="btn btn-primary"
-								onclick="location.href='${pageContext.request.contextPath}/member/mypage/myqna/modify/${iBoard.board_id}'">수정하기</button>
-						</div>
-					</div>
-
-					<hr>
-
-					<!-- 댓글 불러오기 -->
-					<div class="container">
-						<c:forEach items="${comment}" var="comment" varStatus="cmnt_status">
-							<div class="row" style="margin: 1% 3% 1% 3%; padding: 1% 3% 1% 3%; border: 1px solid #E5E5E5;">
-								<div class="col-md-7" align="left" style="white-space: pre;">${comment.comment_content}</div>
-								<div class="col-md-5" align="right">${comment.comment_date}</div>
+						<!-- QNA 제목 -->
+						<div class="container">
+							<div class="row justify-content-center">
+								<h2>${iBoard.board_name}</h2>
 							</div>
-						</c:forEach>
+							<div class="row justify-content-center">
+								<label>
+									${iBoard.board_date}&nbsp;|&nbsp;
+									<c:choose>
+										<c:when test="${iBoard.inquiry_name eq 'POINT'}">
+											포인트
+										</c:when>
+										<c:when test="${iBoard.inquiry_name eq 'MEMBER'}">
+											회원관련
+										</c:when>
+										<c:otherwise>
+											 기타
+										</c:otherwise>
+									</c:choose>	
+								</label>
+							</div>
+						</div>
+	
+						<hr>
+	
+						<!-- QNA 본문 -->
+						<div class="container">
+							<div class="row" style="padding: 5% 3% 3% 5%">
+								<p style="white-space: pre;">${iBoard.board_content}</p>
+							</div>
+						</div>
+	
+						<hr>
+	
+						<!-- 페이지 이동 -->
+						<div class="container">
+							<div style="padding: 3% 5% 3% 5%" align="center">
+								<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/mypage/myqna/list'">목록보기</button>
+								&nbsp;
+								<button type="button" class="btn btn-primary"
+									onclick="location.href='${pageContext.request.contextPath}/member/mypage/myqna/modify/${iBoard.board_id}'">수정하기</button>
+							</div>
+						</div>
+	
+						<hr>
+	
+						<!-- 댓글 불러오기 -->
+						<div class="container">
+							<c:forEach items="${comment}" var="comment" varStatus="cmnt_status">
+								<div class="row" style="margin: 1% 3% 1% 3%; padding: 1% 3% 1% 3%; border: 1px solid #E5E5E5;">
+									<div class="col-md-7" align="left" style="white-space: pre;">${comment.comment_content}</div>
+									<div class="col-md-5" align="right">${comment.comment_date}</div>
+								</div>
+							</c:forEach>
+						</div>
 					</div>
 				</div>
 				<hr>

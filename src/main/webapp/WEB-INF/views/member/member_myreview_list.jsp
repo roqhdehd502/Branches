@@ -84,7 +84,7 @@
 							<a href="${pageContext.request.contextPath}/member/mypage/order">주문내역 조회</a>
 						</h5>
 						<h5>
-							<a href="${pageContext.request.contextPath}/member/mypage/recently">최근 본 상품보기</a>
+							<a href="${pageContext.request.contextPath}/member/mypage/recently">최근 본 상품</a>
 						</h5>
 						<h5>
 							<a href="${pageContext.request.contextPath}/member/mypage/like">찜한 목록</a>

@@ -22,7 +22,11 @@
 	<link rel="stylesheet" href="/bootstrap.min.css">
 	
 	<!-- 반응형 사이즈 조절 -->
-	<link rel="stylesheet" href="/css/reactive_size.css">		
+	<link rel="stylesheet" href="/css/reactive_size.css">
+	
+	<style type="text/css">
+		a:hover { text-decoration: none;}
+	</style>		
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -36,40 +40,42 @@
 					<div class="col-md-6 contact-info" align="left">
 						<h2>NOTICE</h2>
 					</div>
-					
 					<!-- 권한에 따라 버튼을 달리 보이게 한다 -->
 					<!-- 모든 사용자 -->
 					<sec:authorize access="isAnonymous()"> 
-					<div class="col-md-6 contact-info" align="right"></div>
+						<div class="col-md-6 contact-info" align="right"></div>
 					</sec:authorize>
 					<!-- 관리자일 경우 -->
 					<sec:authorize access="hasAuthority('ADMIN')">  
-					<div class="col-md-6 contact-info" align="right">
-						<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/admin/board/notice/write'">작성하기</button>
-					</div>
+						<div class="col-md-6 contact-info" align="right">
+							<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/admin/board/notice/write'">작성하기</button>
+						</div>
 					</sec:authorize>
-					
 				</div>	
 			</div>
 			
-			<hr>
+			<hr style="margin: 15px 15px 40px 15px;">
 			
 			<div class="container">
 				<table class="table table-hover" style="text-align: center;">
-					<tr class="table-primary">
+					<!-- <tr class="table-dark">
 						<th><h5>번호</h5></th>
 						<th><h5>제목</h5></th>
 						<th><h5>등록일</h5></th>
-					</tr>
+						<th><h5>조회수</h5></th>
+					</tr> -->
 					<c:forEach items="${notice_list}" var="dto">
-						<tr>
-							<td>${dto.board_id}</td>
-							<td><a href="${pageContext.request.contextPath}/board/notice/${dto.board_id}">${dto.board_name}</a></td>
-							<td>${dto.board_date}</td>
-						</tr>
+					<tr class="table-light">
+						<%-- <td>${dto.board_id}</td> --%>
+						<td scope="row" align="left"><h5><a href="${pageContext.request.contextPath}/board/notice/${dto.board_id}">${dto.board_name}</a></h5></td>
+						<td style="border-left: 1px solid #e5e5e5;" align="right">${dto.board_date}</td>
+						<%-- <td>${dto.board_hit}</td> --%>
+					</tr>
 					</c:forEach>
 				</table>
 			</div>
+			
+			<hr style="margin: 15px 15px 40px 15px;">	
 			
 			<!-- 페이징 -->	
 			<div class="container">
@@ -99,12 +105,26 @@
 				</ul>
 			</div>
 			
+			<br style="margin: 15px 15px 40px 15px;">
+			
+			<!-- 검색 -->
+			<div align="center">
+				<div class="form-inline justify-content-center">
+					<select id="searchTypeSel" class="custom-select" name="searchType">
+						<option value="t">제목</option> 
+						<option value="c">내용</option>
+						<option value="tc">제목+내용</option>
+					</select>
+					<input class="form-control" type="text" id="keyword" name="keyword" placeholder="검색어"/><%--value="value"  ${pageMaker.cri.keyword} --%>
+					<button id="searchBtn" class="btn btn-primary">검색</button>
+				</div>
+			</div>			
 		</div>
 	<!-- </div> -->
 
 	<hr>
 
-<!-- footer -->
+	<!-- footer -->
       <jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
 
       <!--Required JS files-->

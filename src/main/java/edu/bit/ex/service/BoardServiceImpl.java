@@ -60,6 +60,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public BoardVO getNoticeContent(int board_id) {
 		log.info("getNoticeContent");
+		boardMapper.upNoticeHit(board_id); // 공지사항 게시글 조회
 		return boardMapper.getNoticeContent(board_id);
 	}
 

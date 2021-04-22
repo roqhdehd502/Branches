@@ -24,7 +24,11 @@
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-	</head>
+	
+	<style type="text/css">
+		a:hover { text-decoration: none;}
+	</style>
+</head>
 <body>
 	<div style="overflow: hidden;" class="container">
 		<!-- header -->
@@ -63,7 +67,7 @@
 							<a href="${pageContext.request.contextPath}/member/mypage/order">주문내역 조회</a>
 						</h5>
 						<h5>
-							<a href="${pageContext.request.contextPath}/member/mypage/recently">최근 본 상품보기</a>
+							<a href="${pageContext.request.contextPath}/member/mypage/recently">최근 본 상품</a>
 						</h5>
 						<h5>
 							<a href="${pageContext.request.contextPath}/member/mypage/like">찜한 목록</a>
@@ -91,43 +95,67 @@
 					</div>
 				</div>
 
-
+				<!-- 오른쪽 본문 -->
 				<div class="col-md-9 contact-info">
-					<div class="row" style="padding: 0px 2% 0px 2%">
-						<div class="col-md-6" align="left">
-							<h3>
-								<strong>내가 쓴 문의</strong>
-							</h3>
+					<div class="container">
+						<div class="row" style="padding: 0px 2% 0px 2%">
+							<div class="col-md-6" align="left">
+								<h3>
+									<strong>내가 쓴 고객 Q&A</strong>
+								</h3>
+							</div>
+							<div class="col-md-6" align="right">
+								<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/mypage/myqna/write'">작성하기</button>
+							</div>
 						</div>
-						<div class="col-md-6" align="right">
-							<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/mypage/myqna/write'">작성하기</button>
+	
+						<hr>
+	
+						<div class="row" style="padding: 0px 2% 0px 2%">
+							<div class="col-md-3" align="center">
+								<h5>문의유형</h5>	
+							</div>
+							<div class="col-md-3" align="center">
+								<h5>Q&A제목</h5>	
+							</div>
+							<div class="col-md-3" align="center">
+								<h5>작성일자</h5>	
+							</div>
+							<div class="col-md-3" align="center">
+								<h5>답변확인</h5>	
+							</div>
 						</div>
-					</div>
-
-					<hr>
-
-					<div class="row" style="padding: 0px 2% 0px 2%">
-						<table class="table table-hover" style="text-align: center;">
-							<thead>
-								<tr class="table-primary">
-									<th>글번호</th>
-									<th>Q&A제목</th>
-									<th>Q&A작성일자</th>
-									<th>답변확인</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${myq_list}" var="myq_list">
-									<tr>
-										<td>${myq_list.board_id}</td>
-										<td><a href="${pageContext.request.contextPath}/member/mypage/myqna/${myq_list.board_id}">${myq_list.board_name}</a></td>
-										<td>${myq_list.board_date}</td>
-										<td>${myq_cmnt_stat.comment_count > 0 ? '답변완료' : '답변대기'}</td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</div>
+						
+						<hr>
+						
+						<c:forEach items="${myq_list}" var="myq_list">
+						<div class="row" style="padding: 0px 2% 0px 2%">
+							<div class="col-md-3" align="center" style="padding-top: 1%;">
+								<c:choose>
+									<c:when test="${myq_list.inquiry_number eq 8}">
+										포인트
+									</c:when>
+									<c:when test="${myq_list.inquiry_number eq 9}">
+										회원관련
+									</c:when>
+									<c:otherwise>
+										기타
+									</c:otherwise>
+								</c:choose>	
+							</div>
+							<div class="col-md-3" align="center" style="padding-top: 1%; overflow: auto;">
+								<a href="${pageContext.request.contextPath}/member/mypage/myqna/${myq_list.board_id}">${myq_list.board_name}</a>
+							</div>
+							<div class="col-md-3" align="center" style="padding-top: 1%;">
+								${myq_list.board_date}
+							</div>
+							<div class="col-md-3" align="center" style="padding-top: 1%;">
+								${myq_cmnt_stat.comment_count > 0 ? '답변완료' : '답변대기'}
+							</div>
+						</div>
+						<hr>
+						</c:forEach>
+					</div>	
 
 					<!-- 페이징 -->
 					<%-- <div class="container">
@@ -156,7 +184,7 @@
 							</c:choose>
 						</ul>
 					</div> --%>
-
+					</div>
 				</div>
 				<hr>
 			</div>

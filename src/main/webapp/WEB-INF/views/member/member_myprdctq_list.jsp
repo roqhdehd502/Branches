@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,7 +84,7 @@
 							<a href="${pageContext.request.contextPath}/member/mypage/order">주문내역 조회</a>
 						</h5>
 						<h5>
-							<a href="${pageContext.request.contextPath}/member/mypage/recently">최근 본 상품보기</a>
+							<a href="${pageContext.request.contextPath}/member/mypage/recently">최근 본 상품</a>
 						</h5>
 						<h5>
 							<a href="${pageContext.request.contextPath}/member/mypage/like">찜한 목록</a>
@@ -110,73 +112,110 @@
 					</div>
 				</div>
 
-
+				<!-- 오른쪽 본문 -->
 				<div class="col-md-9 contact-info">
-					<div class="row" style="padding: 0px 2% 0px 2%">
-						<div class="col-md-6" align="left">
-							<h3>
-								<strong>내가 쓴 상품 Q&A</strong>
-							</h3>
+					<div class="container">
+						<div class="row" style="padding: 0px 2% 0px 2%">
+							<div class="col-md-6" align="left">
+								<h3>
+									<strong>내가 쓴 상품 Q&A</strong>
+								</h3>
+							</div>
+							<div class="col-md-6" align="right">
+								<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/mypage/myqna/write'">작성하기</button>
+							</div>
 						</div>
-						<div class="col-md-6" align="right">
-							<%-- <button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/mypage/myqna/write'">작성하기</button> --%>
-						</div>
-					</div>
-					
-					<hr>	
-					
-					<div class="row" style="padding: 0px 2% 0px 2%">
-						<table class="table table-hover" style="text-align: center;">
-							<thead>
-								<tr class="table-primary">
-									<th>글번호</th>
-									<th>Q&A제목</th>
-									<th>Q&A작성일자</th>
-									<th>답변확인</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${prdctq_my_list}" var="list">
-									<tr>
-										<td>${list.board_id}</td>
-										<!-- 상품 Q&A 상세페이지로 넘길지 아니면 해당 상품 상세페이지로 넘길지 고민... -->
-										<!-- 전자의 경우 상세페이지에서 PrdctOr -->
-										<!-- 후자의 경우 Board랑 Prdct 테이블을 조인시킨뒤 가져와서 링크달면된다 -->
-										<td><a href="#">${list.board_name}</a></td>
-										<td>${list.board_date}</td>
-										<td>${prdctq_cmnt_stat.comment_count > 0 ?  '답변완료' : '답변대기'}</td>
+						
+						<hr>	
+						
+						<div class="row" style="padding: 0px 2% 0px 2%">
+							<div class="col-md-3" align="center">
+								<h5>문의유형</h5>	
+							</div>
+							<div class="col-md-3" align="center">
+								<h5>Q&A제목</h5>	
+							</div>
+							<div class="col-md-3" align="center">
+								<h5>작성일자</h5>	
+							</div>
+							<div class="col-md-3" align="center">
+								<h5>답변확인</h5>	
+							</div>					
+							<%-- <table class="n-table table-col">
+								<colgroup>
+									<col style="width: 30%">
+									<col style="width: *">
+									<col style="width: 15%">
+									<col style="width: 15%">
+								</colgroup>
+								<thead>
+									<tr style="text-align: center;">
+										<th scope="col">상품정보</th>
+										<th scope="col">내용</th>
+										<th scope="col">작성일</th>
+										<th scope="col">처리 상태</th>
 									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-						<%-- <table class="n-table table-col">
-							<colgroup>
-								<col style="width: 30%">
-								<col style="width: *">
-								<col style="width: 15%">
-								<col style="width: 15%">
-							</colgroup>
-							<thead>
-								<tr style="text-align: center;">
-									<th scope="col">상품정보</th>
-									<th scope="col">내용</th>
-									<th scope="col">작성일</th>
-									<th scope="col">처리 상태</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<c:forEach items="${prdctq_my_list}" var="list">
-										<td>${list.orderDetailVO.prdct_id}/${list.orderDetailVO.order_color}/${list.orderDetailVO.order_size}</td>
-										<td>${list.order_date}</td>
-										<td>${list.boardVO.board_content}</td>
-									</c:forEach>
-								</tr>
-							</tbody>
-						</table> --%>
+								</thead>
+								<tbody>
+									<tr>
+										<c:forEach items="${prdctq_my_list}" var="list">
+											<td>${list.orderDetailVO.prdct_id}/${list.orderDetailVO.order_color}/${list.orderDetailVO.order_size}</td>
+											<td>${list.order_date}</td>
+											<td>${list.boardVO.board_content}</td>
+										</c:forEach>
+									</tr>
+								</tbody>
+							</table> --%>
+						</div>
+						
+						<hr>
+						
+						<!-- 상품 Q&A의 썸네일 필요시 추가 -->
+						<c:forEach items="${prdctq_my_list}" var="list">
+						<div class="row" style="padding: 0px 2% 0px 2%">
+							<div class="col-md-3" align="center" style="padding-top: 1%;">
+								<c:choose>
+									<c:when test="${list.inquiry_number eq 1}">
+										교환
+									</c:when>
+									<c:when test="${list.inquiry_number eq 2}">
+										환불
+									</c:when>
+									<c:when test="${list.inquiry_number eq 3}">
+										배송전취소
+									</c:when>
+									<c:when test="${list.inquiry_number eq 4}">
+										배송
+									</c:when>
+									<c:when test="${list.inquiry_number eq 5}">
+										불량
+									</c:when>
+									<c:when test="${list.inquiry_number eq 6}">
+										주문및결제
+									</c:when>
+									<c:when test="${list.inquiry_number eq 7}">
+										상품및재입고
+									</c:when>	
+									<c:otherwise>
+										기타
+									</c:otherwise>
+								</c:choose>	
+							</div>
+							<div class="col-md-3" align="center" style="padding-top: 1%; overflow: auto;">
+								<a href="${pageContext.request.contextPath}/member/mypage/myqna/${list.board_id}">${list.board_name}</a>
+							</div>
+							<div class="col-md-3" align="center" style="padding-top: 1%;">
+								${list.board_date}
+							</div>
+							<div class="col-md-3" align="center" style="padding-top: 1%;">
+								${prdctq_cmnt_stat.comment_count > 0 ?  '답변완료' : '답변대기'}
+							</div>
+						</div>
+						<hr>
+						</c:forEach>
 					</div>	
 					
-					<!-- 페이징 -->
+					<%-- <!-- 페이징(오류) -->
 					<div class="container">
 						<ul class="pagination justify-content-center">
 							<c:choose>
@@ -202,7 +241,7 @@
 								</c:otherwise>
 							</c:choose>
 						</ul>
-					</div>
+					</div> --%>
 					
 				</div>
 			</div>
