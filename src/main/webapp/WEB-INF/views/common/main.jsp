@@ -152,7 +152,7 @@
 			<div class="container">
 				<div class="testimonial-slider bordered">
 				<c:forEach begin="50" end="54" var="j">
-					<div class="single-slide" style="background-image: url(/hs/${j}.jpg); height:300px; background-size : 100% 100%;">
+					<div class="single-slide" style="background-image: url(/hs/thumbnail/${j}.jpg); height:300px; background-size : 100% 100%;">
 						<div class="inner">
 							<c:choose>
 								<c:when test="${j eq 50}">
@@ -210,7 +210,7 @@
 					<div class="col-md-6 single-gallery">
 						<div class="inner">
 							<a href="#">
-								<img id="a-hover" src="/hs/51.jpg" style="object-fit : cover; height: 330px;">
+								<img id="a-hover" src="/hs/thumbnail/51.jpg" style="object-fit : cover; height: 330px;">
 							</a>
 						</div>
 					</div>
@@ -219,28 +219,28 @@
 							<div class="col-sm-6 single-gallery">
 								<div class="inner">
 									<a href="#">
-										<img src="/hs/50.jpg" style="object-fit : cover; height: 150px;">
+										<img src="/hs/thumbnail/50.jpg" style="object-fit : cover; height: 150px;">
 									</a>								
 								</div>
 							</div>
 							<div class="col-sm-6 single-gallery">
 								<div class="inner">
 									<a href="#">
-										<img src="/hs/49.jpg" style="object-fit : cover; height: 150px;">
+										<img src="/hs/thumbnail/49.jpg" style="object-fit : cover; height: 150px;">
 									</a>
 								</div>
 							</div>
 							<div class="col-sm-6 single-gallery">
 								<div class="inner">
 									<a href="#">
-										<img src="/hs/52.jpg" style="object-fit : cover; height: 150px;">
+										<img src="/hs/thumbnail/52.jpg" style="object-fit : cover; height: 150px;">
 									</a>
 								</div>
 							</div>
 							<div class="col-sm-6 single-gallery">
 								<div class="inner">
 									<a href="#">
-										<img src="/hs/54.jpg" style="object-fit : cover; height: 150px;">
+										<img src="/hs/thumbnail/54.jpg" style="object-fit : cover; height: 150px;">
 									</a>
 								</div>
 							</div>

@@ -8,6 +8,7 @@ import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
+import edu.bit.ex.vo.PrdctOrderVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
 
@@ -57,14 +58,41 @@ public interface SellerService {
 	// 상품 등록
 	public void prdInsert(PrdctRegisterImageVO prdctIVO);
 
-	public List<PrdctOrderDetailVO> OrderCheck();
+	// 주문확인
+	public List<PrdctOrderDetailVO> OrderCheck(SearchCriteria cri);
 
-	public List<PrdctOrderDetailVO> PrdShipping();
+	// 페이징
+	public int OrderCheckTotal(SearchCriteria cri);
 
-	public List<PrdctOrderDetailVO> getCancel();
+	// 배송대기
+	public List<PrdctOrderDetailVO> shipping(SearchCriteria cri);
 
-	public List<PrdctOrderDetailVO> getRefund();
+	// 페이징
+	public int deliveryTotal(SearchCriteria cri);
 
-	public List<PrdctOrderDetailVO> exchange();
+	// 상품취소
+	public List<PrdctOrderDetailVO> getCancel(SearchCriteria cri);
+
+	// 페이징
+	public int cancelTotal(SearchCriteria cri);
+
+	// 상품 환불
+	public List<PrdctOrderDetailVO> getRefund(SearchCriteria cri);
+
+	// 페이징
+	public int refundTotal(SearchCriteria cri);
+
+	// 상품 교환
+	public List<PrdctOrderDetailVO> exchange(SearchCriteria cri);
+
+	// 페이징
+	public int exchangeTotal(SearchCriteria cri);
+
+	// 주문 상태변경
+	public void updateState(PrdctOrderDetailVO povo);
+
+	public PrdctOrderVO orderInfo(String order_number);
+
+	public List<PrdctOrderDetailVO> orderOption(String order_number);
 
 }
