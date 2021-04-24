@@ -20,25 +20,16 @@
         data.addColumn('number', '판매량');
 
         data.addRows([
-          [new Date(2021, 1, 1), 7],
-          [new Date(2021, 2, 1), 7],
-          [new Date(2021, 3, 1), 10],
-          [new Date(2021, 4, 1), 19],
-          [new Date(2021, 5, 1), 15],
-          [new Date(2021, 6, 1), 17],
-          [new Date(2021, 7, 1), 13],
-          [new Date(2021, 8, 1), 11],
-          [new Date(2021, 9, 1), 10],
-          [new Date(2021, 10, 1), 7],
-          [new Date(2021, 11, 1), 3],
-          [new Date(2021, 12, 1), 7],
+          [new Date(2021, 4, 1), ${week.sales_sum}],
+   
+
         ]);
 
 
         var options = {
-          title: '주간매출 그래프',
+          title: '${mbr.mbr_id}주간매출 그래프',
           width: 900,
-          height: 500,
+          height: 520,
           hAxis: {
             format: 'M/d',
             gridlines: {

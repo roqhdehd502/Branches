@@ -15,6 +15,7 @@ import edu.bit.ex.mapper.SellerMapper;
 import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
+import edu.bit.ex.vo.PrdctOrderVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
 import lombok.AllArgsConstructor;
@@ -36,9 +37,15 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public List<PrdctOrderDetailVO> OrderCheck() {
+	public List<PrdctOrderDetailVO> OrderCheck(SearchCriteria cri) {
 		// TODO Auto-generated method stub
-		return sellerMapper.OrderCheck();
+		return sellerMapper.OrderCheck(cri);
+	}
+
+	@Override
+	public int OrderCheckTotal(SearchCriteria cri) {
+		// TODO Auto-generated method stub
+		return sellerMapper.OrderCheckTotal(cri);
 	}
 
 	@Override
@@ -161,27 +168,69 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public List<PrdctOrderDetailVO> PrdShipping() {
+	public List<PrdctOrderDetailVO> shipping(SearchCriteria cri) {
 		// TODO Auto-generated method stub
-		return sellerMapper.PrdShipping();
+		return sellerMapper.shipping(cri);
 	}
 
 	@Override
-	public List<PrdctOrderDetailVO> getCancel() {
+	public int deliveryTotal(SearchCriteria cri) {
 		// TODO Auto-generated method stub
-		return sellerMapper.getCancel();
+		return sellerMapper.deliveryTotal(cri);
 	}
 
 	@Override
-	public List<PrdctOrderDetailVO> getRefund() {
+	public List<PrdctOrderDetailVO> getCancel(SearchCriteria cri) {
 		// TODO Auto-generated method stub
-		return sellerMapper.getRefund();
+		return sellerMapper.getCancel(cri);
 	}
 
 	@Override
-	public List<PrdctOrderDetailVO> exchange() {
+	public int cancelTotal(SearchCriteria cri) {
 		// TODO Auto-generated method stub
-		return sellerMapper.exchange();
+		return sellerMapper.cancelTotal(cri);
+	}
+
+	@Override
+	public List<PrdctOrderDetailVO> getRefund(SearchCriteria cri) {
+		// TODO Auto-generated method stub
+		return sellerMapper.getRefund(cri);
+	}
+
+	@Override
+	public int refundTotal(SearchCriteria cri) {
+		// TODO Auto-generated method stub
+		return sellerMapper.refundTotal(cri);
+	}
+
+	@Override
+	public List<PrdctOrderDetailVO> exchange(SearchCriteria cri) {
+		// TODO Auto-generated method stub
+		return sellerMapper.exchange(cri);
+	}
+
+	@Override
+	public int exchangeTotal(SearchCriteria cri) {
+		// TODO Auto-generated method stub
+		return sellerMapper.exchangeTotal(cri);
+	}
+
+	@Override
+	public void updateState(PrdctOrderDetailVO povo) {
+		// TODO Auto-generated method stub
+		sellerMapper.updateState(povo);
+	}
+
+	@Override
+	public PrdctOrderVO orderInfo(String order_number) {
+		// TODO Auto-generated method stub
+		return sellerMapper.orderInfo(order_number);
+	}
+
+	@Override
+	public List<PrdctOrderDetailVO> orderOption(String order_number) {
+		// TODO Auto-generated method stub
+		return sellerMapper.orderOption(order_number);
 	}
 
 }

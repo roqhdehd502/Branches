@@ -91,7 +91,7 @@
 					<strong>상품 등록</strong>
 					</h3><hr>
 					<form action="/seller/mypage/prdct" method="post" role="form" id="writeForm" enctype="multipart/form-data">
-						<input type="hidden" id="mbr_id" value="${mbr.mbr_id }">
+						<input type="hidden" id="mbr_id" value="${svo.mbr_id }">
 						<fieldset>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">상품ID</label>

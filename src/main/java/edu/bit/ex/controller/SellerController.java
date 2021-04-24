@@ -28,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.config.auth.MemberDetails;
 import edu.bit.ex.joinvo.MbrShippingVO;
+import edu.bit.ex.joinvo.PrdctOrderDetailVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.page.SearchPageVO;
@@ -254,7 +255,8 @@ public class SellerController {
 
 	// 판매자 주문확인 페이지...(seller)
 	@GetMapping("/mypage/order")
-	public ModelAndView sellerorderCheck(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, MbrVO mbr) throws Exception {
+	public ModelAndView sellerorderCheck(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, SearchCriteria cri)
+			throws Exception {
 		log.debug("sellerorderCheck");
 		log.info("sellerorderCheck");
 
@@ -264,30 +266,83 @@ public class SellerController {
 		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
-		mav.addObject("orderCheck", sellerService.OrderCheck());
+		mav.addObject("orderCheck", sellerService.OrderCheck(cri));
+
+		int total = sellerService.OrderCheckTotal(cri);
+		log.info("OrderCheckTotal");
+		mav.addObject("pageMaker", new SearchPageVO(cri, total));
 
 		return mav;
 	}
 
-	// 판매자 발송확인 페이지...(seller)
-	@GetMapping("/mypage/release")
-	public ModelAndView sellerdeleCheck(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, MbrVO mbr) throws Exception {
-		log.debug("sellerdeleCheck");
-		log.info("sellerdeleCheck");
-		mav.setViewName("seller/sellerdeleCheck");
+	// 주문상세정보 수정페이지
+	@GetMapping("/mypage/order/{order_number}")
+	public ModelAndView orderStateModify(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable("order_number") String order_number,
+			ModelAndView mav, ShippingVO svo) throws Exception {
+		log.debug("orderStateModify");
+		log.info("orderStateModify..");
+		mav.setViewName("seller/sellerOrderModify");
 
 		// 인증 회원 정보
 		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
-		mav.addObject("shipping", sellerService.PrdShipping());
+
+		// 주문 정보 불러오기
+		mav.addObject("info", sellerService.orderInfo(order_number));
+		// 주문 상세정보 불러오기
+		mav.addObject("inop", sellerService.orderOption(order_number));
+		// 판매자 주소 불러오기
+		mav.addObject("svo", sellerService.getAddress(svo.getMbr_id()));
+
+		return mav;
+	}
+
+	// 주문 상태 수정 ajax
+	@Transactional
+	@PutMapping(value = "/mypage/order/{order_number}/modify")
+	public ResponseEntity<String> stateUpdate(@RequestBody PrdctOrderDetailVO povo) {
+		ResponseEntity<String> entity = null;
+
+		log.info("stateUpdate..");
+
+		try {
+			sellerService.updateState(povo);
+			log.info("update prdct info");
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
+
+	// 판매자 발송확인 페이지...(seller)
+	@GetMapping("/mypage/release")
+	public ModelAndView sellerdeleCheck(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, SearchCriteria cri) throws Exception {
+		log.debug("sellerdeleCheck");
+		log.info("sellerdeleCheck");
+		mav.setViewName("seller/sellerShipCheck");
+
+		// 인증 회원 정보
+		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+		// 회원 정보 받아오기
+		mav.addObject("mbr", getMbr);
+		// order_state_number 3,4,5처리된 정보 불러오기
+		mav.addObject("shipping", sellerService.shipping(cri));
+
+		int total = sellerService.deliveryTotal(cri);
+		log.info("OrderCheckTotal");
+		mav.addObject("pageMaker", new SearchPageVO(cri, total));
 
 		return mav;
 	}
 
 	// 판매자 취소 확인 페이지...(seller)
 	@GetMapping("/mypage/cancel")
-	public ModelAndView sellercancel(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, MbrVO mbr) throws Exception {
+	public ModelAndView sellercancel(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, SearchCriteria cri) throws Exception {
 		log.debug("sellercancelCheck");
 		log.info("sellercancelCheck");
 		mav.setViewName("seller/sellercancelCheck");
@@ -296,14 +351,20 @@ public class SellerController {
 		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
-		mav.addObject("cancel", sellerService.getCancel());
+
+		// 주문취소 정보 불러오기
+		mav.addObject("cancel", sellerService.getCancel(cri));
+
+		int total = sellerService.cancelTotal(cri);
+		log.info("OrderCheckTotal");
+		mav.addObject("pageMaker", new SearchPageVO(cri, total));
 
 		return mav;
 	}
 
 	// 판매자 환불 확인 페이지...(seller)
 	@GetMapping("/mypage/refund")
-	public ModelAndView sellerRefund(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, MbrVO mbr) throws Exception {
+	public ModelAndView sellerRefund(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, SearchCriteria cri) throws Exception {
 		log.debug("sellerRefund");
 		log.info("sellerRefund");
 		mav.setViewName("seller/sellerRefund");
@@ -312,14 +373,21 @@ public class SellerController {
 		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
-		mav.addObject("refund", sellerService.getRefund());
+
+		// 환불요청 정보 불러오기
+		mav.addObject("refund", sellerService.getRefund(cri));
+
+		int total = sellerService.refundTotal(cri);
+		log.info("OrderCheckTotal");
+		mav.addObject("pageMaker", new SearchPageVO(cri, total));
 
 		return mav;
 	}
 
 	// 판매자 교환확인 페이지...(seller)
 	@GetMapping("/mypage/exchange")
-	public ModelAndView sellerchangeCheck(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, MbrVO mbr) throws Exception {
+	public ModelAndView sellerchangeCheck(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, SearchCriteria cri)
+			throws Exception {
 		log.debug("sellerchangeCheck");
 		log.info("sellerchangeCheck");
 		mav.setViewName("seller/sellerchangeCheck");
@@ -328,7 +396,14 @@ public class SellerController {
 		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
-		mav.addObject("exchange", sellerService.exchange());
+		// 교환요청 정보 불러오기
+		mav.addObject("exchange", sellerService.exchange(cri));
+		// 교환 요청 사유 확인하기
+		/* mav.addObject("exDetail", sellerService.exDetail()); */
+
+		int total = sellerService.exchangeTotal(cri);
+		log.info("OrderCheckTotal");
+		mav.addObject("pageMaker", new SearchPageVO(cri, total));
 
 		return mav;
 	}
@@ -385,7 +460,6 @@ public class SellerController {
 		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
-		mav.addObject("prdct", sellerService.getProduct());
 
 		return mav;
 	}

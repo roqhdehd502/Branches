@@ -121,20 +121,20 @@
 								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(0)">ID순</button>&nbsp;&nbsp;
 								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(4)">일자순</button>&nbsp;&nbsp;
 								<button class="btn btn-primary btn-sm" type="button" onclick="/seller/mypage/prdct">초기화</button>
-								<form id="searchForm" action="/seller/mypage/prdct" method="get" style="position: relative; left: 320px;">
+								<form id="searchForm" action="/seller/mypage/prdct" method="get" style="position: relative; left: 260px;">
 									<span>
-										<select name="type" style="width: 100px; border: 3px solid black;">
+										<select class="custom-select" name="type" style="width: 140px;">
 											<option value="" <c:out value="${pageMaker.cri.type == null?'selected' : '' }" />>---</option>
 											<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ?'selected' : '' }" />>상품명</option>
 											<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ?'selected' : '' }" />>ID</option>
 										</select>
 									</span>&nbsp;&nbsp;
 									<span>
-									<input type="text" name="keyword" style="width: 200px; border: 3px solid black;" value='<c:out value="${pageMaker.cri.keyword}" />' /> 
+									<input class="form-control" type="text" name="keyword" style="width: 200px;" value='<c:out value="${pageMaker.cri.keyword}" />' /> 
 										<input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum}" />' /> 
 										<input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}" />' />
 									</span>
-									<button class="btn btn-primary btn-sm">검색</button>
+									<button class="btn btn-primary">검색</button>
 								</form>
 								<table class="table" id="myTable" style="text-align: center;">
 									<thead>

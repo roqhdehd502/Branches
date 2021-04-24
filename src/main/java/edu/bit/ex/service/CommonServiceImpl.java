@@ -162,15 +162,16 @@ public class CommonServiceImpl implements CommonService {
 		return commonMapper.prdctLikeCancel(prdctLikeVO);
 	}
 
+  /*
 	@Override
 	public List<MbrVO> getBrandList(BrandCriteria cri) {
 		// TODO Auto-generated method stub
 		return commonMapper.getBrandList(cri);
 	}
-
+  
 	@Override
 	public int getBrandTotalCount(BrandCriteria cri) {
 		// TODO Auto-generated method stub
 		return commonMapper.getBrandTotalCount(cri);
-	}
+	}*/
 }

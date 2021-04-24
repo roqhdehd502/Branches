@@ -115,52 +115,59 @@
 					<div class="team-area sp">
 						<div class="container">
 							<div class="row">
-								<form id="searchForm" action="/seller/mypage/prdct" method="get" style="position: relative; left: 520px; bottom: 20px;">
+								<form id="searchForm" action="/seller/mypage/release" method="get" style="position: relative; left: 480px; bottom: 20px;">
 									<span>
-										<select name="type" style="width: 100px; border: 3px solid black;">
+										<select class="custom-select" name="type" style="width: 140px;">
 											<option value="" <c:out value="${pageMaker.cri.type == null?'selected' : '' }" />>---</option>
 											<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ?'selected' : '' }" />>상품명</option>
-											<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ?'selected' : '' }" />>ID</option>
+											<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ?'selected' : '' }" />>주문번호</option>
+											<option value="W" <c:out value="${pageMaker.cri.type eq 'W' ?'selected' : '' }" />>회원ID</option>
 										</select>
 									</span>&nbsp;&nbsp;
 									<span>
-									<input type="text" name="keyword" style="width: 200px; border: 3px solid black;" value='<c:out value="${pageMaker.cri.keyword}" />' /> 
+									<input class="form-control" type="text" name="keyword" style="width: 200px;" value='<c:out value="${pageMaker.cri.keyword}" />' /> 
 										<input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum}" />' /> 
 										<input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}" />' />
 									</span>
-									<button class="btn btn-primary btn-sm">검색</button>
+									<button class="btn btn-primary">검색</button>
 								</form>
 								<table class="table">
 									<thead style="text-align: center;">
 										<tr>
-											<td><h5>상품정보</h5></td>
-											<td><h5>주문일</h5></td>
-											<td><h5>주문번호</h5></td>
-											<td><h5 style="width: 40px;">상태</h5></td>
-											<td style="text-align: center;"><h5>발송</h5></td>
+											<th><h5>상품정보</h5></th>
+											<th><h5>주문일</h5></th>
+											<th><h5>주문번호</h5></th>
+											<th><h5>주문금액(수량)</h5></th>
+											<th><h5>상태</h5></th>
 										</tr>
 									</thead>
-									<tbody>
-										<c:forEach items="${shipping }" var="prdct" varStatus="status">
+									<tbody style="text-align: center;">
+										<c:forEach items="${shipping}" var="prdct" varStatus="status">
 											<tr style="text-align: center;">
 												<td>
-													<h6>${mbr.mbr_id}</h6>
-													<h6>${prdct.prdct_name}</h6>
-													<h6>${prdct.order_size}</h6>
-													<h6>${prdct.order_color}</h6>
+													<h6>${prdct.prdct_id}</h6>
+													<h6>${prdct.mbr_id }</h6>
+													<h6>${prdct.prdct_name }</h6>
+													<h6>${prdct.order_size }</h6>
+													<h6>${prdct.order_color }</h6>
 												</td>
-												<td><h6 style="position: relative; top: 22px;">${prdct.order_date}</h6></td>
-												<td style="text-align: center;"><h6 style="position: relative; top: 22px;">${prdct.order_number}</h6></td>
+												<td><h6 style="position: relative; top: 34px;">${prdct.order_date }</h6></td>
+												<td><h6 style="position: relative; top: 34px;">${prdct.order_number}</h6></td>
+												<td><h6 style="position: relative; top: 34px;">${prdct.order_price}₩ (${prdct.order_amount})</h6></td>
 												<td>
-													<h6 style="position: relative; top: 22px; text-align: center;"></h6>
+													<c:if test="${prdct.order_state_number eq 4}">
+														<h5 style="position: relative; top: 20px;">배송대기</h5>
+													</c:if>
+													<c:if test="${prdct.order_state_number eq 5}">
+														<h5 style="position: relative; top: 20px;">배송중</h5>
+													</c:if>
+													<c:if test="${prdct.order_state_number eq 6}">
+														<h5 style="position: relative; top: 20px;">배송완료</h5>
+													</c:if>
+													<a href="/seller/mypage/order/${prdct.order_number }" style="position: relative; top: 20px;"><h6>[변경]</h6></a>
 												</td>
-												<td><input class="form-control" type="text" placeholder="송장번호 입력">
-													<h6 style="position: relative; top: 24px; text-align: center;">
-														<button class="btn btn-primary btn-sm">발송처리</button>
-													</h6></td>
 											</tr>
 										</c:forEach>
-
 									</tbody>
 								</table>
 							</div>

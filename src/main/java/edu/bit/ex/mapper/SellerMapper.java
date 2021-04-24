@@ -11,6 +11,7 @@ import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.OrderStateVO;
+import edu.bit.ex.vo.PrdctOrderVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
 
@@ -76,14 +77,42 @@ public interface SellerMapper {
 	// 환불요청 알림
 	public OrderStateVO refundAlarm();
 
-	public List<PrdctOrderDetailVO> OrderCheck();
+	// 주문확인
+	public List<PrdctOrderDetailVO> OrderCheck(SearchCriteria cri);
 
-	public List<PrdctOrderDetailVO> PrdShipping();
+	// 페이징
+	public int OrderCheckTotal(SearchCriteria cri);
 
-	public List<PrdctOrderDetailVO> getCancel();
+	// 배송대기
+	public List<PrdctOrderDetailVO> shipping(SearchCriteria cri);
 
-	public List<PrdctOrderDetailVO> getRefund();
+	// 페이징
+	public int deliveryTotal(SearchCriteria cri);
 
-	public List<PrdctOrderDetailVO> exchange();
+	// 주문취소
+	public List<PrdctOrderDetailVO> getCancel(SearchCriteria cri);
+
+	// 페이징
+	public int cancelTotal(SearchCriteria cri);
+
+	// 환불
+	public List<PrdctOrderDetailVO> getRefund(SearchCriteria cri);
+
+	// 페이징
+	public int refundTotal(SearchCriteria cri);
+
+	// 교환
+	public List<PrdctOrderDetailVO> exchange(SearchCriteria cri);
+
+	// 페이징
+	public int exchangeTotal(SearchCriteria cri);
+
+	// 주문상태
+	public void updateState(PrdctOrderDetailVO povo);
+
+	// 주문상세정보불러오기
+	public PrdctOrderVO orderInfo(String order_number);
+
+	public List<PrdctOrderDetailVO> orderOption(String order_number);
 
 }

@@ -113,45 +113,9 @@
 					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 2px;">
 						<strong style="margin: 10px;">매출조회</strong><hr />
 					</h3>
-					<div class="container">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="faq">
-								<span class="single-item">
-									<h4 style="color: black; margin-left: 46px;">일간</h4>
-									<div class="content">
-									<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/chart/dailyChart.jsp"></jsp:include>
-									</div>
-								</span> 
-								<span class="single-item">
-									<h4 style="color: black; margin-left: 46px;">주간</h4>
-									<div class="content">
-									<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/chart/weeklyChart.jsp"></jsp:include>
-									</div>
-								</span> 
-								<span class="single-item">
-									<h4 style="color: black; margin-left: 46px;">월간</h4>
-									<div class="content">
-									<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/chart/monthChart.jsp"></jsp:include>
-									</div>
-								</span> 
-								<span class="single-item">
-									<h4 style="color: black; margin-left: 46px;">연간</h4>
-									<div class="content">
-									<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/chart/yearChart.jsp"></jsp:include>
-									</div>
-								</span> 
-								<span class="single-item">
-									<h4 style="color: black; margin-left: 46px;">전체</h4>
-									<div class="content">
-									<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/chart/allChart.jsp"></jsp:include>
-									</div>
-								</span>
-							</div>
-						</div>
+					<div>
+					<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/chart/dailyChart.jsp"></jsp:include>
 					</div>
-				</div>
-
 				<hr style="margin-top: 1px;">
 				<h3 style="margin-top: 25px; margin-left: 15px;">
 					<strong style="margin: 10px;">검색어 순위 조회</strong><hr>
