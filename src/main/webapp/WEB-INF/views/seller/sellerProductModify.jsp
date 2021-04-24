@@ -48,7 +48,7 @@ $(document).ready(function(){
         		prdct_color: prdct_color,
         		prdct_size: prdct_size,
         		board_content: board_content,
-        		prdct_stock: prdct_stock
+        		prdct_stock: prdct_stock,
        	 };
         console.log(form);
 

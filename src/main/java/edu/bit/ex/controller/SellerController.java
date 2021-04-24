@@ -165,7 +165,7 @@ public class SellerController {
 	// 판매자 상품 수정 ajax
 	@Transactional
 	@PutMapping(value = "/mypage/prdct/{prdct_id}/modify")
-	public ResponseEntity<String> prdctUpdate(@RequestBody PrdctRegisterImageVO prvo) {
+	public ResponseEntity<String> prdctUpdate(PrdctRegisterImageVO prvo) {
 		ResponseEntity<String> entity = null;
 
 		log.info("prdct_update..");

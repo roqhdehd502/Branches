@@ -5,6 +5,7 @@
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>회원정보</title>
 
@@ -24,6 +25,10 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 
+<!-- csrf meta tag -->
+<meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
+
 <script type="text/javascript">
 $(document).ready(function(){
     
@@ -39,6 +44,10 @@ $(document).ready(function(){
         var contact_number = $("#contact_number").val();
         var mbr_gender = $("#mbr_gender:checked").val();        
         
+    	 // csrf
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		
         console.log(mbr_id);
         console.log($(this).attr("action"));
         
@@ -76,44 +85,25 @@ $(document).ready(function(){
 </head>
 <body>
 <div style="overflow: hidden;" class="container">
-	<header>
-			<div class="container">
-				<div class="row">
-					<div class="col-6 col-sm-3 logo-column">
-						<a href="index.html" class="logo"> <img src="/img/branches_text.png" alt="logo" style="width: 70px; height: 200px;">
-						</a>
-					</div>
-					<div class="col-6 col-sm-9 nav-column clearfix">
-						<div class="right-nav">
-							<span class="search-icon fa fa-search"></span>
-							<form action="#" class="search-form">
-								<input type="search" placeholder="search now">
-								<button type="submit">
-									<i class="fa fa-search"></i>
-								</button>
-							</form>
-							<div class="header-social">
-								<a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+	<header style="padding-top: 0px;">
+			<!-- header -->
+			<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 		</header>	
 		<hr style="margin: 15px 15px 40px 15px;">
 
 		<div class="container" style="text-align: center; margin: 25px;">
 			<h3>
-				<strong>관리자 페이지</strong>
+			<strong>관리자 페이지</strong>
 			</h3>
 		</div>
 
 		<hr style="margin: 15px 15px 40px 15px;">
-
+		
+		
 		<div class="container">
 			<div class="row">
 				<div class="col-md-3 contact-info" align="center">
-				<div class="single-info" style="margin-bottom: 40px;">
+					<div class="single-info" style="margin-bottom: 40px;">
 	                    <h3>업체관리</h3><hr>
 	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/regist/seller">업체등록</a></h5>
 	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/seller">업체목록 조회</a></h5>
@@ -135,6 +125,7 @@ $(document).ready(function(){
 					<strong>회원 등록 정보</strong>
 					</h3><hr>
 					<form action="${pageContext.request.contextPath}/admin/mypage/member/${mbr.mbr_id}" method="post" id="updateForm">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<input type="hidden" id="mbr_id" value="${mbr.mbr_id}">
 						<fieldset>
 							<div class="form-group row">
@@ -191,58 +182,17 @@ $(document).ready(function(){
 									<input type="button" class="btn btn-primary" style="float: right; margin-left: 20px;" onclick="location.href='${pageContext.request.contextPath}/admin/mypage/member'" value="목록">	
 									</div>
 						</fieldset>
+						
 					</form>
 				</div>
 			</div>
 		</div>
 		<hr>
 		
-			<!-- footer -->
-		<div>
-			<div class="footer-top">
-				<div class="container" align="center">
-					<div class="row">
-						<div class="col-md-6 col-lg-3 footer_widget">
-							<div class="inner">
-								<h4>About</h4>
-							</div>
-						</div>
-						<div class="col-md-6 col-lg-3 footer_widget">
-							<div class="inner">
-								<h4>Company</h4>
-
-							</div>
-						</div>
-						<div class="col-md-6 col-lg-3 footer_widget">
-							<div class="inner">
-								<h4>Recent Posts</h4>
-							</div>
-						</div>
-						<div class="col-md-6 col-lg-3 footer_widget">
-							<div class="inner">
-								<h4>Address</h4>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<hr>
-			<div class="footer-bottom">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="copyright-txt">© 2017 Flat Pro. All Rights Reserved.</div>
-						</div>
-						<div class="col-lg-6 text-right">
-							<div class="footer-nav">
-								<a href="#">Home</a> <a href="#">Portfolio</a> <a href="#">Pages</a> <a href="#">Shortcode</a> <a href="#">Blog</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
+		<!-- footer -->
+		<footer>
+		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
+		</footer>
 		
 		<div class="container-fluid">
 			<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 <strong>팩스 :</strong>
@@ -251,6 +201,7 @@ $(document).ready(function(){
 				customer@29cm.co.kr <strong>대표이사</strong> 000 <strong>개인정보책임자</strong> 000 <strong>호스팅서비스</strong> (주)00000</small>
 		</div>
 		<br /><br />
+		
 		<!--Required JS files-->
 		<script src="/assets/js/jquery-2.2.4.min.js"></script>
 		<script src="/assets/js/vendor/popper.min.js"></script>

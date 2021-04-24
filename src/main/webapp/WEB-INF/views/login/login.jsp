@@ -47,8 +47,8 @@
 					</div>
 				</c:if>
 				<form action="/login" method="POST">
-					<!-- <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}" />
-					<form action="/login" method="POST" name="form1"> -->
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					
 					<div class="form-check" align="left">
 						<label class="form-check-label">
 							<p>

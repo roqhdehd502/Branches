@@ -188,24 +188,19 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		log.info("======service update prdct with thumb======");
 
-		MultipartFile[] uploadfile = prvo.getUploadfiles();
-
-		if (uploadfile[0].getContentType().startsWith("image") == false) {
-			log.warn("======thumbnail file contenttype is not img======");
-		}
+		MultipartFile uploadfile = prvo.getUploadfile();
 
 		UUID uuid = UUID.randomUUID();
-		String saveName = uuid + "_" + uploadfile[0].getOriginalFilename();
+		String saveName = uuid + "_" + uploadfile.getOriginalFilename();
 		log.info("img name : " + saveName);
 
 		File saveFile = new File(PRDCT_THUMBNAIL_PATH, saveName);
 
 		try {
-			uploadfile[0].transferTo(saveFile);
+			uploadfile.transferTo(saveFile);
 			prvo.setPrdct_thumbnail(saveName);
 			log.info("======prdct_thumbnail : " + prvo.getPrdct_thumbnail());
 		} catch (IOException e) {
-			// TODO: handle exceptio
 			e.printStackTrace();
 		}
 
