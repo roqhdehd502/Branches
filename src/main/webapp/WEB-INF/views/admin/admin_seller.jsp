@@ -100,67 +100,65 @@ $(document).ready(function(){
 	</script>
 </head>
 <body>
-<div style="overflow: hidden;" class="container">
-	<header>
-			<div class="container">
-				<div class="row">
-					<div class="col-6 col-sm-3 logo-column">
-						<a href="index.html" class="logo"> <img src="/img/branches_text.png" alt="logo" style="width: 70px; height: 200px;">
-						</a>
-					</div>
-					<div class="col-6 col-sm-9 nav-column clearfix">
-						<div class="right-nav">
-							<span class="search-icon fa fa-search"></span>
-							<form action="#" class="search-form">
-								<input type="search" placeholder="search now">
-								<button type="submit">
-									<i class="fa fa-search"></i>
-								</button>
-							</form>
-							<div class="header-social">
-								<a href="#" class="fa fa-facebook"></a> <a href="#" class="fa fa-twitter"></a> <a href="#" class="fa fa-github"></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+	<div style="overflow: hidden;" class="container">
+		<header style="padding-top: 0px;">
+			<!-- header -->
+			<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 		</header>
-						
+
 		<hr style="margin: 15px 15px 40px 15px;">
 
 		<div class="container" style="text-align: center; margin: 25px;">
 			<h3>
-			<strong>관리자 페이지</strong>
+				<strong>관리자 페이지</strong>
 			</h3>
 		</div>
 
-		
+
 		<hr style="margin: 15px 15px 40px 15px;">
 
 		<div class="container">
 			<div class="row">
 				<div class="col-md-3 contact-info" align="center">
-				<div class="single-info" style="margin-bottom: 40px;">
-	                    <h3>업체관리</h3><hr>
-	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/regist/seller">업체등록</a></h5>
-	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/seller">업체목록 조회</a></h5>
-	                </div><br/>
-	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>회원관리</h3><hr>
-	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/member">회원정보 조회</a></h5>
-	               		 <h5><a href="${pageContext.request.contextPath}/admin/mypage/member/adminQnA">고객Q&A 목록</a></h5>
-	                </div><br/>
-	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>매출관리</h3><hr>
-	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/admintotal">매출조회</a></h5>
-	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/adminSearchtotal">검색순위 조회</a></h5>
-	                </div>
+					<div class="single-info" style="margin-bottom: 40px;">
+						<h3>업체관리</h3>
+						<hr>
+						<h5>
+							<a href="${pageContext.request.contextPath}/admin/mypage/regist/seller">업체등록</a>
+						</h5>
+						<h5>
+							<a href="${pageContext.request.contextPath}/admin/mypage/seller">업체목록 조회</a>
+						</h5>
+					</div>
+					<br />
+					<div class="single-info" style="margin-bottom: 40px">
+						<h3>회원관리</h3>
+						<hr>
+						<h5>
+							<a href="${pageContext.request.contextPath}/admin/mypage/member">회원정보 조회</a>
+						</h5>
+						<h5>
+							<a href="${pageContext.request.contextPath}/admin/mypage/member/adminQnA">고객Q&A 목록</a>
+						</h5>
+					</div>
+					<br />
+					<div class="single-info" style="margin-bottom: 40px">
+						<h3>매출관리</h3>
+						<hr>
+						<h5>
+							<a href="${pageContext.request.contextPath}/admin/mypage/admintotal">매출조회</a>
+						</h5>
+						<h5>
+							<a href="${pageContext.request.contextPath}/admin/mypage/adminSearchtotal">검색순위 조회</a>
+						</h5>
+					</div>
 				</div>
-				
+
 				<div class="col-md-9 contact-info">
-					<h3 >
-					<strong>판매자 등록 정보</strong>
-					</h3><hr>
+					<h3>
+						<strong>판매자 등록 정보</strong>
+					</h3>
+					<hr>
 					<form action="${pageContext.request.contextPath}/admin/mypage/seller/${mbr.mbr_id}" method="post" id="updateForm">
 						<input type="hidden" id="mbr_id" value="${mbr.mbr_id}">
 						<fieldset>
@@ -169,15 +167,13 @@ $(document).ready(function(){
 								<div class="col-sm-8">
 									<input type="text" class="form-control" value="${mbr.mbr_name}" id="mbr_name">
 								</div>
-									<button id="delete" type="button" class="btn btn-danger" style="float: right;">탈퇴</button>
+								<button id="delete" type="button" class="btn btn-danger" style="float: right;">탈퇴</button>
 							</div>
 							<div class="form-group row">
-							<label for="staticEmail" class="col-sm-2 col-form-label">ID</label>
-							<label for="staticEmail" class="col-sm-2 col-form-label">
-									${mbr.mbr_id}
-								</label>
+								<label for="staticEmail" class="col-sm-2 col-form-label">ID</label> <label for="staticEmail" class="col-sm-2 col-form-label">
+									${mbr.mbr_id} </label>
 							</div>
-							
+
 							<div class="form-group row">
 								<label for="staticEmail" class="col-sm-2 col-form-label">PW</label>
 								<div class="col-sm-6">
@@ -185,8 +181,8 @@ $(document).ready(function(){
 								</div>
 							</div>
 							<div class="form-group row">
-							<label for="staticEmail" class="col-sm-2 col-form-label">EMAIL</label>
-							<div class="col-sm-10">
+								<label for="staticEmail" class="col-sm-2 col-form-label">EMAIL</label>
+								<div class="col-sm-10">
 									<input type="text" class="form-control" value="${mbr.mbr_email}" id="mbr_email">
 								</div>
 							</div>
@@ -197,72 +193,30 @@ $(document).ready(function(){
 								</div>
 							</div>
 							<div class="form-group row">
-							<label for="staticEmail" class="col-sm-2 col-form-label">Address</label>
-							<div class="col-sm-10">
+								<label for="staticEmail" class="col-sm-2 col-form-label">Address</label>
+								<div class="col-sm-10">
 									<input type="text" class="form-control" value="${adr.shipping_address}" id="shipping_address">
 								</div>
 							</div>
-							
-								<div style="text-align: center;">
-									<input type="submit" class="btn btn-primary" value="저장" />
-									<input type="button" class="btn btn-primary" style="float: right; margin-left: 20px;" onclick="location.href='${pageContext.request.contextPath}/admin/mypage/seller'" value="목록">	
-								</div>
-								
+
+							<div style="text-align: center;">
+								<input type="submit" class="btn btn-primary" value="저장" /> <input type="button" class="btn btn-primary"
+									style="float: right; margin-left: 20px;" onclick="location.href='${pageContext.request.contextPath}/admin/mypage/seller'" value="목록">
+							</div>
+
 						</fieldset>
 					</form>
 				</div>
-				
-				
+
+
 			</div>
 		</div>
 		<hr>
-		
-			<!-- footer -->
-		<div>
-			<div class="footer-top">
-				<div class="container" align="center">
-					<div class="row">
-						<div class="col-md-6 col-lg-3 footer_widget">
-							<div class="inner">
-								<h4>About</h4>
-							</div>
-						</div>
-						<div class="col-md-6 col-lg-3 footer_widget">
-							<div class="inner">
-								<h4>Company</h4>
 
-							</div>
-						</div>
-						<div class="col-md-6 col-lg-3 footer_widget">
-							<div class="inner">
-								<h4>Recent Posts</h4>
-							</div>
-						</div>
-						<div class="col-md-6 col-lg-3 footer_widget">
-							<div class="inner">
-								<h4>Address</h4>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<hr>
-			<div class="footer-bottom">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="copyright-txt">© 2017 Flat Pro. All Rights Reserved.</div>
-						</div>
-						<div class="col-lg-6 text-right">
-							<div class="footer-nav">
-								<a href="#">Home</a> <a href="#">Portfolio</a> <a href="#">Pages</a> <a href="#">Shortcode</a> <a href="#">Blog</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
+		<!-- footer -->
+		<footer>
+		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
+		</footer>
 		
 		<div class="container-fluid">
 			<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 <strong>팩스 :</strong>
@@ -281,8 +235,8 @@ $(document).ready(function(){
 		<script src="/assets/js/vendor/loopcounter.js"></script>
 		<script src="/assets/js/vendor/slicknav.min.js"></script>
 		<script src="/assets/js/active.js"></script>
-		
-		
+
+
 	</div>
 </body>
 </html>

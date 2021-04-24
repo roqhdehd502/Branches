@@ -162,20 +162,20 @@ public class AdminController {
 	}
 
 	// 상품 수정
-	@Transactional
-	@PutMapping(value = "/mypage/seller/{seller_id}/prdct/{prdct_id}/modify")
+	@Transactional(rollbackFor = Exception.class)
+	@PostMapping("/mypage/seller/{seller_id}/prdct/{prdct_id}/modify")
 	public ResponseEntity<String> admin_seller_prdct_modify(@RequestBody PrdctRegisterImageVO prvo) throws Exception {
 		ResponseEntity<String> entity = null;
 
 		log.info("======prdct updating======");
-		MultipartFile[] uploadfile = prvo.getUploadfiles();
 
 		try {
-			if (uploadfile != null) {
-				adminService.updatePrdctThumb(prvo); // 썸네일 이미지와 함께 update
-			} else {
-				adminService.updatePrdctInfo(prvo); // 썸네일 이미지없이 update
-			}
+			// if (uploadfile != null) {
+			// adminService.updatePrdctThumb(prvo); // 썸네일 이미지와 함께 update
+			// } else {
+			// adminService.updatePrdctInfo(prvo); // 썸네일 이미지없이 update
+			// }
+			adminService.updatePrdctThumb(prvo); // 썸네일 이미지와 함께 update
 			log.info("======update prdct info success======");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {

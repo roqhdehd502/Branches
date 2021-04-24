@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
+import edu.bit.ex.page.BrandCriteria;
 import edu.bit.ex.page.PrdQnACriteria;
 import edu.bit.ex.page.PrdReviewCriteria;
 import edu.bit.ex.page.PrdctListCriteria;
@@ -58,7 +59,7 @@ public interface CommonMapper {
 	public List<PrdctVO> getBrandPrdctList(PrdctListCriteria cri, String b_id);
 
 	// 페이징에 적용되는 브랜드 상품 수
-	public int getBrandTotalCount(PrdctListCriteria cri, String b_id);
+	public int getBrandPrdctTotalCount(PrdctListCriteria cri, String b_id);
 
 	public PrdctRegisterImageVO getPrdctBoard(String p_id);
 
@@ -72,4 +73,8 @@ public interface CommonMapper {
 
 	// 상품 상세페이지 찜취소 기능
 	public int prdctLikeCancel(PrdctLikeVO prdctLikeVO);
+
+	public List<MbrVO> getBrandList(BrandCriteria cri);
+
+	public int getBrandTotalCount(BrandCriteria cri);
 }

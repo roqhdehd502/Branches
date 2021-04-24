@@ -6,7 +6,7 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>마이페이지</title>
+<title>Brand</title>
 
 <!-- Required CSS files -->
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
@@ -34,12 +34,9 @@
 				<div class="container">
 					<div class="row">
 						<c:forEach var="brand" items="${brand }">
-							<div class="col-sm-6 col-md-4 col-lg-3 single-team">
+							<div class="col-sm-6 col-md-4 col-lg-3 single-team" onclick="location.href='${pageContext.request.contextPath}/brand/${brand.mbr_id}'">
 								<div class="inner">
 								<a href="#" style="text-decoration: none;">
-									<div class="team-img">
-										<img src="/hs/51.jpg">
-									</div>
 									<div class="team-content">
 										<h4>${brand.mbr_id }</h4>
 									</div>
@@ -50,6 +47,33 @@
 					</div>
 				</div>
 			</div>
+			<div>
+						<ul class="pagination" >
+							<c:choose>
+								<c:when test="${pageMaker.prev}">
+									<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+								</c:otherwise>
+							</c:choose>
+
+							<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+								<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+								<li class="page-item ${pageMaker.cri.pageNum == idx ? 'active' : '' }"><a class="page-link" href="${pageMaker.makeQuery(idx)}">${idx}</a></li>
+							</c:forEach>
+							
+							<c:choose>
+							<c:when test="${pageMaker.next && pageMaker.endPage <= 0}">
+								<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+							</c:otherwise>
+							</c:choose>
+						</ul>
+					</div>
+			
 		<!-- footer -->
 	<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
 	</div>

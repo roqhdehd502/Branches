@@ -45,7 +45,7 @@
 									<a href="${pageContext.request.contextPath}/order/cart">CART</a>
 								</span>&nbsp;&nbsp;
 								<span>
-									<form action="/logoutsuccess" method="post" id="mlogout">
+									<form action="${pageContext.request.contextPath}/logoutsuccess" method="POST" id="mlogout">
 										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
 										<a href="#" class="charity-strip-btn charity-bgcolor" onclick="document.getElementById('mlogout').submit();">LOGOUT</a>
 									</form>
@@ -81,7 +81,8 @@
 								<span>
 									<form action="/logoutsuccess" method="post" id="mlogout">
 										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
-										<a href="#" class="charity-strip-btn charity-bgcolor" onclick="document.getElementById('mlogout').submit();">LOGOUT</a>
+										<a class="charity-strip-btn charity-bgcolor" onclick="document.getElementById('mlogout').submit();">LOGOUT</a>
+										
 									</form>
 								</span>
 							</span>	
@@ -94,7 +95,7 @@
 				<li class="current-menu-item has-child"><a href="#" style="text-decoration: none;">OUTER</a>
 					<ul class="sub-menu">
 						<li><a href="/category/1">Coat</a></li>
-						<li><a href="/category/2">Jarket</a></li>
+						<li><a href="/category/2">Jarcket</a></li>
 						<li><a href="/category/3">Jumper / Mustang</a></li>
 						<li><a href="/category/4">Cardigan</a></li>
 						<li><a href="/category/5">Padding</a></li>
@@ -104,14 +105,14 @@
 						<li><a href="/category/6">T-Shirt</a></li>
 						<li><a href="/category/7">Blouse / Shirt</a></li>
 						<li><a href="/category/8">Knit / Sweater</a></li>
-						<li><a href="/category/9">Hoddie</a></li>
+						<li><a href="/category/9">Hoodie</a></li>
 						<li><a href="/category/10">Sweat Shirt</a></li>
 						<li><a href="/category/11">Sleeveless</a></li>
 					</ul></li>
 				<li class="current-menu-item has-child"><a href="#" style="text-decoration: none;">BOTTOM</a>
 					<ul class="sub-menu">
 						<li><a href="/category/12">Denim</a></li>
-						<li><a href="/category/13">Cotten</a></li>
+						<li><a href="/category/13">Cotton</a></li>
 						<li><a href="/category/14">Short</a></li>
 						<li><a href="/category/15">Slacks</a></li>
 						<li><a href="/category/16">Training / Jogger</a></li>
@@ -123,13 +124,13 @@
 						<li><a href="/category/19">Mini</a></li>
 						<li><a href="/category/20">Midi</a></li>
 						<li><a href="/category/21">Maxi</a></li>
-						<li><a href="/category/22">Overrall</a></li>
+						<li><a href="/category/22">Overall</a></li>
 					</ul></li>
 				<li class="current-menu-item has-child"><a href="#" style="text-decoration: none;">BAG</a>
 					<ul class="sub-menu">
 						<li><a href="/category/23">Backpack</a></li>
 						<li><a href="/category/24">Messenger / Cross</a></li>
-						<li><a href="/category/25">Shoulder / Tod</a></li>
+						<li><a href="/category/25">Shoulder / Tote</a></li>
 						<li><a href="/category/26">Eco Bag</a></li>
 						<li><a href="/category/27">Clutch</a></li>
 					</ul></li>
@@ -137,8 +138,8 @@
 					<ul class="sub-menu">
 						<li><a href="/category/28">Dress Shoes</a></li>
 						<li><a href="/category/29">Boots</a></li>
-						<li><a href="/category/30">Sandal</a></li>
-						<li><a href="/category/31">slipper</a></li>
+						<li><a href="/category/30">Sandals</a></li>
+						<li><a href="/category/31">Slipper</a></li>
 						<li><a href="/category/32">Sneakers</a></li>
 					</ul></li>
 				<li class="current-menu-item has-child"><a href="#" style="text-decoration: none;">ETC</a>
@@ -147,8 +148,8 @@
 						<li><a href="/category/34">Cap</a></li>
 						<li><a href="/category/35">Acc</a></li>
 					</ul></li>
-				<li><a href="#" style="color: white;">|</a></li>
-				<li><a href="index.html" style="color: white; text-decoration: none;">BRAND</a></li>
+				<li style="color: white;">|</li>
+				<li><a href="${pageContext.request.contextPath}/brand" style="color: white; text-decoration: none;">BRAND</a></li>
 				<li><a href="${pageContext.request.contextPath}/board/magazine" style="color: white; text-decoration: none;">MAGAZINE</a></li>
 				<li><a href="${pageContext.request.contextPath}/board/notice" style="margin-right: 38px; color: white; text-decoration: none;">NOTICE</a></li>
 			</ul>

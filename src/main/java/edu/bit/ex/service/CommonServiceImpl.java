@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.mapper.CommonMapper;
+import edu.bit.ex.page.BrandCriteria;
 import edu.bit.ex.page.PrdQnACriteria;
 import edu.bit.ex.page.PrdReviewCriteria;
 import edu.bit.ex.page.PrdctListCriteria;
@@ -123,9 +124,9 @@ public class CommonServiceImpl implements CommonService {
 
 	// 페이징에 적용되는 브랜드 상품 수
 	@Override
-	public int getBrandTotalCount(PrdctListCriteria cri, String b_id) {
+	public int getBrandPrdctTotalCount(PrdctListCriteria cri, String b_id) {
 		log.info(b_id);
-		return commonMapper.getBrandTotalCount(cri, b_id);
+		return commonMapper.getBrandPrdctTotalCount(cri, b_id);
 	}
 
 	@Override
@@ -159,5 +160,17 @@ public class CommonServiceImpl implements CommonService {
 	public int prdctLikeCancel(PrdctLikeVO prdctLikeVO) {
 		log.info("prdctLikeCancel...");
 		return commonMapper.prdctLikeCancel(prdctLikeVO);
+	}
+
+	@Override
+	public List<MbrVO> getBrandList(BrandCriteria cri) {
+		// TODO Auto-generated method stub
+		return commonMapper.getBrandList(cri);
+	}
+
+	@Override
+	public int getBrandTotalCount(BrandCriteria cri) {
+		// TODO Auto-generated method stub
+		return commonMapper.getBrandTotalCount(cri);
 	}
 }

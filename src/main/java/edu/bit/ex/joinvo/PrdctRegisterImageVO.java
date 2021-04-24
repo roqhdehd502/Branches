@@ -76,6 +76,7 @@ public class PrdctRegisterImageVO { // 게시판 이미지 VO
 	private String image_path; // 상품이미지경로
 
 	private MultipartFile[] uploadfiles; // 게시판이미지업로드
+	private MultipartFile uploadfile; // 게시판이미지업로드
 	private String onedeletefiles; // 게시판수정페이지 한 이미지만 삭제
 	private String[] deletefiles; // 게시판이미지삭제
 }

@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.config.auth.MemberDetails;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
+import edu.bit.ex.page.BrandCriteria;
+import edu.bit.ex.page.BrandPageVO;
 import edu.bit.ex.page.PrdQnACriteria;
 import edu.bit.ex.page.PrdReviewCriteria;
 import edu.bit.ex.page.PrdReviewPageVO;
@@ -173,16 +175,28 @@ public class CommonController {
 		return mav;
 	}
 
+	// 브랜드리스트
+	@GetMapping("/brand")
+	public ModelAndView brand_list(BrandCriteria cri, ModelAndView mav) {
+		log.info("brand list page");
+		mav.setViewName("common/brandList");
+		mav.addObject("brand", commonService.getBrandList(cri));
+		int total = commonService.getBrandTotalCount(cri);
+		mav.addObject("pageMaker", new BrandPageVO(cri, total));
+
+		return mav;
+	}
+
 	// 브랜드별 상품리스트
-	// @RequestMapping(value = "/brand/{brand_id}", method = { RequestMethod.POST, RequestMethod.GET })
-	@RequestMapping(value = "/brand/{brand_id}", method = { RequestMethod.GET })
+	@GetMapping("/brand/{brand_id}")
 	public ModelAndView brandPrdctList(@PathVariable("brand_id") String b_id, PrdctListCriteria cri, ModelAndView mav) {
 		mav.setViewName("common/brand_prdct_list");
-		/*
-		 * mav.addObject("mbr", commonService.getMemberInfo(b_id)); mav.addObject("prdct", commonService.getBrandPrdctListWithCri(cri, b_id)); int
-		 * total = commonService.getBrandTotalCount(cri, b_id); mav.addObject("pageMaker", new PrdctListPageVO(cri, total)); log.info("total : " +
-		 * total);
-		 */
+		mav.addObject("mbr", commonService.getMemberInfo(b_id));
+		mav.addObject("prdct", commonService.getBrandPrdctListWithCri(cri, b_id));
+		int total = commonService.getBrandPrdctTotalCount(cri, b_id);
+		mav.addObject("pageMaker", new PrdctListPageVO(cri, total));
+		log.info("total : " + total);
+
 		return mav;
 	}
 }
