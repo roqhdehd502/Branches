@@ -138,8 +138,8 @@
 								<th><h5>상품정보</h5></th>
 								<th><h5>주문일</h5></th>
 								<th><h5>주문번호</h5></th>
-								<th><h5>금액</h5></th>
-								<th><h5>수량</h5></th>
+								<th><h5>주문금액(수량)</h5></th>
+								<th><h5>상태</h5></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -152,10 +152,15 @@
 									<h6>${prdct.order_size }</h6>
 									<h6>${prdct.order_color }</h6>
 								</td>
-								<td><h5 style="position: relative; top: 34px;">${prdct.order_date }</h5></td>
-								<td><h5 style="position: relative; top: 34px;">${prdct.order_number}</h5></td>
-								<td><h5 style="position: relative; top: 34px; text-align: center;">${prdct.order_price }₩</h5></td>
-								<td><h5 style="position: relative; top: 34px; text-align: center;">${prdct.order_amount }</h5></td>
+								<td><h6 style="position: relative; top: 34px;">${prdct.order_date }</h6></td>
+								<td><h6 style="position: relative; top: 34px;">${prdct.order_number}</h6></td>
+								<td><h6 style="position: relative; top: 34px;">${prdct.order_price}₩ (${prdct.order_amount})</h6></td>
+								<td>
+									<c:if test="${prdct.order_state_number eq 2}">
+										<h5 style="position: relative; top: 20px;">결제완료</h5>
+									</c:if>
+									<a href="/seller/mypage/order/${prdct.order_number }" style="position: relative; top: 20px;"><h6>[변경]</h6></a>
+								</td>
 							</tr>
 							</c:forEach>
 						</tbody>

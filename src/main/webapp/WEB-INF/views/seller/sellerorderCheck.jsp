@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="/assets/css/slicknav.css">
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
 <body>
@@ -117,20 +117,21 @@
 					<div class="team-area sp">
 						<div class="container">
 							<div class="row">
-								<form id="searchForm" action="/seller/mypage/prdct" method="get" style="position: relative; left: 540px; bottom: 20px;">
+								<form id="searchForm" action="/seller/mypage/order" method="get" style="position: relative; left: 480px;">
 									<span>
-										<select name="type" style="width: 100px; border: 3px solid black;">
+										<select class="custom-select" name="type" style="width: 140px;">
 											<option value="" <c:out value="${pageMaker.cri.type == null?'selected' : '' }" />>---</option>
 											<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ?'selected' : '' }" />>상품명</option>
-											<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ?'selected' : '' }" />>ID</option>
+											<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ?'selected' : '' }" />>주문번호</option>
+											<option value="W" <c:out value="${pageMaker.cri.type eq 'W' ?'selected' : '' }" />>회원ID</option>
 										</select>
 									</span>&nbsp;&nbsp;
 									<span>
-									<input type="text" name="keyword" style="width: 200px; border: 3px solid black;" value='<c:out value="${pageMaker.cri.keyword}" />' /> 
+									<input class="form-control" type="text" name="keyword" style="width: 200px;" value='<c:out value="${pageMaker.cri.keyword}" />' /> 
 										<input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum}" />' /> 
 										<input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}" />' />
 									</span>
-									<button class="btn btn-primary btn-sm">검색</button>
+									<button class="btn btn-primary">검색</button>
 								</form>
 								<table class="table">
 									<thead style="text-align: center;">
@@ -143,28 +144,45 @@
 										</tr>
 									</thead>
 									<tbody style="text-align: center;">
-										<c:forEach items="${orderCheck}" var="prdct" begin="0" end="9">
+										<c:forEach items="${orderCheck}" var="prdct" varStatus="status">
 											<tr style="text-align: center;">
 												<td>
-													<h6>${prdct.mbr_id}</h6>
-													<h6>${prdct.prdct_name}</h6>
-													<h6>${prdct.order_size}</h6>
-													<h6>${prdct.order_color}</h6>
+													<h6>${prdct.prdct_id}</h6>
+													<h6>${prdct.mbr_id }</h6>
+													<h6>${prdct.prdct_name }</h6>
+													<h6>${prdct.order_size }</h6>
+													<h6>${prdct.order_color }</h6>
 												</td>
-												<td><h6 style="position: relative; top: 34px;">${prdct.order_date}</h6></td>
+												<td><h6 style="position: relative; top: 34px;">${prdct.order_date }</h6></td>
 												<td><h6 style="position: relative; top: 34px;">${prdct.order_number}</h6></td>
-												<td><h6 style="position: relative; top: 34px; text-align: center;">${prdct.order_price}₩ (${prdct.order_amount})</h6></td>
+												<td><h6 style="position: relative; top: 34px;">${prdct.order_price}₩ (${prdct.order_amount})</h6></td>
 												<td>
-													<h6 style="position: relative; top: 34px; text-align: center;">${prdct.order_state_name }</h6>
+													<c:if test="${prdct.order_state_number eq 3}">
+														<h5 style="position: relative; top: 20px;">주문요청</h5>
+													</c:if>
+													<a href="/seller/mypage/order/${prdct.order_number }" style="position: relative; top: 20px;"><h6>[변경]</h6></a>
 												</td>
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
+								<ul class="pagination" style="margin: auto;">
+									<c:if test="${pageMaker.prev}">
+										<a class="page-link" href="/seller/mypage/prdctqna${pageMaker.makeQuery(pageMaker.startPage - 1)}">«</a>
+									</c:if>
+
+									<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+										<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+										<a class="page-link" href="/seller/mypage/prdctqna${pageMaker.makeQuery(idx)}">${idx}</a>
+									</c:forEach>
+
+									<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+										<a class="page-link" href="/seller/mypage/prdctqna${pageMaker.makeQuery(pageMaker.endPage +1)}?sort">»</a>
+									</c:if>
+								</ul>
 							</div>
 						</div>
 					</div>
-					<hr>
 			</div>
 		</div>
 

@@ -81,7 +81,7 @@
 							<li><a href="index-3.html">Maxi</a></li>
 							<li><a href="index-3.html">Overrall</a></li>
 						</ul></li>
-					<li class="current-menu-item has-child"><a href="index.html">Back</a>
+					<li class="current-menu-item has-child"><a href="index.html">Bag</a>
 						<ul class="sub-menu">
 							<li><a href="index.html">Backpack</a></li>
 							<li><a href="index-2.html">Messenger / Cross</a></li>
