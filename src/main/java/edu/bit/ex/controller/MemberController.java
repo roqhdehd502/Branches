@@ -1,5 +1,8 @@
 package edu.bit.ex.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +21,8 @@ import edu.bit.ex.config.auth.MemberDetails;
 import edu.bit.ex.controller.validator.MemberValidator;
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.InquiryBoardVO;
+import edu.bit.ex.page.MemberOrderCriteria;
+import edu.bit.ex.page.MemberOrderPageVO;
 import edu.bit.ex.page.MyqnaCriteria;
 import edu.bit.ex.page.MyqnaPageVO;
 import edu.bit.ex.page.PrdQnACriteria;
@@ -101,7 +106,8 @@ public class MemberController {
 
 	// 회원 마이페이지...(custom)
 	@GetMapping("/mypage")
-	public ModelAndView mypage(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, MbrVO mbrVO) throws Exception {
+	public ModelAndView mypage(@AuthenticationPrincipal MemberDetails memberDetails, HttpServletRequest request, HttpSession session,
+			ModelAndView mav, MbrVO mbrVO) throws Exception {
 		log.info("mypage.......");
 		mav.setViewName("member/mypage");
 		// mav.addObject("member", hsService.getMember());
@@ -110,6 +116,14 @@ public class MemberController {
 		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
+
+		// 주문내역 리스트 가져오기
+		mav.addObject("order_list", memberService.getOrderMyList(getMbr.getMbr_id()));
+
+		// 최근 본 상품 리스트 가져오기
+
+		// 찜했던 상품 리스트 받아오기
+		mav.addObject("like_prdct_list", memberService.getLikePrdctList(getMbr.getMbr_id()));
 
 		return mav;
 	}
@@ -141,6 +155,7 @@ public class MemberController {
 	@GetMapping("/mypage/myqna/write")
 	public ModelAndView myqnaWriteView(@AuthenticationPrincipal MemberDetails memberDetails, InquiryVO inquiryVO, ModelAndView mav) {
 		log.info("myqnaWriteView...");
+
 		mav.setViewName("member/member_question");
 
 		// 인증 회원 정보
@@ -303,6 +318,7 @@ public class MemberController {
 	public ModelAndView reviewList(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav) throws Exception {
 		log.debug("reviewList");
 		log.info("reviewList..");
+
 		String member_id = memberDetails.getUserID();
 		mav.setViewName("member/member_myreview_list");
 		mav.addObject("mbr", securityService.getMbr(member_id));
@@ -313,7 +329,8 @@ public class MemberController {
 
 	// 회원 주문내역 조회페이지...(custom)
 	@GetMapping("/mypage/order")
-	public ModelAndView myOrderList(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav) throws Exception {
+	public ModelAndView myOrderList(@AuthenticationPrincipal MemberDetails memberDetails, MemberOrderCriteria cri, ModelAndView mav)
+			throws Exception {
 		log.debug("myOrderList");
 		log.info("myOrderList");
 		mav.setViewName("member/myOrderList");
@@ -322,6 +339,14 @@ public class MemberController {
 		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
+
+		// 주문내역 리스트 가져오기
+		/* mav.addObject("order_list", memberService.getOrderMyList(getMbr.getMbr_id())); */
+		mav.addObject("order_list", memberService.getOrderMyList(getMbr.getMbr_id(), cri));
+
+		int total = memberService.getOrderMyTotal(cri);
+		log.info("total" + total);
+		mav.addObject("pageMaker", new MemberOrderPageVO(cri, total));
 
 		return mav;
 	}

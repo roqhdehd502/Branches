@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -19,6 +20,19 @@
 	<link rel="stylesheet" href="/assets/css/slicknav.css">
 	<link rel="stylesheet" href="/assets/css/main.css">
 	<link rel="stylesheet" href="/bootstrap.min.css">
+	
+	<!-- thumbnail image hover -->
+	<style type="text/css">
+		.thumbnail:hover {
+			background-color: #e0e0e0;
+			border: 1px solid #e0e0e0;
+			border-radius: 5px;
+		}
+		
+		a:hover { 
+			text-decoration: none;
+		}
+	</style>
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -89,70 +103,170 @@
 				<!-- 오른쪽 컨텐츠 내용 -->
 				<div class="col-md-9 contact-info" style="border-left: 1px solid rgba(0, 0, 0, .1);">
 					<div class="container">
-						<div class="row" style="padding-left: 10px">
-							<h3>주문내역 미리보기</h3>
+						<div class="row">
+							<div class="col-md-6" align="left" style="padding-left: 10px">
+								<h3>최근 주문내역</h3>
+							</div>
+							<div class="col-md-6" align="right" style="padding-right: 0px">
+								<button class="btn btn-primary btn" onclick="location.href='${pageContext.request.contextPath}/order/cart'">장바구니</button>
+							</div>
+						</div>
+						<div class="row" style="padding-left: 15px">
+							<small>최근 주문내역 중 3개만 보여집니다.</small>
 						</div>
 						
 						<hr>
 						
-						<div class="row">
-							<%-- <c:forEach items="" var=""> --%>		
-							<div class="col-md-3">
-								<img src="<c:url value="/hs/5.jpg"/>" width="150px" height="200px">
+						<!-- 최근 주문내역 3개만 보여주기 -->
+						<c:forEach items="${order_list}" var="order" end="2">
+						<div class="row">	
+							<div class="col-md-3 thumbnail" align="center">
+								<!-- 경로 prdct_img/prdct_thumbnail로 바뀌면 수정하자... -->
+								<a href="${pageContext.request.contextPath}/prdct/${order.prdct_id}"><img src="<c:url value="${order.prdct_thumbnail}"/>" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" width="150px" height="200px"></a>
 							</div>
 							<div class="col-md-5" align="left" style="padding: 3% 0px 0px 0px">
 								<br>
-								<h5>Covernat</h5>
-								<h5>21/22 FW 체크 셔츠 블루</h5>	
+								<h5>${order.brand_id}</h5>
+								<h5>${order.prdct_name}</h5>
 							</div>
 							<div class="col-md-4" align="right" style="padding: 3% 0px 0px 0px">
 								<br>
-								<h2>29,900₩</h2>
-								<button class="btn btn-primary btn-sm" type="button">배송조회</button>&nbsp;
-								<button class="btn btn-primary btn-sm" type="button">상품교환</button>&nbsp;
-								<button class="btn btn-primary btn-sm" type="button">상품환불</button>
+								<h2>${order.order_price}원</h2>
+								<!-- 배송조회페이지 URI 설정할것 -->
+								<c:choose>
+									<c:when test="${order.order_state_number eq 1}">
+										<h4>결제대기</h4>
+										<button type="button" class="btn btn-primary btn" onclick="location.href='${pageContext.request.contextPath}/'">배송조회</button>&nbsp;
+										<button type="button" class="btn btn-danger btn" onclick="location.href='${pageContext.request.contextPath}/'">주문취소</button>
+									</c:when>
+									<c:when test="${order.order_state_number eq 2}">
+										<h4>결제완료</h4>
+										<button type="button" class="btn btn-primary btn" onclick="location.href='${pageContext.request.contextPath}/'">배송조회</button>&nbsp;
+										<button type="button" class="btn btn-danger btn" onclick="location.href='${pageContext.request.contextPath}/'">주문취소</button>
+									</c:when>
+									<c:when test="${order.order_state_number eq 3}">
+										<h4>주문요청</h4>
+										<button type="button" class="btn btn-primary btn" onclick="location.href='${pageContext.request.contextPath}/'">배송조회</button>&nbsp;
+										<button type="button" class="btn btn-danger btn" onclick="location.href='${pageContext.request.contextPath}/'">주문취소</button>
+									</c:when>
+									<c:when test="${order.order_state_number eq 4}">
+										<h4>배송대기</h4>
+										<button type="button" class="btn btn-primary btn" onclick="location.href='${pageContext.request.contextPath}/'">배송조회</button>&nbsp;
+										<button type="button" class="btn btn-danger btn" onclick="location.href='${pageContext.request.contextPath}/'">주문취소</button>
+									</c:when>
+									<c:when test="${order.order_state_number eq 5}">
+										<h4>배송중</h4>
+										<button type="button" class="btn btn-primary btn" onclick="location.href='${pageContext.request.contextPath}/'">배송조회</button>&nbsp;
+										<button type="button" class="btn btn-danger btn" onclick="location.href='${pageContext.request.contextPath}/'">주문취소</button>
+									</c:when>
+									<c:when test="${order.order_state_number eq 6}">
+										<h4>배송완료</h4>
+										<button type="button" class="btn btn-primary btn" onclick="location.href='${pageContext.request.contextPath}/'">배송조회</button>&nbsp;
+										<button type="button" class="btn btn-success btn" onclick="location.href='${pageContext.request.contextPath}/'">주문확정</button><br>
+										<button type="button" class="btn btn-danger btn" onclick="location.href='${pageContext.request.contextPath}/'">교환요청</button>&nbsp;
+										<button type="button" class="btn btn-danger btn" onclick="location.href='${pageContext.request.contextPath}/'">환불요청</button>
+									</c:when>
+									<c:when test="${order.order_state_number eq 7}">
+										<h4>주문확정</h4>
+										<button type="button" class="btn btn-primary btn" onclick="location.href='${pageContext.request.contextPath}/'">리뷰쓰기</button>&nbsp;
+										<button type="button" class="btn btn-danger btn" onclick="location.href='${pageContext.request.contextPath}/'">교환요청</button><br>
+										<button type="button" class="btn btn-danger btn" onclick="location.href='${pageContext.request.contextPath}/'">환불요청</button>
+									</c:when>
+									<c:when test="${order.order_state_number eq 8}">
+										<h4>주문취소</h4>
+										<button type="button" class="btn btn-primary btn" onclick="location.href='${pageContext.request.contextPath}/'">주문취소조회</button>
+									</c:when>
+									<c:when test="${order.order_state_number eq 9}">
+										<h4>교환요청</h4>
+										<button type="button" class="btn btn-primary btn" onclick="location.href='${pageContext.request.contextPath}/'">교환조회</button>
+									</c:when>
+									<c:when test="${order.order_state_number eq 10}">
+										<h4>환불요청</h4>
+										<button type="button" class="btn btn-primary btn" onclick="location.href='${pageContext.request.contextPath}/'">환불조회</button>
+									</c:when>
+									<c:otherwise>
+										<h4>환불완료</h4>
+									</c:otherwise>
+								</c:choose>
 							</div>
-							<hr>
-							<%-- </c:forEach> --%>	
+						</div>
+						<hr>
+						</c:forEach>
+						
+						<br style="padding: 0px 0px 5% 0px">
+						
+						<div class="row" style="padding-left: 15px">
+							<h3>최근 본 상품</h3>
+						</div>
+						<div class="row" style="padding: 15px 0px 0px 15px">
+							<small>최근 본 상품 중 3개만 보여집니다.</small>	
+						</div>
+						
+						<hr>
+						
+						<!-- 최근 본 상품내역 3개만 보여주기 -->
+						<div class="row">
+							<%-- <c:forEach items="${}" var="watch" end="2"> --%>	
+							<div class="col-md-4 thumbnail" align="center">
+								<div>
+									<!-- 경로 prdct_img/prdct_thumbnail로 바뀌면 수정하자... -->
+									<a href="${pageContext.request.contextPath}/prdct/${order.prdct_id}"><img src="<c:url value="${order.prdct_thumbnail}"/>" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" width="150px" height="200px"></a>
+								</div>
+								<div style="padding-top: 3%">
+									<h5>PRISM</h5>
+									<h5>프리즘 데님 자켓 INDIGO</h5>
+								</div>
+							</div>
+							<!-- DB 데이터 가져오면 해당 구역 삭제하기 -->
+							<div class="col-md-4 thumbnail" align="center">
+								<div>
+									<a href="${pageContext.request.contextPath}/prdct/${order.prdct_id}"><img src="<c:url value="${order.prdct_thumbnail}"/>" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" width="150px" height="200px"></a>
+								</div>
+								<div style="padding-top: 3%">
+									<h5>PRISM</h5>
+									<h5>프리즘 데님 자켓 INDIGO</h5>
+								</div>
+							</div>
+							<div class="col-md-4 thumbnail" align="center">
+								<div>
+									<a href="${pageContext.request.contextPath}/prdct/${order.prdct_id}"><img src="<c:url value="${order.prdct_thumbnail}"/>" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" width="150px" height="200px"></a>
+								</div>
+								<div style="padding-top: 3%">
+									<h5>PRISM</h5>
+									<h5>프리즘 데님 자켓 INDIGO</h5>
+								</div>
+							</div>
+							<!-- =============================== -->
+							<%-- </c:forEach> --%>
 						</div>
 						
 						<hr style="padding: 0px 0px 5% 0px">
 						
-						<div class="row" style="padding-left: 10px">
-							<h3>장바구니</h3>
+						<div class="row" style="padding-left: 15px">
+							<h3>최근 찜한 목록</h3>
+						</div>
+						<div class="row" style="padding: 15px 0px 0px 15px">
+							<small>최근 찜한 목록 중 3개만 보여집니다.</small>	
 						</div>
 						
 						<hr>
 						
-						<form action="#" method="post">
-							<div class="row">
-								<%-- <c:forEach items="" var=""> --%>
-								<div class="col-md-3">
-									<img src="<c:url value="/hs/5.jpg"/>" width="150px" height="200px">
+						<!-- 최근 찜한 목록내역 3개만 보여주기 -->
+						<div class="row">
+							<c:forEach items="${like_prdct_list}" var="like" end="2">
+							<div class="col-md-4 thumbnail" align="center">
+								<div>
+									<!-- 경로 prdct_img/prdct_thumbnail로 바뀌면 수정하자... -->
+									<a href="${pageContext.request.contextPath}/prdct/${like.prdct_id}"><img src="<c:url value="${like.prdct_thumbnail}"/>" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" width="150px" height="200px"></a>
 								</div>
-								<div class="col-md-5" align="left" style="padding: 3% 0px 0px 0px">
-									<br>
-									<h5>Balenciaga</h5>
-									<h5>[단독]Denim Jaket & Pants</h5>	
+								<div style="padding-top: 3%">
+									<h5>${like.mbr_id}</h5>
+									<h5>${like.prdct_name}</h5>
 								</div>
-								<div class="col-md-4" align="right" style="padding: 3% 15px 0px 0px">
-									<br>
-									<input type="checkbox">&nbsp;&nbsp;&nbsp;30,000₩
-								</div>
-								<hr>
-								<%-- </c:forEach> --%>	
 							</div>
-							<hr>
-							
-							<div class="row">
-								<div class="col-md-3"></div>
-								<div class="col-md-9" align="right">
-									<h5>Total</h5>
-									<h3>59,000₩</h3>
-									<button class="btn btn-primary" type="submit">바로구매</button>
-								</div>
-							</div>	
-						</form>	
+							</c:forEach>
+						</div>
+						
 					</div>
 				</div>	
 					<%-- <span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
@@ -51,6 +52,7 @@ public class BoardServiceImpl implements BoardService {
 
 	// 공지사항 작성
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void setNoticeWrite(BoardVO boardVO) {
 		log.info("setNoticeWrite");
 		boardMapper.setNoticeWrite(boardVO);
@@ -66,6 +68,7 @@ public class BoardServiceImpl implements BoardService {
 
 	// 공지사항 삭제
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public int noticeRemove(int board_id) {
 		log.info("noticeRemove: " + board_id);
 		return boardMapper.noticeRemove(board_id);
@@ -73,6 +76,7 @@ public class BoardServiceImpl implements BoardService {
 
 	// 공지사항 수정
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void setNoticeModify(BoardVO boardVO) {
 		log.info("setNoticeModify");
 		boardMapper.setNoticeModify(boardVO);
@@ -94,6 +98,7 @@ public class BoardServiceImpl implements BoardService {
 
 	// 매거진 작성
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void setMagazineWrite(BoardVO boardVO) {
 		log.info("setMagazineWrite");
 
@@ -129,6 +134,7 @@ public class BoardServiceImpl implements BoardService {
 
 	// 매거진 첨부사진 업로드
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void magazineImageUpload(HttpServletRequest request, HttpServletResponse response, MultipartFile upload) throws Exception {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
@@ -175,6 +181,7 @@ public class BoardServiceImpl implements BoardService {
 
 	// 매거진 게시글 추천
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public int magazineUpLike(int board_id) {
 		log.info("magazineUpHit");
 		return boardMapper.magazineUpLike(board_id);
@@ -203,6 +210,7 @@ public class BoardServiceImpl implements BoardService {
 
 	// 매거진 게시글 댓글 작성
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void setMagazineCommentWrite(BoardBoardCommentVO boardBoardCommentVO) {
 		log.info("setMagazineCommentWrite");
 		boardMapper.setMagazineCommentWrite(boardBoardCommentVO);
@@ -210,6 +218,7 @@ public class BoardServiceImpl implements BoardService {
 
 	// 매거진 게시글 댓글 삭제
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public int magazineCommentRemove(int comment_id) {
 		log.info("magazineCommentRemove: " + comment_id);
 		return boardMapper.magazineCommentRemove(comment_id);
@@ -217,6 +226,7 @@ public class BoardServiceImpl implements BoardService {
 
 	// 매거진 썸네일만 삭제
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public int magazineImageOnlyRemove(BoardVO boardVO) {
 		String image_name = boardVO.getOnedeletefiles();
 		log.info("image_name: " + image_name);
@@ -235,6 +245,7 @@ public class BoardServiceImpl implements BoardService {
 
 	// 매거진 삭제
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public int magazineRemove(BoardVO boardVO) {
 		log.info("magazineRemove: " + boardVO.getBoard_id());
 
@@ -252,6 +263,7 @@ public class BoardServiceImpl implements BoardService {
 
 	// 매거진 수정
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void setMagazineModify(BoardVO boardVO) {
 		log.info("setMagazineModify");
 		boardMapper.setMagazineModify(boardVO);
@@ -259,6 +271,7 @@ public class BoardServiceImpl implements BoardService {
 
 	// 매거진 수정페이지 썸네일까지 변경
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void setMagazineModifyAddImg(BoardVO boardVO) {
 		log.info("setMagazineModifyAddImg");
 

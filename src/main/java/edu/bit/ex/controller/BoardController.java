@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,6 +47,7 @@ public class BoardController {
 	public ModelAndView noticeList(NoticeCriteria cri, ModelAndView mav) {
 		log.info("noticeList...");
 		log.info(cri.toString());
+
 		mav.setViewName("board/notice_list");
 		mav.addObject("notice_list", boardService.getNoticeList(cri));
 
@@ -62,6 +62,7 @@ public class BoardController {
 	@GetMapping("/admin/board/notice/write")
 	public ModelAndView noticeWriteView(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav) {
 		log.info("noticeWriteView...");
+
 		mav.setViewName("board/notice_write");
 		// 인증 회원 정보
 		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
@@ -72,7 +73,6 @@ public class BoardController {
 	}
 
 	// 공지사항 작성(관리자)
-	@Transactional(rollbackFor = Exception.class)
 	@PostMapping("/admin/board/notice/write")
 	public ResponseEntity<String> noticeWrite(@RequestBody BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
@@ -110,7 +110,6 @@ public class BoardController {
 	}
 
 	// 공지사항 수정(관리자)
-	@Transactional(rollbackFor = Exception.class)
 	@PostMapping("/admin/board/notice/modify/{board_id}")
 	public ResponseEntity<String> noticeModify(@RequestBody BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
@@ -128,7 +127,6 @@ public class BoardController {
 	}
 
 	// 공지사항 삭제(관리자)
-	@Transactional(rollbackFor = Exception.class)
 	@DeleteMapping("/admin/board/notice/modify/{board_id}")
 	public ResponseEntity<String> noticeDelete(BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
@@ -163,6 +161,7 @@ public class BoardController {
 	@GetMapping("/admin/board/magazine/write")
 	public ModelAndView magazineWriteView(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav) {
 		log.info("magazineWriteView...");
+
 		mav.setViewName("board/magazine_write");
 
 		// 인증 회원 정보
@@ -175,7 +174,6 @@ public class BoardController {
 
 	// 첨부사진 업로드(관리자)
 	// CKEditor의 경우 이미지를 첨부할때 서버에 선 등록후 게시글이 submit이 될 때 같이 적용된다
-	@Transactional(rollbackFor = Exception.class)
 	@RequestMapping("/admin/board/boardImageUpload.do")
 	public void magazineImageUpload(HttpServletRequest request, HttpServletResponse response, MultipartFile upload) throws Exception {
 		log.info("magazineImageUpload...");
@@ -183,7 +181,6 @@ public class BoardController {
 	}
 
 	// 매거진 작성(관리자)
-	@Transactional(rollbackFor = Exception.class)
 	@PostMapping("/admin/board/magazine/write")
 	public ResponseEntity<String> magazineWrite(BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
@@ -231,7 +228,6 @@ public class BoardController {
 	}
 
 	// 매거진 게시글 추천
-	@Transactional(rollbackFor = Exception.class)
 	@PutMapping("/board/magazine/{board_id}")
 	public ResponseEntity<String> magazineUpLike(BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
@@ -249,7 +245,6 @@ public class BoardController {
 	}
 
 	// 매거진 게시글 댓글 작성
-	@Transactional(rollbackFor = Exception.class)
 	@PostMapping("/board/magazine/{board_id}")
 	public ResponseEntity<String> magazineCommentWrite(@RequestBody BoardBoardCommentVO boardBoardCommentVO) {
 		ResponseEntity<String> entity = null;
@@ -267,7 +262,6 @@ public class BoardController {
 	}
 
 	// 매거진 댓글 삭제
-	@Transactional(rollbackFor = Exception.class)
 	@DeleteMapping("/board/magazine/{board_id}")
 	public ResponseEntity<String> magazineCommentDelete(BoardCommentVO boardCommentVO) {
 		ResponseEntity<String> entity = null;
@@ -296,7 +290,6 @@ public class BoardController {
 	}
 
 	// 매거진 수정(관리자)
-	@Transactional(rollbackFor = Exception.class)
 	@PostMapping("/admin/board/magazine/modify/{board_id}")
 	public ResponseEntity<String> magazineModify(BoardVO boardVO) {
 		ResponseEntity<String> entity = null;
@@ -327,7 +320,6 @@ public class BoardController {
 	}
 
 	// 매거진 삭제(관리자)
-	@Transactional(rollbackFor = Exception.class)
 	@DeleteMapping("/admin/board/magazine/modify/{board_id}")
 	public ResponseEntity<String> magazineDelete(BoardVO boardVO) {
 		ResponseEntity<String> entity = null;

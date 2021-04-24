@@ -96,7 +96,7 @@
 				</div>
 
 				<!-- 오른쪽 본문 -->
-				<div class="col-md-9 contact-info">
+				<div class="col-md-9 contact-info" style="border-left: 1px solid rgba(0, 0, 0, .1);">
 					<div class="container">
 						<div class="row" style="padding: 0px 2% 0px 2%">
 							<div class="col-md-6" align="left">
@@ -158,7 +158,7 @@
 					</div>	
 
 					<!-- 페이징 -->
-					<%-- <div class="container">
+					<div class="container">
 						<ul class="pagination justify-content-center">
 							<c:choose>
 								<c:when test="${pageMaker.prev}">
@@ -183,7 +183,7 @@
 								</c:otherwise>
 							</c:choose>
 						</ul>
-					</div> --%>
+					</div>
 					</div>
 				</div>
 				<hr>

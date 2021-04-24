@@ -226,5 +226,46 @@
 		    b.board_type_number = 6 AND 
 		    l.mbr_id = #{mbr_id}
 	]]>
+	</select>
+	
+	<!-- 주문내역 리스트 가져오기 -->
+	<select id="getOrderMyList" resultType="edu.bit.ex.joinvo.PrdctOrdctDetailPrdctOrderVO">
+	<![CDATA[
+		SELECT o.order_number, p.prdct_thumbnail, p.prdct_id, p.mbr_id AS brand_id, p.prdct_name, d.order_color, d.order_size, o.order_date, o.order_price, d.order_amount, o.order_state_number 
+		FROM prdct p, order_detail d, prdct_order o 
+		WHERE p.prdct_id = d.prdct_id AND 
+		    o.order_number = d.order_number AND 
+		    o.mbr_id = #{mbr_id} 
+		ORDER BY o.order_date DESC
+	]]>
+	</select>
+	<select id="getOrderMyListPaging" resultType="edu.bit.ex.joinvo.PrdctOrdctDetailPrdctOrderVO">
+	<![CDATA[
+		SELECT * FROM (
+			SELECT ROWNUM AS RNUM, A.* FROM ( 
+			        		SELECT o.order_number, p.prdct_thumbnail, p.prdct_id, p.mbr_id AS brand_id, p.prdct_name, d.order_color, d.order_size, o.order_date, o.order_price, d.order_amount, o.order_state_number 
+							FROM prdct p, order_detail d, prdct_order o 
+							WHERE p.prdct_id = d.prdct_id AND 
+							    o.order_number = d.order_number AND 
+							    o.mbr_id = #{mbr_id} 
+							ORDER BY o.order_date DESC     
+	]]> 
+	
+	<![CDATA[					    
+			) A WHERE ROWNUM <= #{cri.pageNum} * #{cri.amount} 
+		) WHERE RNUM > (#{cri.pageNum}-1) * #{cri.amount}
+	]]>
+	</select>
+	<!-- <if test="count >0">
+		order by
+		${sortquery}
+	</if> -->
+	
+	<!-- 페이징 단위에 적용되는 최대 주문내역 단위 -->
+	<select id="getOrderMyTotalCount" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) 
+			FROM order_detail
+		]]>	
 	</select>			 	
 </mapper>

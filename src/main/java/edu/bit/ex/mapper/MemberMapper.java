@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.BoardPrdctPrdctLikeVO;
 import edu.bit.ex.joinvo.InquiryBoardVO;
+import edu.bit.ex.joinvo.PrdctOrdctDetailPrdctOrderVO;
+import edu.bit.ex.page.MemberOrderCriteria;
 import edu.bit.ex.page.MyqnaCriteria;
 import edu.bit.ex.page.PrdQnACriteria;
 import edu.bit.ex.vo.BoardCommentVO;
@@ -78,4 +80,12 @@ public interface MemberMapper {
 
 	// 찜했던 상품 리스트 받아오기
 	public List<BoardPrdctPrdctLikeVO> getLikePrdctList(String mbr_id);
+
+	// 주문내역 리스트 가져오기
+	public List<PrdctOrdctDetailPrdctOrderVO> getOrderMyList(String mbr_id);
+
+	public List<PrdctOrdctDetailPrdctOrderVO> getOrderMyListPaging(String mbr_id, MemberOrderCriteria cri);
+
+	// 페이징 단위에 적용되는 최대 주문내역 단위
+	public int getOrderMyTotalCount(MemberOrderCriteria cri);
 }

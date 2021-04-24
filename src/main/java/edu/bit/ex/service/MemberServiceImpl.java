@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.BoardPrdctPrdctLikeVO;
 import edu.bit.ex.joinvo.InquiryBoardVO;
+import edu.bit.ex.joinvo.PrdctOrdctDetailPrdctOrderVO;
 import edu.bit.ex.mapper.MemberMapper;
+import edu.bit.ex.page.MemberOrderCriteria;
 import edu.bit.ex.page.MyqnaCriteria;
 import edu.bit.ex.page.PrdQnACriteria;
 import edu.bit.ex.vo.BoardCommentVO;
@@ -163,5 +165,25 @@ public class MemberServiceImpl implements MemberService {
 	public List<BoardPrdctPrdctLikeVO> getLikePrdctList(String mbr_id) {
 		log.info("getLikePrdctList()......");
 		return memberMapper.getLikePrdctList(mbr_id);
+	}
+
+	// 주문내역 리스트 가져오기
+	@Override
+	public List<PrdctOrdctDetailPrdctOrderVO> getOrderMyList(String mbr_id) {
+		log.info("getOrderMyList()......");
+		return memberMapper.getOrderMyList(mbr_id);
+	}
+
+	@Override
+	public List<PrdctOrdctDetailPrdctOrderVO> getOrderMyList(String mbr_id, MemberOrderCriteria cri) {
+		log.info("getOrderMyList WITH criteria: " + cri);
+		return memberMapper.getOrderMyListPaging(mbr_id, cri);
+	}
+
+	// 페이징 단위에 적용되는 최대 주문내역 단위
+	@Override
+	public int getOrderMyTotal(MemberOrderCriteria cri) {
+		log.info("getOrderMyTotal WITH criteria: " + cri);
+		return memberMapper.getOrderMyTotalCount(cri);
 	}
 }
