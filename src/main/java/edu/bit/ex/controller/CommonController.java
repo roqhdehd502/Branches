@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import edu.bit.ex.config.auth.MemberDetails;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.PrdQnACriteria;
+import edu.bit.ex.page.PrdQnAPageVO;
 import edu.bit.ex.page.PrdReviewCriteria;
 import edu.bit.ex.page.PrdReviewPageVO;
 import edu.bit.ex.page.PrdctListCriteria;
@@ -62,9 +63,6 @@ public class CommonController {
 	}
 
 	// 상품 상세페이지
-	// @RequestMapping(value = "/prdct/{prdct_id}", method = { RequestMethod.POST, RequestMethod.GET })
-	/* (나민우) 찜하기를 POST로 해놨는데 해당 method 속성에 RequestMethod.POST가 있어 충돌이 생겨 GetMapping으로 수정했습니다 */
-	/* 자세한 사항은 https://imucoding.tistory.com/217 */
 	@RequestMapping(value = "/prdct/{prdct_id}", method = { RequestMethod.GET })
 	public ModelAndView productDetail(@PathVariable("prdct_id") String p_id, @AuthenticationPrincipal MemberDetails memberDetails,
 			PrdReviewCriteria rcri, PrdQnACriteria qacri, PrdctLikeVO prdctLikeVO, ModelAndView mav) throws Exception {
@@ -96,9 +94,9 @@ public class CommonController {
 		// 큐앤에이 관련
 		log.info("prdQnAList...");
 		mav.addObject("prdQnAList", commonService.getPrdQnAList(qacri, p_id));
-		// int total = commonService.getPrdQnATotal(cri);
-		// log.info("total" + total);
-		// mav.addObject("pageMaker", new PrdQnAPageVO(cri, total));
+		int total = commonService.getPrdQnATotal(qacri);
+		log.info("total" + total);
+		mav.addObject("pageMaker", new PrdQnAPageVO(qacri, total));
 
 		// 해당 상품 찜 여부 확인용 데이터 가져오기
 		log.info("prdLike...");

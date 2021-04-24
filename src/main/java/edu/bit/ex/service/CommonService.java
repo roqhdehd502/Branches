@@ -70,4 +70,5 @@ public interface CommonService {
 
 	// 상품 상세페이지 찜취소 기능
 	public int prdctLikeCancel(PrdctLikeVO prdctLikeVO);
+
 }

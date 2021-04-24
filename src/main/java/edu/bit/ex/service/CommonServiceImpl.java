@@ -160,4 +160,5 @@ public class CommonServiceImpl implements CommonService {
 		log.info("prdctLikeCancel...");
 		return commonMapper.prdctLikeCancel(prdctLikeVO);
 	}
+
 }

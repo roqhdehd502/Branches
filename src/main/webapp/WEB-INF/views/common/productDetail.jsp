@@ -342,6 +342,7 @@ img {
 		});
 	});
 </script>
+
 <body>
 
 	<div style="overflow: hidden;" class="container">
@@ -366,9 +367,10 @@ img {
 					<div class="left-container">
 						<!-- 사진 슬라이딩 처리 -->
 						<div style="float: left; margin-right: 20px; margin-left: 50px;">
-							<div class="container" style="margin-top: 50px; margin-bottom: 50px; margin-right: 50px; width: 500px; height: 500px;">
+							<div class="container" style="margin-top: 50px; margin-bottom: 50px; margin-right: 50px; ">
 								<div style="height: 100%; align-content: center;">
-								${prdct.prdct_thumbnail}
+								<img src="${prdct.prdct_thumbnail}" style="width: 500px; height: 500px;"></img>
+								
 								<input type="hidden" name="prdct_thumbnail" id="prdct_thumbnail" value="${prdct.prdct_thumbnail}"/>
 								</div>
 							</div>
@@ -418,12 +420,12 @@ img {
 								<!--  구매 버튼 및 찜하기  -->
 								<div class="row">
 									<div style="float: left; width: 30%; padding-left: 20px">
-										<button type="submit" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/order/orderForm'">바로구매</button>
+										<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/order/orderInput'">바로구매</button>
 										<!-- 회원은 주문확인페이지, 비회원은 주문정보 입력 페이지로 연결.. -->
 									</div>
 									<div style="float: left; width: 30%; padding-left: 20px">
 										<!-- 상품정보를 저장해서 장바구니로 이동 -->
-										<button type="button" class="btn btn-primary" onclick="insertCart()">장바구니</button>
+										<button type="submit" class="btn btn-primary" onclick="insertCart()">장바구니</button>
 									</div>
 									<!-- 상품 찜 기능 -->
 									<div class="icon" style="float: left; padding-left: 20px; padding-top: 10px;">
@@ -826,11 +828,38 @@ img {
 											</c:forEach>
 										</tbody>
 									</table>
-									<div style="text-align: center;">
-										<!-- 상품 문의 등록으로 이동 -->
-										<button type="submit" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/prdct/{prdct_id}/qna/write'">상품문의</button>
-									</div>
+								<!-- 페이징  -->
+								<div class="container">
+									<ul class="pagination justify-content-center">
+										<c:choose>
+											<c:when test="${pageMaker.prev}">
+												<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+											</c:when>
+											<c:otherwise>
+												<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+											</c:otherwise>
+										</c:choose>
+
+										<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+											<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+											<li class="page-item ${pageMaker.cri.pageNum == idx ? 'active' : '' }"><a class="page-link" href="${pageMaker.makeQuery(idx)}">${idx}</a></li>
+										</c:forEach>
+
+										<c:choose>
+											<c:when test="${pageMaker.next && pageMaker.endPage > 0}">
+												<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+											</c:when>
+											<c:otherwise>
+												<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+											</c:otherwise>
+										</c:choose>
+									</ul>
 								</div>
+								<div style="text-align: center;">
+									<!-- 상품 문의 등록으로 이동 -->
+									<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/prdct/{prdct_id}/qna/write'">상품문의</button>
+								</div>
+							</div>
 							</div>
 					</div>
 				</div>
