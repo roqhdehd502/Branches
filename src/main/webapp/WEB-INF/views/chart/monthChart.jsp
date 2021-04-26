@@ -22,7 +22,6 @@
           [{v: 3, f:'Apr'}, ${month.sales_sum}]
       ]);
 
-
         var options = {
           title: '월간매출 그래프',
           width: 900,
