@@ -20,60 +20,22 @@
 	<link rel="stylesheet" href="/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	
-	<style>
-		* {
-			margin: 0;
-			padding: 0;
-		}
-		
-		.rate {
-			float: left;
-			height: 46px;
-			padding: 0 10px;
-		}
-		
-		.rate:not(:checked)>input {
-			position: absolute;
-			top: -9999px;
-		}
-		
-		.rate:not(:checked)>label {
-			float: right;
-			width: 1em;
-			overflow: hidden;
-			white-space: nowrap;
-			cursor: pointer;
-			font-size: 30px;
-			color: #ccc;
-		}
-		
-		.rate:not(:checked)>label:before {
-			content: '★ ';
-		}
-		
-		.rate>input:checked ~ label {
-			color: #ffc700;
-		}
-		
-		.rate:not(:checked)>label:hover, .rate:not(:checked)>label:hover ~ label {
-			color: #deb217;
-		}
-		
-		.rate>input:checked+label:hover, .rate>input:checked+label:hover ~ label, .rate>input:checked ~ label:hover, .rate>input:checked ~ label:hover ~ label,
-			.rate>label:hover ~ input:checked ~ label {
-			color: #c59b08;
-		}
-	</style>
+	<script src="/ckeditor/ckeditor.js"></script>
+	
+	
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
 		<!-- header -->
 		<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp"></jsp:include>
-
+		<br />
+		<br />
 		<!-- 상품 Q&A 등록 페이지 -->
 		<form action="${pageContext.request.contextPath}/member/prdct/{prdct_id}/qna/writing" method="post">
+		<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 			<input type="hidden" value="${prdctQnaInfo.mbr_id}" id="mbr_id" name="mbr_id" />
 			<fieldset>
+				
 				<legend style="text-align: center;">상품 Q&A 등록</legend>
 				<br />
 
@@ -81,8 +43,8 @@
 				<div class="form-group row">
 					<label for="prdName" class="col-sm-2 col-form-label">상품</label>
 					<div class="col-sm-10">
-						<p id="prdct_id" class="font-weight-bold">p1</p>
-						<input type="hidden" name="prdct_id" value="p1" />
+						<p id="prdct_id" class="font-weight-bold">${prdctInfo.prdct_id}</p>
+						<input type="hidden" name="prdct_id" value="${prdctInfo.prdct_id}" />
 					</div>
 				</div>
 
@@ -117,17 +79,17 @@
 				<div class="form-group row">
 					<label for="orderEmail" class="col-sm-2 col-form-label">내용</label>
 					<div class="col-sm-10">
-						<textarea id="board_content" name="board_content" class="form-control" style="" value="" maxlength="500"
-							onkeyup="return textarea_maxlength(this)" placeholder="최대 500자까지 입력 가능합니다."></textarea>
-					</div>
-				</div>
-
-				<!-- 사진등록 -->
-				<div class="form-group row">
-					<label class="col-sm-2 col-form-label">사진등록</label>
-					<div class="col-sm-10">
-
-						<input type="file" class="form-control-file"> <small class="form-text text-muted">jpg, png, gif의 사진파일만 적용됩니다.</small>
+						<textarea name="board_content" id="board_content" class="form-control"></textarea>
+									<script>
+										//id가 description인 태그에 ckeditor를 적용시킴
+										//CKEDITOR.replace("description"); //이미지 업로드 안됨
+										
+										var editor2 = CKEDITOR.replace("board_content", {
+											filebrowserUploadUrl : "${pageContext.request.contextPath}/prdct/{prdct_id}/qna/write/prdct_img",
+											height : 500
+										});	
+										
+									</script>
 					</div>
 				</div>
 

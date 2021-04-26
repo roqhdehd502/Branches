@@ -17,6 +17,7 @@ import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.InquiryVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctOrderVO;
+import edu.bit.ex.vo.PrdctVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,6 +32,12 @@ public class MemberServiceImpl implements MemberService {
 	public MbrVO getPrdctQnaInfo(String mbr_id) {
 		log.info("getPrdctQnaInfo");
 		return memberMapper.getPrdctQnaInfo(mbr_id);
+	}
+
+	@Override
+	public PrdctVO prdctInfo(String prdct_id) {
+		log.info("prdctInfo");
+		return memberMapper.prdctInfo(prdct_id);
 	}
 
 	// 상품 Q&A 등록 작성
@@ -186,4 +193,5 @@ public class MemberServiceImpl implements MemberService {
 		log.info("getOrderMyTotal WITH criteria: " + cri);
 		return memberMapper.getOrderMyTotalCount(cri);
 	}
+
 }

@@ -12,6 +12,12 @@
 	]]>
 	</select>
 	
+	<select id="prdctInfo" resultType="edu.bit.ex.vo.PrdctVO">
+	<![CDATA[
+		select * from prdct where prdct_id = #{mbr_id}
+	]]>
+	</select>
+	
 	<!-- 상품 Q&A 등록 작성 -->
 	<insert id="prdctQnaWrite" parameterType="map">
 	<![CDATA[
