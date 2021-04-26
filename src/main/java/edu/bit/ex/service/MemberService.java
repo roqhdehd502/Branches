@@ -16,11 +16,14 @@ import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.InquiryVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctOrderVO;
+import edu.bit.ex.vo.PrdctVO;
 
 public interface MemberService {
 
 	// 상품 Q&A 등록 페이지
 	public MbrVO getPrdctQnaInfo(String mbr_id);
+
+	public PrdctVO prdctInfo(String prdct_id);
 
 	// 상품 Q&A 등록 작성
 	public void setPrdctQnaWrite(BoardVO boardVO);

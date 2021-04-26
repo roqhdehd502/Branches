@@ -861,10 +861,11 @@ img {
 											</c:otherwise>
 										</c:choose>
 									</ul>
+									<input type="hidden" id="prdct_id" value="${prdct.prdct_id}">
 								</div>
 								<div style="text-align: center;">
 									<!-- 상품 문의 등록으로 이동 -->
-									<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/prdct/{prdct_id}/qna/write'">상품문의</button>
+									<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/prdct/${prdct.prdct_id}/qna/write'">상품문의</button>
 								</div>
 							</div>
 							</div>

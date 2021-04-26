@@ -80,7 +80,7 @@ $(document).ready(function(){
 			xhr.setRequestHeader(header, token);
 		});
 		
-        var form = {
+        var form[0] = {
         		mbr_id: mbr_id,
         		prdct_id: prdct_id,
         		prdct_name: prdct_name,
@@ -96,14 +96,26 @@ $(document).ready(function(){
         
         console.log(form);
         
-        var formData = new FormData(form[0]);
+        var formData = new FormData(form);
+        
+        /* formData.append("mbr_id", mbr_id);
+        formData.append("prdct_id", prdct_id);
+        formData.append("prdct_name", prdct_name);
+        formData.append("category_number", category_number);
+        formData.append("prdct_price", prdct_price);
+        formData.append("prdct_color", prdct_color);
+        formData.append("prdct_size", prdct_size);
+        formData.append("board_id", board_id);
+        formData.append("board_content", board_content);
+        formData.append("prdct_stock", prdct_stock);
+        formData.append("prdct_thumbnail", prdct_thumbnail); */
         
         var inputFile = $("#prdct_thumbnail");
         var file = inputFile[0].files;
         
         if (file != null) {    
         	console.log(file);
-		    formData.append("uploadfile", file);
+		    formData.append("uploadfiles", file);
 		    appended = true;
 		   }
 
@@ -114,10 +126,13 @@ $(document).ready(function(){
 		    type : "POST",
 		    url : $(this).attr("action"),
 		    cache : false,
-		    contentType:'application/json; charset=utf-8',
+		    //contentType:'application/json; charset=utf-8',
+		    //enctype: 'multipart/form-data',
+		    contentType: 'multipart/formdata; boundary=----WebKitFormBoundary',
 		    processData: false, 
     		contentType: false, 
 			data: formData, 
+			timeout: 600000,
 		    success: function (result) {       
 				if(result == "SUCCESS"){
 					if (confirm("정말 수정하시겠습니까??") == true) { //확인
@@ -246,7 +261,7 @@ $(document).ready(function(){
 					<h3 >
 					<strong>상품 정보 수정</strong>
 					</h3><hr>
-					<form id="updatePrd" action="${pageContext.request.contextPath}/admin/mypage/seller/${prdct.mbr_id}/prdct/${prdct.prdct_id}/modify" method="POST">		
+					<form id="updatePrd" enctype="multipart/form-data" action="${pageContext.request.contextPath}/admin/mypage/seller/${prdct.mbr_id}/prdct/${prdct.prdct_id}/modify" method="POST">		
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<input type="hidden" id="mbr_id" value="${prdct.mbr_id}">
 						<input type="hidden" id="board_id" value="${pBoard.board_id}">
@@ -385,19 +400,9 @@ $(document).ready(function(){
 			</div>
 		</div>
 		<br/><br/>
-		</div>
 		<!-- footer -->
-		<footer>
 		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
-		</footer>
-		
-		<div class="container-fluid">
-			<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 <strong>팩스 :</strong>
-				000-0000-0000 <strong>사업자등록번호 :</strong> 000-00-000000 <strong>통신판매업신고 :</strong> 0000-서울종로-00000
-			</small> <br /> <small style="color: black;"><strong>고객센터</strong> 0000-0000 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) <strong>이메일</strong>
-				customer@29cm.co.kr <strong>대표이사</strong> 000 <strong>개인정보책임자</strong> 000 <strong>호스팅서비스</strong> (주)00000</small>
 		</div>
-		<br /><br />
 		
 		<!--Required JS files--> 
 		<script src="/assets/js/jquery-2.2.4.min.js"></script> 

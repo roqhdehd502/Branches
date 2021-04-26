@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.bit.ex.joinvo.BoardPrdctPrdctLikeVO;
 import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctOrderDetailVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
@@ -27,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SellerServiceImpl implements SellerService {
 	private SellerMapper sellerMapper;
 
-	// 매거진 썸네일 저장 경로
+	// 썸네일 저장 경로
 	private static final String PRDCT_THUMBNAIL_PATH = "C:/tetleaf/Branches/src/main/resources/static/hs";
 
 	@Override
@@ -49,7 +50,7 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public List<BoardVO> getBoard(SearchCriteria cri) {
+	public List<BoardPrdctPrdctLikeVO> getBoard(SearchCriteria cri) {
 		log.info("getBoard......");
 		return sellerMapper.getBoard(cri);
 	}
@@ -231,6 +232,94 @@ public class SellerServiceImpl implements SellerService {
 	public List<PrdctOrderDetailVO> orderOption(String order_number) {
 		// TODO Auto-generated method stub
 		return sellerMapper.orderOption(order_number);
+	}
+
+	@Override
+	public void setModifyAddImg(PrdctRegisterImageVO prvo) {
+		log.info("setModifyAddImg");
+
+		MultipartFile[] uploadfiles = prvo.getUploadfiles();
+
+		// 이미지 파일만 업로드 가능
+		if (uploadfiles[0].getContentType().startsWith("image") == false) {
+			log.warn("this file is not image type: " + uploadfiles[0]);
+			return;
+		}
+
+		// 파일 이름 변경(중복방지)
+		UUID uuid = UUID.randomUUID();
+		String saveName = uuid + "_" + uploadfiles[0].getOriginalFilename();
+		log.info("image_name: " + saveName);
+
+		// 저장할 File 객체를 생성(껍데기 파일)
+		// 저장할 폴더 이름, 저장할 파일 이름
+		File saveFile = new File(PRDCT_THUMBNAIL_PATH, saveName);
+
+		try {
+			// 업로드 파일에 saveFile 입힘
+			uploadfiles[0].transferTo(saveFile);
+			// 썸네일 파일명 지정
+			prvo.setPrdct_thumbnail(saveName);
+			log.info("prdct_thumbnail: " + prvo.getPrdct_thumbnail());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		sellerMapper.setModifyAddImg(prvo);
+
+	}
+
+	@Override
+	public String ImageOnlyRemove(PrdctRegisterImageVO prvo) {
+		String image_name = prvo.getOnedeletefiles();
+		log.info("image_name: " + image_name);
+
+		// 삭제할 File 객체를 생성(껍데기 파일)
+		// 삭제할 폴더 이름, 삭제할 파일 이름
+		File deleteFile = new File(PRDCT_THUMBNAIL_PATH, image_name);
+
+		// 해당 파일이 존재하면 삭제
+		if (deleteFile.exists() == true) {
+			deleteFile.delete();
+		}
+
+		return sellerMapper.ImageOnlyRemove(prvo.getPrdct_id(), image_name);
+	}
+
+	@Override
+	public int orderCount(PrdctOrderDetailVO povo) {
+		// TODO Auto-generated method stub
+		return sellerMapper.orderCount(povo);
+	}
+
+	@Override
+	public int cancelCount(PrdctOrderDetailVO povo) {
+		// TODO Auto-generated method stub
+		return sellerMapper.cancelCount(povo);
+	}
+
+	@Override
+	public int exchangeCount(PrdctOrderDetailVO povo) {
+		// TODO Auto-generated method stub
+		return sellerMapper.exchangeCount(povo);
+	}
+
+	@Override
+	public int refundCount(PrdctOrderDetailVO povo) {
+		// TODO Auto-generated method stub
+		return sellerMapper.refundCount(povo);
+	}
+
+	@Override
+	public PrdctOrderVO weekChart() {
+		// TODO Auto-generated method stub
+		return sellerMapper.weekChart();
+	}
+
+	@Override
+	public PrdctOrderVO monthChart() {
+		// TODO Auto-generated method stub
+		return sellerMapper.monthChart();
 	}
 
 }

@@ -77,9 +77,6 @@ $(document).ready(function(){
 		<header>
 			<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 		</header>
-
-		<hr style="margin: 15px 15px 40px 15px;">
-
 		<div class="container">
          <span style="margin-left: 24px; line-height: 100px; margin-top: 20px; margin-bottom: 20px;">
             <h3>${mbr.mbr_name }</h3>
@@ -88,19 +85,19 @@ $(document).ready(function(){
          <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="/seller/mypage/myinfo/${mbr.mbr_id }">정보수정</a></span> 
            <span style="margin-left: 300px;" align="center">
             <h2 style="position: relative; top: 5px;">새 주문</h2>
-            <h4 style="position: relative; top: 15px;"> 건</h4>
+            <h4 style="position: relative; top: 15px;">${orderCount } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">취소</h2>
-            <h4 style="position: relative; top: 15px;">건</h4>
+            <h4 style="position: relative; top: 15px;">${cancelCount } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">교환</h2>
-            <h4 style="position: relative; top: 15px;"> 건</h4>
+            <h4 style="position: relative; top: 15px;">${exchangeCount } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">환불</h2>
-            <h4 style="position: relative; top: 15px;"> 건</h4>
+            <h4 style="position: relative; top: 15px;">${refundCount } 건</h4>
          </span>
       </div>
 		
@@ -112,30 +109,28 @@ $(document).ready(function(){
 				<div class="single-info" style="margin-bottom: 40px">
 	                    <h3>마이페이지</h3><hr>
 	                    <h5><a href="/seller/mypage">홈 바로가기</a></h5>
-	            </div>
-				<div class="single-info" style="margin-bottom: 40px">
+	                </div>
+					<div class="single-info" style="margin-bottom: 40px">
 	                    <h3>주문 관리</h3><hr>
-	                    <h5><a href="#">전체</a></h5>
-	                    <h5><a href="#">주문확인</a></h5>
-	                    <h5><a href="#">발송확인</a></h5>
-	                    <h5><a href="#">취소</a></h5>
-	                    <h5><a href="#">교환</a></h5>
-	                    <h5><a href="#">환불</a></h5>
+	                    <h5><a href="/seller/mypage/order">주문확인</a></h5>
+	                    <h5><a href="/seller/mypage/release">발송확인</a></h5>
+	                    <h5><a href="/seller/mypage/cancel">취소</a></h5>
+	                    <h5><a href="/seller/mypage/exchange">교환</a></h5>
+	                    <h5><a href="/seller/mypage/refund">환불</a></h5>
 	                </div>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>상품 관리</h3><hr>
-	                    <h5><a href="#">등록</a></h5>
-	                    <h5><a href="#">수정</a></h5>
-	                    <h5><a href="#">삭제</a></h5>
+	                    <h5><a href="/seller/mypage/prdct_register">등록</a></h5>
+	                    <h5><a href="/seller/mypage/prdct">조회</a></h5>
 	                </div>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>회원 관리</h3><hr>
-	                    <h5><a href="#">Q&A</a></h5>
-	                    <h5><a href="#">리뷰</a></h5>
+	                    <h5><a href="/seller/mypage/prdctqna">Q&A</a></h5>
+	                    <h5><a href="/seller/mypage/review">리뷰</a></h5>
 	                </div>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>매출 관리</h3><hr>
-	                    <h5><a href="#">매출</a></h5>
+	                    <h5><a href="/seller/mypage/sales">매출</a></h5>
 	                </div>
 				</div>
 

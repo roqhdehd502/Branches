@@ -15,25 +15,12 @@
 
       function drawChart() {
 
-        var data = new google.visualization.DataTable();
-        data.addColumn('date', '월간');
-        data.addColumn('number', '판매량');
-
-        data.addRows([
-          [new Date(2021, 1, 1), 7],
-          [new Date(2021, 2, 1), 7],
-          [new Date(2021, 3, 1), 10],
-          [new Date(2021, 4, 1), 19],
-          [new Date(2021, 5, 1), 15],
-          [new Date(2021, 6, 1), 17],
-          [new Date(2021, 7, 1), 13],
-          [new Date(2021, 8, 1), 11],
-          [new Date(2021, 9, 1), 10],
-          [new Date(2021, 10, 1), 7],
-          [new Date(2021, 11, 1), 3],
-          [new Date(2021, 12, 1), 7],
-        ]);
-
+    	  var data = new google.visualization.DataTable();
+          data.addColumn('number', 'Month');
+          data.addColumn('number', 'Sales');
+          data.addRows([
+          [{v: 3, f:'Apr'}, ${month.sales_sum}]
+      ]);
 
         var options = {
           title: '월간매출 그래프',
@@ -43,7 +30,10 @@
             format: 'M/d',
             gridlines: {
               count: 15
-            }
+            },
+            ticks: [{v: 0, f:'Jan'},{v: 1, f:'Feb'},{v: 2, f:'Mar'},{v: 3, f:'Apr'}
+            ,{v: 4, f:'May'},{v: 5, f:'Jun'},{v: 6, f:'Jul'},{v: 7, f:'Aug'},{v: 8, f:'Sep'}
+            ,{v: 9, f:'Oct'},{v: 10, f:'Nov'},{v: 11, f:'Dec'}], 
           },
           vAxis: {
             gridlines: {
