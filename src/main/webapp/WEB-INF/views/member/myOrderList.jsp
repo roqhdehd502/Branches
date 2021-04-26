@@ -369,7 +369,7 @@
 												</c:when>
 												<c:when test="${order.order_state_number eq 7}">
 													<h6>주문확정</h6>
-													<h6><button type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/'">리뷰쓰기</button></h6>
+													<h6><button type="button" class="btn btn-primary btn-sm" onclick="window.location.href='${pageContext.request.contextPath}/member/mypage/review/${order.prdct_id}/write'">리뷰쓰기</button></h6>
 													<h6><button type="button" class="btn btn-danger btn-sm" onclick="location.href='${pageContext.request.contextPath}/'">교환요청</button></h6>
 													<h6><button type="button" class="btn btn-danger btn-sm" onclick="location.href='${pageContext.request.contextPath}/'">환불요청</button></h6>
 												</c:when>

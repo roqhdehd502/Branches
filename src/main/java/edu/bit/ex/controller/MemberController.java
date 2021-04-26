@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,6 +62,9 @@ public class MemberController {
 
 	private MemberService memberService;
 
+	// CK 에디터 이미지 서버 전송 컨트롤러
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(MemberController.class);
+
 	@GetMapping("/member")
 	public ModelAndView signUpForm(ModelAndView mav) {
 		mav.setViewName("login/login");
@@ -83,7 +87,7 @@ public class MemberController {
 
 	// 상품 Q&A 작성
 	@Transactional(rollbackFor = Exception.class)
-	@PostMapping("/prdct/{prdct_id}/qna/writing")
+	@RequestMapping(value = "prdct/{prdct_id}/qna/writing", method = { RequestMethod.GET, RequestMethod.POST })
 	public RedirectView prdctQnaWriting(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, BoardVO boardVO) throws Exception {
 		log.debug("prdctQnaWriting");
 		log.info("prdctQnaWriting..");
@@ -95,10 +99,10 @@ public class MemberController {
 	}
 
 	/* 상품 Qna image 등록 */
-	@RequestMapping(value = "/prdct/{prdct_id}/qna/write/prdct_img", method = { RequestMethod.POST, RequestMethod.GET })
+	@PostMapping("/prdct/qna/prdct_img")
 	public void prdctQnaImgUpdate(HttpServletRequest request, HttpServletResponse response, MultipartFile upload) throws Exception {
 		response.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset=utf-8");
+		response.setContentType("application/json; charset=utf-8");
 
 		// 업로드한 파일 이름
 		String fileName = upload.getOriginalFilename();
@@ -107,7 +111,7 @@ public class MemberController {
 		byte[] bytes = upload.getBytes();
 
 		// 이미지를 업로드할 디렉토리(배포 디렉토리로 설정)
-		String uploadPath = "C:\\tetleaf\\Branches\\src\\main\\resources\\static\\prdct_img\\";
+		String uploadPath = "C:\\Users\\eunji\\Desktop\\branches\\Branches\\src\\main\\resources\\static\\prdct_img\\";
 		OutputStream out = new FileOutputStream(new File(uploadPath + fileName));
 
 		// 서버로 업로드
@@ -341,21 +345,23 @@ public class MemberController {
 	}
 
 	// 상품 리뷰 등록 페이지
-	@GetMapping("/mypage/review/write")
-	public ModelAndView reviewRegister(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav) throws Exception {
+	@GetMapping("/mypage/review/{prdct_id}/write")
+	public ModelAndView reviewRegister(@PathVariable("prdct_id") String prdct_id, @AuthenticationPrincipal MemberDetails memberDetails,
+			ModelAndView mav) throws Exception {
 		log.debug("reviewRegister");
 		log.info("reviewRegister..");
 
 		mav.setViewName("member/reviewRegister");
 		// 리뷰 등록페이지 회원id정보
 		mav.addObject("customerInfo", securityService.getMbr(memberDetails.getUserID()));
+		mav.addObject("prdctInfo", memberService.prdctInfo(prdct_id));
 
 		return mav;
 	}
 
 	// 상품 리뷰 작성
 	@Transactional(rollbackFor = Exception.class)
-	@PostMapping("/mypage/review/writing")
+	@PostMapping("/mypage/review/{prdct_id}/writing")
 	public RedirectView reviewWriting(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, BoardVO boardVO) throws Exception {
 		log.debug("reviewRegister");
 		log.info("reviewRegister..");
@@ -364,6 +370,36 @@ public class MemberController {
 		memberService.setReviewWrite(boardVO);
 
 		return new RedirectView("/member/mypage/review/list");
+	}
+
+	/* 상품 리뷰 image 등록 */
+	@PostMapping("/mypage/review/{prdct_id}/writing/prdct_img")
+	public void reviewImgUpdate(HttpServletRequest request, HttpServletResponse response, MultipartFile upload) throws Exception {
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+
+		// 업로드한 파일 이름
+		String fileName = upload.getOriginalFilename();
+
+		// 파일을 바이트 배열로 변환
+		byte[] bytes = upload.getBytes();
+
+		// 이미지를 업로드할 디렉토리(배포 디렉토리로 설정)
+		String uploadPath = "C:\\Users\\eunji\\Desktop\\branches\\Branches\\src\\main\\resources\\static\\prdct_img\\";
+		OutputStream out = new FileOutputStream(new File(uploadPath + fileName));
+
+		// 서버로 업로드
+		out.write(bytes);
+		// 클라이언트에 결과 표시
+		String callback = request.getParameter("CKEditorFuncNum");
+
+		// 서버=>클라이언트로 텍스트 전송(자바스크립트 실행)
+		PrintWriter printWriter = response.getWriter();
+
+		String fileUrl = request.getContextPath() + "/prdct_img/" + fileName;
+
+		printWriter.println("<script>window.parent.CKEDITOR.tools.callFunction(" + callback + ",'" + fileUrl + "','이미지가 업로드되었습니다.')" + "</script>");
+		printWriter.flush();
 	}
 
 	// 상품 리뷰 마이페이지 리스트 -누르면 member_myreview 연결
