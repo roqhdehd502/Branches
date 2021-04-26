@@ -83,7 +83,10 @@
 					$.ajax({
 						type : 'DELETE',
 						url : $(this).attr("href"),
-						cache : false,
+						cache : false, 
+						beforeSend : function(xhr) {
+							xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+		          		}, 
 						success: function(result){
 							console.log(result);
 							if(result == "SUCCESS"){
