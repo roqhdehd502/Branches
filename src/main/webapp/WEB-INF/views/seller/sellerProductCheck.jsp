@@ -32,21 +32,21 @@
             <h3 style="position: relative; top: 15px;">${mbr.mbr_id }</h3>
          </span>
          <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="/seller/mypage/myinfo/${mbr.mbr_id}">정보수정</a></span> 
-       <span style="margin-left: 300px;" align="center">
+        <span style="margin-left: 300px;" align="center">
             <h2 style="position: relative; top: 5px;">새 주문</h2>
-            <h4 style="position: relative; top: 15px;"> 건</h4>
+            <h4 style="position: relative; top: 15px;">${orderCount } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">취소</h2>
-            <h4 style="position: relative; top: 15px;">건</h4>
+            <h4 style="position: relative; top: 15px;">${cancelCount } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">교환</h2>
-            <h4 style="position: relative; top: 15px;"> 건</h4>
+            <h4 style="position: relative; top: 15px;">${exchangeCount } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">환불</h2>
-            <h4 style="position: relative; top: 15px;"> 건</h4>
+            <h4 style="position: relative; top: 15px;">${refundCount } 건</h4>
          </span>
       </div>
 		
@@ -151,7 +151,7 @@
 										<c:forEach items="${bId}" var="bId">
 											<tr>
 												<td><h5>${bId.prdct_id }</h5></td>
-												<td><img src="${bId.prdct_thumbnail }" style="width: 100px; height: 120px;"></img></td>
+												<td><img src="/hs/${bId.prdct_thumbnail }" style="width: 100px; height: 120px;"></img></td>
 												
 												<td><a href="/seller/mypage/prdct/${bId.prdct_id}">
 													<h5>${bId.prdct_name }</h5>

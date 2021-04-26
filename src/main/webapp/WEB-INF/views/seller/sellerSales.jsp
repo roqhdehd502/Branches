@@ -31,21 +31,21 @@
             <h3 style="position: relative; top: 15px;">${mbr.mbr_id }</h3>
          </span>
          <span style="margin-left: 22px; position: relative; bottom: 10px;"> <a href="/seller/mypage/myinfo/${mbr.mbr_id }">정보수정</a></span> 
-          <span style="margin-left: 300px;" align="center">
+           <span style="margin-left: 300px;" align="center">
             <h2 style="position: relative; top: 5px;">새 주문</h2>
-            <h4 style="position: relative; top: 15px;"> 건</h4>
+            <h4 style="position: relative; top: 15px;">${orderCount } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">취소</h2>
-            <h4 style="position: relative; top: 15px;">건</h4>
+            <h4 style="position: relative; top: 15px;">${cancelCount } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">교환</h2>
-            <h4 style="position: relative; top: 15px;"> 건</h4>
+            <h4 style="position: relative; top: 15px;">${exchangeCount } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">환불</h2>
-            <h4 style="position: relative; top: 15px;"> 건</h4>
+            <h4 style="position: relative; top: 15px;">${refundCount } 건</h4>
          </span>
       </div>
 		
@@ -111,11 +111,15 @@
 
 				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">
 					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 2px;">
-						<strong style="margin: 10px;">매출조회</strong><hr />
-					</h3>
-					<div>
-					<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/chart/dailyChart.jsp"></jsp:include>
-					</div>
+						<strong style="margin: 10px;">매출조회</strong>
+					</h3><hr />
+					<h4 style="margin-left: 16px;">주간 매출통계</h4>
+					<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/chart/weeklyChart.jsp"></jsp:include>
+					<hr />
+					<h4 style="margin-left: 16px;">월간 매출통계</h4>
+					<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/chart/monthChart.jsp"></jsp:include>
+					<hr />
+	
 				<hr style="margin-top: 1px;">
 				<h3 style="margin-top: 25px; margin-left: 15px;">
 					<strong style="margin: 10px;">검색어 순위 조회</strong><hr>

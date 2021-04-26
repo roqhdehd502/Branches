@@ -385,19 +385,9 @@ $(document).ready(function(){
 			</div>
 		</div>
 		<br/><br/>
-		</div>
 		<!-- footer -->
-		<footer>
 		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
-		</footer>
-		
-		<div class="container-fluid">
-			<small style="color: black;"> <strong>상호명 :</strong> (주)브랜치스 <strong>소재지 :</strong> 서울특별시 00구 00로00길 00 00빌딩 0층 <strong>팩스 :</strong>
-				000-0000-0000 <strong>사업자등록번호 :</strong> 000-00-000000 <strong>통신판매업신고 :</strong> 0000-서울종로-00000
-			</small> <br /> <small style="color: black;"><strong>고객센터</strong> 0000-0000 평일 10:00 ~ 17:00 / Off-time 12:00 ~ 14:00 (토/일/공휴일 휴무) <strong>이메일</strong>
-				customer@29cm.co.kr <strong>대표이사</strong> 000 <strong>개인정보책임자</strong> 000 <strong>호스팅서비스</strong> (주)00000</small>
 		</div>
-		<br /><br />
 		
 		<!--Required JS files--> 
 		<script src="/assets/js/jquery-2.2.4.min.js"></script> 

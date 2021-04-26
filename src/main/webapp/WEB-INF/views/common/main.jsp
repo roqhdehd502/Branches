@@ -93,7 +93,7 @@
 							<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 								<div class="inner">
 									<a href="/prdct/${prdct.prdct_id}" style="text-decoration: none;">
-										<div class="team-img"><img src="${prdct.prdct_thumbnail}" style="width: 247px; height: 247px;" /></div>
+										<div class="team-img"><img src="/hs/${prdct.prdct_thumbnail}" style="width: 247px; height: 247px;" /></div>
 										<div class="team-content">
 											<h4>${prdct.mbr_id }</h4>
 											<h5>${prdct.prdct_name}</h5>
@@ -126,7 +126,7 @@
 							<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 								<div class="inner">
 									<a href="/prdct/${prdct.prdct_id}" style="text-decoration: none;">
-										<div class="team-img"><img src="${prdct.prdct_thumbnail}" style="width: 247px; height: 247px;" /></div>
+										<div class="team-img"><img src="/hs/${prdct.prdct_thumbnail}" style="width: 247px; height: 247px;" /></div>
 										<div class="team-content">
 											<h4>${prdct.mbr_id }</h4>
 											<h5>${prdct.prdct_name}</h5>
@@ -184,7 +184,7 @@
 							<div class="col-md-4 single-team">
 								<div class="inner">
 									<a href="/prdct/${prdct.prdct_id}" style="text-decoration: none;">
-										<div class="team-img"><img src="${prdct.prdct_thumbnail}" style="width: 247px; height: 247px;" /></div>
+										<div class="team-img"><img src="/hs/${prdct.prdct_thumbnail}" style="width: 247px; height: 247px;" /></div>
 										<div class="team-content">
 											<h4>${prdct.mbr_id }</h4>
 											<h5>${prdct.prdct_name}</h5>
