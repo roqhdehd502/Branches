@@ -37,6 +37,7 @@
 			rownum <= #{pageNum} * #{amount}
 			)
 		where rn > (#{pageNum} -1) * #{amount}
+		order by prdct_id desc
 		]]>
 	</select>
 	
@@ -69,12 +70,12 @@
 		</trim>	
 	</sql>
 	
-	<select id="getBoard" resultType="edu.bit.ex.vo.BoardVO">
+	<select id="getBoard" resultType="edu.bit.ex.joinvo.BoardPrdctPrdctLikeVO">
 		<![CDATA[
 			SELECT  
 				*
 		 FROM (
-		 	select rownum rn, b.board_id, b.board_name, b.board_content, b.mbr_id, b.board_date, b.board_type_number, p.prdct_name
+		 	select rownum rn, b.board_id, b.prdct_id ,b.board_name, b.board_content, b.mbr_id, b.board_date, b.board_type_number, p.prdct_name
 		 	from board b , prdct p
 		 	where (b.board_type_number = 4 and b.prdct_id = p.prdct_id) and
 		]]>
@@ -342,7 +343,6 @@
 		order_price > 0 and o.order_number = p.order_number
 	</select>
 	
-
 	
 	<!-- 판매자 주소 불러오기 -->
 	<select id="getAddress" resultType="edu.bit.ex.vo.ShippingVO">
@@ -401,7 +401,7 @@
 	<!-- 판매자 등록상품 불러오기 (수정페이지) -->
 	<select id="getPrdctInfo" resultType="edu.bit.ex.vo.PrdctVO">
 	<![CDATA[
-		select * from prdct where prdct_id = #{prdct_id}
+		select prdct_id, prdct_name, prdct_thumbnail, category_number, prdct_color, prdct_size, prdct_stock from prdct where prdct_id = #{prdct_id}
 	]]>
 	</select>
 	
@@ -419,12 +419,59 @@
 	]]>
 	</select>
 	
+	<!-- 새 주문 알림 -->
+	<select id="orderCount" resultType="int">
+	<![CDATA[
+		select count(order_state_number) from prdct_order where order_state_number = 3
+	]]>
+	</select>
+	
+	<!--주문취소 알림 -->
+	<select id="cancelCount" resultType="int">
+	<![CDATA[
+		select count(order_state_number) from prdct_order where order_state_number = 8
+	]]>
+	</select>
+	
+	<!-- 교환요청 알림 -->
+	<select id="exchangeCount" resultType="int">
+	<![CDATA[
+		select count(order_state_number) from prdct_order where order_state_number = 9
+	]]>
+	</select>
+	
+	<!-- 환불요청 알림 -->
+	<select id="refundCount" resultType="int">
+	<![CDATA[
+		select count(order_state_number) from prdct_order where order_state_number = 10
+	]]>
+	</select>
+	
+	<!-- 주간 차트 -->
+	<select id="weekChart" resultType="edu.bit.ex.vo.PrdctOrderVO">
+	<![CDATA[
+		SELECT NVL(SUM(order_price), 0) AS sales_sum 
+		FROM prdct_order 
+		WHERE order_date BETWEEN TO_DATE((SYSDATE-7), 'YY/MM/DD') 
+		AND TO_DATE(SYSDATE, 'YY/MM/DD')
+	]]>
+	</select>
+	
+	<!-- 월간 차트 -->
+	<select id="monthChart" resultType="edu.bit.ex.vo.PrdctOrderVO">
+	<![CDATA[
+		SELECT NVL(SUM(order_price), 0) AS sales_sum 
+		FROM prdct_order 
+		WHERE order_date BETWEEN TO_DATE((SYSDATE-30), 'YY/MM/DD') 
+		AND TO_DATE(SYSDATE, 'YY/MM/DD')
+	]]>
+	</select>
 	
 	<!-- 판매자 등록상품 수정(상품내용) -->
 	<update id="updatePrdctInfo">
 	<![CDATA[
 		update prdct set prdct_name=#{prdct_name}, category_number=#{category_number}, prdct_color=#{prdct_color}, prdct_size = #{prdct_size}
-				,prdct_price=#{prdct_price}, prdct_stock=#{prdct_stock}, prdct_thumbnail=#{prdct_thumbnail} where prdct_id=#{prdct_id}
+				,prdct_price=#{prdct_price}, prdct_stock=#{prdct_stock}  where prdct_id=#{prdct_id}
 	]]>
 	</update>
 	
@@ -433,6 +480,24 @@
 	<![CDATA[
 		update board set board_content=#{board_content} where prdct_id=#{prdct_id}
 	]]>
+	</update>
+	
+	<!-- 상품 수정페이지 썸네일까지 변경 -->
+	<update id="setModifyAddImg" >
+		<![CDATA[
+			update prdct set prdct_name =#{prdct_name}, category_number=#{category_number}, prdct_color=#{prdct_color}, prdct_size = #{prdct_size}
+				,prdct_price=#{prdct_price}, prdct_stock=#{prdct_stock}, prdct_thumbnail=#{prdct_thumbnail}
+			WHERE prdct_id = #{prdct_id}
+		]]>
+	</update>	
+	
+	<!-- 매거진 썸네일만 삭제 -->
+	<update id="ImageOnlyRemove">
+		<![CDATA[
+			UPDATE prdct 
+			SET prdct_thumbnail = null 
+			WHERE prdct_id = #{prdct_id}
+		]]>
 	</update>
 	
 	<!-- 주문요청 상태 변경 -->

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import edu.bit.ex.joinvo.BoardPrdctPrdctLikeVO;
 import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctOrderDetailVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
@@ -22,7 +23,7 @@ public interface SellerMapper {
 	public List<PrdctOrderDetailVO> getProduct();
 
 	// 게시판 정보 불러오기
-	public List<BoardVO> getBoard(SearchCriteria cri);
+	public List<BoardPrdctPrdctLikeVO> getBoard(SearchCriteria cri);
 
 	// 판매자 정보 불러오기
 	public MbrVO getMemberInfo(String s_id);
@@ -114,5 +115,21 @@ public interface SellerMapper {
 	public PrdctOrderVO orderInfo(String order_number);
 
 	public List<PrdctOrderDetailVO> orderOption(String order_number);
+
+	public String ImageOnlyRemove(String prdct_id, String image_name);
+
+	public void setModifyAddImg(PrdctRegisterImageVO prvo);
+
+	public int orderCount(PrdctOrderDetailVO povo);
+
+	public int cancelCount(PrdctOrderDetailVO povo);
+
+	public int exchangeCount(PrdctOrderDetailVO povo);
+
+	public int refundCount(PrdctOrderDetailVO povo);
+
+	public PrdctOrderVO weekChart();
+
+	public PrdctOrderVO monthChart();
 
 }

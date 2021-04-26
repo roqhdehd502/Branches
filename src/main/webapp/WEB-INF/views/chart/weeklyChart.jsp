@@ -20,16 +20,15 @@
         data.addColumn('number', '판매량');
 
         data.addRows([
-          [new Date(2021, 4, 1), ${week.sales_sum}],
-   
+          [new Date(2021, 3, 1), ${week.sales_sum}],
 
         ]);
 
 
         var options = {
-          title: '${mbr.mbr_id}주간매출 그래프',
+          title: '${mbr.mbr_id} 주간판매',
           width: 900,
-          height: 520,
+          height: 500,
           hAxis: {
             format: 'M/d',
             gridlines: {

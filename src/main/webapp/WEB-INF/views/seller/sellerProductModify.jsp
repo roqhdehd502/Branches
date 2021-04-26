@@ -6,6 +6,8 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
 <title>판매자 등록 상품 수정</title>
 
 <!-- Required CSS files -->
@@ -23,60 +25,84 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#updatePrd").submit(function(event){
-		event.preventDefault();
-		
-		var prdct_id = $("#prdct_id").val();
+    $("#updatePrd").submit(function(event){         
+         event.preventDefault();
+         
+         // FormData 불러오기
+         var formData = new FormData();
+         
+         // 게시글 텍스트 사항
+        var mbr_id = $("#mbr_id").val();
+        var prdct_id = $("#prdct_id").val();
         var prdct_name = $("#prdct_name").val();
-	    var prdct_thumbnail = $("#prdct_thumbnail").val().replace('C:\\fakepath\\', '/hs/');
         var category_number = $("#category_number option:selected").val();
         var prdct_price = $("#prdct_price").val();
         var prdct_color = $("#prdct_color").val();
         var prdct_size = $("#prdct_size").val();
         var board_content = CKEDITOR.instances.board_content.getData();
-        var prdct_stock = $("#prdct_stock").val();
-        
-        console.log(prdct_id);
-        console.log($(this).attr("action"));
-        
-        var form = {
-        		prdct_id: prdct_id,
-        		prdct_name: prdct_name,
-        		prdct_thumbnail: prdct_thumbnail,
-        		category_number: category_number,
-        		prdct_price: prdct_price,
-        		prdct_color: prdct_color,
-        		prdct_size: prdct_size,
-        		board_content: board_content,
-        		prdct_stock: prdct_stock,
-       	 };
-        console.log(form);
-
-	    //dataType: 'json',
-        $.ajax({
-		    type : "PUT",
-		    url : $(this).attr("action"),
-		    cache : false,
-		    contentType:'application/json; charset=utf-8',
-			data: JSON.stringify(form), 
-		    success: function (result) {       
-				if(result == "SUCCESS"){
-					if (confirm("정말 수정하시겠습니까??") == true) { //확인
-						//(게시글 수정)
-						console.log("Modify!")
-						$(location).attr('href', '${pageContext.request.contextPath}/seller/mypage/prdct')
-					} else { //취소
+        var prdct_stock = $("#prdct_stock").val();       
+         
+         console.log(mbr_id);
+         console.log(prdct_id);
+         console.log(prdct_name);
+         console.log(category_number);
+         console.log(prdct_price);
+         console.log(prdct_color);
+         console.log(board_content);
+         console.log(prdct_stock);
+         console.log($(this).attr("action"));   
+         
+         // 해당 텍스트들을 FormData에 append
+         formData.append("prdct_id", prdct_id);
+         formData.append("prdct_name", prdct_name);
+         formData.append("category_number", category_number);
+         formData.append("prdct_price", prdct_price);
+         formData.append("prdct_color", prdct_color);
+         formData.append("prdct_size", prdct_size);
+         formData.append("board_content", board_content);
+         formData.append("prdct_stock", prdct_stock);
+         
+         // 파일 업로드 체크(게시글 내용만 수정하는 것 대비...)
+         var inputFile = $("#uploadfiles");
+         var files = inputFile[0].files;
+         
+         // 파일을 담는 배열이 비어 있지 않으면(파일 업로드 시) FormData에 파일 정보를 추가한다
+         if (files != null) {    
+      	   for (var i = 0; i < files.length; i++) {
+				       console.log(files[i]);
+				       formData.append("uploadfiles", files[i]);
+				       appended = true;
+			   	   }
+		   }
+         console.log("formData: " + formData); 
+         
+  		$.ajax({
+              type : "POST",
+              url : $(this).attr("action"),
+              cache : false,
+              contentType:'application/json; charset=utf-8',
+              contentType: false,
+              processData: false, 
+              data: formData, 
+              beforeSend : function(xhr) {
+			  xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+       		}, 
+              success: function (result) {
+            	  if (confirm("입력된 정보를 수정하시겠습니까??") == true) {
+	        			console.log("UPLOAD SUCCESS!")  
+	        			$(location).attr('href', '${pageContext.request.contextPath}/seller/mypage/prdct');
+	        		}else {
 						return;
-					}			      	       
-				}					        
-		    },
-		    error: function (e) {
-		        console.log(e);
-		    }
-		})	       
-    }); // end submit()
-    
-}); // end ready() 
+					}                         
+              },
+              error: function (e) {
+                  console.log(e);
+                  alert('수정 실패');
+	            	location.reload(); // 실패시 새로고침하기
+             }
+         });            
+     });     
+ });
 </script>
 
 		<script type="text/javascript">
@@ -100,6 +126,9 @@ $(document).ready(function(){
 						// 캐시를 false 설정하여 페이지가 새로 고쳐질때
 						// 데이터를 남기지 않는다(?)
 						cache : false,
+						beforeSend : function(xhr) {
+							  xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+				       	}, 
 						success : function(result) {
 							console.log(result);
 							if (result == "SUCCESS") {
@@ -135,21 +164,21 @@ $(document).ready(function(){
 			<span style="margin-left: 22px; position: relative; bottom: 10px;">
 				<a href="/seller/mypage/myinfo">정보수정</a>
 			</span>
-			<span style="margin-left: 300px;" align="center">
+			 <span style="margin-left: 300px;" align="center">
             <h2 style="position: relative; top: 5px;">새 주문</h2>
-            <h4 style="position: relative; top: 15px;"> 건</h4>
+            <h4 style="position: relative; top: 15px;">${orderCount } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">취소</h2>
-            <h4 style="position: relative; top: 15px;">건</h4>
+            <h4 style="position: relative; top: 15px;">${cancelCount } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">교환</h2>
-            <h4 style="position: relative; top: 15px;"> 건</h4>
+            <h4 style="position: relative; top: 15px;">${exchangeCount } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">환불</h2>
-            <h4 style="position: relative; top: 15px;"> 건</h4>
+            <h4 style="position: relative; top: 15px;">${refundCount } 건</h4>
          </span>
 		</div>
 		
@@ -191,8 +220,10 @@ $(document).ready(function(){
 					<h3 >
 					<strong>상품 정보 수정</strong>
 					</h3><hr>
-					<form id="updatePrd" action="/seller/mypage/prdct/${pdvo.prdct_id}/modify" method="PUT">
+					<form id="updatePrd" action="/seller/mypage/prdct/modify/${pdvo.prdct_id}" method="post">
 					<input type="hidden" value="${pdvo.prdct_id}" id="prdct_id">
+					<input type="hidden" value="${mbr.mbr_id}" id="mbr_id">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<fieldset>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">상품ID</label>
@@ -209,13 +240,13 @@ $(document).ready(function(){
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">썸네일</label>
 								<div class="col-sm-10">
-									<input class="btn" type="file" accept=".jpg, .png" name="prdct_thumbnail" id="prdct_thumbnail" placeholder="첨부 사진" multiple />
+									<input class="btn" type="file" accept=".jpg, .png" name="uploadfiles" id="uploadfiles" placeholder="첨부 사진" />
 									<!-- 이미지 컨테이너 -->
 									<div id="image_container" class="row" style="padding: 3% 3% 3% 5%">
 										<div class="col-md-2" align="center">
 											<!-- 게시글을 삭제할 때 이미지도 삭제하기 위한 이미지 정보 -->
 											<span class="upload_image" style="display: none;">${pdvo.prdct_thumbnail}</span> 
-											<img src="${pdvo.prdct_thumbnail}" width="100px" height="140px">
+											<img src="/hs/${pdvo.prdct_thumbnail}" width="100px" height="140px">
 										</div>
 									</div>
 								</div>

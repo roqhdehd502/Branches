@@ -6,7 +6,9 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>판매자 등록 상품 수정</title>
+<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
+<title>판매자 주문 상품 수정</title>
 
 <!-- Required CSS files -->
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
@@ -44,7 +46,10 @@ $(document).ready(function(){
 		    url : $(this).attr("action"),
 		    cache : false,
 		    contentType:'application/json; charset=utf-8',
-			data: JSON.stringify(form), 
+			data: JSON.stringify(form),
+			  beforeSend : function(xhr) {
+				  xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+	       		}, 
 		    success: function (result) {       
 				if(result == "SUCCESS"){
 					if (confirm("정말 수정하시겠습니까??") == true) { //확인
@@ -78,21 +83,21 @@ $(document).ready(function(){
 			<span style="margin-left: 22px; position: relative; bottom: 10px;">
 				<a href="/seller/mypage/myinfo">정보수정</a>
 			</span>
-			<span style="margin-left: 300px;" align="center">
+			 <span style="margin-left: 300px;" align="center">
             <h2 style="position: relative; top: 5px;">새 주문</h2>
-            <h4 style="position: relative; top: 15px;"> 건</h4>
+            <h4 style="position: relative; top: 15px;">${orderCount } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">취소</h2>
-            <h4 style="position: relative; top: 15px;">건</h4>
+            <h4 style="position: relative; top: 15px;">${cancelCount } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">교환</h2>
-            <h4 style="position: relative; top: 15px;"> 건</h4>
+            <h4 style="position: relative; top: 15px;">${exchangeCount } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">환불</h2>
-            <h4 style="position: relative; top: 15px;"> 건</h4>
+            <h4 style="position: relative; top: 15px;">${refundCount } 건</h4>
          </span>
 		</div>
 		

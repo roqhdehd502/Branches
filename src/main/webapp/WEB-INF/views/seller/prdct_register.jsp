@@ -6,6 +6,8 @@
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
+	<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
 	<title>상품등록</title>
 	
 	<!-- Required CSS files -->
@@ -35,21 +37,21 @@
 			<span style="margin-left: 22px; position: relative; bottom: 10px;">
 				<a href="/seller/mypage/myinfo/${mbr.mbr_id }">정보수정</a>
 			</span>
-			<span style="margin-left: 300px;" align="center">
+			 <span style="margin-left: 300px;" align="center">
             <h2 style="position: relative; top: 5px;">새 주문</h2>
-            <h4 style="position: relative; top: 15px;"> 건</h4>
+            <h4 style="position: relative; top: 15px;">${orderCount } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">취소</h2>
-            <h4 style="position: relative; top: 15px;">건</h4>
+            <h4 style="position: relative; top: 15px;">${cancelCount } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">교환</h2>
-            <h4 style="position: relative; top: 15px;"> 건</h4>
+            <h4 style="position: relative; top: 15px;">${exchangeCount } 건</h4>
          </span>
          <span style="margin-left: 80px;" align="center">
             <h2 style="position: relative; top: 5px;">환불</h2>
-            <h4 style="position: relative; top: 15px;"> 건</h4>
+            <h4 style="position: relative; top: 15px;">${refundCount } 건</h4>
          </span>
 		</div>
 
@@ -91,7 +93,8 @@
 					<strong>상품 등록</strong>
 					</h3><hr>
 					<form action="/seller/mypage/prdct" method="post" role="form" id="writeForm" enctype="multipart/form-data">
-						<input type="hidden" id="mbr_id" value="${svo.mbr_id }">
+						<input type="hidden" id="mbr_id" value="${mbr.mbr_id }">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<fieldset>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">상품ID</label>
@@ -297,7 +300,10 @@
 	        	contentType:'application/json; charset=utf-8', 
 	        	processData: false, 
 	        	contentType: false, 
-	        	data: formData, 
+	        	data: formData,
+	        	 beforeSend : function(xhr) {
+	   			  xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+	          		},
 	        	success: function (result) {
 	        		if (confirm("입력된 정보를 등록하시겠습니까??") == true) {
 	        			console.log("UPLOAD SUCCESS!")  
