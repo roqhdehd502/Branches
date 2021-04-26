@@ -1,5 +1,8 @@
 package edu.bit.ex.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.config.auth.MemberDetails;
@@ -38,6 +42,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @AllArgsConstructor
 @RestController
+@SessionAttributes
 public class CommonController {
 	@Autowired
 	private SecurityService securityService;
@@ -67,7 +72,7 @@ public class CommonController {
 	// 상품 상세페이지
 	@RequestMapping(value = "/prdct/{prdct_id}", method = { RequestMethod.GET })
 	public ModelAndView productDetail(@PathVariable("prdct_id") String p_id, @AuthenticationPrincipal MemberDetails memberDetails,
-			PrdReviewCriteria rcri, PrdQnACriteria qacri, PrdctLikeVO prdctLikeVO, ModelAndView mav) throws Exception {
+			PrdReviewCriteria rcri, PrdQnACriteria qacri, PrdctLikeVO prdctLikeVO, ModelAndView mav, HttpServletRequest request) throws Exception {
 		// MemberDetails이 null일 때 ModelAndView에 addObject를 하면 예외처리가 된다
 		// 따라서 null일 때(로그인 상태가 아닐때) 해당 정보를 addObject 하지 않고 페이지를 출력한다
 		if (memberDetails != null) {
@@ -103,6 +108,10 @@ public class CommonController {
 		// 해당 상품 찜 여부 확인용 데이터 가져오기
 		log.info("prdLike...");
 		mav.addObject("prdLikeVal", commonService.getPrdLikeVal(p_id));
+
+		HttpSession session = request.getSession();
+		// 세션에 현재 상품 정보 저장하기(최근 본 상품)
+		session.setAttribute(prdctvo.getPrdct_id(), prdctvo);
 
 		return mav;
 	}
