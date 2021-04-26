@@ -272,7 +272,7 @@
 							<h3>주문내역 조회</h3>
 						</div>
 						
-						<br style="padding: 15px 0px 15px 0px">
+						<hr style="padding: 15px 0px 0px 0px">
 						
 						<div class="row">
 							<table id="product" class="table">
@@ -309,7 +309,7 @@
 								   		<%-- 상품정보 --%>
 								   		<td style="text-align: center; padding: 15px 0px 0px 0px;">
 								   			<!-- 경로 prdct_img/prdct_thumbnail로 바뀌면 수정하자... -->
-											<a href="${pageContext.request.contextPath}/prdct/${order.prdct_id}"><img src="${order.prdct_thumbnail}" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" width="100px" height="120px"></a>
+											<a href="${pageContext.request.contextPath}/prdct/${order.prdct_id}"><img src="/prdct_img/prdct_thumbnail/${order.prdct_thumbnail}" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" width="100px" height="120px"></a>
 										</td>
 								   		<td style="text-align: left; padding-left: 0px; padding-right: 0px;">
 								   			<h4 style="padding-bottom: 5px;">${order.brand_id}</h4>
@@ -394,112 +394,6 @@
 								   	</c:forEach>
 							   	</tbody>
 							</table>
-							
-							
-							<%-- <div class="col-md-4" align="center">
-								<h5>상품정보</h5>	
-							</div>
-							<div class="col-md-2" align="center">
-								<h5>주문일</h5>	
-							</div>
-							<div class="col-md-2" align="center">
-								<h5>주문번호</h5>	
-							</div>
-							<div class="col-md-2" align="center">
-								<h5>주문금액</h5>	
-							</div>
-							<div class="col-md-2" align="center">
-								<h5>상태</h5>	
-							</div>
-						</div>	
-						
-						<hr>
-						
-						<c:forEach items="${order_list}" var="order" varStatus="status">
-						<div class="row">
-							<div class="col-md-2 thumbnail" align="center">
-								<!-- 경로 prdct_img/prdct_thumbnail로 바뀌면 수정하자... -->
-								<a href="${pageContext.request.contextPath}/prdct/${order.prdct_id}"><img src="${order.prdct_thumbnail}" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" width="100px" height="150px"></a>	
-							</div>
-							<div class="col-md-2" align="center" style="padding-top: 3%; overflow: auto;">
-								<h5>${order.brand_id}</h5>
-								<h6>${order.prdct_name}</h6>
-								<h5>
-									${order.order_color}&nbsp;
-									(${order.order_size})
-								</h5>	
-							</div>
-							<div class="col-md-2" align="center" style="padding-top: 7%">
-								<h6>${order.order_date}</h6>	
-							</div>
-							<div class="col-md-2" align="center" style="padding-top: 7%; overflow: auto;">
-								<h6>${order.order_number}</h6>
-							</div>
-							<div class="col-md-2" align="center" style="padding-top: 7%">
-								<h5>${order.order_price}원</h5>
-								<h5>${order.order_amount}개</h5>	
-							</div>
-							<div class="col-md-2" align="center" style="padding-top: 3%">
-								<!-- 배송조회페이지 URI 설정할것 -->
-								<c:choose>
-									<c:when test="${order.order_state_number eq 1}">
-										<h5>결제대기</h5>
-										<h6><button type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/'">배송조회</button></h6>
-										<h6><button type="button" class="btn btn-danger btn-sm" onclick="location.href='${pageContext.request.contextPath}/'">주문취소</button></h6>
-									</c:when>
-									<c:when test="${order.order_state_number eq 2}">
-										<h5>결제완료</h5>
-										<h6><button type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/'">배송조회</button></h6>
-										<h6><button type="button" class="btn btn-danger btn-sm" onclick="location.href='${pageContext.request.contextPath}/'">주문취소</button></h6>
-									</c:when>
-									<c:when test="${order.order_state_number eq 3}">
-										<h5>주문요청</h5>
-										<h6><button type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/'">배송조회</button></h6>
-										<h6><button type="button" class="btn btn-danger btn-sm" onclick="location.href='${pageContext.request.contextPath}/'">주문취소</button></h6>
-									</c:when>
-									<c:when test="${order.order_state_number eq 4}">
-										<h5>배송대기</h5>
-										<h6><button type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/'">배송조회</button></h6>
-										<h6><button type="button" class="btn btn-danger btn-sm" onclick="location.href='${pageContext.request.contextPath}/'">주문취소</button></h6>
-									</c:when>
-									<c:when test="${order.order_state_number eq 5}">
-										<h5>배송중&nbsp;</h5>
-										<h6><button type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/'">배송조회</button></h6>
-										<h6><button type="button" class="btn btn-danger btn-sm" onclick="location.href='${pageContext.request.contextPath}/'">주문취소</button></h6>
-									</c:when>
-									<c:when test="${order.order_state_number eq 6}">
-										<h5>배송완료</h5>
-										<h6><button type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/'">배송조회</button></h6>
-										<h6><button type="button" class="btn btn-success btn-sm" onclick="location.href='${pageContext.request.contextPath}/'">주문확정</button></h6>
-										<h6><button type="button" class="btn btn-danger btn-sm" onclick="location.href='${pageContext.request.contextPath}/'">교환요청</button></h6>
-										<h6><button type="button" class="btn btn-danger btn-sm" onclick="location.href='${pageContext.request.contextPath}/'">환불요청</button></h6>
-									</c:when>
-									<c:when test="${order.order_state_number eq 7}">
-										<h5>주문확정</h5>
-										<h6><button type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/'">리뷰쓰기</button></h6>
-										<h6><button type="button" class="btn btn-danger btn-sm" onclick="location.href='${pageContext.request.contextPath}/'">교환요청</button></h6>
-										<h6><button type="button" class="btn btn-danger btn-sm" onclick="location.href='${pageContext.request.contextPath}/'">환불요청</button></h6>
-									</c:when>
-									<c:when test="${order.order_state_number eq 8}">
-										<h5>주문취소</h5>
-										<h6><button type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/'">주문취소조회</button></h6>
-									</c:when>
-									<c:when test="${order.order_state_number eq 9}">
-										<h5>교환요청</h5>
-										<h6><button type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/'">교환조회</button></h6>
-									</c:when>
-									<c:when test="${order.order_state_number eq 10}">
-										<h5>환불요청</h5>
-										<h6><button type="button" class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/'">환불조회</button></h6>
-									</c:when>
-									<c:otherwise>
-										<h5>환불완료</h5>
-									</c:otherwise>
-								</c:choose>			
-							</div>
-						</div>
-						<hr>
-						</c:forEach> --%>	
 					</div>
 					
 					<!-- 페이징 -->	

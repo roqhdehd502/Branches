@@ -121,8 +121,7 @@
 						<c:forEach items="${order_list}" var="order" end="2">
 						<div class="row">	
 							<div class="col-md-3 thumbnail" align="center">
-								<!-- 경로 prdct_img/prdct_thumbnail로 바뀌면 수정하자... -->
-								<a href="${pageContext.request.contextPath}/prdct/${order.prdct_id}"><img src="<c:url value="${order.prdct_thumbnail}"/>" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" width="150px" height="200px"></a>
+								<a href="${pageContext.request.contextPath}/prdct/${order.prdct_id}"><img src="<c:url value="/prdct_img/prdct_thumbnail/${order.prdct_thumbnail}"/>" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" width="150px" height="200px"></a>
 							</div>
 							<div class="col-md-5" align="left" style="padding: 3% 0px 0px 0px">
 								<br>
@@ -206,38 +205,18 @@
 						
 						<!-- 최근 본 상품내역 3개만 보여주기 -->
 						<div class="row">
-							<%-- <c:forEach items="${}" var="watch" end="2"> --%>	
+							<c:forEach items="${view_list}" var="watch" end="2">	
 							<div class="col-md-4 thumbnail" align="center">
 								<div>
 									<!-- 경로 prdct_img/prdct_thumbnail로 바뀌면 수정하자... -->
-									<a href="${pageContext.request.contextPath}/prdct/${order.prdct_id}"><img src="<c:url value="${order.prdct_thumbnail}"/>" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" width="150px" height="200px"></a>
+									<a href="${pageContext.request.contextPath}/prdct/${watch.prdct_id}"><img src="<c:url value="/prdct_img/prdct_thumbnail/${watch.prdct_thumbnail}"/>" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" width="150px" height="200px"></a>
 								</div>
 								<div style="padding-top: 3%">
-									<h5>PRISM</h5>
-									<h5>프리즘 데님 자켓 INDIGO</h5>
+									<h5>${watch.brand_id}</h5>
+									<h5>${watch.prdct_name}</h5>
 								</div>
 							</div>
-							<!-- DB 데이터 가져오면 해당 구역 삭제하기 -->
-							<div class="col-md-4 thumbnail" align="center">
-								<div>
-									<a href="${pageContext.request.contextPath}/prdct/${order.prdct_id}"><img src="<c:url value="${order.prdct_thumbnail}"/>" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" width="150px" height="200px"></a>
-								</div>
-								<div style="padding-top: 3%">
-									<h5>PRISM</h5>
-									<h5>프리즘 데님 자켓 INDIGO</h5>
-								</div>
-							</div>
-							<div class="col-md-4 thumbnail" align="center">
-								<div>
-									<a href="${pageContext.request.contextPath}/prdct/${order.prdct_id}"><img src="<c:url value="${order.prdct_thumbnail}"/>" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" width="150px" height="200px"></a>
-								</div>
-								<div style="padding-top: 3%">
-									<h5>PRISM</h5>
-									<h5>프리즘 데님 자켓 INDIGO</h5>
-								</div>
-							</div>
-							<!-- =============================== -->
-							<%-- </c:forEach> --%>
+							</c:forEach>
 						</div>
 						
 						<hr style="padding: 0px 0px 5% 0px">
@@ -257,7 +236,7 @@
 							<div class="col-md-4 thumbnail" align="center">
 								<div>
 									<!-- 경로 prdct_img/prdct_thumbnail로 바뀌면 수정하자... -->
-									<a href="${pageContext.request.contextPath}/prdct/${like.prdct_id}"><img src="<c:url value="${like.prdct_thumbnail}"/>" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" width="150px" height="200px"></a>
+									<a href="${pageContext.request.contextPath}/prdct/${like.prdct_id}"><img src="<c:url value="/prdct_img/prdct_thumbnail/${like.prdct_thumbnail}"/>" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" width="150px" height="200px"></a>
 								</div>
 								<div style="padding-top: 3%">
 									<h5>${like.mbr_id}</h5>
@@ -269,92 +248,6 @@
 						
 					</div>
 				</div>	
-					<%-- <span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">
-						<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, .1);">
-							<strong style="margin: 10px;">주문내역 미리보기</strong>
-						</h3>
-							
-						<span style="margin: 20px;"> <img src="<c:url value="/hs/5.jpg"/>" width="140px" height="140px"></span>
-						<span>
-							<h5 style="position: relative; top: 10px;">Covernat</h5>
-							<h5 style="position: relative; top: 20px;">21/22 FW 체크 셔츠 블루</h5>
-						</span>
-						<span style="float: right;">
-								<h2 style="position: relative; top: 80px; float: right;">29,900₩</h2>
-						</span><br /> <span style="margin-left: 20px; float: right;">
-								<button class="btn btn-primary btn-sm" type="button">배송조회</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button">상품교환</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button">상품환불</button>
-						</span><br />
-						
-						<hr style="margin-top: 34px;">
-						
-						
-						<span style="margin: 20px;"> <img src="<c:url value="/hs/5.jpg"/>" width="140px" height="140px">
-						</span> <span>
-								<h5 style="position: relative; top: 10px;">Covernat</h5>
-								<h5 style="position: relative; top: 20px;">21/22 FW 체크 셔츠 블루</h5>
-						</span> <span style="float: right;">
-								<h2 style="position: relative; top: 80px; float: right;">29,900₩</h2>
-						</span><br /> <span style="margin-left: 20px; float: right;">
-								<button class="btn btn-primary btn-sm" type="button">배송조회</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button">상품교환</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button">상품환불</button>
-						</span><br />
-						<hr style="margin-top: 34px;"> <span style="margin: 20px;"> <img src="<c:url value="/hs/5.jpg"/>" width="140px" height="140px">
-						</span> <span>
-								<h5 style="position: relative; top: 10px;">Covernat</h5>
-								<h5 style="position: relative; top: 20px;">21/22 FW 체크 셔츠 블루</h5>
-						</span> <span style="float: right;">
-								<h2 style="position: relative; top: 80px; float: right;">29,900₩</h2>
-						</span><br /> <span style="margin-left: 20px; float: right;">
-								<button class="btn btn-primary btn-sm" type="button">배송조회</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button">상품교환</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button">상품환불</button>
-						</span><br />
-	
-						<hr style="margin-top: 34px;">
-						
-						<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, .1);">
-							<strong style="margin: 20px;">장바구니</strong>
-						</h3>
-						
-						<br />
-						
-						<form action="#" method="post">
-							<span style="margin: 20px;"> <img src="<c:url value="/hs/5.jpg"/>" width="140px" height="140px">
-							</span> <span>
-								<h5 style="position: relative; top: 10px;">Balenciaga</h5>
-								<h5 style="position: relative; top: 20px;">[단독]Denim Jaket & Pants</h5>
-							</span> <span style="margin-left: 250px;">
-								<h2 style="position: relative; top: 10px;">
-									<input type="checkbox">&nbsp;&nbsp;&nbsp;30,000₩
-								</h2>
-							</span><br /> <span style="margin: 20px;"> <img src="<c:url value="/hs/5.jpg"/>" width="140px" height="140px">
-							</span> <span>
-								<h5 style="position: relative; top: 10px;">Balenciaga</h5>
-								<h5 style="position: relative; top: 20px;">[단독]Denim Jaket & Pants</h5>
-							</span> <span style="margin-left: 250px;">
-								<h2 style="position: relative; top: 10px;">
-									<input type="checkbox">&nbsp;&nbsp;&nbsp;29,000₩
-								</h2>
-							</span><br /> <span style="margin: 20px;"> <img src="<c:url value="/hs/5.jpg"/>" width="140px" height="140px">
-							</span> <span>
-								<h5 style="position: relative; top: 10px;">Balenciaga</h5>
-								<h5 style="position: relative; top: 20px;">[단독]Denim Jaket & Pants</h5>
-							</span> <span style="margin-left: 250px;">
-								<h2 style="position: relative; top: 10px;">
-									<input type="checkbox">&nbsp;&nbsp;&nbsp;29,000₩
-								</h2>
-							</span><br />
-	
-							<hr>
-							<span> <span style="float: left; margin-left: 20px; margin-top: 14px;"><button class="btn btn-primary" type="submit">바로구매</button></span>
-								<span style="margin-left: 640px"><h5>Total</h5>
-									<h3>59,000₩</h3></span>
-							</span>
-						</form>
-					</span> --%>
 				</div>
 				
 			</div>

@@ -74,9 +74,9 @@
 	                processData: false, 
 		    		contentType: false, 
 	                data: formData, 
-	                /* beforeSend : function(xhr) {
+	                beforeSend : function(xhr) {
 					xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
-             		}, */
+             		}, 
 	                success: function (result) {       
 	                	console.log("UPLOAD SUCCESS!");
 	                	alert('수정 성공');
@@ -123,6 +123,9 @@
 		                processData: false, 
 			    		contentType: false, 
 		                data: formData, 
+		                beforeSend : function(xhr) {
+							xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+		             	},
 						success: function(result) {
 							console.log(result);
 							if(result == "SUCCESS") {
@@ -165,7 +168,7 @@
 			<hr>
 
 			<form id="updateForm" action="${pageContext.request.contextPath}/admin/board/magazine/modify/${magazine_modify.board_id}" method="post">
-				<!-- <s:csrfInput /> -->
+				<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 				<input type="hidden" id="board_id" value="${magazine_modify.board_id}">
 				<fieldset>
 					<div class="row">
@@ -265,6 +268,9 @@
 									                processData: false, 
 										    		contentType: false, 
 									                data: formData, 
+									                beforeSend : function(xhr) {
+														xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+									             	},
 													success: function(result){
 														console.log(result);
 														$(trObj).remove(); // 해당 이미지 컨테이너 삭제

@@ -165,4 +165,22 @@
 		SELECT COUNT(*)	FROM mbr WHERE authority_number=2
 	]]>
 	</select>
+	
+	<!-- 상품 조회 내역 중복 여부 -->
+	<select id="getPrdView" resultType="edu.bit.ex.vo.PrdctViewVO">
+		<![CDATA[			
+			SELECT * 
+			FROM prdct_view 
+			WHERE mbr_id = #{mbr_id} AND 
+				prdct_id = #{prdct_id}
+		]]>
+	</select>
+	
+	<!-- 상품 상세페이지 조회 기능 -->
+	<insert id="addPrdView" >
+		<![CDATA[
+			INSERT INTO prdct_view (mbr_id, prdct_id) 
+			VALUES (#{mbr_id}, #{prdct_id}) 
+		]]>
+	</insert>
 </mapper>

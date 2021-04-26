@@ -34,8 +34,7 @@
            event.preventDefault();
            var mbr_id = $("#mbr_id").val();
            var board_name = $("#board_name").val();
-           var board_content = CKEDITOR.instances.board_content.getData();
-           /* var board_content = $("#board_content").val();       */     
+           var board_content = CKEDITOR.instances.board_content.getData();  
            
            console.log(mbr_id);
            console.log(board_name);
@@ -53,9 +52,9 @@
              cache : false,
              contentType:'application/json; charset=utf-8',
              data: JSON.stringify(form), 
-             /* beforeSend : function(xhr) {
+             beforeSend : function(xhr) {
 				xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
-      		 }, */
+      		 }, 
              success: function (result) {       
                if(result == "SUCCESS") {
             	  alert('업로드 성공'); 
@@ -88,37 +87,37 @@
 			<hr>
 			<div class="container">
 				<form id="writeForm" method="post" action="${pageContext.request.contextPath}/admin/board/notice/write">
-				<!-- <s:csrfInput /> -->
-				<input type="hidden" id="mbr_id" value="${mbr.mbr_id}">
-				<fieldset>
-					<div class="row">
-						<div class="col-md-2 contact-info" align="center">
-							<legend>글제목</legend>
+					<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+					<input type="hidden" id="mbr_id" value="${mbr.mbr_id}">
+					<fieldset>
+						<div class="row">
+							<div class="col-md-2 contact-info" align="center">
+								<legend>글제목</legend>
+							</div>
+							<div class="col-md-10 contact-info">
+								<input class="form-control" type="text" id="board_name" name="board_name" placeholder="글제목을 입력하세요">
+							</div>
 						</div>
-						<div class="col-md-10 contact-info">
-							<input class="form-control" type="text" id="board_name" name="board_name" placeholder="글제목을 입력하세요">
-						</div>
-					</div>
-					<div class="row" style="padding: 3% 0px 3% 0px">
-						<div class="col-md-2 contact-info" align="center">
-							<legend>글내용</legend>
-						</div>
-						<div class="col-md-10 contact-info">
-							<textarea class="form-control" cols="3" id="board_content" name="board_content" placeholder="글내용을 입력하세요"></textarea>
-							<script>
-								//id가 description인 태그에 ckeditor를 적용시킴
-								//CKEDITOR.replace("description"); //이미지 업로드 안됨				
-								CKEDITOR.replace("board_content", {
-									filebrowserUploadUrl : "${pageContext.request.contextPath}/admin/board/boardImageUpload.do"
-								});						
-							</script>
-						</div>
-					</div>	
-					<div align="center" style="padding: 3% 0px 3% 0px;">
-						<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/notice'">목록보기</button>&nbsp;
-						<button type="submit" class="btn btn-primary">작성하기</button>
-					</div>	
-				</fieldset>
+						<div class="row" style="padding: 3% 0px 3% 0px">
+							<div class="col-md-2 contact-info" align="center">
+								<legend>글내용</legend>
+							</div>
+							<div class="col-md-10 contact-info">
+								<textarea class="form-control" cols="3" id="board_content" name="board_content" placeholder="글내용을 입력하세요"></textarea>
+								<script>
+									//id가 description인 태그에 ckeditor를 적용시킴
+									//CKEDITOR.replace("description"); //이미지 업로드 안됨				
+									CKEDITOR.replace("board_content", {
+										filebrowserUploadUrl : "${pageContext.request.contextPath}/admin/board/boardImageUpload.do"
+									});						
+								</script>
+							</div>
+						</div>	
+						<div align="center" style="padding: 3% 0px 3% 0px;">
+							<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/notice'">목록보기</button>&nbsp;
+							<button type="submit" class="btn btn-primary">작성하기</button>
+						</div>	
+					</fieldset>
 				</form>
 			</div>
 		</div>

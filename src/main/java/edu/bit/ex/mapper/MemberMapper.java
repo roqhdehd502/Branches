@@ -8,7 +8,9 @@ import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.BoardPrdctPrdctLikeVO;
 import edu.bit.ex.joinvo.InquiryBoardVO;
 import edu.bit.ex.joinvo.PrdctOrdctDetailPrdctOrderVO;
+import edu.bit.ex.joinvo.PrdctPrdctViewVO;
 import edu.bit.ex.page.MemberOrderCriteria;
+import edu.bit.ex.page.MemberRecentlyCriteria;
 import edu.bit.ex.page.MyqnaCriteria;
 import edu.bit.ex.page.PrdQnACriteria;
 import edu.bit.ex.vo.BoardCommentVO;
@@ -88,4 +90,12 @@ public interface MemberMapper {
 
 	// 페이징 단위에 적용되는 최대 주문내역 단위
 	public int getOrderMyTotalCount(MemberOrderCriteria cri);
+
+	// 최근 본 상품 리스트 가져오기
+	public List<PrdctPrdctViewVO> getPrdctViewList(String mbr_id);
+
+	public List<PrdctPrdctViewVO> getPrdctViewListPaging(String mbr_id, MemberRecentlyCriteria cri);
+
+	// 페이징 단위에 적용되는 최대 최근 본 상품 단위
+	public int getPrdctViewTotalCount(MemberRecentlyCriteria cri);
 }

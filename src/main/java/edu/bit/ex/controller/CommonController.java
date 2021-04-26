@@ -1,5 +1,7 @@
 package edu.bit.ex.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,7 @@ import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctLikeVO;
 import edu.bit.ex.vo.PrdctVO;
+import edu.bit.ex.vo.PrdctViewVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -103,6 +106,21 @@ public class CommonController {
 		// 해당 상품 찜 여부 확인용 데이터 가져오기
 		log.info("prdLike...");
 		mav.addObject("prdLikeVal", commonService.getPrdLikeVal(p_id));
+
+		// 상품 조회
+		if (memberDetails != null) {
+			log.info("prdViewCnt...");
+			// 인증 회원 정보
+			MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+			// 중복 여부 검증차 상품 조회 내역 가져오기
+			List<PrdctViewVO> getPrdView = commonService.getPrdView(getMbr.getMbr_id(), p_id);
+
+			// 조회한 리스트가 비어있을때만 데이터 추가
+			if (getPrdView.isEmpty()) {
+				// 상품 조회
+				commonService.addPrdView(getMbr.getMbr_id(), p_id);
+			}
+		}
 
 		return mav;
 	}

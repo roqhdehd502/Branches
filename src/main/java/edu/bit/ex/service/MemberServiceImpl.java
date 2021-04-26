@@ -8,8 +8,10 @@ import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.BoardPrdctPrdctLikeVO;
 import edu.bit.ex.joinvo.InquiryBoardVO;
 import edu.bit.ex.joinvo.PrdctOrdctDetailPrdctOrderVO;
+import edu.bit.ex.joinvo.PrdctPrdctViewVO;
 import edu.bit.ex.mapper.MemberMapper;
 import edu.bit.ex.page.MemberOrderCriteria;
+import edu.bit.ex.page.MemberRecentlyCriteria;
 import edu.bit.ex.page.MyqnaCriteria;
 import edu.bit.ex.page.PrdQnACriteria;
 import edu.bit.ex.vo.BoardCommentVO;
@@ -185,5 +187,25 @@ public class MemberServiceImpl implements MemberService {
 	public int getOrderMyTotal(MemberOrderCriteria cri) {
 		log.info("getOrderMyTotal WITH criteria: " + cri);
 		return memberMapper.getOrderMyTotalCount(cri);
+	}
+
+	// 최근 본 상품 리스트 가져오기
+	@Override
+	public List<PrdctPrdctViewVO> getPrdctViewList(String mbr_id) {
+		log.info("getPrdctViewList");
+		return memberMapper.getPrdctViewList(mbr_id);
+	}
+
+	@Override
+	public List<PrdctPrdctViewVO> getPrdctViewList(String mbr_id, MemberRecentlyCriteria cri) {
+		log.info("getOrderMyList WITH criteria: " + cri);
+		return memberMapper.getPrdctViewListPaging(mbr_id, cri);
+	}
+
+	// 페이징 단위에 적용되는 최대 최근 본 상품 단위
+	@Override
+	public int getPrdctViewTotal(MemberRecentlyCriteria cri) {
+		log.info("getPrdctViewTotal WITH criteria: " + cri);
+		return memberMapper.getPrdctViewTotalCount(cri);
 	}
 }

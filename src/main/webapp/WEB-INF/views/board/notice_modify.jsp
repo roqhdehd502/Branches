@@ -34,7 +34,6 @@
 	           event.preventDefault();     
 	           var board_id = $("#board_id").val();
 	           var board_name = $("#board_name").val();
-	           /* var board_content = $("#board_content").val(); */
 	           var board_content = CKEDITOR.instances.board_content.getData();
 	           
 	           console.log(board_id);
@@ -53,9 +52,9 @@
 	             cache : false,
 	             contentType:'application/json; charset=utf-8', // 인코딩 데이터 변환
 	             data: JSON.stringify(form), // 보안 문제 해결을 위해 stringify 메소드를 사용
-	             /* beforeSend : function(xhr) {
+	             beforeSend : function(xhr) {
 					xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
-          		 }, */
+          		 }, 
 	             success: function (result) {       
 	               if(result == "SUCCESS"){
 	            	   alert('수정 성공'); 
@@ -120,7 +119,7 @@
 			</div>
 			<hr>
 			<form id="updateForm" action="${pageContext.request.contextPath}/admin/board/notice/modify/${notice_modify.board_id}" method="post">
-				<!-- <s:csrfInput /> -->
+				<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 				<input type="hidden" id="board_id" value="${notice_modify.board_id}">
 				<fieldset>
 					<div class="row">

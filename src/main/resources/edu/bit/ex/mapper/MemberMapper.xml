@@ -267,5 +267,37 @@
 			SELECT COUNT(*) 
 			FROM order_detail
 		]]>	
-	</select>			 	
+	</select>
+	
+	<!-- 최근 본 상품 리스트 가져오기 -->
+	<select id="getPrdctViewList" resultType="edu.bit.ex.joinvo.PrdctPrdctViewVO">
+	<![CDATA[
+		SELECT p.prdct_thumbnail, p.prdct_name, p.mbr_id AS brand_id, p.prdct_price, p.prdct_id, v.mbr_id 
+		FROM prdct p, prdct_view v 
+		WHERE p.prdct_id = v.prdct_id AND 
+		    v.mbr_id = #{mbr_id} 
+		ORDER BY v.view_date DESC
+	]]>
+	</select>
+	<select id="getPrdctViewListPaging" resultType="edu.bit.ex.joinvo.PrdctPrdctViewVO">
+	<![CDATA[
+		SELECT * FROM (
+			SELECT ROWNUM AS RNUM, A.* FROM ( 
+			        		SELECT p.prdct_thumbnail, p.prdct_name, p.mbr_id AS brand_id, p.prdct_price, p.prdct_id, v.mbr_id 
+							FROM prdct p, prdct_view v 
+							WHERE p.prdct_id = v.prdct_id AND 
+							    v.mbr_id = #{mbr_id} 
+							ORDER BY v.view_date DESC 					    
+			) A WHERE ROWNUM <= #{cri.pageNum} * #{cri.amount} 
+		) WHERE RNUM > (#{cri.pageNum}-1) * #{cri.amount}
+	]]>
+	</select>
+	
+	<!-- 페이징 단위에 적용되는 최대 최근 본 상품 단위 -->
+	<select id="getPrdctViewTotalCount" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) 
+			FROM prdct_view
+		]]>	
+	</select>	 	
 </mapper>

@@ -5,26 +5,52 @@
   
 <mapper namespace="edu.bit.ex.mapper.BoardMapper">
 	<!-- 페이징을 적용한 공지사항 게시판 리스트 -->
+	<sql id="noticeCriteria">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							board_name like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'C'.toString()">
+							board_content like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
 	<select id="getNoticeListWithPaging" resultType="edu.bit.ex.vo.BoardVO">
 		<![CDATA[
-			SELECT * FROM (
-			     SELECT ROWNUM AS RNUM, A.* FROM ( 
-			        		SELECT * 
-			                FROM board 
-			                WHERE board_type_number = 1 
-			                ORDER BY board_id DESC, board_date DESC 
-			    ) A WHERE ROWNUM <= #{pageNum} * #{amount} 
-			) WHERE RNUM > (#{pageNum}-1) * #{amount}
+			SELECT board_id, board_name, board_content, mbr_id, board_type_number, board_date, board_hit 
+			FROM ( 
+				SELECT ROWNUM rn, board_id, board_name, board_content, mbr_id, board_type_number, board_date, board_hit 
+				FROM board 
+				WHERE
+		]]>	
+		<include refid="noticeCriteria"></include>	
+		<![CDATA[
+					board_type_number = 1 AND 
+					ROWNUM <= #{pageNum} * #{amount} 
+				ORDER BY board_id DESC, board_date DESC
+				) 
+			WHERE rn > (#{pageNum} -1) * #{amount}
 		]]>
-	</select>
+	</select>		
 	
 	<!-- 페이징 단위에 적용되는 최대 공지 게시글 단위 -->
 	<select id="getNoticeTotalCount" resultType="int">
 		<![CDATA[
 			SELECT COUNT(*) 
 			FROM board 
-			WHERE board_type_number = 1
-		]]>	
+			WHERE 
+		]]>
+		<include refid="noticeCriteria"></include>
+		<![CDATA[		
+			board_type_number = 1 AND 
+			board_id > 0
+		]]>
 	</select>
 	
 	<!-- 공지사항 작성 -->

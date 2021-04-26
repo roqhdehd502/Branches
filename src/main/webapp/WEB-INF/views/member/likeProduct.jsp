@@ -123,7 +123,7 @@
 											<a href="${pageContext.request.contextPath}/prdct/${like.prdct_id}">
 												<div class="team-img">
 													<!-- 해당 썸네일 유무에 따라 사진 가져오기 -->
-													<img class="rounded" src="${like.prdct_thumbnail}" width="150px" height="200px">
+													<img class="rounded" src="/prdct_img/prdct_thumbnail/${like.prdct_thumbnail}" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" width="150px" height="200px">
 												</div>
 												<div class="team-content">
 													<h4>${like.prdct_name}</h4>

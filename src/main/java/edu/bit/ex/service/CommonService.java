@@ -13,6 +13,7 @@ import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctLikeVO;
 import edu.bit.ex.vo.PrdctVO;
+import edu.bit.ex.vo.PrdctViewVO;
 
 public interface CommonService {
 	// 상품 리스트
@@ -75,4 +76,10 @@ public interface CommonService {
 	public List<MbrVO> getBrandList(BrandCriteria cri);
 
 	public int getBrandTotalCount(BrandCriteria cri);
+
+	// 상품 조회 내역 중복 여부
+	public List<PrdctViewVO> getPrdView(String mbr_id, String prdct_id);
+
+	// 상품 상세페이지 조회 기능
+	public void addPrdView(String mbr_id, String prdct_id);
 }

@@ -10,7 +10,7 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Product Detail</title>
+<title>Branches : Product Detail</title>
 
 <!-- Required CSS files -->
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
@@ -171,7 +171,10 @@ img {
 					type : 'PUT',
 					url : $(this).attr("action"),
 					cache : false,
-					contentType : 'application/json; charset=utf-8',
+					contentType : 'application/json; charset=utf-8', 
+					beforeSend : function(xhr) {
+						xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+	             	}, 
 					success : function(result) {
 						console.log(result);
 						if (result == "SUCCESS") {
@@ -275,9 +278,9 @@ img {
 					cache : false,
 					contentType : 'application/json; charset=utf-8',
 					data : JSON.stringify(form),
-					/* beforeSend : function(xhr) {
+					beforeSend : function(xhr) {
 						xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
-					}, */
+					}, 
 					success : function(result) {
 						console.log(result);
 						if (result == "SUCCESS") {
@@ -325,6 +328,9 @@ img {
                 processData: false, 
 	    		contentType: false, 
                 data: formData, 
+                beforeSend : function(xhr) {
+					xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+             	}, 
 				success: function(result) {
 					console.log(result);
 					if (result == "SUCCESS") {
@@ -352,6 +358,7 @@ img {
 
 	 <!--  상품 정보와 옵션 선택 -->
 		<form action="${pageContext.request.contextPath}/order/insert_cart" method="POST">
+			<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 
 		<!-- 상세페이지 내용	 -->
 			<div class="detail-area sp">

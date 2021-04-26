@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <!DOCTYPE html>
 <html>
@@ -21,16 +21,48 @@
 	<link rel="stylesheet" href="/assets/css/main.css">
 	<link rel="stylesheet" href="/bootstrap.min.css">
 	
+	<!-- JQUERY -->
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	
 	<!-- 반응형 사이즈 조절 -->
 	<link rel="stylesheet" href="/css/reactive_size.css">
 	
+	<!-- 검색 이벤트 -->
+	<script type="text/javascript">
+		var searchForm = $("#searchForm");
+	
+		$("#searchForm button").on("click",function(e) {
+		    // 화면에서 키워드가 없다면 검색을 하지 않도록 제어
+			if (!searchForm.find("option:selected").val()) {
+				alert("검색종류를 선택하세요");
+				return false;
+			}
+	
+			if (!searchForm.find("input[name='keyword']").val()) {
+				alert("검색어를 입력하세요");
+				return false;
+			}
+	
+		    // 페이지 번호를 1로 처리
+			searchForm.find("input[name='pageNum']").val("1");
+	
+		    // 폼 태그의 전송을 막음
+			e.preventDefault();
+	
+			searchForm.submit();
+		});
+	</script>
+	
+	<!-- Board Content Hover -->
 	<style type="text/css">
-		a:hover { text-decoration: none;}
-	</style>		
+	a:hover {
+		text-decoration: none;
+	}
+	</style>
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
-	<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
+		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 
 		<hr style="margin: 15px 15px 40px 15px;">
 
@@ -42,42 +74,36 @@
 					</div>
 					<!-- 권한에 따라 버튼을 달리 보이게 한다 -->
 					<!-- 모든 사용자 -->
-					<sec:authorize access="isAnonymous()"> 
+					<sec:authorize access="isAnonymous()">
 						<div class="col-md-6 contact-info" align="right"></div>
 					</sec:authorize>
 					<!-- 관리자일 경우 -->
-					<sec:authorize access="hasAuthority('ADMIN')">  
+					<sec:authorize access="hasAuthority('ADMIN')">
 						<div class="col-md-6 contact-info" align="right">
 							<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/admin/board/notice/write'">작성하기</button>
 						</div>
 					</sec:authorize>
-				</div>	
+				</div>
 			</div>
-			
+
 			<hr style="margin: 15px 15px 40px 15px;">
-			
+
 			<div class="container">
 				<table class="table table-hover" style="text-align: center;">
-					<!-- <tr class="table-dark">
-						<th><h5>번호</h5></th>
-						<th><h5>제목</h5></th>
-						<th><h5>등록일</h5></th>
-						<th><h5>조회수</h5></th>
-					</tr> -->
 					<c:forEach items="${notice_list}" var="dto">
-					<tr class="table-light">
-						<%-- <td>${dto.board_id}</td> --%>
-						<td scope="row" align="left"><h5><a href="${pageContext.request.contextPath}/board/notice/${dto.board_id}">${dto.board_name}</a></h5></td>
-						<td style="border-left: 1px solid #e5e5e5;" align="right">${dto.board_date}</td>
-						<%-- <td>${dto.board_hit}</td> --%>
-					</tr>
+						<tr class="table-light">
+							<td scope="row" align="left"><h5>
+									<a href="${pageContext.request.contextPath}/board/notice/${dto.board_id}">${dto.board_name}</a>
+								</h5></td>
+							<td style="border-left: 1px solid #e5e5e5;" align="right">${dto.board_date}</td>
+						</tr>
 					</c:forEach>
 				</table>
 			</div>
-			
-			<hr style="margin: 15px 15px 40px 15px;">	
-			
-			<!-- 페이징 -->	
+
+			<hr style="margin: 15px 15px 40px 15px;">
+
+			<!-- 페이징 -->
 			<div class="container">
 				<ul class="pagination justify-content-center">
 					<c:choose>
@@ -104,40 +130,43 @@
 					</c:choose>
 				</ul>
 			</div>
-			
+
 			<br style="margin: 15px 15px 40px 15px;">
-			
+
 			<!-- 검색 -->
 			<div align="center">
 				<div class="form-inline justify-content-center">
-					<select id="searchTypeSel" class="custom-select" name="searchType">
-						<option value="t">제목</option> 
-						<option value="c">내용</option>
-						<option value="tc">제목+내용</option>
-					</select>
-					<input class="form-control" type="text" id="keyword" name="keyword" placeholder="검색어"/><%--value="value"  ${pageMaker.cri.keyword} --%>
-					<button id="searchBtn" class="btn btn-primary">검색</button>
+					<form id="searchForm" action="${pageContext.request.contextPath}/board/notice" method="get">
+						<select class="custom-select" name="type">
+							<option value="" <c:out value="${pageMaker.cri.type == null ? 'selected' : ''}"/>>전체보기</option>
+							<option value="T" <c:out value="${pageMaker.cri.type == 'T' ? 'selected' : ''}"/>>제목</option>
+							<option value="C" <c:out value="${pageMaker.cri.type == 'C' ? 'selected' : ''}"/>>내용</option>
+							<option value="TC" <c:out value="${pageMaker.cri.type == 'TC' ? 'selected' : ''}"/>>제목or내용</option>
+						</select>
+						<input class="form-control" type="text" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>' placeholder="검색어를 입력하세요">
+						<input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum}"/>'>
+						<input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}"/>'>
+						<button type="submit" class="btn btn-primary">검색</button>
+					</form>
 				</div>
-			</div>			
+			</div>
 		</div>
-	<!-- </div> -->
 
-	<hr>
+		<hr>
 
-	<!-- footer -->
-      <jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
+		<!-- footer -->
+		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
 
-      <!--Required JS files-->
-      <script src="/assets/js/jquery-2.2.4.min.js"></script>
-      <script src="/assets/js/vendor/popper.min.js"></script>
-      <script src="/assets/js/vendor/bootstrap.min.js"></script>
-      <script src="/assets/js/vendor/owl.carousel.min.js"></script>
-      <script src="/assets/js/vendor/isotope.pkgd.min.js"></script>
-      <script src="/assets/js/vendor/jquery.barfiller.js"></script>
-      <script src="/assets/js/vendor/loopcounter.js"></script>
-      <script src="/assets/js/vendor/slicknav.min.js"></script>
-      <script src="/assets/js/active.js"></script>
-      
-      </div>
+		<!--Required JS files-->
+		<script src="/assets/js/jquery-2.2.4.min.js"></script>
+		<script src="/assets/js/vendor/popper.min.js"></script>
+		<script src="/assets/js/vendor/bootstrap.min.js"></script>
+		<script src="/assets/js/vendor/owl.carousel.min.js"></script>
+		<script src="/assets/js/vendor/isotope.pkgd.min.js"></script>
+		<script src="/assets/js/vendor/jquery.barfiller.js"></script>
+		<script src="/assets/js/vendor/loopcounter.js"></script>
+		<script src="/assets/js/vendor/slicknav.min.js"></script>
+		<script src="/assets/js/active.js"></script>
+	</div>
 </body>
 </html>

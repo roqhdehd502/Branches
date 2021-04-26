@@ -19,6 +19,19 @@
 	<link rel="stylesheet" href="/assets/css/slicknav.css">
 	<link rel="stylesheet" href="/assets/css/main.css">
 	<link rel="stylesheet" href="/bootstrap.min.css">
+	
+	<!-- thumbnail image hover -->
+	<style type="text/css">
+		.thumbnail:hover {
+			background-color: #e0e0e0;
+			border: 1px solid #e0e0e0;
+			border-radius: 5px;
+		}
+		
+		a:hover { 
+			text-decoration: none;
+		}
+	</style>
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -88,130 +101,69 @@
 				</div>
 
 				<!-- 오른쪽 컨텐츠 내용 -->
-				<div class="col-md-9 contact-info">
-					<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 822px;">
-						<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, .1);">
-							<strong style="margin: 10px;">최근 본 상품</strong>
-						</h3>
+				<div class="col-md-9 contact-info" style="border-left: 1px solid rgba(0, 0, 0, .1);"><!--  width: 822px; -->
+					<div class="container">
+						<div class="row">
+							<h3 style="padding-left: 10px"><!-- style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px;" -->
+								최근 본 상품<!-- <strong> style="margin: 10px;" -->
+							</h3>
+						</div>
+						
+						<hr>
+						
 						<div class="team-area sp">
 							<div class="container">
 								<div class="row">
+									<c:forEach items="${view_list}" var="watch">
 									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 										<div class="inner">
-											<div class="team-img">
-												<img src="/ksp/th-ex.jpg" alt="Member Photo">
+											<div class="thumbnail"><!-- class="team-img" -->
+												<a href="${pageContext.request.contextPath}/prdct/${watch.prdct_id}"><img src="<c:url value="/prdct_img/prdct_thumbnail/${watch.prdct_thumbnail}"/>" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" width="150px" height="200px"></a>
 											</div>
 											<div class="team-content">
-												<h4>상품명</h4>
-												<h5>브랜드</h5>
-												<h5>$100</h5>
+												<h4>${watch.prdct_name}</h4>
+												<h5>${watch.brand_id}</h5>
+												<h5>${watch.prdct_price}원</h5>
 											</div>
 										</div>
 									</div>
-									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-										<div class="inner">
-											<div class="team-img">
-												<img src="/ksp/th-ex.jpg" alt="Member Photo">
-											</div>
-											<div class="team-content">
-												<h4>상품명</h4>
-												<h5>브랜드</h5>
-												<h5>$100</h5>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-										<div class="inner">
-											<div class="team-img">
-												<img src="/ksp/th-ex.jpg" alt="Member Photo">
-											</div>
-											<div class="team-content">
-												<h4>상품명</h4>
-												<h5>브랜드</h5>
-												<h5>$100</h5>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-										<div class="inner">
-											<div class="team-img">
-												<img src="/ksp/th-ex.jpg" alt="Member Photo">
-											</div>
-											<div class="team-content">
-												<h4>상품명</h4>
-												<h5>브랜드</h5>
-												<h5>$100</h5>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-										<div class="inner">
-											<div class="team-img">
-												<img src="/ksp/th-ex.jpg" alt="Member Photo">
-											</div>
-											<div class="team-content">
-												<h4>상품명</h4>
-												<h5>브랜드</h5>
-												<h5>$100</h5>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-										<div class="inner">
-											<div class="team-img">
-												<img src="/ksp/th-ex.jpg" alt="Member Photo">
-											</div>
-											<div class="team-content">
-												<h4>상품명</h4>
-												<h5>브랜드</h5>
-												<h5>$100</h5>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-										<div class="inner">
-											<div class="team-img">
-												<img src="/ksp/th-ex.jpg" alt="Member Photo">
-											</div>
-											<div class="team-content">
-												<h4>상품명</h4>
-												<h5>브랜드</h5>
-												<h5>$100</h5>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-										<div class="inner">
-											<div class="team-img">
-												<img src="/ksp/th-ex.jpg" alt="Member Photo">
-											</div>
-											<div class="team-content">
-												<h4>상품명</h4>
-												<h5>브랜드</h5>
-												<h5>$100</h5>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-6 col-md-4 col-lg-3 single-team">
-										<div class="inner">
-											<div class="team-img">
-												<img src="/ksp/th-ex.jpg" alt="Member Photo">
-											</div>
-											<div class="team-content">
-												<h4>상품명</h4>
-												<h5>브랜드</h5>
-												<h5>$100</h5>
-											</div>
-										</div>
-									</div>
-	
+									</c:forEach>
 								</div>
 							</div>
 						</div>
-					</span>
+						
+						<hr>
+						
+						<!-- 페이징 -->	
+						<div class="container">
+							<ul class="pagination justify-content-center">
+								<c:choose>
+									<c:when test="${pageMaker.prev}">
+										<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+									</c:when>
+									<c:otherwise>
+										<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+									</c:otherwise>
+								</c:choose>
+			
+								<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+									<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+									<li class="page-item ${pageMaker.cri.pageNum == idx ? 'active' : '' }"><a class="page-link" href="${pageMaker.makeQuery(idx)}">${idx}</a></li>
+								</c:forEach>
+			
+								<c:choose>
+									<c:when test="${pageMaker.next && pageMaker.endPage > 0}">
+										<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+									</c:when>
+									<c:otherwise>
+										<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+									</c:otherwise>
+								</c:choose>
+							</ul>
+						</div>
+						
+					</div>
 				</div>
-				
-				
 			</div>
 		</div>
 

@@ -16,6 +16,7 @@ import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctLikeVO;
 import edu.bit.ex.vo.PrdctVO;
+import edu.bit.ex.vo.PrdctViewVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -172,5 +173,19 @@ public class CommonServiceImpl implements CommonService {
 	public int getBrandTotalCount(BrandCriteria cri) {
 		// TODO Auto-generated method stub
 		return commonMapper.getBrandTotalCount(cri);
+	}
+
+	// 상품 조회 내역 중복 여부
+	@Override
+	public List<PrdctViewVO> getPrdView(String mbr_id, String prdct_id) {
+		log.info("getPrdView...");
+		return commonMapper.getPrdView(mbr_id, prdct_id);
+	}
+
+	// 상품 상세페이지 조회 기능
+	@Override
+	public void addPrdView(String mbr_id, String prdct_id) {
+		log.info("addPrdView...");
+		commonMapper.addPrdView(mbr_id, prdct_id);
 	}
 }

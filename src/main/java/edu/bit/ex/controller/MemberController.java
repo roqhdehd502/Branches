@@ -23,6 +23,8 @@ import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.InquiryBoardVO;
 import edu.bit.ex.page.MemberOrderCriteria;
 import edu.bit.ex.page.MemberOrderPageVO;
+import edu.bit.ex.page.MemberRecentlyCriteria;
+import edu.bit.ex.page.MemberRecentlyPageVO;
 import edu.bit.ex.page.MyqnaCriteria;
 import edu.bit.ex.page.MyqnaPageVO;
 import edu.bit.ex.page.PrdQnACriteria;
@@ -121,6 +123,7 @@ public class MemberController {
 		mav.addObject("order_list", memberService.getOrderMyList(getMbr.getMbr_id()));
 
 		// 최근 본 상품 리스트 가져오기
+		mav.addObject("view_list", memberService.getPrdctViewList(getMbr.getMbr_id()));
 
 		// 찜했던 상품 리스트 받아오기
 		mav.addObject("like_prdct_list", memberService.getLikePrdctList(getMbr.getMbr_id()));
@@ -274,7 +277,8 @@ public class MemberController {
 
 	// 최근본상품
 	@GetMapping("/mypage/recently")
-	public ModelAndView recentlyProduct(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav) throws Exception {
+	public ModelAndView recentlyProduct(@AuthenticationPrincipal MemberDetails memberDetails, MemberRecentlyCriteria cri, ModelAndView mav)
+			throws Exception {
 		log.debug("recently");
 		log.info("recently..");
 		mav.setViewName("member/recentlyProduct");
@@ -283,6 +287,14 @@ public class MemberController {
 		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
+
+		// 최근 본 상품 리스트 가져오기
+		// mav.addObject("view_list", memberService.getPrdctViewList(getMbr.getMbr_id()));
+		mav.addObject("view_list", memberService.getPrdctViewList(getMbr.getMbr_id(), cri));
+
+		int total = memberService.getPrdctViewTotal(cri);
+		log.info("total" + total);
+		mav.addObject("pageMaker", new MemberRecentlyPageVO(cri, total));
 
 		return mav;
 	}

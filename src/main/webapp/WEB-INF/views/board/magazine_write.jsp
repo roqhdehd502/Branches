@@ -90,9 +90,9 @@
 	                processData: false, 
 		    		contentType: false, 
 	                data: formData, 
-	                /* beforeSend : function(xhr) {
+	                beforeSend : function(xhr) {
 					xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
-             		}, */
+             		}, 
 	                success: function (result) {       
 	                	console.log("UPLOAD SUCCESS!");
 	                	alert('업로드 성공');
@@ -132,7 +132,7 @@
 			
 			<div class="container">
 				<form id="writeForm" action="${pageContext.request.contextPath}/admin/board/magazine/write" method="post" enctype="multipart/form-data" >
-				<!-- <s:csrfInput /> -->
+				<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 				<input type="hidden" id="mbr_id" value="${mbr.mbr_id}">
 				<fieldset>
 					<div class="row">
