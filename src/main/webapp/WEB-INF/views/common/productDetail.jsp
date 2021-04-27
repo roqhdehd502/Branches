@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <!DOCTYPE html>
 <html>
@@ -10,6 +10,8 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
 <title>Branches : Product Detail</title>
 
 <!-- Required CSS files -->
@@ -129,9 +131,67 @@ img {
 
 .swiper-slide img {
 	max-width: 100%; /* 이미지 최대너비를 제한, 슬라이드에 이미지가 여러개가 보여질때 필요 */
+	
+}
+
+ul{list-style: none;}
+.accordion-box{
+  width: 100%; max-width: 600px;
+  margin:  0 auto;
+}
+p.title{
+  width: 100%;  
+  padding: 0 10px;
+}
+.con{
+  padding: 20px; 
+  display:none;
 }
 
 </style>
+<!-- 상품qna 판매자 댓글 작성 -->
+	<script type="text/javascript">
+	   	$(document).ready(function(){
+	      $(".commentWriteForm").submit(function(event){         
+	           event.preventDefault();
+	           var mbr_id = $("#mbr_id").val();
+	           var board_id = $("#board_id").val();
+	           var comment_content = $("#comment_content").val();
+	           
+	           console.log(mbr_id);
+	           console.log(board_id);
+	           console.log(comment_content);
+	           console.log($(this).attr("action"));    
+	           
+	           var form = {
+	        		board_id: board_id,
+	        		mbr_id: mbr_id, 
+	        		comment_content: comment_content
+	           };
+	
+	           $.ajax({
+	             type : "POST",
+	             url : $(this).attr("action"),
+	             cache : false,
+	             contentType:'application/json; charset=utf-8',
+	             data: JSON.stringify(form), 
+	             beforeSend : function(xhr) {
+						xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+	             },
+	             success: function (result) {       
+	               if(result == "SUCCESS"){     
+	                  $(location).attr('href', '${pageContext.request.contextPath}/prdct/${prdct.prdct_id}')                            
+	               }                       
+	             },
+	             error: function (e) {
+	                 console.log(e);
+	                 alert('댓글 업로드에 실패하였습니다.');
+	                 location.reload(); // 실패시 새로고침하기
+	             }
+	         })            
+	       });       
+	   	});
+	</script>
 <script>
 	$.fn.generateStars = function() {
 		return this.each(function(i, e) {
@@ -144,84 +204,92 @@ img {
 </script>
 <script type="text/javascript">
 	$(document)
-		.ready(
-			function() {
-				$('#modalForm')
-					.submit(
-						function(event) {
-						event.preventDefault();
-						console.log("ajax 호출전");
-						var prdct_id = $("#prdct_id").val();
-						var prdct_name = $("#prdct_name")
-							.val();
-						var prdct_price = $("#prdct_price")
-							.val();
-						var category_number = $(
-							"#category_number").val();
+			.ready(
+					function() {
+						$('#modalForm')
+								.submit(
+										function(event) {
+											event.preventDefault();
+											console.log("ajax 호출전");
+											var prdct_id = $("#prdct_id").val();
+											var prdct_name = $("#prdct_name")
+													.val();
+											var prdct_price = $("#prdct_price")
+													.val();
+											var category_number = $(
+													"#category_number").val();
 
-						var form = {
-							prdct_id : prdct_id,
-							prdct_name : prdct_name,
-							prdct_price : prdct_price,
-							category_number : category_number
-						};
+											var form = {
+												prdct_id : prdct_id,
+												prdct_name : prdct_name,
+												prdct_price : prdct_price,
+												category_number : category_number
+											};
 
-				$
-				.ajax({
-					type : 'PUT',
-					url : $(this).attr("action"),
-					cache : false,
-					contentType : 'application/json; charset=utf-8', 
-					beforeSend : function(xhr) {
-						xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
-	             	},  
-					success : function(result) {
-						console.log(result);
-						if (result == "SUCCESS") {
-							if (result == "SUCCESS") {
-								$(location)
-								.attr('href','${pageContext.request.contextPath}/ej/productDetail')
-							}
-						}
-					},
-						error : function(e) {
-							console.log(e);
-						}
-					})
-				});
-		});
+											$
+													.ajax({
+														type : 'PUT',
+														url : $(this).attr(
+																"action"),
+														cache : false,
+														contentType : 'application/json; charset=utf-8',
+														beforeSend : function(
+																xhr) {
+															xhr
+																	.setRequestHeader(
+																			"X-CSRF-Token",
+																			"${_csrf.token}");
+														},
+														success : function(
+																result) {
+															console.log(result);
+															if (result == "SUCCESS") {
+																if (result == "SUCCESS") {
+																	$(location)
+																			.attr(
+																					'href',
+																					'${pageContext.request.contextPath}/ej/productDetail')
+																}
+															}
+														},
+														error : function(e) {
+															console.log(e);
+														}
+													})
+										});
+					});
 </script>
-<script>	
+<script>
 	function insertCart() {
 		var cart = JSON.parse(sessionStorage.getItem("cartList"));
 		if (!cart) {
 			console.log("카트생성");
 			cart = new Array();
 		}
-		
+
 		var prdct = new Object();
-		prdct.prdct_id = $("#prdct_id").val();  
+		prdct.prdct_id = $("#prdct_id").val();
 		prdct.order_amount = $("#order_amount").val();
 		prdct.order_color = $("#order_color").val();
 		prdct.order_size = $("#order_size").val();
 		prdct.prdct_price = $("#prdct_price").val();
 		prdct.prdct_name = $("#prdct_name").val();
 		prdct.thumbnail = $("#prdct_thumbnail").val();
-		
-			
+		//prdct.prdct_thumbnail = $("#prdct_thumbnail").val();
+
 		console.log(prdct);
 		cart.push(prdct);
 		console.log(prdct);
-		
+
 		sessionStorage.setItem("cartList", JSON.stringify(cart));
-		
-		if (confirm("상품이 장바구니에 담겼습니다. 장바구니로 이동하시겠습니까?") == true) { 
+
+		if (confirm("상품이 장바구니에 담겼습니다. 장바구니로 이동하시겠습니까?") == true) {
 			window.location.assign("/order/cart");
 		} else { //취소
-			return false;
+			location.reload();
 		}
 	}
-	
+
 	function getTotal() {
 		var order_amount = $("#order_amount").val();
 		var prdct_price = $("#prdct_price").val();
@@ -233,120 +301,164 @@ img {
 		// total 가격 계산
 		getTotal();
 		$("#order_amount").change(function() {
-			getTotal();	
+			getTotal();
 		})
-		
+
 	})
 </script>
 <!-- 찜하기 버튼을 누를경우 이벤트 발생 -->
 <script type="text/javascript">
-	$(document).ready(function() {
-		$('#prdct_like_dis').click(function(event) {
-			event.preventDefault();
-			// 비로그인 상태시 찜하기 버튼을 누르면
-			if ("${mbr.mbr_id}" == "") {
-				if (confirm("로그인 한 회원만 이용가능합니다. 로그인 하시겠습니까?")) {
-					// 승낙하면 로그인 페이지로 이동
-					location.href = '${pageContext.request.contextPath}/login';
-				} else {
-					// 거부하면 해당 페이지 새로고침
-					location.reload();
-				}
-			// 로그인 상태시 찜하기 버튼을 누르면	
-			} else {
-				// 해당 멤버ID와 상품ID의 정보를 가져온다
-				var mbr_id = "${mbr.mbr_id}";
-				var prdct_id = "${prdct.prdct_id}";
-				var board_id = ${prdct.board_id};
+	$(document)
+			.ready(
+					function() {
+						$('#prdct_like_dis')
+								.click(
+										function(event) {
+											event.preventDefault();
+											// 비로그인 상태시 찜하기 버튼을 누르면
+											if ("${mbr.mbr_id}" == "") {
+												if (confirm("로그인 한 회원만 이용가능합니다. 로그인 하시겠습니까?")) {
+													// 승낙하면 로그인 페이지로 이동
+													location.href = '${pageContext.request.contextPath}/login';
+												} else {
+													// 거부하면 해당 페이지 새로고침
+													location.reload();
+												}
+												// 로그인 상태시 찜하기 버튼을 누르면	
+											} else {
+												// 해당 멤버ID와 상품ID의 정보를 가져온다
+												var mbr_id = "${mbr.mbr_id}";
+												var prdct_id = "${prdct.prdct_id}";
+												var board_id = $
+												{
+													prdct.board_id
+												}
+												;
 
-				console.log("mbr_id: " + mbr_id);
-				console.log("mbr_id type: " + (typeof mbr_id));
-				console.log("prdct_id: " + prdct_id);
-				console.log("prdct_id type: " + (typeof prdct_id));
-				console.log("board_id: " + board_id);
-				console.log("board_id type: " + (typeof board_id));
+												console
+														.log("mbr_id: "
+																+ mbr_id);
+												console.log("mbr_id type: "
+														+ (typeof mbr_id));
+												console.log("prdct_id: "
+														+ prdct_id);
+												console.log("prdct_id type: "
+														+ (typeof prdct_id));
+												console.log("board_id: "
+														+ board_id);
+												console.log("board_id type: "
+														+ (typeof board_id));
 
-				var form = {
-					mbr_id : mbr_id,
-					prdct_id : prdct_id,
-					board_id : board_id
-				};
+												var form = {
+													mbr_id : mbr_id,
+													prdct_id : prdct_id,
+													board_id : board_id
+												};
 
-				$.ajax({ 
-					type : "POST",
-					url : "${pageContext.request.contextPath}/prdct/{prdct_id}",
-					cache : false,
-					contentType : 'application/json; charset=utf-8',
-					data : JSON.stringify(form),
-					beforeSend : function(xhr) {
-						xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
-					}, 
-					success : function(result) {
-						console.log(result);
-						if (result == "SUCCESS") {
-							console.log("찜 성공!")
-							if (confirm("해당 상품을 찜하셨습니다. 목록 페이지로 이동하시겠습니까?")) {
-								// 승낙하면 마이페이지의 찜하기 리스트로 이동
-								location.href = '${pageContext.request.contextPath}/member/mypage/like';
-							} else {
-								// 거부하면 해당 페이지 새로고침하여 찜한거 반영되게하기(HTTP의 속성 때문...)
-								location.reload();
-							}
-						}
-					},
-					error : function(e) {
-						console.log(e);
-						alert('찜할 수 없습니다.');
-						location.reload(); // 실패시 새로고침하기
-					}
-				})
-			}
-		});
-	});
+												$
+														.ajax({
+															type : "POST",
+															url : "${pageContext.request.contextPath}/prdct/{prdct_id}",
+															cache : false,
+															contentType : 'application/json; charset=utf-8',
+															data : JSON
+																	.stringify(form),
+															beforeSend : function(
+																	xhr) {
+																xhr
+																		.setRequestHeader(
+																				"X-CSRF-Token",
+																				"${_csrf.token}");
+															},
+															success : function(
+																	result) {
+																console
+																		.log(result);
+																if (result == "SUCCESS") {
+																	console
+																			.log("찜 성공!")
+																	if (confirm("해당 상품을 찜하셨습니다. 목록 페이지로 이동하시겠습니까?")) {
+																		// 승낙하면 마이페이지의 찜하기 리스트로 이동
+																		location.href = '${pageContext.request.contextPath}/member/mypage/like';
+																	} else {
+																		// 거부하면 해당 페이지 새로고침하여 찜한거 반영되게하기(HTTP의 속성 때문...)
+																		location
+																				.reload();
+																	}
+																}
+															},
+															error : function(e) {
+																console.log(e);
+																alert('찜할 수 없습니다.');
+																location
+																		.reload(); // 실패시 새로고침하기
+															}
+														})
+											}
+										});
+					});
 </script>
 <!-- 찜취소 버튼을 누를경우 이벤트 발생 -->
 <script type="text/javascript">
-	$(document).ready(function() {
-		$('#prdct_like_ena').click(function(event) {
-			event.preventDefault();
-			
-			// FormData 객체 생성
-			var formData = new FormData();
-			
-			// 정보를 가져와 FormData에 append 한다 
-			var prdct_like_number = $('#prd_like_num').text();
+	$(document)
+			.ready(
+					function() {
+						$('#prdct_like_ena')
+								.click(
+										function(event) {
+											event.preventDefault();
 
-			console.log("prdct_like_number: " + prdct_like_number);
-			console.log("prdct_like_number: " + (typeof prdct_like_number));
-			
-			formData.append("prdct_like_number", prdct_like_number);
+											// FormData 객체 생성
+											var formData = new FormData();
 
-			$.ajax({
-				type : 'DELETE', 
-				url : $(this).attr("href"), 
-				cache : false, 
-                processData: false, 
-	    		contentType: false, 
-                data: formData, 
-                beforeSend : function(xhr) {
-					xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
-             	}, 
-				success: function(result) {
-					console.log(result);
-					if (result == "SUCCESS") {
-						console.log("찜 취소 성공!")
-						alert('해당 상품을 찜 취소 하셨습니다.');
-						location.href = '${pageContext.request.contextPath}/prdct/${prdct.prdct_id}';
-					}
-				},
-				error : function(e) {
-					console.log(e);
-					alert('찜 취소 할 수 없습니다.');
-					location.reload(); // 실패시 새로고침하기
-				}
-			})
-		});
-	});
+											// 정보를 가져와 FormData에 append 한다 
+											var prdct_like_number = $(
+													'#prd_like_num').text();
+
+											console.log("prdct_like_number: "
+													+ prdct_like_number);
+											console
+													.log("prdct_like_number: "
+															+ (typeof prdct_like_number));
+
+											formData.append(
+													"prdct_like_number",
+													prdct_like_number);
+
+											$
+													.ajax({
+														type : 'DELETE',
+														url : $(this).attr(
+																"href"),
+														cache : false,
+														processData : false,
+														contentType : false,
+														data : formData,
+														beforeSend : function(
+																xhr) {
+															xhr
+																	.setRequestHeader(
+																			"X-CSRF-Token",
+																			"${_csrf.token}");
+														},
+														success : function(
+																result) {
+															console.log(result);
+															if (result == "SUCCESS") {
+																console
+																		.log("찜 취소 성공!")
+																alert('해당 상품을 찜 취소 하셨습니다.');
+																location.href = '${pageContext.request.contextPath}/prdct/${prdct.prdct_id}';
+															}
+														},
+														error : function(e) {
+															console.log(e);
+															alert('찜 취소 할 수 없습니다.');
+															location.reload(); // 실패시 새로고침하기
+														}
+													})
+										});
+					});
 </script>
 
 <body>
@@ -356,29 +468,30 @@ img {
 		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 
 
-	 <!--  상품 정보와 옵션 선택 -->
+		<!--  상품 정보와 옵션 선택 
 		<form action="${pageContext.request.contextPath}/order/insert_cart" method="POST">
+			<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}" />-->
+	 <!--  상품 정보와 옵션 선택 -->
+		<form action="${pageContext.request.contextPath}/order/cart" method="POST">
 			<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
-
-		<!-- 상세페이지 내용	 -->
+			<!-- 상세페이지 내용	 -->
 			<div class="detail-area sp">
 				<div class="container" style="align-content: center;">
 
 					<!-- 	상품 카테고리 분류  -->
 					<div class="item categories">
-						<a>카테고리 분류</a>
-						${prdct.category_name}
+						<a>카테고리 분류</a> ${prdct.category_name}
 					</div>
 
 					<!-- 상품 썸네일 -->
 					<div class="left-container">
 						<!-- 사진 슬라이딩 처리 -->
 						<div style="float: left; margin-right: 20px; margin-left: 50px;">
-							<div class="container" style="margin-top: 50px; margin-bottom: 50px; margin-right: 50px; ">
+							<div class="container" style="margin-top: 50px; margin-bottom: 50px; margin-right: 50px;">
 								<div style="height: 100%; align-content: center;">
-								<img src="/prdct_img/prdct_thumbnail/${prdct.prdct_thumbnail}" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 500px; height: 500px;"></img>
-								
-								<input type="hidden" name="prdct_thumbnail" id="prdct_thumbnail" value="${prdct.prdct_thumbnail}"/>
+									<img src="/prdct_img/prdct_thumbnail/${prdct.prdct_thumbnail}" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'"
+										style="width: 500px; height: 500px;"></img> <input type="hidden" name="prdct_thumbnail" id="prdct_thumbnail"
+										value="${prdct.prdct_thumbnail}" />
 								</div>
 							</div>
 						</div>
@@ -398,21 +511,19 @@ img {
 								<!-- 색상/사이즈 옵션	 -->
 								<div class="form-group">
 
-									<label for="colorSelect" class="col-sm-2 col-form-label">Color</label> 
-									<select class="form-control" id="colorSelect">
-											<c:set var="prdct_color" value="${fn:split(prdct.prdct_color, ',')}" />
-											<c:forEach var="color" items="${prdct_color}">
-												<option id="order_color"value="${color}">${color}</option>
-											</c:forEach>
+									<label for="colorSelect" class="col-sm-2 col-form-label">Color</label> <select class="form-control" id="colorSelect">
+										<c:set var="prdct_color" value="${fn:split(prdct.prdct_color, ',')}" />
+										<c:forEach var="color" items="${prdct_color}">
+											<option id="order_color" value="${color}">${color}</option>
+										</c:forEach>
 									</select>
 								</div>
 								<div class="form-group">
-									<label for="sizeSelect" class="col-sm-2 col-form-label">Size</label> 
-									<select class="form-control" id="sizeSelect">
-											<c:set var="prdct_size" value="${fn:split(prdct.prdct_size, ',')}" />
-											<c:forEach var="size" items="${prdct_size}">
-												<option id="order_size" value="${size}">${size}</option>
-											</c:forEach>
+									<label for="sizeSelect" class="col-sm-2 col-form-label">Size</label> <select class="form-control" id="sizeSelect">
+										<c:set var="prdct_size" value="${fn:split(prdct.prdct_size, ',')}" />
+										<c:forEach var="size" items="${prdct_size}">
+											<option id="order_size" value="${size}">${size}</option>
+										</c:forEach>
 									</select>
 								</div>
 								<div class="form-group">
@@ -442,7 +553,7 @@ img {
 										<span id="prd_like_num" style="display: none;">${prdLikeVal.prdct_like_number}</span>
 										<!-- 마이페이지 찜하기 이동/ 계속쇼핑 만들어야되나 
 											 21.04.14 나민우: 해당 기능 자바 스크립트로 기능 추가했습니다-->
-										<!-- 찜하기 기능은 고객(MEMBER 권한)만 이용할 수 있게 설정 -->	 
+										<!-- 찜하기 기능은 고객(MEMBER 권한)만 이용할 수 있게 설정 -->
 										<sec:authorize access="isAnonymous()">
 											<%-- 로그인 상태가 아니므로 자동으로 로그인 comfirm창이 뜨게 설정 --%>
 											<i id="prdct_like_dis" class="fa fa-heart-o fa-2x" onclick="location.href='${pageContext.request.contextPath}/prdct/{prdct_id}'">찜하기</i>
@@ -451,8 +562,8 @@ img {
 											<i class="fa fa-heart-o fa-2x">찜불가</i>
 										</sec:authorize>
 										<sec:authorize access="hasAuthority('SELLER')">
-											<i class="fa fa-heart-o fa-2x">찜불가</i>	
-										</sec:authorize>	 		
+											<i class="fa fa-heart-o fa-2x">찜불가</i>
+										</sec:authorize>
 										<sec:authorize access="hasAuthority('MEMBER')">
 											<c:choose>
 												<%-- prdct_like 테이블을 가져와 비교후 예전에 찜하기를 했었다면 찜취소로 활성화가 된다 --%>
@@ -466,47 +577,46 @@ img {
 											</c:choose>
 										</sec:authorize>
 									</div>
-									
+
 								</div>
 								<input type="hidden" name="total-price" id="total-price">
 							</div>
 						</div>
 					</div>
-				</form>
-			</div>
-		
+		</form>
+	</div>
 
-		<!--제품 상세페이지 tab -->
-		<div class="container">
-			<br>
-			<div align="center">
-				<ul class="nav nav-tabs" role="tablist">
-					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link active" data-toggle="tab" onclick="location.href = '#detail';">Detail</a></li>
-					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#review';">Review</a></li>
-					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#qna';">Q & A</a></li>
-					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#return';">Return
-							& Delivery</a></li>
-				</ul>
-			</div>
-			<!-- Tab panes -->
-			<div class="tab-content">
-				<div id="detail" class="container tab-pane active">
-					<br>
-					<!-- 상품 상세정보 이미지로 등록 -->
-					<div class="gallery-area spb">
-						<div class="container">
-							<div class="section-title" data-margin="0 0 40px">
-								<h2>상품 상세 정보</h2>
-								<br/>
-							</div>
-							<div class="row">
-								<div class="col-md-12 single-gallery">
-									<div class="inner">
-										<div style="padding-top: 7px; text-align: center;"><%-- ${prdDetailimg.image_name} --%>
-											 <img src="<c:url value="/prdct_img/prdct_thumbnail/${prdct.prdct_thumbnail}"/>" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'"> 
-											 ${prdct.board_content} 
-											${prdct.board_content }
-										</div>
+
+	<!--제품 상세페이지 tab -->
+	<div class="container">
+		<br>
+		<div align="center">
+			<ul class="nav nav-tabs" role="tablist">
+				<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link active" data-toggle="tab" onclick="location.href = '#detail';">Detail</a></li>
+				<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#review';">Review</a></li>
+				<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#qna';">Q & A</a></li>
+				<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#return';">Return
+						& Delivery</a></li>
+			</ul>
+		</div>
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<div id="detail" class="container tab-pane active">
+				<br>
+				<!-- 상품 상세정보 이미지로 등록 -->
+				<div class="gallery-area spb">
+					<div class="container">
+						<div class="section-title" data-margin="0 0 40px">
+							<h2>상품 상세 정보</h2>
+							<br />
+						</div>
+						<div class="row">
+							<div class="col-md-12 single-gallery">
+								<div class="inner">
+									<div style="padding-top: 7px; text-align: center;">
+										<%-- ${prdDetailimg.image_name} --%>
+										<img src="<c:url value="/prdct_img/prdct_thumbnail/${prdct.prdct_thumbnail}"/>"
+											onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'"> ${prdct.board_content} ${prdct.board_content }
 									</div>
 								</div>
 							</div>
@@ -515,326 +625,510 @@ img {
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<!-- 리뷰 페이지 tab -->
+	<!-- 리뷰 페이지 tab -->
+	<div class="container">
+		<br>
+		<div align="center">
+			<ul class="nav nav-tabs" role="tablist">
+				<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#detail';">Detail</a></li>
+				<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link active" data-toggle="tab" onclick="location.href = '#review';">Review</a></li>
+				<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#qna';">Q & A</a></li>
+				<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#return';">Return
+						& Delivery</a></li>
+			</ul>
+		</div>
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<div id="review" class="container tab-pane active">
+				<br>
+				<div class="container">
+					<div class="section-title" data-margin="0 0 40px">
+						<h3 class="title-box font-mss">Review</h3>
+						<!-- 상품 총 별점 -->
+						<div class="wrap-estimate-avg">
+							<span class="tit">구매 만족도</span> <span class="star-prototype"></span> (4.0)
+							<!-- 데이터로 별점 끌어씀 -->
+							<div class="estimate-point" id="estimate_point">
+								<span class="img-score"><span class="bar" style="width: 95%"> <!-- 별점 평균 -->
+								</span></span>
+							</div>
+						</div>
+						<!-- 상품 총 별점 끝 -->
+
+						<!-- 리뷰 사진 슬라이드 -->
+						<div class="swiper-container">
+							<div class="swiper-wrapper">
+								<div class="swiper-slide">
+									<img src="/hs/1.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
+								</div>
+								<div class="swiper-slide">
+									<img src="/hs/2.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
+								</div>
+								<div class="swiper-slide">
+									<img src="/hs/3.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
+								</div>
+								<div class="swiper-slide">
+									<img src="/hs/4.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
+								</div>
+								<div class="swiper-slide">
+									<img src="/hs/5.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
+								</div>
+								<div class="swiper-slide">
+									<img src="/hs/6.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
+								</div>
+								<div class="swiper-slide">
+									<img src="/hs/7.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
+								</div>
+								<div class="swiper-slide">
+									<img src="/hs/8.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
+								</div>
+								<div class="swiper-slide">
+									<img src="/hs/9.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
+								</div>
+								<div class="swiper-slide">
+									<img src="/hs/1.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
+								</div>
+								<div class="swiper-slide">
+									<img src="/hs/2.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
+								</div>
+								<div class="swiper-slide">
+									<img src="/hs/3.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
+								</div>
+								<div class="swiper-slide">
+									<img src="/hs/4.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
+								</div>
+								<div class="swiper-slide">
+									<img src="/hs/5.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
+								</div>
+								<div class="swiper-slide">
+									<img src="/hs/6.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
+								</div>
+								<div class="swiper-slide">
+									<img src="/hs/7.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
+								</div>
+								<div class="swiper-slide">
+									<img src="/hs/8.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
+								</div>
+								<div class="swiper-slide">
+									<img src="/hs/9.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
+								</div>
+
+							</div>
+
+							<!-- 네비게이션 -->
+							<div class="swiper-button-next"></div>
+							<!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+							<div class="swiper-button-prev"></div>
+							<!-- 이전 버튼 -->
+
+							<!-- 페이징 -->
+							<div class="swiper-pagination"></div>
+						</div>
+
+						<script>
+							new Swiper('.swiper-container', {
+
+								slidesPerView : 7, // 동시에 보여줄 슬라이드 갯수
+								spaceBetween : 1, // 슬라이드간 간격
+								slidesPerGroup : 7, // 그룹으로 묶을 수, slidesPerView 와 같은 값을 지정하는게 좋음
+
+								// 그룹수가 맞지 않을 경우 빈칸으로 메우기
+								// 3개가 나와야 되는데 1개만 있다면 2개는 빈칸으로 채워서 3개를 만듬
+								loopFillGroupWithBlank : true,
+
+								loop : true, // 무한 반복
+
+								pagination : { // 페이징
+									el : '.swiper-pagination',
+									clickable : true, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
+								},
+								navigation : { // 네비게이션
+									nextEl : '.swiper-button-next', // 다음 버튼 클래스명
+									prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
+								},
+							});
+						</script>
+
+						<!--리뷰 사진/일반 모아보기 기능  -->
+						<ul class="snb">
+							<li class="box-tab-btn tab-btn btn active" data-for="total-estimate"><p class="text-primary">
+									<span class="korSub" id="estimate_total">전체 후기 (113)</span>
+								</p></li>
+							<li class="box-tab-btn tab-btn btn" data-for="photo-estimate"><p class="text-primary">
+									<span class="korSub" id="estimate_photo">상품 사진 후기 (63)</span>
+								</p></li>
+							<li class="box-tab-btn tab-btn btn" data-for="list-estimate"><p class="text-primary">
+									<span class="korSub" id="estimate_goods">일반 후기 (50)</span>
+								</p></li>
+							<li class="box-tab-btn tab-btn btn" data-for="select-estimate">
+								<!-- <div class="form-group"> --> <select class="form-control" id="review_sort">
+									<option value="new" selected="selected">최신순</option>
+									<option value="comment_cnt_desc">댓글 순</option>
+									<option value="up_cnt_desc">추천 순</option>
+									<option value="goods_est_desc">높은 평점 순</option>
+									<option value="goods_est_asc">낮은 평점 순</option>
+							</select>
+						</ul>
+						<hr>
+						<!-- 리뷰 틀 -->
+						<div class="gallery-area spb">
+							<c:forEach items="${reviewList}" var="list" varStatus="status">
+								<div class="container">
+									<div class="section-title" data-margin="0 0 40px">
+										<table class="table">
+											<!-- 한 페이지 글 몇개, 페이징 처리 -->
+											<tr>
+												<td><span class="star-prototype"> <!-- 얘 보니까 별점 평균 끌어쓰는애라 확인하기 -->
+												</span></td>
+												<td>사진</td>
+												<%-- <c:forEach items="${상품옵션}" var="dto"> --%>
+												<td>
+													<div data-toggle="modal" data-target="#myModal${list.board_id}">
+														구매옵션:(리뷰작성한사람의 옵션..을 끌고와야되네)
+														<%-- ${list2[status.index].prdct_size}  --%>
+														<p>${list.board_content}</p>
+													</div>
+
+												</td>
+												<td>${list.mbr_id}</td>
+												<td>${list.board_date}</td>
+											</tr>
+										</table>
+
+									</div>
+								</div>
+
+
+								<!-- 리뷰 모달창  -->
+								<form id="modalForm" action="${pageContext.request.contextPath}/common/product/${prdct.prdct_id}" method="post">
+									<div class="modal fade " id="myModal${list.board_id}" role="dialog">
+										<div class="modal-dialog modal-xl">
+											<div class="modal-content">
+
+												<!-- Modal Header -->
+												<div class="modal-header">
+													<h4 class="modal-title">리뷰 보기</h4>
+													<button type="button" class="close" data-dismiss="modal">×</button>
+												</div>
+
+												<!-- Modal body -->
+												<div class="modal-body">
+													<!-- 모달 리뷰 컨텐츠 내용 -->
+													<div style="float: left; margin-left: 10px; margin-right: 50px;">
+														<img class="popup_img" style="width: 300px; height: 300px; object-fit: cover;" src="/ej/view.staff_605be555e83ad.jpg"
+															onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'">
+													</div>
+													<div class="container" style="width: 100%; height: 50%;">
+														<div class="row">
+															<div style="margin-right: 5px; text-align: left;">
+																<span id="review_writer">${list.mbr_id}</span> <span id="writeDate">[${list.board_date}]</span>
+																<div id="review_content">${list.board_content}</div>
+															</div>
+														</div>
+
+														<div class="row">
+															<table class="table-sm" style="width: 100%;">
+																<colgroup>
+																	<col style="width: 15%">
+																	<col style="width: 70%">
+																	<col style="width: 15%">
+																</colgroup>
+																<tr>
+																	<td scope="col">작성자</td>
+																	<td scope="col">댓글 내용</td>
+																	<td scope="col">작성일자</td>
+																</tr>
+															</table>
+														</div>
+													</div>
+												</div>
+												<!-- Modal footer -->
+												<div class="modal-footer">
+													<!-- 모달 댓글 작성 -->
+													<div class="form-group row" style="width: 100%;">
+														<input class="text" id="replyInput" placeholder="댓글을 입력하세요." style="width: 91%;">
+														<button type="submit" class="btn btn-primary">댓글달기</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+							</c:forEach>
+
+
+							<div>
+								<ul class="pagination">
+									<c:choose>
+										<c:when test="${pageMaker.prev}">
+											<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+										</c:when>
+										<c:otherwise>
+											<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+										</c:otherwise>
+									</c:choose>
+
+									<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+										<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+										<li class="page-item ${pageMaker.cri.pageNum == idx ? 'active' : '' }"><a class="page-link" href="${pageMaker.makeQuery(idx)}">${idx}</a></li>
+									</c:forEach>
+
+									<c:choose>
+										<c:when test="${pageMaker.next && pageMaker.endPage > 0}">
+											<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+										</c:when>
+										<c:otherwise>
+											<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+										</c:otherwise>
+									</c:choose>
+								</ul>
+							</div>
+						</div>
+
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Q&A 페이지 tab -->
 		<div class="container">
 			<br>
 			<div align="center">
 				<ul class="nav nav-tabs" role="tablist">
-					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#detail';">Detail</a></li>
-					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link active" data-toggle="tab" onclick="location.href = '#review';">Review</a></li>
-					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#qna';">Q & A</a></li>
+					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#detail"
+						onclick="location.href = '#detail';">Detail</a></li>
+					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#review"
+						onclick="location.href = '#review';">Review</a></li>
+					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link  active" data-toggle="tab" onclick="location.href = '#qna';">Q
+							& A</a></li>
 					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#return';">Return
 							& Delivery</a></li>
 				</ul>
 			</div>
 			<!-- Tab panes -->
 			<div class="tab-content">
-				<div id="review" class="container tab-pane active">
+				<div id="qna" class="container tab-pane active">
 					<br>
-					<div class="container">
-						<div class="section-title" data-margin="0 0 40px">
-							<h3 class="title-box font-mss">Review</h3>
-							<!-- 상품 총 별점 -->
-							<div class="wrap-estimate-avg">
-								<span class="tit">구매 만족도</span> <span class="star-prototype"></span> (4.0)
-								<!-- 데이터로 별점 끌어씀 -->
-								<div class="estimate-point" id="estimate_point">
-									<span class="img-score"><span class="bar" style="width: 95%"> <!-- 별점 평균 -->
-									</span></span>
-								</div>
-							</div>
-							<!-- 상품 총 별점 끝 -->
+					<div class="gallery-area spb">
+						<div class="container">
+							<div class="section-title" data-margin="0 0 40px">
+								<table id="report" class="table" style="width: 100%;">
+									<!-- 한 페이지 글 몇개, 페이징 처리 -->
+									<colgroup>
+										<col style="width: 10%">
+										<col style="width: 15%">
+										<col style="width: 35%">
+										<col style="width: 15%">
+										<col style="width: 15%">
+									</colgroup>
+									<thead>
+										<tr>
+											<td scope="col">번호</td>
+											<td scope="col">작성자</td>
+											<td scope="col">제목</td>
+											<td scope="col">등록일자</td>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${prdQnAList}" var="dto">
+											<tr>
+												<td scope="col">${dto.board_id}</td>
+												<td scope="col">${dto.mbr_id}</td>
+												<td scope="col">${dto.board_name}</td>
+												<td scope="col">${dto.board_date}</td>
+											</tr>
+											<tr>
+												<td colspan="4">
+													<div>${dto.board_content }</div><hr /><br />
+													<!-- 댓글 작성 --> 
+													<!-- 로그인을 하지 않았을 경우 --> 
+													<sec:authorize access="isAnonymous()">
+														<c:choose>
+															<%-- View에서도 null값 이중체크를 한다 --%>
+															<c:when test="${empty mbr.mbr_id}">
+																<form method="post" action="#">
+																	<div class="container">
+																		<div class="row" style="padding: 5% 3% 3% 5%">
+																			<div class="col-md-10" align="left">
+																				<textarea class="form-control" cols="3" placeholder="판매자만 작성 가능합니다" disabled></textarea>
+																			</div>
+																			<div class="col-md-2" align="center">
+																				<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/login'">로그인</button>
+																			</div>
+																		</div>
+																	</div>
+																</form>
+															</c:when>
+														</c:choose>
+													</sec:authorize> <!-- 로그인을 했을 경우 --> 
+													<sec:authorize access="hasAuthority('SELLER')">  
+														<form id="commentWriteForm" method="post" action="${pageContext.request.contextPath}/prdct/${prdct.prdct_id}/qna">
+															<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}" /> 
+															<input type="hidden" id="mbr_id" value="${mbr.mbr_id}">
+															<input type="hidden" id="board_id" value="${dto.board_id}">
+															
 
-							<!-- 리뷰 사진 슬라이드 -->
-							<div class="swiper-container">
-								<div class="swiper-wrapper">
-									<div class="swiper-slide">
-										<img src="/hs/1.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-									</div>
-									<div class="swiper-slide">
-										<img src="/hs/2.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-									</div>
-									<div class="swiper-slide">
-										<img src="/hs/3.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-									</div>
-									<div class="swiper-slide">
-										<img src="/hs/4.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-									</div>
-									<div class="swiper-slide">
-										<img src="/hs/5.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-									</div>
-									<div class="swiper-slide">
-										<img src="/hs/6.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-									</div>
-									<div class="swiper-slide">
-										<img src="/hs/7.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-									</div>
-									<div class="swiper-slide">
-										<img src="/hs/8.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-									</div>
-									<div class="swiper-slide">
-										<img src="/hs/9.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-									</div>
-									<div class="swiper-slide">
-										<img src="/hs/1.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-									</div>
-									<div class="swiper-slide">
-										<img src="/hs/2.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-									</div>
-									<div class="swiper-slide">
-										<img src="/hs/3.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-									</div>
-									<div class="swiper-slide">
-										<img src="/hs/4.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-									</div>
-									<div class="swiper-slide">
-										<img src="/hs/5.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-									</div>
-									<div class="swiper-slide">
-										<img src="/hs/6.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-									</div>
-									<div class="swiper-slide">
-										<img src="/hs/7.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-									</div>
-									<div class="swiper-slide">
-										<img src="/hs/8.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-									</div>
-									<div class="swiper-slide">
-										<img src="/hs/9.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-									</div>
-
-								</div>
-
-								<!-- 네비게이션 -->
-								<div class="swiper-button-next"></div>
-								<!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-								<div class="swiper-button-prev"></div>
-								<!-- 이전 버튼 -->
-
-								<!-- 페이징 -->
-								<div class="swiper-pagination"></div>
-							</div>
-
-							<script>
-								new Swiper('.swiper-container', {
-
-									slidesPerView : 7, // 동시에 보여줄 슬라이드 갯수
-									spaceBetween : 1, // 슬라이드간 간격
-									slidesPerGroup : 7, // 그룹으로 묶을 수, slidesPerView 와 같은 값을 지정하는게 좋음
-
-									// 그룹수가 맞지 않을 경우 빈칸으로 메우기
-									// 3개가 나와야 되는데 1개만 있다면 2개는 빈칸으로 채워서 3개를 만듬
-									loopFillGroupWithBlank : true,
-
-									loop : true, // 무한 반복
-
-									pagination : { // 페이징
-										el : '.swiper-pagination',
-										clickable : true, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
-									},
-									navigation : { // 네비게이션
-										nextEl : '.swiper-button-next', // 다음 버튼 클래스명
-										prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
-									},
-								});
-							</script>
-
-							<!--리뷰 사진/일반 모아보기 기능  -->
-							<ul class="snb">
-								<li class="box-tab-btn tab-btn btn active" data-for="total-estimate"><p class="text-primary">
-										<span class="korSub" id="estimate_total">전체 후기 (113)</span>
-									</p></li>
-								<li class="box-tab-btn tab-btn btn" data-for="photo-estimate"><p class="text-primary">
-										<span class="korSub" id="estimate_photo">상품 사진 후기 (63)</span>
-									</p></li>
-								<li class="box-tab-btn tab-btn btn" data-for="list-estimate"><p class="text-primary">
-										<span class="korSub" id="estimate_goods">일반 후기 (50)</span>
-									</p></li>
-								<li class="box-tab-btn tab-btn btn" data-for="select-estimate">
-									<!-- <div class="form-group"> --> <select class="form-control" id="review_sort">
-										<option value="new" selected="selected">최신순</option>
-										<option value="comment_cnt_desc">댓글 순</option>
-										<option value="up_cnt_desc">추천 순</option>
-										<option value="goods_est_desc">높은 평점 순</option>
-										<option value="goods_est_asc">낮은 평점 순</option>
-								</select>
-							</ul>
-							<hr>
-							<!-- 리뷰 틀 -->
-							<div class="gallery-area spb">
-								<c:forEach items="${reviewList}" var="list" varStatus="status">
-									<div class="container">
-										<div class="section-title" data-margin="0 0 40px">
-											<table class="table">
-												<!-- 한 페이지 글 몇개, 페이징 처리 -->
-												<tr>
-													<td><span class="star-prototype">
-															<!-- 얘 보니까 별점 평균 끌어쓰는애라 확인하기 -->
-													</span></td>
-													<td>사진</td>
-													<%-- <c:forEach items="${상품옵션}" var="dto"> --%>
-													<td>
-														<div data-toggle="modal" data-target="#myModal${list.board_id}">
-															구매옵션:(리뷰작성한사람의 옵션..을 끌고와야되네)
-															<%-- ${list2[status.index].prdct_size}  --%>
-															<p>${list.board_content}</p>
-														</div>
-
-													</td>
-													<td>${list.mbr_id}</td>
-													<td>${list.board_date}</td>
-												</tr>
-											</table>
-
-										</div>
-									</div>
-
-
-									<!-- 리뷰 모달창  -->
-									<form id="modalForm" action="${pageContext.request.contextPath}/common/product/${prdct.prdct_id}" method="post">
-										<div class="modal fade " id="myModal${list.board_id}" role="dialog">
-											<div class="modal-dialog modal-xl">
-												<div class="modal-content">
-
-													<!-- Modal Header -->
-													<div class="modal-header">
-														<h4 class="modal-title">리뷰 보기</h4>
-														<button type="button" class="close" data-dismiss="modal">×</button>
-													</div>
-
-													<!-- Modal body -->
-													<div class="modal-body">
-														<!-- 모달 리뷰 컨텐츠 내용 -->
-														<div style="float: left; margin-left: 10px; margin-right: 50px;">
-															<img class="popup_img" style="width: 300px; height: 300px; object-fit: cover;" src="/ej/view.staff_605be555e83ad.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'">
-														</div>
-														<div class="container" style="width: 100%; height: 50%;">
-															<div class="row">
-																<div style="margin-right: 5px; text-align: left;">
-																	<span id="review_writer">${list.mbr_id}</span> <span id="writeDate">[${list.board_date}]</span>
-																	<div id="review_content">${list.board_content}</div>
+															<div class="container">
+																<div class="row" style="padding: 5% 3% 3% 5%">
+																	<div class="col-md-10" align="left">
+																		<textarea class="form-control" cols="3" id="comment_content" name="comment_content" placeholder="댓글을 남겨주세요"></textarea>
+																	</div>
+																	<div class="col-md-2" align="center">
+																		<button type="submit" class="btn btn-primary">등록</button>
+																	</div>
 																</div>
 															</div>
+														</form>
+													</sec:authorize>
 
-															<div class="row">
-																<table class="table-sm" style="width: 100%;">
-																	<colgroup>
-																		<col style="width: 15%">
-																		<col style="width: 70%">
-																		<col style="width: 15%">
-																	</colgroup>
-																	<tr>
-																		<td scope="col">작성자</td>
-																		<td scope="col">댓글 내용</td>
-																		<td scope="col">작성일자</td>
-																	</tr>
-																</table>
+													<hr> <!-- 댓글 불러오기 -->
+													<div class="container">
+														<div class="container">
+															<div class="row" style="padding: 3% 3% 3% 3%">
+																<div class="col-md-5" align="center"></div>
+																<div class="col-md-2" align="center" style="border: 1px solid #e5e5e5; padding-top: 1%">
+																	<h4>댓글</h4>
+																	<h4>${magazine_comment_cnt.comment_count}</h4>
+																</div>
+																<div class="col-md-5" align="center"></div>
 															</div>
 														</div>
+
+														<!-- 댓글 리스트 -->
+														<c:forEach items="${magazine_comment}" var="comment" varStatus="cmnt_status">
+															<div class="row" style="margin: 1% 3% 1% 3%; padding: 1% 3% 1% 3%; border: 1px solid #E5E5E5; overflow: auto;">
+																<div class="col-md-7" align="left">
+																	<p>${comment.mbr_nickname}</p>
+																	<p class="lead comment_font" style="white-space: normal;">${comment.comment_content}</p>
+																</div>
+																<div class="col-md-4" align="right">
+																	<div class="lead comment_font">${comment.comment_date}</div>
+																</div>
+
+																<div class="col-md-1 comment_font" align="right">
+																	<c:choose>
+																		<%-- 댓글 작성자가 로그인 한 회원과 일치하지 않을 때 --%>
+																		<c:when test="${mbr.mbr_id ne comment.mbr_id}">
+																			<button type="button" class="btn btn-outline-primary" disabled>...</button>
+																		</c:when>
+																		<%-- 댓글 작성자가 로그인 한 회원과 일치 할 때 --%>
+																		<c:otherwise>
+																			<%-- 모달을 열기 위한 버튼 --%>
+																			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mdal${comment.comment_id}">...</button>
+																			<%-- 모달 영역 --%>
+																			<div class="modal fade myModal" id="mdal${comment.comment_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+																				<div class="modal-dialog" role="document">
+																					<div class="modal-content">
+																						<div class="modal-header">
+																							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																								<span aria-hidden="true">&#88;</span>
+																							</button>
+																						</div>
+																						<div class="modal-body">
+																							<p class="lead" align="left">${comment.comment_content}</p>
+																						</div>
+																						<div class="modal-footer">
+																							<div align="left">
+																								<button type="button" class="btn btn-danger cmnt_del" data-rno="${comment.comment_id}">삭제하기</button>
+																								<%-- 매거진 댓글 삭제 --%>
+																								<script type="text/javascript">
+																									$(
+																											document)
+																											.ready(
+																													function() {
+																														$(
+																																'.cmnt_del')
+																																.click(
+																																		function(
+																																				event) {
+																																			event
+																																					.preventDefault();
+
+																																			if (confirm("댓글을 삭제하시겠습니까?")) {
+																																				// FormData 객체 생성
+																																				var formData = new FormData();
+
+																																				// button의 data-rno 값을 가져온다
+																																				var cmntInfo = $(
+																																						this)
+																																						.attr(
+																																								"data-rno");
+																																				console
+																																						.log("cmntInfo: "
+																																								+ cmntInfo);
+
+																																				// formData에 해당 값을 append한다
+																																				formData
+																																						.append(
+																																								"comment_id",
+																																								cmntInfo);
+																																				console
+																																						.log("formData: "
+																																								+ formData);
+
+																																				$
+																																						.ajax({
+																																							type : 'DELETE',
+																																							url : $(
+																																									this)
+																																									.attr(
+																																											"href"),
+																																							cache : false,
+																																							processData : false,
+																																							contentType : false,
+																																							data : formData,
+																																							beforeSend : function(
+																																									xhr) {
+																																								xhr
+																																										.setRequestHeader(
+																																												"X-CSRF-Token",
+																																												"${_csrf.token}");
+																																							},
+																																							success : function(
+																																									result) {
+																																								console
+																																										.log(result);
+																																								$(
+																																										location)
+																																										.attr(
+																																												'href',
+																																												'${pageContext.request.contextPath}/board/magazine/${magazine_content.board_id}')
+																																								console
+																																										.log("COMMENT_REMOVED!")
+																																							},
+																																							error : function(
+																																									e) {
+																																								console
+																																										.log(e);
+																																							}
+																																						})
+																																			} else {
+																																				location
+																																						.reload();
+																																			}
+																																		});
+																													});
+																								</script>
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</c:otherwise>
+																	</c:choose>
+																</div>
+															</div>
+														</c:forEach>
 													</div>
-													<!-- Modal footer -->
-													<div class="modal-footer">
-														<!-- 모달 댓글 작성 -->
-														<div class="form-group row" style="width: 100%;">
-															<input class="text" id="replyInput" placeholder="댓글을 입력하세요." style="width: 91%;">
-															<button type="submit" class="btn btn-primary">댓글달기</button>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</form>
-								</c:forEach>
-
-
-								<div>
-									<ul class="pagination">
-										<c:choose>
-											<c:when test="${pageMaker.prev}">
-												<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
-											</c:when>
-											<c:otherwise>
-												<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
-											</c:otherwise>
-										</c:choose>
-
-										<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
-											<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
-											<li class="page-item ${pageMaker.cri.pageNum == idx ? 'active' : '' }"><a class="page-link" href="${pageMaker.makeQuery(idx)}">${idx}</a></li>
-										</c:forEach>
-
-										<c:choose>
-											<c:when test="${pageMaker.next && pageMaker.endPage > 0}">
-												<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
-											</c:when>
-											<c:otherwise>
-												<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
-											</c:otherwise>
-										</c:choose>
-									</ul>
-								</div>
-							</div>
-
-
-
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Q&A 페이지 tab -->
-			<div class="container">
-				<br>
-				<div align="center">
-					<ul class="nav nav-tabs" role="tablist">
-						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#detail"
-							onclick="location.href = '#detail';">Detail</a></li>
-						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" href="#review"
-							onclick="location.href = '#review';">Review</a></li>
-						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link  active" data-toggle="tab" onclick="location.href = '#qna';">Q
-								& A</a></li>
-						<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#return';">Return
-								& Delivery</a></li>
-					</ul>
-				</div>
-				<!-- Tab panes -->
-				<div class="tab-content">
-					<div id="qna" class="container tab-pane active">
-						<br>
-						<div class="gallery-area spb">
-							<div class="container">
-								<div class="section-title" data-margin="0 0 40px">
-									<table class="table" style="width: 100%;">
-										<!-- 한 페이지 글 몇개, 페이징 처리 -->
-										<colgroup>
-											<col style="width: 10%">
-											<col style="width: 15%">
-											<col style="width: 35%">
-											<col style="width: 15%">
-											<col style="width: 15%">
-										</colgroup>
-										<thead>
-											<tr>
-												<td scope="col">번호</td>
-												<td scope="col">문의유형</td>
-												<td scope="col">제목</td>
-												<td scope="col">작성자</td>
-												<td scope="col">등록일자</td>
+												</td>
 											</tr>
-										</thead>
-										<tbody>
-											<c:forEach items="${prdQnAList}" var="dto">
-												<tr>
-													<td scope="col">${dto.board_id}</td>
-													<td scope="col">${dto.inquiry_number}</td>
-													<td scope="col"><a href="${pageContext.request.contextPath}/ej/prdqna/${dto.board_id}">${dto.board_name}</a></td>
-													<td scope="col">${dto.mbr_id}</td>
-													<td scope="col">${dto.board_date}</td>
-												</tr>
-											</c:forEach>
-										</tbody>
-									</table>
+										</c:forEach>
+									</tbody>
+								</table>
 								<!-- 페이징  -->
 								<div class="container">
 									<ul class="pagination justify-content-center">
@@ -865,10 +1159,11 @@ img {
 								</div>
 								<div style="text-align: center;">
 									<!-- 상품 문의 등록으로 이동 -->
-									<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/prdct/${prdct.prdct_id}/qna/write'">상품문의</button>
+									<button type="button" class="btn btn-primary"
+										onclick="location.href='${pageContext.request.contextPath}/member/prdct/${prdct.prdct_id}/qna/write'">상품문의</button>
 								</div>
 							</div>
-							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -971,107 +1266,125 @@ img {
 	<!-- 상품컨텐츠 내용 전체 컨테이너 끝 -->
 
 	<!-- footer -->
-		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
-					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#detail';">Detail</a></li>
-					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#review';">Review</a></li>
-					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#qna';">Q & A</a></li>
-					<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link active" data-toggle="tab" onclick="location.href = '#return';">Return
-							& Delivery</a></li>
-				</ul>
-			</div>
-			<!-- Tab panes -->
-			<div class="tab-content">
-				<div id="return" class="container tab-pane active">
-					<br>
-					<div class="pdt_contents delivery">
-						<div class="title">
-							<h5>배송/교환/반품/AS 관련 유의사항</h5>
-							<p>상품상세설명에 배송/교환/반품/취소 관련 안내가 기재된 경우 다음 안내사항보다 우선 적용됩니다.</p>
-						</div>
-						<table class="table">
-							<colgroup>
-								<col width="270">
-								<col>
-							</colgroup>
-							<tbody>
-								<tr>
-									<th>배송정보</th>
-									<td>
-										<ul>
-											<li>상품별로 상품 특성 및 배송지에 따라 배송유형 및 소요기간이 달라집니다.</li>
-											<li>일부 주문상품 또는 예약상품의 경우 기본 배송일 외에 추가 배송 소요일이 발생될 수 있습니다.</li>
-											<li>동일 브랜드의 상품이라도 상품별 출고일시가 달라 각각 배송될 수 있습니다.</li>
-											<li>도서 산간 지역은 별도의 배송비와 반품비가 추가될 수 있습니다.</li>
-											<li>상품의 배송비는 공급업체의 정책에 따라 다르오며 공휴일 및 휴일은 배송이 불가합니다.</li>
-										</ul>
-									</td>
-								</tr>
-								<tr>
-									<th>취소/반품/교환 안내</th>
-									<td>
-										<ul>
-											<li class="bold">상품하자 이외 사이즈, 색상교환 등 단순 변심에 의한 교환/반품 택배비 고객부담으로 왕복택배비가 발생합니다. (전자상거래 등에서의 소비자보호에 관한 법률 제18조(청약 철회등)9항에 의거 소비자의 사정에 의한
-												청약 철회 시 택배비는 소비자 부담입니다.)</li>
-											<li>결제완료 직후 즉시 주문취소는 "MY Page&gt; 취소/교환/반품 신청"에서 직접 처리 가능합니다.</li>
-											<li>주문완료 후 재고 부족 등으로 인해 주문 취소 처리가 될 수도 있는 점 양해 부탁드립니다.</li>
-											<li>주문상태가 상품준비중인 경우 이미 배송을 했거나 포장을 완료했을 수 있어 직접 처리가 불가하오니 고객센터를 통해 문의 바랍니다.</li>
-											<li>교환 신청은 최초 1회에 한하며, 교환 배송 완료 후에는 추가 교환 신청은 불가합니다.</li>
-											<li>반품/교환은 미사용 제품에 한해 배송완료 후 7일 이내 접수하여 주십시오.</li>
-											<li>임의반품은 불가하오니 반드시 고객센터나 "MY Page&gt; 주문취소/교환/반품 신청"을 통해서 신청접수를 하시기 바랍니다.</li>
-											<li>상품하자, 오배송의 경우 택배비 무료로 교환/반품이 가능하지만 모니터의 색상차이, 착용감, 사이즈의 개인의 선호도는 상품의 하자 사유가 아닙니다.</li>
-											<!--<li>단 위생용품 및 가전, 가구, 귀금속 등의 경우 취소/교환/반품 요청이 제한될 수 있습니다.</li>-->
-											<!--<li>주문제작 상품 및 상품의 본품박스, 택 등이 제거되어 있을 경우 반품 / 교환이 불가능합니다.</li>-->
-											<li>고객 부주의로 상품이 훼손, 변경된 경우 반품 / 교환이 불가능 합니다.</li>
-											<li>취소/반품 대금환불이 지연 시 전자상거래법에 의거하여 환불지연 배상처리 절차가 진행됩니다.</li>
-										</ul>
-									</td>
-								</tr>
-								<tr>
-									<th>반품/교환 불가능한 경우</th>
-									<td>
-										<ul>
-											<li>제품을 사용 또는 훼손한 경우, 사은품 누락, 상품 TAG, 보증서, 상품 부자재가 제거 혹은 분실된 경우</li>
-											<li>밀봉포장을 개봉했거나 내부 포장재를 훼손 또는 분실한 경우(단, 제품확인을 위한 개봉 제외)</li>
-											<li>시간이 경과되어 재판매가 어려울 정도로 상품가치가 상실된 경우</li>
-											<li>고객님의 요청에 따라 주문 제작되어 고객님 외에 사용이 어려운 경우</li>
-											<li>배송된 상품이 설치가 완료된 경우(가전, 가구 등)</li>
-											<li>기타 전자상거래 등에서의 소비자보호에 관한 법률이 정하는 청약철회 제한사유에 해당하는 경우</li>
-										</ul>
-									</td>
-								</tr>
-								<tr>
-									<th>A/S 안내</th>
-									<td>
-										<ul>
-											<li>A/S 기준이나 가능여부는 브랜드와 상품에 따라 다르므로 관련 문의는 Branches 고객센터를 통해 부탁드립니다.</li>
-											<li>상품불량에 의한 반품, 교환, A/S, 환불, 품질보증 및 피해보상 등에 관한 사항은 소비자분쟁해결기준(공정거래위원회 고시)에 따라 받으실 수 있습니다.</li>
-										</ul>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+	<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
+	<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#detail';">Detail</a></li>
+	<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#review';">Review</a></li>
+	<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#qna';">Q & A</a></li>
+	<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link active" data-toggle="tab" onclick="location.href = '#return';">Return
+			& Delivery</a></li>
+	</ul>
+	</div>
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<div id="return" class="container tab-pane active">
+			<br>
+			<div class="pdt_contents delivery">
+				<div class="title">
+					<h5>배송/교환/반품/AS 관련 유의사항</h5>
+					<p>상품상세설명에 배송/교환/반품/취소 관련 안내가 기재된 경우 다음 안내사항보다 우선 적용됩니다.</p>
 				</div>
+				<table class="table">
+					<colgroup>
+						<col width="270">
+						<col>
+					</colgroup>
+					<tbody>
+						<tr>
+							<th>배송정보</th>
+							<td>
+								<ul>
+									<li>상품별로 상품 특성 및 배송지에 따라 배송유형 및 소요기간이 달라집니다.</li>
+									<li>일부 주문상품 또는 예약상품의 경우 기본 배송일 외에 추가 배송 소요일이 발생될 수 있습니다.</li>
+									<li>동일 브랜드의 상품이라도 상품별 출고일시가 달라 각각 배송될 수 있습니다.</li>
+									<li>도서 산간 지역은 별도의 배송비와 반품비가 추가될 수 있습니다.</li>
+									<li>상품의 배송비는 공급업체의 정책에 따라 다르오며 공휴일 및 휴일은 배송이 불가합니다.</li>
+								</ul>
+							</td>
+						</tr>
+						<tr>
+							<th>취소/반품/교환 안내</th>
+							<td>
+								<ul>
+									<li class="bold">상품하자 이외 사이즈, 색상교환 등 단순 변심에 의한 교환/반품 택배비 고객부담으로 왕복택배비가 발생합니다. (전자상거래 등에서의 소비자보호에 관한 법률 제18조(청약 철회등)9항에 의거 소비자의 사정에 의한 청약
+										철회 시 택배비는 소비자 부담입니다.)</li>
+									<li>결제완료 직후 즉시 주문취소는 "MY Page&gt; 취소/교환/반품 신청"에서 직접 처리 가능합니다.</li>
+									<li>주문완료 후 재고 부족 등으로 인해 주문 취소 처리가 될 수도 있는 점 양해 부탁드립니다.</li>
+									<li>주문상태가 상품준비중인 경우 이미 배송을 했거나 포장을 완료했을 수 있어 직접 처리가 불가하오니 고객센터를 통해 문의 바랍니다.</li>
+									<li>교환 신청은 최초 1회에 한하며, 교환 배송 완료 후에는 추가 교환 신청은 불가합니다.</li>
+									<li>반품/교환은 미사용 제품에 한해 배송완료 후 7일 이내 접수하여 주십시오.</li>
+									<li>임의반품은 불가하오니 반드시 고객센터나 "MY Page&gt; 주문취소/교환/반품 신청"을 통해서 신청접수를 하시기 바랍니다.</li>
+									<li>상품하자, 오배송의 경우 택배비 무료로 교환/반품이 가능하지만 모니터의 색상차이, 착용감, 사이즈의 개인의 선호도는 상품의 하자 사유가 아닙니다.</li>
+									<!--<li>단 위생용품 및 가전, 가구, 귀금속 등의 경우 취소/교환/반품 요청이 제한될 수 있습니다.</li>-->
+									<!--<li>주문제작 상품 및 상품의 본품박스, 택 등이 제거되어 있을 경우 반품 / 교환이 불가능합니다.</li>-->
+									<li>고객 부주의로 상품이 훼손, 변경된 경우 반품 / 교환이 불가능 합니다.</li>
+									<li>취소/반품 대금환불이 지연 시 전자상거래법에 의거하여 환불지연 배상처리 절차가 진행됩니다.</li>
+								</ul>
+							</td>
+						</tr>
+						<tr>
+							<th>반품/교환 불가능한 경우</th>
+							<td>
+								<ul>
+									<li>제품을 사용 또는 훼손한 경우, 사은품 누락, 상품 TAG, 보증서, 상품 부자재가 제거 혹은 분실된 경우</li>
+									<li>밀봉포장을 개봉했거나 내부 포장재를 훼손 또는 분실한 경우(단, 제품확인을 위한 개봉 제외)</li>
+									<li>시간이 경과되어 재판매가 어려울 정도로 상품가치가 상실된 경우</li>
+									<li>고객님의 요청에 따라 주문 제작되어 고객님 외에 사용이 어려운 경우</li>
+									<li>배송된 상품이 설치가 완료된 경우(가전, 가구 등)</li>
+									<li>기타 전자상거래 등에서의 소비자보호에 관한 법률이 정하는 청약철회 제한사유에 해당하는 경우</li>
+								</ul>
+							</td>
+						</tr>
+						<tr>
+							<th>A/S 안내</th>
+							<td>
+								<ul>
+									<li>A/S 기준이나 가능여부는 브랜드와 상품에 따라 다르므로 관련 문의는 Branches 고객센터를 통해 부탁드립니다.</li>
+									<li>상품불량에 의한 반품, 교환, A/S, 환불, 품질보증 및 피해보상 등에 관한 사항은 소비자분쟁해결기준(공정거래위원회 고시)에 따라 받으실 수 있습니다.</li>
+								</ul>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
-		<hr>
+	</div>
+	</div>
+	<hr>
 
-		<!-- 상품컨텐츠 내용 전체 컨테이너 끝 -->
+	<!-- 상품컨텐츠 내용 전체 컨테이너 끝 -->
 
-		<!-- footer -->
-		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
+	<!-- footer -->
+	<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
 
-		<!--Required JS files-->
-		<script src="/assets/js/jquery-2.2.4.min.js"></script>
-		<script src="/assets/js/vendor/popper.min.js"></script>
-		<script src="/assets/js/vendor/bootstrap.min.js"></script>
-		<script src="/assets/js/vendor/owl.carousel.min.js"></script>
-		<script src="/assets/js/vendor/isotope.pkgd.min.js"></script>
-		<script src="/assets/js/vendor/jquery.barfiller.js"></script>
-		<script src="/assets/js/vendor/loopcounter.js"></script>
-		<script src="/assets/js/vendor/slicknav.min.js"></script>
-		<script src="/assets/js/active.js"></script>
+	<!--Required JS files-->
+	<script src="/assets/js/jquery-2.2.4.min.js"></script>
+	<script src="/assets/js/vendor/popper.min.js"></script>
+	<script src="/assets/js/vendor/bootstrap.min.js"></script>
+	<script src="/assets/js/vendor/owl.carousel.min.js"></script>
+	<script src="/assets/js/vendor/isotope.pkgd.min.js"></script>
+	<script src="/assets/js/vendor/jquery.barfiller.js"></script>
+	<script src="/assets/js/vendor/loopcounter.js"></script>
+	<script src="/assets/js/vendor/slicknav.min.js"></script>
+	<script src="/assets/js/active.js"></script>
+	
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+    $(document).ready(function(){
 
+        $("#report tr:odd").addClass("odd");
+        $("#report tr:not(.odd)").hide(); 
+        $("#report tr:first-child").show(); //열머리글 보여주기
+
+        $("#report tr.odd").click(function(){
+            $(this).next("tr").toggle();
+            $(this).find(".arrow").toggleClass("up");
+
+        });
+       
+
+    });
+
+</script>
 	</div>
 </body>
 </html>

@@ -3,7 +3,9 @@ package edu.bit.ex.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.mapper.CommonMapper;
 import edu.bit.ex.page.BrandCriteria;
@@ -186,5 +188,13 @@ public class CommonServiceImpl implements CommonService {
 	public void addPrdView(String mbr_id, String prdct_id) {
 		log.info("addPrdView...");
 		commonMapper.addPrdView(mbr_id, prdct_id);
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void setCommentWrite(BoardBoardCommentVO boardBoardCommentVO) {
+		log.info("setCommentWrite");
+		commonMapper.setCommentWrite(boardBoardCommentVO);
+
 	}
 }

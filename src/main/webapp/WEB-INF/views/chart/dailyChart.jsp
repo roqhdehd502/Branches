@@ -21,10 +21,10 @@
           ]);
 
           var options = {
-            title: '${mbr.mbr_id} 주간판매',
+            title: '일간판매',
+            fontSize : 15,
             height: 300,
             hAxis: {
-              title: 'Time of Day',
               format: 'd',
 
             },

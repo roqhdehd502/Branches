@@ -23,7 +23,8 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	
 	<script src="/ckeditor/ckeditor.js"></script>
-	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		
 	<style>
 		* {
 			margin: 0;
@@ -68,6 +69,65 @@
 			color: #c59b08;
 		}
 	</style>
+	<script type="text/javascript">
+	 $(document).ready(function() {
+      $("#review").submit(function(event) {
+         event.preventDefault();
+         console.log("review");
+
+         var mbr_id = $("#mbr_id").val();
+         var prdct_id = $("#prdct_id").val();
+         var board_content = CKEDITOR.instances.text.getData();
+         var board_starrate = $(".rate").val();
+
+         var form = {
+        	mbr_id: mbr_id,
+        	prdct_id : prdct_id,
+        	board_content : board_content,
+        	board_starrate : board_starrate
+         }
+
+         if (board_name == "") { //빈값이면      
+            alert("제목을 입력하세요");
+            $("#board_name").focus(); //입력포커스 이동
+            return; //함수 종료, 폼 데이터를 제출하지 않음
+         }
+         if (board_content == "") {
+            alert("내용을 입력하세요");
+            $("#board_content").focus();
+            return;
+         }
+
+         $.ajax({
+            type : "POST",
+            url : $(this).attr("action"),
+            cache : false,
+            data : JSON.stringify(form),
+            contentType :'application/json; charset=utf-8',
+            beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                      console.log("header 실행 "+header+token)
+                      //console.log(sentence.toLowerCase());
+                      xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+            },
+            success : function(result) {
+               console.log("result : " + result);
+               if(result == "SUCCESS"){
+            	   if (confirm("입력된 정보를 등록하시겠습니까??") == true) {
+	        			console.log("UPLOAD SUCCESS!")  
+	        			$(location).attr('href', '${pageContext.request.contextPath}/member/mypage/prdctq/list');
+	        		}else {
+						return;
+					}                         
+             },
+            error : function(e) {
+               alert("오류가 발생했습니다.");
+               console.log(e);
+               location.reload(); // 실패시 새로고침하기
+            }
+         }); // ajax end
+      }); // event end
+   }); // ready end
+</script>
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -75,7 +135,8 @@
 		<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp"></jsp:include>
 
 		<!-- 리뷰 등록 페이지 -->
-		<form action="${pageContext.request.contextPath}/member/mypage/review/${prdctInfo.prdct_id}/writing" enctype="multipart/form-data" method="post">
+		<form id="review" action="${pageContext.request.contextPath}/member/mypage/review/${prdctInfo.prdct_id}/writing" enctype="multipart/form-data" method="post">
+			<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 			<input type="hidden" value="${customerInfo.mbr_id}" id="mbr_id" name="mbr_id" /> < <br /> <br />
 			<fieldset>
 				<legend style="text-align: center;">리뷰 등록</legend>
@@ -120,7 +181,7 @@
 									.replace(
 											"board_content",
 											{
-												filebrowserUploadUrl : "${pageContext.request.contextPath}/member/mypage/review/{prdct_id}/writing/prdct_img",
+												filebrowserUploadUrl:'<c:url value="${pageContext.request.contextPath}/member/mypage/review/writing/prdct_img"/>?${_csrf.parameterName}=${_csrf.token}',
 												height : 500
 											});
 						</script>
