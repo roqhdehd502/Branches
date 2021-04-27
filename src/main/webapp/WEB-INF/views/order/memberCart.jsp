@@ -43,7 +43,7 @@ $(document)
 			for(var i = 0; i < data.length; i++) {
 							
 				html += "<tr id='tr"+i+"'>"
-				+ "<td scope='col'><input onclick='summary()' id='ck"
+				+ "<td scope='col'><input onclick='summary()' class='ck"
 				+ i
 				+ "' type='checkbox' name='prdct_id' value='"
 				+ data[i].prdct_id
@@ -73,7 +73,7 @@ $(document)
 				+ "' value='' readonly size='7px' name='sum' >원</td>"
 				+ "<td scope='col' class='close-td first-row'><i onclick='cartDelete("
 				+ i
-				+ ")' >삭제<input type='hidden' name='prdct_name' value='"+data[i].prdct_name+"' ><input type='hidden' name='order_size' value='"+data[i].order_size+"' ><input type='hidden' name='order_color' value='"+data[i].order_color+"' > </td>"
+				+ ")' >삭제<input type='hidden' name='prdct_name' value='"+data[i].prdct_name+"' ><input type='hidden' name='prdct_thumbnail' value='"+data[i].prdct_thumbnail+"' ><input type='hidden' name='order_size' value='"+data[i].order_size+"' ><input type='hidden' name='order_color' value='"+data[i].order_color+"' > </td>"
 				+ "</tr>"
 				
 				// 상품 별 합 계산() ready
@@ -126,17 +126,14 @@ $(document)
 		});
 // 전체 선택
 $(document).ready(function(){
-    //최상단 체크박스 클릭
-    $("#checkall").click(function(){
-        //클릭되었으면
-        if($("#checkall").prop("checked")){
-            $("input[name=prdct_id]").prop("checked",true);
-            //클릭이 안되있으면
-        }else{
-            $("input[name=prdct_id]").prop("checked",false);
-        }
-        summary();
-    });
+	$('#checkall').click(function() {
+		var checked = $('#checkall').is(':checked');
+		if (checked)
+			$('input:checkbox').prop('checked', true);
+		if (!checked)
+			$('input:checkbox').prop('checked', false);
+		summary();
+	});
 });
 
 // 해당 상품 삭제
@@ -148,6 +145,7 @@ function cartDelete(i) {
 	sessionStorage.setItem('cartList', JSON.stringify(cartList));
 	summary();
 }
+
 // 카트 총 합 계산
 function summary() {
 	var sum = 0;
@@ -162,6 +160,7 @@ function summary() {
 	
 	$('.total').html(sum + '원');
 }
+
 // 전체 카트 삭제
 function allCartDelete() {
 	$('#getCart').remove();

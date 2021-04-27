@@ -3,6 +3,7 @@ package edu.bit.ex.mapper;
 import org.apache.ibatis.annotations.Mapper;
 
 import edu.bit.ex.joinvo.PrdctOrderDetailVO;
+import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.OrderDetailVO;
 import edu.bit.ex.vo.PrdctOrderVO;
 
@@ -19,5 +20,7 @@ public interface OrderMapper {
 	public void insertOrderDetail(OrderDetailVO odVO);
 
 	public int getPrdctPrice(String prdct_id);
+
+	public MbrVO getPoint(String mbr_id);
 
 }

@@ -193,14 +193,16 @@ p.title{
 	   	});
 	</script>
 <script>
-	$.fn.generateStars = function() {
-		return this.each(function(i, e) {
-			$(e).html($('<span/>').width($(e).text() * 16));
-		});
-	};
-
-	// 숫자 평점을 별로 변환하도록 호출하는 함수
-	$('.star-prototype').generateStars();
+    $(document).ready(function() {
+        // 숫자 평점을 별로 변환하도록 호출하는 함수
+        $.fn.generateStars = function() {
+            return this.each(function(i, e) {
+                $(e).html($('<span/>').width($(e).text() * 16)
+                );
+            });
+        };
+        $('.star-prototype').generateStars();
+    });
 </script>
 <script type="text/javascript">
 	$(document)
@@ -274,7 +276,7 @@ p.title{
 		prdct.order_size = $("#order_size").val();
 		prdct.prdct_price = $("#prdct_price").val();
 		prdct.prdct_name = $("#prdct_name").val();
-		prdct.thumbnail = $("#prdct_thumbnail").val();
+		prdct.prdct_thumbnail = $("#prdct_thumbnail").val();
 		//prdct.prdct_thumbnail = $("#prdct_thumbnail").val();
 
 		console.log(prdct);
@@ -648,7 +650,7 @@ p.title{
 						<h3 class="title-box font-mss">Review</h3>
 						<!-- 상품 총 별점 -->
 						<div class="wrap-estimate-avg">
-							<span class="tit">구매 만족도</span> <span class="star-prototype"></span> (4.0)
+							<span class="tit">구매 만족도</span> <span class="star-prototype">${starAvg.staravg}</span> (${starAvg.staravg})
 							<!-- 데이터로 별점 끌어씀 -->
 							<div class="estimate-point" id="estimate_point">
 								<span class="img-score"><span class="bar" style="width: 95%"> <!-- 별점 평균 -->
@@ -657,102 +659,8 @@ p.title{
 						</div>
 						<!-- 상품 총 별점 끝 -->
 
-						<!-- 리뷰 사진 슬라이드 -->
-						<div class="swiper-container">
-							<div class="swiper-wrapper">
-								<div class="swiper-slide">
-									<img src="/hs/1.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-								</div>
-								<div class="swiper-slide">
-									<img src="/hs/2.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-								</div>
-								<div class="swiper-slide">
-									<img src="/hs/3.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-								</div>
-								<div class="swiper-slide">
-									<img src="/hs/4.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-								</div>
-								<div class="swiper-slide">
-									<img src="/hs/5.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-								</div>
-								<div class="swiper-slide">
-									<img src="/hs/6.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-								</div>
-								<div class="swiper-slide">
-									<img src="/hs/7.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-								</div>
-								<div class="swiper-slide">
-									<img src="/hs/8.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-								</div>
-								<div class="swiper-slide">
-									<img src="/hs/9.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-								</div>
-								<div class="swiper-slide">
-									<img src="/hs/1.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-								</div>
-								<div class="swiper-slide">
-									<img src="/hs/2.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-								</div>
-								<div class="swiper-slide">
-									<img src="/hs/3.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-								</div>
-								<div class="swiper-slide">
-									<img src="/hs/4.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-								</div>
-								<div class="swiper-slide">
-									<img src="/hs/5.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-								</div>
-								<div class="swiper-slide">
-									<img src="/hs/6.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-								</div>
-								<div class="swiper-slide">
-									<img src="/hs/7.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-								</div>
-								<div class="swiper-slide">
-									<img src="/hs/8.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-								</div>
-								<div class="swiper-slide">
-									<img src="/hs/9.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
-								</div>
-
-							</div>
-
-							<!-- 네비게이션 -->
-							<div class="swiper-button-next"></div>
-							<!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-							<div class="swiper-button-prev"></div>
-							<!-- 이전 버튼 -->
-
-							<!-- 페이징 -->
-							<div class="swiper-pagination"></div>
-						</div>
-
-						<script>
-							new Swiper('.swiper-container', {
-
-								slidesPerView : 7, // 동시에 보여줄 슬라이드 갯수
-								spaceBetween : 1, // 슬라이드간 간격
-								slidesPerGroup : 7, // 그룹으로 묶을 수, slidesPerView 와 같은 값을 지정하는게 좋음
-
-								// 그룹수가 맞지 않을 경우 빈칸으로 메우기
-								// 3개가 나와야 되는데 1개만 있다면 2개는 빈칸으로 채워서 3개를 만듬
-								loopFillGroupWithBlank : true,
-
-								loop : true, // 무한 반복
-
-								pagination : { // 페이징
-									el : '.swiper-pagination',
-									clickable : true, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
-								},
-								navigation : { // 네비게이션
-									nextEl : '.swiper-button-next', // 다음 버튼 클래스명
-									prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
-								},
-							});
-						</script>
-
 						<!--리뷰 사진/일반 모아보기 기능  -->
-						<ul class="snb">
+						<!-- <ul class="snb">
 							<li class="box-tab-btn tab-btn btn active" data-for="total-estimate"><p class="text-primary">
 									<span class="korSub" id="estimate_total">전체 후기 (113)</span>
 								</p></li>
@@ -763,46 +671,53 @@ p.title{
 									<span class="korSub" id="estimate_goods">일반 후기 (50)</span>
 								</p></li>
 							<li class="box-tab-btn tab-btn btn" data-for="select-estimate">
-								<!-- <div class="form-group"> --> <select class="form-control" id="review_sort">
+								<div class="form-group"> <select class="form-control" id="review_sort">
 									<option value="new" selected="selected">최신순</option>
 									<option value="comment_cnt_desc">댓글 순</option>
 									<option value="up_cnt_desc">추천 순</option>
 									<option value="goods_est_desc">높은 평점 순</option>
 									<option value="goods_est_asc">낮은 평점 순</option>
 							</select>
-						</ul>
+						</ul> -->
 						<hr>
 						<!-- 리뷰 틀 -->
 						<div class="gallery-area spb">
-							<c:forEach items="${reviewList}" var="list" varStatus="status">
 								<div class="container">
 									<div class="section-title" data-margin="0 0 40px">
-										<table class="table">
+										<table  class="table" style="width: 100%;">
 											<!-- 한 페이지 글 몇개, 페이징 처리 -->
-											<tr>
-												<td><span class="star-prototype"> <!-- 얘 보니까 별점 평균 끌어쓰는애라 확인하기 -->
-												</span></td>
-												<td>사진</td>
-												<%-- <c:forEach items="${상품옵션}" var="dto"> --%>
-												<td>
-													<div data-toggle="modal" data-target="#myModal${list.board_id}">
-														구매옵션:(리뷰작성한사람의 옵션..을 끌고와야되네)
-														<%-- ${list2[status.index].prdct_size}  --%>
-														<p>${list.board_content}</p>
-													</div>
-
-												</td>
-												<td>${list.mbr_id}</td>
-												<td>${list.board_date}</td>
-											</tr>
+											<colgroup>
+												<col style="width: 15%">
+												<col style="width: 25%">
+												<col style="width: 30%">
+												<col style="width: 30%">
+											</colgroup>
+											<thead>
+												<tr>
+													<td scope="col">번호</td>
+													<td scope="col">작성자</td>
+													<td scope="col">등록일자</td>
+													<td scope="col">별점</td>
+												</tr>
+											</thead>
+											<tbody>
+												<c:forEach items="${reviewList}" var="list" varStatus="status">
+												<tr data-toggle="modal" data-target="#myModal${list.board_id}" id="rcount">
+													<td scope="col">${list.board_id}</td>
+													<td scope="col">${list.mbr_id}</td>
+													<td scope="col">${list.board_date}</td>
+													<td scope="col"><span class="star-prototype"> ${list.board_starrate}</span></td>
+												</tr>
+												</c:forEach>
+											</tbody>
 										</table>
-
 									</div>
 								</div>
 
 
 								<!-- 리뷰 모달창  -->
 								<form id="modalForm" action="${pageContext.request.contextPath}/common/product/${prdct.prdct_id}" method="post">
+									<c:forEach items="${reviewList}" var="list" >
 									<div class="modal fade " id="myModal${list.board_id}" role="dialog">
 										<div class="modal-dialog modal-xl">
 											<div class="modal-content">
@@ -816,31 +731,12 @@ p.title{
 												<!-- Modal body -->
 												<div class="modal-body">
 													<!-- 모달 리뷰 컨텐츠 내용 -->
-													<div style="float: left; margin-left: 10px; margin-right: 50px;">
-														<img class="popup_img" style="width: 300px; height: 300px; object-fit: cover;" src="/ej/view.staff_605be555e83ad.jpg"
-															onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'">
-													</div>
 													<div class="container" style="width: 100%; height: 50%;">
 														<div class="row">
-															<div style="margin-right: 5px; text-align: left;">
+															<div style="float:center; margin:auto;">
 																<span id="review_writer">${list.mbr_id}</span> <span id="writeDate">[${list.board_date}]</span>
 																<div id="review_content">${list.board_content}</div>
 															</div>
-														</div>
-
-														<div class="row">
-															<table class="table-sm" style="width: 100%;">
-																<colgroup>
-																	<col style="width: 15%">
-																	<col style="width: 70%">
-																	<col style="width: 15%">
-																</colgroup>
-																<tr>
-																	<td scope="col">작성자</td>
-																	<td scope="col">댓글 내용</td>
-																	<td scope="col">작성일자</td>
-																</tr>
-															</table>
 														</div>
 													</div>
 												</div>
@@ -855,12 +751,13 @@ p.title{
 											</div>
 										</div>
 									</div>
+									</c:forEach>
 								</form>
-							</c:forEach>
+							
 
 
 							<div>
-								<ul class="pagination">
+								<ul class="pagination justify-content-center">
 									<c:choose>
 										<c:when test="${pageMaker.prev}">
 											<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
@@ -886,8 +783,6 @@ p.title{
 								</ul>
 							</div>
 						</div>
-
-
 
 					</div>
 				</div>
@@ -943,7 +838,7 @@ p.title{
 											</tr>
 											<tr>
 												<td colspan="4">
-													<div>${dto.board_content }</div><hr /><br />
+													<div>${dto.board_content}</div><hr /><br />
 													<!-- 댓글 작성 --> 
 													<!-- 로그인을 하지 않았을 경우 --> 
 													<sec:authorize access="isAnonymous()">
@@ -1036,82 +931,43 @@ p.title{
 																								<button type="button" class="btn btn-danger cmnt_del" data-rno="${comment.comment_id}">삭제하기</button>
 																								<%-- 매거진 댓글 삭제 --%>
 																								<script type="text/javascript">
-																									$(
-																											document)
-																											.ready(
-																													function() {
-																														$(
-																																'.cmnt_del')
-																																.click(
-																																		function(
-																																				event) {
-																																			event
-																																					.preventDefault();
+																									$(document).ready(function() {
+																										$('.cmnt_del')
+																										.click(function(event) {
+																											event.preventDefault();
+																											if (confirm("댓글을 삭제하시겠습니까?")) {
+																												// FormData 객체 생성
+																												var formData = new FormData();
+																												// button의 data-rno 값을 가져온다
+																												var cmntInfo = $(this).attr("data-rno");
+																												console.log("cmntInfo: "+ cmntInfo);
+																												// formData에 해당 값을 append한다
+																												formData.append("comment_id",cmntInfo);
+																												console.log("formData: "+ formData);
 
-																																			if (confirm("댓글을 삭제하시겠습니까?")) {
-																																				// FormData 객체 생성
-																																				var formData = new FormData();
-
-																																				// button의 data-rno 값을 가져온다
-																																				var cmntInfo = $(
-																																						this)
-																																						.attr(
-																																								"data-rno");
-																																				console
-																																						.log("cmntInfo: "
-																																								+ cmntInfo);
-
-																																				// formData에 해당 값을 append한다
-																																				formData
-																																						.append(
-																																								"comment_id",
-																																								cmntInfo);
-																																				console
-																																						.log("formData: "
-																																								+ formData);
-
-																																				$
-																																						.ajax({
-																																							type : 'DELETE',
-																																							url : $(
-																																									this)
-																																									.attr(
-																																											"href"),
-																																							cache : false,
-																																							processData : false,
-																																							contentType : false,
-																																							data : formData,
-																																							beforeSend : function(
-																																									xhr) {
-																																								xhr
-																																										.setRequestHeader(
-																																												"X-CSRF-Token",
-																																												"${_csrf.token}");
-																																							},
-																																							success : function(
-																																									result) {
-																																								console
-																																										.log(result);
-																																								$(
-																																										location)
-																																										.attr(
-																																												'href',
-																																												'${pageContext.request.contextPath}/board/magazine/${magazine_content.board_id}')
-																																								console
-																																										.log("COMMENT_REMOVED!")
-																																							},
-																																							error : function(
-																																									e) {
-																																								console
-																																										.log(e);
-																																							}
-																																						})
-																																			} else {
-																																				location
-																																						.reload();
-																																			}
-																																		});
-																													});
+																												$.ajax({
+																													type : 'DELETE',
+																													url : $(this).attr("href"),
+																													cache : false,
+																													processData : false,
+																													contentType : false,
+																													data : formData,
+																													beforeSend : function(xhr) {
+																														xhr.setRequestHeader("X-CSRF-Token","${_csrf.token}");
+																													},
+																													success : function(result) {
+																														console.log(result);
+																														$(location).attr('href','${pageContext.request.contextPath}/board/magazine/${magazine_content.board_id}')
+																															console.log("COMMENT_REMOVED!")
+																													},
+																													error : function(e) {
+																														console.log(e);}
+																													})
+																													} else {
+																														location.reload();
+																													}
+																												});
+																											});
 																								</script>
 																							</div>
 																						</div>
@@ -1255,9 +1111,6 @@ p.title{
 						</tbody>
 					</table>
 				</div>
-
-
-
 			</div>
 		</div>
 	</div>
@@ -1266,96 +1119,8 @@ p.title{
 	<!-- 상품컨텐츠 내용 전체 컨테이너 끝 -->
 
 	<!-- footer -->
-	<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
-	<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#detail';">Detail</a></li>
-	<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#review';">Review</a></li>
-	<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link" data-toggle="tab" onclick="location.href = '#qna';">Q & A</a></li>
-	<li class="nav-item col-sm-3" style="margin-right: 0px;"><a class="nav-link active" data-toggle="tab" onclick="location.href = '#return';">Return
-			& Delivery</a></li>
-	</ul>
-	</div>
-	<!-- Tab panes -->
-	<div class="tab-content">
-		<div id="return" class="container tab-pane active">
-			<br>
-			<div class="pdt_contents delivery">
-				<div class="title">
-					<h5>배송/교환/반품/AS 관련 유의사항</h5>
-					<p>상품상세설명에 배송/교환/반품/취소 관련 안내가 기재된 경우 다음 안내사항보다 우선 적용됩니다.</p>
-				</div>
-				<table class="table">
-					<colgroup>
-						<col width="270">
-						<col>
-					</colgroup>
-					<tbody>
-						<tr>
-							<th>배송정보</th>
-							<td>
-								<ul>
-									<li>상품별로 상품 특성 및 배송지에 따라 배송유형 및 소요기간이 달라집니다.</li>
-									<li>일부 주문상품 또는 예약상품의 경우 기본 배송일 외에 추가 배송 소요일이 발생될 수 있습니다.</li>
-									<li>동일 브랜드의 상품이라도 상품별 출고일시가 달라 각각 배송될 수 있습니다.</li>
-									<li>도서 산간 지역은 별도의 배송비와 반품비가 추가될 수 있습니다.</li>
-									<li>상품의 배송비는 공급업체의 정책에 따라 다르오며 공휴일 및 휴일은 배송이 불가합니다.</li>
-								</ul>
-							</td>
-						</tr>
-						<tr>
-							<th>취소/반품/교환 안내</th>
-							<td>
-								<ul>
-									<li class="bold">상품하자 이외 사이즈, 색상교환 등 단순 변심에 의한 교환/반품 택배비 고객부담으로 왕복택배비가 발생합니다. (전자상거래 등에서의 소비자보호에 관한 법률 제18조(청약 철회등)9항에 의거 소비자의 사정에 의한 청약
-										철회 시 택배비는 소비자 부담입니다.)</li>
-									<li>결제완료 직후 즉시 주문취소는 "MY Page&gt; 취소/교환/반품 신청"에서 직접 처리 가능합니다.</li>
-									<li>주문완료 후 재고 부족 등으로 인해 주문 취소 처리가 될 수도 있는 점 양해 부탁드립니다.</li>
-									<li>주문상태가 상품준비중인 경우 이미 배송을 했거나 포장을 완료했을 수 있어 직접 처리가 불가하오니 고객센터를 통해 문의 바랍니다.</li>
-									<li>교환 신청은 최초 1회에 한하며, 교환 배송 완료 후에는 추가 교환 신청은 불가합니다.</li>
-									<li>반품/교환은 미사용 제품에 한해 배송완료 후 7일 이내 접수하여 주십시오.</li>
-									<li>임의반품은 불가하오니 반드시 고객센터나 "MY Page&gt; 주문취소/교환/반품 신청"을 통해서 신청접수를 하시기 바랍니다.</li>
-									<li>상품하자, 오배송의 경우 택배비 무료로 교환/반품이 가능하지만 모니터의 색상차이, 착용감, 사이즈의 개인의 선호도는 상품의 하자 사유가 아닙니다.</li>
-									<!--<li>단 위생용품 및 가전, 가구, 귀금속 등의 경우 취소/교환/반품 요청이 제한될 수 있습니다.</li>-->
-									<!--<li>주문제작 상품 및 상품의 본품박스, 택 등이 제거되어 있을 경우 반품 / 교환이 불가능합니다.</li>-->
-									<li>고객 부주의로 상품이 훼손, 변경된 경우 반품 / 교환이 불가능 합니다.</li>
-									<li>취소/반품 대금환불이 지연 시 전자상거래법에 의거하여 환불지연 배상처리 절차가 진행됩니다.</li>
-								</ul>
-							</td>
-						</tr>
-						<tr>
-							<th>반품/교환 불가능한 경우</th>
-							<td>
-								<ul>
-									<li>제품을 사용 또는 훼손한 경우, 사은품 누락, 상품 TAG, 보증서, 상품 부자재가 제거 혹은 분실된 경우</li>
-									<li>밀봉포장을 개봉했거나 내부 포장재를 훼손 또는 분실한 경우(단, 제품확인을 위한 개봉 제외)</li>
-									<li>시간이 경과되어 재판매가 어려울 정도로 상품가치가 상실된 경우</li>
-									<li>고객님의 요청에 따라 주문 제작되어 고객님 외에 사용이 어려운 경우</li>
-									<li>배송된 상품이 설치가 완료된 경우(가전, 가구 등)</li>
-									<li>기타 전자상거래 등에서의 소비자보호에 관한 법률이 정하는 청약철회 제한사유에 해당하는 경우</li>
-								</ul>
-							</td>
-						</tr>
-						<tr>
-							<th>A/S 안내</th>
-							<td>
-								<ul>
-									<li>A/S 기준이나 가능여부는 브랜드와 상품에 따라 다르므로 관련 문의는 Branches 고객센터를 통해 부탁드립니다.</li>
-									<li>상품불량에 의한 반품, 교환, A/S, 환불, 품질보증 및 피해보상 등에 관한 사항은 소비자분쟁해결기준(공정거래위원회 고시)에 따라 받으실 수 있습니다.</li>
-								</ul>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-	</div>
-	<hr>
-
-	<!-- 상품컨텐츠 내용 전체 컨테이너 끝 -->
-
-	<!-- footer -->
-	<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
-
+	<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>	
+	
 	<!--Required JS files-->
 	<script src="/assets/js/jquery-2.2.4.min.js"></script>
 	<script src="/assets/js/vendor/popper.min.js"></script>

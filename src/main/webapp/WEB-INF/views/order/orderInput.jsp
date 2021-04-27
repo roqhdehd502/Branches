@@ -23,7 +23,12 @@
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <!-- 결제모듈 CDN -->
 <script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.1.min.js" type="application/javascript"></script>
-
+<style>
+.thumbnail {
+	width: 70px;
+	height: 70px;
+}
+</style>
 </head>
 <script type="text/javascript">
 $(document)
@@ -56,9 +61,9 @@ $(document)
 			$('#pay').append(html);
 					
 			// 총 상품 금액 계산 
-			var sumCount = this.form.prdct_id.length;
+			var sumCount = this.form.sum.length;
 			var total = 0;
-			for (var i = 0; i < sumCount-1; i++) {
+			for (var i = 1; i < sumCount; i++) {
 				
 				total += parseInt(this.form.sum[i].value);
 				console.log(typeof(total))
@@ -87,13 +92,13 @@ $(document)
 function usePoint() {
 	event.preventDefault();
 	var prdctPrice = parseInt($("#prdctPrice").val());
-	if("${point.sum}" > prdctPrice){
+	if("${point.mbr_point}" > prdctPrice){
 	    $("#point").val(prdctPrice);
 	    $('#payPoint').val("-" + $("#point").val());
 		$('#payPoint1').text("-" + $("#point").val() + "P");
 		lastTotal();
-	} else if("${point.sum}">999){
-		$("#point").val("${point.sum}");
+	} else if("${point.mbr_point}">999){
+		$("#point").val("${point.mbr_point}");
 		$('#payPoint').val("-" + $("#point").val());
 		$('#payPoint1').text("-" + $("#point").val() + "P");
 		lastTotal();
@@ -274,12 +279,13 @@ function reset(){
 }
 
 // 포인트 값 체인지
+$(document).ready(function(){
 $("#point").on("change keyup paste", function() {
 	var val = $("#point").val();
 	var valInt = parseInt($("#point").val());
-	var goodsprice = $("#goodsprice").val();
+	var prdctPrice = $("#prdctPrice").val();
 	
-	if(valInt>goodsprice){
+	if(valInt>prdctPrice){
 		 alert("포인트 사용액이 상품금액보다 큽니다.");
 	     $("#point").val('');
 	     $('#payPoint').val('0');
@@ -292,15 +298,15 @@ $("#point").on("change keyup paste", function() {
         $('#payPoint').val('0');
 		 $('#payPoint1').text('0P');
 		 lastTotal();
-    } else if("${point.sum}"<1000){
+    } else if("${point.mbr_point}"<1000){
 		 alert("1000P 이상 부터 사용가능합니다.");
 		 $("#point").val('');
 		 $('#payPoint').val('0');
 		 $('#payPoint1').text('0P');
 		 lastTotal();
-	} else if(valInt < 1 || valInt > "${point.sum}") {
+	} else if(valInt < 1 || valInt > "${point.mbr_point}") {
 		console.log(val)
-        alert("1~${point.sum} 사이로 사용 가능합니다.");
+        alert("1~${point.mbr_point} 사이로 사용 가능합니다.");
         $("#point").val('');
         $('#payPoint').val('0');
 		 $('#payPoint1').text('0P');
@@ -311,6 +317,7 @@ $("#point").on("change keyup paste", function() {
 		lastTotal();
     }
 })
+});
 
 // 고유값 생성
 function guid() {
@@ -362,7 +369,7 @@ function jusoCallBack(roadFullAddr, zipNo) {
 						</tr>
 					</thead>
 					<tbody id="pay">
-						<input type="hidden" name="prdctSum">
+						<input type="hidden" name="sum">
 						<input type="hidden" name="prdct_name">
 						<input type="hidden" name="order_amount">
 						<input type="hidden" name="prdct_id">
@@ -449,7 +456,7 @@ function jusoCallBack(roadFullAddr, zipNo) {
 						<input type="text" class="form-control" id="point" placeholder="1000포인트 이상부터 사용가능합니다.">
 						<div class="col-sm-4 ">
 							<button onclick="usePoint()">전액사용</button>
-							사용 가능 포인트 ${point.sum}P
+							사용 가능 포인트 ${point.mbr_point}P
 						</div>
 					</div>
 				</div>

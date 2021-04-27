@@ -98,7 +98,9 @@ public class CommonController {
 		// 상품정보 뿌리기
 		log.info("prdct...");
 		mav.addObject("prdct", prdctvo);
-		// mav.addObject("id", commonService.getboardId(board_id));
+
+		// 상품 별점 평균
+		mav.addObject("starAvg", commonService.getStarAvg(p_id));
 
 		// 리뷰 관련
 		log.info("reviewList...");

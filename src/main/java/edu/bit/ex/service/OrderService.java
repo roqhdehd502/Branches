@@ -1,6 +1,7 @@
 package edu.bit.ex.service;
 
 import edu.bit.ex.joinvo.PrdctOrderDetailVO;
+import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.OrderDetailVO;
 import edu.bit.ex.vo.PrdctOrderVO;
 
@@ -18,5 +19,7 @@ public interface OrderService {
 	public void insertOrderDetail(OrderDetailVO odVO);
 
 	public int getPrdctPrice(String prdct_id);
+
+	public MbrVO getPoint(String mbr_id);
 
 }

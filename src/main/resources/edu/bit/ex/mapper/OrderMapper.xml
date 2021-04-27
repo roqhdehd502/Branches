@@ -40,6 +40,12 @@
 			select prdct_price from prdct where prdct_id= #{prdct_id}
 		]]>
 	</select>
+	
+	<select id="getPoint" resultType="edu.bit.ex.vo.MbrVO">
+		<![CDATA[
+		select mbr_point from mbr where mbr_id = #{mbr_id} 
+		]]>
+	</select>
 
 	
 	

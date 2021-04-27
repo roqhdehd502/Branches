@@ -38,6 +38,9 @@ public interface CommonMapper {
 
 	public int getPrdctReviewTotal(PrdReviewCriteria rcri, String p_id);
 
+	// 리뷰 별점 평균
+	public BoardVO getStarAvg(String p_id);
+
 	// 페이징을 적용한 상품 Q&A 게시판 리스트
 	public List<BoardVO> getPrdQnAListWithPaging(PrdQnACriteria cri, String p_id);
 
@@ -87,4 +90,5 @@ public interface CommonMapper {
 	public void addPrdView(String mbr_id, String prdct_id);
 
 	public void setCommentWrite(BoardBoardCommentVO boardBoardCommentVO);
+
 }

@@ -69,6 +69,13 @@ public class CommonServiceImpl implements CommonService {
 		return commonMapper.getPrdctReviewTotal(rcri, p_id);
 	}
 
+	// 리뷰 별점 평균
+	@Override
+	public BoardVO getStarAvg(String p_id) {
+
+		return commonMapper.getStarAvg(p_id);
+	}
+
 	// 페이징을 적용한 상품 Q&A 게시판 리스트
 	@Override
 	public List<BoardVO> getPrdQnAList(PrdQnACriteria cri, String p_id) {
