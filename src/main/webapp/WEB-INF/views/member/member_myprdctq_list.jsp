@@ -199,7 +199,7 @@
 								</c:choose>	
 							</div>
 							<div class="col-md-3" align="center" style="padding-top: 1%; overflow: auto;">
-								<a href="${pageContext.request.contextPath}/member/mypage/myqna/${list.board_id}">${list.board_name}</a>
+								${list.board_name}
 							</div>
 							<div class="col-md-3" align="center" style="padding-top: 1%;">
 								${list.board_date}

@@ -176,7 +176,7 @@ public class MemberController {
 		return mav;
 	}
 
-	// 페이징을 이용한 고객 QnA 마이페이지 리스트 - 누르면 member_myq 로 연결
+	// 페이징을 이용한 고객 QnA 마이페이지 리스트
 	@GetMapping("/mypage/myqna/list")
 	public ModelAndView myqnaList(@AuthenticationPrincipal MemberDetails memberDetails, MyqnaCriteria cri, BoardBoardCommentVO bCommentVO,
 			ModelAndView mav) {
