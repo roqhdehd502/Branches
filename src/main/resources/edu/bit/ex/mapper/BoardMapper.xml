@@ -4,8 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="edu.bit.ex.mapper.BoardMapper">
-	<!-- 페이징을 적용한 공지사항 게시판 리스트 -->
-	<sql id="noticeCriteria">
+	<!-- 게시판 Criteria -->
+	<sql id="boardCriteria">
 		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
 			<foreach item='type' collection="typeArr">
 				<trim prefix="OR">
@@ -21,18 +21,20 @@
 			</foreach>
 		</trim>
 	</sql>
+	
+	<!-- 페이징을 적용한 공지사항 게시판 리스트 -->
 	<select id="getNoticeListWithPaging" resultType="edu.bit.ex.vo.BoardVO">
 		<![CDATA[
 			SELECT board_id, board_name, board_content, mbr_id, board_type_number, board_date, board_hit 
 			FROM ( 
 				SELECT ROWNUM rn, board_id, board_name, board_content, mbr_id, board_type_number, board_date, board_hit 
 				FROM board 
-				WHERE
+				WHERE 
 		]]>	
-		<include refid="noticeCriteria"></include>	
+		<include refid="boardCriteria"></include>	
 		<![CDATA[
-					board_type_number = 1 AND 
-					ROWNUM <= #{pageNum} * #{amount} 
+				      board_type_number = 1 AND 
+				      ROWNUM <= #{pageNum} * #{amount} 
 				ORDER BY board_id DESC, board_date DESC
 				) 
 			WHERE rn > (#{pageNum} -1) * #{amount}
@@ -46,10 +48,10 @@
 			FROM board 
 			WHERE 
 		]]>
-		<include refid="noticeCriteria"></include>
+		<include refid="boardCriteria"></include>
 		<![CDATA[		
-			board_type_number = 1 AND 
-			board_id > 0
+			      board_type_number = 1 AND 
+			      board_id > 0
 		]]>
 	</select>
 	
@@ -61,7 +63,7 @@
 		]]>
 	</insert>
 	
-	<!-- 공지사항 게시글(동적쿼리 적용) -->
+	<!-- 공지사항 게시글 -->
 	<select id="getNoticeContent" resultType="edu.bit.ex.vo.BoardVO">
 		SELECT * 
 		FROM board 
@@ -97,28 +99,38 @@
 			WHERE board_id = #{board_id}
 		]]>
 	</update>
-	
+
 	<!-- 페이징을 적용한 매거진 게시판 리스트 -->
 	<select id="getMagazineListWithPaging" resultType="edu.bit.ex.vo.BoardVO">
 		<![CDATA[
-			SELECT * FROM (
-			     SELECT ROWNUM AS RNUM, A.* FROM ( 
-			        		SELECT board_id, board_name, board_date, board_like, board_hit, board_thumbnail 
-							FROM board 
-							WHERE board_type_number = 2  
-							ORDER BY board_id DESC, board_date DESC 
-			    ) A WHERE ROWNUM <= #{pageNum} * #{amount} 
-			) WHERE RNUM > (#{pageNum}-1) * #{amount}
-		]]> 
-	</select>
+			SELECT board_id, board_name, board_content, mbr_id, board_type_number, board_date, board_hit, board_thumbnail 
+			FROM ( 
+				SELECT ROWNUM rn, board_id, board_name, board_content, mbr_id, board_type_number, board_date, board_hit, board_thumbnail 
+				FROM board 
+				WHERE 
+		]]>	
+		<include refid="boardCriteria"></include>	
+		<![CDATA[
+				      board_type_number = 2 AND 
+				      ROWNUM <= #{pageNum} * #{amount} 
+				ORDER BY board_id DESC, board_date DESC
+				) 
+			WHERE rn > (#{pageNum} -1) * #{amount}
+		]]>
+	</select>		
 	
 	<!-- 페이징 단위에 적용되는 최대 매거진 게시글 단위 -->
 	<select id="getMagazineTotalCount" resultType="int">
 		<![CDATA[
 			SELECT COUNT(*) 
 			FROM board 
-			WHERE board_type_number = 2
-		]]>	
+			WHERE 
+		]]>
+		<include refid="boardCriteria"></include>
+		<![CDATA[		
+			      board_type_number = 2 AND 
+			      board_id > 0
+		]]>
 	</select>
 	
 	<!-- 매거진 작성 -->
@@ -129,7 +141,7 @@
 		]]>
 	</insert> 
 	
-	<!-- 매거진 게시글(동적쿼리 적용) -->
+	<!-- 매거진 게시글 -->
 	<select id="getMagazineContent" resultType="edu.bit.ex.vo.BoardVO">
 		SELECT * 
 		FROM board 

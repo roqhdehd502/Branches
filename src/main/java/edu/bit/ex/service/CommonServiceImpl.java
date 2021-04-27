@@ -136,11 +136,8 @@ public class CommonServiceImpl implements CommonService {
 		return commonMapper.getPrdctBoard(p_id);
 	}
 
-	/*
-	 * @Override public String getCategoryName(int category_number) { return commonMapper.getCategoryName(category_number); }
-	 */
 	@Override
-	public CategoryVO getCategoryName(int category_number) {
+	public String getCategoryName(int category_number) {
 		return commonMapper.getCategoryName(category_number);
 	}
 

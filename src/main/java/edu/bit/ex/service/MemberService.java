@@ -59,7 +59,7 @@ public interface MemberService {
 	public int getMyqnaTotal(MyqnaCriteria cri);
 
 	// 작성한 고객 Q&A 응답여부 받아오기
-	public BoardBoardCommentVO getMyqCmntStat(int board_id);
+	public BoardCommentVO getMyqCmntStat(int board_id);
 
 	// 고객 Q&A 작성페이지 문의 유형 받아오기
 	public List<InquiryVO> getMyqInquiry();

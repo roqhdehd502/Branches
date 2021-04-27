@@ -123,6 +123,26 @@
 					</c:choose>
 				</ul>
 			</div>
+			
+			<br style="margin: 15px 15px 40px 15px;">
+			
+			<!-- 검색 -->
+			<div align="center">
+				<div class="form-inline justify-content-center">
+					<form id="searchForm" action="${pageContext.request.contextPath}/board/magazine" method="get">
+						<select class="custom-select" name="type">
+							<option value="" <c:out value="${pageMaker.cri.type == null ? 'selected' : ''}"/>>전체보기</option>
+							<option value="T" <c:out value="${pageMaker.cri.type == 'T' ? 'selected' : ''}"/>>제목</option>
+							<option value="C" <c:out value="${pageMaker.cri.type == 'C' ? 'selected' : ''}"/>>내용</option>
+							<option value="TC" <c:out value="${pageMaker.cri.type == 'TC' ? 'selected' : ''}"/>>제목or내용</option>
+						</select>
+						<input class="form-control" type="text" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>' placeholder="검색어를 입력하세요">
+						<input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum}"/>'>
+						<input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}"/>'>
+						<button type="submit" class="btn btn-primary">검색</button>
+					</form>
+				</div>
+			</div>
 		</div>
 
 		<hr>

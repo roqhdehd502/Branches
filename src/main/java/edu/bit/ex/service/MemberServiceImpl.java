@@ -122,7 +122,7 @@ public class MemberServiceImpl implements MemberService {
 
 	// 작성한 고객 Q&A 응답여부 받아오기
 	@Override
-	public BoardBoardCommentVO getMyqCmntStat(int board_id) {
+	public BoardCommentVO getMyqCmntStat(int board_id) {
 		log.info("getMyqCmntStat()......");
 		return memberMapper.getMyqCmntStat(board_id);
 	}

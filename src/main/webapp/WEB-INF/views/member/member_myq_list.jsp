@@ -150,6 +150,7 @@
 								${myq_list.board_date}
 							</div>
 							<div class="col-md-3" align="center" style="padding-top: 1%;">
+								<%-- ${myq_list.comment_id ne null ? '답변완료' : '답변대기'} --%>
 								${myq_cmnt_stat.comment_count > 0 ? '답변완료' : '답변대기'}
 							</div>
 						</div>
@@ -188,7 +189,7 @@
 				</div>
 				<hr>
 			</div>
-		</div>
+		<!-- </div> -->
 		<hr>
 
 		<!-- footer -->
@@ -204,5 +205,6 @@
 		<script src="/assets/js/vendor/loopcounter.js"></script>
 		<script src="/assets/js/vendor/slicknav.min.js"></script>
 		<script src="/assets/js/active.js"></script>
+		</div>
 </body>
 </html>

@@ -112,13 +112,13 @@
 	</select>
 	
 	<!-- 상품 내용 불러오기 -->
-	<select id="getPrdctBoard" resultType="edu.bit.ex.joinvo.PrdctRegisterImageVO" >
+	<select id="getPrdctBoard" resultType="edu.bit.ex.joinvo.PrdctRegisterImageVO" > <!-- select * from prdct p, board b where p.prdct_id=#{p_id} and p.prdct_id=b.prdct_id and b.board_type_number=6 -->
 		<![CDATA[			
-			select * from prdct p, board b where p.prdct_id=#{p_id} and p.prdct_id=b.prdct_id and b.board_type_number=6
+			SELECT * FROM prdct p, board b, category c WHERE p.category_number = c.category_number AND p.prdct_id = #{p_id} AND p.prdct_id = b.prdct_id AND b.board_type_number = 6
 		]]>
 	</select>
 	
-	<select id="getCategoryName" resultType="edu.bit.ex.vo.CategoryVO"> <!-- resultType="String" -->
+	<select id="getCategoryName" resultType="String"> <!-- resultType="edu.bit.ex.vo.CategoryVO" -->
 		<![CDATA[			
 			select category_name from category where category_number=#{category_number}
 		]]>

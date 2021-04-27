@@ -167,7 +167,7 @@
 									</c:when>
 									<c:when test="${order.order_state_number eq 7}">
 										<h4>주문확정</h4>
-										<button type="button" class="btn btn-primary btn" onclick="location.href='${pageContext.request.contextPath}/'">리뷰쓰기</button>&nbsp;
+										<button type="button" class="btn btn-primary btn" onclick="window.location.href='${pageContext.request.contextPath}/member/mypage/review/${order.prdct_id}/write'">리뷰쓰기</button>&nbsp;
 										<button type="button" class="btn btn-danger btn" onclick="location.href='${pageContext.request.contextPath}/'">교환요청</button><br>
 										<button type="button" class="btn btn-danger btn" onclick="location.href='${pageContext.request.contextPath}/'">환불요청</button>
 									</c:when>
@@ -249,6 +249,9 @@
 				</div>	
 				</div>
 			</div>
+			
+			<hr style="padding: 15px 0px 15px 0px;">
+			
 			<!-- footer -->
 		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
 		</div>

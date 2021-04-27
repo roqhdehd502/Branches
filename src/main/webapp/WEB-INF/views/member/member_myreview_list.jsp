@@ -113,7 +113,7 @@
 				</div>
 
 
-				<div class="col-md-9 contact-info">
+				<div class="col-md-9 contact-info" style="border-left: 1px solid rgba(0, 0, 0, .1);">
 					<h3>
 						<strong>내가 쓴 구매후기</strong>
 					</h3>
