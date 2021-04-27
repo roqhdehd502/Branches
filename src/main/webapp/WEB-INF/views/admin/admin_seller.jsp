@@ -42,6 +42,10 @@ $(document).ready(function(){
         console.log(mbr_id);
         console.log($(this).attr("action"));
         
+        // csrf
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		
         var form = {
         		mbr_id: mbr_id,
         		mbr_pw: mbr_pw,
@@ -56,7 +60,10 @@ $(document).ready(function(){
 		    url : $(this).attr("action"),
 		    cache : false,
 		    contentType:'application/json; charset=utf-8',
-			    data: JSON.stringify(form), 
+			data: JSON.stringify(form), 
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+			},
 		    success: function (result) {       
 				if(result == "SUCCESS"){
 					//list로 
@@ -138,7 +145,7 @@ $(document).ready(function(){
 							<a href="${pageContext.request.contextPath}/admin/mypage/member">회원정보 조회</a>
 						</h5>
 						<h5>
-							<a href="${pageContext.request.contextPath}/admin/mypage/member/adminQnA">고객Q&A 목록</a>
+							<a href="${pageContext.request.contextPath}/admin/mypage/member/userQnA">고객Q&A 목록</a>
 						</h5>
 					</div>
 					<br />
@@ -160,6 +167,7 @@ $(document).ready(function(){
 					</h3>
 					<hr>
 					<form action="${pageContext.request.contextPath}/admin/mypage/seller/${mbr.mbr_id}" method="post" id="updateForm">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<input type="hidden" id="mbr_id" value="${mbr.mbr_id}">
 						<fieldset>
 							<div class="form-group row">

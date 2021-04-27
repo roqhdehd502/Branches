@@ -6,7 +6,7 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>관리자 마이페이지</title>
+<title>회원목록 조회</title>
 
 <!-- Required CSS files -->
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
 <link rel="stylesheet" href="/assets/css/slicknav.css">
 <link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/bootstrap.min.css">
+<link rel="stylesheet" href="/bootstrap.min.css"> 
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -26,79 +26,55 @@
 			<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 		</header>
 
-		<div class="container">
-			<div class="row">
-				<div class="col-md-2 contact-info" align="center">
-					<div class="single-info" style="margin-bottom: 40px;">
-						<h3>업체관리</h3>
-						<hr>
-						<h5>
-							<a href="${pageContext.request.contextPath}/admin/mypage/regist/seller">업체등록</a>
-						</h5>
-						<h5>
-							<a href="${pageContext.request.contextPath}/admin/mypage/seller">업체목록 조회</a>
-						</h5>
-					</div>
-					<br />
-					<div class="single-info" style="margin-bottom: 40px">
-						<h3>회원관리</h3>
-						<hr>
-						<h5>
-							<a href="${pageContext.request.contextPath}/admin/mypage/member">회원정보 조회</a>
-						</h5>
-						<h5>
-							<a href="${pageContext.request.contextPath}/admin/mypage/member/adminQnA">고객Q&A 목록</a>
-						</h5>
-					</div>
-					<br />
-					<div class="single-info" style="margin-bottom: 40px">
-						<h3>매출관리</h3>
-						<hr>
-						<h5>
-							<a href="${pageContext.request.contextPath}/admin/mypage/admintotal">매출조회</a>
-						</h5>
-						<h5>
-							<a href="${pageContext.request.contextPath}/admin/mypage/adminSearchtotal">검색순위 조회</a>
-						</h5>
-					</div>
-				</div>
-				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">
-					<h3 style="margin-top: 18px; margin-left: 15px; padding-bottom: 16px;">
-						<strong style="margin: 10px;">Q & A</strong>
-					</h3>
-					<table class="table" style="text-align: center;">
-						<thead>
-							<tr>
-								<th><h5>No.</h5></th>
-								<th><h5>제목</h5></th>
-								<th><h5>작성자</h5></th>
-								<th><h5>문의유형</h5></th>
-								<th><h5>상품명</h5></th>
-								<th><h5>일자</h5></th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${ board}" var="board" varStatus="status">
-								<tr>
-									<td>
-										<h6>${board.board_id }</h6>
-									</td>
-									<td><h6>
-											<a href="#">${board.board_name }</a>
-										</h6></td>
-									<td><h6>${board.mbr_id }</h6></td>
-									<td><h6>${board.inquiry_number }</h6></td>
-									<td><h6>${prdct[status.index].prdct_name }</h6></td>
-									<td><h6>${board.board_date }</h6></td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</span>
-			</div>
+		<hr style="margin: 15px 15px 40px 15px;">
+
+		<div class="container" style="text-align: center; margin: 25px;">
+			<h3>
+			<strong>관리자 페이지</strong>
+			</h3>
 		</div>
 
+		<hr style="margin: 15px 15px 40px 15px;">
+		
+		
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 contact-info" align="center">
+					<div class="single-info" style="margin-bottom: 40px;">
+	                    <h3>업체관리</h3><hr>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/regist/seller">업체등록</a></h5>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/seller">업체목록 조회</a></h5>
+	                </div><br/>
+	                <div class="single-info" style="margin-bottom: 40px">
+	                    <h3>회원관리</h3><hr>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/member">회원정보 조회</a></h5>
+	               		 <h5><a href="${pageContext.request.contextPath}/admin/mypage/member/userQnA">고객Q&A 목록</a></h5>
+	                </div><br/>
+	                <div class="single-info" style="margin-bottom: 40px">
+	                    <h3>매출관리</h3><hr>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/admintotal">매출조회</a></h5>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/adminSearchtotal">검색순위 조회</a></h5>
+	                </div>
+				</div>
+				
+				<div class="col-md-9 contact-info">
+					<h3 >
+					<strong>${mbr.mbr_id} / ${mbr.mbr_id} 주문 목록</strong>
+					</h3><hr>
+					
+					<table class="n-table table-col" style="width: 100%; border-collapse: separate; border-spacing: 0 10px;">
+						<h3>아직 주문 내역이 없습니다</h3>
+					</table>
+					<br/>
+					<hr>
+					
+					
+				</div>
+			</div>
+		</div>
 		<hr>
+		
+		
 		<!-- footer -->
 		<footer>
 		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
@@ -122,7 +98,10 @@
 		<script src="/assets/js/vendor/loopcounter.js"></script>
 		<script src="/assets/js/vendor/slicknav.min.js"></script>
 		<script src="/assets/js/active.js"></script>
-
+		
+		
 	</div>
+</body>
+</html>
 </body>
 </html>

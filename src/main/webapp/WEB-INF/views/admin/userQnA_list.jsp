@@ -26,8 +26,19 @@
 			<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 		</header>
 
+		<hr style="margin: 15px 15px 40px 15px;">
+
+		<div class="container" style="text-align: center; margin: 25px;">
+			<h3>
+			<strong>관리자 페이지</strong>
+			</h3>
+		</div>
+
+		<hr style="margin: 15px 15px 40px 15px;">
+		
+		
 		<div class="container">
-			<div class="row">
+			<div class="row" style="900px;">
 				<div class="col-md-3 contact-info" align="center">
 					<div class="single-info" style="margin-bottom: 40px;">
 	                    <h3>업체관리</h3><hr>
@@ -45,72 +56,75 @@
 	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/adminSearchtotal">검색순위 조회</a></h5>
 	                </div>
 				</div>
-				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">
-					<h3 style="margin-top: 25px; margin-left: 15px;">
-						<strong style="margin: 10px;">매출조회</strong>
-						<hr>
-					</h3>
-
-					<div class="container">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="faq">
-									<span class="single-item">
-										<h4 style="color: black; margin-left: 46px;">일간</h4>
-										<div class="content"></div>
-									</span> <span class="single-item">
-										<h4 style="color: black; margin-left: 46px;">주간</h4>
-										<div class="content"></div>
-									</span> <span class="single-item">
-										<h4 style="color: black; margin-left: 46px;">월간</h4>
-										<div class="content"></div>
-									</span> <span class="single-item">
-										<h4 style="color: black; margin-left: 46px;">연간</h4>
-										<div class="content"></div>
-									</span> <span class="single-item">
-										<h4 style="color: black; margin-left: 46px;">전체</h4>
-										<div class="content"></div>
-									</span>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<hr style="margin-top: 1px;">
-					<h3 style="margin-top: 25px; margin-left: 15px;">
-						<strong style="margin: 10px;">검색어 순위 조회</strong>
-						<hr>
-					</h3>
-					<div style="margin-bottom: 20px;">
-						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">ㄱㄴㄷ순</button></span> <span style="margin-left: 30px;"><button
-								class="btn btn-primary btn-sm">abc순</button></span> <span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">매출순</button></span> <span
-							style="margin-left: 30px;"><button class="btn btn-primary btn-sm">최근등록순</button></span>
-					</div>
-					<table class="table">
+				
+				<div class="col-md-9 contact-info">
+					<h3 >
+					<strong>고객 Q&A</strong>
+					</h3><hr>
+					
+					<table class="table" class="n-table table-col" style="width: 100%; border-collapse: separate; border-spacing: 0 10px;">
+						<colgroup>
+							<col style="width: 20%">
+							<col style="width: 25%">
+							<col style="width: 20%">
+							<col style="width: 15%">
+							<col style="width: 20%">
+						</colgroup>
 						<thead>
-							<tr>
-								<th><h5>순위</h5></th>
-								<th><h5>상품명</h5></th>
-								<th><h5>등록일</h5></th>
-								<th><h5>가격</h5></th>
+							<tr style="text-align: center; border-bottom: 1px solid #444444;">
+								<th scope="col"><h5>No.</h5></th>
+								<th scope="col"><h5>제목</h5></th>
+								<th scope="col"><h5>작성자</h5></th>
+								<th scope="col"><h5>문의<br/>유형</h5></th>
+								<th scope="col"><h5>작성일자</h5></th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${prdct }" var="prdct" varStatus="status" begin="0" end="4">
-								<tr>
-									<td><h5>1</h5></td>
-									<td><h5>${prdct.prdct_name }</h5></td>
-									<td><h5>${prdOrder[status.index].order_date }</h5></td>
-									<td><h5>${prdct.prdct_price }₩</h5></td>
+							<c:forEach items="${board}" var="board">
+								<tr style="text-align: center;" onClick="location.href='${pageContext.request.contextPath}/admin/mypage/member/userQnA/${board.board_id}'">
+									<td scope="col">${board.board_id }</td>
+									<td scope="col">${board.board_name }</td>
+									<td scope="col">${board.mbr_id }</td>
+									<td scope="col">${board.inquiryVO.inquiry_name}</td>
+									<td scope="col">${board.board_date}</td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
-				</span>
+					<br/>
+					<hr>
+				<!-- 페이징 -->
+			<div class="container">
+				<ul class="pagination justify-content-center">
+					<c:choose>
+						<c:when test="${pageMaker.prev}">
+							<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+						</c:otherwise>
+					</c:choose>
+
+					<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+						<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+						<li class="page-item ${pageMaker.cri.pageNum == idx ? 'active' : '' }"><a class="page-link" href="${pageMaker.makeQuery(idx)}">${idx}</a></li>
+					</c:forEach>
+
+					<c:choose>
+						<c:when test="${pageMaker.next && pageMaker.endPage > 0}">
+							<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+						</c:otherwise>
+					</c:choose>
+				</ul>
+			</div>
+			
 			</div>
 		</div>
+	</div>
 		<hr>
-
 		<!-- footer -->
 		<footer>
 		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>

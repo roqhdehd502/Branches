@@ -38,7 +38,7 @@
 		
 		
 		<div class="container">
-			<div class="row">
+			<div class="row" style="height: 800px;">
 				<div class="col-md-3 contact-info" align="center">
 					<div class="single-info" style="margin-bottom: 40px;">
 	                    <h3>업체관리</h3><hr>
@@ -48,7 +48,7 @@
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>회원관리</h3><hr>
 	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/member">회원정보 조회</a></h5>
-	               		 <h5><a href="${pageContext.request.contextPath}/admin/mypage/member/adminQnA">고객Q&A 목록</a></h5>
+	               		 <h5><a href="${pageContext.request.contextPath}/admin/mypage/member/userQnA">고객Q&A 목록</a></h5>
 	                </div><br/>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>매출관리</h3><hr>
@@ -57,12 +57,12 @@
 	                </div>
 				</div>
 				
-				<div class="col-md-9 contact-info">
+				<div class="col-md-9 contact-info" style="height: 800px;">
 					<h3 >
 					<strong>회원 목록</strong>
 					</h3><hr>
 					
-					<table class="n-table table-col" style="width: 100%; border-collapse: separate; border-spacing: 0 10px;">
+					<table class="n-table table-col" style="width: 100%;border-collapse: separate; border-spacing: 0 10px;">
 						<colgroup>
 							<col style="width: 20%">
 							<col style="width: 20%">
@@ -94,32 +94,33 @@
 					<br/>
 					<hr>
 					
-					<div>
-						<ul class="pagination" >
-							<c:choose>
-								<c:when test="${pageMaker.prev}">
-									<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
-								</c:when>
-								<c:otherwise>
-									<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
-								</c:otherwise>
-							</c:choose>
+					<!-- 페이징 -->
+			<div class="container">
+				<ul class="pagination justify-content-center">
+					<c:choose>
+						<c:when test="${pageMaker.prev}">
+							<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+						</c:otherwise>
+					</c:choose>
 
-							<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
-								<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
-								<li class="page-item ${pageMaker.cri.pageNum == idx ? 'active' : '' }"><a class="page-link" href="${pageMaker.makeQuery(idx)}">${idx}</a></li>
-							</c:forEach>
-							
-							<c:choose>
-							<c:when test="${pageMaker.next && pageMaker.endPage <= 0}">
-								<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
-							</c:when>
-							<c:otherwise>
-								<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
-							</c:otherwise>
-							</c:choose>
-						</ul>
-					</div>
+					<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+						<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+						<li class="page-item ${pageMaker.cri.pageNum == idx ? 'active' : '' }"><a class="page-link" href="${pageMaker.makeQuery(idx)}">${idx}</a></li>
+					</c:forEach>
+
+					<c:choose>
+						<c:when test="${pageMaker.next && pageMaker.endPage > 0}">
+							<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+						</c:otherwise>
+					</c:choose>
+				</ul>
+			</div>
 					
 				</div>
 			</div>
@@ -153,7 +154,5 @@
 		
 		
 	</div>
-</body>
-</html>
 </body>
 </html>

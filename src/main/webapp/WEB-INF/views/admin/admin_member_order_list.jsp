@@ -6,7 +6,7 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>관리자 마이페이지</title>
+<title>회원목록 조회</title>
 
 <!-- Required CSS files -->
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
 <link rel="stylesheet" href="/assets/css/slicknav.css">
 <link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/bootstrap.min.css">
+<link rel="stylesheet" href="/bootstrap.min.css"> 
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -26,6 +26,17 @@
 			<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 		</header>
 
+		<hr style="margin: 15px 15px 40px 15px;">
+
+		<div class="container" style="text-align: center; margin: 25px;" onclick="location.href='${pageContext.request.contextPath}/admin/mypage'">
+			<h3>
+			<strong>관리자 페이지</strong>
+			</h3>
+		</div>
+
+		<hr style="margin: 15px 15px 40px 15px;">
+		
+		
 		<div class="container">
 			<div class="row">
 				<div class="col-md-3 contact-info" align="center">
@@ -45,72 +56,77 @@
 	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/adminSearchtotal">검색순위 조회</a></h5>
 	                </div>
 				</div>
-				<span style="border-left: 1px solid rgba(0, 0, 0, .1); width: 922px;">
-					<h3 style="margin-top: 25px; margin-left: 15px;">
-						<strong style="margin: 10px;">매출조회</strong>
-						<hr>
-					</h3>
-
-					<div class="container">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="faq">
-									<span class="single-item">
-										<h4 style="color: black; margin-left: 46px;">일간</h4>
-										<div class="content"></div>
-									</span> <span class="single-item">
-										<h4 style="color: black; margin-left: 46px;">주간</h4>
-										<div class="content"></div>
-									</span> <span class="single-item">
-										<h4 style="color: black; margin-left: 46px;">월간</h4>
-										<div class="content"></div>
-									</span> <span class="single-item">
-										<h4 style="color: black; margin-left: 46px;">연간</h4>
-										<div class="content"></div>
-									</span> <span class="single-item">
-										<h4 style="color: black; margin-left: 46px;">전체</h4>
-										<div class="content"></div>
-									</span>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<hr style="margin-top: 1px;">
-					<h3 style="margin-top: 25px; margin-left: 15px;">
-						<strong style="margin: 10px;">검색어 순위 조회</strong>
-						<hr>
-					</h3>
-					<div style="margin-bottom: 20px;">
-						<span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">ㄱㄴㄷ순</button></span> <span style="margin-left: 30px;"><button
-								class="btn btn-primary btn-sm">abc순</button></span> <span style="margin-left: 30px;"><button class="btn btn-primary btn-sm">매출순</button></span> <span
-							style="margin-left: 30px;"><button class="btn btn-primary btn-sm">최근등록순</button></span>
-					</div>
-					<table class="table">
+				
+				<div class="col-md-9 contact-info" style="align-content: center;">
+					<h3 >
+					<strong>${mbr.mbr_name} / ${mbr.mbr_id} 주문 목록</strong>
+					</h3><hr>
+					
+					<table class="n-table table-col" style="width: 100%; border-collapse: separate; border-spacing: 0 10px;">
+						<colgroup>
+							<col style="width: 20%">
+							<col style="width: 20%">
+							<col style="width: 20%">
+							<col style="width: 20%">
+							<col style="width: 20%">
+						</colgroup>
 						<thead>
-							<tr>
-								<th><h5>순위</h5></th>
-								<th><h5>상품명</h5></th>
-								<th><h5>등록일</h5></th>
-								<th><h5>가격</h5></th>
+							<tr style="text-align: center; border-bottom: 1px solid #444444;">
+								<th scope="col"><h5><strong>주문번호</strong></h5></th>
+								<th scope="col"><h5><strong>주문금액</strong></h5></th>
+								<th scope="col"><h5><strong>주문날짜</strong></h5></th>
+								<th scope="col"><h5><strong>주문상태</strong></h5></th>
+								<th scope="col"><h5><strong>상세내역</strong></h5></th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${prdct }" var="prdct" varStatus="status" begin="0" end="4">
-								<tr>
-									<td><h5>1</h5></td>
-									<td><h5>${prdct.prdct_name }</h5></td>
-									<td><h5>${prdOrder[status.index].order_date }</h5></td>
-									<td><h5>${prdct.prdct_price }₩</h5></td>
-								</tr>
+							<c:forEach items="${order}" var="order">
+							<tr style="text-align: center;">
+								<td scope="col" >${order.order_number}</td>
+								<td scope="col" >${order.order_price}</td>
+								<td scope="col">${order.order_date}</td>
+								<td scope="col">${order.order_state_name}</td>
+								<td scope="col" onclick="event.cancelBubble=true" ><button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/admin/mypage/member/${mbr.mbr_id}/order/${order.order_number}'">조회</button></td>
+							</tr>
 							</c:forEach>
 						</tbody>
 					</table>
-				</span>
+					<br/>
+					<hr>
+					
+					<div>
+						<ul class="pagination" >
+							<c:choose>
+								<c:when test="${pageMaker.prev}">
+									<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+								</c:otherwise>
+							</c:choose>
+
+							<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+								<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+								<li class="page-item ${pageMaker.cri.pageNum == idx ? 'active' : '' }"><a class="page-link" href="${pageMaker.makeQuery(idx)}">${idx}</a></li>
+							</c:forEach>
+							
+							<c:choose>
+							<c:when test="${pageMaker.next && pageMaker.endPage <= 0}">
+								<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+							</c:otherwise>
+							</c:choose>
+						</ul>
+					</div>
+					<input type="button" class="btn btn-primary" value="회원목록" onclick="location.href='${pageContext.request.contextPath}/admin/mypage/member'" />
+				</div>
 			</div>
 		</div>
 		<hr>
-
+		
+		
 		<!-- footer -->
 		<footer>
 		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
@@ -134,7 +150,10 @@
 		<script src="/assets/js/vendor/loopcounter.js"></script>
 		<script src="/assets/js/vendor/slicknav.min.js"></script>
 		<script src="/assets/js/active.js"></script>
-
+		
+		
 	</div>
+</body>
+</html>
 </body>
 </html>

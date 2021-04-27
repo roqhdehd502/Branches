@@ -46,6 +46,9 @@ public class BoardVO { // 게시판
 	private int board_starrate; // 게시글별점수
 	private String board_thumbnail; // 게시글썸네일
 
+	private PrdctVO prdctVO; // 상품
+	private InquiryVO inquiryVO; // 문의유형
+
 	private MultipartFile[] uploadfiles; // 파일 업로드
 	private String onedeletefiles; // 이미지만 삭제
 	private String deletefiles; // 게시글과 이미지 삭제

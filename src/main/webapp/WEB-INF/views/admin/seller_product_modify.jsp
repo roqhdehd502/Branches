@@ -133,6 +133,9 @@ $(document).ready(function(){
     		contentType: false, 
 			data: formData, 
 			timeout: 600000,
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+			},
 		    success: function (result) {       
 				if(result == "SUCCESS"){
 					if (confirm("정말 수정하시겠습니까??") == true) { //확인
@@ -227,32 +230,21 @@ $(document).ready(function(){
 
 		<div class="container">
 			<div class="row">
-				<div class="col-md-2 contact-info" align="center">
-					<div class="single-info" style="margin-bottom: 40px">
-	                    <h3>마이페이지</h3><hr>
-	                    <h5><a href="/seller/mypage">홈 바로가기</a></h5>
-	                </div>
-					<div class="single-info" style="margin-bottom: 40px">
-	                    <h3>주문 관리</h3><hr>
-	                    <h5><a href="/seller/mypage/order">주문확인</a></h5>
-	                    <h5><a href="/seller/mypage/release">발송확인</a></h5>
-	                    <h5><a href="/seller/mypage/cancel">취소</a></h5>
-	                    <h5><a href="/seller/mypage/exchange">교환</a></h5>
-	                    <h5><a href="/seller/mypage/refund">환불</a></h5>
-	                </div>
+				<div class="col-md-3 contact-info" align="center">
+					<div class="single-info" style="margin-bottom: 40px;">
+	                    <h3>업체관리</h3><hr>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/regist/seller">업체등록</a></h5>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/seller">업체목록 조회</a></h5>
+	                </div><br/>
 	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>상품 관리</h3><hr>
-	                    <h5><a href="/seller/mypage/prdct_register">등록</a></h5>
-	                    <h5><a href="/seller/mypage/prdct">조회</a></h5>
-	                </div>
+	                    <h3>회원관리</h3><hr>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/member">회원정보 조회</a></h5>
+	               		 <h5><a href="${pageContext.request.contextPath}/admin/mypage/member/userQnA">고객Q&A 목록</a></h5>
+	                </div><br/>
 	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>회원 관리</h3><hr>
-	                    <h5><a href="/seller/mypage/prdctqna">Q&A</a></h5>
-	                    <h5><a href="/seller/mypage/review">리뷰</a></h5>
-	                </div>
-	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>매출 관리</h3><hr>
-	                    <h5><a href="/seller/mypage/sales">매출</a></h5>
+	                    <h3>매출관리</h3><hr>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/admintotal">매출조회</a></h5>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/adminSearchtotal">검색순위 조회</a></h5>
 	                </div>
 				</div>
 					
