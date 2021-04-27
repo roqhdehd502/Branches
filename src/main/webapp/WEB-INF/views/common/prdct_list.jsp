@@ -39,7 +39,7 @@
 						<div class="col-sm-2 col-md-2 col-lg-2 single-team">
 						<div class="inner">
 							<div class="team-img">
-								<img src="/ksp/th-ex.jpg" alt="Member Photo">
+								<img src="/prdct_img/prdct_thumbnail/${prdct.prdct_thumbnail}" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" alt="Member Photo">
 							</div>
 							<div class="team-content">
 								<h5>${prdct.prdct_name}</h5>

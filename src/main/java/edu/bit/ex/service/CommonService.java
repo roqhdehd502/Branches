@@ -60,7 +60,8 @@ public interface CommonService {
 
 	public PrdctRegisterImageVO getPrdctBoard(String p_id);
 
-	public String getCategoryName(int category_number);
+	// public String getCategoryName(int category_number);
+	public CategoryVO getCategoryName(int category_number);
 
 	public int getPrdctReviewTotal(PrdReviewCriteria rcri, String p_id);
 

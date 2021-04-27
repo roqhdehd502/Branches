@@ -64,7 +64,8 @@ public interface CommonMapper {
 
 	public PrdctRegisterImageVO getPrdctBoard(String p_id);
 
-	public String getCategoryName(int category_number);
+	/* public String getCategoryName(int category_number); */
+	public CategoryVO getCategoryName(int category_number);
 
 	// 상품 상세 페이지 찜하기
 	public void setPrdctLike(PrdctLikeVO prdctLikeVO);

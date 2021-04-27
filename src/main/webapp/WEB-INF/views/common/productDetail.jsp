@@ -174,7 +174,7 @@ img {
 					contentType : 'application/json; charset=utf-8', 
 					beforeSend : function(xhr) {
 						xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
-	             	}, 
+	             	},  
 					success : function(result) {
 						console.log(result);
 						if (result == "SUCCESS") {
@@ -376,7 +376,7 @@ img {
 						<div style="float: left; margin-right: 20px; margin-left: 50px;">
 							<div class="container" style="margin-top: 50px; margin-bottom: 50px; margin-right: 50px; ">
 								<div style="height: 100%; align-content: center;">
-								<img src="${prdct.prdct_thumbnail}" style="width: 500px; height: 500px;"></img>
+								<img src="/prdct_img/prdct_thumbnail/${prdct.prdct_thumbnail}" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 500px; height: 500px;"></img>
 								
 								<input type="hidden" name="prdct_thumbnail" id="prdct_thumbnail" value="${prdct.prdct_thumbnail}"/>
 								</div>
@@ -502,8 +502,8 @@ img {
 							<div class="row">
 								<div class="col-md-12 single-gallery">
 									<div class="inner">
-										<div style="padding-top: 7px; text-align: center;">
-											 <img src="<c:url value="/prdct_img/${prdDetailimg.image_name}"/>"> 
+										<div style="padding-top: 7px; text-align: center;"><%-- ${prdDetailimg.image_name} --%>
+											 <img src="<c:url value="/prdct_img/prdct_thumbnail/${prdct.prdct_thumbnail}"/>" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'"> 
 											 ${prdct.board_content} 
 											${prdct.board_content }
 										</div>
@@ -550,58 +550,58 @@ img {
 							<div class="swiper-container">
 								<div class="swiper-wrapper">
 									<div class="swiper-slide">
-										<img src="/hs/1.jpg" style="width: 200px; height: 200px;">
+										<img src="/hs/1.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
 									</div>
 									<div class="swiper-slide">
-										<img src="/hs/2.jpg" style="width: 200px; height: 200px;">
+										<img src="/hs/2.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
 									</div>
 									<div class="swiper-slide">
-										<img src="/hs/3.jpg" style="width: 200px; height: 200px;">
+										<img src="/hs/3.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
 									</div>
 									<div class="swiper-slide">
-										<img src="/hs/4.jpg" style="width: 200px; height: 200px;">
+										<img src="/hs/4.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
 									</div>
 									<div class="swiper-slide">
-										<img src="/hs/5.jpg" style="width: 200px; height: 200px;">
+										<img src="/hs/5.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
 									</div>
 									<div class="swiper-slide">
-										<img src="/hs/6.jpg" style="width: 200px; height: 200px;">
+										<img src="/hs/6.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
 									</div>
 									<div class="swiper-slide">
-										<img src="/hs/7.jpg" style="width: 200px; height: 200px;">
+										<img src="/hs/7.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
 									</div>
 									<div class="swiper-slide">
-										<img src="/hs/8.jpg" style="width: 200px; height: 200px;">
+										<img src="/hs/8.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
 									</div>
 									<div class="swiper-slide">
-										<img src="/hs/9.jpg" style="width: 200px; height: 200px;">
+										<img src="/hs/9.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
 									</div>
 									<div class="swiper-slide">
-										<img src="/hs/1.jpg" style="width: 200px; height: 200px;">
+										<img src="/hs/1.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
 									</div>
 									<div class="swiper-slide">
-										<img src="/hs/2.jpg" style="width: 200px; height: 200px;">
+										<img src="/hs/2.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
 									</div>
 									<div class="swiper-slide">
-										<img src="/hs/3.jpg" style="width: 200px; height: 200px;">
+										<img src="/hs/3.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
 									</div>
 									<div class="swiper-slide">
-										<img src="/hs/4.jpg" style="width: 200px; height: 200px;">
+										<img src="/hs/4.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
 									</div>
 									<div class="swiper-slide">
-										<img src="/hs/5.jpg" style="width: 200px; height: 200px;">
+										<img src="/hs/5.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
 									</div>
 									<div class="swiper-slide">
-										<img src="/hs/6.jpg" style="width: 200px; height: 200px;">
+										<img src="/hs/6.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
 									</div>
 									<div class="swiper-slide">
-										<img src="/hs/7.jpg" style="width: 200px; height: 200px;">
+										<img src="/hs/7.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
 									</div>
 									<div class="swiper-slide">
-										<img src="/hs/8.jpg" style="width: 200px; height: 200px;">
+										<img src="/hs/8.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
 									</div>
 									<div class="swiper-slide">
-										<img src="/hs/9.jpg" style="width: 200px; height: 200px;">
+										<img src="/hs/9.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 200px; height: 200px;">
 									</div>
 
 								</div>
@@ -707,7 +707,7 @@ img {
 													<div class="modal-body">
 														<!-- 모달 리뷰 컨텐츠 내용 -->
 														<div style="float: left; margin-left: 10px; margin-right: 50px;">
-															<img class="popup_img" style="width: 300px; height: 300px; object-fit: cover;" src="/ej/view.staff_605be555e83ad.jpg">
+															<img class="popup_img" style="width: 300px; height: 300px; object-fit: cover;" src="/ej/view.staff_605be555e83ad.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'">
 														</div>
 														<div class="container" style="width: 100%; height: 50%;">
 															<div class="row">

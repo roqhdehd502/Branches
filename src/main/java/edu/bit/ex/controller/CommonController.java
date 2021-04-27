@@ -35,6 +35,7 @@ import edu.bit.ex.page.PrdctListPageVO;
 import edu.bit.ex.service.CommonService;
 import edu.bit.ex.service.SecurityService;
 import edu.bit.ex.vo.BoardCommentVO;
+import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctLikeVO;
 import edu.bit.ex.vo.PrdctVO;
@@ -49,6 +50,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CommonController {
 	@Autowired
 	private SecurityService securityService;
+	@Autowired
 	private CommonService commonService;
 
 	// 메인 페이지
@@ -75,7 +77,18 @@ public class CommonController {
 	// 상품 상세페이지
 	@RequestMapping(value = "/prdct/{prdct_id}", method = { RequestMethod.GET })
 	public ModelAndView productDetail(@PathVariable("prdct_id") String p_id, @AuthenticationPrincipal MemberDetails memberDetails,
-			PrdReviewCriteria rcri, PrdQnACriteria qacri, PrdctLikeVO prdctLikeVO, ModelAndView mav, HttpServletRequest request) throws Exception {
+			PrdReviewCriteria rcri, PrdQnACriteria qacri, PrdctLikeVO prdctLikeVO, CategoryVO categoryVO, ModelAndView mav,
+			HttpServletRequest request) throws Exception {
+		log.info("productDetail...");
+		mav.setViewName("common/productDetail");
+
+		// 상품 정보
+		PrdctRegisterImageVO prdctvo = commonService.getPrdctBoard(p_id);
+		CategoryVO category = commonService.getCategoryName(categoryVO.getCategory_number());
+		// prdctvo.setCategory_name(commonService.getCategoryName(prdctvo.getCategory_number()));
+		// prdctvo.setCategory_name(category.getCategory_name());
+		log.info("prdctvo: " + prdctvo);
+
 		// MemberDetails이 null일 때 ModelAndView에 addObject를 하면 예외처리가 된다
 		// 따라서 null일 때(로그인 상태가 아닐때) 해당 정보를 addObject 하지 않고 페이지를 출력한다
 		if (memberDetails != null) {
@@ -85,18 +98,13 @@ public class CommonController {
 			mav.addObject("mbr", getMbr);
 		}
 
-		PrdctRegisterImageVO prdctvo = commonService.getPrdctBoard(p_id);
-		prdctvo.setCategory_name(commonService.getCategoryName(prdctvo.getCategory_number()));
-		log.info("product..");
-		// 상품 정보
-		mav.setViewName("common/productDetail");
-
 		// 상품정보 뿌리기
+		log.info("prdct...");
 		mav.addObject("prdct", prdctvo);
 		// mav.addObject("id", commonService.getboardId(board_id));
 
 		// 리뷰 관련
-		log.info("reviewList..");
+		log.info("reviewList...");
 		mav.addObject("reviewList", commonService.getReviewList(rcri, p_id));
 		int r_total = commonService.getPrdctReviewTotal(rcri, p_id);
 		mav.addObject("PageMaker", new PrdReviewPageVO(rcri, r_total));
@@ -105,12 +113,17 @@ public class CommonController {
 		log.info("prdQnAList...");
 		mav.addObject("prdQnAList", commonService.getPrdQnAList(qacri, p_id));
 		int total = commonService.getPrdQnATotal(qacri);
-		log.info("total" + total);
+		log.info("total: " + total);
 		mav.addObject("pageMaker", new PrdQnAPageVO(qacri, total));
 
 		// 해당 상품 찜 여부 확인용 데이터 가져오기
-		log.info("prdLike...");
+		log.info("prdLikeVal...");
 		mav.addObject("prdLikeVal", commonService.getPrdLikeVal(p_id));
+
+		HttpSession session = request.getSession();
+		// 세션에 현재 상품 정보 저장하기(최근 본 상품)
+		log.info("HttpSession: " + session);
+		session.setAttribute(prdctvo.getPrdct_id(), prdctvo);
 
 		// 상품 조회
 		if (memberDetails != null) {
@@ -126,10 +139,6 @@ public class CommonController {
 				commonService.addPrdView(getMbr.getMbr_id(), p_id);
 			}
 		}
-
-		HttpSession session = request.getSession();
-		// 세션에 현재 상품 정보 저장하기(최근 본 상품)
-		session.setAttribute(prdctvo.getPrdct_id(), prdctvo);
 
 		return mav;
 	}
@@ -154,10 +163,11 @@ public class CommonController {
 	// 상품 상세페이지 찜하기 기능
 	@Transactional(rollbackFor = Exception.class)
 	@PostMapping("/prdct/{prdct_id}")
-	public ResponseEntity<String> prdctLike(@RequestBody PrdctLikeVO prdctLikeVO) {
+	public ResponseEntity<String> prdctLike(@RequestBody PrdctLikeVO prdctLikeVO, PrdctVO prdctVO) {
 		ResponseEntity<String> entity = null;
 
 		log.info("prdctLike...");
+
 		try {
 			commonService.setPrdctLike(prdctLikeVO);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
@@ -172,10 +182,11 @@ public class CommonController {
 	// 상품 상세페이지 찜취소 기능
 	@Transactional(rollbackFor = Exception.class)
 	@DeleteMapping("/prdct/{prdct_id}")
-	public ResponseEntity<String> prdctLikeCancel(PrdctLikeVO prdctLikeVO) {
+	public ResponseEntity<String> prdctLikeCancel(PrdctLikeVO prdctLikeVO, PrdctVO prdctVO) {
 		ResponseEntity<String> entity = null;
 
 		log.info("prdctLikeCancel...");
+
 		try {
 			commonService.prdctLikeCancel(prdctLikeVO);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);

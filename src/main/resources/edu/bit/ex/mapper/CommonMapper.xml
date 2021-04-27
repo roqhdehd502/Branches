@@ -118,7 +118,7 @@
 		]]>
 	</select>
 	
-	<select id="getCategoryName" resultType="String">
+	<select id="getCategoryName" resultType="edu.bit.ex.vo.CategoryVO"> <!-- resultType="String" -->
 		<![CDATA[			
 			select category_name from category where category_number=#{category_number}
 		]]>

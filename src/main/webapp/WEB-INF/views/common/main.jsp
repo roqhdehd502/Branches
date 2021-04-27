@@ -93,7 +93,7 @@
 							<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 								<div class="inner">
 									<a href="/prdct/${prdct.prdct_id}" style="text-decoration: none;">
-										<div class="team-img"><img src="/hs/${prdct.prdct_thumbnail}" style="width: 247px; height: 247px;" /></div>
+										<div class="team-img"><img src="/prdct_img/prdct_thumbnail/${prdct.prdct_thumbnail}" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 247px; height: 247px;" /></div>
 										<div class="team-content">
 											<h4>${prdct.mbr_id }</h4>
 											<h5>${prdct.prdct_name}</h5>
@@ -126,7 +126,7 @@
 							<div class="col-sm-6 col-md-4 col-lg-3 single-team">
 								<div class="inner">
 									<a href="/prdct/${prdct.prdct_id}" style="text-decoration: none;">
-										<div class="team-img"><img src="/hs/${prdct.prdct_thumbnail}" style="width: 247px; height: 247px;" /></div>
+										<div class="team-img"><img src="/prdct_img/prdct_thumbnail/${prdct.prdct_thumbnail}" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 247px; height: 247px;" /></div>
 										<div class="team-content">
 											<h4>${prdct.mbr_id }</h4>
 											<h5>${prdct.prdct_name}</h5>
@@ -184,7 +184,7 @@
 							<div class="col-md-4 single-team">
 								<div class="inner">
 									<a href="/prdct/${prdct.prdct_id}" style="text-decoration: none;">
-										<div class="team-img"><img src="/hs/${prdct.prdct_thumbnail}" style="width: 247px; height: 247px;" /></div>
+										<div class="team-img"><img src="/prdct_img/prdct_thumbnail/${prdct.prdct_thumbnail}" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="width: 247px; height: 247px;" /></div>
 										<div class="team-content">
 											<h4>${prdct.mbr_id }</h4>
 											<h5>${prdct.prdct_name}</h5>
@@ -210,7 +210,7 @@
 					<div class="col-md-6 single-gallery">
 						<div class="inner">
 							<a href="#">
-								<img id="a-hover" src="/hs/thumbnail/51.jpg" style="object-fit : cover; height: 330px;">
+								<img id="a-hover" src="/hs/thumbnail/51.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="object-fit : cover; height: 330px;">
 							</a>
 						</div>
 					</div>
@@ -219,28 +219,28 @@
 							<div class="col-sm-6 single-gallery">
 								<div class="inner">
 									<a href="#">
-										<img src="/hs/thumbnail/50.jpg" style="object-fit : cover; height: 150px;">
+										<img src="/hs/thumbnail/50.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="object-fit : cover; height: 150px;">
 									</a>								
 								</div>
 							</div>
 							<div class="col-sm-6 single-gallery">
 								<div class="inner">
 									<a href="#">
-										<img src="/hs/thumbnail/49.jpg" style="object-fit : cover; height: 150px;">
+										<img src="/hs/thumbnail/49.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="object-fit : cover; height: 150px;">
 									</a>
 								</div>
 							</div>
 							<div class="col-sm-6 single-gallery">
 								<div class="inner">
 									<a href="#">
-										<img src="/hs/thumbnail/52.jpg" style="object-fit : cover; height: 150px;">
+										<img src="/hs/thumbnail/52.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="object-fit : cover; height: 150px;">
 									</a>
 								</div>
 							</div>
 							<div class="col-sm-6 single-gallery">
 								<div class="inner">
 									<a href="#">
-										<img src="/hs/thumbnail/54.jpg" style="object-fit : cover; height: 150px;">
+										<img src="/hs/thumbnail/54.jpg" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'" style="object-fit : cover; height: 150px;">
 									</a>
 								</div>
 							</div>
