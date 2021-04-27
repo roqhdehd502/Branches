@@ -68,12 +68,13 @@ public class OrderController {
 
 	}
 
-	// 주문 리스트 정보입력
+	// 주문 리스트 정보입력(결제페이지)
 	@RequestMapping(value = "/orderInput", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView order(ModelAndView mav, @AuthenticationPrincipal MemberDetails memberDetails) {
 		log.info("order");
 		String id = memberDetails.getUserID();
 		mav.addObject("member", securityService.getMbr(id));
+		mav.addObject("point", orderService.getPoint(id));
 		mav.setViewName("order/orderInput");
 		return mav;
 	}

@@ -46,6 +46,8 @@ public class BoardVO { // 게시판
 	private int board_starrate; // 게시글별점수
 	private String board_thumbnail; // 게시글썸네일
 
+	private double staravg; // 리뷰 게시글 별점 평균
+	private int rcount; // 리뷰 평균을 위한 게시글 카운트
 	private PrdctVO prdctVO; // 상품
 	private InquiryVO inquiryVO; // 문의유형
 
