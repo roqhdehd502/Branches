@@ -246,7 +246,7 @@ $(document).ready(function(){
 										<div class="col-md-2" align="center">
 											<!-- 게시글을 삭제할 때 이미지도 삭제하기 위한 이미지 정보 -->
 											<span class="upload_image" style="display: none;">${pdvo.prdct_thumbnail}</span> 
-											<img src="/hs/${pdvo.prdct_thumbnail}" width="100px" height="140px">
+											<img src="/prdct_img/prdct_thumbnail/${pdvo.prdct_thumbnail}" width="100px" height="140px">
 										</div>
 									</div>
 								</div>

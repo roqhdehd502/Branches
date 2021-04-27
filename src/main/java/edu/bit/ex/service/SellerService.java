@@ -98,8 +98,6 @@ public interface SellerService {
 
 	public void setModifyAddImg(PrdctRegisterImageVO prvo);
 
-	public String ImageOnlyRemove(PrdctRegisterImageVO prvo);
-
 	public int orderCount(PrdctOrderDetailVO povo);
 
 	public int cancelCount(PrdctOrderDetailVO povo);
@@ -111,5 +109,7 @@ public interface SellerService {
 	public PrdctOrderVO weekChart();
 
 	public PrdctOrderVO monthChart();
+
+	public PrdctOrderVO yearChart();
 
 }

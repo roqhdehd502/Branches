@@ -467,6 +467,16 @@
 	]]>
 	</select>
 	
+	<!-- 연간 차트 -->
+	<select id="yearChart" resultType="edu.bit.ex.vo.PrdctOrderVO">
+	<![CDATA[
+		SELECT NVL(SUM(order_price), 0) AS sales_sum 
+		FROM prdct_order 
+		WHERE order_date BETWEEN TO_DATE((SYSDATE-365), 'YY/MM/DD') 
+		AND TO_DATE(SYSDATE, 'YY/MM/DD')
+	]]>
+	</select>
+	
 	<!-- 판매자 등록상품 수정(상품내용) -->
 	<update id="updatePrdctInfo">
 	<![CDATA[
@@ -490,15 +500,6 @@
 			WHERE prdct_id = #{prdct_id}
 		]]>
 	</update>	
-	
-	<!-- 매거진 썸네일만 삭제 -->
-	<update id="ImageOnlyRemove">
-		<![CDATA[
-			UPDATE prdct 
-			SET prdct_thumbnail = null 
-			WHERE prdct_id = #{prdct_id}
-		]]>
-	</update>
 	
 	<!-- 주문요청 상태 변경 -->
 	<update id="updateState">

@@ -40,7 +40,7 @@
                   <div class="col-sm-3 col-md-3 col-lg-3 single-team" onclick="location.href='${pageContext.request.contextPath}/prdct/${prdct.prdct_id}'">
                   <div class="inner">
                      <div class="team-img">
-                        <img src="${prdct.prdct_thumbnail}" style="width: 240; height: 240px; "  />
+                        <img src="/prdct_img/prdct_thumbnail/${prdct.prdct_thumbnail}" style="width: 240; height: 240px; "  />
                      </div>
                      <div class="team-content">
                         <h4>${prdct.prdct_name}</h4>

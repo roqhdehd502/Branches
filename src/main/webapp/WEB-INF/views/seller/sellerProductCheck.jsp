@@ -151,7 +151,7 @@
 										<c:forEach items="${bId}" var="bId">
 											<tr>
 												<td><h5>${bId.prdct_id }</h5></td>
-												<td><img src="/hs/${bId.prdct_thumbnail }" style="width: 100px; height: 120px;"></img></td>
+												<td><img src="/prdct_img/prdct_thumbnail/${bId.prdct_thumbnail }" style="width: 100px; height: 120px;"></img></td>
 												
 												<td><a href="/seller/mypage/prdct/${bId.prdct_id}">
 													<h5>${bId.prdct_name }</h5>

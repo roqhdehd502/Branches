@@ -29,7 +29,7 @@ public class SellerServiceImpl implements SellerService {
 	private SellerMapper sellerMapper;
 
 	// 썸네일 저장 경로
-	private static final String PRDCT_THUMBNAIL_PATH = "C:/tetleaf/Branches/src/main/resources/static/hs";
+	private static final String PRDCT_THUMBNAIL_PATH = "C:/tetleaf/Branches/src/main/resources/static/prdct_img/prdct_thumbnail";
 
 	@Override
 	public List<PrdctOrderDetailVO> getProduct() {
@@ -270,23 +270,6 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public String ImageOnlyRemove(PrdctRegisterImageVO prvo) {
-		String image_name = prvo.getOnedeletefiles();
-		log.info("image_name: " + image_name);
-
-		// 삭제할 File 객체를 생성(껍데기 파일)
-		// 삭제할 폴더 이름, 삭제할 파일 이름
-		File deleteFile = new File(PRDCT_THUMBNAIL_PATH, image_name);
-
-		// 해당 파일이 존재하면 삭제
-		if (deleteFile.exists() == true) {
-			deleteFile.delete();
-		}
-
-		return sellerMapper.ImageOnlyRemove(prvo.getPrdct_id(), image_name);
-	}
-
-	@Override
 	public int orderCount(PrdctOrderDetailVO povo) {
 		// TODO Auto-generated method stub
 		return sellerMapper.orderCount(povo);
@@ -320,6 +303,12 @@ public class SellerServiceImpl implements SellerService {
 	public PrdctOrderVO monthChart() {
 		// TODO Auto-generated method stub
 		return sellerMapper.monthChart();
+	}
+
+	@Override
+	public PrdctOrderVO yearChart() {
+		// TODO Auto-generated method stub
+		return sellerMapper.yearChart();
 	}
 
 }
