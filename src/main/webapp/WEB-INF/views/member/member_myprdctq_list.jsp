@@ -121,9 +121,6 @@
 									<strong>내가 쓴 상품 Q&A</strong>
 								</h3>
 							</div>
-							<div class="col-md-6" align="right">
-								<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/mypage/myqna/write'">작성하기</button>
-							</div>
 						</div>
 						
 						<hr>	
@@ -170,7 +167,7 @@
 						
 						<hr>
 						
-						<!-- 상품 Q&A의 썸네일 필요시 추가 -->
+						<!-- 상품 Q&A의 문의유형 -->
 						<c:forEach items="${prdctq_my_list}" var="list">
 						<div class="row" style="padding: 0px 2% 0px 2%">
 							<div class="col-md-3" align="center" style="padding-top: 1%;">
@@ -215,7 +212,7 @@
 						</c:forEach>
 					</div>	
 					
-					<%-- <!-- 페이징(오류) -->
+					<!-- 페이징 -->
 					<div class="container">
 						<ul class="pagination justify-content-center">
 							<c:choose>
@@ -241,7 +238,7 @@
 								</c:otherwise>
 							</c:choose>
 						</ul>
-					</div> --%>
+					</div>
 					
 				</div>
 			</div>

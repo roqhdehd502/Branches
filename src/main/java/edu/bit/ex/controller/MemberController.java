@@ -102,7 +102,7 @@ public class MemberController {
 	@PostMapping("/prdct/qna/prdct_img")
 	public void prdctQnaImgUpdate(HttpServletRequest request, HttpServletResponse response, MultipartFile upload) throws Exception {
 		response.setCharacterEncoding("utf-8");
-		response.setContentType("application/json; charset=utf-8");
+		response.setContentType("text/html; charset=utf-8");
 
 		// 업로드한 파일 이름
 		String fileName = upload.getOriginalFilename();
@@ -373,7 +373,7 @@ public class MemberController {
 	}
 
 	/* 상품 리뷰 image 등록 */
-	@PostMapping("/mypage/review/{prdct_id}/writing/prdct_img")
+	@PostMapping("/mypage/review/writing/prdct_img")
 	public void reviewImgUpdate(HttpServletRequest request, HttpServletResponse response, MultipartFile upload) throws Exception {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
