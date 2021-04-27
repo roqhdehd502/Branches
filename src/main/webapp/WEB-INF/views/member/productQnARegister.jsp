@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
+	<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
 	<title>Branches : Product Q&A Register</title>
 	
 	<!-- Required CSS files -->
@@ -21,7 +24,69 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	
 	<script src="/ckeditor/ckeditor.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#prdctQna").submit(function(event) {
+         event.preventDefault();
+         console.log("prdctQna");
+
+         var mbr_id = $("#mbr_id").val();
+         var prdct_id = $("#prdct_id").val();
+         var board_content = CKEDITOR.instances.text.getData();
+         var board_name = $("#board_name").val();
+         var inquiry_number = $("#inquiry_number").val();
+
+         var form = {
+        	mbr_id: mbr_id,
+        	prdct_id : prdct_id,
+        	board_content : board_content,
+        	board_name : board_name,
+        	inquiry_number : inquiry_number
+         }
+
+         if (board_name == "") { //빈값이면      
+            alert("제목을 입력하세요");
+            $("#board_name").focus(); //입력포커스 이동
+            return; //함수 종료, 폼 데이터를 제출하지 않음
+         }
+         if (board_content == "") {
+            alert("내용을 입력하세요");
+            $("#board_content").focus();
+            return;
+         }
+
+         $.ajax({
+            type : "POST",
+            url : $(this).attr("action"),
+            cache : false,
+            data : JSON.stringify(form),
+            contentType : 'multipart/formdata; boundary=----WebKitFormBoundary',
+            beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                      console.log("header 실행 "+header+token)
+                      //console.log(sentence.toLowerCase());
+                      xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+            },
+            success : function(result) {
+               console.log("result : " + result);
+               if(result == "SUCCESS"){
+            	   if (confirm("입력된 정보를 등록하시겠습니까??") == true) {
+	        			console.log("UPLOAD SUCCESS!")  
+	        			$(location).attr('href', '${pageContext.request.contextPath}/member/mypage/prdctq/list');
+	        		}else {
+						return;
+					}                         
+             },
+            error : function(e) {
+               alert("오류가 발생했습니다.");
+               console.log(e);
+               location.reload(); // 실패시 새로고침하기
+            }
+         }); // ajax end
+      }); // event end
+   }); // ready end
+</script>	
 	
 </head>
 <body>
@@ -31,8 +96,8 @@
 		<br />
 		<br />
 		<!-- 상품 Q&A 등록 페이지 -->
-		<form action="${pageContext.request.contextPath}/member/prdct/{prdct_id}/qna/writing" method="post">
-		<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+		<form id="prdctQna" action="${pageContext.request.contextPath}/member/prdct/${prdctInfo.prdct_id}/qna/writing?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data" method="post">
+		 <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 			<input type="hidden" value="${prdctQnaInfo.mbr_id}" id="mbr_id" name="mbr_id" />
 			<fieldset>
 				
@@ -41,7 +106,7 @@
 
 				<!-- 상품정보 -->
 				<div class="form-group row">
-					<label for="prdName" class="col-sm-2 col-form-label">상품</label>
+					<label for="prdct_id" class="col-sm-2 col-form-label">상품</label>
 					<div class="col-sm-10">
 						<p id="prdct_id" class="font-weight-bold">${prdctInfo.prdct_id}</p>
 						<input type="hidden" name="prdct_id" value="${prdctInfo.prdct_id}" />
@@ -50,7 +115,7 @@
 
 				<!-- 문의유형 -->
 				<div class="form-group row">
-					<label for="PrdQNA" class="col-sm-2 col-form-label">문의 유형</label>
+					<label for="inquiry_number" class="col-sm-2 col-form-label">문의 유형</label>
 					<div class="form-group col-sm-10">
 						<select class="form-control" id="inquiry_number" name="inquiry_number">
 							<option id="inquiry_number" value="1">EXCHANGE</option>
@@ -69,7 +134,7 @@
 
 				<!-- 제목 -->
 				<div class="form-group row">
-					<label for="pqnatitle" class="col-sm-2 col-form-label">제목</label>
+					<label for="board_name" class="col-sm-2 col-form-label">제목</label>
 					<div class="col-sm-10">
 						<input type="text" class="form-control" id="board_name" name="board_name" placeholder="제목을 입력해 주세요.">
 					</div>
@@ -77,19 +142,21 @@
 
 				<!--내용 -->
 				<div class="form-group row">
-					<label for="orderEmail" class="col-sm-2 col-form-label">내용</label>
+					<label for="board_content" class="col-sm-2 col-form-label">내용</label>
 					<div class="col-sm-10">
 						<textarea name="board_content" id="board_content" class="form-control"></textarea>
-									<script>
-										//id가 description인 태그에 ckeditor를 적용시킴
-										//CKEDITOR.replace("description"); //이미지 업로드 안됨
-										
-										var editor2 = CKEDITOR.replace("board_content", {
-											filebrowserUploadUrl : "${pageContext.request.contextPath}/prdct/{prdct_id}/qna/write/prdct_img",
-											height : 500
-										});	
-										
-									</script>
+						<script>
+							//id가 description인 태그에 ckeditor를 적용시킴
+							//CKEDITOR.replace("description"); //이미지 업로드 안됨
+
+							var editor2 = CKEDITOR
+                                    .replace(
+                                            "board_content",
+                                            {
+                                                filebrowserUploadUrl:'<c:url value="${pageContext.request.contextPath}/member/prdct/qna/prdct_img"/>?${_csrf.parameterName}=${_csrf.token}',
+                                                height : 500
+                                            });
+						</script>
 					</div>
 				</div>
 

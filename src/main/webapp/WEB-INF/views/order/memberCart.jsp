@@ -189,7 +189,8 @@ function buy() {
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	
 		<!-- 장바구니	 -->
-		<form id="cart" name="form" method="post" action="${pageContext.request.contextPath}/order/orderInput">
+		<form id="cart" name="form" method="post" action="${pageContext.request.contextPath}/order/orderInput?${_csrf.parameterName}=${_csrf.token}">
+		<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 		
 		<div class="container" style="text-align: center;">
 				<br />

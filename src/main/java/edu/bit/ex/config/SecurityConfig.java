@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// rest of your code
 		// CSRF 설정을 해제합니다
 		// 초기 개발시에만 설정합니다
-		http.csrf().disable();
+		// http.csrf().disable();
 
 		http.authorizeRequests() //
 				.antMatchers("/admin").hasAuthority("ADMIN") // admin/** 경로는 권한 1(=ADMIN) 회원만 접속 가능
