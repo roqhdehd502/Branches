@@ -48,6 +48,8 @@ public class BoardVO { // 게시판
 
 	private double staravg; // 리뷰 게시글 별점 평균
 	private int rcount; // 리뷰 평균을 위한 게시글 카운트
+	private PrdctVO prdctVO; // 상품
+	private InquiryVO inquiryVO; // 문의유형
 
 	private MultipartFile[] uploadfiles; // 파일 업로드
 	private String onedeletefiles; // 이미지만 삭제

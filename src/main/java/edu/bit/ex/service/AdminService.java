@@ -3,11 +3,15 @@ package edu.bit.ex.service;
 import java.util.List;
 
 import edu.bit.ex.joinvo.MbrShippingVO;
+import edu.bit.ex.joinvo.PrdctOrdctDetailPrdctOrderVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.MemberCriteria;
 import edu.bit.ex.page.PrdctListCriteria;
+import edu.bit.ex.page.UserQnACriteria;
+import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
+import edu.bit.ex.vo.PrdctOrderVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
 
@@ -67,5 +71,21 @@ public interface AdminService {
 
 	// 상품정보수정(이미지 o)
 	public void updatePrdctThumb(PrdctRegisterImageVO prvo);
+
+	public List<PrdctOrderVO> getMemberOrderList(String m_id, MemberCriteria cri);
+
+	public int getOrderTotalCount(String m_id);
+
+	public List<PrdctOrdctDetailPrdctOrderVO> getOrderDetail(String order_number);
+
+	public List<BoardVO> getUserQnAListWithCri(UserQnACriteria cri);
+
+	public int getUserQnATotalCount(UserQnACriteria cri);
+
+	public BoardVO getUserQnA(int b_id);
+
+	public void userQnAComment(BoardCommentVO commentVO);
+
+	public List<BoardCommentVO> getQnAComment(int b_id);
 
 }

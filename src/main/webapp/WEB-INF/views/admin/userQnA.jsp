@@ -3,21 +3,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- Required meta tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Branches : Seller Registration</title>
-	
-	<!-- Required CSS files -->
-	<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
-	<link rel="stylesheet" href="/assets/css/owl.carousel.css">
-	<link rel="stylesheet" href="/assets/css/barfiller.css">
-	<link rel="stylesheet" href="/assets/css/animate.css">
-	<link rel="stylesheet" href="/assets/css/font-awesome.min.css">
-	<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/assets/css/slicknav.css">
-	<link rel="stylesheet" href="/assets/css/main.css">
-	<link rel="stylesheet" href="/bootstrap.min.css">
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>관리자 마이페이지</title>
+
+<!-- Required CSS files -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/owl.carousel.css">
+<link rel="stylesheet" href="/assets/css/barfiller.css">
+<link rel="stylesheet" href="/assets/css/animate.css">
+<link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/css/slicknav.css">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/bootstrap.min.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+
+<!-- csrf meta tag -->
+<meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#commentWrite").submit(function(event) {
+		event.preventDefault();
+		
+		var board_id = $("#board_id").val();
+		var comment_content = $("#comment_content").val();
+		
+		// csrf
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		
+		var form = {
+				var board_id: board_id,
+				var comment_content: comment_content
+		};
+		
+		console.log(form);
+		//dataType: 'json',
+        $.ajax({
+		    type : "POST",
+		    console.log(form);
+		    url : $(this).attr("action"),
+		    cache : false,
+		    contentType:'application/json; charset=utf-8',
+			data: JSON.stringify(form), 
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+			},
+		    success: function (result) {       
+				if(result == "SUCCESS"){
+					$(location).attr('href', '${pageContext.request.contextPath}/admin/mypage/member/userQnA/${board.board_id}')				      	       
+				}					        
+		    },
+		    error: function (e) {
+		        console.log(e);
+		    }
+		})	       
+	});
+}); // end ready() 
+
+</script>
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -61,61 +111,42 @@
 	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/adminSearchtotal">검색순위 조회</a></h5>
 	                </div>
 				</div>
-				
+
 				<div class="col-md-9 contact-info">
-					<h3 >
-					<strong>업체 등록</strong>
-					</h3><hr>
-					<form action="${pageContext.request.contextPath}/admin/mypage/regist/seller" method="post">
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-						<fieldset>
-							<div class="form-group row">
-								<label class="col-sm-2 col-form-label">업체명</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" id="mbr_name" name="mbr_name" placeholder="업체명을 입력해주세요">
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-2 col-form-label">ID</label>
-								<div class="col-sm-10 row">
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="mbr_id" name="mbr_id" placeholder="아이디를 입력해주세요">
-									</div>
-									<!-- 이부분은 추후 스크립트상에서 alert으로 알림띄울것 -->
-									<div class="col-sm-2">
-										<button type="button" class="btn btn-primary">중복체크</button>
-									</div>				
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-2 col-form-label">PW</label>
-								<div class="col-sm-10">
-									<input type="password" class="form-control" id="mbr_pw" name="mbr_pw" placeholder="비밀번호를 입력해주세요">
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-2 col-form-label">e-mail</label>
-								<div class="col-sm-10">
-									<input type="email" class="form-control" id="mbr_email" name="mbr_email" placeholder="이메일을 입력해주세요">
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-2 col-form-label">주소</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" id="shipping_address" name="shipping_address" placeholder="주소를 입력해주세요">
-								</div>
-							</div>
-							<div class="form-group row">
-					    		<label class="col-sm-2 col-form-label">연락처</label>
-					      		<div class="col-sm-10">
-					      			<input type="number" id="contact_number" name="contact_number" class="form-control">
-					      		</div>		
-					    	</div>
-							<div align="center">
-							<button type="submit" class="btn btn-primary">업체등록</button>
-							</div>	
-						</fieldset>
-					</form>			
+					<h3>
+						<strong>${board.board_name }</strong>
+					</h3>
+					<hr>
+
+					<fieldset>
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label"><h5>작성자 ID</h5></label>
+							<div class="col-sm-2 col-form-label">${board.mbr_id}</div>
+
+							<label class="col-sm-2 col-form-label"><h5>작성날짜</h5></label>
+							<div class="col-sm-2 col-form-label">${board.board_date}</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-8 col-form-label">${board.board_content}</div>
+						</div>
+					</fieldset>
+					<br>
+					<hr>
+					<br>
+					<c:forEach items="${comment}" var="comment">
+					<div class="col-sm-8 col-form-label">${comment.comment_content}</div>
+					</c:forEach>
+					<form action="${pageContext.request.contextPath}/admin/mypage/member/userQnA/${board.board_id}/comment" method="post" id="commentWrite">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						<input type="hidden" id="board_id" name="board_id" value="${board.board_id}">
+						<div class="form-group">
+							<input class="form-control" type="text" placeholder="답변을 입력하세요" id="comment_content" name="comment_content" style="height: 100px;">
+						</div>
+						
+						<div style="text-align: center;">
+						<input type="submit" class="btn btn-primary" value="등록" />
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>

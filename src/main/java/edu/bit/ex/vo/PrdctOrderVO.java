@@ -36,6 +36,7 @@ public class PrdctOrderVO { // 상품주문
 	private String t_key; // 택배키
 	private String t_invoice; // 택배 운송장번호
 	private int order_state_number; // 주문상태 번호
+	private String order_state_name; // 주문상태
 	private int sales_sum; // 상품 판매액 합계
 
 	public OrderDetailVO orderDetailVO;
