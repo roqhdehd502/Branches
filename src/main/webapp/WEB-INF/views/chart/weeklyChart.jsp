@@ -20,8 +20,13 @@
         data.addColumn('number', '판매량');
 
         data.addRows([
-          [new Date(2021, 3, 1), ${week.sales_sum}],
-
+          [new Date(2021, 3, 5), 2500],
+          [new Date(2021, 3, 12), 1390],
+          [new Date(2021, 3, 19), 2040],
+          [new Date(2021, 3, 26), ${week.sales_sum}],
+          [new Date(2021, 4, 3), ${week.sales_sum}],
+          [new Date(2021, 4, 10), ${week.sales_sum}],
+          [new Date(2021, 4, 17), ${week.sales_sum}],
         ]);
 
 

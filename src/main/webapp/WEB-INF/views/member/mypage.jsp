@@ -245,18 +245,15 @@
 							</div>
 							</c:forEach>
 						</div>
-						
 					</div>
 				</div>	
 				</div>
-				
 			</div>
+			<!-- footer -->
+		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
 		</div>
 
 		<hr>
-		
-		<!-- footer -->
-		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
 		<!--Required JS files-->
 		<script src="/assets/js/jquery-2.2.4.min.js"></script>
 		<script src="/assets/js/vendor/popper.min.js"></script>
@@ -267,6 +264,5 @@
 		<script src="/assets/js/vendor/loopcounter.js"></script>
 		<script src="/assets/js/vendor/slicknav.min.js"></script>
 		<script src="/assets/js/active.js"></script>
-	</div>
 </body>
 </html>

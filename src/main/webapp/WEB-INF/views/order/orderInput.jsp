@@ -341,7 +341,8 @@ function jusoCallBack(roadFullAddr, zipNo) {
 	<div class="container">
 		<%@ include file="/WEB-INF/views/common/header.jsp"%>
 
-		<form name="form" action="${pageContext.request.contextPath}/order/orderInput/insert" method="post">
+		<form name="form" action="${pageContext.request.contextPath}/order/orderInput/insert?${_csrf.parameterName}=${_csrf.token}" method="post">
+		<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 
 			<br /> <br />
 			<fieldset>

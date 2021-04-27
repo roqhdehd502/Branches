@@ -18,8 +18,12 @@
     	  var data = new google.visualization.DataTable();
           data.addColumn('number', 'Month');
           data.addColumn('number', 'Sales');
-          data.addRows([
-          [{v: 3, f:'Apr'}, ${month.sales_sum}]
+          data.addRows([ 
+        	  [{v: 0, f:'Jan'}, 2000],
+              [{v: 1, f:'Feb'}, 4170],
+              [{v: 2, f:'Mar'}, 3660],
+              [{v: 3, f:'Apr'}, ${month.sales_sum}]
+          
       ]);
 
         var options = {

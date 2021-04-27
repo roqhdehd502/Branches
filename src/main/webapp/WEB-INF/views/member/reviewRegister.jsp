@@ -6,6 +6,8 @@
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
 	<title>Branches : Review Register</title>
 	
 	<!-- Required CSS files -->
@@ -19,6 +21,8 @@
 	<link rel="stylesheet" href="/assets/css/main.css">
 	<link rel="stylesheet" href="/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
+	
+	<script src="/ckeditor/ckeditor.js"></script>
 	
 	<style>
 		* {
@@ -71,7 +75,7 @@
 		<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp"></jsp:include>
 
 		<!-- 리뷰 등록 페이지 -->
-		<form action="${pageContext.request.contextPath}/member/mypage/review/writing" method="post">
+		<form action="${pageContext.request.contextPath}/member/mypage/review/${prdctInfo.prdct_id}/writing" enctype="multipart/form-data" method="post">
 			<input type="hidden" value="${customerInfo.mbr_id}" id="mbr_id" name="mbr_id" /> < <br /> <br />
 			<fieldset>
 				<legend style="text-align: center;">리뷰 등록</legend>
@@ -79,39 +83,47 @@
 
 				<!-- 상품정보 -->
 				<div class="form-group row">
-					<label for="prdName" class="col-sm-2 col-form-label">상품</label>
+					<label for="prdct_id" class="col-sm-2 col-form-label">상품</label>
 					<div class="col-sm-10">
-						<p id="prdct_id" class="font-weight-bold">p1</p>
-						<input type="hidden" name="prdct_id" value="p1" />
+						<p id="prdct_id" class="font-weight-bold">${prdctInfo.prdct_id}</p>
+						<input type="hidden" name="prdct_id" value="${prdctInfo.prdct_id}" />
 					</div>
 				</div>
 
 				<!-- 별점 -->
 				<div class="form-group row">
-					<label for="prdName" class="col-sm-2 col-form-label">별점</label>
+					<label for="board_starrate" class="col-sm-2 col-form-label">별점</label>
 					<div class="rate">
-						<input type="radio" id="star5" name="board_starrate" value="5" /> <label for="star5" title="text">5 stars</label> <input type="radio"
-							id="star4" /> <label for="star4" title="text">4 stars</label> <input type="radio" id="star3" name="board_starrate" value="3" /> <label
-							for="star3" title="text">3 stars</label> <input type="radio" id="star2" name="board_starrate" value="2" /> <label for="star2" title="text">2
-							stars</label> <input type="radio" id="star1" name="board_starrate" value="1" /> <label for="star1" title="text">1 star</label>
+						<input type="radio" id="star5" name="board_starrate" value="5" /> 
+						<label for="star5" title="text">5 stars</label> 
+						<input type="radio" id="star4" /> 
+						<label for="star4" title="text">4 stars</label> 
+						<input type="radio" id="star3" name="board_starrate" value="3" /> 
+						<label for="star3" title="text">3 stars</label> 
+						<input type="radio" id="star2" name="board_starrate" value="2" /> 
+						<label for="star2" title="text">2 stars</label> 
+						<input type="radio" id="star1" name="board_starrate" value="1" /> 
+						<label for="star1" title="text">1 star</label>
 					</div>
 				</div>
 
 				<!--내용 -->
 				<div class="form-group row">
-					<label for="orderEmail" class="col-sm-2 col-form-label">내용</label>
+					<label for="board_content" class="col-sm-2 col-form-label">내용</label>
 					<div class="col-sm-10">
-						<textarea id="board_content" name="board_content" class="form-control" style="" value="" maxlength="300"
-							onkeyup="return textarea_maxlength(this)" placeholder="최대 300자까지 입력 가능합니다."></textarea>
-					</div>
-				</div>
+						<textarea name="board_content" id="board_content" class="form-control"></textarea>
+						<script>
+							//id가 description인 태그에 ckeditor를 적용시킴
+							//CKEDITOR.replace("description"); //이미지 업로드 안됨
 
-				<!-- 사진등록 -->
-				<div class="form-group row">
-					<label class="col-sm-2 col-form-label">사진등록</label>
-					<div class="col-sm-10">
-
-						<input type="file" class="form-control-file"> <small class="form-text text-muted">jpg, png, gif의 사진파일만 적용됩니다.</small>
+							var editor2 = CKEDITOR
+									.replace(
+											"board_content",
+											{
+												filebrowserUploadUrl : "${pageContext.request.contextPath}/member/mypage/review/{prdct_id}/writing/prdct_img",
+												height : 500
+											});
+						</script>
 					</div>
 				</div>
 				<div style="text-align: center;">
