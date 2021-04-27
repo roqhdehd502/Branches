@@ -16,6 +16,7 @@ import edu.bit.ex.mapper.SellerMapper;
 import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
+import edu.bit.ex.vo.OrderDetailVO;
 import edu.bit.ex.vo.PrdctOrderVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
@@ -229,12 +230,6 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public List<PrdctOrderDetailVO> orderOption(String order_number) {
-		// TODO Auto-generated method stub
-		return sellerMapper.orderOption(order_number);
-	}
-
-	@Override
 	public void setModifyAddImg(PrdctRegisterImageVO prvo) {
 		log.info("setModifyAddImg");
 
@@ -309,6 +304,18 @@ public class SellerServiceImpl implements SellerService {
 	public PrdctOrderVO yearChart() {
 		// TODO Auto-generated method stub
 		return sellerMapper.yearChart();
+	}
+
+	@Override
+	public OrderDetailVO orderOption(String order_number, String prdct_id) {
+		// TODO Auto-generated method stub
+		return sellerMapper.orderOption(order_number, prdct_id);
+	}
+
+	@Override
+	public PrdctOrderDetailVO orderMbr(String order_number) {
+		// TODO Auto-generated method stub
+		return sellerMapper.orderMbr(order_number);
 	}
 
 }

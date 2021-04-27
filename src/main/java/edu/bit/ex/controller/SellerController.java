@@ -34,7 +34,6 @@ import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.page.SearchPageVO;
 import edu.bit.ex.service.SecurityService;
 import edu.bit.ex.service.SellerService;
-import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.ShippingVO;
 import lombok.AllArgsConstructor;
@@ -324,9 +323,9 @@ public class SellerController {
 	}
 
 	// 주문상세정보 수정페이지
-	@GetMapping("/mypage/order/{order_number}")
+	@GetMapping("/mypage/order/{order_number}/{prdct_id}")
 	public ModelAndView orderStateModify(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable("order_number") String order_number,
-			ModelAndView mav, ShippingVO svo, PrdctOrderDetailVO povo, BoardVO bvo) throws Exception {
+			ModelAndView mav, @PathVariable("prdct_id") String prdct_id, ShippingVO svo, PrdctOrderDetailVO povo) throws Exception {
 		log.debug("orderStateModify");
 		log.info("orderStateModify..");
 		mav.setViewName("seller/sellerOrderModify");
@@ -338,10 +337,12 @@ public class SellerController {
 
 		// 주문 정보 불러오기
 		mav.addObject("info", sellerService.orderInfo(order_number));
-		// 주문 상세정보 불러오기
-		mav.addObject("inop", sellerService.orderOption(order_number));
-		// 판매자 주소 불러오기
-		mav.addObject("svo", sellerService.getAddress(svo.getMbr_id()));
+
+		// 주문 옵션정보 불러오기
+		mav.addObject("inop", sellerService.orderOption(order_number, prdct_id));
+
+		// 주문자 정보 불러오기
+		mav.addObject("mbrInfo", sellerService.orderMbr(order_number));
 
 		// 새주문 요청 알림
 		mav.addObject("orderCount", sellerService.orderCount(povo));

@@ -27,7 +27,7 @@
       ]);
 
         var options = {
-          title: '월간매출 그래프',
+          title: '월간매출',
           width: 900,
           height: 500,
           hAxis: {

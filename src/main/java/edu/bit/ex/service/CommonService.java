@@ -2,6 +2,7 @@ package edu.bit.ex.service;
 
 import java.util.List;
 
+import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.BrandCriteria;
 import edu.bit.ex.page.PrdQnACriteria;
@@ -83,4 +84,7 @@ public interface CommonService {
 
 	// 상품 상세페이지 조회 기능
 	public void addPrdView(String mbr_id, String prdct_id);
+
+	// 판매자 댓글
+	public void setCommentWrite(BoardBoardCommentVO boardBoardCommentVO);
 }

@@ -162,7 +162,7 @@
 													<c:if test="${prdct.order_state_number eq 8}">
 														<h5 style="position: relative; top: 20px;">주문취소</h5>
 													</c:if>
-													<a href="/seller/mypage/order/${prdct.order_number }" style="position: relative; top: 20px;"><h6>[변경]</h6></a>
+													<a href="/seller/mypage/order/${prdct.order_number }/${prdct.prdct_id}" style="position: relative; top: 20px;"><h6>[변경]</h6></a>
 												</td>
 											</tr>
 										</c:forEach>

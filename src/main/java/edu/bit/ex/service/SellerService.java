@@ -9,6 +9,7 @@ import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
+import edu.bit.ex.vo.OrderDetailVO;
 import edu.bit.ex.vo.PrdctOrderVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
@@ -92,24 +93,37 @@ public interface SellerService {
 	// 주문 상태변경
 	public void updateState(PrdctOrderDetailVO povo);
 
+	// 주문상세정보 불러오기
 	public PrdctOrderVO orderInfo(String order_number);
 
-	public List<PrdctOrderDetailVO> orderOption(String order_number);
+	// 주문 상세 옵션정보 불러오기
+	public OrderDetailVO orderOption(String order_number, String prdct_id);
 
+	// 주문자 정보 불러오기
+	public PrdctOrderDetailVO orderMbr(String order_number);
+
+	// 썸네일 변경 및 새로 추가
 	public void setModifyAddImg(PrdctRegisterImageVO prvo);
 
+	// 새주문 알림
 	public int orderCount(PrdctOrderDetailVO povo);
 
+	// 취소요청 알림
 	public int cancelCount(PrdctOrderDetailVO povo);
 
+	// 교환요청 알림
 	public int exchangeCount(PrdctOrderDetailVO povo);
 
+	// 환불요청 알림
 	public int refundCount(PrdctOrderDetailVO povo);
 
+	// 주간 통계차트
 	public PrdctOrderVO weekChart();
 
+	// 월간 통계차트
 	public PrdctOrderVO monthChart();
 
+	// 연간 통계차트
 	public PrdctOrderVO yearChart();
 
 }

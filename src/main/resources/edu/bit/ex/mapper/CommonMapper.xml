@@ -183,4 +183,12 @@
 			VALUES (#{mbr_id}, #{prdct_id}) 
 		]]>
 	</insert>
+	
+	<!-- 매거진 게시글 댓글 작성 -->
+	<insert id="setCommentWrite">
+		<![CDATA[
+			INSERT INTO board_comment (comment_id, board_id, mbr_id, comment_content) 
+			VALUES (board_comment_seq.nextval, #{board_id}, #{mbr_id}, #{comment_content}) 
+		]]>
+	</insert>
 </mapper>

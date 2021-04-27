@@ -25,7 +25,7 @@
 
 
         var options = {
-          title: '연간매출 그래프',
+          title: '연간매출',
           width: 900,
           height: 500,
           hAxis: {
