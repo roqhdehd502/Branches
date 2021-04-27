@@ -206,7 +206,7 @@ img {
 		prdct.order_size = $("#order_size").val();
 		prdct.prdct_price = $("#prdct_price").val();
 		prdct.prdct_name = $("#prdct_name").val();
-		prdct.thumbnail = $("#prdct_thumbnail").val();
+		prdct.prdct_thumbnail = $("#prdct_thumbnail").val();
 		
 			
 		console.log(prdct);
@@ -218,7 +218,7 @@ img {
 		if (confirm("상품이 장바구니에 담겼습니다. 장바구니로 이동하시겠습니까?") == true) { 
 			window.location.assign("/order/cart");
 		} else { //취소
-			return false;
+			location.reload();
 		}
 	}
 	
@@ -357,7 +357,7 @@ img {
 
 
 	 <!--  상품 정보와 옵션 선택 -->
-		<form action="${pageContext.request.contextPath}/order/insert_cart" method="POST">
+		<form action="${pageContext.request.contextPath}/order/cart" method="POST">
 			<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 
 		<!-- 상세페이지 내용	 -->

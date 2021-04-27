@@ -102,7 +102,7 @@ public class MemberController {
 	@PostMapping("/prdct/qna/prdct_img")
 	public void prdctQnaImgUpdate(HttpServletRequest request, HttpServletResponse response, MultipartFile upload) throws Exception {
 		response.setCharacterEncoding("utf-8");
-		response.setContentType("application/json; charset=utf-8");
+		response.setContentType("text/html; charset=utf-8");
 
 		// 업로드한 파일 이름
 		String fileName = upload.getOriginalFilename();
@@ -176,7 +176,7 @@ public class MemberController {
 		return mav;
 	}
 
-	// 페이징을 이용한 고객 QnA 마이페이지 리스트 - 누르면 member_myq 로 연결
+	// 페이징을 이용한 고객 QnA 마이페이지 리스트
 	@GetMapping("/mypage/myqna/list")
 	public ModelAndView myqnaList(@AuthenticationPrincipal MemberDetails memberDetails, MyqnaCriteria cri, BoardBoardCommentVO bCommentVO,
 			ModelAndView mav) {
@@ -373,7 +373,7 @@ public class MemberController {
 	}
 
 	/* 상품 리뷰 image 등록 */
-	@PostMapping("/mypage/review/{prdct_id}/writing/prdct_img")
+	@PostMapping("/mypage/review/writing/prdct_img")
 	public void reviewImgUpdate(HttpServletRequest request, HttpServletResponse response, MultipartFile upload) throws Exception {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");

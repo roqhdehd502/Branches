@@ -62,7 +62,7 @@
             url : $(this).attr("action"),
             cache : false,
             data : JSON.stringify(form),
-            contentType : 'multipart/formdata; boundary=----WebKitFormBoundary',
+            contentType :'application/json; charset=utf-8',
             beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
                       console.log("header 실행 "+header+token)
                       //console.log(sentence.toLowerCase());
@@ -96,7 +96,7 @@
 		<br />
 		<br />
 		<!-- 상품 Q&A 등록 페이지 -->
-		<form id="prdctQna" action="${pageContext.request.contextPath}/member/prdct/${prdctInfo.prdct_id}/qna/writing?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data" method="post">
+		<form id="prdctQna" action="${pageContext.request.contextPath}/member/prdct/${prdctInfo.prdct_id}/qna/writing" enctype="multipart/form-data" method="post">
 		 <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 			<input type="hidden" value="${prdctQnaInfo.mbr_id}" id="mbr_id" name="mbr_id" />
 			<fieldset>
