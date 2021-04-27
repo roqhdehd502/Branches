@@ -25,8 +25,8 @@ public class PrdctOrderDetailVO { // 결제 후 정보 저장
 	private int order_amount; // 주문상품량
 	private int prdct_price; // 상품금액
 	private String prdct_name; // 상품이름 추가
-	private String shipping_name; // 받는사람
-	private int shipping_tel; // 받는사람 연락처
+	private String order_name; // 받는사람
+	private int order_tel; // 받는사람 연락처
 	private String order_mail; // 주문자 이메일
 	private String shipping_address; // 배송지
 	private int usepoint; // 사용 포인트

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.BrandCriteria;
 import edu.bit.ex.page.PrdQnACriteria;
@@ -85,4 +86,6 @@ public interface CommonMapper {
 
 	// 상품 상세페이지 조회 기능
 	public void addPrdView(String mbr_id, String prdct_id);
+
+	public void setCommentWrite(BoardBoardCommentVO boardBoardCommentVO);
 }

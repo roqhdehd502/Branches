@@ -142,6 +142,8 @@ $(document).ready(function(){
 					<h4> 배송지 정보 </h4><hr />
 					<form id="stateUpdate" action="/seller/mypage/order/${info.order_number }/modify" method="PUT">
 						<input type="hidden" name="order_number" id="order_number" value="${info.order_number }">
+						<input type="hidden" name="prdct_id" id="prdct_id" value="${inop.prdct_id }">
+						<input type="hidden" name="mbr_id" id="mbr_id" value="${info.mbr_id }">
 						<fieldset>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">아이디</label>
@@ -152,25 +154,61 @@ $(document).ready(function(){
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">이름</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="shipping_name" value="${info.shipping_name }" readonly="readonly">
+									<input type="text" class="form-control" id="shipping_name" value="${mbrInfo.order_name }" readonly="readonly">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">연락처</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control"id="shipping_tel" value="${info.shipping_tel }" readonly="readonly">
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-2 col-form-label">이메일</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" id="order_mail" value="${info.order_mail}" readonly="readonly">
+									<input type="text" class="form-control"id="shipping_tel" value="${mbrInfo.order_tel }" readonly="readonly">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">주소</label>
 								<div class="col-sm-10">
-									<input type="number" class="form-control" id="shipping_address" value="${info.shipping_address }" readonly="readonly">
+									<input type="text" class="form-control" id="shipping_address" value="${mbrInfo.shipping_address }" readonly="readonly">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">색상</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="order_color" value="${inop.order_color }" disabled="disabled">
+									<input class="btn btn-primary btn-sm" type='button' value='활성화' onclick='btnActive()' />
+									<input class="btn btn-primary btn-sm" type='button' value='비활성화' onclick='btnDisabled()' />&nbsp;&nbsp;&nbsp; 
+									<span><h6>교환 요청시 활성화하여 정보를 수정해주세요</h6></span>
+									<script type="text/javascript">
+									function btnActive()  {
+										  const target = document.getElementById('order_color');
+										  target.disabled = false;
+										}
+
+										function btnDisabled()  {
+										  const target = document.getElementById('order_color');
+										  target.disabled = true;
+										}
+
+									</script>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">사이즈</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="order_size" value="${inop.order_size }" disabled="disabled">
+									<input class="btn btn-primary btn-sm" type='button' value='활성화' onclick='textActive()' />
+									<input class="btn btn-primary btn-sm" type='button' value='비활성화' onclick='textDisabled()' />&nbsp;&nbsp;&nbsp; 
+									<span><h6>교환 요청시 활성화하여 정보를 수정해주세요</h6></span>
+									<script type="text/javascript">
+									function textActive()  {
+										  const target = document.getElementById('order_size');
+										  target.disabled = false;
+										}
+
+										function textDisabled()  {
+										  const target = document.getElementById('order_size');
+										  target.disabled = true;
+										}
+
+									</script>
 								</div>
 							</div>
 							<div class="form-group row">

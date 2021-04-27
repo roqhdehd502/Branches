@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.config.auth.MemberDetails;
+import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.BrandCriteria;
 import edu.bit.ex.page.BrandPageVO;
@@ -141,6 +142,23 @@ public class CommonController {
 		}
 
 		return mav;
+	}
+
+	// 판매자 qna 댓글 작성
+	@RequestMapping(value = "/prdct/{prdct_id}/qna", method = { RequestMethod.GET, RequestMethod.POST })
+	public ResponseEntity<String> CommentWrite(BoardBoardCommentVO boardBoardCommentVO) {
+		ResponseEntity<String> entity = null;
+		log.info("CommentWrite...");
+
+		try {
+			commonService.setCommentWrite(boardBoardCommentVO);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
 	}
 
 	// 모달 댓글

@@ -31,7 +31,7 @@
 
 
         var options = {
-          title: '${mbr.mbr_id} 주간판매',
+          title: '주간판매',
           width: 900,
           height: 500,
           hAxis: {
