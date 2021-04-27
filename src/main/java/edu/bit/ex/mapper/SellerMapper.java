@@ -116,8 +116,6 @@ public interface SellerMapper {
 
 	public List<PrdctOrderDetailVO> orderOption(String order_number);
 
-	public String ImageOnlyRemove(String prdct_id, String image_name);
-
 	public void setModifyAddImg(PrdctRegisterImageVO prvo);
 
 	public int orderCount(PrdctOrderDetailVO povo);
@@ -131,5 +129,7 @@ public interface SellerMapper {
 	public PrdctOrderVO weekChart();
 
 	public PrdctOrderVO monthChart();
+
+	public PrdctOrderVO yearChart();
 
 }

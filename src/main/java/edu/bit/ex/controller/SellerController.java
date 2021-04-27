@@ -57,7 +57,7 @@ public class SellerController {
 	@RequestMapping(value = "imageUpload.do", method = { RequestMethod.POST, RequestMethod.GET })
 	public void imageUpload(HttpServletRequest request, HttpServletResponse response, MultipartFile upload) throws Exception {
 		response.setCharacterEncoding("utf-8");
-		response.setContentType("application/json; charset=utf-8");
+		response.setContentType("text/html; charset=utf-8");
 
 		// 업로드한 파일 이름
 		String fileName = upload.getOriginalFilename();
@@ -223,9 +223,6 @@ public class SellerController {
 			if (uploadfiles != null && onedeletefiles == null) {
 				// 수정페이지에서 사진을 새로 추가할 경우 진행한다
 				sellerService.setModifyAddImg(prvo);
-			} else if (uploadfiles == null && onedeletefiles != null) {
-				// 이미지만 삭제할 경우 진행한다
-				sellerService.ImageOnlyRemove(prvo);
 			} else {
 				// 사진을 새로 추가하지 않고 내용만 변경된 경우 진행한다
 				sellerService.updatePrdctInfo(prvo);
@@ -590,6 +587,7 @@ public class SellerController {
 
 		mav.addObject("week", sellerService.weekChart());
 		mav.addObject("month", sellerService.monthChart());
+		mav.addObject("year", sellerService.yearChart());
 
 		return mav;
 	}

@@ -10,74 +10,34 @@
     google.charts.load('current', {packages: ['corechart', 'bar']});
     google.charts.setOnLoadCallback(drawBasic);
 
-    
     function drawBasic() {
 
-    var data = new google.visualization.DataTable();
+          var data = new google.visualization.DataTable();
+          data.addColumn('date', 'Day');
+          data.addColumn('number', '판매량');
 
-    data.addColumn('string', '요일');
+          data.addRows([
+              [new Date(${week.order_date}), ${week.sales_sum}],
+          ]);
 
-    data.addColumn('number', '방문자수(명)');
+          var options = {
+            title: '${mbr.mbr_id} 주간판매',
+            height: 300,
+            hAxis: {
+              title: 'Time of Day',
+              format: 'd',
 
-     
+            },
+            vAxis: {
+  
+            }
+          };
 
-    data.addRows([
+          var chart = new google.visualization.ColumnChart(
+            document.getElementById('chart_div1'));
 
-    ['일', ${day.order_price}],
-
-    ['월', 2],
-
-    ['화', 3],
-
-    ['수', 4],
-
-    ['일', 5],
-
-    ['금', 6],
-
-    ['토', 7],
-
-    ]);
-
-     
-
-    var options = {
-
-    title: '${mbr.mbr_id} 일별 매출 현황',
-
-    hAxis: {
-
-    title: '요일',
-
-    viewWindow: {
-
-    min: [7, 30, 0],
-
-    max: [17, 30, 0]
-
-    }
-
-    },
-
-    vAxis: {
-
-    title: '방문자수(명)'
-
-    }
-
-    };
-
-     
-
-    var chart = new google.visualization.ColumnChart(
-
-    document.getElementById('chart_div1'));
-
-     
-
-    chart.draw(data, options);
-
-    }
+          chart.draw(data, options);
+        }
     </script>
 </head>
 <body>

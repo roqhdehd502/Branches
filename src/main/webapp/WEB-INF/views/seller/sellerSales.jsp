@@ -113,11 +113,17 @@
 					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 2px;">
 						<strong style="margin: 10px;">매출조회</strong>
 					</h3><hr />
+					<h4 style="margin-left: 16px;">일간 매출통계</h4>
+					<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/chart/dailyChart.jsp"></jsp:include>
+					<hr />
 					<h4 style="margin-left: 16px;">주간 매출통계</h4>
 					<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/chart/weeklyChart.jsp"></jsp:include>
 					<hr />
 					<h4 style="margin-left: 16px;">월간 매출통계</h4>
 					<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/chart/monthChart.jsp"></jsp:include>
+					<hr />
+					<h4 style="margin-left: 16px;">연간 매출통계</h4>
+					<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/chart/yearChart.jsp"></jsp:include>
 					<hr />
 	
 				<hr style="margin-top: 1px;">
