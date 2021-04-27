@@ -35,7 +35,7 @@ $(document)
 			var html = "";
 			for (var i = 0; i < buy.length; i++) {
 				html += "<tr id='tr"+i+"' style='text-align: center;'>"	
-						+ "<td scope='col'><a href='${pageContext.request.contextPath}/prdct/"+buy[i].prdct_id+"'> "+buy[i].prdct_thumbnail+" </a>"
+						+ "<td scope='col'><a href='${pageContext.request.contextPath}/prdct/"+buy[i].prdct_id+"'> <img src='/prdct_img/prdct_thumbnail/"+buy[i].prdct_thumbnail+"' class='thumbnail'></a>"
 						+ "</td>"
 						+ "<td scope='col'>"+buy[i].prdct_name+""
 						+ "<br/>"+buy[i].order_color+" / "+buy[i].order_size+""
@@ -341,7 +341,7 @@ function jusoCallBack(roadFullAddr, zipNo) {
 	<div class="container">
 		<%@ include file="/WEB-INF/views/common/header.jsp"%>
 
-		<form name="form" action="${pageContext.request.contextPath}/order/orderInput/insert?${_csrf.parameterName}=${_csrf.token}" method="post">
+		<form name="form" action="${pageContext.request.contextPath}/order/orderInput/insert" method="post">
 		<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 
 			<br /> <br />

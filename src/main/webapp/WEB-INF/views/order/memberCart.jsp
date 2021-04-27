@@ -21,7 +21,12 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-
+<style>
+.thumbnail {
+	width: 70px;
+	height: 70px;
+}
+</style>
 <script type="text/javascript">
 
 $(document)
@@ -43,7 +48,7 @@ $(document)
 				+ "' type='checkbox' name='prdct_id' value='"
 				+ data[i].prdct_id
 				+ "'></input></td>"
-				+ "<td scope='col' class='cart-pic first-row'> <a href='${pageContext.request.contextPath}/prdct/"+data[i].prdct_id+"'> "+data[i].prdct_thumbnail+" </a></td> "
+				+ "<td scope='col' class='cart-pic first-row'> <a href='${pageContext.request.contextPath}/prdct/"+data[i].prdct_id+"'> <img src='/prdct_img/prdct_thumbnail/"+data[i].prdct_thumbnail+"' class='thumbnail'></a></td> "
 				+ "<td scope='col' class='cart-title first-row'>"
 				+ "<h5>"
 				+ "<a href='${pageContext.request.contextPath}/prdct/"+data[i].prdct_id+"' style='color:#000000'>"
@@ -53,8 +58,7 @@ $(document)
 				+ "</div></a>"
 				+ "</td>"
 				+ "<td scope='col' class='p-price first-row' style='color:#000000'>"
-				+ "<input style='border:none; text-align:right; ' type='text' id='a"+i+"' value='"+data[i].prdct_price+"' readonly size='7px' >"
-				+ "원</td>"
+				+ "<input style='border:none; text-align:right; ' type='text' id='a"+i+"' value='"+data[i].prdct_price+"' readonly size='7px' >원</td>"
 				+ "<td scope='col' class='qua-col first-row'>"
 				+ "	<div class='quantity'> <div class='pro-qty'> <span class='dec qtybtn' onclick='total"
 				+ i
@@ -121,20 +125,26 @@ $(document)
 			
 		});
 // 전체 선택
-$('#allCk').click(function() {
-	var checked = $('#allCk').is(':checked');
-	if (checked)
-		$('input:checkbox').prop('checked', true);
-	if (!checked)
-		$('input:checkbox').prop('checked', false);
-	summary();
+$(document).ready(function(){
+    //최상단 체크박스 클릭
+    $("#checkall").click(function(){
+        //클릭되었으면
+        if($("#checkall").prop("checked")){
+            $("input[name=prdct_id]").prop("checked",true);
+            //클릭이 안되있으면
+        }else{
+            $("input[name=prdct_id]").prop("checked",false);
+        }
+        summary();
+    });
 });
+
 // 해당 상품 삭제
 function cartDelete(i) {
 	var tr = '#tr' + i;
 	$(tr).remove();
 	cartList = JSON.parse(sessionStorage.getItem('cartList'));
-	cartList.splice(i - 1, 1);
+	cartList.splice(i, 1);
 	sessionStorage.setItem('cartList', JSON.stringify(cartList));
 	summary();
 }
@@ -149,7 +159,6 @@ function summary() {
 			console.log(typeof(sum))
 		}
 	}
-	
 	
 	$('.total').html(sum + '원');
 }
@@ -172,9 +181,11 @@ function buy() {
 			prdct.order_size = this.form.order_size[i].value;
 			prdct.order_color = this.form.order_color[i].value;
 			prdct.prdct_name = this.form.prdct_name[i].value;
+			prdct.prdct_thumbnail = this.form.prdct_thumbnail[i].value;
 			prdct.sum = parseInt(this.form.sum[i].value);
+			console.log(prdct.sum);
 			console.log(prdct);
-			//prdct.prdct_thumbnail = this.form.prdct_thumbnail[i].value;
+			
 			console.log(prdct);
 			order.push(prdct);
 		}
@@ -201,13 +212,13 @@ function buy() {
 						<col width="10%">
 						<col width="20%">
 						<col width="30%">
+						<col width="15%">
 						<col width="10%">
-						<col width="10%">
-						<col width="20%">
+						<col width="15%">
 					</colgroup>
 					<thead>
 						<tr style="text-align: center;">
-							<th scope="col"><input type="checkbox" id="allCk" >
+							<th scope="col"><input type="checkbox" id="checkall" >
 							<th scope="col">이미지</th>
 							<th scope="col">상품명(옵션)</th>
 							<th scope="col">판매가</th>
