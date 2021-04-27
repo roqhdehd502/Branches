@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,13 +25,17 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.bit.ex.config.auth.MemberDetails;
 import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.MemberCriteria;
 import edu.bit.ex.page.MemberPageVO;
 import edu.bit.ex.page.PrdctListCriteria;
 import edu.bit.ex.page.PrdctListPageVO;
+import edu.bit.ex.page.UserQnACriteria;
+import edu.bit.ex.page.UserQnAPageVO;
 import edu.bit.ex.service.AdminService;
+import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.MbrVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -52,18 +57,6 @@ public class AdminController {
 		mav.setViewName("admin/adminpage");
 		return mav;
 	}
-
-	// 관리자 유저 Q&A 페이징리스트
-
-	/*
-	 * @GetMapping("/mypage/userqna") public ModelAndView adminQnA(UserQnACriteria cri, ModelAndView mav) throws Exception { log.debug("adminQnA");
-	 * log.info("adminQnA"); mav.setViewName("admin/adminQnA");
-	 * 
-	 * mav.addObject("board", adminService.getUserQnAListWithCri(cri)); int total = adminService.getUserQnATotalCount(cri); mav.addObject("pageMaker",
-	 * new UserQnAPageVO(cri, total));
-	 * 
-	 * return mav; }
-	 */
 
 	// 관리자 매출조회 페이지 (보류)
 	@GetMapping("/mypage/regist/seller")
@@ -260,12 +253,80 @@ public class AdminController {
 
 	// 관리자 회원 삭제 admin
 
-	// 관리자 회원 상세정보 admin
+	// 관리자 회원 주문내역 admin
 	@RequestMapping(value = "/mypage/member/{member_id}/order", method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView admin_member_order_list(@PathVariable("member_id") String m_id, ModelAndView mav) {
-		mav.setViewName("admin/admin_member_order_list");
+	public ModelAndView admin_member_order_list(@PathVariable("member_id") String m_id, MemberCriteria cri, ModelAndView mav) {
+		log.info("admin_member_order_list...");
 		mav.addObject("mbr", adminService.getMemberInfo(m_id));
+
+		if (adminService.getMemberOrderList(m_id, cri) != null) {
+			mav.addObject("order", adminService.getMemberOrderList(m_id, cri));
+			int total = adminService.getOrderTotalCount(m_id);
+			mav.addObject("pageMaker", new MemberPageVO(cri, total));
+			mav.setViewName("admin/admin_member_order_list");
+		} else {
+			mav.setViewName("admin/admin_member_order_list_null");
+		}
 		return mav;
+	}
+
+	// 관리자 회원 주문내역 admin
+	@GetMapping("/mypage/member/{member_id}/order/{order_number}")
+	public ModelAndView admin_member_order_detail(@PathVariable("member_id") String m_id, @PathVariable("order_number") String order_number,
+			MemberCriteria cri, ModelAndView mav) {
+		log.info("admin_member_order_list...");
+		mav.setViewName("admin/admin_member_order_detail");
+		mav.addObject("mbr", adminService.getMemberInfo(m_id));
+		mav.addObject("order", adminService.getOrderDetail(order_number));
+		return mav;
+	}
+
+	// 관리자 유저 Q&A 페이징리스트
+
+	@GetMapping("/mypage/member/userQnA")
+	public ModelAndView adminQnA_list(UserQnACriteria cri, ModelAndView mav) throws Exception {
+		log.debug("userQnA_list");
+
+		mav.setViewName("admin/userQnA_list");
+		mav.addObject("board", adminService.getUserQnAListWithCri(cri));
+		int total = adminService.getUserQnATotalCount(cri);
+		mav.addObject("pageMaker", new UserQnAPageVO(cri, total));
+
+		return mav;
+	}
+
+	@GetMapping("/mypage/member/userQnA/{board_id}")
+	public ModelAndView adminQnA(@PathVariable("board_id") int b_id, ModelAndView mav) throws Exception {
+		log.debug("userQnA");
+
+		mav.setViewName("admin/userQnA");
+		mav.addObject("board", adminService.getUserQnA(b_id));
+
+		if (adminService.getQnAComment(b_id) != null) {
+			mav.addObject("comment", adminService.getQnAComment(b_id));
+		}
+		return mav;
+	}
+
+	@PostMapping("/mypage/member/userQnA/{board_id}/comment")
+	public ResponseEntity<String> adminQnA_comment(@ModelAttribute BoardCommentVO commentVO, @AuthenticationPrincipal MemberDetails memberDetails) {
+		log.debug("userQnA_comment");
+
+		ResponseEntity<String> entity = null;
+
+		log.debug("댓글" + commentVO.getComment_content());
+		commentVO.setMbr_id(memberDetails.getUserID());
+
+		try {
+			adminService.userQnAComment(commentVO);
+			log.info("comment complete");
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
 	}
 
 }

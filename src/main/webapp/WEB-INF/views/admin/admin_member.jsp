@@ -65,7 +65,11 @@ $(document).ready(function(){
 		    url : $(this).attr("action"),
 		    cache : false,
 		    contentType:'application/json; charset=utf-8',
-			    data: JSON.stringify(form), 
+		    processData: false,
+			data: JSON.stringify(form), 
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+			},
 		    success: function (result) {       
 				if(result == "SUCCESS"){
 					//list로 
@@ -111,7 +115,7 @@ $(document).ready(function(){
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>회원관리</h3><hr>
 	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/member">회원정보 조회</a></h5>
-	               		 <h5><a href="${pageContext.request.contextPath}/admin/mypage/member/adminQnA">고객Q&A 목록</a></h5>
+	               		 <h5><a href="${pageContext.request.contextPath}/admin/mypage/member/userQnA">고객Q&A 목록</a></h5>
 	                </div><br/>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>매출관리</h3><hr>
@@ -119,7 +123,6 @@ $(document).ready(function(){
 	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/adminSearchtotal">검색순위 조회</a></h5>
 	                </div>
 				</div>
-				
 				<div class="col-md-9 contact-info">
 					<h3 >
 					<strong>회원 등록 정보</strong>
