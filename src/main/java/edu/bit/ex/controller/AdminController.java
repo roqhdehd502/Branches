@@ -58,7 +58,7 @@ public class AdminController {
 		return mav;
 	}
 
-	// 관리자 매출조회 페이지 (보류)
+	// 관리자 판매자 등록
 	@GetMapping("/mypage/regist/seller")
 	public ModelAndView regist_Seller(ModelAndView mav) throws Exception {
 		log.info("regist seller page........");
@@ -69,7 +69,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/mypage/regist/seller")
-	public String registing_Seller(@ModelAttribute MbrShippingVO mbrShippingVO) throws Exception {
+	public ModelAndView registing_Seller(@ModelAttribute MbrShippingVO mbrShippingVO, ModelAndView mav) throws Exception {
 		log.info("registing seller page........");
 
 		ResponseEntity<String> entity = null;
@@ -80,13 +80,14 @@ public class AdminController {
 			adminService.addSeller(mbrShippingVO);
 			log.info("update seller info");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			mav.setViewName("redirect:/admin/mypage/seller");
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
-		return "redirect:admin/mypage/seller/mbrShippingVO.getMbr_id";
+		return mav;
 
 	}
 
@@ -309,12 +310,11 @@ public class AdminController {
 	}
 
 	@PostMapping("/mypage/member/userQnA/{board_id}/comment")
-	public ResponseEntity<String> adminQnA_comment(@ModelAttribute BoardCommentVO commentVO, @AuthenticationPrincipal MemberDetails memberDetails) {
+	public ResponseEntity<String> adminQnA_comment(@RequestBody BoardCommentVO commentVO, @AuthenticationPrincipal MemberDetails memberDetails) {
 		log.debug("userQnA_comment");
 
 		ResponseEntity<String> entity = null;
 
-		log.debug("댓글" + commentVO.getComment_content());
 		commentVO.setMbr_id(memberDetails.getUserID());
 
 		try {
@@ -327,6 +327,13 @@ public class AdminController {
 		}
 
 		return entity;
+	}
+
+	@GetMapping("/mypage/sales")
+	public ModelAndView admin_sales_chart(ModelAndView mav) {
+		log.debug("admin_sales_chart");
+
+		return mav;
 	}
 
 }

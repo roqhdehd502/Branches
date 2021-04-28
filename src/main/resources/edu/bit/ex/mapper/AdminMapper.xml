@@ -32,8 +32,10 @@
 			                    *
 			                from
 			                    mbr  
+			                where 
+			                	 authority_number=2
 			    ) a where rownum <= #{pageNum} * #{amount}
-			) where rnum > (#{pageNum}-1) * #{amount} and authority_number=2
+			) where rnum > (#{pageNum}-1) * #{amount}
 	]]>
 	</select>
 	
@@ -67,8 +69,10 @@
 			                    *
 			                from
 			                    prdct
+			                where 
+			                	mbr_id=#{m_id}
 			    ) a where rownum <= #{cri.pageNum} * #{cri.amount}
-			) where rnum > (#{cri.pageNum}-1) * #{cri.amount} and mbr_id=#{m_id}
+			) where rnum > (#{cri.pageNum}-1) * #{cri.amount} 
 	]]>
 	</select>
 	
@@ -111,8 +115,10 @@
 			                    *
 			                from
 			                    mbr  
+			                where 
+			                	authority_number=3
 			    ) a where rownum <= #{pageNum} * #{amount}
-			) where rnum > (#{pageNum}-1) * #{amount} and authority_number=3
+			) where rnum > (#{pageNum}-1) * #{amount}
 	]]>
 	</select>
 	
