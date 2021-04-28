@@ -5,26 +5,23 @@
   
 <mapper namespace="edu.bit.ex.mapper.AdminMapper">
 	
-	<!-- 고객Q&A + 페이징 -->
-	<select id="getUserQnAListWithCri" resultType="edu.bit.ex.vo.BoardVO">
-	<![CDATA[
-		select * from (
-			     select rownum as rnum, a.* from (
-			        		select
-			                    *
-			                from
-			                    board  
-			    ) a where rownum <= #{pageNum} * #{amount}
-			) where rnum > (#{pageNum}-1) * #{amount} and board_type_number=5
-	]]>
-	</select>
-	
-	<!-- 고객 Q&A 수 반환 -->
-	<select id="getUserQnATotalCount" resultType="int">
-	<![CDATA[
-		select count(*)	from board where board_type_number=5
-	]]>
-	</select>
+	<!-- 게시판 Criteria -->
+	<sql id="boardCriteria">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							board_name like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'C'.toString()">
+							board_content like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
 	
 	<!-- 판매자 리스트 + 페이징 -->
 	<select id="getSellerListWithCri" resultType="edu.bit.ex.vo.MbrVO">
@@ -188,8 +185,110 @@
 	</update>
 	
 	<select id="getSellerPrdctList" resultType="edu.bit.ex.joinvo.PrdctRegisterImageVO">
-		<![CDATA[
+	<![CDATA[
 		select * from board where mbr_id=#{mbr_id} and board_type_number=6
+	]]>
+	</select>
+	
+	<select id="getMemberOrderList" resultType="edu.bit.ex.vo.PrdctOrderVO">
+	<![CDATA[
+		select * from (
+			     select rownum as rnum, a.* from (
+			        		select
+			                    p.order_number, p.order_price, p.order_date, o.order_state_name
+			                from
+			                    prdct_order p, order_state o
+			                where 
+								p.mbr_id=#{m_id} and p.order_state_number=o.order_state_number
+			    ) a where rownum <= #{cri.pageNum} * #{cri.amount}
+			) where rnum > (#{cri.pageNum}-1) * #{cri.amount}
+	]]>
+	</select>
+	
+	<select id="getOrderTotalCount" resultType="int">
+	<![CDATA[
+		select count(*) from prdct_order where mbr_id=#{m_id}
+	]]>
+	</select>
+	
+	<select id="getOrderDetail" resultType="edu.bit.ex.joinvo.PrdctOrdctDetailPrdctOrderVO">
+	<![CDATA[
+		select * from prdct_order po, order_detail o, prdct p 
+		where po.order_number=#{order_number} and po.order_number=o.order_number and o.prdct_id=p.prdct_id
+	]]>
+	</select>
+	
+	<resultMap id="userqna" type="edu.bit.ex.vo.BoardVO">
+		<result property="board_id" column="board_id" />
+		<result property="board_name" column="board_name" />
+		<result property="board_content" column="board_content" />
+		<result property="mbr_id" column="mbr_id" />
+		<result property="board_type_number" column="board_type_number" />
+		<result property="inquiry_number" column="inquiry_number" />
+		<result property="board_date" column="board_date" />
+		<result property="prdct_id" column="prdct_id" />
+		<result property="order_number" column="order_number" />
+		<result property="board_like" column="board_like" />
+		<result property="board_hit" column="board_hit" />
+		<result property="board_starrate" column="board_starrate" />
+		<result property="board_thumbnail" column="board_thumbnail" />
+		<collection property="prdctVO" resultMap="prdctMap"></collection>
+		<collection property="inquiryVO" resultMap="inquiryMap"></collection>
+	</resultMap>
+	
+	<resultMap id="prdctMap" type="edu.bit.ex.vo.PrdctVO">
+		<result property="prdct_id" column="prdct_id"/>
+		<result property="prdct_name" column="prdct_name"/>
+		<result property="prdct_price" column="prdct_price"/>
+	</resultMap>
+	
+	<resultMap id="inquiryMap" type="edu.bit.ex.vo.InquiryVO">
+		<result property="inquiry_number" column="inquiry_number"/>
+		<result property="inquiry_name" column="inquiry_name"/>
+	</resultMap>
+	
+	<select id="getUserQnAListWithCri" resultMap="userqna">
+	<![CDATA[
+		select distinct * from (
+			     select rownum as rnum, a.* from (
+			        		select
+			                   distinct b.board_id, b.board_name, b.mbr_id, b.board_date, b.order_number, i.inquiry_name
+			                from
+			                    board b, inquiry i
+                            where 
+                               board_type_number=5 and b.inquiry_number= i.inquiry_number
+			    ) a where rownum <= #{pageNum} * #{amount}
+			) where rnum > (#{pageNum}-1) * #{amount}
+	]]>
+	</select>
+	
+	<select id="getUserQnATotalCount" resultType="int">
+	<![CDATA[
+		select count(*) from board where board_type_number=5
+	]]>
+	</select>
+	
+	<select id="getUserQnA" resultMap="userqna">
+	<![CDATA[
+		select *
+		from board b, inquiry i
+		where b.board_id=#{b_id} and b.inquiry_number= i.inquiry_number
+	]]>
+	</select>
+	
+	<insert id="userQnAComment">
+	<![CDATA[
+		insert into board_comment (comment_id, board_id, mbr_id, comment_content)
+		values
+		(board_comment_seq.nextval, #{board_id}, #{mbr_id}, #{comment_content})
+	]]>
+	</insert>
+	
+	<select id="getQnAComment" resultType="edu.bit.ex.vo.BoardCommentVO">
+	<![CDATA[
+		select *
+		from board_comment
+		where board_id=#{b_id}
 	]]>
 	</select>
 	

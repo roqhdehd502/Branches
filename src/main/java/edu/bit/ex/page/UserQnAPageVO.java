@@ -38,7 +38,11 @@ public class UserQnAPageVO {
 
 	// 해당 페이지 번호에 따라 URL 뒤에 붙게한다.
 	public String makeQuery(int page) {
-		UriComponents uriComponentsBuilder = UriComponentsBuilder.newInstance().queryParam("pageNum", page).queryParam("amount", cri.getAmount())
+		UriComponents uriComponentsBuilder = UriComponentsBuilder.newInstance() // 인스턴스 생성
+				.queryParam("pageNum", page) // 페이지 번호
+				.queryParam("amount", cri.getAmount()) // 한 페이지 내의 게시글 수
+				.queryParam("type", cri.getType()) // 검색 타입
+				.queryParam("keyword", cri.getKeyword()) // 검색어
 				.build();
 		return uriComponentsBuilder.toUriString();
 	}

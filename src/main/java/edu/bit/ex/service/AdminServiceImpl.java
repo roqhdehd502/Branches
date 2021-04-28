@@ -11,12 +11,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.bit.ex.joinvo.MbrShippingVO;
+import edu.bit.ex.joinvo.PrdctOrdctDetailPrdctOrderVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.mapper.AdminMapper;
 import edu.bit.ex.page.MemberCriteria;
 import edu.bit.ex.page.PrdctListCriteria;
+import edu.bit.ex.page.UserQnACriteria;
+import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
+import edu.bit.ex.vo.PrdctOrderVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
 import lombok.AllArgsConstructor;
@@ -35,15 +39,6 @@ public class AdminServiceImpl implements AdminService {
 
 	// 매거진 썸네일 저장 경로
 	private static final String PRDCT_THUMBNAIL_PATH = "C:/tetleaf/Branches/src/main/resources/static/prdct_img/prdct_thumbnail";
-
-	// 고객 Q&A 페이징 리스트
-	/*
-	 * @Override public List<BoardVO> getUserQnAListWithCri(UserQnACriteria cri) { // TODO Auto-generated method stub
-	 * log.info("getUserQnAListWithCri"); return adminMapper.getUserQnAListWithCri(cri); }
-	 * 
-	 * @Override public int getUserQnATotalCount(UserQnACriteria cri) { // TODO Auto-generated method stub log.info("getUserQnATotal"); return
-	 * adminMapper.getUserQnATotalCount(cri); }
-	 */
 
 	// 판매자 페이징 리스트
 	@Override
@@ -205,6 +200,54 @@ public class AdminServiceImpl implements AdminService {
 		}
 
 		adminMapper.updatePrdctThumb(prvo);
+	}
+
+	@Override
+	public List<PrdctOrderVO> getMemberOrderList(String m_id, MemberCriteria cri) {
+		// TODO Auto-generated method stub
+		return adminMapper.getMemberOrderList(m_id, cri);
+	}
+
+	@Override
+	public int getOrderTotalCount(String m_id) {
+		// TODO Auto-generated method stub
+		return adminMapper.getOrderTotalCount(m_id);
+	}
+
+	@Override
+	public List<PrdctOrdctDetailPrdctOrderVO> getOrderDetail(String order_number) {
+		// TODO Auto-generated method stub
+		return adminMapper.getOrderDetail(order_number);
+	}
+
+	@Override
+	public List<BoardVO> getUserQnAListWithCri(UserQnACriteria cri) {
+		// TODO Auto-generated method stub
+		return adminMapper.getUserQnAListWithCri(cri);
+	}
+
+	@Override
+	public int getUserQnATotalCount(UserQnACriteria cri) {
+		// TODO Auto-generated method stub
+		return adminMapper.getUserQnATotalCount(cri);
+	}
+
+	@Override
+	public BoardVO getUserQnA(int b_id) {
+		// TODO Auto-generated method stub
+		return adminMapper.getUserQnA(b_id);
+	}
+
+	@Override
+	public List<BoardCommentVO> getQnAComment(int b_id) {
+		// TODO Auto-generated method stub
+		return adminMapper.getQnAComment(b_id);
+	}
+
+	@Override
+	public void userQnAComment(BoardCommentVO commentVO) {
+		// TODO Auto-generated method stub
+		adminMapper.userQnAComment(commentVO);
 	}
 
 }
