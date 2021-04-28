@@ -178,8 +178,7 @@ public class MemberController {
 
 	// 페이징을 이용한 고객 QnA 마이페이지 리스트
 	@GetMapping("/mypage/myqna/list")
-	public ModelAndView myqnaList(@AuthenticationPrincipal MemberDetails memberDetails, MyqnaCriteria cri, BoardBoardCommentVO bCommentVO,
-			ModelAndView mav) {
+	public ModelAndView myqnaList(@AuthenticationPrincipal MemberDetails memberDetails, MyqnaCriteria cri, BoardVO boardVO, ModelAndView mav) {
 		log.info("myqnaList...");
 		mav.setViewName("member/member_myq_list");
 
@@ -188,9 +187,9 @@ public class MemberController {
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
 		// 작성한 고객 Q&A 리스트 받아오기
-		mav.addObject("myq_list", memberService.getMyqList(cri, memberDetails.getUserID()));
+		mav.addObject("myq_list", memberService.getMyqList(cri, memberDetails.getUserID(), boardVO.getBoard_id()));
 		// 작성한 고객 Q&A 응답여부 받아오기
-		mav.addObject("myq_cmnt_stat", memberService.getMyqCmntStat(bCommentVO.getBoard_id()));
+		mav.addObject("myq_cmnt_stat", memberService.getMyqCmntStat(boardVO.getBoard_id()));
 
 		int total = memberService.getMyqnaTotal(cri);
 		log.info("total" + total);

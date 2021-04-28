@@ -108,9 +108,9 @@ public class MemberServiceImpl implements MemberService {
 
 	// 페이징을 적용한 작성한 고객 Q&A 리스트 받아오기
 	@Override
-	public List<BoardVO> getMyqList(MyqnaCriteria cri, String mbr_id) {
+	public List<BoardVO> getMyqList(MyqnaCriteria cri, String mbr_id, int board_id) {
 		log.info("getMyqList()......");
-		return memberMapper.getMyqListWithPaging(cri, mbr_id);
+		return memberMapper.getMyqListWithPaging(cri, mbr_id, board_id);
 	}
 
 	// 페이징 단위에 적용되는 최대 고객 Q&A 게시글 단위
@@ -122,7 +122,7 @@ public class MemberServiceImpl implements MemberService {
 
 	// 작성한 고객 Q&A 응답여부 받아오기
 	@Override
-	public BoardCommentVO getMyqCmntStat(int board_id) {
+	public List<BoardCommentVO> getMyqCmntStat(int board_id) {
 		log.info("getMyqCmntStat()......");
 		return memberMapper.getMyqCmntStat(board_id);
 	}

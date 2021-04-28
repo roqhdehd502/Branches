@@ -130,7 +130,14 @@
 	<!-- 작성한 고객 Q&A 응답여부 받아오기 -->
 	<select id="getMyqCmntStat" resultType="edu.bit.ex.vo.BoardCommentVO">
 	<![CDATA[
-		SELECT COUNT(comment_id) AS comment_count FROM board_comment WHERE board_id = #{board_id}
+		SELECT c.comment_id, b.board_id 
+		FROM board_comment c, board b 
+		WHERE c.board_id = b.board_id AND 
+		    b.board_type_number = 5 AND 
+		    c.comment_id IN (SELECT MIN(comment_id) 
+		                     FROM board_comment 
+		                     GROUP BY board_id) 
+		ORDER BY b.board_id DESC
 	]]>
 	</select>
 	

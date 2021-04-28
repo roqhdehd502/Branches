@@ -57,13 +57,13 @@ public interface MemberMapper {
 
 	// 작성한 고객 Q&A 리스트 받아오기
 	// public List<BoardVO> getMyqList(String mbr_id);
-	public List<BoardVO> getMyqListWithPaging(MyqnaCriteria cri, String mbr_id);
+	public List<BoardVO> getMyqListWithPaging(MyqnaCriteria cri, String mbr_id, int board_id);
 
 	// 페이징 단위에 적용되는 최대 고객 Q&A 게시글 단위
 	public int getMyqnaTotalCount(MyqnaCriteria cri);
 
 	// 작성한 고객 Q&A 응답여부 받아오기
-	public BoardCommentVO getMyqCmntStat(int board_id);
+	public List<BoardCommentVO> getMyqCmntStat(int board_id);
 
 	// 고객 Q&A 작성페이지 문의 유형 받아오기
 	public List<InquiryVO> getMyqInquiry();

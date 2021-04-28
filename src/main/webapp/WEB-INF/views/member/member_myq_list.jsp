@@ -148,11 +148,34 @@
 							</div>
 							<div class="col-md-3" align="center" style="padding-top: 1%;">
 								${myq_list.board_date}
-							</div>
+							</div>				
+							<%-- 답변여부 확인 --%>
 							<div class="col-md-3" align="center" style="padding-top: 1%;">
-								<%-- ${myq_list.comment_id ne null ? '답변완료' : '답변대기'} --%>
-								${myq_cmnt_stat.comment_count > 0 ? '답변완료' : '답변대기'}
-							</div>
+							    <%-- 루프 탈출 조건 변수 설정 --%>
+								<c:set var="loop_flag" value="false" />
+								<%-- 답변여부 확인용 루프 설정 --%>
+								<c:forEach items="${myq_cmnt_stat}" var="cmnt_stat" varStatus="status">
+									<%-- if문을 통해 루프 탈출 조건을 건다 --%>
+									<c:if test="${not loop_flag}">
+										<%-- 해당 글에 답변이 존재할 때 --%>
+										<c:if test="${myq_list.board_id eq cmnt_stat.board_id}">
+											답변완료
+											<%-- 해당 변수값이 true로 설정되어 루프(forEach)를 탈출한다 --%>
+											<c:set var="loop_flag" value="true"/>
+										</c:if>
+										<%-- 해당 글에 답변이 존재하지 않을때 --%>
+										<c:if test="${myq_list.board_id ne cmnt_stat.board_id}">
+											<%-- 다음 인덱스 값도 계속 탐색해야 하므로 출력하지 않는 빈 값만 출력한다 --%>
+											<span style="display: none;"></span>
+										</c:if>
+										<%-- 마지막 인덱스까지 해당 글에 답변이 존재하지 않을때 --%>
+										<c:if test="${(status.last) and (myq_list.board_id ne cmnt_stat.board_id)}">
+											답변대기
+											<c:set var="loop_flag" value="true"/>
+										</c:if>
+									</c:if>
+								</c:forEach>
+							</div>					
 						</div>
 						<hr>
 						</c:forEach>

@@ -144,7 +144,7 @@
 						<div class="container">
 							<c:forEach items="${comment}" var="comment" varStatus="cmnt_status">
 								<div class="row" style="margin: 1% 3% 1% 3%; padding: 1% 3% 1% 3%; border: 1px solid #E5E5E5;">
-									<div class="col-md-7" align="left" style="white-space: pre;">${comment.comment_content}</div>
+									<div class="col-md-7" align="left" style="white-space: pre;  overflow: auto;">${comment.comment_content}</div>
 									<div class="col-md-5" align="right">${comment.comment_date}</div>
 								</div>
 							</c:forEach>
