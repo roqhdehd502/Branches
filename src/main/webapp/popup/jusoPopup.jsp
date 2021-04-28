@@ -4,6 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
 <title>Insert title here</title>
 <%
 //request.setCharacterEncoding("UTF-8");  //한글깨지면 주석제거
@@ -65,6 +67,7 @@ function init(){
 </script>
 <body onload="init();">
 	<form id="form" name="form" method="post">
+	<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 		<input type="hidden" id="confmKey" name="confmKey" value="" /> <input
 			type="hidden" id="returnUrl" name="returnUrl" value="" /> <input
 			type="hidden" id="resultType" name="resultType" value="" />
