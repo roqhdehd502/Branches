@@ -39,26 +39,24 @@ $(document).ready(function(){
 		var header = $("meta[name='_csrf_header']").attr("content");
 		
 		var form = {
-				var board_id: board_id,
-				var comment_content: comment_content
+				board_id: board_id,
+				comment_content: comment_content
 		};
 		
 		console.log(form);
 		//dataType: 'json',
         $.ajax({
 		    type : "POST",
-		    console.log(form);
 		    url : $(this).attr("action"),
 		    cache : false,
 		    contentType:'application/json; charset=utf-8',
 			data: JSON.stringify(form), 
 			beforeSend: function(xhr) {
-				xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+				xhr.setRequestHeader(header, token);
 			},
-		    success: function (result) {       
-				if(result == "SUCCESS"){
-					$(location).attr('href', '${pageContext.request.contextPath}/admin/mypage/member/userQnA/${board.board_id}')				      	       
-				}					        
+		    success: function (result) {  
+		    	console.log("userQnA comment complete");
+				window.location.href='${pageContext.request.contextPath}/admin/mypage/member/userQnA/'+ board_id;					        
 		    },
 		    error: function (e) {
 		        console.log(e);
