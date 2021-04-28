@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -97,10 +98,10 @@
 										<div class="team-content">
 											<h4>${prdct.mbr_id }</h4>
 											<h5>${prdct.prdct_name}</h5>
-											<h5>${prdct.prdct_price}₩</h5>
-											<h6>
-												<del>${prdct.prdct_price *2}₩</del>
-											</h6>
+											<h5><fmt:formatNumber value="${prdct.prdct_price}" pattern=""></fmt:formatNumber>₩</h5>
+											<%-- <h6>
+												<del>${prdct.prdct_price}₩</del>
+											</h6> --%>
 										</div>
 									</a>
 								</div>
@@ -130,9 +131,9 @@
 										<div class="team-content">
 											<h4>${prdct.mbr_id }</h4>
 											<h5>${prdct.prdct_name}</h5>
-											<h5>${prdct.prdct_price}₩</h5>
+											<h5><fmt:formatNumber value="${prdct.prdct_price /2}" pattern=""></fmt:formatNumber>₩</h5>
 											<h6>
-												<del>${prdct.prdct_price *2}₩</del>
+												<del>${prdct.prdct_price}₩</del>
 											</h6>
 										</div>
 									</a>
@@ -188,10 +189,11 @@
 										<div class="team-content">
 											<h4>${prdct.mbr_id }</h4>
 											<h5>${prdct.prdct_name}</h5>
-											<h5>${prdct.prdct_price}₩</h5>
+											<h5><fmt:formatNumber value="${prdct.prdct_price}" pattern=""></fmt:formatNumber>₩</h5>
+											<%-- <h5><fmt:formatNumber value="${prdct.prdct_price /2}" pattern=""></fmt:formatNumber>₩</h5>
 											<h6>
-												<del>${prdct.prdct_price *2}₩</del>
-											</h6>
+												<del>${prdct.prdct_price}₩</del>
+											</h6> --%>
 										</div>
 									</a>
 								</div>
