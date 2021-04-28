@@ -195,11 +195,32 @@
 		]]>
 	</insert>
 	
-	<!-- 매거진 게시글 댓글 작성 -->
+	<!-- 상품 qna 댓글 작성 -->
 	<insert id="setCommentWrite">
 		<![CDATA[
 			INSERT INTO board_comment (comment_id, board_id, mbr_id, comment_content) 
 			VALUES (board_comment_seq.nextval, #{board_id}, #{mbr_id}, #{comment_content}) 
 		]]>
 	</insert>
+	
+	
+	<!-- 상품 qna 댓글불러오기 -->
+	<select id="getComment" resultType="edu.bit.ex.joinvo.BoardBoardCommentVO">
+		<![CDATA[			
+			SELECT b.board_id, c.comment_id, c.comment_content, c.comment_date, c.mbr_id, m.mbr_nickname 
+							FROM board_comment c, mbr m, board b 
+							WHERE c.mbr_id = m.mbr_id AND 
+							    c.board_id = b.board_id AND 
+							    b.board_id = 1329
+							ORDER BY c.comment_id DESC, c.comment_date DESC 
+		]]>
+	</select>
+	
+	<!-- 상품 qna 댓글 삭제 -->
+	<delete id="CommentRemove">
+		<![CDATA[
+			DELETE FROM board_comment 
+			WHERE comment_id = #{comment_id}
+		]]>
+	</delete>
 </mapper>
