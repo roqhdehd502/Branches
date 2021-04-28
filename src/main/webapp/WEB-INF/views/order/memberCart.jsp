@@ -168,31 +168,52 @@ function allCartDelete() {
 	sessionStorage.setItem('cartList', JSON.stringify(cartList));
 	summary();
 }
-// 결제 페이지 이동
-function buy() {
-	var order = new Array();
+
+
+function nullCheck() {
 	var count = this.form.prdct_id.length;
+	var checked = 0;
 	for (var i = 1; i < count; i++) {
 		if (this.form.prdct_id[i].checked == true) {
-			var prdct = new Object();
-			prdct.prdct_id = this.form.prdct_id[i].value;
-			prdct.order_amount = parseInt(this.form.order_amount[i].value);
-			prdct.order_size = this.form.order_size[i].value;
-			prdct.order_color = this.form.order_color[i].value;
-			prdct.prdct_name = this.form.prdct_name[i].value;
-			prdct.prdct_thumbnail = this.form.prdct_thumbnail[i].value;
-			prdct.sum = parseInt(this.form.sum[i].value);
-			console.log(prdct.sum);
-			console.log(prdct);
-			
-			console.log(prdct);
-			order.push(prdct);
+			checked += 1;
 		}
 	}
+	if (checked < 1) {
+		alert("결제할 상품을 선택해주세요.")
+		return false;
+	} 
 	
-	sessionStorage.setItem("order", JSON.stringify(order));
-	window.location.assign("/order/orderInput");
-}
+	else {
+		// 결제 페이지 이동
+		//function buy() {
+			var order = new Array();
+			//var count = this.form.prdct_id.length;
+			for (var i = 1; i < count; i++) {
+				if (this.form.prdct_id[i].checked == true) {
+					var prdct = new Object();
+					prdct.prdct_id = this.form.prdct_id[i].value;
+					prdct.order_amount = parseInt(this.form.order_amount[i].value);
+					prdct.order_size = this.form.order_size[i].value;
+					prdct.order_color = this.form.order_color[i].value;
+					prdct.prdct_name = this.form.prdct_name[i].value;
+					prdct.prdct_thumbnail = this.form.prdct_thumbnail[i].value;
+					prdct.sum = parseInt(this.form.sum[i].value);
+					console.log(prdct.sum);
+					console.log(prdct);
+					
+					console.log(prdct);
+					order.push(prdct);
+				}
+			}
+			
+			sessionStorage.setItem("order", JSON.stringify(order));
+			window.location.assign("/order/orderInput");
+			
+		//}
+	}
+};
+
+
 </script>
 </head>
 <body>
@@ -200,7 +221,7 @@ function buy() {
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	
 		<!-- 장바구니	 -->
-		<form id="cart" name="form" method="post" action="${pageContext.request.contextPath}/order/orderInput?${_csrf.parameterName}=${_csrf.token}">
+		<form id="cart" name="form" method="post" action="${pageContext.request.contextPath}/order/orderInput?${_csrf.parameterName}=${_csrf.token}" onsubmit="nullCheck(); return false;">
 		<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 		
 		<div class="container" style="text-align: center;">
@@ -255,7 +276,7 @@ function buy() {
 					</tfoot>
 				</table>
 
-			<button type="submit" class="btn btn-primary" onclick="buy()">주문하기</button>
+			<button type="submit" class="btn btn-primary">주문하기</button>
 			<br /> <br />
 	</div>
 	</form>
