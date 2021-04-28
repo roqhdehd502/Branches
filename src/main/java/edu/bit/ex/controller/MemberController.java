@@ -131,7 +131,7 @@ public class MemberController {
 	// 페이징을 이용한 상품 Q&A 마이페이지 리스트 - 누르면 member_myprdctq 연결
 	@GetMapping("/mypage/prdctq/list")
 	public ModelAndView prdctQnAList(@AuthenticationPrincipal MemberDetails memberDetails, PrdQnACriteria cri, BoardBoardCommentVO bCommentVO,
-			ModelAndView mav) throws Exception {
+			ModelAndView mav, InquiryBoardVO iBoardVO) throws Exception {
 		log.debug("prdctQnAList");
 		log.info("prdctQnAList..");
 		mav.setViewName("member/member_myprdctq_list");
@@ -143,6 +143,8 @@ public class MemberController {
 		mav.addObject("prdctq_my_list", memberService.getPrdctqMyList(cri, member_id));
 		// 작성한 상품 Q&A 응답여부 받아오기
 		mav.addObject("prdctq_cmnt_stat", memberService.getPrdctqCmntStat(bCommentVO.getBoard_id()));
+		// 답변한 댓글 불러오기
+		mav.addObject("comment", memberService.getMyqComment(iBoardVO.getBoard_id()));
 
 		int total = memberService.getPrdctqTotal(cri);
 		log.info("total" + total);

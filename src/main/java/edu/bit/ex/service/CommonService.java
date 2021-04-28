@@ -88,6 +88,10 @@ public interface CommonService {
 	public void addPrdView(String mbr_id, String prdct_id);
 
 	// 판매자 댓글
-	public void setCommentWrite(BoardBoardCommentVO boardBoardCommentVO);
+	public void setCommentWrite(BoardCommentVO boardCommentVO);
+
+	public List<BoardBoardCommentVO> getComment(String mbr_id, int board_id);
+
+	public int CommentRemove(int comment_id);
 
 }

@@ -152,8 +152,12 @@ p.title{
 <!-- 상품qna 판매자 댓글 작성 -->
 	<script type="text/javascript">
 	   	$(document).ready(function(){
-	      $(".commentWriteForm").submit(function(event){         
+	      $("#commentWriteForm").submit(function(event){         
 	           event.preventDefault();
+	           
+	       	   // FormData 불러오기
+	           var formData = new FormData();
+	        
 	           var mbr_id = $("#mbr_id").val();
 	           var board_id = $("#board_id").val();
 	           var comment_content = $("#comment_content").val();
@@ -163,25 +167,29 @@ p.title{
 	           console.log(comment_content);
 	           console.log($(this).attr("action"));    
 	           
-	           var form = {
-	        		board_id: board_id,
-	        		mbr_id: mbr_id, 
-	        		comment_content: comment_content
-	           };
+	        	// 해당 텍스트들을 FormData에 append
+	           formData.append("mbr_id", mbr_id);
+	           formData.append("board_id", board_id);
+	           formData.append("comment_content", comment_content);
 	
 	           $.ajax({
 	             type : "POST",
 	             url : $(this).attr("action"),
 	             cache : false,
 	             contentType:'application/json; charset=utf-8',
-	             data: JSON.stringify(form), 
+	             contentType: false,
+	             processData: false, 
+	             data: formData, 
 	             beforeSend : function(xhr) {
 						xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
 	             },
 	             success: function (result) {       
-	               if(result == "SUCCESS"){     
-	                  $(location).attr('href', '${pageContext.request.contextPath}/prdct/${prdct.prdct_id}')                            
-	               }                       
+	            	 if (confirm("댓글을 작성하시겠습니까??") == true) {
+		        			console.log("SUCCESS!")  
+		        			$(location).attr('href', '${pageContext.request.contextPath}/prdct/${prdct.prdct_id}');
+		        		}else {
+							return;
+						}                     
 	             },
 	             error: function (e) {
 	                 console.log(e);
@@ -814,147 +822,146 @@ p.title{
 											<tr>
 												<td colspan="4">
 													<div>${dto.board_content}</div><hr /><br />
-													<!-- 댓글 작성 --> 
-													<!-- 로그인을 하지 않았을 경우 --> 
-													<sec:authorize access="isAnonymous()">
-														<c:choose>
-															<%-- View에서도 null값 이중체크를 한다 --%>
-															<c:when test="${empty mbr.mbr_id}">
-																<form method="post" action="#">
-																	<div class="container">
-																		<div class="row" style="padding: 5% 3% 3% 5%">
-																			<div class="col-md-10" align="left">
-																				<textarea class="form-control" cols="3" placeholder="판매자만 작성 가능합니다" disabled></textarea>
-																			</div>
-																			<div class="col-md-2" align="center">
-																				<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/login'">로그인</button>
-																			</div>
-																		</div>
-																	</div>
-																</form>
-															</c:when>
-														</c:choose>
-													</sec:authorize> <!-- 로그인을 했을 경우 --> 
-													<sec:authorize access="hasAuthority('SELLER')">  
-														<form id="commentWriteForm" method="post" action="${pageContext.request.contextPath}/prdct/${prdct.prdct_id}/qna">
-															<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}" /> 
-															<input type="hidden" id="mbr_id" value="${mbr.mbr_id}">
-															<input type="hidden" id="board_id" value="${dto.board_id}">
-															
-
-															<div class="container">
-																<div class="row" style="padding: 5% 3% 3% 5%">
-																	<div class="col-md-10" align="left">
-																		<textarea class="form-control" cols="3" id="comment_content" name="comment_content" placeholder="댓글을 남겨주세요"></textarea>
-																	</div>
-																	<div class="col-md-2" align="center">
-																		<button type="submit" class="btn btn-primary">등록</button>
-																	</div>
-																</div>
-															</div>
-														</form>
-													</sec:authorize>
-
-													<hr> <!-- 댓글 불러오기 -->
-													<div class="container">
-														<div class="container">
-															<div class="row" style="padding: 3% 3% 3% 3%">
-																<div class="col-md-5" align="center"></div>
-																<div class="col-md-2" align="center" style="border: 1px solid #e5e5e5; padding-top: 1%">
-																	<h4>댓글</h4>
-																	<h4>${magazine_comment_cnt.comment_count}</h4>
-																</div>
-																<div class="col-md-5" align="center"></div>
-															</div>
-														</div>
-
-														<!-- 댓글 리스트 -->
-														<c:forEach items="${magazine_comment}" var="comment" varStatus="cmnt_status">
-															<div class="row" style="margin: 1% 3% 1% 3%; padding: 1% 3% 1% 3%; border: 1px solid #E5E5E5; overflow: auto;">
-																<div class="col-md-7" align="left">
-																	<p>${comment.mbr_nickname}</p>
-																	<p class="lead comment_font" style="white-space: normal;">${comment.comment_content}</p>
-																</div>
-																<div class="col-md-4" align="right">
-																	<div class="lead comment_font">${comment.comment_date}</div>
-																</div>
-
-																<div class="col-md-1 comment_font" align="right">
-																	<c:choose>
-																		<%-- 댓글 작성자가 로그인 한 회원과 일치하지 않을 때 --%>
-																		<c:when test="${mbr.mbr_id ne comment.mbr_id}">
-																			<button type="button" class="btn btn-outline-primary" disabled>...</button>
-																		</c:when>
-																		<%-- 댓글 작성자가 로그인 한 회원과 일치 할 때 --%>
-																		<c:otherwise>
-																			<%-- 모달을 열기 위한 버튼 --%>
-																			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mdal${comment.comment_id}">...</button>
-																			<%-- 모달 영역 --%>
-																			<div class="modal fade myModal" id="mdal${comment.comment_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-																				<div class="modal-dialog" role="document">
-																					<div class="modal-content">
-																						<div class="modal-header">
-																							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																								<span aria-hidden="true">&#88;</span>
-																							</button>
-																						</div>
-																						<div class="modal-body">
-																							<p class="lead" align="left">${comment.comment_content}</p>
-																						</div>
-																						<div class="modal-footer">
-																							<div align="left">
-																								<button type="button" class="btn btn-danger cmnt_del" data-rno="${comment.comment_id}">삭제하기</button>
-																								<%-- 매거진 댓글 삭제 --%>
-																								<script type="text/javascript">
-																									$(document).ready(function() {
-																										$('.cmnt_del')
-																										.click(function(event) {
-																											event.preventDefault();
-																											if (confirm("댓글을 삭제하시겠습니까?")) {
-																												// FormData 객체 생성
-																												var formData = new FormData();
-																												// button의 data-rno 값을 가져온다
-																												var cmntInfo = $(this).attr("data-rno");
-																												console.log("cmntInfo: "+ cmntInfo);
-																												// formData에 해당 값을 append한다
-																												formData.append("comment_id",cmntInfo);
-																												console.log("formData: "+ formData);
-
-																												$.ajax({
-																													type : 'DELETE',
-																													url : $(this).attr("href"),
-																													cache : false,
-																													processData : false,
-																													contentType : false,
-																													data : formData,
-																													beforeSend : function(xhr) {
-																														xhr.setRequestHeader("X-CSRF-Token","${_csrf.token}");
-																													},
-																													success : function(result) {
-																														console.log(result);
-																														$(location).attr('href','${pageContext.request.contextPath}/board/magazine/${magazine_content.board_id}')
-																															console.log("COMMENT_REMOVED!")
-																													},
-																													error : function(e) {
-																														console.log(e);}
-																													})
-																													} else {
-																														location.reload();
-																													}
-																												});
-																											});
-																								</script>
-																							</div>
-																						</div>
-																					</div>
-																				</div>
-																			</div>
-																		</c:otherwise>
-																	</c:choose>
-																</div>
-															</div>
-														</c:forEach>
-													</div>
+													<!-- 댓글 작성 -->
+			<!-- 로그인을 하지 않았을 경우 -->
+			<sec:authorize access="isAnonymous()">
+			<c:choose>
+				<%-- View에서도 null값 이중체크를 한다 --%>
+				<c:when test="${empty mbr.mbr_id}">
+					<form method="post" action="#">		
+						<div class="container">
+							<div class="row" style="padding: 5% 3% 3% 5%">
+								<div class="col-md-10" align="left">
+									<textarea class="form-control" cols="3" placeholder="로그인한 회원만 작성 가능합니다" disabled></textarea>		
+								</div>
+								<div class="col-md-2" align="center">
+									<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/login'">로그인</button>
+								</div>
+							</div>
+						</div>
+					</form>
+			 	</c:when>
+			</c:choose>
+			</sec:authorize>	 
+			<!-- 로그인을 했을 경우 -->
+			<sec:authorize access="isAuthenticated()"> 
+			<form id="commentWriteForm" method="post" action="${pageContext.request.contextPath}/prdct/${prdct.prdct_id}/qna">		
+				<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+				<input type="hidden" id="mbr_id" name="mbr_id" value="${mbr.mbr_id}">
+				<input type="hidden" id="board_id" name="board_id" value="${dto.board_id}">
+				
+				<div class="container">
+					<div class="row" style="padding: 5% 3% 3% 5%">
+						<div class="col-md-10" align="left">
+							<textarea class="form-control" cols="3" id="comment_content" name="comment_content" placeholder="댓글을 남겨주세요"></textarea>		
+						</div>
+						<div class="col-md-2" align="center">
+							<button type="submit" class="btn btn-primary">등록</button>
+						</div>
+					</div>
+				</div>
+			</form>
+			</sec:authorize>
+			
+			<hr>
+			
+			<!-- 댓글 불러오기 -->
+			<div class="container">
+			
+				<!-- 댓글 리스트 -->
+				<c:forEach items="${comment}" var="comment" varStatus="cmnt_status">
+				<div class="row" style="margin: 1% 3% 1% 3%; padding: 1% 3% 1% 3%; border: 1px solid #E5E5E5; overflow: auto;">
+					<div class="col-md-7" align="left">
+						<p>${comment.mbr_nickname}</p>
+						<p class="lead comment_font" style="white-space: normal;">${comment.comment_content}</p>
+					</div>
+					<div class="col-md-4" align="right">
+						<div class="lead comment_font">${comment.comment_date}</div>				
+					</div>
+					
+					<div class="col-md-1 comment_font" align="right">
+						<c:choose>
+							<%-- 댓글 작성자가 로그인 한 회원과 일치하지 않을 때 --%> 
+						    <c:when test="${mbr.mbr_id ne comment.mbr_id}">
+						    	<button type="button" class="btn btn-outline-primary" disabled>
+									...
+								</button>  
+						    </c:when>
+						    <%-- 댓글 작성자가 로그인 한 회원과 일치 할 때 --%> 
+						    <c:otherwise>
+								<%-- 모달을 열기 위한 버튼 --%> 
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mdal${comment.comment_id}">
+									...
+								</button>
+								<%-- 모달 영역 --%> 
+								<div class="modal fade myModal" id="mdal${comment.comment_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&#88;</span></button>
+											</div>
+											<div class="modal-body">
+												<p class="lead" align="left">${comment.comment_content}</p>
+											</div>
+											<div class="modal-footer">
+												<div align="left">
+												<button class="btn btn-danger cmnt_del">
+													<a id="cmnt_del"  href="/prdct/${prdct.prdct_id }/delete" data-rno="${comment.comment_id}">삭제하기</a>
+												</button>	
+													<%-- 매거진 댓글 삭제 --%>
+													<script type="text/javascript">
+														$(document).ready(function (){
+															$('#cmnt_del').click(function(event){
+																event.preventDefault();
+																
+																if (confirm("댓글을 삭제하시겠습니까?")) {
+																	// FormData 객체 생성
+																	var formData = new FormData(); 
+														     		
+																	// button의 data-rno 값을 가져온다
+														     		var cmntInfo = $(this).attr("data-rno");		
+														     		console.log("cmntInfo: " + cmntInfo);
+														     		
+														 			// formData에 해당 값을 append한다
+														 			formData.append("comment_id", cmntInfo);
+														     		console.log("formData: " + formData);
+														 
+																	$.ajax({
+																		type : 'DELETE', 
+																		url : $(this).attr("href"), 
+																		cache : false, 
+														                processData: false, 
+															    		contentType: false, 
+														                data: formData, 
+														                beforeSend : function(xhr) {
+																			xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+														             	},
+																		success: function(result){
+																			console.log(result);
+																			$(location).attr('href', '${pageContext.request.contextPath}/prdct/${prdct.prdct_id}/delete')
+																			console.log("COMMENT_REMOVED!")
+																		},
+																		error:function(e){
+																			console.log(e);
+																		}
+																	})
+																} else {
+																	location.reload();
+																}
+															});	
+														});	
+													</script>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+						    </c:otherwise>
+						</c:choose>	    
+					</div>
+				</div>
+				</c:forEach>		
+			</div>
 												</td>
 											</tr>
 										</c:forEach>
