@@ -77,7 +77,8 @@ public class CommonController {
 	// 상품 상세페이지
 	@RequestMapping(value = "/prdct/{prdct_id}", method = { RequestMethod.GET })
 	public ModelAndView productDetail(@PathVariable("prdct_id") String p_id, @AuthenticationPrincipal MemberDetails memberDetails,
-			PrdReviewCriteria rcri, PrdQnACriteria qacri, PrdctLikeVO prdctLikeVO, ModelAndView mav, HttpServletRequest request) throws Exception {
+			PrdReviewCriteria rcri, PrdQnACriteria qacri, PrdctLikeVO prdctLikeVO, ModelAndView mav, HttpServletRequest request, MbrVO mbrVO,
+			BoardBoardCommentVO bcVO) throws Exception {
 		log.info("productDetail...");
 		mav.setViewName("common/productDetail");
 
@@ -115,6 +116,9 @@ public class CommonController {
 		log.info("total: " + total);
 		mav.addObject("pageMaker", new PrdQnAPageVO(qacri, total));
 
+		// 상품 qna 댓글 불러오기
+		mav.addObject("comment", commonService.getComment(mbrVO.getMbr_id(), bcVO.getBoard_id()));
+
 		// 해당 상품 찜 여부 확인용 데이터 가져오기
 		log.info("prdLikeVal...");
 		mav.addObject("prdLikeVal", commonService.getPrdLikeVal(p_id));
@@ -143,13 +147,30 @@ public class CommonController {
 	}
 
 	// 판매자 qna 댓글 작성
-	@RequestMapping(value = "/prdct/{prdct_id}/qna", method = { RequestMethod.GET, RequestMethod.POST })
-	public ResponseEntity<String> CommentWrite(BoardBoardCommentVO boardBoardCommentVO) {
+	@PostMapping("/prdct/{prdct_id}/qna")
+	public ResponseEntity<String> CommentWrite(BoardCommentVO boardCommentVO) {
 		ResponseEntity<String> entity = null;
 		log.info("CommentWrite...");
 
 		try {
-			commonService.setCommentWrite(boardBoardCommentVO);
+			commonService.setCommentWrite(boardCommentVO);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
+
+	// 매거진 댓글 삭제
+	@DeleteMapping("/prdct/{prdct_id}/delete")
+	public ResponseEntity<String> CommentDelete(BoardCommentVO boardCommentVO) {
+		ResponseEntity<String> entity = null;
+		log.info("magazineCommentDelete...");
+
+		try {
+			commonService.CommentRemove(boardCommentVO.getComment_id());
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

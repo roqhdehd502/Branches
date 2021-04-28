@@ -199,9 +199,22 @@ public class CommonServiceImpl implements CommonService {
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void setCommentWrite(BoardBoardCommentVO boardBoardCommentVO) {
+	public void setCommentWrite(BoardCommentVO boardCommentVO) {
 		log.info("setCommentWrite");
-		commonMapper.setCommentWrite(boardBoardCommentVO);
+		commonMapper.setCommentWrite(boardCommentVO);
 
+	}
+
+	@Override
+	public List<BoardBoardCommentVO> getComment(String mbr_id, int board_id) {
+		log.info("getComment");
+		return commonMapper.getComment(mbr_id, board_id);
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int CommentRemove(int comment_id) {
+		log.info("CommentRemove: " + comment_id);
+		return commonMapper.CommentRemove(comment_id);
 	}
 }

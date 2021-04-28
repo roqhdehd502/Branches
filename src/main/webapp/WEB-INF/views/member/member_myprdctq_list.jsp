@@ -19,7 +19,7 @@
 	<link rel="stylesheet" href="/assets/css/slicknav.css">
 	<link rel="stylesheet" href="/assets/css/main.css">
 	<link rel="stylesheet" href="/bootstrap.min.css">
-	
+
 	<!-- 달력으로 날짜 선택 -->
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -125,7 +125,7 @@
 						
 						<hr>	
 						
-						<div class="row" style="padding: 0px 2% 0px 2%">
+						<%-- <div class="row" style="padding: 0px 2% 0px 2%">
 							<div class="col-md-3" align="center">
 								<h5>문의유형</h5>	
 							</div>
@@ -138,7 +138,7 @@
 							<div class="col-md-3" align="center">
 								<h5>답변확인</h5>	
 							</div>					
-							<%-- <table class="n-table table-col">
+							<table class="n-table table-col">
 								<colgroup>
 									<col style="width: 30%">
 									<col style="width: *">
@@ -162,7 +162,7 @@
 										</c:forEach>
 									</tr>
 								</tbody>
-							</table> --%>
+							</table>
 						</div>
 						
 						<hr>
@@ -199,7 +199,7 @@
 								</c:choose>	
 							</div>
 							<div class="col-md-3" align="center" style="padding-top: 1%; overflow: auto;">
-								${list.board_name}
+								<div class="accordion">${list.board_name}</div>
 							</div>
 							<div class="col-md-3" align="center" style="padding-top: 1%;">
 								${list.board_date}
@@ -210,8 +210,57 @@
 						</div>
 						<hr>
 						</c:forEach>
-					</div>	
-					
+					</div>	 --%>
+					<table id="report" class="table">
+						<thead>
+							<tr>
+								<th><h5>문의유형</h5></th>
+								<th><h5>Q&A제목</h5></th>
+								<th><h5>작성일자</h5></th>
+								<th><h5>답변확인</h5></th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${prdctq_my_list}" var="list">
+							<tr>
+								<td>
+									<c:choose>
+									<c:when test="${list.inquiry_number eq 1}">
+										교환
+									</c:when>
+									<c:when test="${list.inquiry_number eq 2}">
+										환불
+									</c:when>
+									<c:when test="${list.inquiry_number eq 3}">
+										배송전취소
+									</c:when>
+									<c:when test="${list.inquiry_number eq 4}">
+										배송
+									</c:when>
+									<c:when test="${list.inquiry_number eq 5}">
+										불량
+									</c:when>
+									<c:when test="${list.inquiry_number eq 6}">
+										주문및결제
+									</c:when>
+									<c:when test="${list.inquiry_number eq 7}">
+										상품및재입고
+									</c:when>	
+									<c:otherwise>
+										기타
+									</c:otherwise>
+								</c:choose>
+								</td>
+								<td>${list.board_name}</td>
+								<td>${list.board_date}</td>
+								<td>${prdctq_cmnt_stat.comment_count > 0 ?  '답변완료' : '답변대기'}</td>
+							</tr>
+							<tr>
+								<td colspan="4">댓글 구현예정...</td>
+							</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 					<!-- 페이징 -->
 					<div class="container">
 						<ul class="pagination justify-content-center">
@@ -257,6 +306,25 @@
 		<script src="/assets/js/vendor/jquery.barfiller.js"></script>
 		<script src="/assets/js/vendor/loopcounter.js"></script>
 		<script src="/assets/js/vendor/slicknav.min.js"></script>
-		<script src="/assets/js/active.js"></script>		
+		<script src="/assets/js/active.js"></script>
+		
+		<script>
+    $(document).ready(function(){
+
+        $("#report tr:odd").addClass("odd");
+        $("#report tr:not(.odd)").hide(); 
+        $("#report tr:first-child").show(); //열머리글 보여주기
+
+        $("#report tr.odd").click(function(){
+            $(this).next("tr").toggle();
+            $(this).find(".arrow").toggleClass("up");
+
+        });
+       
+
+    });
+
+</script>
+		
 </body>
 </html>
