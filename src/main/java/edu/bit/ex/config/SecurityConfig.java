@@ -79,6 +79,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.userInfoEndpoint() //
 				.userService(principalOauth2UserService);
 
+		http.csrf().ignoringAntMatchers("/popup/**");
+
 		http.rememberMe() // 자동로그인
 				.userDetailsService(memberDetailsService).tokenValiditySeconds(2592000); // 3일
 

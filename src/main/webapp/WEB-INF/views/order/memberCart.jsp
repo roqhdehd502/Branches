@@ -189,6 +189,7 @@ function buy() {
 			order.push(prdct);
 		}
 	}
+	
 	sessionStorage.setItem("order", JSON.stringify(order));
 	window.location.assign("/order/orderInput");
 }
