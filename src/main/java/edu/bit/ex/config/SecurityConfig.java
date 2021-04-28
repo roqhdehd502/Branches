@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/seller/**").hasAnyAuthority("ADMIN", "SELLER") //
 				.antMatchers("/member").hasAnyAuthority("ADMIN", "MEMBER") // member/** 경로는 권한 3(=member) 회원만 접속 가능
 				.antMatchers("/member/**").hasAnyAuthority("ADMIN", "MEMBER") //
-				.antMatchers("/order/cart/orderInput/**").hasAuthority("MEMBER") //
+				.antMatchers("/order/orderInput/**").hasAuthority("MEMBER") //
 				.antMatchers("/").permitAll()//
 				.antMatchers("/**").permitAll() //
 				.and().formLogin() //
@@ -79,7 +79,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.userInfoEndpoint() //
 				.userService(principalOauth2UserService);
 
-		http.csrf().ignoringAntMatchers("/popup/**");
+		http.csrf() //
+				.ignoringAntMatchers("/popup/**"); // 도로명주소 api
+		http.csrf() //
+				.ignoringAntMatchers("/order/orderInput/insert"); // 결제모듈
 
 		http.rememberMe() // 자동로그인
 				.userDetailsService(memberDetailsService).tokenValiditySeconds(2592000); // 3일

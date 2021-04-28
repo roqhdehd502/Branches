@@ -33,7 +33,7 @@
 						<h3>주문 완료</h3>
 						</br>
 						<h5>
-							<a href="#">주문번호 : ${povo.order_number)</a>
+							<a href="#">주문번호 : ${povo.order_number}</a>
 						</h5>
 					</div>
 			<button type="button" class="btn btn-primary">주문 확인</button>
