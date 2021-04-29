@@ -32,7 +32,7 @@ public interface MemberMapper {
 
 	// 상품 QnA 마이페이지 리스트
 	/* public List<BoardVO> prdctqMyList(String mbr_id); */
-	public List<BoardVO> getPrdctqMyListWithPaging(PrdQnACriteria cri, String mbr_id);
+	public List<BoardBoardCommentVO> getPrdctqMyListWithPaging(PrdQnACriteria cri, String mbr_id);
 
 	// 페이징 단위에 적용되는 최대 상품 Q&A 게시글 단위
 	public int getPrdctqTotalCount(PrdQnACriteria cri);

@@ -148,11 +148,11 @@
 	</select>
 	
 	<select id="OrderCheckTotal" resultType="int">
-		select count(*) from prdct_order p, order_detail o where 
+		select count(*) from prdct_order where 
 		
 		<include refid="ordercri"></include>
 		
-		order_price > 0 and o.order_number = p.order_number
+		order_price > 0
 	</select>
 	
 	<!-- 배송처리 페이지 주문정보 불러오기 검색기능 + 페이징 -->
@@ -182,7 +182,7 @@
 		 	select rownum rn, o.order_number, o.order_color, o.order_size, o.prdct_name, o.order_amount, o.prdct_id,
 			p.order_price, p.mbr_id, p.order_state_number, p.order_date
 		 	from order_detail o, prdct_order p 
-			where (p.order_number = o.order_number and order_state_number > 3 and order_state_number < 8) and
+			where (p.order_number = o.order_number and order_state_number > 3 and order_state_number < 7) and
 		]]>
 		
 		<include refid="deleverycri"></include>
@@ -195,11 +195,11 @@
 	</select>
 	
 	<select id="deliveryTotal" resultType="int">
-		select count(*) from prdct_order p, order_detail o where 
+		select count(*) from prdct_order where 
 		
 		<include refid="deleverycri"></include>
 		
-		order_price > 0 and o.order_number = p.order_number
+		order_price > 0
 	</select>
 	
 	
@@ -243,11 +243,11 @@
 	</select>
 	
 	<select id="cancelTotal" resultType="int">
-		select count(*) from prdct_order p, order_detail o where 
+		select count(*) from prdct_order where 
 		
 		<include refid="cancelcri"></include>
 		
-		order_price > 0 and o.order_number = p.order_number
+		order_price > 0 
 	</select>
 	
 	<!-- 교환요청 정보 불러오기 검색기능 + 페이징 -->
@@ -290,11 +290,11 @@
 	</select>
 	
 	<select id="exchangeTotal" resultType="int">
-		select count(*) from prdct_order p, order_detail o where 
+		select count(*) from prdct_order where 
 		
 		<include refid="exchangecri"></include>
 		
-		order_price > 0 and o.order_number = p.order_number
+		order_price > 0
 	</select>
 	
 	<!-- 환불요청 정보 불러오기 검색기능 + 페이징 -->
@@ -337,11 +337,11 @@
 	</select>
 	
 	<select id="refundTotal" resultType="int">
-		select count(*) from prdct_order p, order_detail o where 
+		select count(*) from prdct_order where 
 		
 		<include refid="refundcri"></include>
 		
-		order_price > 0 and o.order_number = p.order_number
+		order_price > 0 
 	</select>
 	
 	
@@ -380,6 +380,43 @@
 	]]>
 	</update>
 	
+	<!-- 답변등록 -->
+	<insert id="qnaInsert">
+	<![CDATA[
+			INSERT INTO board_comment (comment_id, board_id, mbr_id, comment_content) 
+			VALUES (board_comment_seq.nextval, #{board_id}, #{mbr_id}, #{comment_content})
+		]]>
+	</insert>
+	
+	<!-- 작성한 상품 Q&A 댓글 응답여부 받아오기 -->
+	<select id="getPrdctqCmntStat" resultType="edu.bit.ex.joinvo.BoardBoardCommentVO">
+	<![CDATA[
+		SELECT COUNT(comment_id) AS comment_count FROM board_comment WHERE board_id = #{board_id}
+	]]>
+	</select>
+	
+	<!-- 상품 qna 정보불러오기 -->
+	<select id="qnaBoard" resultType="edu.bit.ex.vo.BoardVO">
+		<![CDATA[			
+			select * from board where board_id = #{board_id}
+		]]>
+	</select>
+	
+	<!-- 상품 qna 댓글불러오기 -->
+	<select id="getQnaComment" resultType="edu.bit.ex.vo.BoardCommentVO">
+		<![CDATA[			
+			SELECT * FROM board_comment WHERE board_id = #{board_id}
+		]]>
+	</select>
+	
+	<!-- 상품 qna 댓글 삭제 -->
+	<delete id="CommentRemove">
+		<![CDATA[
+			DELETE FROM board_comment 
+			WHERE comment_id = #{comment_id}
+		]]>
+	</delete>
+	
 
 	<!-- 상품등록 -->
 	<insert id="prdInsert">
@@ -407,20 +444,20 @@
 	</select>
 	
 	<!-- 주문 상세정보 불러오기 (수정페이지) -->
-	<select id="orderInfo" resultType="edu.bit.ex.vo.PrdctOrderVO">
+	<select id="orderInfo" resultType="edu.bit.ex.joinvo.PrdctOrdctDetailPrdctOrderVO">
 	<![CDATA[
-		select * from prdct_order where order_number = #{order_number}
+		select * from prdct_order where order_number = #{order_number} 
 	]]>
 	</select>
 	
-	<!-- 주문 상세정보 불러오기 (수정페이지) -->
+	<!-- 주문 상세정보 불러오기 (주문수정페이지) -->
 	<select id="orderOption" resultType="edu.bit.ex.vo.OrderDetailVO">
 	<![CDATA[
-		select * from order_detail where order_number = #{order_number} and prdct_id = #{prdct_id}
+		select * from order_detail where order_number = #{order_number}
 	]]>
 	</select>
 	
-	<!-- 주문 상세정보 불러오기 (수정페이지) -->
+	<!-- 주문자 정보 불러오기 (주문수정페이지) -->
 	<select id="orderMbr" resultType="edu.bit.ex.joinvo.PrdctOrderDetailVO">
 	<![CDATA[
 		select * from prdct_order p, shipping s where p.mbr_id = s.mbr_id and p.order_number = #{order_number}
@@ -485,7 +522,6 @@
 	]]>
 	</select>
 
-	
 	<!-- 판매자 등록상품 수정(상품내용) -->
 	<update id="updatePrdctInfo">
 	<![CDATA[

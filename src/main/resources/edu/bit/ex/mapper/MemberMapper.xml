@@ -201,7 +201,7 @@
 		SELECT * FROM board WHERE board_type_number = 4 AND mbr_id = #{mbr_id}
 	]]>
 	</select> -->
-	<select id="getPrdctqMyListWithPaging" resultType="edu.bit.ex.vo.BoardVO">
+	<!-- <select id="getPrdctqMyListWithPaging" resultType="edu.bit.ex.vo.BoardVO">
 		<![CDATA[
 			SELECT * FROM ( 
 			     SELECT ROWNUM AS RNUM, A.* FROM ( 
@@ -210,6 +210,21 @@
 							WHERE mbr_id = #{mbr_id} AND 
 							    board_type_number = 4 
 							ORDER BY board_id DESC, board_date DESC 
+			    ) A WHERE ROWNUM <= #{cri.pageNum} * #{cri.amount} 
+			) WHERE RNUM > (#{cri.pageNum}-1) * #{cri.amount}
+		]]>
+	</select> -->
+	
+	<select id="getPrdctqMyListWithPaging" resultType="edu.bit.ex.joinvo.BoardBoardCommentVO">
+		<![CDATA[
+			SELECT * FROM ( 
+			     SELECT ROWNUM AS RNUM, A.* FROM ( 
+			        		SELECT b.board_id, b.prdct_id,b.board_name,b.board_content,b.inquiry_number, b.board_date, b.mbr_id, c.comment_id, c.comment_content, c.comment_date, m.mbr_nickname 
+							FROM board_comment c, mbr m, board b 
+							WHERE b.mbr_id = m.mbr_id AND 
+							    c.board_id = b.board_id and
+							    b.board_type_number = 4
+							ORDER BY c.comment_id DESC, c.comment_date DESC, b.board_date desc
 			    ) A WHERE ROWNUM <= #{cri.pageNum} * #{cri.amount} 
 			) WHERE RNUM > (#{cri.pageNum}-1) * #{cri.amount}
 		]]>
@@ -225,7 +240,7 @@
 	<!-- 작성한 상품 Q&A 응답여부 받아오기 -->
 	<select id="getPrdctqCmntStat" resultType="edu.bit.ex.joinvo.BoardBoardCommentVO">
 	<![CDATA[
-		SELECT COUNT(comment_id) AS comment_count FROM board_comment WHERE board_id = #{board_id}
+		SELECT COUNT(comment_id) AS comment_count FROM board_comment c, board b WHERE c.board_id = b.board_id
 	]]>
 	</select>
 	

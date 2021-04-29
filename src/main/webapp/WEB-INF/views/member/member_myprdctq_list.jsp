@@ -256,7 +256,14 @@
 								<td>${prdctq_cmnt_stat.comment_count > 0 ?  '답변완료' : '답변대기'}</td>
 							</tr>
 							<tr>
-								<td colspan="4">댓글 구현예정...</td>
+								<td colspan="4">
+									<input type="hidden" id="board_id" name="board_id" value="${list.board_id }">
+									<div style="text-align: center;">${list.board_content }</div><hr /> 
+									<div class="row" style="margin: 1% 3% 1% 3%; padding: 1% 3% 1% 3%; border: 1px solid #E5E5E5;">
+									<div align="left" style="white-space: pre; overflow-x: hidden;">${list.comment_content}</div>
+									<div class="col-md-12" align="right">${list.comment_date}</div>
+									</div>
+								</td>
 							</tr>
 							</c:forEach>
 						</tbody>

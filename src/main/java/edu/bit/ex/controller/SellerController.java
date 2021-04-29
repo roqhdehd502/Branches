@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.config.auth.MemberDetails;
+import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctOrderDetailVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
@@ -34,6 +35,7 @@ import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.page.SearchPageVO;
 import edu.bit.ex.service.SecurityService;
 import edu.bit.ex.service.SellerService;
+import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.ShippingVO;
 import lombok.AllArgsConstructor;
@@ -323,9 +325,9 @@ public class SellerController {
 	}
 
 	// 주문상세정보 수정페이지
-	@GetMapping("/mypage/order/{order_number}/{prdct_id}")
+	@GetMapping("/mypage/order/{order_number}")
 	public ModelAndView orderStateModify(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable("order_number") String order_number,
-			ModelAndView mav, @PathVariable("prdct_id") String prdct_id, ShippingVO svo, PrdctOrderDetailVO povo) throws Exception {
+			ModelAndView mav, ShippingVO svo, PrdctOrderDetailVO povo) throws Exception {
 		log.debug("orderStateModify");
 		log.info("orderStateModify..");
 		mav.setViewName("seller/sellerOrderModify");
@@ -339,7 +341,7 @@ public class SellerController {
 		mav.addObject("info", sellerService.orderInfo(order_number));
 
 		// 주문 옵션정보 불러오기
-		mav.addObject("inop", sellerService.orderOption(order_number, prdct_id));
+		mav.addObject("inop", sellerService.orderOption(order_number));
 
 		// 주문자 정보 불러오기
 		mav.addObject("mbrInfo", sellerService.orderMbr(order_number));
@@ -533,6 +535,73 @@ public class SellerController {
 		mav.addObject("refundCount", sellerService.refundCount(povo));
 
 		return mav;
+	}
+
+	// 판매자 상품Q&A 답변등록 페이지
+	@GetMapping("/mypage/prdctqna/{board_id}")
+	public ModelAndView sellerQnADetail(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, PrdctOrderDetailVO povo,
+			@PathVariable("board_id") int board_id) throws Exception {
+		log.info("sellerQnA");
+
+		mav.setViewName("seller/sellerQnARegister");
+
+		// 인증 회원 정보
+		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
+		// 회원 정보 받아오기
+		mav.addObject("mbr", getMbr);
+		// 상품문의 불러오기
+		mav.addObject("board", sellerService.qnaBoard(board_id));
+		// 판매자가 작성한 댓글 불러오기
+		mav.addObject("comment", sellerService.getQnaComment(board_id));
+
+		// 작성한 상품 Q&A 응답여부 받아오기
+		mav.addObject("prdctq_cmnt_stat", sellerService.getPrdctqCmntStat(board_id));
+
+		// 새주문 요청 알림
+		mav.addObject("orderCount", sellerService.orderCount(povo));
+		// 주문취소 알림
+		mav.addObject("cancelCount", sellerService.cancelCount(povo));
+		// 교환 알림
+		mav.addObject("exchangeCount", sellerService.exchangeCount(povo));
+		// 환불 알림
+		mav.addObject("refundCount", sellerService.refundCount(povo));
+
+		return mav;
+	}
+
+	// 판매자 상품Q&A 답변등록
+	@Transactional
+	@PostMapping("/mypage/prdctqna/{board_id}/register")
+	public ResponseEntity<String> sellerQnARegister(BoardBoardCommentVO bbcVO, ModelAndView mav, MbrVO mbr) {
+		ResponseEntity<String> entity = null;
+		log.info("sellerQnARegister...");
+		try {
+			/* sellerService.prdInsert(prdctIVO); */
+			sellerService.qnaInsert(bbcVO);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
+
+	// 판매자 등록댓글 삭제
+	@DeleteMapping(value = "/mypage/prdctqna/{board_id}")
+	public ResponseEntity<String> CommentDelete(BoardCommentVO boardCommentVO) {
+		ResponseEntity<String> entity = null;
+		log.info("CommentDelete...");
+
+		try {
+			sellerService.CommentRemove(boardCommentVO.getComment_id());
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
 	}
 
 	// 판매자 상품리뷰조회 페이지...(seller)
