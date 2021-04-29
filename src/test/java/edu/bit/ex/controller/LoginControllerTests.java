@@ -1,4 +1,4 @@
-package edu.bit.ex.integration;
+package edu.bit.ex.controller;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;

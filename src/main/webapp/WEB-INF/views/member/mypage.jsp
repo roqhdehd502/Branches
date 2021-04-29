@@ -21,6 +21,96 @@
 	<link rel="stylesheet" href="/assets/css/main.css">
 	<link rel="stylesheet" href="/bootstrap.min.css">
 	
+	<!-- 스윗트래커 배송 API -->
+	<script>
+	$(document).ready(function(){
+	    var myKey = "l4kAPimzQ1FmXl30k0ojbg"; // sweet tracker에서 발급받은 자신의 키 넣는다.
+	        // 택배사 목록 조회 company-api
+	        $.ajax({
+	            type:"GET",
+	            dataType : "json",
+	            url:"http://info.sweettracker.co.kr/api/v1/companylist?t_key="+myKey,
+	            success:function(data){     
+	                    // 방법 1. JSON.parse 이용하기
+	                    var parseData = JSON.parse(JSON.stringify(data));
+	                     console.log(parseData.Company); // 그중 Json Array에 접근하기 위해 Array명 Company 입력
+	                    
+	                    // 방법 2. Json으로 가져온 데이터에 Array로 바로 접근하기
+	                    var CompanyArray = data.Company; // Json Array에 접근하기 위해 Array명 Company 입력
+	                    console.log(CompanyArray); 
+	                    
+	                    var myData="";
+	                    $.each(CompanyArray,function(key,value) {
+	                            myData += ('<option value='+value.Code+'>' +'key:'+key+', Code:'+value.Code+',Name:'+value.Name + '</option>');                        
+	                    });
+	                    $("#tekbeCompnayList").html(myData);
+	            }
+	        });
+	        // 배송정보와 배송추적 tracking-api
+	        $("#myButton1").click(function() {
+	            var t_code = $('#tekbeCompnayList option:selected').attr('value');
+	            var t_invoice = $('#invoiceNumberText').val();
+	            $.ajax({
+	                type:"GET",
+	                dataType : "json",
+	                url:"http://info.sweettracker.co.kr/api/v1/trackingInfo?t_key="+myKey+"&t_code="+t_code+"&t_invoice="+t_invoice,
+	                success:function(data){
+	                    console.log(data);
+	                    var myInvoiceData = "";
+	                    if(data.status == false){
+	                        myInvoiceData += ('<p>'+data.msg+'<p>');
+	                    }else{
+	                        myInvoiceData += ('<tr>');                
+	                        myInvoiceData += ('<th>'+"보내는사람"+'</td>');                     
+	                        myInvoiceData += ('<th>'+data.senderName+'</td>');                     
+	                        myInvoiceData += ('</tr>');     
+	                        myInvoiceData += ('<tr>');                
+	                        myInvoiceData += ('<th>'+"제품정보"+'</td>');                     
+	                        myInvoiceData += ('<th>'+data.itemName+'</td>');                     
+	                        myInvoiceData += ('</tr>');     
+	                        myInvoiceData += ('<tr>');                
+	                        myInvoiceData += ('<th>'+"송장번호"+'</td>');                     
+	                        myInvoiceData += ('<th>'+data.invoiceNo+'</td>');                     
+	                        myInvoiceData += ('</tr>');     
+	                        myInvoiceData += ('<tr>');                
+	                        myInvoiceData += ('<th>'+"송장번호"+'</td>');                     
+	                        myInvoiceData += ('<th>'+data.receiverAddr+'</td>');                     
+	                        myInvoiceData += ('</tr>');                                       
+	                    }
+	                    
+	                    
+	                    $("#myPtag").html(myInvoiceData)
+	                    
+	                    var trackingDetails = data.trackingDetails;
+	                    
+	                    
+	                    var myTracking="";
+	                    var header ="";
+	                    header += ('<tr>');                
+	                    header += ('<th>'+"시간"+'</th>');
+	                    header += ('<th>'+"장소"+'</th>');
+	                    header += ('<th>'+"유형"+'</th>');
+	                    header += ('<th>'+"전화번호"+'</th>');                     
+	                    header += ('</tr>');     
+	                    
+	                    $.each(trackingDetails,function(key,value) {
+	                        myTracking += ('<tr>');                
+	                        myTracking += ('<td>'+value.timeString+'</td>');
+	                        myTracking += ('<td>'+value.where+'</td>');
+	                        myTracking += ('<td>'+value.kind+'</td>');
+	                        myTracking += ('<td>'+value.telno+'</td>');                     
+	                        myTracking += ('</tr>');                                    
+	                    });
+	                    
+	                    $("#myPtag2").html(header+myTracking);
+	                    
+	                }
+	            });
+	        });
+	        
+	});
+	</script>	
+	
 	<!-- thumbnail image hover -->
 	<style type="text/css">
 		.thumbnail:hover {
@@ -135,32 +225,32 @@
 								<c:choose>
 									<c:when test="${order.order_state_number eq 1}">
 										<h4>결제대기</h4>
-										<button type="button" class="btn btn-primary btn" onclick="location.href='${pageContext.request.contextPath}/'">배송조회</button>&nbsp;
+										<button type="button" class="btn btn-primary btn" data-toggle="modal" data-target="#mdal">배송조회</button>&nbsp;
 										<button type="button" class="btn btn-danger btn" onclick="location.href='${pageContext.request.contextPath}/'">주문취소</button>
 									</c:when>
 									<c:when test="${order.order_state_number eq 2}">
 										<h4>결제완료</h4>
-										<button type="button" class="btn btn-primary btn" onclick="location.href='${pageContext.request.contextPath}/'">배송조회</button>&nbsp;
+										<button type="button" class="btn btn-primary btn" data-toggle="modal" data-target="#mdal">배송조회</button>&nbsp;
 										<button type="button" class="btn btn-danger btn" onclick="location.href='${pageContext.request.contextPath}/'">주문취소</button>
 									</c:when>
 									<c:when test="${order.order_state_number eq 3}">
 										<h4>주문요청</h4>
-										<button type="button" class="btn btn-primary btn" onclick="location.href='${pageContext.request.contextPath}/'">배송조회</button>&nbsp;
+										<button type="button" class="btn btn-primary btn" data-toggle="modal" data-target="#mdal">배송조회</button>&nbsp;
 										<button type="button" class="btn btn-danger btn" onclick="location.href='${pageContext.request.contextPath}/'">주문취소</button>
 									</c:when>
 									<c:when test="${order.order_state_number eq 4}">
 										<h4>배송대기</h4>
-										<button type="button" class="btn btn-primary btn" onclick="location.href='${pageContext.request.contextPath}/'">배송조회</button>&nbsp;
+										<button type="button" class="btn btn-primary btn" data-toggle="modal" data-target="#mdal">배송조회</button>&nbsp;
 										<button type="button" class="btn btn-danger btn" onclick="location.href='${pageContext.request.contextPath}/'">주문취소</button>
 									</c:when>
 									<c:when test="${order.order_state_number eq 5}">
 										<h4>배송중</h4>
-										<button type="button" class="btn btn-primary btn" onclick="location.href='${pageContext.request.contextPath}/'">배송조회</button>&nbsp;
+										<button type="button" class="btn btn-primary btn" data-toggle="modal" data-target="#mdal">배송조회</button>&nbsp;
 										<button type="button" class="btn btn-danger btn" onclick="location.href='${pageContext.request.contextPath}/'">주문취소</button>
 									</c:when>
 									<c:when test="${order.order_state_number eq 6}">
 										<h4>배송완료</h4>
-										<button type="button" class="btn btn-primary btn" onclick="location.href='${pageContext.request.contextPath}/'">배송조회</button>&nbsp;
+										<button type="button" class="btn btn-primary btn" data-toggle="modal" data-target="#mdal">배송조회</button>&nbsp;
 										<button type="button" class="btn btn-success btn" onclick="location.href='${pageContext.request.contextPath}/'">주문확정</button><br>
 										<button type="button" class="btn btn-danger btn" onclick="location.href='${pageContext.request.contextPath}/'">교환요청</button>&nbsp;
 										<button type="button" class="btn btn-danger btn" onclick="location.href='${pageContext.request.contextPath}/'">환불요청</button>
@@ -187,6 +277,37 @@
 										<h4>환불완료</h4>
 									</c:otherwise>
 								</c:choose>
+								<%-- 모달 영역 --%> 
+								<div class="modal fade myModal" id="mdal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&#88;</span></button>
+											</div>
+											<div class="modal-body">
+												<div class="form-group">
+													<label id="tekbeCompnayName">택배회사명</label>
+													<select id="tekbeCompnayList" class="form-control" name="tekbeCompnayList"></select>
+												</div>
+												<div>
+													<label id="tekbeCompnayName">운송장번호</label>
+													<input type="text" id="invoiceNumberText" class="form-control"  name="invoiceNumberText"><br/><br/>
+												</div>
+												<button id="myButton1" class="btn btn-primary">택배 조회하기 </button><br/><br/>
+												<div>
+													<table id="myPtag"></table>
+												</div>
+												<br/>
+												<div>
+													<table id="myPtag2"></table>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<div align="left"></div>
+											</div>
+										</div>
+									</div>
+								</div>	
 							</div>
 						</div>
 						<hr>

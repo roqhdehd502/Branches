@@ -1,4 +1,4 @@
-package edu.bit.ex.unit;
+package edu.bit.ex.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -12,16 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import edu.bit.ex.mapper.TestPrdctMapper;
-import edu.bit.ex.vo.PrdctVO;
+import edu.bit.ex.mapper.TestMemberMapper;
+import edu.bit.ex.vo.MbrVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @ExtendWith(SpringExtension.class) // Spring 5 버전 이후 테스트 구현
 @SpringBootTest
-public class PrdctTests { // 상품 테스트
+public class MemberTests { // 회원 테스트
 	@Autowired
-	private TestPrdctMapper mapper;
+	private TestMemberMapper mapper;
 
 	@Autowired
 	private DataSource ds;
@@ -39,15 +39,15 @@ public class PrdctTests { // 상품 테스트
 
 	}
 
-	// 상품 리스트
+	// 회원 리스트
 	@Test
-	public void testGetPrdctList() {
-		System.out.println("Prdct Mapper: " + mapper);
-		System.out.println("Prdct List: " + mapper.getPrdctList().size());
+	public void testGetMemberList() {
+		System.out.println("Member Mapper: " + mapper);
+		System.out.println("Member List: " + mapper.getMemberList().size());
 
-		// 반복문으로 상품 리스트 불러오기
-		for (PrdctVO vo : mapper.getPrdctList()) {
-			System.out.println("Prdct: " + vo);
+		// 반복문으로 회원 리스트 불러오기
+		for (MbrVO vo : mapper.getMemberList()) {
+			System.out.println("Member: " + vo);
 		}
 	}
 }

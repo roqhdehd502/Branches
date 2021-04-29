@@ -1,4 +1,4 @@
-package edu.bit.ex.integration;
+package edu.bit.ex.controller;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

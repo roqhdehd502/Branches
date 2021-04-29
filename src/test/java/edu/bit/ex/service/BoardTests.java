@@ -1,4 +1,4 @@
-package edu.bit.ex.unit;
+package edu.bit.ex.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -1,4 +1,4 @@
-package edu.bit.ex.unit;
+package edu.bit.ex.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
