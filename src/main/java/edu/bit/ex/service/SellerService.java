@@ -2,11 +2,14 @@ package edu.bit.ex.service;
 
 import java.util.List;
 
+import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.BoardPrdctPrdctLikeVO;
 import edu.bit.ex.joinvo.MbrShippingVO;
+import edu.bit.ex.joinvo.PrdctOrdctDetailPrdctOrderVO;
 import edu.bit.ex.joinvo.PrdctOrderDetailVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.SearchCriteria;
+import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.OrderDetailVO;
@@ -94,10 +97,10 @@ public interface SellerService {
 	public void updateState(PrdctOrderDetailVO povo);
 
 	// 주문상세정보 불러오기
-	public PrdctOrderVO orderInfo(String order_number);
+	public PrdctOrdctDetailPrdctOrderVO orderInfo(String order_number);
 
 	// 주문 상세 옵션정보 불러오기
-	public OrderDetailVO orderOption(String order_number, String prdct_id);
+	public OrderDetailVO orderOption(String order_number);
 
 	// 주문자 정보 불러오기
 	public PrdctOrderDetailVO orderMbr(String order_number);
@@ -125,5 +128,15 @@ public interface SellerService {
 
 	// 연간 통계차트
 	public PrdctOrderVO yearChart();
+
+	public void qnaInsert(BoardBoardCommentVO bbcVO);
+
+	public BoardVO qnaBoard(int board_id);
+
+	public List<BoardCommentVO> getQnaComment(int board_id);
+
+	public int CommentRemove(int comment_id);
+
+	public BoardBoardCommentVO getPrdctqCmntStat(int board_id);
 
 }

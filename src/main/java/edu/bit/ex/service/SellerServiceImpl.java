@@ -8,12 +8,15 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.BoardPrdctPrdctLikeVO;
 import edu.bit.ex.joinvo.MbrShippingVO;
+import edu.bit.ex.joinvo.PrdctOrdctDetailPrdctOrderVO;
 import edu.bit.ex.joinvo.PrdctOrderDetailVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.mapper.SellerMapper;
 import edu.bit.ex.page.SearchCriteria;
+import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.OrderDetailVO;
@@ -224,7 +227,7 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public PrdctOrderVO orderInfo(String order_number) {
+	public PrdctOrdctDetailPrdctOrderVO orderInfo(String order_number) {
 		// TODO Auto-generated method stub
 		return sellerMapper.orderInfo(order_number);
 	}
@@ -307,15 +310,45 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public OrderDetailVO orderOption(String order_number, String prdct_id) {
+	public OrderDetailVO orderOption(String order_number) {
 		// TODO Auto-generated method stub
-		return sellerMapper.orderOption(order_number, prdct_id);
+		return sellerMapper.orderOption(order_number);
 	}
 
 	@Override
 	public PrdctOrderDetailVO orderMbr(String order_number) {
 		// TODO Auto-generated method stub
 		return sellerMapper.orderMbr(order_number);
+	}
+
+	@Override
+	public void qnaInsert(BoardBoardCommentVO bbcVO) {
+		// TODO Auto-generated method stub
+		sellerMapper.qnaInsert(bbcVO);
+	}
+
+	@Override
+	public BoardVO qnaBoard(int board_id) {
+		// TODO Auto-generated method stub
+		return sellerMapper.qnaBoard(board_id);
+	}
+
+	@Override
+	public List<BoardCommentVO> getQnaComment(int board_id) {
+		// TODO Auto-generated method stub
+		return sellerMapper.getQnaComment(board_id);
+	}
+
+	@Override
+	public int CommentRemove(int comment_id) {
+		// TODO Auto-generated method stub
+		return sellerMapper.CommentRemove(comment_id);
+	}
+
+	@Override
+	public BoardBoardCommentVO getPrdctqCmntStat(int board_id) {
+		// TODO Auto-generated method stub
+		return sellerMapper.getPrdctqCmntStat(board_id);
 	}
 
 }

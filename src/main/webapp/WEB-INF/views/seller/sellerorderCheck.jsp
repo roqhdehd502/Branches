@@ -160,7 +160,7 @@
 													<c:if test="${prdct.order_state_number eq 3}">
 														<h5 style="position: relative; top: 20px;">주문요청</h5>
 													</c:if>
-													<a href="/seller/mypage/order/${prdct.order_number }/${prdct.prdct_id}" style="position: relative; top: 20px;"><h6>[변경]</h6></a>
+													<a href="/seller/mypage/order/${prdct.order_number }" style="position: relative; top: 20px;"><h6>[변경]</h6></a>
 												</td>
 											</tr>
 										</c:forEach>
@@ -168,16 +168,16 @@
 								</table>
 								<ul class="pagination" style="margin: auto;">
 									<c:if test="${pageMaker.prev}">
-										<a class="page-link" href="/seller/mypage/prdctqna${pageMaker.makeQuery(pageMaker.startPage - 1)}">«</a>
+										<a class="page-link" href="/seller/mypage/order${pageMaker.makeQuery(pageMaker.startPage - 1)}">«</a>
 									</c:if>
 
 									<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 										<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
-										<a class="page-link" href="/seller/mypage/prdctqna${pageMaker.makeQuery(idx)}">${idx}</a>
+										<a class="page-link" href="/seller/mypage/order${pageMaker.makeQuery(idx)}">${idx}</a>
 									</c:forEach>
 
 									<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-										<a class="page-link" href="/seller/mypage/prdctqna${pageMaker.makeQuery(pageMaker.endPage +1)}?sort">»</a>
+										<a class="page-link" href="/seller/mypage/order${pageMaker.makeQuery(pageMaker.endPage +1)}">»</a>
 									</c:if>
 								</ul>
 							</div>

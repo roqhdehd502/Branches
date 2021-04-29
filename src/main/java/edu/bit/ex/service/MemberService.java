@@ -29,7 +29,7 @@ public interface MemberService {
 	public void setPrdctQnaWrite(BoardVO boardVO);
 
 	// 페이징을 적용한 상품 Q&A 마이페이지 리스트
-	public List<BoardVO> getPrdctqMyList(PrdQnACriteria cri, String mbr_id);
+	public List<BoardBoardCommentVO> getPrdctqMyList(PrdQnACriteria cri, String mbr_id);
 
 	// 페이징 단위에 적용되는 최대 상품 Q&A 게시글 단위
 	public int getPrdctqTotal(PrdQnACriteria cri);

@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.bit.ex.config.auth.MemberDetails;
-import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.BrandCriteria;
 import edu.bit.ex.page.BrandPageVO;
@@ -36,6 +36,7 @@ import edu.bit.ex.page.PrdctListPageVO;
 import edu.bit.ex.service.CommonService;
 import edu.bit.ex.service.SecurityService;
 import edu.bit.ex.vo.BoardCommentVO;
+import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctLikeVO;
 import edu.bit.ex.vo.PrdctVO;
@@ -76,9 +77,10 @@ public class CommonController {
 
 	// 상품 상세페이지
 	@RequestMapping(value = "/prdct/{prdct_id}", method = { RequestMethod.GET })
+	@ResponseBody
 	public ModelAndView productDetail(@PathVariable("prdct_id") String p_id, @AuthenticationPrincipal MemberDetails memberDetails,
 			PrdReviewCriteria rcri, PrdQnACriteria qacri, PrdctLikeVO prdctLikeVO, ModelAndView mav, HttpServletRequest request, MbrVO mbrVO,
-			BoardBoardCommentVO bcVO) throws Exception {
+			BoardVO bcVO) throws Exception {
 		log.info("productDetail...");
 		mav.setViewName("common/productDetail");
 
@@ -111,13 +113,10 @@ public class CommonController {
 
 		// 큐앤에이 관련
 		log.info("prdQnAList...");
-		mav.addObject("prdQnAList", commonService.getPrdQnAList(qacri, p_id));
+		mav.addObject("prdQnAList", commonService.getPrdQnAList(qacri, p_id, bcVO.getBoard_id()));
 		int total = commonService.getPrdQnATotal(qacri);
 		log.info("total: " + total);
 		mav.addObject("pageMaker", new PrdQnAPageVO(qacri, total));
-
-		// 상품 qna 댓글 불러오기
-		mav.addObject("comment", commonService.getComment(mbrVO.getMbr_id(), bcVO.getBoard_id()));
 
 		// 해당 상품 찜 여부 확인용 데이터 가져오기
 		log.info("prdLikeVal...");
@@ -144,40 +143,6 @@ public class CommonController {
 		}
 
 		return mav;
-	}
-
-	// 판매자 qna 댓글 작성
-	@PostMapping("/prdct/{prdct_id}/qna")
-	public ResponseEntity<String> CommentWrite(BoardCommentVO boardCommentVO) {
-		ResponseEntity<String> entity = null;
-		log.info("CommentWrite...");
-
-		try {
-			commonService.setCommentWrite(boardCommentVO);
-			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-		}
-
-		return entity;
-	}
-
-	// 매거진 댓글 삭제
-	@DeleteMapping("/prdct/{prdct_id}/delete")
-	public ResponseEntity<String> CommentDelete(BoardCommentVO boardCommentVO) {
-		ResponseEntity<String> entity = null;
-		log.info("magazineCommentDelete...");
-
-		try {
-			commonService.CommentRemove(boardCommentVO.getComment_id());
-			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-		}
-
-		return entity;
 	}
 
 	// 모달 댓글

@@ -10,7 +10,6 @@ import edu.bit.ex.page.BrandCriteria;
 import edu.bit.ex.page.PrdQnACriteria;
 import edu.bit.ex.page.PrdReviewCriteria;
 import edu.bit.ex.page.PrdctListCriteria;
-import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.CategoryVO;
 import edu.bit.ex.vo.MbrVO;
@@ -43,7 +42,7 @@ public interface CommonMapper {
 	public BoardVO getStarAvg(String p_id);
 
 	// 페이징을 적용한 상품 Q&A 게시판 리스트
-	public List<BoardVO> getPrdQnAListWithPaging(PrdQnACriteria cri, String p_id);
+	public List<BoardBoardCommentVO> getPrdQnAListWithPaging(PrdQnACriteria cri, String p_id, int board_id);
 
 	// 페이징 단위에 적용되는 최대 상품 Q&A 게시글 단위
 	public int getPrdQnATotalCount(PrdQnACriteria cri);
@@ -89,11 +88,5 @@ public interface CommonMapper {
 
 	// 상품 상세페이지 조회 기능
 	public void addPrdView(String mbr_id, String prdct_id);
-
-	public void setCommentWrite(BoardCommentVO boardCommentVO);
-
-	public List<BoardBoardCommentVO> getComment(String mbr_id, int board_id);
-
-	public int CommentRemove(int comment_id);
 
 }

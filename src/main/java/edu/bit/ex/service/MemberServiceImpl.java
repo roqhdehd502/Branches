@@ -51,7 +51,7 @@ public class MemberServiceImpl implements MemberService {
 
 	// 상품 Q&A 마이페이지 리스트
 	@Override
-	public List<BoardVO> getPrdctqMyList(PrdQnACriteria cri, String mbr_id) {
+	public List<BoardBoardCommentVO> getPrdctqMyList(PrdQnACriteria cri, String mbr_id) {
 		log.info("getMyqList()......");
 		return memberMapper.getPrdctqMyListWithPaging(cri, mbr_id);
 	}

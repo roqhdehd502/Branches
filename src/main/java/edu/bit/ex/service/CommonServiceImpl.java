@@ -3,7 +3,6 @@ package edu.bit.ex.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
@@ -78,9 +77,9 @@ public class CommonServiceImpl implements CommonService {
 
 	// 페이징을 적용한 상품 Q&A 게시판 리스트
 	@Override
-	public List<BoardVO> getPrdQnAList(PrdQnACriteria cri, String p_id) {
+	public List<BoardBoardCommentVO> getPrdQnAList(PrdQnACriteria cri, String p_id, int board_id) {
 		log.info("getPrdQnAList WITH criteria: " + cri);
-		return commonMapper.getPrdQnAListWithPaging(cri, p_id);
+		return commonMapper.getPrdQnAListWithPaging(cri, p_id, board_id);
 	}
 
 	// 페이징 단위에 적용되는 최대 상품 Q&A 게시글 단위
@@ -197,24 +196,4 @@ public class CommonServiceImpl implements CommonService {
 		commonMapper.addPrdView(mbr_id, prdct_id);
 	}
 
-	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public void setCommentWrite(BoardCommentVO boardCommentVO) {
-		log.info("setCommentWrite");
-		commonMapper.setCommentWrite(boardCommentVO);
-
-	}
-
-	@Override
-	public List<BoardBoardCommentVO> getComment(String mbr_id, int board_id) {
-		log.info("getComment");
-		return commonMapper.getComment(mbr_id, board_id);
-	}
-
-	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public int CommentRemove(int comment_id) {
-		log.info("CommentRemove: " + comment_id);
-		return commonMapper.CommentRemove(comment_id);
-	}
 }

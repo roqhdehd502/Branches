@@ -175,7 +175,7 @@
                                        <h6>${board.board_id }</h6>
                                     </td>
                                     <td><h6>
-                                          <a href="/prdct/${board.prdct_id}#qna">${board.board_name }</a>
+                                          <a href="/seller/mypage/prdctqna/${board.board_id}">${board.board_name }</a>
                                        </h6></td>
                                     <td><h6>${board.mbr_id }</h6></td>
                                     <td><h6>${board.inquiry_number }</h6></td>

@@ -173,21 +173,7 @@ $(document).ready(function(){
 								<label class="col-sm-2 col-form-label">색상</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="order_color" value="${inop.order_color }" disabled="disabled">
-									<input class="btn btn-primary btn-sm" type='button' value='활성화' onclick='btnActive()' />
-									<input class="btn btn-primary btn-sm" type='button' value='비활성화' onclick='btnDisabled()' />&nbsp;&nbsp;&nbsp; 
-									<span><h6>교환 요청시 활성화하여 정보를 수정해주세요</h6></span>
-									<script type="text/javascript">
-									function btnActive()  {
-										  const target = document.getElementById('order_color');
-										  target.disabled = false;
-										}
-
-										function btnDisabled()  {
-										  const target = document.getElementById('order_color');
-										  target.disabled = true;
-										}
-
-									</script>
+									
 								</div>
 							</div>
 							<div class="form-group row">
@@ -200,12 +186,16 @@ $(document).ready(function(){
 									<script type="text/javascript">
 									function textActive()  {
 										  const target = document.getElementById('order_size');
+										  const target1 = document.getElementById('order_color');
 										  target.disabled = false;
+										  target1.disabled = false;
 										}
 
 										function textDisabled()  {
 										  const target = document.getElementById('order_size');
+										  const target1 = document.getElementById('order_color');
 										  target.disabled = true;
+										  target1.disabled = true;
 										}
 
 									</script>
@@ -234,15 +224,35 @@ $(document).ready(function(){
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">택배키</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="t_key" value="${info.t_key }" >
+									<input type="text" class="form-control" id="t_key" value="${info.t_key }" disabled="disabled">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">운송장번호</label>
 								<div class="col-sm-10">
-									<input type="number" class="form-control" id="t_invoice" value="${info.t_invoice }" >
+									<input type="number" class="form-control" id="t_invoice" value="${info.t_invoice }" disabled="disabled">
 								</div>
-							</div><br/><br/><br/>
+							</div>
+							<input class="btn btn-primary btn-sm" type='button' value='활성화' onclick='shippingActive()' />
+									<input class="btn btn-primary btn-sm" type='button' value='비활성화' onclick='shippingDisabled()' />&nbsp;&nbsp;&nbsp; 
+									<span><h6>운송장 등록시 활성화 버튼을 눌러 정보를 입력해주세요</h6></span>
+									<script type="text/javascript">
+									function shippingActive()  {
+										  const target = document.getElementById('t_key');
+										  const target1 = document.getElementById('t_invoice');
+										  target.disabled = false;
+										  target1.disabled = false;
+										}
+
+										function shippingDisabled()  {
+										  const target = document.getElementById('t_key');
+										  const target1 = document.getElementById('t_invoice');
+										  target.disabled = true;
+										  target1.disabled = true;
+										}
+
+									</script>
+							<br/><br/><br/>
 							<div align="center">
 								<button type="submit" class="btn btn-primary">수정</button>
 								<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/seller/mypage/order'">
