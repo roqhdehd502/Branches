@@ -1,6 +1,5 @@
 package edu.bit.ex.service;
 
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import edu.bit.ex.joinvo.PrdctOrderDetailVO;
@@ -11,7 +10,6 @@ import edu.bit.ex.vo.PrdctOrderVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Repository
 @Slf4j
 @AllArgsConstructor
 @Service
@@ -30,7 +28,6 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void insertOrder(PrdctOrderVO po) {
 		orderMapper.insertOrder(po);
-
 	}
 
 	// 아이디로 결제 정보 조회

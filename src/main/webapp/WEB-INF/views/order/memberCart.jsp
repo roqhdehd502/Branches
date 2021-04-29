@@ -29,8 +29,7 @@
 </style>
 <script type="text/javascript">
 
-$(document)
-	.ready(
+$(document).ready(
 		//장바구니 목록 불러오기
 		function() {
 			//배열 선언
@@ -119,7 +118,6 @@ $(document)
 						+ i
 						+ "').value = num3t;  break; } summary() }; "
 						+ "</script"+">"
-
 			}
 			$("#getCart").append(html);
 			
@@ -181,9 +179,7 @@ function nullCheck() {
 	if (checked < 1) {
 		alert("결제할 상품을 선택해주세요.")
 		return false;
-	} 
-	
-	else {
+	} else {
 		// 결제 페이지 이동
 		//function buy() {
 			var order = new Array();
@@ -257,10 +253,8 @@ function nullCheck() {
 						<input type='hidden' name="sum" />
 						<input type="hidden" name="prdct_name" />
 						<input type="hidden" name="prdct_thumbnail" />
-						
 					</tbody>
 					<tfoot>
-						
 								<tr class="gift-division">
 								<td>
 								</td>

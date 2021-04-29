@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
@@ -52,9 +51,6 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/member/*")
 public class MemberController {
-
-	@Autowired
-	// private CustomerService customerService;
 
 	private SecurityService securityService;
 
@@ -116,6 +112,7 @@ public class MemberController {
 
 		// 서버로 업로드
 		out.write(bytes);
+
 		// 클라이언트에 결과 표시
 		String callback = request.getParameter("CKEditorFuncNum");
 
@@ -224,6 +221,7 @@ public class MemberController {
 		ResponseEntity<String> entity = null;
 
 		log.info("myqnaWriting...");
+
 		try {
 			memberService.setmyqnaWriting(boardVO);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);

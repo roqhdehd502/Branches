@@ -7,16 +7,16 @@
 	
 	<select id="getProduct" resultType="edu.bit.ex.joinvo.PrdctOrderDetailVO">
 		<![CDATA[
-		select * from prdct where prdct_id = #{prdct_id} 
+			select * from prdct where prdct_id = #{prdct_id} 
 		]]>
 	</select>
 	
 	<insert id="insertOrder">
 		<![CDATA[
-		insert into prdct_order
-		(order_number, order_price, order_date, mbr_id, order_state_number)
-		values
-		(#{order_number}, #{order_price}, sysdate, #{mbr_id}, 2 )
+			insert into prdct_order
+			(order_number, order_price, order_date, mbr_id, order_state_number)
+			values
+			(#{order_number}, #{order_price}, sysdate, #{mbr_id}, 2 )
 		]]>
 	</insert>
 	
@@ -43,7 +43,7 @@
 	
 	<select id="getPoint" resultType="edu.bit.ex.vo.MbrVO">
 		<![CDATA[
-		select mbr_point from mbr where mbr_id = #{mbr_id} 
+			select mbr_point from mbr where mbr_id = #{mbr_id} 
 		]]>
 	</select>
 

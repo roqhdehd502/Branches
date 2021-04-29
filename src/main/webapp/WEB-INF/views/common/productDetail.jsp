@@ -199,7 +199,7 @@ p.title{
 	         })            
 	       });       
 	   	});
-	</script>
+</script>
 <script>
     $(document).ready(function() {
         // 숫자 평점을 별로 변환하도록 호출하는 함수
@@ -285,7 +285,6 @@ p.title{
 		prdct.prdct_price = $("#prdct_price").val();
 		prdct.prdct_name = $("#prdct_name").val();
 		prdct.prdct_thumbnail = $("#prdct_thumbnail").val();
-		//prdct.prdct_thumbnail = $("#prdct_thumbnail").val();
 
 		console.log(prdct);
 		cart.push(prdct);
@@ -452,10 +451,6 @@ p.title{
 		<!-- header -->
 		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 
-
-		<!--  상품 정보와 옵션 선택 
-		<form action="${pageContext.request.contextPath}/order/insert_cart" method="POST">
-			<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}" />-->
 	 <!--  상품 정보와 옵션 선택 -->
 		<form action="${pageContext.request.contextPath}/order/cart" method="POST">
 			<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
