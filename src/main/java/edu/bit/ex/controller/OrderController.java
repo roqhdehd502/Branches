@@ -39,16 +39,20 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/order/*")
 public class OrderController {
+
 	@Autowired
 	private OrderService orderService;
 
+	@Autowired
 	private SecurityService securityService;
 
 	// 장바구니 페이지
 	@RequestMapping(value = "/cart", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView memberCart(HttpServletRequest request, HttpSession session, ModelAndView mav) throws Exception {
+
 		log.debug("cart");
 		log.info("cart ");
+
 		mav.setViewName("order/memberCart");
 		// mav.set
 
@@ -59,11 +63,14 @@ public class OrderController {
 	@RequestMapping(value = "/cartList", method = { RequestMethod.POST, RequestMethod.GET })
 	public List<PrdctOrderDetailVO> cartList(@RequestBody List<Map<String, Object>> param) throws Exception {
 
-		List<PrdctOrderDetailVO> cartList = new ArrayList<PrdctOrderDetailVO>();
 		log.info("cartList ");
+
+		List<PrdctOrderDetailVO> cartList = new ArrayList<PrdctOrderDetailVO>();
+
 		for (Map<String, Object> cart : param) {
 			cartList.add(orderService.getPrdctCart((String) cart.get("prdct_id")));
 		}
+
 		return cartList;
 
 	}
@@ -71,11 +78,15 @@ public class OrderController {
 	// 주문 리스트 정보입력(결제페이지)
 	@RequestMapping(value = "/orderInput", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView order(ModelAndView mav, @AuthenticationPrincipal MemberDetails memberDetails) {
+
 		log.info("order");
+
 		String id = memberDetails.getUserID();
+
 		mav.addObject("member", securityService.getMbr(id));
 		mav.addObject("point", orderService.getPoint(id));
 		mav.setViewName("order/orderInput");
+
 		return mav;
 	}
 
@@ -130,9 +141,16 @@ public class OrderController {
 	// 결제 유효성 체크(ajax)
 	@PostMapping("/orderInput/check/{receipt_id}")
 	public JSONObject payCheck(@PathVariable("receipt_id") String receipt_id, String name, String reason) throws Exception {
+
 		BootpayApi api = new BootpayApi("6076c93a5b2948001d07b41e", "n1PS3ICdEr1e8ndCigcSJ7yDrKEYqI4SQWDjc9QZhOM=");
+
+		// 프라이빗 스태틱으로 선언 6076c93a5b2948001d07b41e (바뀔수도 있는 부분이니까)
+		// private static final String FILE_PROFILE_PATH 컨트롤러 제일위에..
+
 		api.getAccessToken();
+
 		String str = null;
+
 		try {
 			HttpResponse res = api.verify(receipt_id);
 			str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
