@@ -1,6 +1,7 @@
 package edu.bit.ex.service;
 
 import java.util.List;
+import java.util.Map;
 
 import edu.bit.ex.joinvo.MbrShippingVO;
 import edu.bit.ex.joinvo.PrdctOrdctDetailPrdctOrderVO;
@@ -87,5 +88,11 @@ public interface AdminService {
 	public void userQnAComment(BoardCommentVO commentVO);
 
 	public List<BoardCommentVO> getQnAComment(int b_id);
+
+	public Map<Integer, Integer> getDailySales(String year, String month);
+
+	public Map<Integer, Integer> getMonthlySales(String year, String month);
+
+	public List<Integer> getYearlySales(String year);
 
 }

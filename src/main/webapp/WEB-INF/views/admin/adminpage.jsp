@@ -53,7 +53,7 @@
 	                </div><br/>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>매출관리</h3><hr>
-	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/admintotal">매출조회</a></h5>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/sales">매출조회</a></h5>
 	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/adminSearchtotal">검색순위 조회</a></h5>
 	                </div>
 				</div>
