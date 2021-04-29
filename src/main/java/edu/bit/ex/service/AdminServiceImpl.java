@@ -2,7 +2,11 @@ package edu.bit.ex.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -248,6 +252,46 @@ public class AdminServiceImpl implements AdminService {
 	public void userQnAComment(BoardCommentVO commentVO) {
 		// TODO Auto-generated method stub
 		adminMapper.userQnAComment(commentVO);
+	}
+
+	@Override
+	public Map<Integer, Integer> getDailySales(String year, String month) {
+		// TODO Auto-generated method stub
+		Calendar cal = Calendar.getInstance();
+		cal.set(Integer.parseInt(year), Integer.parseInt(month), 1);
+
+		Map<Integer, Integer> dailySales = new HashMap<>();
+
+		for (int i = 1; i <= cal.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
+			dailySales.put(i, adminMapper.getDailySales(year, month, String.valueOf(i)));
+		}
+		return dailySales;
+	}
+
+	@Override
+	public Map<Integer, Integer> getMonthlySales(String year, String month) {
+		// TODO Auto-generated method stub
+		Map<Integer, Integer> monthlySales = new HashMap<>();
+
+		for (int i = 1; i < 13; i++) {
+			monthlySales.put(i, adminMapper.getMonthlySales(year, String.valueOf(i)));
+		}
+
+		return monthlySales;
+	}
+
+	@Override
+	public List<Integer> getYearlySales(String year) {
+		// TODO Auto-generated method stub
+		List<Integer> yearlySales = new ArrayList();
+
+		int yearNum = Integer.parseInt(year);
+
+		for (int i = yearNum - 10; i < yearNum + 1; i++) {
+			yearlySales.add(adminMapper.getYearlySales(String.valueOf(i)));
+		}
+
+		return yearlySales;
 	}
 
 }

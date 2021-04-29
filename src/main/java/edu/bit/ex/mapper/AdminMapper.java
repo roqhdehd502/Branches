@@ -92,4 +92,10 @@ public interface AdminMapper {
 
 	public void userQnAComment(BoardCommentVO commentVO);
 
+	public Integer getDailySales(String year, String month, String day);
+
+	public Integer getMonthlySales(String year, String month);
+
+	public Integer getYearlySales(String year);
+
 }

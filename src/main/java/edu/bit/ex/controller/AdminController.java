@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -156,7 +157,6 @@ public class AdminController {
 	}
 
 	// 상품 수정
-	@Transactional(rollbackFor = Exception.class)
 	@PostMapping("/mypage/seller/{seller_id}/prdct/{prdct_id}/modify")
 	public ResponseEntity<String> admin_seller_prdct_modify(@RequestBody PrdctRegisterImageVO prvo) throws Exception {
 		ResponseEntity<String> entity = null;
@@ -331,7 +331,26 @@ public class AdminController {
 
 	@GetMapping("/mypage/sales")
 	public ModelAndView admin_sales_chart(ModelAndView mav) {
-		log.debug("admin_sales_chart");
+		log.debug("admin/admin_sales_chart");
+		mav.setViewName("admin/admin_sales_chart");
+
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy");
+		SimpleDateFormat format2 = new SimpleDateFormat("MM");
+		SimpleDateFormat format3 = new SimpleDateFormat("dd");
+
+		Date time = new Date();
+
+		String year = format1.format(time);
+		String month = format2.format(time);
+		String day = format3.format(time);
+
+		mav.addObject("year", year);
+		mav.addObject("month", month);
+		mav.addObject("day", day);
+
+		mav.addObject("daySale", adminService.getDailySales(year, month));
+		mav.addObject("monthSale", adminService.getMonthlySales(year, month));
+		mav.addObject("yearSale", adminService.getYearlySales(year));
 
 		return mav;
 	}

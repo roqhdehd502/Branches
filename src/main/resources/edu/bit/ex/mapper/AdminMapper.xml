@@ -298,4 +298,34 @@
 	]]>
 	</select>
 	
+	<!-- 일간 매출 -->
+	<select id="getDailySales" resultType="int">
+	<![CDATA[
+		select NVL(sum(order_price), 0)
+        from prdct_order
+        where extract(year from order_date) = #{year} 
+        and extract(month from order_date) = #{month}
+        and extract(day from order_date) = #{day}
+	]]>
+	</select>
+	
+	<!-- 월간 매출 -->
+	<select id="getMonthlySales" resultType="int">
+	<![CDATA[
+		select NVL(sum(order_price), 0)
+        from prdct_order
+        where extract(year from order_date) = #{year} 
+        and extract(month from order_date) = #{month}
+	]]>
+	</select>
+	
+	<!-- 연간 매출 -->
+	<select id="getYearlySales" resultType="int">
+	<![CDATA[
+		select NVL(sum(order_price), 0)
+        from prdct_order
+        where extract(year from order_date) = #{year}
+	]]>
+	</select>
+	
 </mapper>
