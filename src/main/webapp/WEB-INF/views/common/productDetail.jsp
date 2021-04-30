@@ -149,57 +149,6 @@ p.title{
 }
 
 </style>
-<!-- 상품qna 판매자 댓글 작성 -->
-	<script type="text/javascript">
-	   	$(document).ready(function(){
-	      $("#commentWriteForm").submit(function(event){         
-	           event.preventDefault();
-	           
-	       	   // FormData 불러오기
-	           var formData = new FormData();
-	        
-	           var mbr_id = $("#mbr_id").val();
-	           var board_id = $("#board_id").val();
-	           var comment_content = $("#comment_content").val();
-	           
-	           console.log(mbr_id);
-	           console.log(board_id);
-	           console.log(comment_content);
-	           console.log($(this).attr("action"));    
-	           
-	        	// 해당 텍스트들을 FormData에 append
-	           formData.append("mbr_id", mbr_id);
-	           formData.append("board_id", board_id);
-	           formData.append("comment_content", comment_content);
-	
-	           $.ajax({
-	             type : "POST",
-	             url : $(this).attr("action"),
-	             cache : false,
-	             contentType:'application/json; charset=utf-8',
-	             contentType: false,
-	             processData: false, 
-	             data: formData, 
-	             beforeSend : function(xhr) {
-						xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
-	             },
-	             success: function (result) {       
-	            	 if (confirm("댓글을 작성하시겠습니까??") == true) {
-		        			console.log("SUCCESS!")  
-		        			$(location).attr('href', '${pageContext.request.contextPath}/prdct/${prdct.prdct_id}');
-		        		}else {
-							return;
-						}                     
-	             },
-	             error: function (e) {
-	                 console.log(e);
-	                 alert('댓글 업로드에 실패하였습니다.');
-	                 location.reload(); // 실패시 새로고침하기
-	             }
-	         })            
-	       });       
-	   	});
-</script>
 <script>
     $(document).ready(function() {
         // 숫자 평점을 별로 변환하도록 호출하는 함수
@@ -815,6 +764,7 @@ p.title{
 												<td scope="col">${dto.board_date}</td>
 											</tr>
 											<tr>
+											<!-- 제목을 클릭하면 상품 Q&A내용과 댓글이 나오는 부분 -->
 												<td colspan="4">
 													<div>${dto.board_content }</div><hr/>
 													<input type="hidden" id="comment_id" name="comment_id" value="${dto.comment_id }">
@@ -977,6 +927,7 @@ p.title{
 	<script src="/assets/js/active.js"></script>
 	
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<!-- 상품Q&A 펼쳤다 접었다하는 기능 -->
 <script>
     $(document).ready(function(){
 

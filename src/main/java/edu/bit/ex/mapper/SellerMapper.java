@@ -7,14 +7,12 @@ import org.apache.ibatis.annotations.Mapper;
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.BoardPrdctPrdctLikeVO;
 import edu.bit.ex.joinvo.MbrShippingVO;
-import edu.bit.ex.joinvo.PrdctOrdctDetailPrdctOrderVO;
 import edu.bit.ex.joinvo.PrdctOrderDetailVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
-import edu.bit.ex.vo.OrderDetailVO;
 import edu.bit.ex.vo.PrdctOrderVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
@@ -99,17 +97,23 @@ public interface SellerMapper {
 	// 페이징
 	public int exchangeTotal(SearchCriteria cri);
 
+	// 리뷰 불러오기
+	public List<BoardPrdctPrdctLikeVO> getReview(SearchCriteria cri);
+
+	// 페이징
+	public int reviewTotal(SearchCriteria cri);
+
+	// 주문 옵션 수정페이지
+	public void updateOrderOption(PrdctOrderDetailVO povo);
+
 	// 주문상태
 	public void updateState(PrdctOrderDetailVO povo);
 
 	// 주문상세정보불러오기
-	public PrdctOrdctDetailPrdctOrderVO orderInfo(String order_number);
-
-	// 주문 상세옵션정보 불러오기
-	public OrderDetailVO orderOption(String order_number);
+	public PrdctOrderDetailVO orderInfo(String prdct_id, String order_number);
 
 	// 주문자 정보 불러오기
-	public PrdctOrderDetailVO orderMbr(String order_number);
+	public PrdctOrderDetailVO orderMbr(String prdct_id, String order_number);
 
 	// 썸네일 추가 및 수정
 	public void setModifyAddImg(PrdctRegisterImageVO prvo);
@@ -126,6 +130,9 @@ public interface SellerMapper {
 	// 환불요청 알림
 	public int refundCount(PrdctOrderDetailVO povo);
 
+	// 일간 통계차트
+	public PrdctOrderVO dailyChart();
+
 	// 주간 통계차트
 	public PrdctOrderVO weekChart();
 
@@ -135,14 +142,19 @@ public interface SellerMapper {
 	// 연간 통계차트
 	public PrdctOrderVO yearChart();
 
+	// 상품 Q&A 댓글등록
 	public void qnaInsert(BoardBoardCommentVO bbcVO);
 
+	// 상품 Q&A 내용 불러오기
 	public BoardVO qnaBoard(int board_id);
 
+	// 상품 Q&A 댓글불러오기
 	public List<BoardCommentVO> getQnaComment(int board_id);
 
+	// 상품 Q&A 댓글삭제
 	public int CommentRemove(int comment_id);
 
+	// 조건에 따라 댓글등록창이 보일수 있게 만든 쿼리
 	public BoardBoardCommentVO getPrdctqCmntStat(int board_id);
 
 }

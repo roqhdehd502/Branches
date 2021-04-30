@@ -135,18 +135,12 @@
 					<div class="team-area sp">
 						<div class="container">
 							<div class="row">
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(0)">번호순</button>
-								&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(1)">제목순</button>
-								&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(2)">작성자순</button>
-								&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(5)">일자순</button>
-								<form id="searchForm" action="/seller/mypage/prdctqna" method="get" style="position: relative; left: 220px;">
+								<form id="searchForm" action="/seller/mypage/prdctqna" method="get" style="position: relative; left: 520px;">
 									<span>
 										<select class="custom-select" name="type" style="width: 100px;">
 											<option value="" <c:out value="${pageMaker.cri.type == null?'selected' : '' }" />>---</option>
 											<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ?'selected' : '' }" />>제목</option>
+											<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ?'selected' : '' }" />>NO.</option>
 											<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ?'selected' : '' }" />>작성자</option>
 										</select>
 									</span>&nbsp;&nbsp;

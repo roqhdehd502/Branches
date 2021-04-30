@@ -62,7 +62,7 @@
 			) WHERE RNUM > (#{cri.pageNum}-1) * #{cri.amount} and prdct_id = #{p_id} 
 		]]>
 	</select> -->
-	
+	<!-- 페이징을 적용한 상품 Q&A 게시판 리스트 -->
 	<select id="getPrdQnAListWithPaging" resultType="edu.bit.ex.joinvo.BoardBoardCommentVO">
 		<![CDATA[
 			SELECT * FROM (

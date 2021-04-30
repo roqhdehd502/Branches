@@ -80,7 +80,7 @@ public class CommonController {
 	@ResponseBody
 	public ModelAndView productDetail(@PathVariable("prdct_id") String p_id, @AuthenticationPrincipal MemberDetails memberDetails,
 			PrdReviewCriteria rcri, PrdQnACriteria qacri, PrdctLikeVO prdctLikeVO, ModelAndView mav, HttpServletRequest request, MbrVO mbrVO,
-			BoardVO bcVO) throws Exception {
+			BoardVO bVO) throws Exception {
 		log.info("productDetail...");
 		mav.setViewName("common/productDetail");
 
@@ -113,7 +113,7 @@ public class CommonController {
 
 		// 큐앤에이 관련
 		log.info("prdQnAList...");
-		mav.addObject("prdQnAList", commonService.getPrdQnAList(qacri, p_id, bcVO.getBoard_id()));
+		mav.addObject("prdQnAList", commonService.getPrdQnAList(qacri, p_id, bVO.getBoard_id()));
 		int total = commonService.getPrdQnATotal(qacri);
 		log.info("total: " + total);
 		mav.addObject("pageMaker", new PrdQnAPageVO(qacri, total));

@@ -30,13 +30,19 @@ $(document).ready(function(){
 		
 		var order_number = $("#order_number").val();
 		var order_state_number = $("#order_state_number").val();
+		var order_color = $("#order_color").val();
+		var order_size = $("#order_size").val();
 
 		console.log(order_number);
         console.log(order_state_number);
+        console.log(order_color);
+        console.log(order_size);
         
         var form = {
         		order_state_number: order_state_number,
         		order_number: order_number,
+        		order_color: order_color,
+        		order_size: order_size
        	 };
         console.log(form);
 
@@ -142,44 +148,44 @@ $(document).ready(function(){
 					<h4> 배송지 정보 </h4><hr />
 					<form id="stateUpdate" action="/seller/mypage/order/${info.order_number }/modify" method="PUT">
 						<input type="hidden" name="order_number" id="order_number" value="${info.order_number }">
-						<input type="hidden" name="prdct_id" id="prdct_id" value="${inop.prdct_id }">
+						<input type="hidden" name="prdct_id" id="prdct_id" value="${info.prdct_id }">
 						<input type="hidden" name="mbr_id" id="mbr_id" value="${info.mbr_id }">
 						<fieldset>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">아이디</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="mbr_id" value="${info.mbr_id }" readonly="readonly">
+									<input type="text" class="form-control" name="mbr_id" id="mbr_id" value="${info.mbr_id }" readonly="readonly">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">이름</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="shipping_name" value="${mbrInfo.order_name }" readonly="readonly">
+									<input type="text" class="form-control" name="shipping_name" id="shipping_name" value="${mbrInfo.order_name }" readonly="readonly">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">연락처</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control"id="shipping_tel" value="${mbrInfo.order_tel }" readonly="readonly">
+									<input type="text" class="form-control" name="shipping_tel" id="shipping_tel" value="${mbrInfo.order_tel }" readonly="readonly">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">주소</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="shipping_address" value="${mbrInfo.shipping_address }" readonly="readonly">
+									<input type="text" class="form-control" name="shipping_address" id="shipping_address" value="${mbrInfo.shipping_address }" readonly="readonly">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">색상</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="order_color" value="${inop.order_color }" disabled="disabled">
+									<input type="text" class="form-control" name="order_color" id="order_color" value="${info.order_color }" disabled="disabled">
 									
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">사이즈</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="order_size" value="${inop.order_size }" disabled="disabled">
+									<input type="text" class="form-control" name="order_size" id="order_size" value="${info.order_size }" disabled="disabled">
 									<input class="btn btn-primary btn-sm" type='button' value='활성화' onclick='textActive()' />
 									<input class="btn btn-primary btn-sm" type='button' value='비활성화' onclick='textDisabled()' />&nbsp;&nbsp;&nbsp; 
 									<span><h6>교환 요청시 활성화하여 정보를 수정해주세요</h6></span>
@@ -224,13 +230,13 @@ $(document).ready(function(){
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">택배키</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="t_key" value="${info.t_key }" disabled="disabled">
+									<input type="text" class="form-control" name="t_key" id="t_key" value="${info.t_key }" disabled="disabled">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">운송장번호</label>
 								<div class="col-sm-10">
-									<input type="number" class="form-control" id="t_invoice" value="${info.t_invoice }" disabled="disabled">
+									<input type="number" class="form-control" name="t_invoice" id="t_invoice" value="${info.t_invoice }" disabled="disabled">
 								</div>
 							</div>
 							<input class="btn btn-primary btn-sm" type='button' value='활성화' onclick='shippingActive()' />

@@ -22,7 +22,37 @@
 <link rel="stylesheet" href="/bootstrap.min.css">
 <script src="/ckeditor/ckeditor.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+<script type="text/javascript">
+    //이미지 미리보기
+    var sel_file;
+ 
+    $(document).ready(function() {
+        $("#uploadfiles").on("change", handleImgFileSelect);
+    });
+ 
+    function handleImgFileSelect(e) {
+        var files = e.target.files;
+        var filesArr = Array.prototype.slice.call(files);
+ 
+        var reg = /(.*?)\/(jpg|jpeg|png|bmp)$/;
+        
+        filesArr.forEach(function(f) {
+            if (!f.type.match(reg)) {
+                alert("확장자는 이미지 확장자만 가능합니다.");
+                return;
+            }
+ 
+            sel_file = f;
+ 
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $("#showImg").attr("src", e.target.result);
+            }
+            reader.readAsDataURL(f);
+        });
+        
+    }        
+</script>
 <script type="text/javascript">
 $(document).ready(function(){
     $("#updatePrd").submit(function(event){         
@@ -237,17 +267,12 @@ $(document).ready(function(){
 									<input type="text" class="form-control" placeholder="상품명을 입력해주세요" id="prdct_name" value="${pdvo.prdct_name}">
 								</div>
 							</div>
-							<div class="form-group row">
-								<label class="col-sm-2 col-form-label">썸네일</label>
+							<div class="form-group row"  style="height: 210px;">
+								<label class="col-sm-2 col-form-label">대표이미지(Thumbnail)</label>
 								<div class="col-sm-10">
-									<input class="btn" type="file" accept=".jpg, .png" name="uploadfiles" id="uploadfiles" placeholder="첨부 사진" />
-									<!-- 이미지 컨테이너 -->
-									<div id="image_container" class="row" style="padding: 3% 3% 3% 5%">
-										<div class="col-md-2" align="center">
-											<!-- 게시글을 삭제할 때 이미지도 삭제하기 위한 이미지 정보 -->
-											<span class="upload_image" style="display: none;">${pdvo.prdct_thumbnail}</span> 
-											<img src="/prdct_img/prdct_thumbnail/${pdvo.prdct_thumbnail}" width="100px" height="140px">
-										</div>
+									<div class="custom-file" id="inputFile">
+										<img src="/prdct_img/prdct_thumbnail/${pdvo.prdct_thumbnail}" id="showImg" style="width: 150px; height: 200px;"></img>
+										<input type="file" name="uploadfiles" id="uploadfiles" accept="image/*" multiple="multiple">
 									</div>
 								</div>
 							</div>

@@ -325,9 +325,9 @@ public class SellerController {
 	}
 
 	// 주문상세정보 수정페이지
-	@GetMapping("/mypage/order/{order_number}")
+	@GetMapping("/mypage/order/{prdct_id}/{order_number}")
 	public ModelAndView orderStateModify(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable("order_number") String order_number,
-			ModelAndView mav, ShippingVO svo, PrdctOrderDetailVO povo) throws Exception {
+			ModelAndView mav, ShippingVO svo, PrdctOrderDetailVO povo, @PathVariable("prdct_id") String prdct_id) throws Exception {
 		log.debug("orderStateModify");
 		log.info("orderStateModify..");
 		mav.setViewName("seller/sellerOrderModify");
@@ -338,13 +338,10 @@ public class SellerController {
 		mav.addObject("mbr", getMbr);
 
 		// 주문 정보 불러오기
-		mav.addObject("info", sellerService.orderInfo(order_number));
-
-		// 주문 옵션정보 불러오기
-		mav.addObject("inop", sellerService.orderOption(order_number));
+		mav.addObject("info", sellerService.orderInfo(prdct_id, order_number));
 
 		// 주문자 정보 불러오기
-		mav.addObject("mbrInfo", sellerService.orderMbr(order_number));
+		mav.addObject("mbrInfo", sellerService.orderMbr(prdct_id, order_number));
 
 		// 새주문 요청 알림
 		mav.addObject("orderCount", sellerService.orderCount(povo));
@@ -368,6 +365,7 @@ public class SellerController {
 
 		try {
 			sellerService.updateState(povo);
+			sellerService.updateOrderOption(povo);
 			log.info("update prdct info");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 
@@ -606,8 +604,8 @@ public class SellerController {
 
 	// 판매자 상품리뷰조회 페이지...(seller)
 	@GetMapping("/mypage/review")
-	public ModelAndView sellerReview(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, MbrVO mbr, PrdctOrderDetailVO povo)
-			throws Exception {
+	public ModelAndView sellerReview(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, MbrVO mbr, PrdctOrderDetailVO povo,
+			SearchCriteria cri) throws Exception {
 		log.debug("sellerReview");
 		log.info("sellerReview");
 
@@ -618,7 +616,11 @@ public class SellerController {
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
 		// mav.addObject("board", sellerService.getBoard());
-		mav.addObject("prd", sellerService.getProduct());
+		mav.addObject("review", sellerService.getReview(cri));
+
+		int total = sellerService.reviewTotal(cri);
+		log.info("reviewTotal");
+		mav.addObject("pageMaker", new SearchPageVO(cri, total));
 
 		// 새주문 요청 알림
 		mav.addObject("orderCount", sellerService.orderCount(povo));
@@ -655,6 +657,7 @@ public class SellerController {
 		// 환불 알림
 		mav.addObject("refundCount", sellerService.refundCount(povo));
 
+		mav.addObject("day", sellerService.dailyChart());
 		mav.addObject("week", sellerService.weekChart());
 		mav.addObject("month", sellerService.monthChart());
 		mav.addObject("year", sellerService.yearChart());

@@ -159,7 +159,7 @@
 									<c:if test="${prdct.order_state_number eq 2}">
 										<h5 style="position: relative; top: 20px;">결제완료</h5>
 									</c:if>
-									<a href="/seller/mypage/order/${prdct.order_number }/${prdct.prdct_id }" style="position: relative; top: 20px;"><h6>[변경]</h6></a>
+									<a href="/seller/mypage/order/${prdct.prdct_id }/${prdct.order_number}" style="position: relative; top: 20px;"><h6>[변경]</h6></a>
 								</td>
 							</tr>
 							</c:forEach>
@@ -170,32 +170,8 @@
 					<h3 style="margin-top: 5px; margin-left: 15px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, .1);">
 						<strong style="margin: 20px;">${mbr.mbr_id}의 통계</strong>
 					</h3>
-
-					<div class="tab">
-						<button class="tablinks" onclick="openCity(event, 'prdct')" id="defaultOpen"><h4 style="color: white;">상품</h4></button>
-						<button class="tablinks" onclick="openCity(event, 'order')"><h4 style="color: white;">주문</h4></button>
-						<button class="tablinks" onclick="openCity(event, 'sale')"><h4 style="color: white;">판매량</h4></button>
-						<button class="tablinks" onclick="openCity(event, 'preference')"><h4 style="color: white;">선호도</h4></button>
-					</div>
-
-					<div id="prdct" class="tabcontent">
-						<h3 style="margin-top: 16px;">상품</h3>
-						<jsp:include page="/WEB-INF/views/chart/prdorderChart.jsp"></jsp:include>
-					</div>
-					
-					<div id="order" class="tabcontent">
-						<h3 style="margin-top: 16px;">주문</h3>
-						<jsp:include page="/WEB-INF/views/chart/OrderChart.jsp"></jsp:include>
-					</div>
-
-					<div id="sale" class="tabcontent">
-						<h3 style="margin-top: 16px;">판매량</h3>
-						<jsp:include page="/WEB-INF/views/chart/sellChart.jsp"></jsp:include>
-					</div>
-
-					<div id="preference" class="tabcontent">
-						<h3 style="margin-top: 16px;">선호도</h3>
-						<jsp:include page="/WEB-INF/views/chart/ageChart.jsp"></jsp:include>
+					<div>
+						<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/chart/allChart.jsp"></jsp:include>
 					</div>
 					
 				</span>
