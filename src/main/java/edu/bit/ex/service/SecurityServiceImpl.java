@@ -49,7 +49,7 @@ public class SecurityServiceImpl implements SecurityService {
 	}
 
 	@Override
-	public String findID(String name, int contact) {
+	public String findID(String name, String contact) {
 		// TODO Auto-generated method stub
 		return loginMapper.findID(name, contact);
 	}

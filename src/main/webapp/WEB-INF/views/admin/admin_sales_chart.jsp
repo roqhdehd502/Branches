@@ -58,7 +58,9 @@
     	 for(int i = 0; i < mlabels.length; i++) {
     		 [mlabels[i], monthData[i]]
     	 }
-    	 for(
+    	 /* for(int j = 13-mlabels.length; j > mlabels.length; j--) {
+    		 [][]
+    	 } */
     	 
   		]);
 

@@ -92,17 +92,6 @@ public class AdminController {
 
 	}
 
-	// 관리자 매출조회 페이지 (보류)
-	@GetMapping("/mypage/")
-	public ModelAndView admintotal(ModelAndView mav) throws Exception {
-		log.debug("admintotal");
-		log.info("admintotal");
-
-		mav.setViewName("admin/admintotal");
-
-		return mav;
-	}
-
 	// 관리자 매출 조회 검색페이지 (보류)
 	@GetMapping("/mypage/search")
 	public ModelAndView adminSearchtotal(ModelAndView mav) throws Exception {
@@ -329,6 +318,7 @@ public class AdminController {
 		return entity;
 	}
 
+	// jsp 미완
 	@GetMapping("/mypage/sales")
 	public ModelAndView admin_sales_chart(ModelAndView mav) {
 		log.debug("admin/admin_sales_chart");
