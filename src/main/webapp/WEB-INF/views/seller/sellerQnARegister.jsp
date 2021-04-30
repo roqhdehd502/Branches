@@ -246,7 +246,7 @@
 									<button type="button" class="btn btn-danger btn-sm cmnt_del" data-rno="${comment.comment_id}">삭제하기</button>
 								</span>
 								
-													<%-- 매거진 댓글 삭제 --%>
+													<%-- 댓글 삭제 --%>
 													<script type="text/javascript">
 														$(document).ready(function (){
 															$('.cmnt_del').click(function(event){

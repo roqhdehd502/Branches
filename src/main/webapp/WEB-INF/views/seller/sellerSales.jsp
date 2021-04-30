@@ -125,11 +125,6 @@
 					<h4 style="margin-left: 16px;">연간 매출통계</h4>
 					<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/chart/yearChart.jsp"></jsp:include>
 					<hr />
-	
-				<hr style="margin-top: 1px;">
-				<h3 style="margin-top: 25px; margin-left: 15px;">
-					<strong style="margin: 10px;">검색어 순위 조회</strong><hr>
-				</h3>
 				
 				</span>
 			</div>

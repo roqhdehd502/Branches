@@ -16,11 +16,11 @@
       function drawChart() {
           var data = google.visualization.arrayToDataTable([
             ['Year', '판매량'],
-            ['2016',  1000    ],
-            ['2017',  2170     ],
-            ['2018',  5560      ],
-            ['2019',  4930     ],
-            ['2020',  ${year.sales_sum}]
+            ['2017',  8000    ],
+            ['2018',  20170     ],
+            ['2019',  55060      ],
+            ['2020',  49300     ],
+            ['2021',  ${year.sales_sum}]
           ]);
 
 

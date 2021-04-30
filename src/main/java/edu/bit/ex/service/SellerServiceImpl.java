@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.BoardPrdctPrdctLikeVO;
 import edu.bit.ex.joinvo.MbrShippingVO;
-import edu.bit.ex.joinvo.PrdctOrdctDetailPrdctOrderVO;
 import edu.bit.ex.joinvo.PrdctOrderDetailVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.mapper.SellerMapper;
@@ -19,7 +18,6 @@ import edu.bit.ex.page.SearchCriteria;
 import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
-import edu.bit.ex.vo.OrderDetailVO;
 import edu.bit.ex.vo.PrdctOrderVO;
 import edu.bit.ex.vo.PrdctVO;
 import edu.bit.ex.vo.ShippingVO;
@@ -227,9 +225,9 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public PrdctOrdctDetailPrdctOrderVO orderInfo(String order_number) {
+	public PrdctOrderDetailVO orderInfo(String prdct_id, String order_number) {
 		// TODO Auto-generated method stub
-		return sellerMapper.orderInfo(order_number);
+		return sellerMapper.orderInfo(prdct_id, order_number);
 	}
 
 	@Override
@@ -292,6 +290,12 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
+	public PrdctOrderVO dailyChart() {
+		// TODO Auto-generated method stub
+		return sellerMapper.dailyChart();
+	}
+
+	@Override
 	public PrdctOrderVO weekChart() {
 		// TODO Auto-generated method stub
 		return sellerMapper.weekChart();
@@ -310,15 +314,9 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public OrderDetailVO orderOption(String order_number) {
+	public PrdctOrderDetailVO orderMbr(String prdct_id, String order_number) {
 		// TODO Auto-generated method stub
-		return sellerMapper.orderOption(order_number);
-	}
-
-	@Override
-	public PrdctOrderDetailVO orderMbr(String order_number) {
-		// TODO Auto-generated method stub
-		return sellerMapper.orderMbr(order_number);
+		return sellerMapper.orderMbr(prdct_id, order_number);
 	}
 
 	@Override
@@ -351,4 +349,21 @@ public class SellerServiceImpl implements SellerService {
 		return sellerMapper.getPrdctqCmntStat(board_id);
 	}
 
+	@Override
+	public void updateOrderOption(PrdctOrderDetailVO povo) {
+		// TODO Auto-generated method stub
+		sellerMapper.updateOrderOption(povo);
+	}
+
+	@Override
+	public List<BoardPrdctPrdctLikeVO> getReview(SearchCriteria cri) {
+		// TODO Auto-generated method stub
+		return sellerMapper.getReview(cri);
+	}
+
+	@Override
+	public int reviewTotal(SearchCriteria cri) {
+		// TODO Auto-generated method stub
+		return sellerMapper.reviewTotal(cri);
+	}
 }

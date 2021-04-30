@@ -164,7 +164,7 @@
 													<c:if test="${prdct.order_state_number eq 6}">
 														<h5 style="position: relative; top: 20px;">배송완료</h5>
 													</c:if>
-													<a href="/seller/mypage/order/${prdct.order_number }" style="position: relative; top: 20px;"><h6>[변경]</h6></a>
+													<a href="/seller/mypage/order/${prdct.prdct_id }/${prdct.order_number}" style="position: relative; top: 20px;"><h6>[변경]</h6></a>
 												</td>
 											</tr>
 										</c:forEach>

@@ -18,15 +18,16 @@
         var data = new google.visualization.DataTable();
         data.addColumn('date', '주간');
         data.addColumn('number', '판매량');
+        
+        var loadDt = new Date(); //현재 날짜 및 시간   //현재시간 기준 계산
+        var before_7= new Date(Date.parse(loadDt) - 7 * 1000 * 60 * 60 * 24); //일주일전
+        
 
         data.addRows([
-          [new Date(2021, 3, 5), 2500],
-          [new Date(2021, 3, 12), 1390],
-          [new Date(2021, 3, 19), 2040],
-          [new Date(2021, 3, 26), ${week.sales_sum}],
-          [new Date(2021, 4, 3), ${week.sales_sum}],
-          [new Date(2021, 4, 10), ${week.sales_sum}],
-          [new Date(2021, 4, 17), ${week.sales_sum}],
+        	[new Date(loadDt), ${week.sales_sum}],
+          [new Date(before_7), 7560],
+
+
         ]);
 
 

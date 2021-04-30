@@ -115,19 +115,13 @@
 					<div class="team-area sp">
 						<div class="container">
 							<div class="row">
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(0)">번호순</button>
-								&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(1)">제목순</button>
-								&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(2)">작성자순</button>
-								&nbsp;&nbsp;
-								<button class="btn btn-primary btn-sm" type="button" onclick="sortTable(5)">일자순</button>
-								<form id="searchForm" action="/seller/mypage/prdct" method="get" style="position: relative; left: 220px;">
+								<form id="searchForm" action="/seller/mypage/review" method="get" style="position: relative; left: 520px;">
 									<span>
 										<select class="custom-select" name="type" style="width: 100px;">
 											<option value="" <c:out value="${pageMaker.cri.type == null?'selected' : '' }" />>---</option>
 											<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ?'selected' : '' }" />>상품명</option>
-											<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ?'selected' : '' }" />>ID</option>
+											<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ?'selected' : '' }" />>NO.</option>
+											<option value="W" <c:out value="${pageMaker.cri.type eq 'W' ?'selected' : '' }" />>작성자</option>
 										</select>
 									</span>&nbsp;&nbsp;
 									<span>
@@ -141,28 +135,38 @@
 									<thead>
 										<tr>
 											<th><h5>No.</h5></th>
-											<th><h5>제목</h5></th>
 											<th><h5>작성자</h5></th>
 											<th><h5>상품명</h5></th>
 											<th><h5>일자</h5></th>
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach items="${ board}" var="board" varStatus="status">
+										<c:forEach items="${ review}" var="board" varStatus="status">
 											<tr>
 												<td>
 													<h6>${board.board_id }</h6>
 												</td>
-												<td><h6>
-														<a href="#">${board.board_name }</a>
-													</h6></td>
 												<td><h6>${board.mbr_id }</h6></td>
-												<td><h6>${prdct[status.index].prdct_name }</h6></td>
+												<td><a href="/prdct/${board.prdct_id }#review"><h6>${board.prdct_name }</h6></a></td>
 												<td><h6>${board.board_date }</h6></td>
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
+								<ul class="pagination" style="margin: auto;">
+									<c:if test="${pageMaker.prev}">
+										<a class="page-link" href="/seller/mypage/review${pageMaker.makeQuery(pageMaker.startPage - 1)}">«</a>
+									</c:if>
+
+									<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+										<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+										<a class="page-link" href="/seller/mypage/review${pageMaker.makeQuery(idx)}">${idx}</a>
+									</c:forEach>
+
+									<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+										<a class="page-link" href="/seller/mypage/review${pageMaker.makeQuery(pageMaker.endPage +1)}">»</a>
+									</c:if>
+								</ul>
 							</div>
 						</div>
 					</div>

@@ -344,6 +344,53 @@
 		order_price > 0 
 	</select>
 	
+	<!-- 리뷰 정보 불러오기 검색기능 + 페이징 -->
+	<sql id="reviewcri">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							p.prdct_name like '%' || #{keyword} || '%'
+						</when>
+						<when test="type == 'C'.toString()">
+							b.board_id like '%' || #{keyword} || '%'
+						</when>
+						<when test="type == 'W'.toString()">
+							b.mbr_id like '%' || #{keyword} || '%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>	
+	</sql>
+	
+	<select id="getReview" resultType="edu.bit.ex.joinvo.BoardPrdctPrdctLikeVO">
+		<![CDATA[
+			SELECT * FROM (
+		 	select rownum rn, b.board_id, b.mbr_id, b.board_date,p.prdct_id, p.prdct_name 
+		 	from board b, prdct p
+			where (b.board_type_number = 3 and b.prdct_id = p.prdct_id) and
+		]]>
+		
+		<include refid="reviewcri"></include>
+		
+		<![CDATA[
+			rownum <= #{pageNum} * #{amount}
+			)
+		where rn > (#{pageNum} -1) * #{amount}
+		order by board_date desc
+		]]>
+	</select>
+	
+	<select id="reviewTotal" resultType="int">
+		select count(*) from board b where 
+		
+		<include refid="reviewcri"></include>
+		
+		board_id > 0 and board_type_number = 3
+	</select>
+	
 	
 	<!-- 판매자 주소 불러오기 -->
 	<select id="getAddress" resultType="edu.bit.ex.vo.ShippingVO">
@@ -362,7 +409,7 @@
 	<!-- 상품 내용 불러오기 -->
 	<select id="getContent" resultType="edu.bit.ex.vo.BoardVO" >
 		<![CDATA[			
-			select board_content from board where prdct_id = #{prdct_id} 
+			select board_content from board where prdct_id = #{prdct_id} and board_type_number = 6
 		]]>
 	</select>
 	
@@ -387,6 +434,8 @@
 			VALUES (board_comment_seq.nextval, #{board_id}, #{mbr_id}, #{comment_content})
 		]]>
 	</insert>
+	
+	
 	
 	<!-- 작성한 상품 Q&A 댓글 응답여부 받아오기 -->
 	<select id="getPrdctqCmntStat" resultType="edu.bit.ex.joinvo.BoardBoardCommentVO">
@@ -436,24 +485,19 @@
 	]]>
 	</delete>
 	
-	<!-- 판매자 등록상품 불러오기 (수정페이지) -->
+	<!-- 판매자 등록상품 불러오기 (상품수정페이지) -->
 	<select id="getPrdctInfo" resultType="edu.bit.ex.vo.PrdctVO">
 	<![CDATA[
 		select prdct_id, prdct_name, prdct_thumbnail, category_number, prdct_color, prdct_size, prdct_stock from prdct where prdct_id = #{prdct_id}
 	]]>
 	</select>
 	
-	<!-- 주문 상세정보 불러오기 (수정페이지) -->
-	<select id="orderInfo" resultType="edu.bit.ex.joinvo.PrdctOrdctDetailPrdctOrderVO">
-	<![CDATA[
-		select * from prdct_order where order_number = #{order_number} 
-	]]>
-	</select>
-	
 	<!-- 주문 상세정보 불러오기 (주문수정페이지) -->
-	<select id="orderOption" resultType="edu.bit.ex.vo.OrderDetailVO">
+	<select id="orderInfo" resultType="edu.bit.ex.joinvo.PrdctOrderDetailVO">
 	<![CDATA[
-		select * from order_detail where order_number = #{order_number}
+		select po.mbr_id, od.order_size, od.order_color, po.order_state_number from order_detail od, prdct_order po, prdct p 
+		where od.order_number = #{order_number} and  po.order_number = #{order_number} 
+		and od.prdct_id = #{prdct_id} and p.prdct_id = #{prdct_id}
 	]]>
 	</select>
 	
@@ -489,6 +533,16 @@
 	<select id="refundCount" resultType="int">
 	<![CDATA[
 		select count(order_state_number) from prdct_order where order_state_number = 10
+	]]>
+	</select>
+	
+	<!-- 주간 차트 -->
+	<select id="dailyChart" resultType="edu.bit.ex.vo.PrdctOrderVO">
+	<![CDATA[
+		SELECT NVL(SUM(order_price), 0) AS sales_sum 
+		FROM prdct_order 
+		WHERE order_date BETWEEN TO_DATE((SYSDATE-1), 'YY/MM/DD') 
+		AND TO_DATE(SYSDATE, 'YY/MM/DD')
 	]]>
 	</select>
 	
@@ -550,6 +604,13 @@
 	<update id="updateState">
 	<![CDATA[
 		update prdct_order set order_state_number = #{order_state_number} where order_number = #{order_number}
+	]]>
+	</update>
+	
+	<!-- 주문상품 옵션 변경 -->
+	<update id="updateOrderOption">
+	<![CDATA[
+		update order_detail set order_size = #{order_size}, order_color = #{order_color} where order_number = #{order_number}
 	]]>
 	</update>
 
