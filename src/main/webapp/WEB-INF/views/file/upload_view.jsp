@@ -18,14 +18,15 @@
                 var formData = new FormData();
 	    		
                 var inputFile = $("#uploadfiles");
+                console.log("inputFile: " + inputFile);
+                
                 var files = inputFile[0].files;  
                 
                 for (var i = 0; i < files.length; i++) {
-					console.log(files[i]);
+					console.log("file: " + files[i]);
 					formData.append("uploadfiles", files[i]);
 				}     
 	    		
-              	// 파일 넣을때 JSON.stringify()는 하지마...
 	    		$.ajax({
 	                type : "POST",
 	                url : $(this).attr("action"),
@@ -34,6 +35,9 @@
 	                processData: false, 
 		    		contentType: false, 
 	                data: formData, 
+	                beforeSend : function(xhr) {
+	    				xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+	          		}, 
 	                success: function (result) {       
 	                	console.log("UPLOAD SUCCESS!")
 	  	          	  	alert('파일 저장 성공');   
@@ -52,8 +56,8 @@
 <body>
 	<h2>파일 업로드</h2>
 	<form id="uploadForm" action="${pageContext.request.contextPath}/file/fileupload" method="post" enctype="multipart/form-data">
-	    <input type="hidden" id="board_id" value="49">
-	    <input type="file" id="uploadfiles" name="uploadfiles" placeholder="파일 선택" multiple/><br/>
+	    <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+	    <input type="file" id="uploadfiles" name="uploadfiles" value="uploadfiles" placeholder="파일 선택" multiple/><br/>
 	    <input type="submit" value="업로드">
 	</form>
 </body>
