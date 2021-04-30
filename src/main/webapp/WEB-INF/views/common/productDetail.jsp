@@ -162,12 +162,10 @@ p.title{
     });
 </script>
 <script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-						$('#modalForm')
-								.submit(
-										function(event) {
+	$(document).ready(
+		function() {
+			$('#modalForm').submit(
+				function(event) {
 											event.preventDefault();
 											console.log("ajax 호출전");
 											var prdct_id = $("#prdct_id").val();
