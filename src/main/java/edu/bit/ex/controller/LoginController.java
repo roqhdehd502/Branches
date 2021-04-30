@@ -73,7 +73,7 @@ public class LoginController {
 	}
 
 	@PostMapping("/join")
-	public String memberRegister(@ModelAttribute MbrVO mbrvo) throws Exception {
+	public String memberRegisting(@ModelAttribute MbrVO mbrvo) throws Exception {
 
 		mbrvo.setLogin_number(1);
 		ResponseEntity<String> entity = null;
@@ -118,7 +118,7 @@ public class LoginController {
 
 	// 이름, 연락처로 ID찾기
 	@GetMapping("/find_id")
-	public ResponseEntity<String> find_id(@RequestParam("name") String name, @RequestParam("contact") int contact) {
+	public ResponseEntity<String> find_id(@RequestParam("name") String name, @RequestParam("contact") String contact) {
 		log.info("find_id");
 		ResponseEntity<String> entity = null;
 

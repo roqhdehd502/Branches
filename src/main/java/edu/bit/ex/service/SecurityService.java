@@ -12,7 +12,7 @@ public interface SecurityService {
 	// ID 중복 체크
 	public boolean idChk(String mbr_id);
 
-	public String findID(String name, int contact);
+	public String findID(String name, String contact);
 
 	public MbrVO findPW(MbrVO mbr);
 
