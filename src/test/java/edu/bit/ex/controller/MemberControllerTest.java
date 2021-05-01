@@ -1,6 +1,10 @@
 package edu.bit.ex.controller;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
@@ -18,14 +22,14 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import edu.bit.ex.vo.PrdctVO;
+import edu.bit.ex.vo.BoardVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
-public class MemberControllerTests {
+public class MemberControllerTest {
 
 	@Autowired
 	MemberController memberController;
@@ -43,22 +47,48 @@ public class MemberControllerTests {
 	}
 
 	@Before // @Test 이전에 실행
-	public void setupForproductQnARegisterTest() {
+	public void setupFormyqnaModifyTest() {
 		this.mockMvc = MockMvcBuilders.standaloneSetup(memberController).build();
 		mapper = new ObjectMapper();
 	}
 
 	@Test
 	@WithUserDetails("defg1234")
-	public void adminQnA_commentTest() throws Exception {
-		PrdctVO prdct = new PrdctVO();
-		prdct.setPrdct_id("p08");
+	public void myqnaModifyTest() throws Exception {
+		BoardVO board = new BoardVO();
+		board.setBoard_id(1209);
 
-		String content = mapper.writeValueAsString(prdct);
+		String content = mapper.writeValueAsString(board);
 
-		mockMvc.perform(post("/prdct/p08/qna/write") // postmapping test
+		mockMvc.perform(post("/mypage/myqna/modify/1209") // postmapping test
 				.content(content).contentType(MediaType.APPLICATION_JSON)) //
-				.andReturn();
+				.andDo(print()).andReturn();
+	}
+
+	@Test
+	@WithUserDetails("defg1234")
+	public void prdctQnaWritingTest() throws Exception {
+		BoardVO board = new BoardVO();
+		board.setBoard_id(1350);
+		board.setBoard_name("JUnit Test Board Name");
+		board.setBoard_content("JUnit Test Board Content");
+		board.setMbr_id("defg1234");
+		board.setBoard_type_number(4);
+		board.setInquiry_number(7);
+		board.setPrdct_id("p08");
+
+		String content = mapper.writeValueAsString(board);
+
+		mockMvc.perform(post("/member/prdct/p08/qna/writing").content(content).contentType(MediaType.APPLICATION_JSON)) //
+				.andDo(print()).andReturn();
+	}
+
+	@Test
+	@WithUserDetails("defg1234")
+	public void myqnaDeleteTest() throws Exception {
+
+		mockMvc.perform(delete("/member/mypage/myqna/modify/1229").with(csrf())).andExpect(status().isOk()).andDo(print());
+
 	}
 
 }
