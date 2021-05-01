@@ -151,4 +151,11 @@ public interface SellerService {
 	// 조건에 따라 댓글등록창이 보일수 있게 만든 쿼리
 	public BoardBoardCommentVO getPrdctqCmntStat(int board_id);
 
+	// junit 테스트
+	public void getQnaCommentTest(BoardBoardCommentVO comment);
+
+	public void prdctInfoUpdateTest(PrdctRegisterImageVO pvo);
+
+	public void prdctInfoInsertTest(PrdctRegisterImageVO pvo);
+
 }
