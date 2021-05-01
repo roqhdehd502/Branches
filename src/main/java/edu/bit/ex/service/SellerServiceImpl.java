@@ -366,4 +366,22 @@ public class SellerServiceImpl implements SellerService {
 		// TODO Auto-generated method stub
 		return sellerMapper.reviewTotal(cri);
 	}
+
+	@Override
+	public void getQnaCommentTest(BoardBoardCommentVO comment) {
+		// TODO Auto-generated method stub
+		sellerMapper.getQnaCommentTest(comment);
+	}
+
+	@Override
+	public void prdctInfoUpdateTest(PrdctRegisterImageVO pvo) {
+		// TODO Auto-generated method stub
+		sellerMapper.prdctInfoUpdateTest(pvo);
+	}
+
+	@Override
+	public void prdctInfoInsertTest(PrdctRegisterImageVO pvo) {
+		// TODO Auto-generated method stub
+		sellerMapper.prdctInfoInsertTest(pvo);
+	}
 }

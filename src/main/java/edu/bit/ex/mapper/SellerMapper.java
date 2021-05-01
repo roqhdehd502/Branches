@@ -157,4 +157,10 @@ public interface SellerMapper {
 	// 조건에 따라 댓글등록창이 보일수 있게 만든 쿼리
 	public BoardBoardCommentVO getPrdctqCmntStat(int board_id);
 
+	public void getQnaCommentTest(BoardBoardCommentVO comment);
+
+	public void prdctInfoUpdateTest(PrdctRegisterImageVO pvo);
+
+	public void prdctInfoInsertTest(PrdctRegisterImageVO pvo);
+
 }
