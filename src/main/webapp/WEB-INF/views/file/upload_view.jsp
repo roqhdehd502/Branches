@@ -25,19 +25,26 @@
                 for (var i = 0; i < files.length; i++) {
 					console.log("file: " + files[i]);
 					formData.append("uploadfiles", files[i]);
-				}     
+				} 
+                
+                for (var key of formData.keys()) {
+                	  console.log("formdata KEY: " + key);
+                }
+
+                for (var value of formData.values()) {
+                	  console.log("formdata VALUE: " + value);
+                }
 	    		
 	    		$.ajax({
 	                type : "POST",
 	                url : $(this).attr("action"),
 	                cache : false,
-	                contentType:'application/json; charset=utf-8', 
+	                contentType: false, 
 	                processData: false, 
-		    		contentType: false, 
 	                data: formData, 
 	                beforeSend : function(xhr) {
 	    				xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
-	          		}, 
+	          		},
 	                success: function (result) {       
 	                	console.log("UPLOAD SUCCESS!")
 	  	          	  	alert('파일 저장 성공');   
