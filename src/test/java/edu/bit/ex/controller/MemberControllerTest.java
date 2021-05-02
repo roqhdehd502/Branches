@@ -60,7 +60,7 @@ public class MemberControllerTest {
 
 		String content = mapper.writeValueAsString(board);
 
-		mockMvc.perform(post("/mypage/myqna/modify/1209") // postmapping test
+		mockMvc.perform(post("/member/mypage/myqna/modify/1209") // postmapping test
 				.content(content).contentType(MediaType.APPLICATION_JSON)) //
 				.andDo(print()).andReturn();
 	}

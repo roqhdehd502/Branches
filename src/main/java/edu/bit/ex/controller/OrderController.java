@@ -91,7 +91,6 @@ public class OrderController {
 	}
 
 	// 주문 리스트 정보입력
-	// @RequestMapping(value = "/orderInput/insert", method = { RequestMethod.POST, RequestMethod.GET })
 	@PostMapping("/orderInput/insert")
 	public ModelAndView orderInput(ModelAndView mav, PrdctOrderVO po, HttpServletRequest request,
 			@AuthenticationPrincipal MemberDetails memberDetails) {
