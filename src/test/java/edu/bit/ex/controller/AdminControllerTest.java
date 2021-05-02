@@ -2,7 +2,6 @@ package edu.bit.ex.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
@@ -15,6 +14,7 @@ import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -42,18 +42,23 @@ public class AdminControllerTest {
 	@Test
 	@WithUserDetails("admin")
 	public void admin_seller_listTest() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/admin/mypage/seller")).andExpect(MockMvcResultMatchers.status().isOk()).andDo(print());
+		log.info("======admin_seller_listTest======");
+		mockMvc.perform(MockMvcRequestBuilders.get("/admin/mypage/seller")) // 판매자
+				.andExpect(MockMvcResultMatchers.status().isOk()) //
+				.andDo(MockMvcResultHandlers.print()); //
 	}
 
 	@Before // @Test 이전에 실행
 	public void setupForadminQnA_commentTest() {
-		this.mockMvc = MockMvcBuilders.standaloneSetup(adminController).build();
+		this.mockMvc = MockMvcBuilders.standaloneSetup(adminController) //
+				.build(); //
 		mapper = new ObjectMapper();
 	}
 
 	@Test
 	@WithUserDetails("admin")
 	public void adminQnA_commentTest() throws Exception {
+		log.info("======adminQnA_commentTest======");
 		BoardCommentVO comment = new BoardCommentVO();
 		comment.setBoard_id(435);
 		comment.setComment_content("JUnit testing......");
@@ -61,12 +66,13 @@ public class AdminControllerTest {
 
 		mockMvc.perform(post("/admin/mypage/member/userQnA/435/comment") // postmapping test
 				.content(content).contentType(MediaType.APPLICATION_JSON)) //
-				.andDo(print()).andReturn();
+				.andDo(MockMvcResultHandlers.print()).andReturn();
 	}
 
 	@Test
 	@WithUserDetails("admin")
 	public void admin_member_updateTest() throws Exception {
+		log.info("======admin_member_updateTest======");
 		MbrVO mbr = new MbrVO();
 		mbr.setMbr_id("defg1234");
 		mbr.setMbr_name("JUnit Test Name");
@@ -79,6 +85,6 @@ public class AdminControllerTest {
 
 		mockMvc.perform(put("/admin/mypage/member/defg1234") // putmapping test
 				.content(content).contentType(MediaType.APPLICATION_JSON)) //
-				.andDo(print()).andReturn();
+				.andDo(MockMvcResultHandlers.print()).andReturn();
 	}
 }
