@@ -193,23 +193,6 @@ public class SellerController {
 	}
 
 	// 판매자 상품 수정 ajax
-	/*
-	 * @Transactional
-	 * 
-	 * @PutMapping(value = "/mypage/prdct/{prdct_id}/modify") public ResponseEntity<String> prdctUpdate(PrdctRegisterImageVO prvo) {
-	 * ResponseEntity<String> entity = null;
-	 * 
-	 * log.info("prdct_update.."); MultipartFile[] uploadfiles = prvo.getUploadfiles(); // 썸네일 파일 가져오기
-	 * 
-	 * try { sellerService.updatePrdctInfo(prvo); sellerService.prdctContentUpdate(prvo); log.info("update prdct info"); entity = new
-	 * ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-	 * 
-	 * } catch (Exception e) { e.printStackTrace(); entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST); }
-	 * 
-	 * return entity; }
-	 */
-
-	// 판매자 상품 수정 ajax
 	@Transactional
 	@PostMapping(value = "/mypage/prdct/modify/{prdct_id}")
 	public ResponseEntity<String> prdctUpdate(PrdctRegisterImageVO prvo) {
@@ -357,7 +340,7 @@ public class SellerController {
 
 	// 주문 상태 수정 ajax
 	@Transactional
-	@PutMapping(value = "/mypage/order/{order_number}/modify")
+	@PutMapping(value = "/mypage/order/{prdct_id}/{order_number}/modify")
 	public ResponseEntity<String> stateUpdate(@RequestBody PrdctOrderDetailVO povo) {
 		ResponseEntity<String> entity = null;
 
@@ -685,7 +668,7 @@ public class SellerController {
 	}
 
 	// 판매자 정보수정 ajax
-	@PutMapping(value = "/mypage/myinfo")
+	@PutMapping(value = "/mypage/myinfo/{mbr_id}/modify")
 	public ResponseEntity<String> seller_info_modify(@RequestBody MbrShippingVO mavo) {
 		ResponseEntity<String> entity = null;
 

@@ -15,6 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import edu.bit.ex.joinvo.BoardBoardCommentVO;
+import edu.bit.ex.joinvo.MbrShippingVO;
+import edu.bit.ex.joinvo.PrdctOrderDetailVO;
 import edu.bit.ex.joinvo.PrdctRegisterImageVO;
 import edu.bit.ex.mapper.TestSellerMapper;
 import edu.bit.ex.vo.MbrVO;
@@ -66,41 +68,85 @@ public class SellerTests { // 판매자 테스트
 		}
 	}
 
+	// 상품 qna 댓글등록
 	@Test
 	public void prdctQnACommentTest() {
 		BoardBoardCommentVO comment = new BoardBoardCommentVO();
 		comment.setBoard_id(1430);
-		comment.setComment_content("JUnit testing");
+		comment.setComment_content("JUnit testing seller");
 		comment.setMbr_id("prism");
 
-		sellerService.getQnaCommentTest(comment);
+		mapper.getQnaCommentTest(comment);
 	}
 
+	// 댓글삭제
+	@Test
+	public void commentRemoveTest() {
+		mapper.commentRemove(1430);
+	}
+
+	// 상품등록
 	@Test
 	public void prdctInfoInsertTest() {
 		PrdctRegisterImageVO pvo = new PrdctRegisterImageVO();
 		pvo.setMbr_id("prism");
 		pvo.setPrdct_id("Junit Test PrdctID");
+		pvo.setPrdct_name("Junit Test Prdct");
+		pvo.setPrdct_thumbnail("10.jpg");
 		pvo.setCategory_number(3);
 		pvo.setPrdct_color("BLUE");
 		pvo.setPrdct_price(10);
 		pvo.setPrdct_size("S,M,L");
 		pvo.setPrdct_stock(10);
+		pvo.setBoard_content("Junit test");
 
-		sellerService.prdctInfoInsertTest(pvo);
+		mapper.prdctInfoInsertTest(pvo);
 	}
 
+	// 상품 수정
 	@Test
 	public void prdctInfoUpdateTest() {
 		PrdctRegisterImageVO pvo = new PrdctRegisterImageVO();
 		pvo.setMbr_id("prism");
 		pvo.setPrdct_id("p13");
+		pvo.setPrdct_name("Junit Test Prdct");
 		pvo.setCategory_number(3);
 		pvo.setPrdct_color("BLUE");
 		pvo.setPrdct_price(10);
 		pvo.setPrdct_size("S,M,L");
 		pvo.setPrdct_stock(10);
 
-		sellerService.prdctInfoUpdateTest(pvo);
+		mapper.prdctInfoUpdateTest(pvo);
+	}
+
+	// 상품삭제
+	@Test
+	public void prdctRemoveTest() {
+		mapper.prdctRemove("p13");
+	}
+
+	// 주문정보 수정
+	@Test
+	public void orderInfoUpdateTest() {
+		PrdctOrderDetailVO pvo = new PrdctOrderDetailVO();
+		pvo.setMbr_id("defg1234");
+		pvo.setOrder_number("20210428-111");
+		pvo.setOrder_state_number(3);
+
+		mapper.orderInfoUpdateTest(pvo);
+	}
+
+	// 판매자 회원정보 수정
+	@Test
+	public void seller_updateTest() {
+		MbrShippingVO msVO = new MbrShippingVO();
+		msVO.setMbr_id("prism");
+		msVO.setMbr_pw("1234");
+		msVO.setMbr_name("CHOI");
+		msVO.setMbr_email("prism@naver.com");
+		msVO.setContact_number("01011111111");
+		msVO.setShipping_address("서울시 종로구");
+
+		mapper.sellerInfoUpdateTest(msVO);
 	}
 }

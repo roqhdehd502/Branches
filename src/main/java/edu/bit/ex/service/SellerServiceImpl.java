@@ -367,6 +367,8 @@ public class SellerServiceImpl implements SellerService {
 		return sellerMapper.reviewTotal(cri);
 	}
 
+	// --------------------------------------------------------------
+	// Junit 테스트
 	@Override
 	public void getQnaCommentTest(BoardBoardCommentVO comment) {
 		// TODO Auto-generated method stub
@@ -383,5 +385,29 @@ public class SellerServiceImpl implements SellerService {
 	public void prdctInfoInsertTest(PrdctRegisterImageVO pvo) {
 		// TODO Auto-generated method stub
 		sellerMapper.prdctInfoInsertTest(pvo);
+	}
+
+	@Override
+	public void prdctRemove(String p01) {
+		// TODO Auto-generated method stub
+		sellerMapper.prdctRemove(p01);
+	}
+
+	@Override
+	public void commentRemove(int board_id) {
+		// TODO Auto-generated method stub
+		sellerMapper.commentRemove(board_id);
+	}
+
+	@Override
+	public void sellerInfoUpdateTest(MbrShippingVO msVO) {
+		// TODO Auto-generated method stub
+		sellerMapper.sellerInfoUpdateTest(msVO);
+	}
+
+	@Override
+	public void orderInfoUpdateTest(PrdctOrderDetailVO pvo) {
+		// TODO Auto-generated method stub
+		sellerMapper.orderInfoUpdateTest(pvo);
 	}
 }
