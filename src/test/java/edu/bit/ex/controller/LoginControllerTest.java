@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -39,12 +40,16 @@ public class LoginControllerTest {
 
 	@Test
 	public void loginTest() throws Exception { // getmapping test
-		mockMvc.perform(MockMvcRequestBuilders.get("/login")).andExpect(MockMvcResultMatchers.status().isOk()).andDo(print());
+		mockMvc.perform(MockMvcRequestBuilders.get("/login")) //
+				.andExpect(MockMvcResultMatchers.status().isOk()) //
+				.andDo(MockMvcResultHandlers.print()); //
 	}
 
 	@Test
 	public void memberRegisterTest() throws Exception { // getmapping test
-		mockMvc.perform(MockMvcRequestBuilders.get("/join")).andExpect(MockMvcResultMatchers.status().isOk()).andDo(print());
+		mockMvc.perform(MockMvcRequestBuilders.get("/join")) //
+				.andExpect(MockMvcResultMatchers.status().isOk()) //
+				.andDo(MockMvcResultHandlers.print()); //
 	}
 
 	@Before // @Test 이전에 실행
