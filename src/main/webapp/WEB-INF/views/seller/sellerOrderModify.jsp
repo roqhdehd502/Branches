@@ -146,10 +146,11 @@ $(document).ready(function(){
 					<strong>주문 상세 정보</strong>
 					</h3><hr>
 					<h4> 배송지 정보 </h4><hr />
-					<form id="stateUpdate" action="/seller/mypage/order/${info.order_number }/modify" method="PUT">
+					<form id="stateUpdate" action="/seller/mypage/order/${info.prdct_id }/${info.order_number }/modify" method="PUT">
 						<input type="hidden" name="order_number" id="order_number" value="${info.order_number }">
 						<input type="hidden" name="prdct_id" id="prdct_id" value="${info.prdct_id }">
 						<input type="hidden" name="mbr_id" id="mbr_id" value="${info.mbr_id }">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<fieldset>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">아이디</label>

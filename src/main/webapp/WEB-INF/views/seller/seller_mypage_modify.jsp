@@ -6,6 +6,8 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
 <title>회원정보</title>
 
 <!-- Required CSS files -->
@@ -21,6 +23,7 @@
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -54,11 +57,14 @@ $(document).ready(function(){
 		    url : $(this).attr("action"),
 		    cache : false,
 		    contentType:'application/json; charset=utf-8',
-			    data: JSON.stringify(form), 
+			data: JSON.stringify(form),
+			beforeSend : function(xhr) {
+			xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+		    }, 
 		    success: function (result) {       
 				if(result == "SUCCESS"){
 					//list로 
-					$(location).attr('href', '${pageContext.request.contextPath}/rest_ksp/seller/${mbr.mbr_id}/mypage/myinfo')				      	       
+					$(location).attr('href', '${pageContext.request.contextPath}/seller/mypage/myinfo/${mbr.mbr_id}')				      	       
 				}					        
 		    },
 		    error: function (e) {
@@ -139,8 +145,9 @@ $(document).ready(function(){
 					<h3 >
 					<strong>판매자 등록 정보</strong>
 					</h3><hr>
-					<form action="${pageContext.request.contextPath}/rest_ksp/seller/${mbr.mbr_id}/mypage/myinfo" method="post" id="updateForm">
+					<form action="${pageContext.request.contextPath}/seller/mypage/myinfo/${mbr.mbr_id}/modify" method="post" id="updateForm">
 						<input type="hidden" id="mbr_id" value="${mbr.mbr_id}">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<fieldset>
 							<div class="form-group row">
 								<label for="staticEmail" class="col-sm-2 col-form-label">Name</label>

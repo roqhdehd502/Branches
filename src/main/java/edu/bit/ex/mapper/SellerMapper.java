@@ -163,4 +163,12 @@ public interface SellerMapper {
 
 	public void prdctInfoInsertTest(PrdctRegisterImageVO pvo);
 
+	public void prdctRemove(String p01);
+
+	public void commentRemove(int board_id);
+
+	public void sellerInfoUpdateTest(MbrShippingVO msVO);
+
+	public void orderInfoUpdateTest(PrdctOrderDetailVO pvo);
+
 }

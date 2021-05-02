@@ -395,7 +395,7 @@
 	<!-- 판매자 주소 불러오기 -->
 	<select id="getAddress" resultType="edu.bit.ex.vo.ShippingVO">
 			<![CDATA[
-				select shipping_address from shipping where mbr_id = 'prism'
+				select shipping_address from shipping where mbr_id = #{mbr_id}
 			]]>
 	</select>
 
@@ -416,7 +416,7 @@
 	<!-- 판매자 정보 불러오기 (수정할 때) -->	
 	<select id="getMemberInfo" resultType="edu.bit.ex.vo.MbrVO">
 		<![CDATA[
-			select * from mbr where mbr_id='prism'
+			select * from mbr where mbr_id=#{mbr_id}
 		]]>
 	</select>	
 	
@@ -427,7 +427,7 @@
 	]]>
 	</update>
 	
-	<!-- 답변등록 -->
+	<!-- 상품 qna 댓글 등록 -->
 	<insert id="qnaInsert">
 	<![CDATA[
 			INSERT INTO board_comment (comment_id, board_id, mbr_id, comment_content) 
@@ -461,12 +461,10 @@
 	<!-- 상품 qna 댓글 삭제 -->
 	<delete id="CommentRemove">
 		<![CDATA[
-			DELETE FROM board_comment 
-			WHERE comment_id = #{comment_id}
+			DELETE FROM board_comment WHERE comment_id = #{comment_id}
 		]]>
 	</delete>
 	
-
 	<!-- 상품등록 -->
 	<insert id="prdInsert">
 	<![CDATA[
@@ -495,7 +493,7 @@
 	<!-- 주문 상세정보 불러오기 (주문수정페이지) -->
 	<select id="orderInfo" resultType="edu.bit.ex.joinvo.PrdctOrderDetailVO">
 	<![CDATA[
-		select po.mbr_id, od.order_size, od.order_color, po.order_state_number from order_detail od, prdct_order po, prdct p 
+		select po.mbr_id , po.order_number, po.order_state_number, od.order_size, od.order_color, od.prdct_id from order_detail od, prdct_order po, prdct p 
 		where od.order_number = #{order_number} and  po.order_number = #{order_number} 
 		and od.prdct_id = #{prdct_id} and p.prdct_id = #{prdct_id}
 	]]>
@@ -536,7 +534,7 @@
 	]]>
 	</select>
 	
-	<!-- 주간 차트 -->
+	<!-- 일간 차트 -->
 	<select id="dailyChart" resultType="edu.bit.ex.vo.PrdctOrderVO">
 	<![CDATA[
 		SELECT NVL(SUM(order_price), 0) AS sales_sum 
