@@ -141,10 +141,7 @@ public class OrderController {
 	@PostMapping("/orderInput/check/{receipt_id}")
 	public JSONObject payCheck(@PathVariable("receipt_id") String receipt_id, String name, String reason) throws Exception {
 
-		BootpayApi api = new BootpayApi("6076c93a5b2948001d07b41e", "n1PS3ICdEr1e8ndCigcSJ7yDrKEYqI4SQWDjc9QZhOM=");
-
-		// 프라이빗 스태틱으로 선언 6076c93a5b2948001d07b41e (바뀔수도 있는 부분이니까)
-		// private static final String FILE_PROFILE_PATH 컨트롤러 제일위에..
+		BootpayApi api = new BootpayApi("607d15825b2948002e07b948", "UG8JGBcSxu9LHDqMcQFJYFHFTmVcJ5OPcmwP1dLhESM=" + "");
 
 		api.getAccessToken();
 
