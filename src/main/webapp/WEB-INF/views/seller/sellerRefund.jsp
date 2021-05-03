@@ -83,9 +83,7 @@
 					<div class="single-info" style="margin-bottom: 40px">
 						<h3>상품 관리</h3>
 						<hr>
-						<h5>
-							<a href="/seller/mypage/prdct_register">등록</a>
-						</h5>
+						<h5><a href="/seller/mypage/${mbr.mbr_id}/prdct_register">등록</a></h5>
 						<h5>
 							<a href="/seller/mypage/prdct">조회</a>
 						</h5>

@@ -20,7 +20,6 @@ import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctOrderVO;
 import edu.bit.ex.vo.PrdctVO;
-import edu.bit.ex.vo.ShippingVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 @Service
 public class SellerServiceImpl implements SellerService {
+
 	private SellerMapper sellerMapper;
 
 	// 썸네일 저장 경로
@@ -114,9 +114,9 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public ShippingVO getAddress(String getMbr_id) {
+	public MbrShippingVO getAddress(String m_id) {
 		log.info("getAddress()......");
-		return sellerMapper.getAddress(getMbr_id);
+		return sellerMapper.getAddress(m_id);
 	}
 
 	@Override
