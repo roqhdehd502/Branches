@@ -223,21 +223,14 @@ BootPay.request({
 					type : "post",
 					data :{
 						name : $("#memberName").val(),
-						reason : "개인사유"
-						
+						reason : "개인사유"		
 					},
 					success : function(data) {
-						alert("정상적으로 취소되었습니다.");
-						
+						alert("정상적으로 취소되었습니다.");	
 					},
 					error : function(request, status, error){
-						
-						
 					}
-				
 				})
-				
-				
 			}
 			
 		},
@@ -264,12 +257,9 @@ BootPay.request({
 	
 	})
 	
-
-			
 		}
 	
 	})
-	
 	
 });
 }
