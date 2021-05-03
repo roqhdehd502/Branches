@@ -24,7 +24,6 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 
-
 <script type="text/javascript">
 $(document).ready(function(){
     
@@ -126,7 +125,7 @@ $(document).ready(function(){
 	                </div>
 	                <div class="single-info" style="margin-bottom: 40px">
 	                    <h3>상품 관리</h3><hr>
-	                    <h5><a href="/seller/mypage/prdct_register">등록</a></h5>
+	                    <h5><a href="/seller/mypage/${mbr.mbr_id}/prdct_register">등록</a></h5>
 	                    <h5><a href="/seller/mypage/prdct">조회</a></h5>
 	                </div>
 	                <div class="single-info" style="margin-bottom: 40px">

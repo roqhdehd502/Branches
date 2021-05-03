@@ -82,9 +82,7 @@
 					<div class="single-info" style="margin-bottom: 40px">
 						<h3>상품 관리</h3>
 						<hr>
-						<h5>
-							<a href="/seller/mypage/prdct_register">등록</a>
-						</h5>
+						<h5><a href="/seller/mypage/${mbr.mbr_id}/prdct_register">등록</a></h5>
 						<h5>
 							<a href="/seller/mypage/prdct">조회</a>
 						</h5>
@@ -187,10 +185,10 @@
 							</div>
 						</div>
 					</div>
-					<hr>
+				<hr>
 			</div>
 		</div>
-
+	</div>
 		<hr>
 		<!-- footer -->
 		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
@@ -204,6 +202,6 @@
 	<script src="/assets/js/vendor/loopcounter.js"></script>
 	<script src="/assets/js/vendor/slicknav.min.js"></script>
 	<script src="/assets/js/active.js"></script>
-</div>
+
 </body>
 </html>

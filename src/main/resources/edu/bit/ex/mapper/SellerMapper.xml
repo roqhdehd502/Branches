@@ -36,8 +36,8 @@
 		<![CDATA[
 			rownum <= #{pageNum} * #{amount}
 			)
-		where rn > (#{pageNum} -1) * #{amount}
-		order by prdct_id desc
+			where rn > (#{pageNum} -1) * #{amount}
+			order by prdct_id desc
 		]]>
 	</select>
 	
@@ -85,7 +85,7 @@
 		<![CDATA[
 			rownum <= #{pageNum} * #{amount}
 			)
-		where rn > (#{pageNum} -1) * #{amount}	
+			where rn > (#{pageNum} -1) * #{amount}	
 		]]>
 	</select>
 	
@@ -393,9 +393,9 @@
 	
 	
 	<!-- 판매자 주소 불러오기 -->
-	<select id="getAddress" resultType="edu.bit.ex.vo.ShippingVO">
+	<select id="getAddress" resultType="edu.bit.ex.joinvo.MbrShippingVO">
 			<![CDATA[
-				select shipping_address from shipping where mbr_id = #{mbr_id}
+				select * from shipping where mbr_id = #{m_id}
 			]]>
 	</select>
 

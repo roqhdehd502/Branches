@@ -90,8 +90,8 @@ public class SellerTests { // 판매자 테스트
 	public void prdctInfoInsertTest() {
 		PrdctRegisterImageVO pvo = new PrdctRegisterImageVO();
 		pvo.setMbr_id("prism");
-		pvo.setPrdct_id("Junit Test PrdctID");
-		pvo.setPrdct_name("Junit Test Prdct");
+		pvo.setPrdct_id("Junit Test PrdctID1");
+		pvo.setPrdct_name("Junit Test Prdct1");
 		pvo.setPrdct_thumbnail("10.jpg");
 		pvo.setCategory_number(3);
 		pvo.setPrdct_color("BLUE");
@@ -141,7 +141,7 @@ public class SellerTests { // 판매자 테스트
 	public void seller_updateTest() {
 		MbrShippingVO msVO = new MbrShippingVO();
 		msVO.setMbr_id("prism");
-		msVO.setMbr_pw("1234");
+		msVO.setMbr_pw(passEncoder.encode("testupdate"));
 		msVO.setMbr_name("CHOI");
 		msVO.setMbr_email("prism@naver.com");
 		msVO.setContact_number("01011111111");

@@ -84,9 +84,7 @@
 					<div class="single-info" style="margin-bottom: 40px">
 						<h3>상품 관리</h3>
 						<hr>
-						<h5>
-							<a href="/seller/mypage/prdct_register">등록</a>
-						</h5>
+						<h5><a href="/seller/mypage/${mbr.mbr_id}/prdct_register">등록</a></h5>
 						<h5>
 							<a href="/seller/mypage/prdct">조회</a>
 						</h5>
@@ -153,7 +151,7 @@
 												<td><h5>${bId.prdct_id }</h5></td>
 												<td><img src="/prdct_img/prdct_thumbnail/${bId.prdct_thumbnail }" style="width: 100px; height: 120px;"></img></td>
 												
-												<td><a href="/seller/mypage/prdct/${bId.prdct_id}">
+												<td><a href="/seller/mypage/${mbr.mbr_id}/prdct/${bId.prdct_id}">
 													<h5>${bId.prdct_name }</h5>
 													</a>	
 												</td>

@@ -174,7 +174,7 @@ public class SellerControllerTests { // 판매자 컨트롤러 테스트
 	public void seller_updateTest() throws Exception {
 		MbrShippingVO msVO = new MbrShippingVO();
 		msVO.setMbr_id("prism");
-		msVO.setMbr_pw("1234");
+		msVO.setMbr_pw("JUnit Test PW");
 		msVO.setMbr_name("CHOI");
 		msVO.setMbr_email("prism@naver.com");
 		msVO.setContact_number("01011111111");

@@ -15,7 +15,6 @@ import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctOrderVO;
 import edu.bit.ex.vo.PrdctVO;
-import edu.bit.ex.vo.ShippingVO;
 
 @Mapper
 public interface SellerMapper {
@@ -44,7 +43,7 @@ public interface SellerMapper {
 	public void setPrdctImage(PrdctRegisterImageVO pvo);
 
 	// 판매자 주소 불러오기 (상품 등록시)
-	public ShippingVO getAddress(String getMbr_id);
+	public MbrShippingVO getAddress(String m_id);
 
 	// 게시글 내용 불러오기(상품 수정시)
 	public BoardVO getContent(String getPrdct_id);

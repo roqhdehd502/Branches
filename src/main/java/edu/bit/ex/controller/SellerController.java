@@ -85,17 +85,18 @@ public class SellerController {
 	}
 
 	// 상품 등록페이지 seller
-	@GetMapping("/mypage/prdct_register")
-	public ModelAndView prdct_register(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, ShippingVO svo,
-			PrdctOrderDetailVO povo) {
+	@GetMapping("/mypage/{m_id}/prdct_register")
+	public ModelAndView prdct_register(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, MbrShippingVO svo,
+			PrdctOrderDetailVO povo, @PathVariable("m_id") String m_id) {
 		log.info("prdct_register...");
+
 		mav.setViewName("seller/prdct_register");
 		// 인증 회원 정보
 		MbrVO getMbr = securityService.getMbr(memberDetails.getUserID());
 		// 회원 정보 받아오기
 		mav.addObject("mbr", getMbr);
 		// 판매자 주소 불러오기
-		mav.addObject("svo", sellerService.getAddress(svo.getMbr_id()));
+		mav.addObject("svo", sellerService.getAddress(m_id));
 
 		// 새주문 요청 알림
 		mav.addObject("orderCount", sellerService.orderCount(povo));
@@ -135,6 +136,7 @@ public class SellerController {
 			PrdctOrderDetailVO povo) throws Exception {
 		log.debug("sellerProductCheck");
 		log.info("sellerProductCheck..");
+
 		mav.setViewName("seller/sellerProductCheck");
 
 		// 인증 회원 정보
@@ -161,9 +163,9 @@ public class SellerController {
 	}
 
 	// 판매자 등록상품 수정페이지 seller // 이 페이지는 상세페이지가 곧 수정페이지입니다
-	@GetMapping("/mypage/prdct/{prdct_id}")
+	@GetMapping("/mypage/{m_id}/prdct/{prdct_id}")
 	public ModelAndView sellerProductModify(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable("prdct_id") String prdct_id,
-			ModelAndView mav, MbrVO mbr, ShippingVO svo, PrdctOrderDetailVO povo) throws Exception {
+			ModelAndView mav, MbrVO mbr, ShippingVO svo, PrdctOrderDetailVO povo, @PathVariable("m_id") String m_id) throws Exception {
 		log.debug("sellerProductModify");
 		log.info("sellerProductModify..");
 		mav.setViewName("seller/sellerProductModify");
@@ -176,7 +178,7 @@ public class SellerController {
 		// 상품 정보 불러오기
 		mav.addObject("pdvo", sellerService.getPrdctInfo(prdct_id));
 		// 판매자 주소 불러오기
-		mav.addObject("svo", sellerService.getAddress(svo.getMbr_id()));
+		mav.addObject("svo", sellerService.getAddress(m_id));
 		// 상품 내용 불러오기
 		mav.addObject("bContent", sellerService.getContent(prdct_id));
 
@@ -281,6 +283,7 @@ public class SellerController {
 	@GetMapping("/mypage/order")
 	public ModelAndView sellerorderCheck(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav, SearchCriteria cri,
 			PrdctOrderDetailVO povo) throws Exception {
+
 		log.debug("sellerorderCheck");
 		log.info("sellerorderCheck");
 
@@ -554,6 +557,7 @@ public class SellerController {
 	@Transactional
 	@PostMapping("/mypage/prdctqna/{board_id}/register")
 	public ResponseEntity<String> sellerQnARegister(BoardBoardCommentVO bbcVO, ModelAndView mav, MbrVO mbr) {
+
 		ResponseEntity<String> entity = null;
 		log.info("sellerQnARegister...");
 		try {
@@ -652,6 +656,7 @@ public class SellerController {
 	// 로그인이 되면 member_id 받아오기
 	@RequestMapping(value = "/mypage/myinfo/{mbr_id}", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView seller_info(@PathVariable("mbr_id") String mbr_id, ModelAndView mav, PrdctOrderDetailVO povo) {
+
 		mav.setViewName("seller/seller_mypage_modify");
 		mav.addObject("mbr", sellerService.getMemberInfo(mbr_id));
 		mav.addObject("adr", sellerService.getAddress(mbr_id));
