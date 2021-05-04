@@ -36,9 +36,10 @@
 							<a href="#">주문번호 : ${povo.order_number}</a>
 						</h5>
 					</div>
-			<button type="button" class="btn btn-primary">주문 확인</button>
+			<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/mypage/order'">주문 확인</button>
 			</br>
 		</div>
+		
 		<hr>
 
 		<!-- footer -->
