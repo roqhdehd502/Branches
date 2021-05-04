@@ -468,7 +468,7 @@ p.title {
 									</div>
 									<div style="float: left; width: 30%; padding-left: 20px">
 										<!-- 상품정보를 저장해서 장바구니로 이동 -->
-										<button type="submit" class="btn btn-primary" onclick="insertCart()">장바구니</button>
+										<button type="submit" class="btn btn-primary">장바구니</button>
 									</div>
 									<!-- 상품 찜 기능 -->
 									<div class="icon" style="float: left; padding-left: 20px; padding-top: 10px;">
@@ -582,26 +582,6 @@ p.title {
 						</div>
 						<!-- 상품 총 별점 끝 -->
 
-						<!--리뷰 사진/일반 모아보기 기능  -->
-						<!-- <ul class="snb">
-							<li class="box-tab-btn tab-btn btn active" data-for="total-estimate"><p class="text-primary">
-									<span class="korSub" id="estimate_total">전체 후기 (113)</span>
-								</p></li>
-							<li class="box-tab-btn tab-btn btn" data-for="photo-estimate"><p class="text-primary">
-									<span class="korSub" id="estimate_photo">상품 사진 후기 (63)</span>
-								</p></li>
-							<li class="box-tab-btn tab-btn btn" data-for="list-estimate"><p class="text-primary">
-									<span class="korSub" id="estimate_goods">일반 후기 (50)</span>
-								</p></li>
-							<li class="box-tab-btn tab-btn btn" data-for="select-estimate">
-								<div class="form-group"> <select class="form-control" id="review_sort">
-									<option value="new" selected="selected">최신순</option>
-									<option value="comment_cnt_desc">댓글 순</option>
-									<option value="up_cnt_desc">추천 순</option>
-									<option value="goods_est_desc">높은 평점 순</option>
-									<option value="goods_est_asc">낮은 평점 순</option>
-							</select>
-						</ul> -->
 						<hr>
 						<!-- 리뷰 틀 -->
 						<div class="gallery-area spb">
