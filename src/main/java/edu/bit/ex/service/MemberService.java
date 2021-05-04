@@ -98,4 +98,6 @@ public interface MemberService {
 	// 페이징 단위에 적용되는 최대 최근 본 상품 단위
 	public int getPrdctViewTotal(MemberRecentlyCriteria cri);
 
+	// 마이 페이지 주문확인
+	public void orderStateUpdate(PrdctOrderVO prdctOrderVO);
 }

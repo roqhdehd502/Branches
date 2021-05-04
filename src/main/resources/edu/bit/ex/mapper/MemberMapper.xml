@@ -328,5 +328,14 @@
 			SELECT COUNT(*) 
 			FROM prdct_view
 		]]>	
-	</select>	 	
+	</select>
+	
+	<!-- 마이 페이지 주문확인 -->
+	<update id="orderStateUpdate" >
+		<![CDATA[
+			UPDATE prdct_order 
+			SET order_state_number = 7 
+			WHERE order_number = #{order_number}
+		]]>
+	</update>			 	
 </mapper>

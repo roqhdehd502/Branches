@@ -43,6 +43,7 @@ import edu.bit.ex.service.SecurityService;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.InquiryVO;
 import edu.bit.ex.vo.MbrVO;
+import edu.bit.ex.vo.PrdctOrderVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -476,6 +477,22 @@ public class MemberController {
 		try {
 			memberService.memberInfoUpdate(mbrvo);
 			log.info("update member info");
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
+
+	// 마이 페이지 주문확인
+	@PostMapping("/mypage/order")
+	public ResponseEntity<String> orderStateUpdate(@RequestBody PrdctOrderVO prdctOrderVO) {
+		ResponseEntity<String> entity = null;
+		log.info("orderStateUpdate..");
+		try {
+			memberService.orderStateUpdate(prdctOrderVO);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -215,4 +215,11 @@ public class MemberServiceImpl implements MemberService {
 		log.info("getPrdctViewTotal WITH criteria: " + cri);
 		return memberMapper.getPrdctViewTotalCount(cri);
 	}
+
+	// 마이 페이지 주문확인
+	@Override
+	public void orderStateUpdate(PrdctOrderVO prdctOrderVO) {
+		log.info("orderStateUpdate");
+		memberMapper.orderStateUpdate(prdctOrderVO);
+	}
 }
