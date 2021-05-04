@@ -25,26 +25,7 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 	
-	<!-- <script type="text/javascript">
-	    $(document).ready(function () {
-	            $.datepicker.setDefaults($.datepicker.regional['ko']); 
-	            $( "#birthDate" ).datepicker({
-	                 changeMonth: true, 
-	                 changeYear: true,
-	                 nextText: '다음 달',
-	                 prevText: '이전 달', 
-	                 dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
-	                 dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
-	                 monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-	                 monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-	                 dateFormat: "yymmdd",
-	                 maxDate: 0,                       // 선택할수있는 최소날짜, ( 0 : 오늘 이후 날짜 선택 불가)
-	                     
-	 
-	            });
-	             
-	    });
-	</script> -->
+	
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -125,92 +106,6 @@
 						
 						<hr>	
 						
-						<%-- <div class="row" style="padding: 0px 2% 0px 2%">
-							<div class="col-md-3" align="center">
-								<h5>문의유형</h5>	
-							</div>
-							<div class="col-md-3" align="center">
-								<h5>Q&A제목</h5>	
-							</div>
-							<div class="col-md-3" align="center">
-								<h5>작성일자</h5>	
-							</div>
-							<div class="col-md-3" align="center">
-								<h5>답변확인</h5>	
-							</div>					
-							<table class="n-table table-col">
-								<colgroup>
-									<col style="width: 30%">
-									<col style="width: *">
-									<col style="width: 15%">
-									<col style="width: 15%">
-								</colgroup>
-								<thead>
-									<tr style="text-align: center;">
-										<th scope="col">상품정보</th>
-										<th scope="col">내용</th>
-										<th scope="col">작성일</th>
-										<th scope="col">처리 상태</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<c:forEach items="${prdctq_my_list}" var="list">
-											<td>${list.orderDetailVO.prdct_id}/${list.orderDetailVO.order_color}/${list.orderDetailVO.order_size}</td>
-											<td>${list.order_date}</td>
-											<td>${list.boardVO.board_content}</td>
-										</c:forEach>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						
-						<hr>
-						
-						<!-- 상품 Q&A의 문의유형 -->
-						<c:forEach items="${prdctq_my_list}" var="list">
-						<div class="row" style="padding: 0px 2% 0px 2%">
-							<div class="col-md-3" align="center" style="padding-top: 1%;">
-								<c:choose>
-									<c:when test="${list.inquiry_number eq 1}">
-										교환
-									</c:when>
-									<c:when test="${list.inquiry_number eq 2}">
-										환불
-									</c:when>
-									<c:when test="${list.inquiry_number eq 3}">
-										배송전취소
-									</c:when>
-									<c:when test="${list.inquiry_number eq 4}">
-										배송
-									</c:when>
-									<c:when test="${list.inquiry_number eq 5}">
-										불량
-									</c:when>
-									<c:when test="${list.inquiry_number eq 6}">
-										주문및결제
-									</c:when>
-									<c:when test="${list.inquiry_number eq 7}">
-										상품및재입고
-									</c:when>	
-									<c:otherwise>
-										기타
-									</c:otherwise>
-								</c:choose>	
-							</div>
-							<div class="col-md-3" align="center" style="padding-top: 1%; overflow: auto;">
-								<div class="accordion">${list.board_name}</div>
-							</div>
-							<div class="col-md-3" align="center" style="padding-top: 1%;">
-								${list.board_date}
-							</div>
-							<div class="col-md-3" align="center" style="padding-top: 1%;">
-								${prdctq_cmnt_stat.comment_count > 0 ?  '답변완료' : '답변대기'}
-							</div>
-						</div>
-						<hr>
-						</c:forEach>
-					</div>	 --%>
 					<table id="report" class="table">
 						<thead>
 							<tr>

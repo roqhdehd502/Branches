@@ -38,6 +38,8 @@ import edu.bit.ex.page.MyqnaCriteria;
 import edu.bit.ex.page.MyqnaPageVO;
 import edu.bit.ex.page.PrdQnACriteria;
 import edu.bit.ex.page.PrdQnAPageVO;
+import edu.bit.ex.page.PrdReviewCriteria;
+import edu.bit.ex.page.PrdReviewPageVO;
 import edu.bit.ex.service.MemberService;
 import edu.bit.ex.service.SecurityService;
 import edu.bit.ex.vo.BoardVO;
@@ -126,7 +128,7 @@ public class MemberController {
 		printWriter.flush();
 	}
 
-	// 페이징을 이용한 상품 Q&A 마이페이지 리스트 - 누르면 member_myprdctq 연결
+	// 페이징을 이용한 상품 Q&A 마이페이지 리스트
 	@GetMapping("/mypage/prdctq/list")
 	public ModelAndView prdctQnAList(@AuthenticationPrincipal MemberDetails memberDetails, PrdQnACriteria cri, BoardBoardCommentVO bCommentVO,
 			ModelAndView mav, InquiryBoardVO iBoardVO) throws Exception {
@@ -402,16 +404,28 @@ public class MemberController {
 		printWriter.flush();
 	}
 
-	// 상품 리뷰 마이페이지 리스트 -누르면 member_myreview 연결
+	// 상품 리뷰 마이페이지 리스트
 	@GetMapping("/mypage/review/list")
-	public ModelAndView reviewList(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav) throws Exception {
+	public ModelAndView reviewList(@AuthenticationPrincipal MemberDetails memberDetails, PrdReviewCriteria cri, BoardBoardCommentVO bCommentVO,
+			ModelAndView mav, InquiryBoardVO iBoardVO) throws Exception {
 		log.debug("reviewList");
 		log.info("reviewList..");
 
-		String member_id = memberDetails.getUserID();
 		mav.setViewName("member/member_myreview_list");
+
+		// 인증된 회원 정보 받아오기
+		String member_id = memberDetails.getUserID();
 		mav.addObject("mbr", securityService.getMbr(member_id));
-		mav.addObject("reviewMyList", memberService.getReviewMyList(member_id));
+		// 작성한 상품 리뷰 리스트 받아오기
+		mav.addObject("prdct_myr_list", memberService.getMyReviewList(cri, member_id));
+		// 작성한 상품 리뷰 응답여부 받아오기
+		mav.addObject("prdctr_cmnt_stat", memberService.getPrdctrCmntStat(bCommentVO.getBoard_id()));
+		// 답변한 댓글 불러오기
+		mav.addObject("comment", memberService.getMyqComment(iBoardVO.getBoard_id()));
+
+		int total = memberService.getReviewTotal(cri);
+		log.info("total" + total);
+		mav.addObject("pageMaker", new PrdReviewPageVO(cri, total));
 
 		return mav;
 	}
