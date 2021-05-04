@@ -57,9 +57,9 @@ public class CommonServiceImpl implements CommonService {
 
 	// 리뷰 리스트
 	@Override
-	public List<BoardBoardCommentVO> getReviewList(PrdReviewCriteria rcri, String p_id, int board_id) {
+	public List<BoardBoardCommentVO> getReviewList(PrdReviewCriteria rcri, String p_id) {
 		log.info("getreviewList");
-		return commonMapper.getReviewList(rcri, p_id, board_id);
+		return commonMapper.getReviewList(rcri, p_id);
 	}
 
 	@Override

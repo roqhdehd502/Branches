@@ -216,63 +216,6 @@ p.title {
 		$('.star-prototype').generateStars();
 	});
 </script>
-<script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-						$('#modalForm')
-								.submit(
-										function(event) {
-											event.preventDefault();
-											console.log("ajax 호출전");
-											var prdct_id = $("#prdct_id").val();
-											var prdct_name = $("#prdct_name")
-													.val();
-											var prdct_price = $("#prdct_price")
-													.val();
-											var category_number = $(
-													"#category_number").val();
-
-											var form = {
-												prdct_id : prdct_id,
-												prdct_name : prdct_name,
-												prdct_price : prdct_price,
-												category_number : category_number
-											};
-
-											$
-													.ajax({
-														type : 'PUT',
-														url : $(this).attr(
-																"action"),
-														cache : false,
-														contentType : 'application/json; charset=utf-8',
-														beforeSend : function(
-																xhr) {
-															xhr
-																	.setRequestHeader(
-																			"X-CSRF-Token",
-																			"${_csrf.token}");
-														},
-														success : function(
-																result) {
-															console.log(result);
-															if (result == "SUCCESS") {
-																if (result == "SUCCESS") {
-																	$(location)
-																			.attr(
-																					'href',
-																					'${pageContext.request.contextPath}/ej/productDetail')
-																}
-															}
-														},
-														error : function(e) {
-															console.log(e);
-														}
-													})
-										});
-					});
-</script>
 <script>
 	function insertCart() {
 		var cart = JSON.parse(sessionStorage.getItem("cartList"));
@@ -298,9 +241,7 @@ p.title {
 
 		if (confirm("상품이 장바구니에 담겼습니다. 장바구니로 이동하시겠습니까?") == true) {
 			window.location.assign("/order/cart");
-		} else { //취소
-			location.reload();
-		}
+		} 
 	}
 
 	function getTotal() {
@@ -321,95 +262,70 @@ p.title {
 </script>
 <!-- 찜하기 버튼을 누를경우 이벤트 발생 -->
 <script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-						$('#prdct_like_dis')
-								.click(
-										function(event) {
-											event.preventDefault();
-											// 비로그인 상태시 찜하기 버튼을 누르면
-											if ("${mbr.mbr_id}" == "") {
-												if (confirm("로그인 한 회원만 이용가능합니다. 로그인 하시겠습니까?")) {
-													// 승낙하면 로그인 페이지로 이동
-													location.href = '${pageContext.request.contextPath}/login';
-												} else {
-													// 거부하면 해당 페이지 새로고침
-													location.reload();
-												}
-												// 로그인 상태시 찜하기 버튼을 누르면	
-											} else {
-												// 해당 멤버ID와 상품ID의 정보를 가져온다
-												var mbr_id = "${mbr.mbr_id}";
-												var prdct_id = "${prdct.prdct_id}";
-												var board_id = $
-												{
-													prdct.board_id
-												}
-												;
+	$(document).ready(
+		function() {
+			$('#prdct_like_dis').click(
+				function(event) {
+					event.preventDefault();
+					// 비로그인 상태시 찜하기 버튼을 누르면
+					if ("${mbr.mbr_id}" == "") {
+					if (confirm("로그인 한 회원만 이용가능합니다. 로그인 하시겠습니까?")) {
+					// 승낙하면 로그인 페이지로 이동
+					location.href = '${pageContext.request.contextPath}/login';
+					} else {
+					// 거부하면 해당 페이지 새로고침
+					location.reload();
+					}
+					// 로그인 상태시 찜하기 버튼을 누르면	
+					} else {
+					// 해당 멤버ID와 상품ID의 정보를 가져온다
+					var mbr_id = "${mbr.mbr_id}";
+					var prdct_id = "${prdct.prdct_id}";
+					var board_id = ${prdct.board_id};
 
-												console
-														.log("mbr_id: "
-																+ mbr_id);
-												console.log("mbr_id type: "
-														+ (typeof mbr_id));
-												console.log("prdct_id: "
-														+ prdct_id);
-												console.log("prdct_id type: "
-														+ (typeof prdct_id));
-												console.log("board_id: "
-														+ board_id);
-												console.log("board_id type: "
-														+ (typeof board_id));
+						console.log("mbr_id: "+ mbr_id);
+						console.log("mbr_id type: "+ (typeof mbr_id));
+						console.log("prdct_id: "+ prdct_id);
+						console.log("prdct_id type: "+ (typeof prdct_id));
+						console.log("board_id: "+ board_id);
+						console.log("board_id type: "+ (typeof board_id));
 
-												var form = {
-													mbr_id : mbr_id,
-													prdct_id : prdct_id,
-													board_id : board_id
-												};
+					var form = {
+							mbr_id : mbr_id,
+							prdct_id : prdct_id,
+							board_id : board_id};
 
-												$
-														.ajax({
-															type : "POST",
-															url : "${pageContext.request.contextPath}/prdct/${prdct.prdct_id}",
-															cache : false,
-															contentType : 'application/json; charset=utf-8',
-															data : JSON
-																	.stringify(form),
-															beforeSend : function(
-																	xhr) {
-																xhr
-																		.setRequestHeader(
-																				"X-CSRF-Token",
-																				"${_csrf.token}");
-															},
-															success : function(
-																	result) {
-																console
-																		.log(result);
-																if (result == "SUCCESS") {
-																	console
-																			.log("찜 성공!")
-																	if (confirm("해당 상품을 찜하셨습니다. 목록 페이지로 이동하시겠습니까?")) {
-																		// 승낙하면 마이페이지의 찜하기 리스트로 이동
-																		location.href = '${pageContext.request.contextPath}/member/mypage/like';
-																	} else {
-																		// 거부하면 해당 페이지 새로고침하여 찜한거 반영되게하기(HTTP의 속성 때문...)
-																		location
-																				.reload();
-																	}
-																}
-															},
-															error : function(e) {
-																console.log(e);
-																alert('찜할 수 없습니다.');
-																location
-																		.reload(); // 실패시 새로고침하기
-															}
-														})
-											}
-										});
-					});
+				$.ajax({
+					type : "POST",
+					url : "${pageContext.request.contextPath}/prdct/${prdct.prdct_id}",
+					cache : false,
+					contentType : 'application/json; charset=utf-8',
+					data : JSON.stringify(form),
+					beforeSend : function(xhr) {
+						xhr.setRequestHeader("X-CSRF-Token","${_csrf.token}");
+						},
+						success : function(result) {
+							console.log(result);
+							if (result == "SUCCESS") {
+							console.log("찜 성공!")
+							if (confirm("해당 상품을 찜하셨습니다. 목록 페이지로 이동하시겠습니까?")) {
+							// 승낙하면 마이페이지의 찜하기 리스트로 이동
+							location.href = '${pageContext.request.contextPath}/member/mypage/like';
+							} else {
+							// 거부하면 해당 페이지 새로고침하여 찜한거 반영되게하기(HTTP의 속성 때문...)
+							location.reload();
+								}
+							}
+						},
+						error : function(e) {
+							console.log(e);
+							alert('찜할 수 없습니다.');
+							location.reload(); // 실패시 새로고침하기
+						}
+					})
+				}
+		});
+});
 </script>
 <!-- 찜취소 버튼을 누를경우 이벤트 발생 -->
 <script type="text/javascript">
@@ -481,7 +397,7 @@ p.title {
 		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 
 		<!--  상품 정보와 옵션 선택 -->
-		<form action="${pageContext.request.contextPath}/order/cart" method="POST">
+		<form action="${pageContext.request.contextPath}/order/cart" method="POST" onsubmit="insertCart(); return false;">
 			<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}" />
 			<!-- 상세페이지 내용	 -->
 			<div class="detail-area sp">
@@ -499,7 +415,7 @@ p.title {
 							<div class="container" style="margin-top: 50px; margin-bottom: 50px; margin-right: 50px;">
 								<div style="height: 100%; align-content: center;">
 									<img src="/prdct_img/prdct_thumbnail/${prdct.prdct_thumbnail}" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'"
-										style="width: 500px; height: 500px;"></img> <input type="hidden" name="prdct_thumbnail" id="prdct_thumbnail"
+										style="width: 500px; height: 500px;" onerror="this.src='/prdct_img/prdct_thumbnail/none-thumbnail.png'"></img> <input type="hidden" name="prdct_thumbnail" id="prdct_thumbnail"
 										value="${prdct.prdct_thumbnail}" />
 								</div>
 							</div>
@@ -712,7 +628,7 @@ p.title {
 												<%-- <tr data-toggle="modal" data-target="#myModal${list.board_id}" id="rcount"> --%>
 												<tr>
 													<td scope="col">${list.board_id}</td>
-													<td scope="col">${list.mbr_id}</td>
+													<td scope="col">${list.mbr_nickname}</td>
 													<td scope="col">${list.board_date}</td>
 													<td scope="col"><span class="star-prototype"> ${list.board_starrate}</span></td>
 												</tr>
@@ -767,6 +683,7 @@ p.title {
 														</sec:authorize>
 														<c:forEach items="${commentList}" var="comment">
 														<input type="hidden" id="comment_id" name="comment_id" value="${comment.comment_id }">
+														<input type="hidden" id="board_id" name="board_id" value="${comment.board_id }">
 														<div class="row" style="margin: 1% 3% 1% 3%; padding: 1% 3% 1% 3%; border: 1px solid #E5E5E5;">
 															<div align="left" style="white-space: pre; overflow-x: hidden;"><h5>${comment.mbr_id}</h5></div>&nbsp;&nbsp;&nbsp;
 															<div align="left" style="white-space: pre; overflow-x: hidden;">${comment.comment_content}</div>
