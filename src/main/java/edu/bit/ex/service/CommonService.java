@@ -30,7 +30,7 @@ public interface CommonService {
 	public List<PrdctVO> getProductInfo(String p_id);
 
 	// 리뷰 리스트
-	public List<BoardBoardCommentVO> getReviewList(PrdReviewCriteria rcri, String p_id, int board_id);
+	public List<BoardBoardCommentVO> getReviewList(PrdReviewCriteria rcri, String p_id);
 
 	// 리뷰 별점 평균
 	public BoardVO getStarAvg(String p_id);

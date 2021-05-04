@@ -42,11 +42,11 @@
 	</select>
 	
 	<select id="getPrdTotal" resultType="int">
-		select count(*) from board b, prdct p where 
+		select count(*) from board b where 
 		
 		<include refid="criteria"></include>
 		
-		board_id > 0 and b.prdct_id = p.prdct_id
+		board_id > 0  and board_type_number = 6
 	</select>
 	
 	<!-- Q&A게시글 검색기능 + 페이징 -->
