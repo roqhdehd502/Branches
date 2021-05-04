@@ -52,7 +52,7 @@ public class SellerController {
 	@Autowired
 	private SecurityService securityService;
 
-	// CK 에디터 이미지 서버 전송 컨트롤러
+	// CK 에디터 이미지 서버 전송 컨트롤러 (리팩토리 대상)
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(SellerController.class);
 
 	@RequestMapping(value = "imageUpload.do", method = { RequestMethod.POST, RequestMethod.GET })
@@ -554,7 +554,6 @@ public class SellerController {
 	}
 
 	// 판매자 상품Q&A 답변등록
-	@Transactional
 	@PostMapping("/mypage/prdctqna/{board_id}/register")
 	public ResponseEntity<String> sellerQnARegister(BoardBoardCommentVO bbcVO, ModelAndView mav, MbrVO mbr) {
 

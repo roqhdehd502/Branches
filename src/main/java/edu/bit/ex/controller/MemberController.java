@@ -58,9 +58,9 @@ public class MemberController {
 
 	private MemberService memberService;
 
-	// CK 에디터 이미지 서버 전송 컨트롤러
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(MemberController.class);
 
+	// CK 에디터 이미지 서버 전송 컨트롤러
 	@GetMapping("/member")
 	public ModelAndView signUpForm(ModelAndView mav) {
 		mav.setViewName("login/login");

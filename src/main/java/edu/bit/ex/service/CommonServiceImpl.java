@@ -57,9 +57,9 @@ public class CommonServiceImpl implements CommonService {
 
 	// 리뷰 리스트
 	@Override
-	public List<BoardVO> getReviewList(PrdReviewCriteria rcri, String p_id) {
+	public List<BoardBoardCommentVO> getReviewList(PrdReviewCriteria rcri, String p_id, int board_id) {
 		log.info("getreviewList");
-		return commonMapper.getReviewList(rcri, p_id);
+		return commonMapper.getReviewList(rcri, p_id, board_id);
 	}
 
 	@Override
@@ -194,6 +194,20 @@ public class CommonServiceImpl implements CommonService {
 	public void addPrdView(String mbr_id, String prdct_id) {
 		log.info("addPrdView...");
 		commonMapper.addPrdView(mbr_id, prdct_id);
+	}
+
+	// 상품 리뷰 댓글 등록
+	@Override
+	public void commentInsert(BoardBoardCommentVO bbcVO) {
+		log.info("commentInsert...");
+		commonMapper.commentInsert(bbcVO);
+	}
+
+	// 상품 리뷰 댓글 불러오기
+	@Override
+	public List<BoardBoardCommentVO> getReviewCommentList(String p_id) {
+		log.info("getReviewCommentList");
+		return commonMapper.getReviewCommentList(p_id);
 	}
 
 }
