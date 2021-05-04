@@ -35,6 +35,7 @@ import edu.bit.ex.page.PrdctListCriteria;
 import edu.bit.ex.page.PrdctListPageVO;
 import edu.bit.ex.service.CommonService;
 import edu.bit.ex.service.SecurityService;
+import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.MbrVO;
 import edu.bit.ex.vo.PrdctLikeVO;
 import edu.bit.ex.vo.PrdctVO;
@@ -78,7 +79,7 @@ public class CommonController {
 	@ResponseBody
 	public ModelAndView productDetail(@PathVariable("prdct_id") String p_id, @AuthenticationPrincipal MemberDetails memberDetails,
 			PrdReviewCriteria rcri, PrdQnACriteria qacri, PrdctLikeVO prdctLikeVO, ModelAndView mav, HttpServletRequest request, MbrVO mbrVO,
-			BoardBoardCommentVO bVO) throws Exception {
+			BoardCommentVO bVO) throws Exception {
 		log.info("productDetail...");
 		mav.setViewName("common/productDetail");
 
@@ -105,7 +106,7 @@ public class CommonController {
 
 		// 리뷰 관련
 		log.info("reviewList...");
-		mav.addObject("reviewList", commonService.getReviewList(rcri, p_id, bVO.getBoard_id()));
+		mav.addObject("reviewList", commonService.getReviewList(rcri, p_id));
 		int r_total = commonService.getPrdctReviewTotal(rcri, p_id);
 		mav.addObject("PageMaker", new PrdReviewPageVO(rcri, r_total));
 

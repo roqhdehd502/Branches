@@ -628,7 +628,7 @@ p.title {
 												<%-- <tr data-toggle="modal" data-target="#myModal${list.board_id}" id="rcount"> --%>
 												<tr>
 													<td scope="col">${list.board_id}</td>
-													<td scope="col">${list.mbr_id}</td>
+													<td scope="col">${list.mbr_nickname}</td>
 													<td scope="col">${list.board_date}</td>
 													<td scope="col"><span class="star-prototype"> ${list.board_starrate}</span></td>
 												</tr>
@@ -683,6 +683,7 @@ p.title {
 														</sec:authorize>
 														<c:forEach items="${commentList}" var="comment">
 														<input type="hidden" id="comment_id" name="comment_id" value="${comment.comment_id }">
+														<input type="hidden" id="board_id" name="board_id" value="${comment.board_id }">
 														<div class="row" style="margin: 1% 3% 1% 3%; padding: 1% 3% 1% 3%; border: 1px solid #E5E5E5;">
 															<div align="left" style="white-space: pre; overflow-x: hidden;"><h5>${comment.mbr_id}</h5></div>&nbsp;&nbsp;&nbsp;
 															<div align="left" style="white-space: pre; overflow-x: hidden;">${comment.comment_content}</div>
