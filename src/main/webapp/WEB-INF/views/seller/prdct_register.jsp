@@ -302,9 +302,9 @@
 	        	processData: false, 
 	        	contentType: false, 
 	        	data: formData,
-	        	 beforeSend : function(xhr) {
-	   			  xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
-	          		},
+	        	beforeSend : function(xhr) {
+	   			xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+	            },
 	        	success: function (result) {
 	        		if (confirm("입력된 정보를 등록하시겠습니까??") == true) {
 	        			console.log("UPLOAD SUCCESS!")  

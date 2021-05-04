@@ -10,8 +10,8 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
-<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
+<meta id="_csrf" name="_csrf" content="${_csrf.token}" />
+<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
 <title>Branches : Product Detail</title>
 
 <!-- Required CSS files -->
@@ -131,41 +131,98 @@ img {
 
 .swiper-slide img {
 	max-width: 100%; /* 이미지 최대너비를 제한, 슬라이드에 이미지가 여러개가 보여질때 필요 */
-	
 }
 
-ul{list-style: none;}
-.accordion-box{
-  width: 100%; max-width: 600px;
-  margin:  0 auto;
-}
-p.title{
-  width: 100%;  
-  padding: 0 10px;
-}
-.con{
-  padding: 20px; 
-  display:none;
+ul {
+	list-style: none;
 }
 
+.accordion-box {
+	width: 100%;
+	max-width: 600px;
+	margin: 0 auto;
+}
+
+p.title {
+	width: 100%;
+	padding: 0 10px;
+}
+
+.con {
+	padding: 20px;
+	display: none;
+}
 </style>
+
+<!-- 댓글 작성 -->
+	<script type="text/javascript">
+	   	$(document).ready(function(){
+	      $("#commentWriteForm").submit(function(event){         
+	           event.preventDefault();
+	           
+	       	   // FormData 불러오기
+	           var formData = new FormData();
+	        
+	           var mbr_id = $("#mbr_id").val();
+	           var board_id = $("#board_id").val();
+	           var comment_content = $("#comment_content").val();
+	           
+	           console.log(mbr_id);
+	           console.log(board_id);
+	           console.log(comment_content);
+	           console.log($(this).attr("action"));    
+	           
+	        	// 해당 텍스트들을 FormData에 append
+	           formData.append("mbr_id", mbr_id);
+	           formData.append("board_id", board_id);
+	           formData.append("comment_content", comment_content);
+	
+	           $.ajax({
+	             type : "POST",
+	             url : $(this).attr("action"),
+	             cache : false,
+	             contentType:'application/json; charset=utf-8',
+	             contentType: false,
+	             processData: false, 
+	             data: formData, 
+	             beforeSend : function(xhr) {
+						xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+	             },
+	             success: function (result) {       
+	            	 if (confirm("댓글을 작성하시겠습니까??") == true) {
+		        			console.log("SUCCESS!")  
+		        			$(location).attr('href', '${pageContext.request.contextPath}/prdct/${prdct.prdct_id}');
+		        		}else {
+							return;
+						}                     
+	             },
+	             error: function (e) {
+	                 console.log(e);
+	                 alert('댓글 업로드에 실패하였습니다.');
+	                 location.reload(); // 실패시 새로고침하기
+	             }
+	         })            
+	       });       
+	   	});
+	</script>
 <script>
-    $(document).ready(function() {
-        // 숫자 평점을 별로 변환하도록 호출하는 함수
-        $.fn.generateStars = function() {
-            return this.each(function(i, e) {
-                $(e).html($('<span/>').width($(e).text() * 16)
-                );
-            });
-        };
-        $('.star-prototype').generateStars();
-    });
+	$(document).ready(function() {
+		// 숫자 평점을 별로 변환하도록 호출하는 함수
+		$.fn.generateStars = function() {
+			return this.each(function(i, e) {
+				$(e).html($('<span/>').width($(e).text() * 16));
+			});
+		};
+		$('.star-prototype').generateStars();
+	});
 </script>
 <script type="text/javascript">
-	$(document).ready(
-		function() {
-			$('#modalForm').submit(
-				function(event) {
+	$(document)
+			.ready(
+					function() {
+						$('#modalForm')
+								.submit(
+										function(event) {
 											event.preventDefault();
 											console.log("ajax 호출전");
 											var prdct_id = $("#prdct_id").val();
@@ -264,70 +321,95 @@ p.title{
 </script>
 <!-- 찜하기 버튼을 누를경우 이벤트 발생 -->
 <script type="text/javascript">
-	$(document).ready(function() {
-			$('#prdct_like_dis').click(
-				function(event) {
-					event.preventDefault();
-					// 비로그인 상태시 찜하기 버튼을 누르면
-					if ("${mbr.mbr_id}" == "") {
-						if (confirm("로그인 한 회원만 이용가능합니다. 로그인 하시겠습니까?")) {
-							// 승낙하면 로그인 페이지로 이동
-							location.href = '${pageContext.request.contextPath}/login';
-						} else {
-							// 거부하면 해당 페이지 새로고침
-							location.reload();
-						}
-					// 로그인 상태시 찜하기 버튼을 누르면	
-					} else {
-						// 해당 멤버ID와 상품ID의 정보를 가져온다
-						var mbr_id = "${mbr.mbr_id}";
-						var prdct_id = "${prdct.prdct_id}";
-						var board_id = ${prdct.board_id};
+	$(document)
+			.ready(
+					function() {
+						$('#prdct_like_dis')
+								.click(
+										function(event) {
+											event.preventDefault();
+											// 비로그인 상태시 찜하기 버튼을 누르면
+											if ("${mbr.mbr_id}" == "") {
+												if (confirm("로그인 한 회원만 이용가능합니다. 로그인 하시겠습니까?")) {
+													// 승낙하면 로그인 페이지로 이동
+													location.href = '${pageContext.request.contextPath}/login';
+												} else {
+													// 거부하면 해당 페이지 새로고침
+													location.reload();
+												}
+												// 로그인 상태시 찜하기 버튼을 누르면	
+											} else {
+												// 해당 멤버ID와 상품ID의 정보를 가져온다
+												var mbr_id = "${mbr.mbr_id}";
+												var prdct_id = "${prdct.prdct_id}";
+												var board_id = $
+												{
+													prdct.board_id
+												}
+												;
 
-						console.log("mbr_id: " + mbr_id);
-						console.log("mbr_id type: " + (typeof mbr_id));
-						console.log("prdct_id: " + prdct_id);
-						console.log("prdct_id type: " + (typeof prdct_id));
-						console.log("board_id: " + board_id);
-						console.log("board_id type: " + (typeof board_id));
+												console
+														.log("mbr_id: "
+																+ mbr_id);
+												console.log("mbr_id type: "
+														+ (typeof mbr_id));
+												console.log("prdct_id: "
+														+ prdct_id);
+												console.log("prdct_id type: "
+														+ (typeof prdct_id));
+												console.log("board_id: "
+														+ board_id);
+												console.log("board_id type: "
+														+ (typeof board_id));
 
-						var form = {
-							mbr_id : mbr_id,
-							prdct_id : prdct_id,
-							board_id : board_id
-						};
+												var form = {
+													mbr_id : mbr_id,
+													prdct_id : prdct_id,
+													board_id : board_id
+												};
 
-						$.ajax({
-							type : "POST",
-							url : "${pageContext.request.contextPath}/prdct/{prdct_id}",
-							cache : false,
-							contentType : 'application/json; charset=utf-8',
-							data : JSON.stringify(form),
-							beforeSend : function(xhr) {
-								xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
-							},
-							success : function(result) {
-								console.log(result);
-								if (result == "SUCCESS") {
-									console.log("찜 성공!")
-									if (confirm("해당 상품을 찜하셨습니다. 목록 페이지로 이동하시겠습니까?")) {
-										// 승낙하면 마이페이지의 찜하기 리스트로 이동
-										location.href = '${pageContext.request.contextPath}/member/mypage/like';
-									} else {
-										// 거부하면 해당 페이지 새로고침하여 찜한거 반영되게하기(HTTP의 속성 때문...)
-										location.reload();
-									}
-								}
-							},
-							error : function(e) {
-								console.log(e);
-								alert('찜할 수 없습니다.');
-								location.reload(); // 실패시 새로고침하기
-					}
-				})
-			}
-		});
-	});
+												$
+														.ajax({
+															type : "POST",
+															url : "${pageContext.request.contextPath}/prdct/${prdct.prdct_id}",
+															cache : false,
+															contentType : 'application/json; charset=utf-8',
+															data : JSON
+																	.stringify(form),
+															beforeSend : function(
+																	xhr) {
+																xhr
+																		.setRequestHeader(
+																				"X-CSRF-Token",
+																				"${_csrf.token}");
+															},
+															success : function(
+																	result) {
+																console
+																		.log(result);
+																if (result == "SUCCESS") {
+																	console
+																			.log("찜 성공!")
+																	if (confirm("해당 상품을 찜하셨습니다. 목록 페이지로 이동하시겠습니까?")) {
+																		// 승낙하면 마이페이지의 찜하기 리스트로 이동
+																		location.href = '${pageContext.request.contextPath}/member/mypage/like';
+																	} else {
+																		// 거부하면 해당 페이지 새로고침하여 찜한거 반영되게하기(HTTP의 속성 때문...)
+																		location
+																				.reload();
+																	}
+																}
+															},
+															error : function(e) {
+																console.log(e);
+																alert('찜할 수 없습니다.');
+																location
+																		.reload(); // 실패시 새로고침하기
+															}
+														})
+											}
+										});
+					});
 </script>
 <!-- 찜취소 버튼을 누를경우 이벤트 발생 -->
 <script type="text/javascript">
@@ -398,9 +480,9 @@ p.title{
 		<!-- header -->
 		<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/header.jsp"></jsp:include>
 
-	 <!--  상품 정보와 옵션 선택 -->
+		<!--  상품 정보와 옵션 선택 -->
 		<form action="${pageContext.request.contextPath}/order/cart" method="POST">
-			<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+			<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}" />
 			<!-- 상세페이지 내용	 -->
 			<div class="detail-area sp">
 				<div class="container" style="align-content: center;">
@@ -483,7 +565,7 @@ p.title{
 										<!-- 찜하기 기능은 고객(MEMBER 권한)만 이용할 수 있게 설정 -->
 										<sec:authorize access="isAnonymous()">
 											<%-- 로그인 상태가 아니므로 자동으로 로그인 comfirm창이 뜨게 설정 --%>
-											<i id="prdct_like_dis" class="fa fa-heart-o fa-2x" onclick="location.href='${pageContext.request.contextPath}/prdct/{prdct_id}'">찜하기</i>
+											<i id="prdct_like_dis" class="fa fa-heart-o fa-2x" onclick="location.href='${pageContext.request.contextPath}/prdct/${prdct.prdct_id}'">찜하기</i>
 										</sec:authorize>
 										<sec:authorize access="hasAuthority('ADMIN')">
 											<i class="fa fa-heart-o fa-2x">찜불가</i>
@@ -495,11 +577,11 @@ p.title{
 											<c:choose>
 												<%-- prdct_like 테이블을 가져와 비교후 예전에 찜하기를 했었다면 찜취소로 활성화가 된다 --%>
 												<c:when test="${(prdLikeVal.prdct_id eq prdct.prdct_id) and (prdLikeVal.mbr_id eq mbr.mbr_id)}">
-													<i id="prdct_like_ena" class="fa fa-heart fa-2x" onclick="location.href='${pageContext.request.contextPath}/prdct/{prdct_id}'">찜취소</i>
+													<i id="prdct_like_ena" class="fa fa-heart fa-2x" onclick="location.href='${pageContext.request.contextPath}/prdct/${prdct.prdct_id}'">찜취소</i>
 												</c:when>
 												<%-- prdct_like 테이블을 가져와 비교후 예전에 찜하기를 안했다면(혹은 찜취소를 했었다면) 찜하기로 활성화가 된다 --%>
 												<c:otherwise>
-													<i id="prdct_like_dis" class="fa fa-heart-o fa-2x" onclick="location.href='${pageContext.request.contextPath}/prdct/{prdct_id}'">찜하기</i>
+													<i id="prdct_like_dis" class="fa fa-heart-o fa-2x" onclick="location.href='${pageContext.request.contextPath}/prdct/${prdct.prdct_id}'">찜하기</i>
 												</c:otherwise>
 											</c:choose>
 										</sec:authorize>
@@ -607,41 +689,101 @@ p.title{
 						<hr>
 						<!-- 리뷰 틀 -->
 						<div class="gallery-area spb">
-								<div class="container">
-									<div class="section-title" data-margin="0 0 40px">
-										<table  class="table" style="width: 100%;">
-											<!-- 한 페이지 글 몇개, 페이징 처리 -->
-											<colgroup>
-												<col style="width: 15%">
-												<col style="width: 25%">
-												<col style="width: 30%">
-												<col style="width: 30%">
-											</colgroup>
-											<thead>
+							<div class="container">
+								<div class="section-title" data-margin="0 0 40px">
+									<table id="review" class="table" style="width: 100%;">
+										<!-- 한 페이지 글 몇개, 페이징 처리 -->
+										<colgroup>
+											<col style="width: 15%">
+											<col style="width: 25%">
+											<col style="width: 30%">
+											<col style="width: 30%">
+										</colgroup>
+										<thead>
+											<tr>
+												<td scope="col">번호</td>
+												<td scope="col">작성자</td>
+												<td scope="col">등록일자</td>
+												<td scope="col">별점</td>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach items="${reviewList}" var="list" >
+												<%-- <tr data-toggle="modal" data-target="#myModal${list.board_id}" id="rcount"> --%>
 												<tr>
-													<td scope="col">번호</td>
-													<td scope="col">작성자</td>
-													<td scope="col">등록일자</td>
-													<td scope="col">별점</td>
-												</tr>
-											</thead>
-											<tbody>
-												<c:forEach items="${reviewList}" var="list" varStatus="status">
-												<tr data-toggle="modal" data-target="#myModal${list.board_id}" id="rcount">
 													<td scope="col">${list.board_id}</td>
 													<td scope="col">${list.mbr_id}</td>
 													<td scope="col">${list.board_date}</td>
 													<td scope="col"><span class="star-prototype"> ${list.board_starrate}</span></td>
 												</tr>
-												</c:forEach>
-											</tbody>
-										</table>
-									</div>
+												<tr>
+													<!-- 제목을 클릭하면 상품 리뷰내용과 댓글이 나오는 부분 -->
+													<td colspan="4">
+														<div>${list.board_content }</div>
+														<hr />
+													<!-- 로그인을 하지 않았을 경우 --> 
+													<sec:authorize access="isAnonymous()">
+															<c:choose>
+																<%-- View에서도 null값 이중체크를 한다 --%>
+																<c:when test="${empty mbr.mbr_id}">
+																	<form method="post" action="#">
+																		<div class="container">
+																			<div class="row" style="padding: 5% 3% 3% 5%">
+																				<div class="col-md-10" align="left">
+																					<textarea class="form-control" cols="3" placeholder="로그인한 회원만 작성 가능합니다" disabled></textarea>
+																				</div>
+																				<div class="col-md-2" align="center">
+																					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/login'">로그인</button>
+																				</div>
+																			</div>
+																		</div>
+																	</form>
+																</c:when>
+															</c:choose>
+														</sec:authorize> 
+														
+														<!-- 로그인을 했을 경우 -->
+														<sec:authorize access="isAuthenticated()"> 
+														<div class="form-group row">
+															<label class="col-sm-2 col-form-label"><h5>댓글</h5></label>
+															<form id="commentWriteForm" method="post" action="${pageContext.request.contextPath}/prdct/${list.prdct_id}/comment">
+																
+																<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}" /> 
+																<input type="hidden" id="mbr_id" name="mbr_id" value="${list.mbr_id}"> 
+																<input type="hidden" id="board_id" name="board_id" value="${list.board_id}">
+
+																<div class="container">
+																	<div class="row" style="padding: 5% 3% 3% 5%">
+																		<div class="col-md-10" align="left">
+																			<textarea class="form-control" cols="100" id="comment_content" name="comment_content" placeholder="댓글을 남겨주세요"></textarea>
+																		</div>
+																		<div class="col-md-2" align="center">
+																			<button type="submit" class="btn btn-primary">등록</button>
+																		</div>
+																	</div>
+																</div>
+															</form>
+														</div> 
+														</sec:authorize>
+														<c:forEach items="${commentList}" var="comment">
+														<input type="hidden" id="comment_id" name="comment_id" value="${comment.comment_id }">
+														<div class="row" style="margin: 1% 3% 1% 3%; padding: 1% 3% 1% 3%; border: 1px solid #E5E5E5;">
+															<div align="left" style="white-space: pre; overflow-x: hidden;"><h5>${comment.mbr_id}</h5></div>&nbsp;&nbsp;&nbsp;
+															<div align="left" style="white-space: pre; overflow-x: hidden;">${comment.comment_content}</div>
+															<div class="col-md-12" align="right">${comment.comment_date}</div>
+														</div>
+														</c:forEach>
+													</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
 								</div>
+							</div>
 
 
-								<!-- 리뷰 모달창  -->
-								<form id="modalForm" action="${pageContext.request.contextPath}/common/product/${prdct.prdct_id}" method="post">
+							<!-- 리뷰 모달창  -->
+							<%-- <form id="modalForm" action="${pageContext.request.contextPath}/common/product/${prdct.prdct_id}" method="post">
 									<c:forEach items="${reviewList}" var="list" >
 									<div class="modal fade " id="myModal${list.board_id}" role="dialog">
 										<div class="modal-dialog modal-xl">
@@ -677,8 +819,8 @@ p.title{
 										</div>
 									</div>
 									</c:forEach>
-								</form>
-							
+								</form> --%>
+
 
 
 							<div>
@@ -757,20 +899,19 @@ p.title{
 										<c:forEach items="${prdQnAList}" var="dto" varStatus="status">
 											<tr>
 												<td scope="col">${dto.board_id}</td>
-												<td scope="col">${dto.mbr_id}</td>
+												<td scope="col">${dto.mbr_nickname}</td>
 												<td scope="col">${dto.board_name}</td>
 												<td scope="col">${dto.board_date}</td>
 											</tr>
 											<tr>
-											<!-- 제목을 클릭하면 상품 Q&A내용과 댓글이 나오는 부분 -->
+												<!-- 제목을 클릭하면 상품 Q&A내용과 댓글이 나오는 부분 -->
 												<td colspan="4">
-													<div>${dto.board_content }</div><hr/>
+													<div>${dto.board_content }</div>
+													<hr /> 
 													<input type="hidden" id="comment_id" name="comment_id" value="${dto.comment_id }">
 													<div class="row" style="margin: 1% 3% 1% 3%; padding: 1% 3% 1% 3%; border: 1px solid #E5E5E5;">
-														<div  align="left" style="white-space: pre; overflow-x: hidden;">${dto.comment_content}</div>
-														<div class="col-md-12" align="right">
-															${dto.comment_date}
-														</div>
+														<div align="left" style="white-space: pre; overflow-x: hidden;">${dto.comment_content}</div>
+														<div class="col-md-12" align="right">${dto.comment_date}</div>
 													</div>
 												</td>
 											</tr>
@@ -911,8 +1052,8 @@ p.title{
 	<!-- 상품컨텐츠 내용 전체 컨테이너 끝 -->
 
 	<!-- footer -->
-	<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>	
-	
+	<jsp:include page="${pageContext.request.contextPath }/WEB-INF/views/common/footer.jsp"></jsp:include>
+
 	<!--Required JS files-->
 	<script src="/assets/js/jquery-2.2.4.min.js"></script>
 	<script src="/assets/js/vendor/popper.min.js"></script>
@@ -923,23 +1064,36 @@ p.title{
 	<script src="/assets/js/vendor/loopcounter.js"></script>
 	<script src="/assets/js/vendor/slicknav.min.js"></script>
 	<script src="/assets/js/active.js"></script>
-	
+
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<!-- 상품Q&A 펼쳤다 접었다하는 기능 -->
-<script>
-    $(document).ready(function(){
+	<script>
+		$(document).ready(function() {
 
-        $("#report tr:odd").addClass("odd");
-        $("#report tr:not(.odd)").hide(); 
-        $("#report tr:first-child").show(); //열머리글 보여주기
+			$("#report tr:odd").addClass("odd");
+			$("#report tr:not(.odd)").hide();
+			$("#report tr:first-child").show(); //열머리글 보여주기
 
-        $("#report tr.odd").click(function(){
-            $(this).next("tr").toggle();
-            $(this).find(".arrow").toggleClass("up");
-        });
-    });
+			$("#report tr.odd").click(function() {
+				$(this).next("tr").toggle();
+				$(this).find(".arrow").toggleClass("up");
+			});
+		});
+	</script>
+	<!-- 상품리뷰 펼쳤다 접었다하는 기능 -->
+	<script>
+		$(document).ready(function() {
 
-</script>
+			$("#review tr:odd").addClass("odd");
+			$("#review tr:not(.odd)").hide();
+			$("#review tr:first-child").show(); //열머리글 보여주기
+
+			$("#review tr.odd").click(function() {
+				$(this).next("tr").toggle();
+				$(this).find(".arrow").toggleClass("up");
+			});
+		});
+	</script>
 
 </body>
 </html>
