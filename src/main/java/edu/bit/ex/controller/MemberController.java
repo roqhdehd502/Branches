@@ -501,4 +501,20 @@ public class MemberController {
 
 		return entity;
 	}
+
+	// 마이 페이지 홈 주문확인
+	@PostMapping("/mypage")
+	public ResponseEntity<String> myOrderStateUpdate(@RequestBody PrdctOrderVO prdctOrderVO) {
+		ResponseEntity<String> entity = null;
+		log.info("myOrderStateUpdate..");
+		try {
+			memberService.orderStateUpdate(prdctOrderVO);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
 }
