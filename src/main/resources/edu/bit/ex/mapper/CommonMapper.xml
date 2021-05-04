@@ -34,10 +34,10 @@
 			     SELECT ROWNUM AS RNUM, A.* FROM ( 
 			        		SELECT * 
 			                FROM board 
-			                WHERE board_type_number = 3
+			                WHERE board_type_number = 3 and prdct_id = #{p_id} 
 			                ORDER BY board_date DESC 
 			    ) A WHERE ROWNUM <= #{rcri.pageNum} * #{rcri.amount} 
-			) WHERE RNUM > (#{rcri.pageNum}-1) * #{rcri.amount} and prdct_id = #{p_id} 
+			) WHERE RNUM > (#{rcri.pageNum}-1) * #{rcri.amount}
 		]]>
 	</select>
 	

@@ -103,9 +103,9 @@
 	<!-- 페이징을 적용한 매거진 게시판 리스트 -->
 	<select id="getMagazineListWithPaging" resultType="edu.bit.ex.vo.BoardVO">
 		<![CDATA[
-			SELECT board_id, board_name, board_content, mbr_id, board_type_number, board_date, board_hit, board_thumbnail 
+			SELECT board_id, board_name, board_content, mbr_id, board_type_number, board_date, board_hit, board_like, board_thumbnail 
 			FROM ( 
-				SELECT ROWNUM rn, board_id, board_name, board_content, mbr_id, board_type_number, board_date, board_hit, board_thumbnail 
+				SELECT ROWNUM rn, board_id, board_name, board_content, mbr_id, board_type_number, board_date, board_hit, board_like, board_thumbnail 
 				FROM board 
 				WHERE 
 		]]>	
