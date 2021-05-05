@@ -22,7 +22,8 @@
 	<!-- 리뷰 댓글 불러오기 -->
 	<select id="getReviewCommentList" resultType="edu.bit.ex.joinvo.BoardBoardCommentVO">
 		<![CDATA[
-			select * from board_comment c, board b where c.board_id = b.board_id and b.board_type_number = 3 and prdct_id = #{p_id}
+			select * from board_comment c, mbr m, board b where c.board_id = b.board_id and b.board_type_number = 3 and prdct_id = #{p_id}
+			and c.mbr_id = m.mbr_id
 		]]>
 	</select>
 	

@@ -47,8 +47,44 @@
 	]]>
 	</insert>
 	
+	<!-- 리뷰 마이페이지 리스트 -->
+	<resultMap type="edu.bit.ex.vo.PrdctOrderVO" id="order">
+		<result property="order_number" column="order_number" />
+		<result property="order_price" column="order_price" />
+		<result property="order_date" column="order_date" />
+		<result property="mbr_id" column="mbr_id" />
+		<collection property="orderDetailVO" resultMap="orderDt"></collection>
+		<collection property="boardVO" resultMap="orderReview"></collection>
+	</resultMap>
+
+	<resultMap id="orderDt" type="edu.bit.ex.vo.OrderDetailVO">
+		<result property="order_number" column="order_number" />
+		<result property="prdct_id" column="prdct_id" />
+		<result property="order_color" column="order_color" />
+		<result property="order_size" column="order_size" />
+		<result property="order_amount" column="order_amount" />
+		<result property="prdct_price" column="prdct_price" />
+	</resultMap>
+	
+	<resultMap id="orderReview" type="edu.bit.ex.vo.BoardVO">
+		<result property="board_id" column="board_id" />
+		<result property="board_name" column="board_name" />
+		<result property="board_content" column="board_content" />
+		<result property="mbr_id" column="mbr_id" />
+		<result property="board_type_number" column="board_type_number" />
+		<result property="inquiry_number" column="inquiry_number" />
+		<result property="board_date" column="board_date" />
+		<result property="prdct_id" column="prdct_id" />
+		<result property="order_number" column="order_number" />
+		<result property="board_like" column="board_like" />
+		<result property="board_hit" column="board_hit" />
+		<result property="board_starrate" column="board_starrate" />
+	</resultMap>
+	
+
 	<!-- 리뷰 마이페이지 리스트 -->	
 	<select id="getMyReviewList" resultType="edu.bit.ex.joinvo.BoardBoardCommentVO">
+
 		<![CDATA[
 			SELECT * FROM ( 
 			     SELECT ROWNUM AS RNUM, A.* FROM ( 
@@ -60,6 +96,17 @@
 							ORDER BY b.board_date desc
 			    ) A WHERE ROWNUM <= #{cri.pageNum} * #{cri.amount} 
 			) WHERE RNUM > (#{cri.pageNum}-1) * #{cri.amount}
+		]]>
+	</select>
+	
+	<select id="reviewMyList" resultType="edu.bit.ex.joinvo.PrdctOrderDetailBoardVO">
+		<![CDATA[
+			SELECT p.order_number, p.order_price, p.order_date, d.order_color, d.order_size, d.prdct_name, d.order_amount
+			FROM prdct_order p, order_detail d, board_type b
+			WHERE p.mbr_id = #{member_id} AND
+			p.order_number = d.order_number AND
+            b.board_type_number = 3
+			ORDER BY p.order_date DESC
 		]]>
 	</select>
 	
@@ -79,7 +126,7 @@
 	
 	<select id="reviewContent" resultType="edu.bit.ex.vo.BoardVO">
 		<![CDATA[
-			select * from board, prdct_order where prdct_order.mbr_id = board.mbr_id and board.board_type_number = 3 and board.order_number = prdct_order.order_number 
+			select  * from board where board_type_number = 3 and mbr_id = #{member_id}
 		]]>
 	</select>
 	
@@ -145,7 +192,7 @@
 	]]>
 	</select>
 	
-	<!-- 고객 QnA 상세페이지 관리자가 작성한 댓글 리스트 받아오기 -->
+	<!-- 고객 QnA 상세페이지 판매자가 작성한 댓글 리스트 받아오기 -->
 	<select id="getMyqComment" resultType="edu.bit.ex.vo.BoardCommentVO">
 	<![CDATA[
 		SELECT * FROM board_comment WHERE board_id = #{board_id}

@@ -139,7 +139,6 @@
 											<option value="" <c:out value="${pageMaker.cri.type == null?'selected' : '' }" />>---</option>
 											<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ?'selected' : '' }" />>제목</option>
 											<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ?'selected' : '' }" />>NO.</option>
-											<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ?'selected' : '' }" />>작성자</option>
 										</select>
 									</span>&nbsp;&nbsp;
 									<span>

@@ -416,6 +416,12 @@ public class MemberController {
 		// 인증된 회원 정보 받아오기
 		String member_id = memberDetails.getUserID();
 		mav.addObject("mbr", securityService.getMbr(member_id));
+
+		// 내가 쓴 리뷰 불러오기
+		mav.addObject("reviewMyList", memberService.getReviewMyList(member_id));
+		// 내가 쓴 리뷰 내용불러오기
+		mav.addObject("reviewContent", memberService.reviewContent(member_id));
+
 		// 작성한 상품 리뷰 리스트 받아오기
 		mav.addObject("prdct_myr_list", memberService.getMyReviewList(cri, member_id));
 		// 작성한 상품 리뷰 응답여부 받아오기

@@ -231,14 +231,35 @@ p.title {
 					<table id="report" class="table">
 						<thead>
 							<tr>
-								<th><h5>문의유형</h5></th>
+								<th>상품명</th>
+								<th>옵션</th>
+								<th>구매 / 구매확정일</th>
+								<!-- <th><h5>문의유형</h5></th>
 								<th><h5>별점</h5></th>
 								<th><h5>작성일자</h5></th>
-								<th><h5>답변확인</h5></th>
+								<th><h5>답변확인</h5></th> --> 
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${prdct_myr_list}" var="list">
+							<c:forEach items="${reviewMyList}" var="list" varStatus="status">
+								<tr>
+									<td>${list.prdct_name}</td>
+									<td>
+										${list.order_color}/
+										${list.order_size}/
+										${list.order_amount}/
+										${list.order_price}
+									</td>
+									<td>${list.order_date}</td>
+								</tr>
+								<tr style="text-align: center;">
+									<td colspan="3">
+									<h5>후기</h5>
+										${reviewContent[status.index].board_content}
+									</td>
+								</tr>
+							</c:forEach>	
+							<%-- <c:forEach items="${prdct_myr_list}" var="list">
 							<tr>
 								<td>
 									<c:choose>
@@ -281,8 +302,7 @@ p.title {
 									<div class="col-md-12" align="right">${list.comment_date}</div>
 									</div>
 								</td>
-							</tr>
-							</c:forEach>
+							</tr> --%>
 						</tbody>
 					</table>
 					<!-- 페이징 -->
@@ -331,7 +351,7 @@ p.title {
 		<script src="/assets/js/vendor/loopcounter.js"></script>
 		<script src="/assets/js/vendor/slicknav.min.js"></script>
 		<script src="/assets/js/active.js"></script>
-		
+
 		<script>
     $(document).ready(function(){
 
@@ -348,6 +368,7 @@ p.title {
 
     });
 
-</script>
+    </script>
+
 </body>
 </html>

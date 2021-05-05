@@ -8,6 +8,7 @@ import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.BoardPrdctPrdctLikeVO;
 import edu.bit.ex.joinvo.InquiryBoardVO;
 import edu.bit.ex.joinvo.PrdctOrdctDetailPrdctOrderVO;
+import edu.bit.ex.joinvo.PrdctOrderDetailBoardVO;
 import edu.bit.ex.joinvo.PrdctPrdctViewVO;
 import edu.bit.ex.page.MemberOrderCriteria;
 import edu.bit.ex.page.MemberRecentlyCriteria;
@@ -53,6 +54,8 @@ public interface MemberMapper {
 	public void rivewWrite(BoardVO boardVO);
 
 	// 리뷰 마이페이지 리스트
+	public List<PrdctOrderDetailBoardVO> reviewMyList(String member_id);
+
 	public List<BoardBoardCommentVO> getMyReviewList(PrdReviewCriteria cri, String mbr_id);
 
 	// 작성한 응답여부 받아오기
@@ -109,5 +112,8 @@ public interface MemberMapper {
 
 	// 마이 페이지 주문확인
 	public void orderStateUpdate(PrdctOrderVO prdctOrderVO);
+
+	// 리뷰 내용 불러오기
+	public List<BoardVO> reviewContent(String member_id);
 
 }

@@ -341,9 +341,8 @@ public class SellerController {
 	}
 
 	// 주문 상태 수정 ajax
-	@Transactional
 	@PutMapping(value = "/mypage/order/{prdct_id}/{order_number}/modify")
-	public ResponseEntity<String> stateUpdate(@RequestBody PrdctOrderDetailVO povo) {
+	public ResponseEntity<String> stateUpdate(PrdctOrderDetailVO povo) {
 		ResponseEntity<String> entity = null;
 
 		log.info("stateUpdate..");
