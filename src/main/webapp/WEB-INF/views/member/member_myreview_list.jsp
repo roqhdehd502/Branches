@@ -207,7 +207,7 @@ p.title {
 						</h5>
 					</div>
 					<div class="single-info" style="margin-bottom: 40px">
-						<h3>내가 쓴 리뷰보기</h3>
+						<h3>내가 쓴 글보기</h3>
 						<hr>
 						<h5>
 							<a href="${pageContext.request.contextPath}/member/mypage/review/list">구매후기</a>
