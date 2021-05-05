@@ -14,6 +14,7 @@ import edu.bit.ex.page.MemberOrderCriteria;
 import edu.bit.ex.page.MemberRecentlyCriteria;
 import edu.bit.ex.page.MyqnaCriteria;
 import edu.bit.ex.page.PrdQnACriteria;
+import edu.bit.ex.page.PrdReviewCriteria;
 import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.InquiryVO;
@@ -32,7 +33,6 @@ public interface MemberMapper {
 	public void prdctQnaWrite(BoardVO boardVO);
 
 	// 상품 QnA 마이페이지 리스트
-	/* public List<BoardVO> prdctqMyList(String mbr_id); */
 	public List<BoardBoardCommentVO> getPrdctqMyListWithPaging(PrdQnACriteria cri, String mbr_id);
 
 	// 페이징 단위에 적용되는 최대 상품 Q&A 게시글 단위
@@ -56,8 +56,15 @@ public interface MemberMapper {
 	// 리뷰 마이페이지 리스트
 	public List<PrdctOrderDetailBoardVO> reviewMyList(String member_id);
 
+	public List<BoardBoardCommentVO> getMyReviewList(PrdReviewCriteria cri, String mbr_id);
+
+	// 작성한 응답여부 받아오기
+	public BoardBoardCommentVO getPrdctrCmntStat(int board_id);
+
+	// 페이징 단위에 적용되는 최대 게시글 단위
+	public int getReviewTotal(PrdReviewCriteria cri);
+
 	// 작성한 고객 Q&A 리스트 받아오기
-	// public List<BoardVO> getMyqList(String mbr_id);
 	public List<BoardVO> getMyqListWithPaging(MyqnaCriteria cri, String mbr_id, int board_id);
 
 	// 페이징 단위에 적용되는 최대 고객 Q&A 게시글 단위
@@ -106,5 +113,7 @@ public interface MemberMapper {
 	// 마이 페이지 주문확인
 	public void orderStateUpdate(PrdctOrderVO prdctOrderVO);
 
+	// 리뷰 내용 불러오기
 	public List<BoardVO> reviewContent(String member_id);
+
 }
