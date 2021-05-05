@@ -1,6 +1,7 @@
 package edu.bit.ex.vo;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -45,6 +46,8 @@ public class BoardVO { // 게시판
 	private int board_hit; // 게시글조회수
 	private int board_starrate; // 게시글별점수
 	private String board_thumbnail; // 게시글썸네일
+
+	private List<BoardCommentVO> boardCommentVO;
 
 	private double staravg; // 리뷰 게시글 별점 평균
 	private int rcount; // 리뷰 평균을 위한 게시글 카운트

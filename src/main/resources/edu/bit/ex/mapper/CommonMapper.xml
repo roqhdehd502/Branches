@@ -71,6 +71,30 @@
 		]]>
 	</select>
 	
+	<resultMap id="prdctqna" type="edu.bit.ex.vo.BoardVO">
+		<result property="board_id" column="board_id" />
+		<result property="board_name" column="board_name" />
+		<result property="board_content" column="board_content" />
+		<result property="mbr_id" column="mbr_id" />
+		<result property="board_type_number" column="board_type_number" />
+		<result property="inquiry_number" column="inquiry_number" />
+		<result property="board_date" column="board_date" />
+		<result property="prdct_id" column="prdct_id" />
+		<result property="order_number" column="order_number" />
+		<result property="board_like" column="board_like" />
+		<result property="board_hit" column="board_hit" />
+		<result property="board_starrate" column="board_starrate" />
+		<result property="board_thumbnail" column="board_thumbnail" />
+		<collection property="boardCommentVO" resultMap="commentMap"></collection>
+	</resultMap>
+	
+	<resultMap id="commentMap" type="edu.bit.ex.vo.BoardCommentVO">
+		<result property="comment_id" column="comment_id" />
+		<result property="board_id" column="board_id" />
+		<result property="mbr_id" column="mbr_id" />
+		<result property="comment_content" column="comment_content" />
+		<result property="comment_date" column="comment_date" />
+	</resultMap>
 	
 	<!-- 페이징을 적용한 상품 Q&A 게시판 리스트 -->
 	<!-- <select id="getPrdQnAListWithPaging" resultType="edu.bit.ex.joinvo.BoardBoardCommentVO">
@@ -91,14 +115,13 @@
 			SELECT * FROM (
 			     SELECT ROWNUM AS RNUM, A.* FROM ( 
 			        		SELECT b.board_id, b.prdct_id, b.board_name, b.board_content, b.board_date,
-			        		 b.mbr_id, c.comment_id, c.comment_content, c.comment_date, m.mbr_nickname 
-							FROM board_comment c, mbr m, board b 
-							WHERE b.mbr_id = m.mbr_id AND 
-							c.board_id = b.board_id AND
-						    b.board_type_number=4
-							ORDER BY c.comment_id DESC, c.comment_date DESC, b.board_date desc
-			    )  A WHERE ROWNUM <= #{cri.pageNum} * #{cri.amount} 
-			) WHERE RNUM > (#{cri.pageNum}-1) * #{cri.amount} and prdct_id = #{p_id} 
+			        		 b.mbr_id, m.mbr_nickname 
+							FROM mbr m, board b 
+							WHERE b.mbr_id = m.mbr_id AND
+						    b.board_type_number=4 and prdct_id =#{p_id}
+							ORDER BY b.board_date desc
+			    ) A WHERE ROWNUM <= #{cri.pageNum} * #{cri.amount} 
+			) WHERE RNUM > (#{cri.pageNum}-1) * #{cri.amount}
 		]]>
 	</select>
 	
