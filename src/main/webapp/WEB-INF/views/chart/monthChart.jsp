@@ -14,7 +14,7 @@
       function drawChart() {
     	  var data = new google.visualization.DataTable();
           data.addColumn('number', 'Month');
-          data.addColumn('number', 'Sales');
+          data.addColumn('number', '판매량');
           data.addRows([ 
         	  [{v: 0, f:'Jan'}, 2000],
               [{v: 1, f:'Feb'}, 4170],
@@ -23,7 +23,7 @@
           
       ]);
         var options = {
-          title: '월간매출',
+          title: '${mbr.mbr_id} 월간매출',
           width: 900,
           height: 500,
           hAxis: {

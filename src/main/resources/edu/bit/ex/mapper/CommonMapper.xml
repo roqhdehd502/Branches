@@ -92,8 +92,8 @@
 							c.board_id = b.board_id AND
 						    b.board_type_number=4
 							ORDER BY c.comment_id DESC, c.comment_date DESC, b.board_date desc
-			    ) A WHERE ROWNUM <= 1 * 10 
-			) WHERE RNUM > (1-1) * 10 and prdct_id =#{p_id}
+			    )  A WHERE ROWNUM <= #{cri.pageNum} * #{cri.amount} 
+			) WHERE RNUM > (#{cri.pageNum}-1) * #{cri.amount} and prdct_id = #{p_id} 
 		]]>
 	</select>
 	

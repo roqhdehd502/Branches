@@ -61,7 +61,7 @@
 					<a href="${pageContext.request.contextPath}/member/mypage/myinfo">정보수정</a>
 				</div>
 				<div class="col-md-6 contact-info"></div>
-				<div class="col-md-2 contact-info" align="center" style="padding-right: 10px">
+				<div class="col-md-2 contact-info" align="center" style="position: relative; bottom: 10px; right: 10px;">
 					<h2>Point</h2>
 					<h3>${mbr.mbr_point}</h3>
 				</div>
