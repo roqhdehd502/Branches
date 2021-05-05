@@ -22,29 +22,72 @@
 <link rel="stylesheet" href="/bootstrap.min.css">
 <script src="/ckeditor/ckeditor.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- 스윗트래커 배송 API -->
+	<script>
+	$(document).ready(function(){
+	    var myKey = "l4kAPimzQ1FmXl30k0ojbg"; // sweet tracker에서 발급받은 자신의 키 넣는다.
+	        // 택배사 목록 조회 company-api
+	        $.ajax({
+	            type:"GET",
+	            dataType : "json",
+	            url:"http://info.sweettracker.co.kr/api/v1/companylist?t_key="+myKey,
+	            success:function(data){     
+	                    // 방법 1. JSON.parse 이용하기
+	                    var parseData = JSON.parse(JSON.stringify(data));
+	                     console.log(parseData.Company); // 그중 Json Array에 접근하기 위해 Array명 Company 입력
+	                    
+	                    // 방법 2. Json으로 가져온 데이터에 Array로 바로 접근하기
+	                    var CompanyArray = data.Company; // Json Array에 접근하기 위해 Array명 Company 입력
+	                    console.log(CompanyArray); 
+	                    
+	                    var myData="";
+	                    $.each(CompanyArray,function(key,value) {
+	                            myData += ('<option value='+value.Code+'>' +'key:'+key+', Code:'+value.Code+',Name:'+value.Name + '</option>');                        
+	                    });
+	                    $("#t_key").html(myData);
+	            }
+	        });
+	        
+	});
+	</script>
 
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#stateUpdate").submit(function(event){
+		
 		event.preventDefault();
+		
+		var formData = new FormData();
 		
 		var order_number = $("#order_number").val();
 		var order_state_number = $("#order_state_number").val();
 		var order_color = $("#order_color").val();
 		var order_size = $("#order_size").val();
-
+		var t_key = $("#t_key").val();
+		var t_invoice = $("#t_invoice").val();
+		
+		// csrf
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader(header, token);
+		});
+		
 		console.log(order_number);
         console.log(order_state_number);
         console.log(order_color);
         console.log(order_size);
+        console.log(t_key);
+        console.log(t_invoice);
         
-        var form = {
-        		order_state_number: order_state_number,
-        		order_number: order_number,
-        		order_color: order_color,
-        		order_size: order_size
-       	 };
-        console.log(form);
+        formData.append("order_number", order_number);
+        formData.append("order_state_number", order_state_number);
+        formData.append("order_color", order_color);
+        formData.append("order_size", order_size);
+        formData.append("t_key", t_key);
+        formData.append("t_invoice", t_invoice);
+        
+        console.log("formData: " + formData);
 
 	    //dataType: 'json',
         $.ajax({
@@ -52,10 +95,12 @@ $(document).ready(function(){
 		    url : $(this).attr("action"),
 		    cache : false,
 		    contentType:'application/json; charset=utf-8',
-			data: JSON.stringify(form),
-			  beforeSend : function(xhr) {
-				  xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
-	       		}, 
+		    processData: false, 
+        	contentType: false, 
+        	data: formData,
+			beforeSend : function(xhr) {
+			xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+	       	}, 
 		    success: function (result) {       
 				if(result == "SUCCESS"){
 					if (confirm("정말 수정하시겠습니까??") == true) { //확인
@@ -231,13 +276,13 @@ $(document).ready(function(){
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">택배키</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" name="t_key" id="t_key" value="${info.t_key }" disabled="disabled">
+									<select class="form-control" name="t_key" id="t_key" disabled="disabled" ></select>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">운송장번호</label>
 								<div class="col-sm-10">
-									<input type="number" class="form-control" name="t_invoice" id="t_invoice" value="${info.t_invoice }" disabled="disabled">
+									<input type="text" class="form-control" name="t_invoice" id="t_invoice" value="" disabled="disabled">
 								</div>
 							</div>
 							<input class="btn btn-primary btn-sm" type='button' value='활성화' onclick='shippingActive()' />

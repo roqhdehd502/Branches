@@ -8,6 +8,7 @@ import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.BoardPrdctPrdctLikeVO;
 import edu.bit.ex.joinvo.InquiryBoardVO;
 import edu.bit.ex.joinvo.PrdctOrdctDetailPrdctOrderVO;
+import edu.bit.ex.joinvo.PrdctOrderDetailBoardVO;
 import edu.bit.ex.joinvo.PrdctPrdctViewVO;
 import edu.bit.ex.mapper.MemberMapper;
 import edu.bit.ex.page.MemberOrderCriteria;
@@ -101,7 +102,7 @@ public class MemberServiceImpl implements MemberService {
 
 	// 리뷰 마이페이지 리스트
 	@Override
-	public List<PrdctOrderVO> getReviewMyList(String member_id) {
+	public List<PrdctOrderDetailBoardVO> getReviewMyList(String member_id) {
 		log.info("getReviewMyList()......");
 		return memberMapper.reviewMyList(member_id);
 	}
@@ -221,5 +222,11 @@ public class MemberServiceImpl implements MemberService {
 	public void orderStateUpdate(PrdctOrderVO prdctOrderVO) {
 		log.info("orderStateUpdate");
 		memberMapper.orderStateUpdate(prdctOrderVO);
+	}
+
+	@Override
+	public List<BoardVO> reviewContent(String member_id) {
+		log.info("reviewContent");
+		return memberMapper.reviewContent(member_id);
 	}
 }

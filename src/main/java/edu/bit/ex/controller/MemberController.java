@@ -412,6 +412,7 @@ public class MemberController {
 		mav.setViewName("member/member_myreview_list");
 		mav.addObject("mbr", securityService.getMbr(member_id));
 		mav.addObject("reviewMyList", memberService.getReviewMyList(member_id));
+		mav.addObject("reviewContent", memberService.reviewContent(member_id));
 
 		return mav;
 	}

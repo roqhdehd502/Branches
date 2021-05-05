@@ -6,6 +6,7 @@ import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.BoardPrdctPrdctLikeVO;
 import edu.bit.ex.joinvo.InquiryBoardVO;
 import edu.bit.ex.joinvo.PrdctOrdctDetailPrdctOrderVO;
+import edu.bit.ex.joinvo.PrdctOrderDetailBoardVO;
 import edu.bit.ex.joinvo.PrdctPrdctViewVO;
 import edu.bit.ex.page.MemberOrderCriteria;
 import edu.bit.ex.page.MemberRecentlyCriteria;
@@ -50,7 +51,7 @@ public interface MemberService {
 	public void setReviewWrite(BoardVO boardVO);
 
 	// 리뷰 마이페이지 리스트
-	public List<PrdctOrderVO> getReviewMyList(String member_id);
+	public List<PrdctOrderDetailBoardVO> getReviewMyList(String member_id);
 
 	// 페이징을 적용한 작성한 고객 Q&A 리스트 받아오기
 	public List<BoardVO> getMyqList(MyqnaCriteria cri, String mbr_id, int board_id);
@@ -100,4 +101,6 @@ public interface MemberService {
 
 	// 마이 페이지 주문확인
 	public void orderStateUpdate(PrdctOrderVO prdctOrderVO);
+
+	public List<BoardVO> reviewContent(String member_id);
 }

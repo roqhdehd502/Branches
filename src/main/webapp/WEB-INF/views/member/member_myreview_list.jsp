@@ -119,30 +119,34 @@
 					</h3>
 					<hr>
 
-					<table class="n-table table-col">
-						<colgroup>
-							<col style="width: *">
-							<col style="width: 20%">
-							<col style="width: 20%">
-						</colgroup>
+					<table id="report" class="table">
 						<thead>
-							<tr style="text-align: center;">
-								<th scope="col">상품정보</th>
-								<th scope="col">구매 / 구매확정일</th>
-								<th scope="col">후기</th>
+							<tr>
+								<th>상품명</th>
+								<th>옵션</th>
+								<th>구매 / 구매확정일</th>
 							</tr>
 						</thead>
 
 						<tbody>
-
-							<tr>
-								<c:forEach items="${reviewMyList}" var="list">
-									<td>${list.orderDetailVO.prdct_id}/${list.orderDetailVO.order_color}/${list.orderDetailVO.order_size}</td>
+							<c:forEach items="${reviewMyList}" var="list" varStatus="status">
+								<tr>
+									<td>${list.prdct_name}</td>
+									<td>
+										${list.order_color}/
+										${list.order_size}/
+										${list.order_amount}/
+										${list.order_price}
+									</td>
 									<td>${list.order_date}</td>
-									<td>${list.boardVO.board_content}</td>
-								</c:forEach>
-							</tr>
-
+								</tr>
+								<tr style="text-align: center;">
+									<td colspan="3">
+									<h5>후기</h5>
+										${reviewContent[status.index].board_content}
+									</td>
+								</tr>
+							</c:forEach>
 						</tbody>
 
 					</table>
@@ -167,5 +171,21 @@
 		<script src="/assets/js/vendor/loopcounter.js"></script>
 		<script src="/assets/js/vendor/slicknav.min.js"></script>
 		<script src="/assets/js/active.js"></script>
+		<script>
+    $(document).ready(function(){
+
+        $("#report tr:odd").addClass("odd");
+        $("#report tr:not(.odd)").hide(); 
+        $("#report tr:first-child").show(); //열머리글 보여주기
+
+        $("#report tr.odd").click(function(){
+            $(this).next("tr").toggle();
+            $(this).find(".arrow").toggleClass("up");
+
+        });
+       
+
+    });
+    </script>
 </body>
 </html>
