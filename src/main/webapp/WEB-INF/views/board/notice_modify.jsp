@@ -156,11 +156,10 @@
 						</div>
 						<div class="col-md-10 contact-info">
 							<textarea class="form-control" cols="50%" rows="10" id="board_content">${notice_modify.board_content}</textarea>
-							<script>
-								//id가 description인 태그에 ckeditor를 적용시킴
-								//CKEDITOR.replace("description"); //이미지 업로드 안됨				
+							<%-- CKEditor 적용 --%>
+							<script>			
 								CKEDITOR.replace("board_content", {
-									filebrowserUploadUrl : "${pageContext.request.contextPath}/admin/board/boardImageUpload.do"
+									filebrowserUploadUrl:'<c:url value="${pageContext.request.contextPath}/admin/board/boardImageUpload.do" />?${_csrf.parameterName}=${_csrf.token}'
 								});						
 							</script>
 						</div>
