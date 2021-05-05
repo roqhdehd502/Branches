@@ -94,8 +94,6 @@ public interface AdminMapper {
 
 	public Integer getDailySales(String year, String month, String day);
 
-	public Integer getMonthlySales(String year, String month);
-
-	public Integer getYearlySales(String year);
+	public Integer getMonthlySales(String year);
 
 }

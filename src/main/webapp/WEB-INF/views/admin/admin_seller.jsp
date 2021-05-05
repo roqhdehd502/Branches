@@ -128,37 +128,20 @@ $(document).ready(function(){
 			<div class="row">
 				<div class="col-md-3 contact-info" align="center">
 					<div class="single-info" style="margin-bottom: 40px;">
-						<h3>업체관리</h3>
-						<hr>
-						<h5>
-							<a href="${pageContext.request.contextPath}/admin/mypage/regist/seller">업체등록</a>
-						</h5>
-						<h5>
-							<a href="${pageContext.request.contextPath}/admin/mypage/seller">업체목록 조회</a>
-						</h5>
-					</div>
-					<br />
-					<div class="single-info" style="margin-bottom: 40px">
-						<h3>회원관리</h3>
-						<hr>
-						<h5>
-							<a href="${pageContext.request.contextPath}/admin/mypage/member">회원정보 조회</a>
-						</h5>
-						<h5>
-							<a href="${pageContext.request.contextPath}/admin/mypage/member/userQnA">고객Q&A 목록</a>
-						</h5>
-					</div>
-					<br />
-					<div class="single-info" style="margin-bottom: 40px">
-						<h3>매출관리</h3>
-						<hr>
-						<h5>
-							<a href="${pageContext.request.contextPath}/admin/mypage/admintotal">매출조회</a>
-						</h5>
-						<h5>
-							<a href="${pageContext.request.contextPath}/admin/mypage/adminSearchtotal">검색순위 조회</a>
-						</h5>
-					</div>
+	                    <h3>업체관리</h3><hr>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/regist/seller">업체등록</a></h5>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/seller">업체목록 조회</a></h5>
+	                </div><br/>
+	                <div class="single-info" style="margin-bottom: 40px">
+	                    <h3>회원관리</h3><hr>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/member">회원정보 조회</a></h5>
+	               		 <h5><a href="${pageContext.request.contextPath}/admin/mypage/member/userQnA">고객Q&A 목록</a></h5>
+	                </div><br/>
+	                <div class="single-info" style="margin-bottom: 40px">
+	                    <h3>매출관리</h3><hr>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/admintotal">매출조회</a></h5>
+	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/adminSearchtotal">검색순위 조회</a></h5>
+	                </div>
 				</div>
 
 				<div class="col-md-9 contact-info">
@@ -185,7 +168,7 @@ $(document).ready(function(){
 							<div class="form-group row">
 								<label for="staticEmail" class="col-sm-2 col-form-label">PW</label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" value="${mbr.mbr_pw }" id="mbr_pw" required="required" onchange="isSame()">
+									<input type="text" class="form-control" id="mbr_pw" required="required" onchange="isSame()">
 								</div>
 							</div>
 							<div class="form-group row">

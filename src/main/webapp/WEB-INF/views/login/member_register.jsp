@@ -41,8 +41,8 @@
 					<div class="form-group row">
 						<label class="col-sm-3 col-form-label">ID</label>
 						<div class="col-sm-9">
-							<span id="idMsg" style="display: none;"></span> <input type="text" class="form-control" id="mbr_id" name="mbr_id" maxlength="20"
-								placeholder="영문 + 숫자 조합 5~11자" required="required">
+							<span id="idMsg" style="display: none;"></span> 
+							<input type="text" class="form-control" id="mbr_id" name="mbr_id" maxlength="20" placeholder="영문 + 숫자 조합 5~11자" required="required">
 							<button type="button" class="btn btn-primary btn-sm" id="idChk" onclick="idCheck()">중복체크</button>
 							<script type="text/javascript">
 										function idCheck() {

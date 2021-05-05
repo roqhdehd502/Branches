@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/bootstrap.min.css"> 
 </head>
+
 <body>
 	<div style="overflow: hidden;" class="container">
 		<header style="padding-top: 0px;">

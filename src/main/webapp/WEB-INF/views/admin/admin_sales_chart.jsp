@@ -26,82 +26,48 @@
 <meta name="_csrf" content="${_csrf.token}"/>
 <meta name="_csrf_header" content="${_csrf.headerName}"/>
 
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@700;800&display=swap" rel="stylesheet">
+
+<!-- google charts -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-
-	function getLast(year, month) {
-		month -=1;
-		return 32 - new Date(year, month, 32).getDate();
-	}
-	
-	var mlabels =[];
-   	var monthData =[]; 
-	
-   	<c:forEach var="i" begin="1" end="12">
-		mlabels.push("${i}" + "월");
-		monthData.push("${monthSale[i]}");
-	</c:forEach>
-	console.log("length of malabel : " + mlabels);
-	google.charts.load('current', {
-    'packages': ['corechart']
-  });
-  google.charts.setOnLoadCallback(drawChartDay);
-  google.charts.setOnLoadCallback(drawChartMonth);
-  google.charts.setOnLoadCallback(drawChartYear);
-
-  function drawChartMonth() {
-
-	  var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Month');
-      data.addColumn('number', 'Sales');
-      data.addRows([ 
-    	 for(int i = 0; i < mlabels.length; i++) {
-    		 [mlabels[i], monthData[i]]
-    	 }
-    	 /* for(int j = 13-mlabels.length; j > mlabels.length; j--) {
-    		 [][]
-    	 } */
-    	 
-  		]);
-
-    var options = {
-      title: '월간매출',
-      width: 900,
-      height: 500,
-      hAxis: {
-        format: 'M/d',
-        gridlines: {
-          count: 15
-        },
-        ticks: [{v: 0, f:'Jan'},{v: 1, f:'Feb'},{v: 2, f:'Mar'},{v: 3, f:'Apr'}
-        ,{v: 4, f:'May'},{v: 5, f:'Jun'},{v: 6, f:'Jul'},{v: 7, f:'Aug'},{v: 8, f:'Sep'}
-        ,{v: 9, f:'Oct'},{v: 10, f:'Nov'},{v: 11, f:'Dec'}], 
-      },
-      vAxis: {
-        gridlines: {
-          color: 'none'
-        },
-        minValue: 0
-      }
-    };
-
-    var chart = new google.visualization.LineChart(document.getElementById('chart_div3'));
-
-    chart.draw(data, options);
-
-    var button = document.getElementById('change');
-
-    button.onclick = function() {
-
-      // If the format option matches, change it to the new option,
-      // if not, reset it to the original format.
-      options.hAxis.format === 'M/d/yy' ?
-        options.hAxis.format = 'MMM dd, yyyy' :
-        options.hAxis.format = 'M/d/yy';
-
-      chart.draw(data, options);
-    };
-  }
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
+	$(document).ready(function() {
+		
+		//var ctx = $("#chart-daily-sales");
+		var labels = [];
+		var daySales = ${dailySales};
+		var lastDay = getLastDay(${year}, ${month});
+		
+		google.load('visualization', '1.1', {packages: ['line']});
+		google.setOnLoadCallback(dailyChart);
+		
+		function dailyChart() {
+			var data = new google.visualization.DataTable();
+			
+			data.addColumn('number', '날짜');
+			data.addColumn('number', '매출액');
+			
+			for(var i = 0; i <= lastDay +1; i++) {
+				data.addRow([i+1, daySales[i]]);
+				console.log(data);
+			}
+			console.log(data);
+			var option = {
+					colors: ['navy']
+			};
+			
+			var chart = new google.charts.Line(document.getElementById('chart-daily-sales'));
+			chart.draw(data, option);
+		}
+		
+		function getLastDay(year, month) {
+			month -= 1;
+			return 32 - new Date(year, month, 32).getDate();
+		}
+		
+	});
 </script>
 
 </head>
@@ -128,39 +94,48 @@
 			<div class="row">
 				<div class="col-md-3 contact-info" align="center">
 					<div class="single-info" style="margin-bottom: 40px;">
-	                    <h3>업체관리</h3><hr>
-	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/regist/seller">업체등록</a></h5>
-	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/seller">업체목록 조회</a></h5>
-	                </div><br/>
-	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>회원관리</h3><hr>
-	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/member">회원정보 조회</a></h5>
-	               		 <h5><a href="${pageContext.request.contextPath}/admin/mypage/member/userQnA">고객Q&A 목록</a></h5>
-	                </div><br/>
-	                <div class="single-info" style="margin-bottom: 40px">
-	                    <h3>매출관리</h3><hr>
-	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/sales">매출조회</a></h5>
-	                    <h5><a href="${pageContext.request.contextPath}/admin/mypage/adminSearchtotal">검색순위 조회</a></h5>
-	                </div>
+						<h3>업체관리</h3>
+						<hr>
+						<h5>
+							<a href="${pageContext.request.contextPath}/admin/mypage/regist/seller">업체등록</a>
+						</h5>
+						<h5>
+							<a href="${pageContext.request.contextPath}/admin/mypage/seller">업체목록 조회</a>
+						</h5>
+					</div>
+					<br />
+					<div class="single-info" style="margin-bottom: 40px">
+						<h3>회원관리</h3>
+						<hr>
+						<h5>
+							<a href="${pageContext.request.contextPath}/admin/mypage/member">회원정보 조회</a>
+						</h5>
+						<h5>
+							<a href="${pageContext.request.contextPath}/admin/mypage/member/userQnA">고객Q&A 목록</a>
+						</h5>
+					</div>
+					<br />
+					<div class="single-info" style="margin-bottom: 40px">
+						<h3>매출관리</h3>
+						<hr>
+						<h5>
+							<a href="${pageContext.request.contextPath}/admin/mypage/sales">매출조회</a>
+						</h5>
+						<h5>
+							<a href="${pageContext.request.contextPath}/admin/mypage/adminSearchtotal">검색순위 조회</a>
+						</h5>
+					</div>
 				</div>
 
 				<div class="col-md-9 contact-info">
+
 					<div class="form-group row">
-						<label class="col-sm-2 col-form-label">일간(최근 7일)</label>
-						<div class="col-sm-10">
-							<canvas id="barDayChart"></canvas>
+						<div class="chart-container-1">
+							<canvas id="chart-daily-sales"></canvas>
+							<div id="chart-daily-sales"></div>
 						</div>
-					</div>
-					<div class="form-group row">
-						<label class="col-sm-2 col-form-label">월간</label>
-						<div class="col-sm-10">
-							<canvas id="barMonthChart"></canvas>
-						</div>
-					</div>
-					<div class="form-group row">
-						<label class="col-sm-2 col-form-label">연간</label>
-						<div class="col-sm-10">
-							<canvas id="barYearChart"></canvas>
+						<div class="chart-container-1">
+							<canvas id="chart-monthly-sales"></canvas>
 						</div>
 					</div>
 				</div>

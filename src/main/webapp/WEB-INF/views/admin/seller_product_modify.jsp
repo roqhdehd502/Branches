@@ -248,8 +248,7 @@ $(document).ready(function(){
 	                </div>
 				</div>
 					
-				<!-- 등록한 상품 리스트	 -->
-			<div class="col-md-10 contact-info" style="border-left: 1px solid rgba(0,0,0,.1) ;">
+			<div class="col-md-9 contact-info" style="border-left: 1px solid rgba(0,0,0,.1) ;">
 					<h3 >
 					<strong>상품 정보 수정</strong>
 					</h3><hr>
@@ -274,7 +273,7 @@ $(document).ready(function(){
 								<label class="col-sm-2 col-form-label">대표이미지(Thumbnail)</label>
 								<div class="col-sm-10">
 									<div class="custom-file" id="inputFile">
-										<img src="${prdct.prdct_thumbnail }" id="showImg" style="width: 150px; height: 200px;"></img>
+										<img src="/prdct_img/prdct_thumbnail/${prdct.prdct_thumbnail}" id="showImg" style="width: 150px; height: 200px;"></img>
 										<input type="file" id="prdct_thumbnail" name="prdct_thumbnail" accept="image/*" multiple="multiple">
 									</div>
 								</div>

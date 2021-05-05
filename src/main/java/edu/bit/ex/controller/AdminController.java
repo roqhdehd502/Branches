@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,6 +37,7 @@ import edu.bit.ex.page.PrdctListPageVO;
 import edu.bit.ex.page.UserQnACriteria;
 import edu.bit.ex.page.UserQnAPageVO;
 import edu.bit.ex.service.AdminService;
+import edu.bit.ex.service.SecurityService;
 import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.MbrVO;
 import lombok.AllArgsConstructor;
@@ -49,6 +51,9 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
+
+	@Autowired
+	private SecurityService securityService;
 
 	// 관리자 마이페이지...(admin)
 	@GetMapping("/mypage")
@@ -67,6 +72,19 @@ public class AdminController {
 		mav.setViewName("admin/seller_register");
 
 		return mav;
+	}
+
+	@GetMapping("/mypage/regist/seller/idCheck")
+	public ResponseEntity<String> idCheck(@RequestParam("id") String id) {
+		ResponseEntity<String> entity = null;
+
+		if (securityService.idChk(id)) {
+			entity = new ResponseEntity<String>("이미 존재하는 ID입니다", HttpStatus.OK);
+		} else {
+			entity = new ResponseEntity<String>("사용가능한 ID입니다", HttpStatus.OK);
+		}
+
+		return entity;
 	}
 
 	@PostMapping("/mypage/regist/seller")
@@ -338,9 +356,8 @@ public class AdminController {
 		mav.addObject("month", month);
 		mav.addObject("day", day);
 
-		mav.addObject("daySale", adminService.getDailySales(year, month));
-		mav.addObject("monthSale", adminService.getMonthlySales(year, month));
-		mav.addObject("yearSale", adminService.getYearlySales(year));
+		mav.addObject("dailySales", adminService.getDailySales(year, month));
+		mav.addObject("monthlySales", adminService.getMonthlySales(year));
 
 		return mav;
 	}

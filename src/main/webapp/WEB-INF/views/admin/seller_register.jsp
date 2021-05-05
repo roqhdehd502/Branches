@@ -18,6 +18,10 @@
 	<link rel="stylesheet" href="/assets/css/slicknav.css">
 	<link rel="stylesheet" href="/assets/css/main.css">
 	<link rel="stylesheet" href="/bootstrap.min.css">
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+	
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -81,10 +85,34 @@
 									<div class="col-sm-10">
 										<input type="text" class="form-control" id="mbr_id" name="mbr_id" placeholder="아이디를 입력해주세요">
 									</div>
-									<!-- 이부분은 추후 스크립트상에서 alert으로 알림띄울것 -->
 									<div class="col-sm-2">
-										<button type="button" class="btn btn-primary">중복체크</button>
-									</div>				
+										<button type="button" class="btn btn-primary" id="idChk" onclick="idCheck()">중복체크</button>
+										<script type="text/javascript">
+											function idCheck() {
+
+												var isID = /^[a-zA-Z0-9-_!]{5,16}$/;
+												var id = $("#mbr_id").val();
+
+												if (!isID.test(id)) {
+													alert("아이디 형식을 확인해주세요");
+													$("#mbr_id").focus();
+												} else {
+													$.ajax({
+														url : '/admin/mypage/regist/seller/idCheck',
+														type : 'GET',
+														data : {
+															'id' : $('#mbr_id').val()
+															},
+															dataType : 'html',
+															success : function(
+																	data) {
+																alert(data);
+															}
+														});
+												}
+											}
+										</script>
+									</div>
 								</div>
 							</div>
 							<div class="form-group row">
