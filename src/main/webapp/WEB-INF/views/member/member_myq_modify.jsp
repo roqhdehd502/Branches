@@ -53,7 +53,10 @@
 	             url : $(this).attr("action"),
 	             cache : false,
 	             contentType:'application/json; charset=utf-8',
-	             data: JSON.stringify(form),
+	             data: JSON.stringify(form), 
+	             beforeSend : function(xhr) {
+	  				xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+	        	 },
 	             success: function (result) {       
 	               if(result == "SUCCESS"){     
 	                  $(location).attr('href', '${pageContext.request.contextPath}/member/mypage/myqna/list')                            
@@ -121,6 +124,7 @@
 					<hr>
 					<!-- 작성 폼 -->
 					<form id="updateForm" action="${pageContext.request.contextPath}/member/mypage/myqna/modify/${iBoard.board_id}" method="post">
+						<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 						<fieldset>
 							<input type="hidden" id="mbr_id" value="${mbr.mbr_id}"> <input type="hidden" id="board_id" value="${iBoard.board_id}">
 							<div class="form-group row">

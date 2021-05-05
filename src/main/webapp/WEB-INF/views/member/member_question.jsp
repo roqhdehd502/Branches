@@ -50,7 +50,10 @@
              url : $(this).attr("action"),
              cache : false,
              contentType:'application/json; charset=utf-8',
-             data: JSON.stringify(form),
+             data: JSON.stringify(form), 
+             beforeSend : function(xhr) {
+ 				xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+       		 },
              success: function (result) {       
                if(result == "SUCCESS"){     
                   $(location).attr('href', '${pageContext.request.contextPath}/member/mypage/myqna/list')                            
@@ -88,6 +91,7 @@
 					<hr>
 					<!-- 작성 폼 -->
 					<form id="writeForm" method="post" action="${pageContext.request.contextPath}/member/mypage/myqna/write">
+						<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 						<fieldset>
 							<input type="hidden" id="mbr_id" value="${mbr.mbr_id}">
 							<div class="form-group row">
