@@ -168,7 +168,7 @@ $(document).ready(function(){
 									// trObj 변수를 삭제한다.(게시글 삭제)
 									$(deObj).remove();
 									console.log("REMOVED!")
-									$(location).attr('href', '${pageContext.request.contextPath}/seller/mypage/prdct')
+									$(location).attr('href', '${pageContext.request.contextPath}/seller/mypage/prdct?${_csrf.parameterName}=${_csrf.token}')
 								} else { //취소
 									return;
 								}
@@ -347,7 +347,7 @@ $(document).ready(function(){
 										//CKEDITOR.replace("description"); //이미지 업로드 안됨
 										
 										var editor2 = CKEDITOR.replace("board_content", {
-											filebrowserUploadUrl : "${pageContext.request.contextPath}/seller/imageUpload.do",
+											filebrowserUploadUrl : "${pageContext.request.contextPath}/seller/imageUpload.do?${_csrf.parameterName}=${_csrf.token}",
 											height : 500
 										});	
 										

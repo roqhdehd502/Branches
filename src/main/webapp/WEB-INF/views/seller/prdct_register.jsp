@@ -186,7 +186,7 @@
 										//CKEDITOR.replace("description"); //이미지 업로드 안됨
 										
 										CKEDITOR.replace("board_content", {
-											filebrowserUploadUrl : "${pageContext.request.contextPath}/seller/imageUpload.do"
+											filebrowserUploadUrl : "${pageContext.request.contextPath}/seller/imageUpload.do?${_csrf.parameterName}=${_csrf.token}"
 										});
 										
 									</script>

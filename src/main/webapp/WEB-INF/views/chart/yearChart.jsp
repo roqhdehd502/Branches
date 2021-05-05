@@ -25,7 +25,7 @@
 
 
         var options = {
-          title: '연간매출',
+          title: '${mbr.mbr_id} 연간매출',
           width: 900,
           height: 500,
           hAxis: {
