@@ -24,6 +24,10 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 
+<!-- csrf meta tag -->
+<meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
+
 <script type="text/javascript">
 $(document).ready(function(){
     
@@ -61,6 +65,8 @@ $(document).ready(function(){
 		    cache : false,
 		    contentType:'application/json; charset=utf-8',
 			data: JSON.stringify(form), 
+			dataType: 'json',
+	        async: true,
 			beforeSend: function(xhr) {
 				xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
 			},
@@ -168,7 +174,7 @@ $(document).ready(function(){
 							<div class="form-group row">
 								<label for="staticEmail" class="col-sm-2 col-form-label">PW</label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="mbr_pw" required="required" onchange="isSame()">
+									<input type="password" class="form-control" id="mbr_pw" required="required" onchange="isSame()">
 								</div>
 							</div>
 							<div class="form-group row">

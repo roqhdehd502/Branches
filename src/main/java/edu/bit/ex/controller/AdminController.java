@@ -140,6 +140,26 @@ public class AdminController {
 		return mav;
 	}
 
+	// 관리자 회원정보수정 admin
+	@PutMapping(value = "/mypage/seller/{member_id}")
+	public ResponseEntity<String> admin_seller_update(@RequestBody MbrShippingVO mbrvo) {
+		ResponseEntity<String> entity = null;
+
+		log.info("rest_update..");
+		try {
+
+			adminService.sellerInfoUpdate(mbrvo);
+			log.info("update member info");
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
+
 	// 관리자 판매자 상품리스트 admin
 	@RequestMapping(value = "/mypage/seller/{seller_id}/prdct", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView admin_seller_prdctlist(@PathVariable("seller_id") String m_id, PrdctListCriteria cri, ModelAndView mav) {
