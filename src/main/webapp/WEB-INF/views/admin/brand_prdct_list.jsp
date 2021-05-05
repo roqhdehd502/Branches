@@ -42,10 +42,10 @@
 			<div class="container">
 				<div class="row" style="padding-top: 15px; padding-bottom: 15px; padding-left: 10px; padding-right: 10px;">
 					<c:forEach items="${prdct}" var="prdct">
-						<div class="col-sm-2 col-md-2 col-lg-2 single-team" style="height: 300px; width: 200px;" onclick="location.href='/admin/mypage/seller/${mbr.mbr_id}/prdct/${prdct.prdct_id}'">
+						<div class="col-sm-2 col-md-2 col-lg-2 single-team" style="height: 300px; width: 200px; margin-bottom: 25px;" onclick="location.href='/admin/mypage/seller/${mbr.mbr_id}/prdct/${prdct.prdct_id}'">
 							<div class="inner" style="height: 100%;">
 								<div class="team-img" style="overflow: inherit;">
-								<img src="${prdct.prdct_thumbnail }" style="width: 150px; height: 200px;"></img>
+								<img src="/prdct_img/prdct_thumbnail/${prdct.prdct_thumbnail}" style="width: 150px; height: 180px;"></img>
 								</div>
 								<div class="team-content">
 									<h4>${prdct.prdct_name}</h4>
