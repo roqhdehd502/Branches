@@ -30,7 +30,7 @@
 			
           
           var options = {
-            title: '오늘판매량',
+            title: '${mbr.mbr_id} 오늘판매량',
             fontSize : 15,
             height: 300,
             hAxis: {
