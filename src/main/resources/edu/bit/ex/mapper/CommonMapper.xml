@@ -8,9 +8,14 @@
 	<!-- 상품 리스트 -->
 	<select id="getProduct" resultType="edu.bit.ex.joinvo.PrdctRegisterImageVO">
 		<![CDATA[
-			SELECT * FROM prdct p, board b where b.board_type_number = 6 order by b.board_date asc
+			SELECT * FROM prdct
 		]]>
 	</select>
+	<!-- <select id="getProduct" resultType="edu.bit.ex.joinvo.PrdctRegisterImageVO">
+		<![CDATA[
+			SELECT * FROM prdct p, board b where b.board_type_number = 6 order by b.board_date asc
+		]]>
+	</select> -->
 	
 	<!-- 회원 리스트 -->
 	<select id="getMember" resultType="edu.bit.ex.vo.MbrVO">
