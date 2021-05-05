@@ -26,6 +26,9 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 
+<!-- csrf meta tag -->
+<meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
 	
 </head>
 <body>
@@ -37,6 +40,7 @@
 					<img src="<c:url value="/img/branches_text.png"/>" width="200">
 				</div>
 				<h2 align="center">ID PW 찾기</h2>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<br>
 				<div class="form-group row" >
 					<input type="text" class="form-control" id="id_name" name="id_name" placeholder="이름을 입력하세요"> <br /> <br /> 
@@ -48,6 +52,10 @@
 							var name = $("#id_name").val();
 							var contact = $("#id_contact").val();
 							
+							 // csrf
+							var token = $("meta[name='_csrf']").attr("content");
+							var header = $("meta[name='_csrf_header']").attr("content");
+							
 							if(name != "" || contact != "") {
 								$.ajax({
 									url : '/find_id',
@@ -56,6 +64,9 @@
 										name, contact
 									},
 									dataType : 'html',
+									beforeSend: function(xhr) {
+										xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+									},
 									success : function(data) {
 										alert(data);
 									}
@@ -79,6 +90,10 @@
 							var name = $("#pw_name").val();
 							var email = $("#pw_email").val();
 
+							 // csrf
+							var token = $("meta[name='_csrf']").attr("content");
+							var header = $("meta[name='_csrf_header']").attr("content");
+							
 							if(id != "" || name != "" || email != "") {
 								$.ajax({
 									url : '/find_pw',
@@ -87,7 +102,9 @@
 										id, name, email
 									},
 									dataType : 'html',
-									
+									beforeSend: function(xhr) {
+										xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+									},
 									success : function(data) {
 										
 										var result = data;

@@ -38,7 +38,7 @@
 				<br>
 
 				<form action="/join" method="post">
-				<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<div class="form-group row">
 						<label class="col-sm-3 col-form-label">ID</label>
 						<div class="col-sm-9">

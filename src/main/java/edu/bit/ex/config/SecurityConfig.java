@@ -66,7 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.usernameParameter("mbr_id") // 로그인시 username을 mbr_id로 받아옴
 				.passwordParameter("mbr_pw") // 로그인시 password를 mbr_pw 받아옴
 				// .authenticationDetailsSource(authenticationDetailsSource) // 추가 파라메터 설정작업시, 설정해주기
-				.defaultSuccessUrl("/").successHandler(customSuccessHandler) // 성공시 수행할 핸들러 로그인 전 페이지 반환
+				.defaultSuccessUrl("/main").successHandler(customSuccessHandler) // 성공시 수행할 핸들러 로그인 전 페이지 반환
 				.failureHandler(customFailureHandler) // 실패 핸들러 login page에 오류 메세지 반환
 				.and()// oauth2userservice 타입으로 받아ㄴ오기
 				.logout().logoutUrl("/logoutsuccess") // 로그아웃 처리
@@ -76,6 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and().exceptionHandling() // 권한 없을 경우 접근거부
 				.accessDeniedPage("/denied") //
 				.and().oauth2Login().loginPage("/login") // 소셜로그인 처리
+				.defaultSuccessUrl("/main").successHandler(customSuccessHandler) //
 				.userInfoEndpoint() //
 				.userService(principalOauth2UserService);
 
