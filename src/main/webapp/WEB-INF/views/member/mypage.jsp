@@ -21,6 +21,9 @@
 	<link rel="stylesheet" href="/assets/css/main.css">
 	<link rel="stylesheet" href="/bootstrap.min.css">
 	
+	<!-- AJAX 처리용 JQUERY -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>	
+	
 	<!-- 스윗트래커 배송 API -->
 	<script>
 	$(document).ready(function(){
@@ -251,9 +254,56 @@
 									<c:when test="${order.order_state_number eq 6}">
 										<h4>배송완료</h4>
 										<button type="button" class="btn btn-primary btn" data-toggle="modal" data-target="#mdal">배송조회</button>&nbsp;
-										<button type="button" class="btn btn-success btn" onclick="location.href='${pageContext.request.contextPath}/'">주문확정</button><br>
+										<button type="button" class="btn btn-success btn prdconfirm${order.order_number}" data-rno="${order.order_number}">주문확정</button><br>
 										<button type="button" class="btn btn-danger btn" onclick="location.href='${pageContext.request.contextPath}/'">교환요청</button>&nbsp;
 										<button type="button" class="btn btn-danger btn" onclick="location.href='${pageContext.request.contextPath}/'">환불요청</button>
+										<!-- 주문확정 버튼을 누르면 배송완료에서 주문확정 상태로 변한다 -->
+										<script type="text/javascript">
+											$(document).ready(function (){
+												$('.prdconfirm${order.order_number}').click(function(event){
+													event.preventDefault();
+															
+													if (confirm("주문확정 하시겠습니까?")) {
+														// FormData 객체 생성
+														var formData = new FormData();
+																
+														// button의 data-rno 값을 가져온다
+														var order_number = $(this).attr("data-rno");		
+														console.log("order_number: " + order_number);
+													     		
+												     	// formData에 해당 데이터를 append한다
+												     	var form = {
+												     		order_number: order_number
+													    };
+													    console.log("form: " + form);
+													 
+														$.ajax({
+															type : 'POST', 
+															url : $(this).attr("href"), 
+															cache : false, 
+															contentType:'application/json; charset=utf-8',
+													        processData: false, 
+													        data: JSON.stringify(form), 
+													        beforeSend : function(xhr) {
+																xhr.setRequestHeader("X-CSRF-Token", "${_csrf.token}");
+													        },
+															success: function(result) {
+																console.log(result);
+																console.log("PRDCT_STATE_CHANGED!");
+																$(location).attr('href', '${pageContext.request.contextPath}/member/mypage');
+															},
+															error:function(e) {		
+																console.log(e);
+																alert("주문확정 하실 수 없습니다");
+																location.reload();
+															}
+														})
+													} else {
+														location.reload();
+													}
+												});	
+											});	
+											</script>
 									</c:when>
 									<c:when test="${order.order_state_number eq 7}">
 										<h4>주문확정</h4>

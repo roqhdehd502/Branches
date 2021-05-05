@@ -38,11 +38,14 @@ import edu.bit.ex.page.MyqnaCriteria;
 import edu.bit.ex.page.MyqnaPageVO;
 import edu.bit.ex.page.PrdQnACriteria;
 import edu.bit.ex.page.PrdQnAPageVO;
+import edu.bit.ex.page.PrdReviewCriteria;
+import edu.bit.ex.page.PrdReviewPageVO;
 import edu.bit.ex.service.MemberService;
 import edu.bit.ex.service.SecurityService;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.InquiryVO;
 import edu.bit.ex.vo.MbrVO;
+import edu.bit.ex.vo.PrdctOrderVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -58,9 +61,9 @@ public class MemberController {
 
 	private MemberService memberService;
 
-	// CK 에디터 이미지 서버 전송 컨트롤러
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(MemberController.class);
 
+	// CK 에디터 이미지 서버 전송 컨트롤러
 	@GetMapping("/member")
 	public ModelAndView signUpForm(ModelAndView mav) {
 		mav.setViewName("login/login");
@@ -125,7 +128,7 @@ public class MemberController {
 		printWriter.flush();
 	}
 
-	// 페이징을 이용한 상품 Q&A 마이페이지 리스트 - 누르면 member_myprdctq 연결
+	// 페이징을 이용한 상품 Q&A 마이페이지 리스트
 	@GetMapping("/mypage/prdctq/list")
 	public ModelAndView prdctQnAList(@AuthenticationPrincipal MemberDetails memberDetails, PrdQnACriteria cri, BoardBoardCommentVO bCommentVO,
 			ModelAndView mav, InquiryBoardVO iBoardVO) throws Exception {
@@ -401,16 +404,34 @@ public class MemberController {
 		printWriter.flush();
 	}
 
-	// 상품 리뷰 마이페이지 리스트 -누르면 member_myreview 연결
+	// 상품 리뷰 마이페이지 리스트
 	@GetMapping("/mypage/review/list")
-	public ModelAndView reviewList(@AuthenticationPrincipal MemberDetails memberDetails, ModelAndView mav) throws Exception {
+	public ModelAndView reviewList(@AuthenticationPrincipal MemberDetails memberDetails, PrdReviewCriteria cri, BoardBoardCommentVO bCommentVO,
+			ModelAndView mav, InquiryBoardVO iBoardVO) throws Exception {
 		log.debug("reviewList");
 		log.info("reviewList..");
 
-		String member_id = memberDetails.getUserID();
 		mav.setViewName("member/member_myreview_list");
+
+		// 인증된 회원 정보 받아오기
+		String member_id = memberDetails.getUserID();
 		mav.addObject("mbr", securityService.getMbr(member_id));
+
+		// 내가 쓴 리뷰 불러오기
 		mav.addObject("reviewMyList", memberService.getReviewMyList(member_id));
+		// 내가 쓴 리뷰 내용불러오기
+		mav.addObject("reviewContent", memberService.reviewContent(member_id));
+
+		// 작성한 상품 리뷰 리스트 받아오기
+		mav.addObject("prdct_myr_list", memberService.getMyReviewList(cri, member_id));
+		// 작성한 상품 리뷰 응답여부 받아오기
+		mav.addObject("prdctr_cmnt_stat", memberService.getPrdctrCmntStat(bCommentVO.getBoard_id()));
+		// 답변한 댓글 불러오기
+		mav.addObject("comment", memberService.getMyqComment(iBoardVO.getBoard_id()));
+
+		int total = memberService.getReviewTotal(cri);
+		log.info("total" + total);
+		mav.addObject("pageMaker", new PrdReviewPageVO(cri, total));
 
 		return mav;
 	}
@@ -476,6 +497,38 @@ public class MemberController {
 		try {
 			memberService.memberInfoUpdate(mbrvo);
 			log.info("update member info");
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
+
+	// 마이 페이지 주문확인
+	@PostMapping("/mypage/order")
+	public ResponseEntity<String> orderStateUpdate(@RequestBody PrdctOrderVO prdctOrderVO) {
+		ResponseEntity<String> entity = null;
+		log.info("orderStateUpdate..");
+		try {
+			memberService.orderStateUpdate(prdctOrderVO);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
+
+	// 마이 페이지 홈 주문확인
+	@PostMapping("/mypage")
+	public ResponseEntity<String> myOrderStateUpdate(@RequestBody PrdctOrderVO prdctOrderVO) {
+		ResponseEntity<String> entity = null;
+		log.info("myOrderStateUpdate..");
+		try {
+			memberService.orderStateUpdate(prdctOrderVO);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

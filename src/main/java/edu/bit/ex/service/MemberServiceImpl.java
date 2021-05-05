@@ -8,12 +8,14 @@ import edu.bit.ex.joinvo.BoardBoardCommentVO;
 import edu.bit.ex.joinvo.BoardPrdctPrdctLikeVO;
 import edu.bit.ex.joinvo.InquiryBoardVO;
 import edu.bit.ex.joinvo.PrdctOrdctDetailPrdctOrderVO;
+import edu.bit.ex.joinvo.PrdctOrderDetailBoardVO;
 import edu.bit.ex.joinvo.PrdctPrdctViewVO;
 import edu.bit.ex.mapper.MemberMapper;
 import edu.bit.ex.page.MemberOrderCriteria;
 import edu.bit.ex.page.MemberRecentlyCriteria;
 import edu.bit.ex.page.MyqnaCriteria;
 import edu.bit.ex.page.PrdQnACriteria;
+import edu.bit.ex.page.PrdReviewCriteria;
 import edu.bit.ex.vo.BoardCommentVO;
 import edu.bit.ex.vo.BoardVO;
 import edu.bit.ex.vo.InquiryVO;
@@ -101,9 +103,28 @@ public class MemberServiceImpl implements MemberService {
 
 	// 리뷰 마이페이지 리스트
 	@Override
-	public List<PrdctOrderVO> getReviewMyList(String member_id) {
+	public List<PrdctOrderDetailBoardVO> getReviewMyList(String member_id) {
 		log.info("getReviewMyList()......");
 		return memberMapper.reviewMyList(member_id);
+	}
+
+	@Override
+	public List<BoardBoardCommentVO> getMyReviewList(PrdReviewCriteria cri, String mbr_id) {
+		log.info("getMyReviewList()......");
+		return memberMapper.getMyReviewList(cri, mbr_id);
+	}
+
+	@Override
+	public BoardBoardCommentVO getPrdctrCmntStat(int board_id) {
+		log.info("getPrdctrCmntStat()......");
+		return memberMapper.getPrdctrCmntStat(board_id);
+	}
+
+	@Override
+	public int getReviewTotal(PrdReviewCriteria cri) {
+		log.info("getReviewTotal WITH criteria: " + cri);
+		return memberMapper.getReviewTotal(cri);
+
 	}
 
 	// 페이징을 적용한 작성한 고객 Q&A 리스트 받아오기
@@ -215,4 +236,19 @@ public class MemberServiceImpl implements MemberService {
 		log.info("getPrdctViewTotal WITH criteria: " + cri);
 		return memberMapper.getPrdctViewTotalCount(cri);
 	}
+
+	// 마이 페이지 주문확인
+	@Override
+	public void orderStateUpdate(PrdctOrderVO prdctOrderVO) {
+		log.info("orderStateUpdate");
+		memberMapper.orderStateUpdate(prdctOrderVO);
+	}
+
+	// 리뷰 내용불러오기
+	@Override
+	public List<BoardVO> reviewContent(String member_id) {
+		log.info("reviewContent");
+		return memberMapper.reviewContent(member_id);
+	}
+
 }

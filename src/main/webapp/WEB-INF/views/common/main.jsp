@@ -41,26 +41,26 @@
 												<h4 style="color: white;">
 													최소라 X As I am 2021 S/S<br />오직 Branches에서만 [단독] 판매 시작!
 												</h4>
-												<button type="button" onclick="location.href=#" class="btn btn-primary">더보기
+												
 											</c:when>
 											<c:when test="${i eq 41}">
 												<h2 style="color: white;">BALENCIAGA</h2>
 												<p style="color: white;">NEW 21S/S 2021.05.07 00:00:00 출시</p>
-												<button type="button" onclick="location.href=#" class="btn btn-primary">더보기
+											
 											</c:when>
 											<c:when test="${i eq 42}">
 												<h2 style="color: red;">남들과 다른 스트릿 패션 보여줄게!</h2><br/>
 												<h3 style="color: red;">Noiseless 신상품 출시</h3>
-												<button type="button" onclick="location.href=#" class="btn btn-primary">더보기
+												
 											</c:when>
 											<c:when test="${i eq 43}">
 												<h2 style="color: white;">PRISM</h2>
 												<h3 style="color: white;">PRISM과 함께 옷 하나로 여러가지 룩을<br/> 소화하세요</h3>
-												<button type="button" onclick="location.href=#" class="btn btn-primary">더보기
+												
 											</c:when>
 											<c:when test="${i eq 44}">
 												<h3 style="color: black;">GENERIC NEW 2021 S/S</h3>
-												<button type="button" onclick="location.href=#" class="btn btn-primary">더보기
+											
 											</c:when>
 											<c:otherwise>
 												<p style="color: white;"></p>

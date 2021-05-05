@@ -85,7 +85,7 @@ public class LoginController {
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
-		return "login/login";
+		return "redirect:/login/login";
 	}
 
 	@GetMapping("/join/idCheck")

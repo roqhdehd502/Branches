@@ -34,7 +34,7 @@ public interface CommonMapper {
 	public List<PrdctVO> getProductInfo(String p_id);
 
 	// 리뷰 리스트
-	public List<BoardVO> getReviewList(PrdReviewCriteria rcri, String p_id);
+	public List<BoardBoardCommentVO> getReviewList(PrdReviewCriteria rcri, String p_id);
 
 	public int getPrdctReviewTotal(PrdReviewCriteria rcri, String p_id);
 
@@ -88,5 +88,11 @@ public interface CommonMapper {
 
 	// 상품 상세페이지 조회 기능
 	public void addPrdView(String mbr_id, String prdct_id);
+
+	// 상품 리뷰 댓글 등록
+	public void commentInsert(BoardBoardCommentVO bbcVO);
+
+	// 상품 리뷰 댓글 불러오기
+	public List<BoardBoardCommentVO> getReviewCommentList(String p_id);
 
 }

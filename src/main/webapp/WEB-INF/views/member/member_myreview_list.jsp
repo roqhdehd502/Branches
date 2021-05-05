@@ -25,26 +25,135 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 	
-	<script type="text/javascript">
-	    $(document).ready(function () {
-	            $.datepicker.setDefaults($.datepicker.regional['ko']); 
-	            $( "#birthDate" ).datepicker({
-	                 changeMonth: true, 
-	                 changeYear: true,
-	                 nextText: '다음 달',
-	                 prevText: '이전 달', 
-	                 dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
-	                 dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
-	                 monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-	                 monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-	                 dateFormat: "yymmdd",
-	                 maxDate: 0,                       // 선택할수있는 최소날짜, ( 0 : 오늘 이후 날짜 선택 불가)
-	                     
-	 
-	            });
-	             
-	    });
-	</script>
+<style>
+span.star-prototype, span.star-prototype>* {
+	height: 16px;
+	background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
+	width: 80px;
+	display: inline-block;
+}
+
+span.star-prototype>* {
+	background-position: 0 0;
+	max-width: 80px;
+}
+
+body {
+	font-family: Arial;
+	margin: 0;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+img {
+	vertical-align: middle;
+}
+
+/* Position the image container (needed to position the left and right arrows) */
+.container {
+	position: relative;
+}
+
+/* Hide the images by default */
+.mySlides {
+	display: none;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+	cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+	cursor: pointer;
+	position: absolute;
+	top: 40%;
+	width: auto;
+	padding: 16px;
+	margin-top: -50px;
+	color: white;
+	font-weight: bold;
+	font-size: 20px;
+	border-radius: 0 3px 3px 0;
+	user-select: none;
+	-webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+	right: 0;
+	border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+	color: #f2f2f2;
+	font-size: 12px;
+	padding: 8px 12px;
+	position: absolute;
+	top: 0;
+}
+
+.active, .demo:hover {
+	opacity: 1;
+}
+
+.swiper-container {
+	height: 220px;
+	border: 1px solid gray;
+	border-radius: 5px;
+}
+
+.swiper-slide {
+	text-align: center;
+	display: flex; /* 내용을 중앙정렬 하기위해 flex 사용 */
+	align-items: center; /* 위아래 기준 중앙정렬 */
+	justify-content: center; /* 좌우 기준 중앙정렬 */
+}
+
+.swiper-slide img {
+	max-width: 100%; /* 이미지 최대너비를 제한, 슬라이드에 이미지가 여러개가 보여질때 필요 */
+}
+
+ul {
+	list-style: none;
+}
+
+.accordion-box {
+	width: 100%;
+	max-width: 600px;
+	margin: 0 auto;
+}
+
+p.title {
+	width: 100%;
+	padding: 0 10px;
+}
+
+.con {
+	padding: 20px;
+	display: none;
+}
+</style>
+<script>
+	$(document).ready(function() {
+		// 숫자 평점을 별로 변환하도록 호출하는 함수
+		$.fn.generateStars = function() {
+			return this.each(function(i, e) {
+				$(e).html($('<span/>').width($(e).text() * 16));
+			});
+		};
+		$('.star-prototype').generateStars();
+	});
+</script>
 </head>
 <body>
 	<div style="overflow: hidden;" class="container">
@@ -98,7 +207,7 @@
 						</h5>
 					</div>
 					<div class="single-info" style="margin-bottom: 40px">
-						<h3>내가 쓴 글보기</h3>
+						<h3>내가 쓴 리뷰보기</h3>
 						<hr>
 						<h5>
 							<a href="${pageContext.request.contextPath}/member/mypage/review/list">구매후기</a>
@@ -119,36 +228,111 @@
 					</h3>
 					<hr>
 
-					<table class="n-table table-col">
-						<colgroup>
-							<col style="width: *">
-							<col style="width: 20%">
-							<col style="width: 20%">
-						</colgroup>
+					<table id="report" class="table">
 						<thead>
-							<tr style="text-align: center;">
-								<th scope="col">상품정보</th>
-								<th scope="col">구매 / 구매확정일</th>
-								<th scope="col">후기</th>
+							<tr>
+								<th>상품명</th>
+								<th>옵션</th>
+								<th>구매 / 구매확정일</th>
+								<!-- <th><h5>문의유형</h5></th>
+								<th><h5>별점</h5></th>
+								<th><h5>작성일자</h5></th>
+								<th><h5>답변확인</h5></th> --> 
 							</tr>
 						</thead>
-
 						<tbody>
-
-							<tr>
-								<c:forEach items="${reviewMyList}" var="list">
-									<td>${list.orderDetailVO.prdct_id}/${list.orderDetailVO.order_color}/${list.orderDetailVO.order_size}</td>
+							<c:forEach items="${reviewMyList}" var="list" varStatus="status">
+								<tr>
+									<td>${list.prdct_name}</td>
+									<td>
+										${list.order_color}/
+										${list.order_size}/
+										${list.order_amount}/
+										${list.order_price}
+									</td>
 									<td>${list.order_date}</td>
-									<td>${list.boardVO.board_content}</td>
-								</c:forEach>
+								</tr>
+								<tr style="text-align: center;">
+									<td colspan="3">
+									<h5>후기</h5>
+										${reviewContent[status.index].board_content}
+									</td>
+								</tr>
+							</c:forEach>	
+							<%-- <c:forEach items="${prdct_myr_list}" var="list">
+							<tr>
+								<td>
+									<c:choose>
+									<c:when test="${list.inquiry_number eq 1}">
+										교환
+									</c:when>
+									<c:when test="${list.inquiry_number eq 2}">
+										환불
+									</c:when>
+									<c:when test="${list.inquiry_number eq 3}">
+										배송전취소
+									</c:when>
+									<c:when test="${list.inquiry_number eq 4}">
+										배송
+									</c:when>
+									<c:when test="${list.inquiry_number eq 5}">
+										불량
+									</c:when>
+									<c:when test="${list.inquiry_number eq 6}">
+										주문및결제
+									</c:when>
+									<c:when test="${list.inquiry_number eq 7}">
+										상품및재입고
+									</c:when>	
+									<c:otherwise>
+										리뷰
+									</c:otherwise>
+								</c:choose>
+								</td>
+								<td><span class="star-prototype">${list.board_starrate}</span></td>
+								<td>${list.board_date}</td>
+								<td>${prdctr_cmnt_stat.comment_count > 0 ?  '답변완료' : '답변대기'}</td>
 							</tr>
-
+							<tr>
+								<td colspan="4">
+									<input type="hidden" id="board_id" name="board_id" value="${list.board_id }">
+									<div style="text-align: center;">${list.board_content }</div><hr /> 
+									<div class="row" style="margin: 1% 3% 1% 3%; padding: 1% 3% 1% 3%; border: 1px solid #E5E5E5;">
+									<div align="left" style="white-space: pre; overflow-x: hidden;">${list.comment_content}</div>
+									<div class="col-md-12" align="right">${list.comment_date}</div>
+									</div>
+								</td>
+							</tr> --%>
 						</tbody>
-
 					</table>
+					<!-- 페이징 -->
+					<div class="container">
+						<ul class="pagination justify-content-center">
+							<c:choose>
+								<c:when test="${pageMaker.prev}">
+									<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
+								</c:otherwise>
+							</c:choose>
 
-					<hr>
+							<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+								<c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+								<li class="page-item ${pageMaker.cri.pageNum == idx ? 'active' : '' }"><a class="page-link" href="${pageMaker.makeQuery(idx)}">${idx}</a></li>
+							</c:forEach>
 
+							<c:choose>
+								<c:when test="${pageMaker.next && pageMaker.endPage > 0}">
+									<li class="page-item disabled"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link" href="${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
+								</c:otherwise>
+							</c:choose>
+						</ul>
+					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -167,5 +351,24 @@
 		<script src="/assets/js/vendor/loopcounter.js"></script>
 		<script src="/assets/js/vendor/slicknav.min.js"></script>
 		<script src="/assets/js/active.js"></script>
+
+		<script>
+    $(document).ready(function(){
+
+        $("#report tr:odd").addClass("odd");
+        $("#report tr:not(.odd)").hide(); 
+        $("#report tr:first-child").show(); //열머리글 보여주기
+
+        $("#report tr.odd").click(function(){
+            $(this).next("tr").toggle();
+            $(this).find(".arrow").toggleClass("up");
+
+        });
+       
+
+    });
+
+    </script>
+
 </body>
 </html>

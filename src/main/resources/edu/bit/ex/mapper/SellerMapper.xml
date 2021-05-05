@@ -46,7 +46,7 @@
 		
 		<include refid="criteria"></include>
 		
-		board_id > 0 and b.prdct_id = p.prdct_id
+		b.board_id > 0 and b.board_type_number = 6 
 	</select>
 	
 	<!-- Q&A게시글 검색기능 + 페이징 -->
@@ -60,9 +60,6 @@
 						</when>
 						<when test="type == 'C'.toString()">
 							board_id like '%' || #{keyword} || '%'
-						</when>
-						<when test="type == 'W'.toString()">
-							mbr_id like '%' || #{keyword} || '%'
 						</when>
 					</choose>
 				</trim>
@@ -148,11 +145,11 @@
 	</select>
 	
 	<select id="OrderCheckTotal" resultType="int">
-		select count(*) from prdct_order where 
+		select count(*) from prdct_order p, order_detail o where 
 		
 		<include refid="ordercri"></include>
 		
-		order_price > 0
+		p.order_price > 0 and p.order_state_number = 3 and p.order_number = o.order_number
 	</select>
 	
 	<!-- 배송처리 페이지 주문정보 불러오기 검색기능 + 페이징 -->
@@ -195,11 +192,12 @@
 	</select>
 	
 	<select id="deliveryTotal" resultType="int">
-		select count(*) from prdct_order where 
+		select count(*) from prdct_order p, order_detail o where 
 		
 		<include refid="deleverycri"></include>
 		
-		order_price > 0
+		p.order_price > 0 and p.order_state_number > 3 and  7 > p.order_state_number
+		and p.order_number = o.order_number
 	</select>
 	
 	
@@ -243,11 +241,12 @@
 	</select>
 	
 	<select id="cancelTotal" resultType="int">
-		select count(*) from prdct_order where 
+		select count(*) from prdct_order p, order_detail o where 
 		
 		<include refid="cancelcri"></include>
 		
-		order_price > 0 
+		p.order_price > 0 and p.order_state_number = 8
+		and p.order_number = o.order_number
 	</select>
 	
 	<!-- 교환요청 정보 불러오기 검색기능 + 페이징 -->
@@ -290,11 +289,12 @@
 	</select>
 	
 	<select id="exchangeTotal" resultType="int">
-		select count(*) from prdct_order where 
+		select count(*) from prdct_order p, order_detail o where 
 		
 		<include refid="exchangecri"></include>
 		
-		order_price > 0
+		p.order_price > 0 and p.order_state_number = 9
+		and p.order_number = o.order_number
 	</select>
 	
 	<!-- 환불요청 정보 불러오기 검색기능 + 페이징 -->
@@ -337,11 +337,12 @@
 	</select>
 	
 	<select id="refundTotal" resultType="int">
-		select count(*) from prdct_order where 
+		select count(*) from prdct_order p, order_detail o  where 
 		
 		<include refid="refundcri"></include>
 		
-		order_price > 0 
+		p.order_price > 0 and p.order_state_number = 10
+		and p.order_number = o.order_number
 	</select>
 	
 	<!-- 리뷰 정보 불러오기 검색기능 + 페이징 -->
@@ -384,11 +385,12 @@
 	</select>
 	
 	<select id="reviewTotal" resultType="int">
-		select count(*) from board b where 
+		select count(*) from board b, prdct p where 
 		
 		<include refid="reviewcri"></include>
 		
-		board_id > 0 and board_type_number = 3
+		b.board_id > 0 and b.board_type_number = 3
+		and b.prdct_id = p.prdct_id
 	</select>
 	
 	

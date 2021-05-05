@@ -75,7 +75,6 @@
 								<a href="${pageContext.request.contextPath}/board/magazine/${dto.board_id}">
 									<div style="padding-top: 7px">
 										<img class="rounded" src="/board_img/thumbnail/${dto.board_thumbnail}" onerror="this.src='/board_img/thumbnail/none-thumbnail.png'" width="225px" height="350px"> 
-										<%-- <img class="rounded" src="/board_img/thumbnail/${dto.board_thumbnail eq null ? 'none-thumbnail.png' : dto.board_thumbnail}" width="225px" height="350px"> --%>
 									</div>
 									<div>
 										<hr>

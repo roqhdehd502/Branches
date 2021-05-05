@@ -52,10 +52,10 @@ public class SellerController {
 	@Autowired
 	private SecurityService securityService;
 
-	// CK 에디터 이미지 서버 전송 컨트롤러
+	// CK 에디터 이미지 서버 전송 컨트롤러 (리팩토리 대상)
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(SellerController.class);
 
-	@RequestMapping(value = "imageUpload.do", method = { RequestMethod.POST, RequestMethod.GET })
+	@RequestMapping(value = "/imageUpload.do", method = { RequestMethod.POST, RequestMethod.GET })
 	public void imageUpload(HttpServletRequest request, HttpServletResponse response, MultipartFile upload) throws Exception {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
@@ -111,7 +111,6 @@ public class SellerController {
 	}
 
 	// 상품 등록
-	@Transactional
 	@PostMapping("/mypage/prdct")
 	public ResponseEntity<String> prdct_register(PrdctRegisterImageVO prdctIVO, ModelAndView mav, MbrVO mbr) {
 		ResponseEntity<String> entity = null;
@@ -342,9 +341,8 @@ public class SellerController {
 	}
 
 	// 주문 상태 수정 ajax
-	@Transactional
 	@PutMapping(value = "/mypage/order/{prdct_id}/{order_number}/modify")
-	public ResponseEntity<String> stateUpdate(@RequestBody PrdctOrderDetailVO povo) {
+	public ResponseEntity<String> stateUpdate(PrdctOrderDetailVO povo) {
 		ResponseEntity<String> entity = null;
 
 		log.info("stateUpdate..");
@@ -554,7 +552,6 @@ public class SellerController {
 	}
 
 	// 판매자 상품Q&A 답변등록
-	@Transactional
 	@PostMapping("/mypage/prdctqna/{board_id}/register")
 	public ResponseEntity<String> sellerQnARegister(BoardBoardCommentVO bbcVO, ModelAndView mav, MbrVO mbr) {
 
