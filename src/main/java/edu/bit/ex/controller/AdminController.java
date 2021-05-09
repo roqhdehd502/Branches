@@ -48,10 +48,11 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/admin/*")
 public class AdminController {
-
+	// 관리자 서비스 객체
 	@Autowired
 	private AdminService adminService;
 
+	// 스프링 시큐리티 서비스 객체
 	@Autowired
 	private SecurityService securityService;
 
@@ -74,6 +75,7 @@ public class AdminController {
 		return mav;
 	}
 
+	// 판매자 ID 체크
 	@GetMapping("/mypage/regist/seller/idCheck")
 	public ResponseEntity<String> idCheck(@RequestParam("id") String id) {
 		ResponseEntity<String> entity = null;
@@ -87,6 +89,7 @@ public class AdminController {
 		return entity;
 	}
 
+	// 판매자 계정 등록
 	@PostMapping("/mypage/regist/seller")
 	public ModelAndView registing_Seller(@ModelAttribute MbrShippingVO mbrShippingVO, ModelAndView mav) throws Exception {
 		log.info("registing seller page........");
@@ -107,7 +110,6 @@ public class AdminController {
 		}
 
 		return mav;
-
 	}
 
 	// 관리자 매출 조회 검색페이지 (보류)
@@ -121,7 +123,7 @@ public class AdminController {
 	}
 
 	// 관리자 판매자 리스트 admin
-	@RequestMapping(value = "/mypage/seller", method = { RequestMethod.POST, RequestMethod.GET })
+	@GetMapping("/mypage/seller")
 	public ModelAndView admin_seller_list(ModelAndView mav, MemberCriteria cri) {
 		mav.setViewName("admin/admin_seller_list");
 		mav.addObject("mbr", adminService.getSellerListWithCri(cri));
@@ -132,7 +134,7 @@ public class AdminController {
 	}
 
 	// 관리자 판매자 상세정보 admin
-	@RequestMapping(value = "/mypage/seller/{seller_id}", method = { RequestMethod.POST, RequestMethod.GET })
+	@GetMapping("/mypage/seller/{seller_id}")
 	public ModelAndView admin_seller_detail(@PathVariable("seller_id") String m_id, ModelAndView mav) {
 		mav.setViewName("admin/admin_seller");
 		mav.addObject("mbr", adminService.getMemberInfo(m_id));
@@ -141,7 +143,7 @@ public class AdminController {
 	}
 
 	// 관리자 회원정보수정 admin
-	@PutMapping(value = "/mypage/seller/{member_id}")
+	@PutMapping("/mypage/seller/{member_id}")
 	public ResponseEntity<String> admin_seller_update(@RequestBody MbrShippingVO mbrvo) {
 		ResponseEntity<String> entity = null;
 
@@ -191,16 +193,10 @@ public class AdminController {
 		log.info("======prdct updating======");
 
 		try {
-			// if (uploadfile != null) {
-			// adminService.updatePrdctThumb(prvo); // 썸네일 이미지와 함께 update
-			// } else {
-			// adminService.updatePrdctInfo(prvo); // 썸네일 이미지없이 update
-			// }
 			adminService.updatePrdctThumb(prvo); // 썸네일 이미지와 함께 update
 			log.info("======update prdct info success======");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
@@ -310,7 +306,6 @@ public class AdminController {
 	}
 
 	// 관리자 유저 Q&A 페이징리스트
-
 	@GetMapping("/mypage/member/userQnA")
 	public ModelAndView adminQnA_list(UserQnACriteria cri, ModelAndView mav) throws Exception {
 		log.debug("userQnA_list");
@@ -356,7 +351,6 @@ public class AdminController {
 		return entity;
 	}
 
-	// jsp 미완
 	@GetMapping("/mypage/sales")
 	public ModelAndView admin_sales_chart(ModelAndView mav) {
 		log.debug("admin/admin_sales_chart");

@@ -9,6 +9,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.bit.ex.joinvo.MbrShippingVO;
@@ -38,7 +39,7 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	PasswordEncoder passEncoder;
 
-	// 매거진 썸네일 저장 경로
+	// 썸네일 저장 경로
 	private static final String PRDCT_THUMBNAIL_PATH = "C:/tetleaf/Branches/src/main/resources/static/prdct_img/prdct_thumbnail";
 
 	// 판매자 페이징 리스트
@@ -149,6 +150,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void addSeller(MbrShippingVO mbrShippingVO) {
 		// TODO Auto-generated method stub
 		log.info("addSeller");
