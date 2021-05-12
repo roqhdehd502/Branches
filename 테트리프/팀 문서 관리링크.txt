@@ -1,0 +1,67 @@
+- 프로젝트 일정
+https://docs.google.com/spreadsheets/d/1JBYo9X3T9hzZ_TQ6A-NNEC2NnHFnPABCcxll0ryTXCQ/edit#gid=1709744959
+
+- 프로젝트 요건 정의서
+https://docs.google.com/spreadsheets/d/1_Hi9FnA4BhOMyhnW8SQ25cBKJ6AhyZ_AAOmsfDGkhZo/edit#gid=1864701789
+
+- 프로젝트 요구사항 명세서
+https://docs.google.com/spreadsheets/d/1fyQWlEqhTAn6ItBf2kmJMNysp2J41SUyQVVpZV0SuSE/edit?usp=sharing
+
+- 페이지계층분류
+https://docs.google.com/spreadsheets/d/15g9RCfI7A8TXeKtABbrcOZbxrOEy7AOknMV4zgvK__g/edit?usp=sharing
+
+- 화면설계정의서(발표자료-1)
+https://docs.google.com/presentation/d/1MO4igKz_11kwOWF6j67Zi0-0yBdGvf-5cHwQUY_Fw1M/edit?usp=sharing
+
+- 요구사항 명세서
+https://docs.google.com/document/d/1U9bsnYhyhLV4VhT7h3WiDki2sQz6AOYoc-8qlxsTChg/edit?usp=sharing
+
+- 개념적설계
+https://app.diagrams.net/#Hroqhdehd502%2FWebDev%2Fmain%2FDBWebDev%2FUntitled%20Diagram.drawio
+
+- 논리적설계
+https://docs.google.com/spreadsheets/d/1yO4ThjYt6Nmdpy0jbvNW3C5Wqt4r9wnV99O4kK6XXkA/edit?usp=sharing
+
+- 테이블정의서
+https://docs.google.com/spreadsheets/d/1e7sf2j9ssp2N-2stkMsKQbRuxf7OnHVOW1Q-_-xHU-E/edit?usp=sharing
+
+- DB설계정의서(발표자료-2)
+https://docs.google.com/presentation/d/102BNMos6yPxd3Tvk2YtStgFMzofqaE8CGgJVE7Ch4oA/edit?usp=sharing
+
+- 구현세부일정
+https://docs.google.com/spreadsheets/d/1KRuqDhxYiG7dFTYM-_Uv3kjNmdxxOVEHVU2oQ2xscOA/edit#gid=769660056
+
+- 소프트웨어설계
+https://docs.google.com/presentation/d/14K_A_XQfS8AIDUj6aMoRdRWEWaEx8lL77K6IC5ojQAo/edit?usp=sharing
+
+- 단위 테스트
+https://docs.google.com/presentation/d/1SI5-owyfQ0M72GeWBzr05MUcGnrJoTWUHvcot51JL7c/edit?usp=sharing
+
+- 통합 테스트
+https://docs.google.com/presentation/d/1DpezBcd2kdsyvu9EJBftmvnq-qDwWYTwa9lRasovug0/edit?usp=sharing
+
+- 시스템(부하) 테스트
+https://docs.google.com/presentation/d/1fahED0DZvNlGDxKPgfytiFdGKyFJPlKeLZ-ZZXd-als/edit?usp=sharing
+
+- 인수 테스트
+https://docs.google.com/spreadsheets/d/1gkg4kVanTcYR7cqskEEAcdBdLSL2no2qBZQrWE1yJys/edit?usp=sharing
+
+- 최종 발표(발표자료-3)
+https://docs.google.com/presentation/d/1cs6U65N_W37Y81n2Z9EKaFg7vOwdAY_sfkp4QY0ZLHY/edit?usp=sharing
+
+===================================================
+
+- 페이지 드로잉 업무사항
+https://docs.google.com/spreadsheets/d/1-wd46hccweoX1j4NcD3zi3yeii2L1R5jsFsWTAN3CVg/e
+
+- 완성페이지 목록
+https://docs.google.com/spreadsheets/d/1074a2cO-yCfLguanrt1nrSIHfEmrLY01OW8vuzBatbY/edit#
+
+- 추가의견작성 목록
+https://docs.google.com/spreadsheets/d/1V7TiVDfjC_MwYzecRM1MuNWmpzXLNDU__oqo7yb4eII/edit
+
+- UML
+https://app.diagrams.net/#Hroqhdehd502%2FWebDev%2Fmain%2FDBWebDev%2FUML.drawio
+
+- 남은 할 일 목록
+https://docs.google.com/spreadsheets/d/10Zmv6BrL1KyOGJ9KzHycYw741W1bTlVGHWxs51wb2B8/edit
