@@ -1,6 +1,6 @@
 # Branches
 
-**본 파일은 쇼핑몰 웹 사이트 팀 프로젝트 중 ppt 자료를 가져왔음을 밝힙니다.**
+<a href=" https://github.com/roqhdehd502/Branches/tree/master/%ED%85%8C%ED%8A%B8%EB%A6%AC%ED%94%84">팀 프로젝트 문서 관리 이동하기</a> 
 
 ![01](https://github.com/roqhdehd502/Branches/blob/master/readme_img/01.jpg?raw=true)
 
