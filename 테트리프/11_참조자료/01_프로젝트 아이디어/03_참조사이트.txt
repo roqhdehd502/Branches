@@ -1,0 +1,5 @@
+1. 노마드 코더 : 웹 서비스 제작 구현 툴
+https://www.youtube.com/watch?v=u3Ph_M2bySg
+
+2. 채널 톡 : 챗봇 구현
+https://channel.io/
